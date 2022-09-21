@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspModelInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspModelInf" >
+    <id column="MODEL_SEQ" property="modelSeq" jdbcType="VARCHAR" />
+    <result column="MODEL_NAM" property="modelNam" jdbcType="VARCHAR" />
+    <result column="MODEL_SORT" property="modelSort" jdbcType="DECIMAL" />
+    <result column="MODEL_CONTENT" property="modelContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MODEL_SEQ, MODEL_NAM, MODEL_SORT, MODEL_CONTENT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspModelInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_MODEL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_MODEL_INF
+    where MODEL_SEQ = #{modelSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_MODEL_INF
+    where MODEL_SEQ = #{modelSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspModelInfExample" >
+    delete from HSP_MODEL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspModelInf" >
+    insert into HSP_MODEL_INF (MODEL_SEQ, MODEL_NAM, MODEL_SORT, 
+      MODEL_CONTENT)
+    values (#{modelSeq,jdbcType=VARCHAR}, #{modelNam,jdbcType=VARCHAR}, #{modelSort,jdbcType=DECIMAL}, 
+      #{modelContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspModelInf" >
+    insert into HSP_MODEL_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="modelSeq != null" >
+        MODEL_SEQ,
+      </if>
+      <if test="modelNam != null" >
+        MODEL_NAM,
+      </if>
+      <if test="modelSort != null" >
+        MODEL_SORT,
+      </if>
+      <if test="modelContent != null" >
+        MODEL_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="modelSeq != null" >
+        #{modelSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="modelNam != null" >
+        #{modelNam,jdbcType=VARCHAR},
+      </if>
+      <if test="modelSort != null" >
+        #{modelSort,jdbcType=DECIMAL},
+      </if>
+      <if test="modelContent != null" >
+        #{modelContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspModelInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_MODEL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_MODEL_INF
+    <set >
+      <if test="record.modelSeq != null" >
+        MODEL_SEQ = #{record.modelSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelNam != null" >
+        MODEL_NAM = #{record.modelNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelSort != null" >
+        MODEL_SORT = #{record.modelSort,jdbcType=DECIMAL},
+      </if>
+      <if test="record.modelContent != null" >
+        MODEL_CONTENT = #{record.modelContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_MODEL_INF
+    set MODEL_SEQ = #{record.modelSeq,jdbcType=VARCHAR},
+      MODEL_NAM = #{record.modelNam,jdbcType=VARCHAR},
+      MODEL_SORT = #{record.modelSort,jdbcType=DECIMAL},
+      MODEL_CONTENT = #{record.modelContent,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspModelInf" >
+    update HSP_MODEL_INF
+    <set >
+      <if test="modelNam != null" >
+        MODEL_NAM = #{modelNam,jdbcType=VARCHAR},
+      </if>
+      <if test="modelSort != null" >
+        MODEL_SORT = #{modelSort,jdbcType=DECIMAL},
+      </if>
+      <if test="modelContent != null" >
+        MODEL_CONTENT = #{modelContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MODEL_SEQ = #{modelSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspModelInf" >
+    update HSP_MODEL_INF
+    set MODEL_NAM = #{modelNam,jdbcType=VARCHAR},
+      MODEL_SORT = #{modelSort,jdbcType=DECIMAL},
+      MODEL_CONTENT = #{modelContent,jdbcType=VARCHAR}
+    where MODEL_SEQ = #{modelSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspPewsckInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspPewsckInf" >
+    <id column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="ACTION_COD" property="actionCod" jdbcType="CHAR" />
+    <result column="XXG_SKIN_COD" property="xxgSkinCod" jdbcType="CHAR" />
+    <result column="XXG_CRT_COD" property="xxgCrtCod" jdbcType="CHAR" />
+    <result column="XXG_XL_COD" property="xxgXlCod" jdbcType="CHAR" />
+    <result column="HX_PL_COD" property="hxPlCod" jdbcType="CHAR" />
+    <result column="HX_XH_COD" property="hxXhCod" jdbcType="CHAR" />
+    <result column="HX_FIO2_COD" property="hxFio2Cod" jdbcType="CHAR" />
+    <result column="PEWS_SCO" property="pewsSco" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMG_SEQ, ACTION_COD, XXG_SKIN_COD, XXG_CRT_COD, XXG_XL_COD, HX_PL_COD, HX_XH_COD, 
+    HX_FIO2_COD, PEWS_SCO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspPewsckInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_PEWSCK_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_PEWSCK_INF
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_PEWSCK_INF
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspPewsckInfExample" >
+    delete from HSP_PEWSCK_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspPewsckInf" >
+    insert into HSP_PEWSCK_INF (EMG_SEQ, ACTION_COD, XXG_SKIN_COD, 
+      XXG_CRT_COD, XXG_XL_COD, HX_PL_COD, 
+      HX_XH_COD, HX_FIO2_COD, PEWS_SCO
+      )
+    values (#{emgSeq,jdbcType=VARCHAR}, #{actionCod,jdbcType=CHAR}, #{xxgSkinCod,jdbcType=CHAR}, 
+      #{xxgCrtCod,jdbcType=CHAR}, #{xxgXlCod,jdbcType=CHAR}, #{hxPlCod,jdbcType=CHAR}, 
+      #{hxXhCod,jdbcType=CHAR}, #{hxFio2Cod,jdbcType=CHAR}, #{pewsSco,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspPewsckInf" >
+    insert into HSP_PEWSCK_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="actionCod != null" >
+        ACTION_COD,
+      </if>
+      <if test="xxgSkinCod != null" >
+        XXG_SKIN_COD,
+      </if>
+      <if test="xxgCrtCod != null" >
+        XXG_CRT_COD,
+      </if>
+      <if test="xxgXlCod != null" >
+        XXG_XL_COD,
+      </if>
+      <if test="hxPlCod != null" >
+        HX_PL_COD,
+      </if>
+      <if test="hxXhCod != null" >
+        HX_XH_COD,
+      </if>
+      <if test="hxFio2Cod != null" >
+        HX_FIO2_COD,
+      </if>
+      <if test="pewsSco != null" >
+        PEWS_SCO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="actionCod != null" >
+        #{actionCod,jdbcType=CHAR},
+      </if>
+      <if test="xxgSkinCod != null" >
+        #{xxgSkinCod,jdbcType=CHAR},
+      </if>
+      <if test="xxgCrtCod != null" >
+        #{xxgCrtCod,jdbcType=CHAR},
+      </if>
+      <if test="xxgXlCod != null" >
+        #{xxgXlCod,jdbcType=CHAR},
+      </if>
+      <if test="hxPlCod != null" >
+        #{hxPlCod,jdbcType=CHAR},
+      </if>
+      <if test="hxXhCod != null" >
+        #{hxXhCod,jdbcType=CHAR},
+      </if>
+      <if test="hxFio2Cod != null" >
+        #{hxFio2Cod,jdbcType=CHAR},
+      </if>
+      <if test="pewsSco != null" >
+        #{pewsSco,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspPewsckInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_PEWSCK_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_PEWSCK_INF
+    <set >
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actionCod != null" >
+        ACTION_COD = #{record.actionCod,jdbcType=CHAR},
+      </if>
+      <if test="record.xxgSkinCod != null" >
+        XXG_SKIN_COD = #{record.xxgSkinCod,jdbcType=CHAR},
+      </if>
+      <if test="record.xxgCrtCod != null" >
+        XXG_CRT_COD = #{record.xxgCrtCod,jdbcType=CHAR},
+      </if>
+      <if test="record.xxgXlCod != null" >
+        XXG_XL_COD = #{record.xxgXlCod,jdbcType=CHAR},
+      </if>
+      <if test="record.hxPlCod != null" >
+        HX_PL_COD = #{record.hxPlCod,jdbcType=CHAR},
+      </if>
+      <if test="record.hxXhCod != null" >
+        HX_XH_COD = #{record.hxXhCod,jdbcType=CHAR},
+      </if>
+      <if test="record.hxFio2Cod != null" >
+        HX_FIO2_COD = #{record.hxFio2Cod,jdbcType=CHAR},
+      </if>
+      <if test="record.pewsSco != null" >
+        PEWS_SCO = #{record.pewsSco,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_PEWSCK_INF
+    set EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      ACTION_COD = #{record.actionCod,jdbcType=CHAR},
+      XXG_SKIN_COD = #{record.xxgSkinCod,jdbcType=CHAR},
+      XXG_CRT_COD = #{record.xxgCrtCod,jdbcType=CHAR},
+      XXG_XL_COD = #{record.xxgXlCod,jdbcType=CHAR},
+      HX_PL_COD = #{record.hxPlCod,jdbcType=CHAR},
+      HX_XH_COD = #{record.hxXhCod,jdbcType=CHAR},
+      HX_FIO2_COD = #{record.hxFio2Cod,jdbcType=CHAR},
+      PEWS_SCO = #{record.pewsSco,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspPewsckInf" >
+    update HSP_PEWSCK_INF
+    <set >
+      <if test="actionCod != null" >
+        ACTION_COD = #{actionCod,jdbcType=CHAR},
+      </if>
+      <if test="xxgSkinCod != null" >
+        XXG_SKIN_COD = #{xxgSkinCod,jdbcType=CHAR},
+      </if>
+      <if test="xxgCrtCod != null" >
+        XXG_CRT_COD = #{xxgCrtCod,jdbcType=CHAR},
+      </if>
+      <if test="xxgXlCod != null" >
+        XXG_XL_COD = #{xxgXlCod,jdbcType=CHAR},
+      </if>
+      <if test="hxPlCod != null" >
+        HX_PL_COD = #{hxPlCod,jdbcType=CHAR},
+      </if>
+      <if test="hxXhCod != null" >
+        HX_XH_COD = #{hxXhCod,jdbcType=CHAR},
+      </if>
+      <if test="hxFio2Cod != null" >
+        HX_FIO2_COD = #{hxFio2Cod,jdbcType=CHAR},
+      </if>
+      <if test="pewsSco != null" >
+        PEWS_SCO = #{pewsSco,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspPewsckInf" >
+    update HSP_PEWSCK_INF
+    set ACTION_COD = #{actionCod,jdbcType=CHAR},
+      XXG_SKIN_COD = #{xxgSkinCod,jdbcType=CHAR},
+      XXG_CRT_COD = #{xxgCrtCod,jdbcType=CHAR},
+      XXG_XL_COD = #{xxgXlCod,jdbcType=CHAR},
+      HX_PL_COD = #{hxPlCod,jdbcType=CHAR},
+      HX_XH_COD = #{hxXhCod,jdbcType=CHAR},
+      HX_FIO2_COD = #{hxFio2Cod,jdbcType=CHAR},
+      PEWS_SCO = #{pewsSco,jdbcType=DECIMAL}
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

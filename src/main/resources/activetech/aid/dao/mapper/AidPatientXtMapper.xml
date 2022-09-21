@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.aid.dao.mapper.AidPatientXtMapper" >
+  <resultMap id="BaseResultMap" type="activetech.aid.pojo.domain.AidPatientXt" >
+    <id column="XT_SEQ" property="xtSeq" jdbcType="VARCHAR" />
+    <result column="BQPG" property="bqpg" jdbcType="VARCHAR" />
+    <result column="SCYLJC" property="scyljc" jdbcType="TIMESTAMP" />
+    <result column="WLYYRY" property="wlyyry" jdbcType="TIMESTAMP" />
+    <result column="ZZCM" property="zzcm" jdbcType="TIMESTAMP" />
+    <result column="SFXDT" property="sfxdt" jdbcType="TIMESTAMP" />
+    <result column="YCXDTCS" property="ycxdtcs" jdbcType="CHAR" />
+    <result column="CSFS" property="csfs" jdbcType="CHAR" />
+    <result column="CSSJ" property="cssj" jdbcType="TIMESTAMP" />
+    <result column="KXXBGY" property="kxxbgy" jdbcType="CHAR" />
+    <result column="GYSJ" property="gysj" jdbcType="TIMESTAMP" />
+    <result column="ASPL" property="aspl" jdbcType="DECIMAL" />
+    <result column="TGRL" property="tgrl" jdbcType="DECIMAL" />
+    <result column="LPGL" property="lpgl" jdbcType="DECIMAL" />
+    <result column="ZD" property="zd" jdbcType="VARCHAR" />
+    <result column="YQRSSC" property="yqrssc" jdbcType="CHAR" />
+    <result column="YQRS" property="yqrs" jdbcType="CHAR" />
+    <result column="RSCS" property="rscs" jdbcType="CHAR" />
+    <result column="ZQTYKS" property="zqtyks" jdbcType="TIMESTAMP" />
+    <result column="QSZQTY" property="qszqty" jdbcType="TIMESTAMP" />
+    <result column="RSKS" property="rsks" jdbcType="TIMESTAMP" />
+    <result column="RSJS" property="rsjs" jdbcType="TIMESTAMP" />
+    <result column="RSHZY" property="rshzy" jdbcType="TIMESTAMP" />
+    <result column="RSYW" property="rsyw" jdbcType="CHAR" />
+    <result column="RSYWJL" property="rsywjl" jdbcType="CHAR" />
+    <result column="RSZT" property="rszt" jdbcType="CHAR" />
+    <result column="SFXDTQZ" property="sfxdtqz" jdbcType="TIMESTAMP" />
+    <result column="BQPGMX" property="bqpgmx" jdbcType="VARCHAR" />
+    <result column="ZYCS" property="zycs" jdbcType="CHAR" />
+    <result column="DJRY" property="djry" jdbcType="VARCHAR" />
+    <result column="DJRYMC" property="djrymc" jdbcType="VARCHAR" />
+    <result column="DJSJ" property="djsj" jdbcType="TIMESTAMP" />
+    <result column="DDYYDMSJ" property="ddyydmsj" jdbcType="TIMESTAMP" />
+    <result column="DDFS" property="ddfs" jdbcType="VARCHAR" />
+    <result column="WLYY" property="wlyy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    XT_SEQ, BQPG, SCYLJC, WLYYRY, ZZCM, SFXDT, YCXDTCS, CSFS, CSSJ, KXXBGY, GYSJ, ASPL, 
+    TGRL, LPGL, ZD, YQRSSC, YQRS, RSCS, ZQTYKS, QSZQTY, RSKS, RSJS, RSHZY, RSYW, RSYWJL, 
+    RSZT, SFXDTQZ, BQPGMX, ZYCS, DJRY, DJRYMC, DJSJ, DDYYDMSJ, DDFS, WLYY
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.aid.pojo.domain.AidPatientXtExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from AID_PATIENT_XT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from AID_PATIENT_XT
+    where XT_SEQ = #{xtSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from AID_PATIENT_XT
+    where XT_SEQ = #{xtSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.aid.pojo.domain.AidPatientXtExample" >
+    delete from AID_PATIENT_XT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.aid.pojo.domain.AidPatientXt" >
+    insert into AID_PATIENT_XT (XT_SEQ, BQPG, SCYLJC, 
+      WLYYRY, ZZCM, SFXDT, 
+      YCXDTCS, CSFS, CSSJ, KXXBGY, 
+      GYSJ, ASPL, TGRL, 
+      LPGL, ZD, YQRSSC, YQRS, 
+      RSCS, ZQTYKS, QSZQTY, 
+      RSKS, RSJS, RSHZY, 
+      RSYW, RSYWJL, RSZT, SFXDTQZ, 
+      BQPGMX, ZYCS, DJRY, DJRYMC, 
+      DJSJ, DDYYDMSJ, DDFS, 
+      WLYY)
+    values (#{xtSeq,jdbcType=VARCHAR}, #{bqpg,jdbcType=VARCHAR}, #{scyljc,jdbcType=TIMESTAMP}, 
+      #{wlyyry,jdbcType=TIMESTAMP}, #{zzcm,jdbcType=TIMESTAMP}, #{sfxdt,jdbcType=TIMESTAMP}, 
+      #{ycxdtcs,jdbcType=CHAR}, #{csfs,jdbcType=CHAR}, #{cssj,jdbcType=TIMESTAMP}, #{kxxbgy,jdbcType=CHAR}, 
+      #{gysj,jdbcType=TIMESTAMP}, #{aspl,jdbcType=DECIMAL}, #{tgrl,jdbcType=DECIMAL}, 
+      #{lpgl,jdbcType=DECIMAL}, #{zd,jdbcType=VARCHAR}, #{yqrssc,jdbcType=CHAR}, #{yqrs,jdbcType=CHAR}, 
+      #{rscs,jdbcType=CHAR}, #{zqtyks,jdbcType=TIMESTAMP}, #{qszqty,jdbcType=TIMESTAMP}, 
+      #{rsks,jdbcType=TIMESTAMP}, #{rsjs,jdbcType=TIMESTAMP}, #{rshzy,jdbcType=TIMESTAMP}, 
+      #{rsyw,jdbcType=CHAR}, #{rsywjl,jdbcType=CHAR}, #{rszt,jdbcType=CHAR}, #{sfxdtqz,jdbcType=TIMESTAMP}, 
+      #{bqpgmx,jdbcType=VARCHAR}, #{zycs,jdbcType=CHAR}, #{djry,jdbcType=VARCHAR}, #{djrymc,jdbcType=VARCHAR}, 
+      #{djsj,jdbcType=TIMESTAMP}, #{ddyydmsj,jdbcType=TIMESTAMP}, #{ddfs,jdbcType=VARCHAR}, 
+      #{wlyy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.aid.pojo.domain.AidPatientXt" >
+    insert into AID_PATIENT_XT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xtSeq != null" >
+        XT_SEQ,
+      </if>
+      <if test="bqpg != null" >
+        BQPG,
+      </if>
+      <if test="scyljc != null" >
+        SCYLJC,
+      </if>
+      <if test="wlyyry != null" >
+        WLYYRY,
+      </if>
+      <if test="zzcm != null" >
+        ZZCM,
+      </if>
+      <if test="sfxdt != null" >
+        SFXDT,
+      </if>
+      <if test="ycxdtcs != null" >
+        YCXDTCS,
+      </if>
+      <if test="csfs != null" >
+        CSFS,
+      </if>
+      <if test="cssj != null" >
+        CSSJ,
+      </if>
+      <if test="kxxbgy != null" >
+        KXXBGY,
+      </if>
+      <if test="gysj != null" >
+        GYSJ,
+      </if>
+      <if test="aspl != null" >
+        ASPL,
+      </if>
+      <if test="tgrl != null" >
+        TGRL,
+      </if>
+      <if test="lpgl != null" >
+        LPGL,
+      </if>
+      <if test="zd != null" >
+        ZD,
+      </if>
+      <if test="yqrssc != null" >
+        YQRSSC,
+      </if>
+      <if test="yqrs != null" >
+        YQRS,
+      </if>
+      <if test="rscs != null" >
+        RSCS,
+      </if>
+      <if test="zqtyks != null" >
+        ZQTYKS,
+      </if>
+      <if test="qszqty != null" >
+        QSZQTY,
+      </if>
+      <if test="rsks != null" >
+        RSKS,
+      </if>
+      <if test="rsjs != null" >
+        RSJS,
+      </if>
+      <if test="rshzy != null" >
+        RSHZY,
+      </if>
+      <if test="rsyw != null" >
+        RSYW,
+      </if>
+      <if test="rsywjl != null" >
+        RSYWJL,
+      </if>
+      <if test="rszt != null" >
+        RSZT,
+      </if>
+      <if test="sfxdtqz != null" >
+        SFXDTQZ,
+      </if>
+      <if test="bqpgmx != null" >
+        BQPGMX,
+      </if>
+      <if test="zycs != null" >
+        ZYCS,
+      </if>
+      <if test="djry != null" >
+        DJRY,
+      </if>
+      <if test="djrymc != null" >
+        DJRYMC,
+      </if>
+      <if test="djsj != null" >
+        DJSJ,
+      </if>
+      <if test="ddyydmsj != null" >
+        DDYYDMSJ,
+      </if>
+      <if test="ddfs != null" >
+        DDFS,
+      </if>
+      <if test="wlyy != null" >
+        WLYY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xtSeq != null" >
+        #{xtSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="bqpg != null" >
+        #{bqpg,jdbcType=VARCHAR},
+      </if>
+      <if test="scyljc != null" >
+        #{scyljc,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wlyyry != null" >
+        #{wlyyry,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zzcm != null" >
+        #{zzcm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sfxdt != null" >
+        #{sfxdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ycxdtcs != null" >
+        #{ycxdtcs,jdbcType=CHAR},
+      </if>
+      <if test="csfs != null" >
+        #{csfs,jdbcType=CHAR},
+      </if>
+      <if test="cssj != null" >
+        #{cssj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kxxbgy != null" >
+        #{kxxbgy,jdbcType=CHAR},
+      </if>
+      <if test="gysj != null" >
+        #{gysj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aspl != null" >
+        #{aspl,jdbcType=DECIMAL},
+      </if>
+      <if test="tgrl != null" >
+        #{tgrl,jdbcType=DECIMAL},
+      </if>
+      <if test="lpgl != null" >
+        #{lpgl,jdbcType=DECIMAL},
+      </if>
+      <if test="zd != null" >
+        #{zd,jdbcType=VARCHAR},
+      </if>
+      <if test="yqrssc != null" >
+        #{yqrssc,jdbcType=CHAR},
+      </if>
+      <if test="yqrs != null" >
+        #{yqrs,jdbcType=CHAR},
+      </if>
+      <if test="rscs != null" >
+        #{rscs,jdbcType=CHAR},
+      </if>
+      <if test="zqtyks != null" >
+        #{zqtyks,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qszqty != null" >
+        #{qszqty,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsks != null" >
+        #{rsks,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsjs != null" >
+        #{rsjs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rshzy != null" >
+        #{rshzy,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsyw != null" >
+        #{rsyw,jdbcType=CHAR},
+      </if>
+      <if test="rsywjl != null" >
+        #{rsywjl,jdbcType=CHAR},
+      </if>
+      <if test="rszt != null" >
+        #{rszt,jdbcType=CHAR},
+      </if>
+      <if test="sfxdtqz != null" >
+        #{sfxdtqz,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bqpgmx != null" >
+        #{bqpgmx,jdbcType=VARCHAR},
+      </if>
+      <if test="zycs != null" >
+        #{zycs,jdbcType=CHAR},
+      </if>
+      <if test="djry != null" >
+        #{djry,jdbcType=VARCHAR},
+      </if>
+      <if test="djrymc != null" >
+        #{djrymc,jdbcType=VARCHAR},
+      </if>
+      <if test="djsj != null" >
+        #{djsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ddyydmsj != null" >
+        #{ddyydmsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ddfs != null" >
+        #{ddfs,jdbcType=VARCHAR},
+      </if>
+      <if test="wlyy != null" >
+        #{wlyy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.aid.pojo.domain.AidPatientXtExample" resultType="java.lang.Integer" >
+    select count(*) from AID_PATIENT_XT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update AID_PATIENT_XT
+    <set >
+      <if test="record.xtSeq != null" >
+        XT_SEQ = #{record.xtSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bqpg != null" >
+        BQPG = #{record.bqpg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scyljc != null" >
+        SCYLJC = #{record.scyljc,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.wlyyry != null" >
+        WLYYRY = #{record.wlyyry,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.zzcm != null" >
+        ZZCM = #{record.zzcm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sfxdt != null" >
+        SFXDT = #{record.sfxdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ycxdtcs != null" >
+        YCXDTCS = #{record.ycxdtcs,jdbcType=CHAR},
+      </if>
+      <if test="record.csfs != null" >
+        CSFS = #{record.csfs,jdbcType=CHAR},
+      </if>
+      <if test="record.cssj != null" >
+        CSSJ = #{record.cssj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.kxxbgy != null" >
+        KXXBGY = #{record.kxxbgy,jdbcType=CHAR},
+      </if>
+      <if test="record.gysj != null" >
+        GYSJ = #{record.gysj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.aspl != null" >
+        ASPL = #{record.aspl,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tgrl != null" >
+        TGRL = #{record.tgrl,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lpgl != null" >
+        LPGL = #{record.lpgl,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zd != null" >
+        ZD = #{record.zd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yqrssc != null" >
+        YQRSSC = #{record.yqrssc,jdbcType=CHAR},
+      </if>
+      <if test="record.yqrs != null" >
+        YQRS = #{record.yqrs,jdbcType=CHAR},
+      </if>
+      <if test="record.rscs != null" >
+        RSCS = #{record.rscs,jdbcType=CHAR},
+      </if>
+      <if test="record.zqtyks != null" >
+        ZQTYKS = #{record.zqtyks,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.qszqty != null" >
+        QSZQTY = #{record.qszqty,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rsks != null" >
+        RSKS = #{record.rsks,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rsjs != null" >
+        RSJS = #{record.rsjs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rshzy != null" >
+        RSHZY = #{record.rshzy,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rsyw != null" >
+        RSYW = #{record.rsyw,jdbcType=CHAR},
+      </if>
+      <if test="record.rsywjl != null" >
+        RSYWJL = #{record.rsywjl,jdbcType=CHAR},
+      </if>
+      <if test="record.rszt != null" >
+        RSZT = #{record.rszt,jdbcType=CHAR},
+      </if>
+      <if test="record.sfxdtqz != null" >
+        SFXDTQZ = #{record.sfxdtqz,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bqpgmx != null" >
+        BQPGMX = #{record.bqpgmx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zycs != null" >
+        ZYCS = #{record.zycs,jdbcType=CHAR},
+      </if>
+      <if test="record.djry != null" >
+        DJRY = #{record.djry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.djrymc != null" >
+        DJRYMC = #{record.djrymc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.djsj != null" >
+        DJSJ = #{record.djsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ddyydmsj != null" >
+        DDYYDMSJ = #{record.ddyydmsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ddfs != null" >
+        DDFS = #{record.ddfs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wlyy != null" >
+        WLYY = #{record.wlyy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update AID_PATIENT_XT
+    set XT_SEQ = #{record.xtSeq,jdbcType=VARCHAR},
+      BQPG = #{record.bqpg,jdbcType=VARCHAR},
+      SCYLJC = #{record.scyljc,jdbcType=TIMESTAMP},
+      WLYYRY = #{record.wlyyry,jdbcType=TIMESTAMP},
+      ZZCM = #{record.zzcm,jdbcType=TIMESTAMP},
+      SFXDT = #{record.sfxdt,jdbcType=TIMESTAMP},
+      YCXDTCS = #{record.ycxdtcs,jdbcType=CHAR},
+      CSFS = #{record.csfs,jdbcType=CHAR},
+      CSSJ = #{record.cssj,jdbcType=TIMESTAMP},
+      KXXBGY = #{record.kxxbgy,jdbcType=CHAR},
+      GYSJ = #{record.gysj,jdbcType=TIMESTAMP},
+      ASPL = #{record.aspl,jdbcType=DECIMAL},
+      TGRL = #{record.tgrl,jdbcType=DECIMAL},
+      LPGL = #{record.lpgl,jdbcType=DECIMAL},
+      ZD = #{record.zd,jdbcType=VARCHAR},
+      YQRSSC = #{record.yqrssc,jdbcType=CHAR},
+      YQRS = #{record.yqrs,jdbcType=CHAR},
+      RSCS = #{record.rscs,jdbcType=CHAR},
+      ZQTYKS = #{record.zqtyks,jdbcType=TIMESTAMP},
+      QSZQTY = #{record.qszqty,jdbcType=TIMESTAMP},
+      RSKS = #{record.rsks,jdbcType=TIMESTAMP},
+      RSJS = #{record.rsjs,jdbcType=TIMESTAMP},
+      RSHZY = #{record.rshzy,jdbcType=TIMESTAMP},
+      RSYW = #{record.rsyw,jdbcType=CHAR},
+      RSYWJL = #{record.rsywjl,jdbcType=CHAR},
+      RSZT = #{record.rszt,jdbcType=CHAR},
+      SFXDTQZ = #{record.sfxdtqz,jdbcType=TIMESTAMP},
+      BQPGMX = #{record.bqpgmx,jdbcType=VARCHAR},
+      ZYCS = #{record.zycs,jdbcType=CHAR},
+      DJRY = #{record.djry,jdbcType=VARCHAR},
+      DJRYMC = #{record.djrymc,jdbcType=VARCHAR},
+      DJSJ = #{record.djsj,jdbcType=TIMESTAMP},
+      DDYYDMSJ = #{record.ddyydmsj,jdbcType=TIMESTAMP},
+      DDFS = #{record.ddfs,jdbcType=VARCHAR},
+      WLYY = #{record.wlyy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.aid.pojo.domain.AidPatientXt" >
+    update AID_PATIENT_XT
+    <set >
+      <if test="bqpg != null" >
+        BQPG = #{bqpg,jdbcType=VARCHAR},
+      </if>
+      <if test="scyljc != null" >
+        SCYLJC = #{scyljc,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wlyyry != null" >
+        WLYYRY = #{wlyyry,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zzcm != null" >
+        ZZCM = #{zzcm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sfxdt != null" >
+        SFXDT = #{sfxdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ycxdtcs != null" >
+        YCXDTCS = #{ycxdtcs,jdbcType=CHAR},
+      </if>
+      <if test="csfs != null" >
+        CSFS = #{csfs,jdbcType=CHAR},
+      </if>
+      <if test="cssj != null" >
+        CSSJ = #{cssj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kxxbgy != null" >
+        KXXBGY = #{kxxbgy,jdbcType=CHAR},
+      </if>
+      <if test="gysj != null" >
+        GYSJ = #{gysj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aspl != null" >
+        ASPL = #{aspl,jdbcType=DECIMAL},
+      </if>
+      <if test="tgrl != null" >
+        TGRL = #{tgrl,jdbcType=DECIMAL},
+      </if>
+      <if test="lpgl != null" >
+        LPGL = #{lpgl,jdbcType=DECIMAL},
+      </if>
+      <if test="zd != null" >
+        ZD = #{zd,jdbcType=VARCHAR},
+      </if>
+      <if test="yqrssc != null" >
+        YQRSSC = #{yqrssc,jdbcType=CHAR},
+      </if>
+      <if test="yqrs != null" >
+        YQRS = #{yqrs,jdbcType=CHAR},
+      </if>
+      <if test="rscs != null" >
+        RSCS = #{rscs,jdbcType=CHAR},
+      </if>
+      <if test="zqtyks != null" >
+        ZQTYKS = #{zqtyks,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qszqty != null" >
+        QSZQTY = #{qszqty,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsks != null" >
+        RSKS = #{rsks,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsjs != null" >
+        RSJS = #{rsjs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rshzy != null" >
+        RSHZY = #{rshzy,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsyw != null" >
+        RSYW = #{rsyw,jdbcType=CHAR},
+      </if>
+      <if test="rsywjl != null" >
+        RSYWJL = #{rsywjl,jdbcType=CHAR},
+      </if>
+      <if test="rszt != null" >
+        RSZT = #{rszt,jdbcType=CHAR},
+      </if>
+      <if test="sfxdtqz != null" >
+        SFXDTQZ = #{sfxdtqz,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bqpgmx != null" >
+        BQPGMX = #{bqpgmx,jdbcType=VARCHAR},
+      </if>
+      <if test="zycs != null" >
+        ZYCS = #{zycs,jdbcType=CHAR},
+      </if>
+      <if test="djry != null" >
+        DJRY = #{djry,jdbcType=VARCHAR},
+      </if>
+      <if test="djrymc != null" >
+        DJRYMC = #{djrymc,jdbcType=VARCHAR},
+      </if>
+      <if test="djsj != null" >
+        DJSJ = #{djsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ddyydmsj != null" >
+        DDYYDMSJ = #{ddyydmsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ddfs != null" >
+        DDFS = #{ddfs,jdbcType=VARCHAR},
+      </if>
+      <if test="wlyy != null" >
+        WLYY = #{wlyy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where XT_SEQ = #{xtSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.aid.pojo.domain.AidPatientXt" >
+    update AID_PATIENT_XT
+    set BQPG = #{bqpg,jdbcType=VARCHAR},
+      SCYLJC = #{scyljc,jdbcType=TIMESTAMP},
+      WLYYRY = #{wlyyry,jdbcType=TIMESTAMP},
+      ZZCM = #{zzcm,jdbcType=TIMESTAMP},
+      SFXDT = #{sfxdt,jdbcType=TIMESTAMP},
+      YCXDTCS = #{ycxdtcs,jdbcType=CHAR},
+      CSFS = #{csfs,jdbcType=CHAR},
+      CSSJ = #{cssj,jdbcType=TIMESTAMP},
+      KXXBGY = #{kxxbgy,jdbcType=CHAR},
+      GYSJ = #{gysj,jdbcType=TIMESTAMP},
+      ASPL = #{aspl,jdbcType=DECIMAL},
+      TGRL = #{tgrl,jdbcType=DECIMAL},
+      LPGL = #{lpgl,jdbcType=DECIMAL},
+      ZD = #{zd,jdbcType=VARCHAR},
+      YQRSSC = #{yqrssc,jdbcType=CHAR},
+      YQRS = #{yqrs,jdbcType=CHAR},
+      RSCS = #{rscs,jdbcType=CHAR},
+      ZQTYKS = #{zqtyks,jdbcType=TIMESTAMP},
+      QSZQTY = #{qszqty,jdbcType=TIMESTAMP},
+      RSKS = #{rsks,jdbcType=TIMESTAMP},
+      RSJS = #{rsjs,jdbcType=TIMESTAMP},
+      RSHZY = #{rshzy,jdbcType=TIMESTAMP},
+      RSYW = #{rsyw,jdbcType=CHAR},
+      RSYWJL = #{rsywjl,jdbcType=CHAR},
+      RSZT = #{rszt,jdbcType=CHAR},
+      SFXDTQZ = #{sfxdtqz,jdbcType=TIMESTAMP},
+      BQPGMX = #{bqpgmx,jdbcType=VARCHAR},
+      ZYCS = #{zycs,jdbcType=CHAR},
+      DJRY = #{djry,jdbcType=VARCHAR},
+      DJRYMC = #{djrymc,jdbcType=VARCHAR},
+      DJSJ = #{djsj,jdbcType=TIMESTAMP},
+      DDYYDMSJ = #{ddyydmsj,jdbcType=TIMESTAMP},
+      DDFS = #{ddfs,jdbcType=VARCHAR},
+      WLYY = #{wlyy,jdbcType=VARCHAR}
+    where XT_SEQ = #{xtSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

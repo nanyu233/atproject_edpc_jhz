@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.base.dao.mapper.HspYsczlsjlInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.base.pojo.domain.HspYsczlsjlInf">
+    <id column="LS_SEQ" jdbcType="VARCHAR" property="lsSeq" />
+    <result column="USRNO" jdbcType="VARCHAR" property="usrno" />
+    <result column="USRNAME" jdbcType="VARCHAR" property="usrname" />
+    <result column="OUT_CALL" jdbcType="VARCHAR" property="outCall" />
+    <result column="EMGSYSID" jdbcType="VARCHAR" property="emgsysid" />
+    <result column="OPERATE_NO" jdbcType="VARCHAR" property="operateNo" />
+    <result column="OPERATE_NAME" jdbcType="VARCHAR" property="operateName" />
+    <result column="OPERATE_DATE" jdbcType="TIMESTAMP" property="operateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    LS_SEQ, USRNO, USRNAME, OUT_CALL, EMGSYSID, OPERATE_NO, OPERATE_NAME, OPERATE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="activetech.base.pojo.domain.HspYsczlsjlInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_YSCZLSJL_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_YSCZLSJL_INF
+    where LS_SEQ = #{lsSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_YSCZLSJL_INF
+    where LS_SEQ = #{lsSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.HspYsczlsjlInfExample">
+    delete from HSP_YSCZLSJL_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.base.pojo.domain.HspYsczlsjlInf">
+    insert into HSP_YSCZLSJL_INF (LS_SEQ, USRNO, USRNAME, 
+      OUT_CALL, EMGSYSID, OPERATE_NO, 
+      OPERATE_NAME, OPERATE_DATE)
+    values (#{lsSeq,jdbcType=VARCHAR}, #{usrno,jdbcType=VARCHAR}, #{usrname,jdbcType=VARCHAR}, 
+      #{outCall,jdbcType=VARCHAR}, #{emgsysid,jdbcType=VARCHAR}, #{operateNo,jdbcType=VARCHAR}, 
+      #{operateName,jdbcType=VARCHAR}, #{operateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.base.pojo.domain.HspYsczlsjlInf">
+    insert into HSP_YSCZLSJL_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lsSeq != null">
+        LS_SEQ,
+      </if>
+      <if test="usrno != null">
+        USRNO,
+      </if>
+      <if test="usrname != null">
+        USRNAME,
+      </if>
+      <if test="outCall != null">
+        OUT_CALL,
+      </if>
+      <if test="emgsysid != null">
+        EMGSYSID,
+      </if>
+      <if test="operateNo != null">
+        OPERATE_NO,
+      </if>
+      <if test="operateName != null">
+        OPERATE_NAME,
+      </if>
+      <if test="operateDate != null">
+        OPERATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lsSeq != null">
+        #{lsSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="usrno != null">
+        #{usrno,jdbcType=VARCHAR},
+      </if>
+      <if test="usrname != null">
+        #{usrname,jdbcType=VARCHAR},
+      </if>
+      <if test="outCall != null">
+        #{outCall,jdbcType=VARCHAR},
+      </if>
+      <if test="emgsysid != null">
+        #{emgsysid,jdbcType=VARCHAR},
+      </if>
+      <if test="operateNo != null">
+        #{operateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="operateName != null">
+        #{operateName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDate != null">
+        #{operateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.base.pojo.domain.HspYsczlsjlInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_YSCZLSJL_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_YSCZLSJL_INF
+    <set>
+      <if test="record.lsSeq != null">
+        LS_SEQ = #{record.lsSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrno != null">
+        USRNO = #{record.usrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrname != null">
+        USRNAME = #{record.usrname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outCall != null">
+        OUT_CALL = #{record.outCall,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgsysid != null">
+        EMGSYSID = #{record.emgsysid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateNo != null">
+        OPERATE_NO = #{record.operateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateName != null">
+        OPERATE_NAME = #{record.operateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateDate != null">
+        OPERATE_DATE = #{record.operateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_YSCZLSJL_INF
+    set LS_SEQ = #{record.lsSeq,jdbcType=VARCHAR},
+      USRNO = #{record.usrno,jdbcType=VARCHAR},
+      USRNAME = #{record.usrname,jdbcType=VARCHAR},
+      OUT_CALL = #{record.outCall,jdbcType=VARCHAR},
+      EMGSYSID = #{record.emgsysid,jdbcType=VARCHAR},
+      OPERATE_NO = #{record.operateNo,jdbcType=VARCHAR},
+      OPERATE_NAME = #{record.operateName,jdbcType=VARCHAR},
+      OPERATE_DATE = #{record.operateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.HspYsczlsjlInf">
+    update HSP_YSCZLSJL_INF
+    <set>
+      <if test="usrno != null">
+        USRNO = #{usrno,jdbcType=VARCHAR},
+      </if>
+      <if test="usrname != null">
+        USRNAME = #{usrname,jdbcType=VARCHAR},
+      </if>
+      <if test="outCall != null">
+        OUT_CALL = #{outCall,jdbcType=VARCHAR},
+      </if>
+      <if test="emgsysid != null">
+        EMGSYSID = #{emgsysid,jdbcType=VARCHAR},
+      </if>
+      <if test="operateNo != null">
+        OPERATE_NO = #{operateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="operateName != null">
+        OPERATE_NAME = #{operateName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDate != null">
+        OPERATE_DATE = #{operateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where LS_SEQ = #{lsSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.HspYsczlsjlInf">
+    update HSP_YSCZLSJL_INF
+    set USRNO = #{usrno,jdbcType=VARCHAR},
+      USRNAME = #{usrname,jdbcType=VARCHAR},
+      OUT_CALL = #{outCall,jdbcType=VARCHAR},
+      EMGSYSID = #{emgsysid,jdbcType=VARCHAR},
+      OPERATE_NO = #{operateNo,jdbcType=VARCHAR},
+      OPERATE_NAME = #{operateName,jdbcType=VARCHAR},
+      OPERATE_DATE = #{operateDate,jdbcType=TIMESTAMP}
+    where LS_SEQ = #{lsSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.external.dao.mapper.HspMdyDatCustomMapper" >
+
+	<update id="updateSelective" parameterType="activetech.external.pojo.dto.HspMdyDatCustom" >
+    	update HSP_MDY_DAT set
+    	<if test="ecg!=null and ecg!=''">  
+		     ECG = #{ecg,jdbcType=DECIMAL},
+		</if>
+		<if test="spo2!=null and spo2!=''">  
+		     SPO2 = #{spo2,jdbcType=DECIMAL},
+		</if>
+		<if test="resp!=null and resp!=''">  
+		     RESP = #{resp,jdbcType=DECIMAL},
+		</if>
+		<if test="temp!=null and temp!=''">  
+		     TEMP = #{temp,jdbcType=DECIMAL},
+		</if>
+		<if test="nibpSys!=null and nibpSys!=''">  
+		     NIBP_SYS = #{nibpSys,jdbcType=DECIMAL},
+		</if>
+		<if test="nibpDia!=null and nibpDia!=''">  
+		     NIBP_DIA = #{nibpDia,jdbcType=DECIMAL},
+		</if>
+		<if test="nibpMea!=null and nibpMea!=''">  
+		     NIBP_MEA = #{nibpMea,jdbcType=DECIMAL},
+		</if>
+		<if test="almEcg!=null and almEcg!=''">  
+		     ALM_ECG = #{almEcg,jdbcType=VARCHAR},
+		</if>
+		<if test="almSpo2!=null and almSpo2!=''">  
+		     ALM_SPO2 = #{almSpo2,jdbcType=VARCHAR},
+		</if>
+		<if test="almResp!=null and almResp!=''">  
+		     ALM_RESP = #{almResp,jdbcType=VARCHAR},
+		</if>
+		<if test="almTemp!=null and almTemp!=''">  
+		     ALM_TEMP = #{almTemp,jdbcType=VARCHAR},
+		</if>
+		<if test="almNibpSys!=null and almNibpSys!=''">  
+		     ALM_NIBP_SYS = #{almNibpSys,jdbcType=VARCHAR},
+		</if>
+		<if test="almNibpDia!=null and almNibpDia!=''">  
+		     ALM_NIBP_DIA = #{almNibpDia,jdbcType=VARCHAR},
+		</if>
+		<if test="almNibpMea!=null and almNibpMea!=''">  
+		     ALM_NIBP_MEA = #{almNibpMea,jdbcType=VARCHAR},
+		</if>
+		<if test="almTec!=null and almTec!=''">  
+		     ALM_TEC = #{almTec,jdbcType=VARCHAR},
+		</if>
+		<if test="hlTim!=null and hlTim!=''">  
+		     HL_TIM = #{hlTim,jdbcType=VARCHAR},
+		</if>
+			 DAT_TIM = to_timestamp(#{datTimStr,jdbcType=VARCHAR},'yyyy-mm-dd hh24:mi:ss')
+	   where BED_NUM = #{bedNum,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 获取HSP_MDY_DAT表中所有数据 -->
+	<select id="getAllMindrayData" resultType="activetech.external.pojo.dto.HspMdyDatCustom">
+		SELECT B.BEDID,
+		       B.BED_NUM,
+		       B.EMG_SEQ,
+		       E.PATIENT_TYP,
+		       E.CST_AGE,
+		       E.CST_AGE_COD,
+		       E.CSPG_FLG,
+		       E.HXKN_FLG,
+		       E.xtlcflg as xt_flg,
+		       E.XM_FLG,
+		       E.XFZT_FLG,
+		       E.PREGNANT_YDCX_COD,
+		       E.PREGNANT_GSPL_COD,
+		       E.OXY_NBR,
+		       E.EMG_DEP_COD,
+		       (SELECT CZ_FLAG FROM HSP_FAST_INF F WHERE F.EMG_SEQ = B.EMG_SEQ) CZ_FLAG,
+		       MEWS.BRE_NBR,
+		       MEWS.TMP_NBR,
+		       MEWS.SEN_RCT_COD,
+		       MEWS.HRT_RTE,
+		       MEWS.SBPUP_NBR,
+		       MEWS.SBPDOWN_NBR,
+		       MEWS.TOT_SCO,
+		       (SELECT NRS_SCO
+		          FROM HSP_NRS_INF N
+		          JOIN (SELECT MAX(NRS_DAT) NRS_DAT, EMG_SEQ
+		                 FROM HSP_NRS_INF
+		                GROUP BY EMG_SEQ) TEMP
+		            ON N.EMG_SEQ = TEMP.EMG_SEQ
+		           AND N.NRS_DAT = TEMP.NRS_DAT
+		         WHERE N.EMG_SEQ = B.EMG_SEQ) NRS_SCO,
+		       (SELECT P.PEWS_SCO FROM HSP_PEWSCK_INF P WHERE P.EMG_SEQ = B.EMG_SEQ) PEWS_SCO,
+		       MDY.DAT_TIM,
+		       (case
+		         when mdy.dat_tim > e.emg_dat then
+		          mdy.ecg
+		         else
+		          (select hsp_mews_inf.hrt_rte
+		             from hsp_mews_inf
+		            where hsp_mews_inf.emg_seq = e.emg_seq)
+		       end) ECG,
+		       (case
+		         when mdy.dat_tim > e.emg_dat then
+		          mdy.spo2
+		         else
+		          e.oxy_nbr
+		       end) SPO2,
+		       (case
+		         when mdy.dat_tim > e.emg_dat then
+		          mdy.resp
+		         else
+		          (select hsp_mews_inf.bre_nbr
+		             from hsp_mews_inf
+		            where hsp_mews_inf.emg_seq = e.emg_seq)
+		       end) RESP,
+		       (case
+		         when mdy.dat_tim > e.emg_dat then
+		          mdy.temp
+		         else
+		          (select hsp_mews_inf.tmp_nbr
+		             from hsp_mews_inf
+		            where hsp_mews_inf.emg_seq = e.emg_seq)
+		       end) TEMP,
+		       MDY.NIBP_SYS,
+		       MDY.NIBP_DIA,
+		       MDY.NIBP_MEA,
+		       MDY.ALM_ECG,
+		       MDY.ALM_SPO2,
+		       MDY.ALM_RESP,
+		       MDY.ALM_TEMP,
+		       MDY.ALM_NIBP_SYS,
+		       MDY.ALM_NIBP_DIA,
+		       MDY.ALM_NIBP_MEA,
+		       MDY.ALM_TEC
+		  FROM HSP_BED_INF B
+		  LEFT JOIN HSP_EMG_INF E
+		    ON B.EMG_SEQ = E.EMG_SEQ
+		  LEFT JOIN HSP_MEWS_INF MEWS
+		    ON B.EMG_SEQ = MEWS.EMG_SEQ
+		  LEFT JOIN HSP_MDY_DAT MDY
+		    ON B.BED_NUM = MDY.BED_NUM
+		 WHERE B.BED_STATUS = '1'
+		   AND B.EMG_SEQ IS NOT NULL
+		 ORDER BY B.BED_NUM ASC
+	</select>
+	<!-- 根据预检号获取mews评分以及预检分级相关参数 -->
+	<select id="getPatInfByEmgSeq" parameterType="java.lang.String" resultType="activetech.external.pojo.dto.HspMdyDatCustom">
+		SELECT E.PATIENT_TYP,
+		       E.CST_AGE,
+		       E.CST_AGE_COD,
+		       E.CSPG_FLG,
+		       E.HXKN_COD,
+		       E.XT_COD,
+		       (SELECT F.CZ_FLAG FROM HSP_FAST_INF F WHERE F.EMG_SEQ = E.EMG_SEQ) CZ_FLAG,
+		       E.XFZT_FLG,
+		       (SELECT NRS_SCO
+		          FROM HSP_NRS_INF N
+		          JOIN (SELECT MAX(NRS_DAT) NRS_DAT, EMG_SEQ
+		                 FROM HSP_NRS_INF
+		                GROUP BY EMG_SEQ) TEMP
+		            ON N.EMG_SEQ = TEMP.EMG_SEQ
+		           AND N.NRS_DAT = TEMP.NRS_DAT
+		         WHERE N.EMG_SEQ = E.EMG_SEQ) NRS_SCO,
+		       E.PREGNANT_YDCX_COD,
+		       E.PREGNANT_GSPL_COD,
+		       (CASE
+		         WHEN M.SPO2 > 0 THEN
+		          M.SPO2
+		         ELSE
+		          E.OXY_NBR
+		       END) OXY_NBR,
+		       (CASE
+		         WHEN M.ECG > 0 THEN
+		          M.ECG
+		         ELSE
+		          MEWS.HRT_RTE
+		       END) HRT_RTE,
+		       (CASE
+		         WHEN M.NIBP_SYS > 0 THEN
+		          M.NIBP_SYS
+		         ELSE
+		          MEWS.SBPUP_NBR
+		       END) SBPUP_NBR,
+		       (CASE
+		         WHEN M.NIBP_DIA > 0 THEN
+		          M.NIBP_DIA
+		         ELSE
+		          MEWS.SBPDOWN_NBR
+		       END) SBPDOWN_NBR,
+		       MEWS.SEN_RCT_COD,
+			   MEWS.BRE_NBR,
+			   MEWS.TMP_NBR,
+		       MEWS.TOT_SCO,
+		       (SELECT P.PEWS_SCO FROM HSP_PEWSCK_INF P WHERE P.EMG_SEQ = E.EMG_SEQ) PEWS_SCO
+		  FROM HSP_EMG_INF E
+		  LEFT JOIN HSP_BED_INF B
+		    ON E.EMG_SEQ = B.EMG_SEQ
+		  LEFT JOIN HSP_MDY_DAT M
+		    ON B.BED_NUM = M.BED_NUM
+		  LEFT JOIN HSP_MEWS_INF MEWS
+		    ON E.EMG_SEQ = MEWS.EMG_SEQ
+		 WHERE E.EMG_SEQ = #{emgSeq}
+	</select>
+	
+	<select id="getRecentData" parameterType="activetech.external.pojo.dto.HspMdyDatCustom"
+		resultType="activetech.external.pojo.dto.HspMdyDatCustom">
+		select * from hsp_mdy_dat
+		 where bed_num = (select bed_num from hsp_bed_inf where bedid = #{bedNum,jdbcType=VARCHAR})
+		 and to_char(dat_tim,'yyyy-MM-dd HH24:mi:ss') > to_char(#{readtime,jdbcType=DATE},'yyyy-MM-dd HH24:mi:ss')
+	</select>
+</mapper>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspDevSysCustomMapper">
+	<resultMap id="BaseResultMap" type="activetech.hospital.pojo.dto.HspDevSysCustom">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="DEVTYP_COD" property="devtypCod" jdbcType="VARCHAR" />
+		<result column="IPADDR" property="ipaddr" jdbcType="VARCHAR" />
+		<result column="DEVNO" property="devno" jdbcType="VARCHAR" />
+		<result column="MEMO" property="memo" jdbcType="VARCHAR" />
+		<result column="CRT_DAT" property="crtDat" jdbcType="TIMESTAMP" />
+		<result column="CRT_USR_NBR" property="crtUsrNbr" jdbcType="VARCHAR" />
+		<result column="UPD_DAT" property="updDat" jdbcType="TIMESTAMP" />
+		<result column="UPD_USR_NBR" property="updUsrNbr" jdbcType="VARCHAR" />
+		<result column="crtDatStr" property="crtDatStr" jdbcType="VARCHAR" />
+		<result column="updDatStr" property="updDatStr" jdbcType="VARCHAR" />
+		<result column="crtUsrName" property="crtUsrName" jdbcType="VARCHAR" />
+		<result column="updUsrName" property="updUsrName" jdbcType="VARCHAR" />
+		<result column="devtypcodName" property="devtypcodName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Query_Device_where">
+	    <if test="hspDevSysCustom!=null">
+		    <if test="hspDevSysCustom.devtypCod!=null and hspDevSysCustom.devtypCod!=''">
+			    DEVTYP_COD=#{hspDevSysCustom.devtypCod}
+		    </if>
+		</if>
+	</sql>
+	<select id="findHspDevSysByDevtyp_cod" resultMap="BaseResultMap"
+		parameterType="activetech.hospital.pojo.dto.HspDevSysQueryDto">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select ID,
+		DEVTYP_COD,
+		(select info from DSTDICTINFO where typecode='DEVTYP_COD' and
+		DSTDICTINFO.INFOCODE=t1.DEVTYP_COD)as devtypcodName,
+		IPADDR,
+		DEVNO,
+		MEMO,
+		CRT_DAT,
+		to_char(CRT_DAT,'yyyy/mm/dd hh24:mi:ss') crtDatStr,
+		CRT_USR_NBR,
+		(select usrname from DSTUSER where DSTUSER.USRNO=t1.CRT_USR_NBR)as
+		crtUsrName,
+		UPD_DAT,
+		to_char(UPD_DAT,'yyyy/mm/dd hh24:mi:ss') updDatStr,
+		UPD_USR_NBR,
+		(select usrname from DSTUSER where DSTUSER.USRNO=t1.UPD_USR_NBR)as updUsrName
+		from HSP_DEV_SYS t1
+		<where>
+			<include refid="Query_Device_where" />
+		</where>
+		order by CRT_DAT desc
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	<select id="findHspDevSysCount" resultType="int"
+		parameterType="activetech.hospital.pojo.dto.HspDevSysQueryDto">
+		select count(*)
+		from HSP_DEV_SYS
+		<where>
+			<include refid="Query_Device_where" />
+		</where>
+	</select>
+	<select id="findById" resultMap="BaseResultMap"
+		parameterType="activetech.hospital.pojo.dto.HspDevSysCustom">
+		select ID,
+		DEVTYP_COD,
+		(select info from DSTDICTINFO where typecode='DEVTYP_COD' and
+		DSTDICTINFO.INFOCODE=t1.DEVTYP_COD)as devtypcodName,
+		IPADDR,
+		DEVNO,
+		MEMO,
+		CRT_DAT,
+		to_char(CRT_DAT,'yyyy/mm/dd') crtDatStr,
+		CRT_USR_NBR crtUsrNbr,
+		(select usrname from DSTUSER where DSTUSER.USRNO=t1.CRT_USR_NBR)as
+		crtUsrName,
+		UPD_DAT updDat,
+		to_char(UPD_DAT,'yyyy/mm/dd') updDatStr,
+		UPD_USR_NBR updUsrNbr,
+		(select usrname from DSTUSER where DSTUSER.USRNO=t1.UPD_USR_NBR)as updUsrName
+		from HSP_DEV_SYS t1 where ID=#{id}
+	</select>
+	<select id="findByDevnoAndDevtypCod" resultMap="BaseResultMap"
+		parameterType="activetech.hospital.pojo.dto.HspDevSysCustom">
+		select ID,
+		DEVTYP_COD,
+		(select info from DSTDICTINFO where typecode='DEVTYP_COD' and
+		DSTDICTINFO.INFOCODE=t1.DEVTYP_COD)as devtypcodName,
+		IPADDR,
+		DEVNO,
+		MEMO,
+		CRT_DAT,
+		to_char(CRT_DAT,'yyyy/mm/dd') crtDatStr,
+		CRT_USR_NBR crtUsrNbr,
+		(select usrname from DSTUSER where DSTUSER.USRNO=t1.CRT_USR_NBR)as
+		crtUsrName,
+		UPD_DAT updDat,
+		to_char(UPD_DAT,'yyyy/mm/dd') updDatStr,
+		UPD_USR_NBR updUsrNbr,
+		(select usrname from DSTUSER where DSTUSER.USRNO=t1.UPD_USR_NBR)as updUsrName
+		from HSP_DEV_SYS t1 where DEVNO=#{devno} and DEVTYP_COD=#{devtypCod}
+		<if test="id!=null and id!=null">
+			and ID!=#{id}
+		</if>
+	</select>
+	<select id="findByDevnoAndIpadd" resultMap="BaseResultMap"
+		parameterType="activetech.hospital.pojo.dto.HspDevSysCustom">
+		select ID,
+		DEVTYP_COD,
+		(select info from DSTDICTINFO where typecode='DEVTYP_COD' and
+		DSTDICTINFO.INFOCODE=t1.DEVTYP_COD)as devtypcodName,
+		IPADDR,
+		DEVNO,
+		MEMO,
+		CRT_DAT,
+		to_char(CRT_DAT,'yyyy/mm/dd') crtDatStr,
+		CRT_USR_NBR crtUsrNbr,
+		(select usrname from DSTUSER where DSTUSER.USRNO=t1.CRT_USR_NBR)as
+		crtUsrName,
+		UPD_DAT updDat,
+		to_char(UPD_DAT,'yyyy/mm/dd') updDatStr,
+		UPD_USR_NBR updUsrNbr,
+		(select usrname from DSTUSER where DSTUSER.USRNO=t1.UPD_USR_NBR)as updUsrName
+		from HSP_DEV_SYS t1 where DEVTYP_COD=#{devtypCod} and IPADDR=#{ipaddr}
+	</select>
+	<select id="findByIpaddrAndDevtypCod" resultMap="BaseResultMap"
+		parameterType="activetech.hospital.pojo.dto.HspDevSysCustom">
+		select ID,
+		DEVTYP_COD,
+		(select info from DSTDICTINFO where typecode='DEVTYP_COD' and
+		DSTDICTINFO.INFOCODE=t1.DEVTYP_COD)as devtypcodName,
+		IPADDR,
+		DEVNO,
+		MEMO,
+		CRT_DAT,
+		to_char(CRT_DAT,'yyyy/mm/dd') crtDatStr,
+		CRT_USR_NBR crtUsrNbr,
+		(select usrname from DSTUSER where DSTUSER.USRNO=t1.CRT_USR_NBR)as
+		crtUsrName,
+		UPD_DAT updDat,
+		to_char(UPD_DAT,'yyyy/mm/dd') updDatStr,
+		UPD_USR_NBR updUsrNbr,
+		(select usrname from DSTUSER where DSTUSER.USRNO=t1.UPD_USR_NBR)as updUsrName
+		from HSP_DEV_SYS t1 where IPADDR=#{ipaddr} and DEVTYP_COD=#{devtypCod}
+		<if test="id!=null and id!=null">
+			and ID!=#{id}
+		</if>
+	</select>
+</mapper>

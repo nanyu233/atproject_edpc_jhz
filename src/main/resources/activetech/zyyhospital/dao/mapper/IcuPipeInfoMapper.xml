@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.IcuPipeInfoMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.IcuPipeInfo" >
+    <id column="PIPE_SEQ" property="pipeSeq" jdbcType="VARCHAR" />
+    <result column="PIPE_NAME" property="pipeName" jdbcType="VARCHAR" />
+    <result column="PIPE_STAT" property="pipeStat" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="PIPE_TYPE" property="pipeType" jdbcType="VARCHAR" />
+    <result column="BODY_PART" property="bodyPart" jdbcType="VARCHAR" />
+    <result column="PIPE_MODL" property="pipeModl" jdbcType="VARCHAR" />
+    <result column="PIPE_LENG" property="pipeLeng" jdbcType="VARCHAR" />
+    <result column="PIPE_DPTH" property="pipeDpth" jdbcType="VARCHAR" />
+    <result column="IN_TYPE" property="inType" jdbcType="VARCHAR" />
+    <result column="IN_TIME" property="inTime" jdbcType="TIMESTAMP" />
+    <result column="IN_USER" property="inUser" jdbcType="VARCHAR" />
+    <result column="IN_MEMO" property="inMemo" jdbcType="VARCHAR" />
+    <result column="CHG_NUMB" property="chgNumb" jdbcType="DECIMAL" />
+    <result column="CHG_TIME" property="chgTime" jdbcType="TIMESTAMP" />
+    <result column="CHG_USER" property="chgUser" jdbcType="VARCHAR" />
+    <result column="CHG_MEMO" property="chgMemo" jdbcType="VARCHAR" />
+    <result column="OUT_TYPE" property="outType" jdbcType="VARCHAR" />
+    <result column="OUT_TIME" property="outTime" jdbcType="TIMESTAMP" />
+    <result column="OUT_USER" property="outUser" jdbcType="VARCHAR" />
+    <result column="OUT_MEMO" property="outMemo" jdbcType="VARCHAR" />
+    <result column="VLD_DAY" property="vldDay" jdbcType="DECIMAL" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="TIMESTAMP" />
+    <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+    <result column="MOD_USER" property="modUser" jdbcType="VARCHAR" />
+    <result column="PIPE_SEQ_HIS" property="pipeSeqHis" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PIPE_SEQ, PIPE_NAME, PIPE_STAT, EMG_SEQ, PIPE_TYPE, BODY_PART, PIPE_MODL, PIPE_LENG, 
+    PIPE_DPTH, IN_TYPE, IN_TIME, IN_USER, IN_MEMO, CHG_NUMB, CHG_TIME, CHG_USER, CHG_MEMO, 
+    OUT_TYPE, OUT_TIME, OUT_USER, OUT_MEMO, VLD_DAY, CRT_TIME, CRT_USER, MOD_TIME, MOD_USER, 
+    PIPE_SEQ_HIS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.IcuPipeInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ICU_PIPE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ICU_PIPE_INFO
+    where PIPE_SEQ = #{pipeSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ICU_PIPE_INFO
+    where PIPE_SEQ = #{pipeSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.IcuPipeInfoExample" >
+    delete from ICU_PIPE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.IcuPipeInfo" >
+    insert into ICU_PIPE_INFO (PIPE_SEQ, PIPE_NAME, PIPE_STAT, 
+      EMG_SEQ, PIPE_TYPE, BODY_PART, 
+      PIPE_MODL, PIPE_LENG, PIPE_DPTH, 
+      IN_TYPE, IN_TIME, IN_USER, 
+      IN_MEMO, CHG_NUMB, CHG_TIME, 
+      CHG_USER, CHG_MEMO, OUT_TYPE, 
+      OUT_TIME, OUT_USER, OUT_MEMO, 
+      VLD_DAY, CRT_TIME, CRT_USER, 
+      MOD_TIME, MOD_USER, PIPE_SEQ_HIS
+      )
+    values (#{pipeSeq,jdbcType=VARCHAR}, #{pipeName,jdbcType=VARCHAR}, #{pipeStat,jdbcType=VARCHAR}, 
+      #{emgSeq,jdbcType=VARCHAR}, #{pipeType,jdbcType=VARCHAR}, #{bodyPart,jdbcType=VARCHAR}, 
+      #{pipeModl,jdbcType=VARCHAR}, #{pipeLeng,jdbcType=VARCHAR}, #{pipeDpth,jdbcType=VARCHAR}, 
+      #{inType,jdbcType=VARCHAR}, #{inTime,jdbcType=TIMESTAMP}, #{inUser,jdbcType=VARCHAR}, 
+      #{inMemo,jdbcType=VARCHAR}, #{chgNumb,jdbcType=DECIMAL}, #{chgTime,jdbcType=TIMESTAMP}, 
+      #{chgUser,jdbcType=VARCHAR}, #{chgMemo,jdbcType=VARCHAR}, #{outType,jdbcType=VARCHAR}, 
+      #{outTime,jdbcType=TIMESTAMP}, #{outUser,jdbcType=VARCHAR}, #{outMemo,jdbcType=VARCHAR}, 
+      #{vldDay,jdbcType=DECIMAL}, #{crtTime,jdbcType=TIMESTAMP}, #{crtUser,jdbcType=VARCHAR}, 
+      #{modTime,jdbcType=TIMESTAMP}, #{modUser,jdbcType=VARCHAR}, #{pipeSeqHis,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.IcuPipeInfo" >
+    insert into ICU_PIPE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pipeSeq != null" >
+        PIPE_SEQ,
+      </if>
+      <if test="pipeName != null" >
+        PIPE_NAME,
+      </if>
+      <if test="pipeStat != null" >
+        PIPE_STAT,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="pipeType != null" >
+        PIPE_TYPE,
+      </if>
+      <if test="bodyPart != null" >
+        BODY_PART,
+      </if>
+      <if test="pipeModl != null" >
+        PIPE_MODL,
+      </if>
+      <if test="pipeLeng != null" >
+        PIPE_LENG,
+      </if>
+      <if test="pipeDpth != null" >
+        PIPE_DPTH,
+      </if>
+      <if test="inType != null" >
+        IN_TYPE,
+      </if>
+      <if test="inTime != null" >
+        IN_TIME,
+      </if>
+      <if test="inUser != null" >
+        IN_USER,
+      </if>
+      <if test="inMemo != null" >
+        IN_MEMO,
+      </if>
+      <if test="chgNumb != null" >
+        CHG_NUMB,
+      </if>
+      <if test="chgTime != null" >
+        CHG_TIME,
+      </if>
+      <if test="chgUser != null" >
+        CHG_USER,
+      </if>
+      <if test="chgMemo != null" >
+        CHG_MEMO,
+      </if>
+      <if test="outType != null" >
+        OUT_TYPE,
+      </if>
+      <if test="outTime != null" >
+        OUT_TIME,
+      </if>
+      <if test="outUser != null" >
+        OUT_USER,
+      </if>
+      <if test="outMemo != null" >
+        OUT_MEMO,
+      </if>
+      <if test="vldDay != null" >
+        VLD_DAY,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="modUser != null" >
+        MOD_USER,
+      </if>
+      <if test="pipeSeqHis != null" >
+        PIPE_SEQ_HIS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pipeSeq != null" >
+        #{pipeSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeName != null" >
+        #{pipeName,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeStat != null" >
+        #{pipeStat,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeType != null" >
+        #{pipeType,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyPart != null" >
+        #{bodyPart,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeModl != null" >
+        #{pipeModl,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeLeng != null" >
+        #{pipeLeng,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeDpth != null" >
+        #{pipeDpth,jdbcType=VARCHAR},
+      </if>
+      <if test="inType != null" >
+        #{inType,jdbcType=VARCHAR},
+      </if>
+      <if test="inTime != null" >
+        #{inTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inUser != null" >
+        #{inUser,jdbcType=VARCHAR},
+      </if>
+      <if test="inMemo != null" >
+        #{inMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="chgNumb != null" >
+        #{chgNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="chgTime != null" >
+        #{chgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chgUser != null" >
+        #{chgUser,jdbcType=VARCHAR},
+      </if>
+      <if test="chgMemo != null" >
+        #{chgMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="outType != null" >
+        #{outType,jdbcType=VARCHAR},
+      </if>
+      <if test="outTime != null" >
+        #{outTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outUser != null" >
+        #{outUser,jdbcType=VARCHAR},
+      </if>
+      <if test="outMemo != null" >
+        #{outMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="vldDay != null" >
+        #{vldDay,jdbcType=DECIMAL},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null" >
+        #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeSeqHis != null" >
+        #{pipeSeqHis,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.IcuPipeInfoExample" resultType="java.lang.Integer" >
+    select count(*) from ICU_PIPE_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ICU_PIPE_INFO
+    <set >
+      <if test="record.pipeSeq != null" >
+        PIPE_SEQ = #{record.pipeSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pipeName != null" >
+        PIPE_NAME = #{record.pipeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pipeStat != null" >
+        PIPE_STAT = #{record.pipeStat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pipeType != null" >
+        PIPE_TYPE = #{record.pipeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bodyPart != null" >
+        BODY_PART = #{record.bodyPart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pipeModl != null" >
+        PIPE_MODL = #{record.pipeModl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pipeLeng != null" >
+        PIPE_LENG = #{record.pipeLeng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pipeDpth != null" >
+        PIPE_DPTH = #{record.pipeDpth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inType != null" >
+        IN_TYPE = #{record.inType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inTime != null" >
+        IN_TIME = #{record.inTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inUser != null" >
+        IN_USER = #{record.inUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inMemo != null" >
+        IN_MEMO = #{record.inMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chgNumb != null" >
+        CHG_NUMB = #{record.chgNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.chgTime != null" >
+        CHG_TIME = #{record.chgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.chgUser != null" >
+        CHG_USER = #{record.chgUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chgMemo != null" >
+        CHG_MEMO = #{record.chgMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outType != null" >
+        OUT_TYPE = #{record.outType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outTime != null" >
+        OUT_TIME = #{record.outTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.outUser != null" >
+        OUT_USER = #{record.outUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outMemo != null" >
+        OUT_MEMO = #{record.outMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vldDay != null" >
+        VLD_DAY = #{record.vldDay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.crtTime != null" >
+        CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUser != null" >
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTime != null" >
+        MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUser != null" >
+        MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pipeSeqHis != null" >
+        PIPE_SEQ_HIS = #{record.pipeSeqHis,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ICU_PIPE_INFO
+    set PIPE_SEQ = #{record.pipeSeq,jdbcType=VARCHAR},
+      PIPE_NAME = #{record.pipeName,jdbcType=VARCHAR},
+      PIPE_STAT = #{record.pipeStat,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      PIPE_TYPE = #{record.pipeType,jdbcType=VARCHAR},
+      BODY_PART = #{record.bodyPart,jdbcType=VARCHAR},
+      PIPE_MODL = #{record.pipeModl,jdbcType=VARCHAR},
+      PIPE_LENG = #{record.pipeLeng,jdbcType=VARCHAR},
+      PIPE_DPTH = #{record.pipeDpth,jdbcType=VARCHAR},
+      IN_TYPE = #{record.inType,jdbcType=VARCHAR},
+      IN_TIME = #{record.inTime,jdbcType=TIMESTAMP},
+      IN_USER = #{record.inUser,jdbcType=VARCHAR},
+      IN_MEMO = #{record.inMemo,jdbcType=VARCHAR},
+      CHG_NUMB = #{record.chgNumb,jdbcType=DECIMAL},
+      CHG_TIME = #{record.chgTime,jdbcType=TIMESTAMP},
+      CHG_USER = #{record.chgUser,jdbcType=VARCHAR},
+      CHG_MEMO = #{record.chgMemo,jdbcType=VARCHAR},
+      OUT_TYPE = #{record.outType,jdbcType=VARCHAR},
+      OUT_TIME = #{record.outTime,jdbcType=TIMESTAMP},
+      OUT_USER = #{record.outUser,jdbcType=VARCHAR},
+      OUT_MEMO = #{record.outMemo,jdbcType=VARCHAR},
+      VLD_DAY = #{record.vldDay,jdbcType=DECIMAL},
+      CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      PIPE_SEQ_HIS = #{record.pipeSeqHis,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.IcuPipeInfo" >
+    update ICU_PIPE_INFO
+    <set >
+      <if test="pipeName != null" >
+        PIPE_NAME = #{pipeName,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeStat != null" >
+        PIPE_STAT = #{pipeStat,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeType != null" >
+        PIPE_TYPE = #{pipeType,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyPart != null" >
+        BODY_PART = #{bodyPart,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeModl != null" >
+        PIPE_MODL = #{pipeModl,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeLeng != null" >
+        PIPE_LENG = #{pipeLeng,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeDpth != null" >
+        PIPE_DPTH = #{pipeDpth,jdbcType=VARCHAR},
+      </if>
+      <if test="inType != null" >
+        IN_TYPE = #{inType,jdbcType=VARCHAR},
+      </if>
+      <if test="inTime != null" >
+        IN_TIME = #{inTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inUser != null" >
+        IN_USER = #{inUser,jdbcType=VARCHAR},
+      </if>
+      <if test="inMemo != null" >
+        IN_MEMO = #{inMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="chgNumb != null" >
+        CHG_NUMB = #{chgNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="chgTime != null" >
+        CHG_TIME = #{chgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chgUser != null" >
+        CHG_USER = #{chgUser,jdbcType=VARCHAR},
+      </if>
+      <if test="chgMemo != null" >
+        CHG_MEMO = #{chgMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="outType != null" >
+        OUT_TYPE = #{outType,jdbcType=VARCHAR},
+      </if>
+      <if test="outTime != null" >
+        OUT_TIME = #{outTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outUser != null" >
+        OUT_USER = #{outUser,jdbcType=VARCHAR},
+      </if>
+      <if test="outMemo != null" >
+        OUT_MEMO = #{outMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="vldDay != null" >
+        VLD_DAY = #{vldDay,jdbcType=DECIMAL},
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null" >
+        MOD_USER = #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="pipeSeqHis != null" >
+        PIPE_SEQ_HIS = #{pipeSeqHis,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PIPE_SEQ = #{pipeSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.IcuPipeInfo" >
+    update ICU_PIPE_INFO
+    set PIPE_NAME = #{pipeName,jdbcType=VARCHAR},
+      PIPE_STAT = #{pipeStat,jdbcType=VARCHAR},
+      EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      PIPE_TYPE = #{pipeType,jdbcType=VARCHAR},
+      BODY_PART = #{bodyPart,jdbcType=VARCHAR},
+      PIPE_MODL = #{pipeModl,jdbcType=VARCHAR},
+      PIPE_LENG = #{pipeLeng,jdbcType=VARCHAR},
+      PIPE_DPTH = #{pipeDpth,jdbcType=VARCHAR},
+      IN_TYPE = #{inType,jdbcType=VARCHAR},
+      IN_TIME = #{inTime,jdbcType=TIMESTAMP},
+      IN_USER = #{inUser,jdbcType=VARCHAR},
+      IN_MEMO = #{inMemo,jdbcType=VARCHAR},
+      CHG_NUMB = #{chgNumb,jdbcType=DECIMAL},
+      CHG_TIME = #{chgTime,jdbcType=TIMESTAMP},
+      CHG_USER = #{chgUser,jdbcType=VARCHAR},
+      CHG_MEMO = #{chgMemo,jdbcType=VARCHAR},
+      OUT_TYPE = #{outType,jdbcType=VARCHAR},
+      OUT_TIME = #{outTime,jdbcType=TIMESTAMP},
+      OUT_USER = #{outUser,jdbcType=VARCHAR},
+      OUT_MEMO = #{outMemo,jdbcType=VARCHAR},
+      VLD_DAY = #{vldDay,jdbcType=DECIMAL},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{modUser,jdbcType=VARCHAR},
+      PIPE_SEQ_HIS = #{pipeSeqHis,jdbcType=VARCHAR}
+    where PIPE_SEQ = #{pipeSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspHlpgbCustomMapper">
+ <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspHlpgbCustom" >
+    <id column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="OPR_DAT" property="oprDat" jdbcType="TIMESTAMP" />
+    <result column="PBG_NBR" property="pbgNbr" jdbcType="VARCHAR" />
+    <result column="QD_COD" property="qdCod" jdbcType="CHAR" />
+    <result column="QD_OTHER" property="qdOther" jdbcType="VARCHAR" />
+    <result column="HX_COD" property="hxCod" jdbcType="CHAR" />
+    <result column="HX_OTHER" property="hxOther" jdbcType="VARCHAR" />
+    <result column="XH_COD" property="xhCod" jdbcType="VARCHAR" />
+    <result column="CX_COD" property="cxCod" jdbcType="VARCHAR" />
+    <result column="CX_QTBW" property="cxQtbw" jdbcType="VARCHAR" />
+    <result column="NS_COD" property="nsCod" jdbcType="CHAR" />
+    <result column="NS_DAQT" property="nsDaqt" jdbcType="CHAR" />
+    <result column="NS_TTCJ" property="nsTtcj" jdbcType="CHAR" />
+    <result column="NS_THZT" property="nsThzt" jdbcType="CHAR" />
+    <result column="NS_THZT_DES" property="nsThztDes" jdbcType="VARCHAR" />
+    <result column="TK_LEFT" property="tkLeft" jdbcType="VARCHAR" />
+    <result column="TK_LEFT_COD" property="tkLeftCod" jdbcType="CHAR" />
+    <result column="TK_RIGHT" property="tkRight" jdbcType="VARCHAR" />
+    <result column="TK_RIGHT_COD" property="tkRightCod" jdbcType="CHAR" />
+    <result column="FB_COD" property="fbCod" jdbcType="VARCHAR" />
+    <result column="FB_FC" property="fbFc" jdbcType="CHAR" />
+    <result column="FB_FC_DES" property="fbFcDes" jdbcType="VARCHAR" />
+    <result column="FB_OTHER" property="fbOther" jdbcType="VARCHAR" />
+    <result column="PF_COD" property="pfCod" jdbcType="VARCHAR" />
+    <result column="PF_FW" property="pfFw" jdbcType="VARCHAR" />
+    <result column="PF_FW_DES" property="pfFwDes" jdbcType="VARCHAR" />
+    <result column="CLBZ_COD" property="clbzCod" jdbcType="VARCHAR" />
+    <result column="QT_QMS_RS" property="qtQmsRs" jdbcType="VARCHAR" />
+    <result column="QT_QMS_DAT" property="qtQmsDat" jdbcType="TIMESTAMP" />
+    <result column="QT_TAT_RS" property="qtTatRs" jdbcType="VARCHAR" />
+    <result column="QT_TAT_DAT" property="qtTatDat" jdbcType="TIMESTAMP" />
+    <result column="QT_OBJ1_RS" property="qtObj1Rs" jdbcType="VARCHAR" />
+    <result column="QT_OBJ1_DAT" property="qtObj1Dat" jdbcType="TIMESTAMP" />
+    <result column="QT_OBJ2_RS" property="qtObj2Rs" jdbcType="VARCHAR" />
+    <result column="QT_OBJ2_DAT" property="qtObj2Dat" jdbcType="TIMESTAMP" />
+    <result column="HL_ADDR" property="hlAddr" jdbcType="VARCHAR" />
+    <result column="JJLX_NAM" property="jjlxNam" jdbcType="VARCHAR" />
+    <result column="JJLX_TEL" property="jjlxTel" jdbcType="VARCHAR" />
+    <result column="QK_COD" property="qkCod" jdbcType="CHAR" />
+    <result column="QX_BF" property="qxBf" jdbcType="VARCHAR" />
+    <result column="QX_ZYH" property="qxZyh" jdbcType="VARCHAR" />
+    <result column="PRE_ASS_NAM" property="preAssNam" jdbcType="VARCHAR" />
+    <result column="QT_NAM" property="qtNam" jdbcType="VARCHAR" />
+    <result column="CREATE_DAT" property="createDat" jdbcType="TIMESTAMP" />
+    <result column="CREATE_NBR" property="createNbr" jdbcType="VARCHAR" />
+    <result column="UPDATE_DAT" property="updateDat" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_NBR" property="updateNbr" jdbcType="VARCHAR" />
+    <result column="HRT_RTE" property="hrtRte" jdbcType="DECIMAL" />
+    <result column="BRE_NBR" property="breNbr" jdbcType="DECIMAL" />
+    <result column="TMP_NBR" property="tmpNbr" jdbcType="DECIMAL" />
+    <result column="OXY_NBR" property="oxyNbr" jdbcType="DECIMAL" />
+    <result column="SBPUP_NBR" property="sbpupNbr" jdbcType="DECIMAL" />
+    <result column="SBPDOWN_NBR" property="sbpdownNbr" jdbcType="DECIMAL" />
+    <result column="SEN_STU_COD" property="senStuCod" jdbcType="CHAR" />
+    <result column="QT_OBJ1_NAM" property="qtObj1Nam" jdbcType="VARCHAR" />
+    <result column="QT_OBJ2_NAM" property="qtObj2Nam" jdbcType="VARCHAR" />
+    <result column="preAssStr" property="preAssStr" jdbcType="VARCHAR" />
+    <result column="qtNamStr" property="qtNamStr" jdbcType="VARCHAR" />
+    <result column="PBG_NBR_FLG" property="pbgNbrFlg" jdbcType="VARCHAR" />
+    <result column="REFUSED_SURVEY" property="refusedSurvey" jdbcType="VARCHAR" />
+    
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="TK_LEFT_OTHER" property="tkLeftOther" jdbcType="VARCHAR" />
+    <result column="TK_RIGHT_OTHER" property="tkRightOther" jdbcType="VARCHAR" />
+    <result column="BRADEN_SEQ" property="bradenSeq" jdbcType="VARCHAR" />
+    <result column="FALLD_SEQ" property="falldSeq" jdbcType="VARCHAR" />
+    <result column="ADL_SEQ" property="adlSeq" jdbcType="VARCHAR" />
+    <result column="FALLRISK_SEQ" property="fallriskSeq" jdbcType="VARCHAR" />
+    <result column="zcddexpfSco" property="zcddexpfSco" jdbcType="VARCHAR" />
+    <result column="adlSco" property="adlSco" jdbcType="VARCHAR" />
+    <result column="bradenSco" property="bradenSco" jdbcType="VARCHAR" />
+    <result column="fallriskSco" property="fallriskSco" jdbcType="VARCHAR" />
+    <result column="ZYFXPF_SEQ" jdbcType="VARCHAR" property="zyfxpfSeq" />
+    <result column="zyfxpfSco" property="zyfxpfSco" jdbcType="VARCHAR" />   
+    <result column="SZ_COD" jdbcType="CHAR" property="szCod" />
+    <result column="SZ_OTHER" jdbcType="VARCHAR" property="szOther" />
+    <result column="WCD_COD" jdbcType="CHAR" property="wcdCod" />
+    <result column="WCD_OTHER" jdbcType="VARCHAR" property="wcdOther" />
+    <result column="TT_COD" jdbcType="CHAR" property="ttCod" />
+    <result column="TT_BW" jdbcType="VARCHAR" property="ttBw" />
+    <result column="SZYD_COD" jdbcType="CHAR" property="szydCod" />
+    <result column="SZYD_OTHER" jdbcType="VARCHAR" property="szydOther" />
+    <result column="JBS_COD" jdbcType="CHAR" property="jbsCod" />
+    <result column="JBS_DES" jdbcType="VARCHAR" property="jbsDes" />
+    <result column="SSS_COD" jdbcType="CHAR" property="sssCod" />
+    <result column="SSS_DES" jdbcType="VARCHAR" property="sssDes" />
+    <result column="GMS_COD" jdbcType="CHAR" property="gmsCod" />
+    <result column="GMS_DES" jdbcType="VARCHAR" property="gmsDes" />
+    <result column="GMS_TYPE" jdbcType="VARCHAR" property="gmsType" />
+    <result column="GCS_SEQ" jdbcType="VARCHAR" property="gcsSeq" />
+    <result column="NRS_SEQ" jdbcType="VARCHAR" property="nrsSeq" />
+    <result column="gcsSco" jdbcType="VARCHAR" property="gcsSco" />
+    <result column="DDFXPGB_SEQ" jdbcType="VARCHAR" property="ddfxpgbSeq" />
+    <result column="morseSco" jdbcType="VARCHAR" property="morseSco" />
+    <result column="JJLX_NAM2" jdbcType="VARCHAR" property="jjlxNam2" />
+    <result column="JJLX_TEL2" jdbcType="VARCHAR" property="jjlxTel2" />
+    <result column="PRE_DGN_COD" jdbcType="VARCHAR" property="preDgnCod" />
+    <result column="HL_ADDR_OTHER" jdbcType="VARCHAR" property="hlAddrOther" />
+    <result column="HLBZ_COD" jdbcType="VARCHAR" property="hlbzCod" />
+    <result column="HLBZ_OTHER" jdbcType="VARCHAR" property="hlbzOther" />
+    <result column="CLBZ_OTHER" jdbcType="VARCHAR" property="clbzOther" />
+    <result column="XY_DES" jdbcType="VARCHAR" property="xyDes" />
+    <result column="INFORM_DOC_DAT" jdbcType="TIMESTAMP" property="informDocDat" />
+    <result column="DOC_DAT" jdbcType="TIMESTAMP" property="docDat" />
+    <result column="SQL_DCT_NBR" jdbcType="VARCHAR" property="sqlDctNbr" />
+    <result column="ARV_CHL_COD" jdbcType="VARCHAR" property="arvChlCod" />
+    <result column="CMP_PSN_COD" jdbcType="VARCHAR" property="cmpPsnCod" />
+    <result column="PRE_HOSPITAL_TREATMENT" jdbcType="VARCHAR" property="preHospitalTreatment" />
+    <result column="TMP_NBR" jdbcType="VARCHAR" property="tmpNbr" />
+    <result column="PULSE" jdbcType="VARCHAR" property="pulse" />
+    <result column="BRE_NBR" jdbcType="VARCHAR" property="breNbr" />
+    <result column="SBP_UP_NBR" jdbcType="VARCHAR" property="sbpUpNbr" />
+    <result column="SBP_DOWN_NBR" jdbcType="VARCHAR" property="sbpDownNbr" />
+    <result column="OXY_NBR" jdbcType="VARCHAR" property="oxyNbr" />
+    <result column="HRT_RTE" jdbcType="VARCHAR" property="hrtRte" />
+    <result column="WORK_ADDRESS" jdbcType="VARCHAR" property="workAddress" />
+    <result column="GLS_COD" jdbcType="VARCHAR" property="glsCod" />
+    <result column="TMP_NBR_FLG" jdbcType="VARCHAR" property="tmpNbrFlg" />
+    <result column="BRE_NBR_FLG" jdbcType="VARCHAR" property="breNbrFlg" />
+    <result column="SBP_NBR_FLG" jdbcType="VARCHAR" property="sbpNbrFlg" />
+    <result column="XY_FLG" jdbcType="VARCHAR" property="xyFlg" />
+    <result column="ASSESSMENT_DAT" jdbcType="TIMESTAMP" property="assessmentDat" />
+    <result column="ABN_SCO_NME" jdbcType="VARCHAR" property="abnScoNme" />
+    <result column="ABN_DRIVER" jdbcType="VARCHAR" property="abnDriver" />
+    <result column="ABN_DOCTOR" jdbcType="VARCHAR" property="abnDoctor" />
+    <result column="PSRYQT" jdbcType="VARCHAR" property="psryqt" />
+    <result column="SEE_DOC_DAT" jdbcType="TIMESTAMP" property="seeDocDat" />
+    <result column="PULSE_FLG" jdbcType="VARCHAR" property="pulseFlg" />
+    <result column="HRT_RTE_FLG" jdbcType="VARCHAR" property="hrtRteFlg" />
+    <result column="YLXSS_DES" jdbcType="VARCHAR" property="ylxssDes" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    EMG_SEQ, OPR_DAT, PBG_NBR, QD_COD, QD_OTHER, HX_COD, HX_OTHER, XH_COD, CX_COD, CX_QTBW, 
+    NS_COD, NS_DAQT, NS_TTCJ, NS_THZT, NS_THZT_DES, TK_LEFT, TK_LEFT_COD, TK_RIGHT, TK_RIGHT_COD, 
+    FB_COD, FB_FC, FB_FC_DES, FB_OTHER, PF_COD, PF_FW, PF_FW_DES, CLBZ_COD, QT_QMS_RS, 
+    QT_QMS_DAT, QT_TAT_RS, QT_TAT_DAT, QT_OBJ1_RS, QT_OBJ1_DAT, QT_OBJ2_RS, QT_OBJ2_DAT, 
+    HL_ADDR, JJLX_NAM, JJLX_TEL, QK_COD, QX_BF, QX_ZYH, PRE_ASS_NAM, QT_NAM, CREATE_DAT, 
+    CREATE_NBR, UPDATE_DAT, UPDATE_NBR, QT_OBJ1_NAM, QT_OBJ2_NAM, PBG_NBR_FLG, MEMO, 
+    TK_LEFT_OTHER, TK_RIGHT_OTHER, BRADEN_SEQ, FALLD_SEQ, ADL_SEQ, FALLRISK_SEQ, ZYFXPF_SEQ, 
+    SZ_COD, SZ_OTHER, WCD_COD, WCD_OTHER, TT_COD, TT_BW, SZYD_COD, SZYD_OTHER, JBS_COD, 
+    JBS_DES, SSS_COD, SSS_DES, GMS_COD, GMS_DES, GCS_SEQ, NRS_SEQ, GMS_TYPE, DDFXPGB_SEQ, 
+    JJLX_NAM2, JJLX_TEL2, PRE_DGN_COD, HL_ADDR_OTHER, HLBZ_COD, HLBZ_OTHER, CLBZ_OTHER, 
+    XY_DES, INFORM_DOC_DAT, DOC_DAT, SQL_DCT_NBR, ARV_CHL_COD, CMP_PSN_COD, PRE_HOSPITAL_TREATMENT, 
+    TMP_NBR, PULSE, BRE_NBR, SBP_UP_NBR, SBP_DOWN_NBR, OXY_NBR, HRT_RTE, WORK_ADDRESS, 
+    GLS_COD, TMP_NBR_FLG, BRE_NBR_FLG, SBP_NBR_FLG, XY_FLG, ASSESSMENT_DAT, ABN_SCO_NME, 
+    ABN_DRIVER, ABN_DOCTOR, PSRYQT, SEE_DOC_DAT
+  </sql>
+ <select id="findQxZyhEmgSeq" parameterType="java.lang.String"  resultMap="BaseResultMap">
+     select 
+     EMG_SEQ, QX_ZYH
+    from HSP_HLPGB where EMG_SEQ=#{emgSeq}
+ </select>
+ 
+  <select id="findHlpgbByEmgSeq" parameterType="java.lang.String"  resultMap="BaseResultMap">
+     select 
+     EMG_SEQ, OPR_DAT, PBG_NBR, QD_COD, QD_OTHER, HX_COD, HX_OTHER, XH_COD, CX_COD, CX_QTBW, 
+    NS_COD, NS_DAQT, NS_TTCJ, NS_THZT, NS_THZT_DES, TK_LEFT, TK_LEFT_COD, TK_RIGHT, TK_RIGHT_COD, 
+    FB_FC, FB_FC_DES, FB_OTHER, PF_COD, PF_FW, PF_FW_DES,
+    QT_QMS_RS, QT_QMS_DAT, QT_TAT_RS, QT_TAT_DAT, QT_OBJ1_RS, QT_OBJ1_DAT, QT_OBJ2_RS, 
+    QT_OBJ2_DAT, HL_ADDR, JJLX_NAM, JJLX_TEL, QK_COD, QX_BF, QX_ZYH,
+    CREATE_DAT, CREATE_NBR, UPDATE_DAT, UPDATE_NBR,QT_OBJ1_NAM, QT_OBJ2_NAM,
+    PRE_ASS_NAM,QT_NAM,PBG_NBR_FLG,BRADEN_SEQ,ADL_SEQ,FALLD_SEQ,FALLRISK_SEQ,zyfxpf_Seq,
+    SZ_COD, SZ_OTHER, WCD_COD, WCD_OTHER, TT_COD, TT_BW, SZYD_COD, SZYD_OTHER, JBS_COD, 
+    JBS_DES, SSS_COD, SSS_DES, GMS_COD, GMS_DES, GCS_SEQ, NRS_SEQ,GMS_TYPE,DDFXPGB_SEQ,PRE_DGN_COD,HL_ADDR_OTHER,
+    HLBZ_COD,HLBZ_OTHER,CLBZ_OTHER,XY_DES,MEMO,TK_LEFT_OTHER,TK_RIGHT_OTHER,fb_cod,CLBZ_COD,JJLX_NAM2,JJLX_TEL2,
+    INFORM_DOC_DAT, DOC_DAT, SQL_DCT_NBR, ARV_CHL_COD, CMP_PSN_COD, PRE_HOSPITAL_TREATMENT, TMP_NBR, TMP_NBR_FLG,
+    PULSE, BRE_NBR, SBP_UP_NBR, SBP_DOWN_NBR, OXY_NBR, HRT_RTE, WORK_ADDRESS, GLS_COD, BRE_NBR_FLG, SBP_NBR_FLG,
+    XY_FLG, ASSESSMENT_DAT,ABN_SCO_NME,ABN_DRIVER, ABN_DOCTOR, PSRYQT,SEE_DOC_DAT,PULSE_FLG,HRT_RTE_FLG,YLXSS_DES,
+    (select braden_sco from hsp_braden_inf where xtpg_seq=HSP_HLPGB.BRADEN_SEQ) bradenSco,
+    (select adl_sco from hsp_adl_inf where xtpg_seq=HSP_HLPGB.ADL_SEQ) adlSco,
+    (select zcddexpf_Sco from hsp_zcddexpf_inf where xtpg_seq=HSP_HLPGB.FALLD_SEQ) zcddexpfSco,
+    (select risk_Sco from hsp_fallrisk_inf where FALLRISK_SEQ=HSP_HLPGB.FALLRISK_SEQ) fallriskSco,
+    (select usrname from dstuser where usrno = HSP_HLPGB.PRE_ASS_NAM)preAssStr,
+    (select usrname from dstuser where usrno = HSP_HLPGB.QT_NAM)qtNamStr,
+    (select zyfxpf_sco from hsp_zyfxpf_inf where zyfxpf_seq =HSP_HLPGB.zyfxpf_seq)zyfxpfSco,
+    (select nrs_sco from hsp_nrs_inf where xtpg_seq=HSP_HLPGB.NRS_SEQ) nrsSco,
+    (select TOT_SCO from HSP_GCS_INF where EMG_SEQ = HSP_HLPGB.GCS_SEQ) gcsSco,
+    (select ZF from HSP_DDFXPGB_INF where DDFXPGB_SEQ = HSP_HLPGB.DDFXPGB_SEQ) morseSco
+    from HSP_HLPGB where EMG_SEQ=#{emgSeq}
+ </select>
+ 
+ <!-- 入院护理评估表 -->
+	<select id="findEmgInfByEmgSeq" parameterType="java.lang.String"
+	resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	<![CDATA[
+  	select 
+       t1.mpi                                                                                               mpi,
+       t1.jzxh                                                                                              jzxh,
+       t1.FR_COD                                                                                            frCod,
+       t1.FR_DAT                                                                                            frDat,
+       t1.PSRYQT                                                                                            psryqt,
+       t1.NOW_HIS                                                                                           nowHis,
+       t1.emg_seq                                                                                           emgSeq,
+       t1.VST_CAD                                                                                           vstCad,
+       t1.oxy_nbr                                                                                           oxyNbr,
+       t1.cst_nam                                                                                           cstNam,
+       t1.bth_dat                                                                                           bthDat,
+       t1.cst_age                                                                                           cstAge,
+       t1.phe_nbr                                                                                           pheNbr,
+       t1.cst_adr                                                                                           cstAdr,
+       t1.emg_dat                                                                                           emgDat,
+       t1.GLS_NUM                                                                                           glsNum,
+       t1.GLS_COD                                                                                           glsCod,
+       t1.GLS_NUM                                                                                           pbgNbr,
+       t1.GLS_COD                                                                                           glsCod,
+       t1.ALG_HON                                                                                           algHon,
+       t1.SQL_SEQ                                                                                           sqlSeq,
+       t3.sql_dat                                                                                           sqlDatNew,
+       t2.HRT_RTE                                                                                           pulse,
+       t2.BRE_NBR                                                                                           breNbr,
+       t2.TMP_NBR                                                                                           tmpNbr,
+       t1.DOC_DAT                                                                                           breNbr,
+       t3.sql_seq                                                                                           sqlSeq,
+       t3.sql_des                                                                                           sqlDes,
+       t1.case_his                                                                                          caseHis,
+       t1.GLS_TYPE                                                                                          glsType,
+       t1.GLS_TYPE                                                                                          pbgNbrFlg,
+       t1.JBZD_DES                                                                                          jbzdDes,
+       t2.SBPUP_NBR                                                                                         sbpUpNbr,
+       t1.ABN_DRIVER                                                                                        abnDriver,
+       t1.ABN_DOCTOR                                                                                        abnDoctor,
+       t1.ABN_SCO_NME                                                                                       abnScoNme,
+       t2.SBPDOWN_NBR                                                                                       sbpDownNbr,
+       t1.ARV_CHL_COD                                                                                       arvChlCod,
+       t1.CMP_PSN_COD                                                                                       cmpPsnCod,
+       t1.SQL_DCT_NBR                                                                                       sqlDctNbr,
+       t3.sql_sta_cod                                                                                       sqlStaCod,
+       t3.sql_dep_cod                                                                                       sqlDepCod,
+       t3.SQL_STA_COD                                                                                       cstDspCodNew,
+       t1.SEN_STU_COD                                                                                       senStuCod,
+       t1.sym_sit_des                                                                                       symSitDes,
+       t1.ALG_TYP_DES                                                                                       algTypDes,
+       t1.PRE_DGN_COD                                                                                       preDgnCod,
+       t1.ALG_TYP_COD                                                                                       algTypCod,
+       t1.FIRSTSQLSEQ                                                                                       firstsqlseq,
+       t1.REFUSED_SURVEY                                                                                    refusedSurvey,
+       getjbzddata('13',#{emgSeq})                                                                          mzCbzd,
+       spilt('ALG_TYP_COD', t1.ALG_TYP_COD)                                                     			info,
+       spilt('CMP_PSN_COD', t1.CMP_PSN_COD)                                                     			cmpPsnCodNam,
+       to_char(t3.sql_dat, 'yyyy/mm/dd hh24:mi:ss')                                                         sqlDat,
+       (select TOT_SCO from HSP_GCS_INF where EMG_SEQ =#{emgSeq})                                           gcsSco,
+       (select nrs_sco from hsp_nrs_inf where xtpg_seq =#{emgSeq})                                          nrsSco,
+       (select ZF from HSP_DDFXPGB_INF where DDFXPGB_SEQ = #{emgSeq})                                       morseSco,
+       (select COMCNAME from dstcompctl a where a.COMNO = t1.emg_fk_cod)                                    emgFkCod,
+       getQjsBed(t1.emg_seq,'6')                                                                            bedNum,
+       (select COMCNAME from dstcompctl a where a.COMNO = t3.sql_dep_cod)                                   sqlDepName,
+       (select comcname from dstcompctl a where a.comno = t3.sql_dep_cod)                                   cstDepCodNew,
+       (select info from DSTDICTINFO where INFOCODE = t3.SQL_STA_COD and TYPECODE = 'CST_DSP_COD')          cstDspCodNameNew,
+       (select info from dstdictinfo a where a.typecode = 'MOD_LVL_COD' and a.infocode = t1.emg_dep_cod)    emgDepCod,
+       (select info from dstdictinfo a where a.typecode = 'ARV_CHL_COD' and a.infocode = t1.arv_chl_cod)    arvChlCodNam,
+       (select info from dstdictinfo a where a.typecode = 'SEN_STU_COD' and a.infocode = t1.sen_stu_cod)    senStuCodName,
+       (select info from dstdictinfo a where a.typecode = 'CST_SEX_COD' and a.infocode = t1.cst_sex_cod)    cstSexCod,
+       (select info from dstdictinfo a where a.typecode = 'CST_AGE_COD' and a.infocode = t1.CST_AGE_COD)    cstAgeCod
+	from hsp_emg_inf t1,
+     	HSP_MEWS_INF t2,
+     	hsp_sql_inf t3
+	where t1.emg_seq =#{emgSeq}
+  		and t1.EMG_SEQ = t2.EMG_SEQ(+)
+  		and t1.sql_seq = t3.sql_Seq(+)
+	]]>
+</select>
+
+<select id="getcountFromHspHlpgbToBz" parameterType="activetech.zyyhospital.pojo.dto.HspHlpgbQueryDto"
+		resultType="activetech.zyyhospital.pojo.dto.HspHlpgbCustom">
+		select to_char(#{startdate},'yyyy/MM/dd') || '-' || to_char(#{enddate}-1,'yyyy/MM/dd') querydate,count,name from(
+			<foreach collection="scoIdList"  item="scoIdList" index="index" open="(" close=")" separator="union all">
+				select count(*) count, (#{scoIdList, jdbcType=VARCHAR}) name
+		          from (select hsp_emg_inf.emg_seq
+		                  from hsp_hlpgb,hsp_emg_inf
+		                 where instr(',' || HLBZ_COD || ',', ',${scoIdList},') > 0
+		                 and hsp_hlpgb.EMG_SEQ = hsp_emg_inf.emg_seq
+						 <if test="startdate!=null and startdate!=''">
+						 	and to_char(hsp_hlpgb.CREATE_DAT,'yyyy/MM/dd') <![CDATA[>=]]> to_char(#{startdate},'yyyy/MM/dd') 
+						 </if>
+						 <if test="enddate!=null and enddate!=''">
+						 	and to_char(hsp_hlpgb.CREATE_DAT,'yyyy/MM/dd') <![CDATA[<=]]> to_char(#{enddate},'yyyy/MM/dd') 
+						 </if>		                
+		                union		                
+		                select hsp_emg_inf.emg_seq
+		                  from hsp_jzcspg_inf,hsp_emg_inf
+		                 where instr(',' || HLBZ_COD || ',', ',${scoIdList},') > 0
+		                 and hsp_jzcspg_inf.EMG_SEQ = hsp_emg_inf.emg_seq
+						 <if test="startdate!=null and startdate!=''">
+						 	and to_char(hsp_jzcspg_inf.CREATE_DAT,'yyyy/MM/dd') <![CDATA[>=]]> to_char(#{startdate},'yyyy/MM/dd') 
+						 </if>
+						 <if test="enddate!=null and enddate!=''">
+						 	and to_char(hsp_jzcspg_inf.CREATE_DAT,'yyyy/MM/dd') <![CDATA[<=]]> to_char(#{enddate},'yyyy/MM/dd') 
+						 </if>)
+			</foreach>
+		)
+  </select>
+
+
+	<!-- 导入生命体征 -->
+	<select id="exportVitalSigns" parameterType="activetech.zyyhospital.pojo.dto.HspHlpgbQueryDto" resultType="activetech.zyyhospital.pojo.dto.HspHlpgbCustom">
+		select
+			   to_char(t1.EMG_DAT,'yyyy/MM/dd HH24:mi')															 	emgDatStr,
+		       t1.oxy_nbr                                                                                           oxyNbr,
+		       t1.GLS_NUM                                                                                           pbgNbr,
+		       t1.GLS_COD                                                                                           glsCod,
+		       t2.HRT_RTE                                                                                           pulse,
+		       t2.BRE_NBR                                                                                           breNbr,
+		       t2.TMP_NBR                                                                                           tmpNbr,
+		       t1.GLS_TYPE                                                                                          pbgNbrFlg,
+		       t2.SBPUP_NBR                                                                                         sbpUpNbr,
+		       t2.SBPDOWN_NBR                                                                                       sbpDownNbr
+		from hsp_emg_inf t1,
+		     HSP_MEWS_INF t2
+		where t1.CST_NAM =#{hspemginfCustom.cstNam}
+		  and t1.EMG_SEQ = t2.EMG_SEQ(+)
+ 		 <if test="startdate!=null and startdate!=''">
+			and to_char(EMG_DAT,'YYYY/MM/DD') <![CDATA[>=]]> to_char(#{startdate},'YYYY/MM/DD')
+		 </if>
+		 <if test="enddate!=null and enddate!=''">
+			and to_char(EMG_DAT,'YYYY/MM/DD') <![CDATA[<=]]> to_char(#{enddate},'YYYY/MM/DD')
+		 </if>
+		 order by t1.EMG_DAT
+	</select>
+</mapper>

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspNrsconsentInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspNrsconsentInf" >
+    <id column="SEQNO" property="seqno" jdbcType="VARCHAR" />
+    <result column="REFSEQNO" property="refseqno" jdbcType="VARCHAR" />
+    <result column="TEMPNO" property="tempno" jdbcType="VARCHAR" />
+    <result column="TEMPNAME" property="tempname" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="CRTUSRNO" property="crtusrno" jdbcType="VARCHAR" />
+    <result column="CRTUSRNAME" property="crtusrname" jdbcType="VARCHAR" />
+    <result column="CRTDATE" property="crtdate" jdbcType="TIMESTAMP" />
+    <result column="UPDUSRNO" property="updusrno" jdbcType="VARCHAR" />
+    <result column="UPDUSRNAME" property="updusrname" jdbcType="VARCHAR" />
+    <result column="UPDDATE" property="upddate" jdbcType="TIMESTAMP" />
+    <result column="TEXTPARAM" property="textparam" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="activetech.zyyhospital.pojo.domain.HspNrsconsentInfWithBLOBs" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="CLOB" />
+    <result column="TEXTHTML" property="texthtml" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SEQNO, REFSEQNO, TEMPNO, TEMPNAME, MEMO, CRTUSRNO, CRTUSRNAME, CRTDATE, UPDUSRNO, 
+    UPDUSRNAME, UPDDATE, TEXTPARAM
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT, TEXTHTML
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspNrsconsentInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_NRSCONSENT_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspNrsconsentInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_NRSCONSENT_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_NRSCONSENT_INF
+    where SEQNO = #{seqno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_NRSCONSENT_INF
+    where SEQNO = #{seqno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspNrsconsentInfExample" >
+    delete from HSP_NRSCONSENT_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspNrsconsentInfWithBLOBs" >
+    insert into HSP_NRSCONSENT_INF (SEQNO, REFSEQNO, TEMPNO, 
+      TEMPNAME, MEMO, CRTUSRNO, 
+      CRTUSRNAME, CRTDATE, UPDUSRNO, 
+      UPDUSRNAME, UPDDATE, TEXTPARAM, 
+      CONTENT, TEXTHTML)
+    values (#{seqno,jdbcType=VARCHAR}, #{refseqno,jdbcType=VARCHAR}, #{tempno,jdbcType=VARCHAR}, 
+      #{tempname,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{crtusrno,jdbcType=VARCHAR}, 
+      #{crtusrname,jdbcType=VARCHAR}, #{crtdate,jdbcType=TIMESTAMP}, #{updusrno,jdbcType=VARCHAR}, 
+      #{updusrname,jdbcType=VARCHAR}, #{upddate,jdbcType=TIMESTAMP}, #{textparam,jdbcType=VARCHAR}, 
+      #{content,jdbcType=CLOB}, #{texthtml,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspNrsconsentInfWithBLOBs" >
+    insert into HSP_NRSCONSENT_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seqno != null" >
+        SEQNO,
+      </if>
+      <if test="refseqno != null" >
+        REFSEQNO,
+      </if>
+      <if test="tempno != null" >
+        TEMPNO,
+      </if>
+      <if test="tempname != null" >
+        TEMPNAME,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+      <if test="crtusrno != null" >
+        CRTUSRNO,
+      </if>
+      <if test="crtusrname != null" >
+        CRTUSRNAME,
+      </if>
+      <if test="crtdate != null" >
+        CRTDATE,
+      </if>
+      <if test="updusrno != null" >
+        UPDUSRNO,
+      </if>
+      <if test="updusrname != null" >
+        UPDUSRNAME,
+      </if>
+      <if test="upddate != null" >
+        UPDDATE,
+      </if>
+      <if test="textparam != null" >
+        TEXTPARAM,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="texthtml != null" >
+        TEXTHTML,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seqno != null" >
+        #{seqno,jdbcType=VARCHAR},
+      </if>
+      <if test="refseqno != null" >
+        #{refseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="tempno != null" >
+        #{tempno,jdbcType=VARCHAR},
+      </if>
+      <if test="tempname != null" >
+        #{tempname,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrno != null" >
+        #{crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrname != null" >
+        #{crtusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="crtdate != null" >
+        #{crtdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updusrno != null" >
+        #{updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="updusrname != null" >
+        #{updusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="upddate != null" >
+        #{upddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="textparam != null" >
+        #{textparam,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=CLOB},
+      </if>
+      <if test="texthtml != null" >
+        #{texthtml,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspNrsconsentInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_NRSCONSENT_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_NRSCONSENT_INF
+    <set >
+      <if test="record.seqno != null" >
+        SEQNO = #{record.seqno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refseqno != null" >
+        REFSEQNO = #{record.refseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempno != null" >
+        TEMPNO = #{record.tempno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempname != null" >
+        TEMPNAME = #{record.tempname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtusrno != null" >
+        CRTUSRNO = #{record.crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtusrname != null" >
+        CRTUSRNAME = #{record.crtusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtdate != null" >
+        CRTDATE = #{record.crtdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updusrno != null" >
+        UPDUSRNO = #{record.updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updusrname != null" >
+        UPDUSRNAME = #{record.updusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upddate != null" >
+        UPDDATE = #{record.upddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.textparam != null" >
+        TEXTPARAM = #{record.textparam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content,jdbcType=CLOB},
+      </if>
+      <if test="record.texthtml != null" >
+        TEXTHTML = #{record.texthtml,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update HSP_NRSCONSENT_INF
+    set SEQNO = #{record.seqno,jdbcType=VARCHAR},
+      REFSEQNO = #{record.refseqno,jdbcType=VARCHAR},
+      TEMPNO = #{record.tempno,jdbcType=VARCHAR},
+      TEMPNAME = #{record.tempname,jdbcType=VARCHAR},
+      MEMO = #{record.memo,jdbcType=VARCHAR},
+      CRTUSRNO = #{record.crtusrno,jdbcType=VARCHAR},
+      CRTUSRNAME = #{record.crtusrname,jdbcType=VARCHAR},
+      CRTDATE = #{record.crtdate,jdbcType=TIMESTAMP},
+      UPDUSRNO = #{record.updusrno,jdbcType=VARCHAR},
+      UPDUSRNAME = #{record.updusrname,jdbcType=VARCHAR},
+      UPDDATE = #{record.upddate,jdbcType=TIMESTAMP},
+      TEXTPARAM = #{record.textparam,jdbcType=VARCHAR},
+      CONTENT = #{record.content,jdbcType=CLOB},
+      TEXTHTML = #{record.texthtml,jdbcType=CLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_NRSCONSENT_INF
+    set SEQNO = #{record.seqno,jdbcType=VARCHAR},
+      REFSEQNO = #{record.refseqno,jdbcType=VARCHAR},
+      TEMPNO = #{record.tempno,jdbcType=VARCHAR},
+      TEMPNAME = #{record.tempname,jdbcType=VARCHAR},
+      MEMO = #{record.memo,jdbcType=VARCHAR},
+      CRTUSRNO = #{record.crtusrno,jdbcType=VARCHAR},
+      CRTUSRNAME = #{record.crtusrname,jdbcType=VARCHAR},
+      CRTDATE = #{record.crtdate,jdbcType=TIMESTAMP},
+      UPDUSRNO = #{record.updusrno,jdbcType=VARCHAR},
+      UPDUSRNAME = #{record.updusrname,jdbcType=VARCHAR},
+      UPDDATE = #{record.upddate,jdbcType=TIMESTAMP},
+      TEXTPARAM = #{record.textparam,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspNrsconsentInfWithBLOBs" >
+    update HSP_NRSCONSENT_INF
+    <set >
+      <if test="refseqno != null" >
+        REFSEQNO = #{refseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="tempno != null" >
+        TEMPNO = #{tempno,jdbcType=VARCHAR},
+      </if>
+      <if test="tempname != null" >
+        TEMPNAME = #{tempname,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrno != null" >
+        CRTUSRNO = #{crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrname != null" >
+        CRTUSRNAME = #{crtusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="crtdate != null" >
+        CRTDATE = #{crtdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updusrno != null" >
+        UPDUSRNO = #{updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="updusrname != null" >
+        UPDUSRNAME = #{updusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="upddate != null" >
+        UPDDATE = #{upddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="textparam != null" >
+        TEXTPARAM = #{textparam,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=CLOB},
+      </if>
+      <if test="texthtml != null" >
+        TEXTHTML = #{texthtml,jdbcType=CLOB},
+      </if>
+    </set>
+    where SEQNO = #{seqno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspNrsconsentInfWithBLOBs" >
+    update HSP_NRSCONSENT_INF
+    set REFSEQNO = #{refseqno,jdbcType=VARCHAR},
+      TEMPNO = #{tempno,jdbcType=VARCHAR},
+      TEMPNAME = #{tempname,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      CRTUSRNO = #{crtusrno,jdbcType=VARCHAR},
+      CRTUSRNAME = #{crtusrname,jdbcType=VARCHAR},
+      CRTDATE = #{crtdate,jdbcType=TIMESTAMP},
+      UPDUSRNO = #{updusrno,jdbcType=VARCHAR},
+      UPDUSRNAME = #{updusrname,jdbcType=VARCHAR},
+      UPDDATE = #{upddate,jdbcType=TIMESTAMP},
+      TEXTPARAM = #{textparam,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=CLOB},
+      TEXTHTML = #{texthtml,jdbcType=CLOB}
+    where SEQNO = #{seqno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspNrsconsentInf" >
+    update HSP_NRSCONSENT_INF
+    set REFSEQNO = #{refseqno,jdbcType=VARCHAR},
+      TEMPNO = #{tempno,jdbcType=VARCHAR},
+      TEMPNAME = #{tempname,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      CRTUSRNO = #{crtusrno,jdbcType=VARCHAR},
+      CRTUSRNAME = #{crtusrname,jdbcType=VARCHAR},
+      CRTDATE = #{crtdate,jdbcType=TIMESTAMP},
+      UPDUSRNO = #{updusrno,jdbcType=VARCHAR},
+      UPDUSRNAME = #{updusrname,jdbcType=VARCHAR},
+      UPDDATE = #{upddate,jdbcType=TIMESTAMP},
+      TEXTPARAM = #{textparam,jdbcType=VARCHAR}
+    where SEQNO = #{seqno,jdbcType=VARCHAR}
+  </update>
+</mapper>

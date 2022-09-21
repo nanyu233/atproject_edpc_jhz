@@ -1,0 +1,89 @@
+@font-face {
+  font-family: 'iconfont';
+  src: url('fonts/new_font/iconfont.eot');
+  src: url('fonts/new_font/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('fonts/new_font/iconfont.woff2') format('woff2'),
+  url('fonts/new_font/iconfont.woff') format('woff'),
+  url('fonts/new_font/iconfont.ttf') format('truetype'),
+  url('fonts/new_font/iconfont.svg#iconfont') format('svg');
+}
+[class^="at-fa-"], [class*=" at-fa-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  /* font-family: 'icomoon' !important; */
+  font-family: 'iconfont' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.at-fa-icon-user-manage:before {
+  content: "\e909";
+}
+.at-fa-down:before {
+  content: "\e900";
+}
+.at-fa-icon-auxilium:before {
+  content: "\e630";
+}
+.at-fa-icon-nurse-station:before {
+  content: "\e656";
+}
+.at-fa-icon-nurse-record:before {
+  content: "\e661";
+}
+.at-fa-icon-qjsgl:before {
+  content: "\e6fa";
+}
+.at-fa-icon-quality-control:before {
+  content: "\e669";
+}
+.at-fa-icon-stat-control:before {
+  content: "\e65d";
+}
+.at-fa-icon-system-manage:before {
+  content: "\e640";
+}
+.at-fa-icon-user-set:before {
+  content: "\e604";
+}
+.at-fa-icon-patient-manage:before{
+  content: "\e6fd";
+}
+/* 建档 */
+.at-fa-record:before {
+   content: "\e66b";
+}
+/* 群体事件 */
+.at-fa-mass:before {
+  content: "\e6a8";
+}
+/* 采集数据 */
+.at-fa-relevancy:before {
+  content: "\e6af";
+}
+/* 挂号 */
+.at-fa-register_hos:before {
+  content: "\e688";
+}
+/* 院前信息 */
+.at-fa-before-msg:before {
+  content: "\e645";
+}
+/* 已挂号未完善 */
+.at-fa-register-msg:before {
+  content: "\e60e";
+}

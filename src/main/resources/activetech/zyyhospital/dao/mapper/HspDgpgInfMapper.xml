@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspDgpgInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspDgpgInf">
+    <id column="XTPG_SEQ" jdbcType="VARCHAR" property="xtpgSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="DGPG_JMDG_FLG" jdbcType="CHAR" property="dgpgJmdgFlg" />
+    <result column="WZJM_TC_FLG" jdbcType="CHAR" property="wzjmTcFlg" />
+    <result column="WZJM_JWBYY" jdbcType="VARCHAR" property="wzjmJwbyy" />
+    <result column="WZJM_SD" jdbcType="VARCHAR" property="wzjmSd" />
+    <result column="WZJM_GRJX_FLG" jdbcType="CHAR" property="wzjmGrjxFlg" />
+    <result column="WZJM_SFBG_FLG" jdbcType="CHAR" property="wzjmSfbgFlg" />
+    <result column="WZJM_MEMO" jdbcType="VARCHAR" property="wzjmMemo" />
+    <result column="CVC_DGPG_CCTJ_COD" jdbcType="VARCHAR" property="cvcDgpgCctjCod" />
+    <result column="CVC_DGXH_COD" jdbcType="VARCHAR" property="cvcDgxhCod" />
+    <result column="CVC_ZGSD" jdbcType="VARCHAR" property="cvcZgsd" />
+    <result column="CVC_JWBYY" jdbcType="VARCHAR" property="cvcJwbyy" />
+    <result column="CVC_JWBYY_SD" jdbcType="VARCHAR" property="cvcJwbyySd" />
+    <result column="CVC_GRJX_FLG" jdbcType="CHAR" property="cvcGrjxFlg" />
+    <result column="CVC_HY_FLG" jdbcType="CHAR" property="cvcHyFlg" />
+    <result column="CVC_MEMO" jdbcType="VARCHAR" property="cvcMemo" />
+    <result column="PICC_DGXH" jdbcType="VARCHAR" property="piccDgxh" />
+    <result column="PICC_DGXH_NZ" jdbcType="DECIMAL" property="piccDgxhNz" />
+    <result column="PICC_DGXH_WZ" jdbcType="DECIMAL" property="piccDgxhWz" />
+    <result column="SYG_DGPG_CCTJ_COD" jdbcType="VARCHAR" property="sygDgpgCctjCod" />
+    <result column="SYG_CCTJ_TC_FLG" jdbcType="CHAR" property="sygCctjTcFlg" />
+    <result column="SYG_JWBYY" jdbcType="VARCHAR" property="sygJwbyy" />
+    <result column="SYG_SD" jdbcType="VARCHAR" property="sygSd" />
+    <result column="SYG_GRJX_FLG" jdbcType="CHAR" property="sygGrjxFlg" />
+    <result column="SYG_DXZCC_FLG" jdbcType="CHAR" property="sygDxzccFlg" />
+    <result column="SYG_BDXZ_FLG" jdbcType="CHAR" property="sygBdxzFlg" />
+    <result column="SYG_QT" jdbcType="VARCHAR" property="sygQt" />
+    <result column="DGPG_YLG_FLG" jdbcType="CHAR" property="dgpgYlgFlg" />
+    <result column="YLG_GRJX_FLG" jdbcType="CHAR" property="ylgGrjxFlg" />
+    <result column="YLG_BG_FLG" jdbcType="CHAR" property="ylgBgFlg" />
+    <result column="DGPG_MEMO" jdbcType="VARCHAR" property="dgpgMemo" />
+    <result column="WZJM_GDT" jdbcType="CHAR" property="wzjmGdt" />
+    <result column="DGPG_QT_FLG" jdbcType="CHAR" property="dgpgQtFlg" />
+    <result column="QT_GRJX_FLG" jdbcType="CHAR" property="qtGrjxFlg" />
+    <result column="QT_BG_FLG" jdbcType="CHAR" property="qtBgFlg" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    XTPG_SEQ, EMG_SEQ, DGPG_JMDG_FLG, WZJM_TC_FLG, WZJM_JWBYY, WZJM_SD, WZJM_GRJX_FLG, 
+    WZJM_SFBG_FLG, WZJM_MEMO, CVC_DGPG_CCTJ_COD, CVC_DGXH_COD, CVC_ZGSD, CVC_JWBYY, CVC_JWBYY_SD, 
+    CVC_GRJX_FLG, CVC_HY_FLG, CVC_MEMO, PICC_DGXH, PICC_DGXH_NZ, PICC_DGXH_WZ, SYG_DGPG_CCTJ_COD, 
+    SYG_CCTJ_TC_FLG, SYG_JWBYY, SYG_SD, SYG_GRJX_FLG, SYG_DXZCC_FLG, SYG_BDXZ_FLG, SYG_QT, 
+    DGPG_YLG_FLG, YLG_GRJX_FLG, YLG_BG_FLG, DGPG_MEMO, WZJM_GDT, DGPG_QT_FLG, QT_GRJX_FLG, 
+    QT_BG_FLG
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_DGPG_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_DGPG_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_DGPG_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgInfExample">
+    delete from HSP_DGPG_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgInf">
+    insert into HSP_DGPG_INF (XTPG_SEQ, EMG_SEQ, DGPG_JMDG_FLG, 
+      WZJM_TC_FLG, WZJM_JWBYY, WZJM_SD, 
+      WZJM_GRJX_FLG, WZJM_SFBG_FLG, WZJM_MEMO, 
+      CVC_DGPG_CCTJ_COD, CVC_DGXH_COD, CVC_ZGSD, 
+      CVC_JWBYY, CVC_JWBYY_SD, CVC_GRJX_FLG, 
+      CVC_HY_FLG, CVC_MEMO, PICC_DGXH, 
+      PICC_DGXH_NZ, PICC_DGXH_WZ, SYG_DGPG_CCTJ_COD, 
+      SYG_CCTJ_TC_FLG, SYG_JWBYY, SYG_SD, 
+      SYG_GRJX_FLG, SYG_DXZCC_FLG, SYG_BDXZ_FLG, 
+      SYG_QT, DGPG_YLG_FLG, YLG_GRJX_FLG, 
+      YLG_BG_FLG, DGPG_MEMO, WZJM_GDT, 
+      DGPG_QT_FLG, QT_GRJX_FLG, QT_BG_FLG
+      )
+    values (#{xtpgSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{dgpgJmdgFlg,jdbcType=CHAR}, 
+      #{wzjmTcFlg,jdbcType=CHAR}, #{wzjmJwbyy,jdbcType=VARCHAR}, #{wzjmSd,jdbcType=VARCHAR}, 
+      #{wzjmGrjxFlg,jdbcType=CHAR}, #{wzjmSfbgFlg,jdbcType=CHAR}, #{wzjmMemo,jdbcType=VARCHAR}, 
+      #{cvcDgpgCctjCod,jdbcType=VARCHAR}, #{cvcDgxhCod,jdbcType=VARCHAR}, #{cvcZgsd,jdbcType=VARCHAR}, 
+      #{cvcJwbyy,jdbcType=VARCHAR}, #{cvcJwbyySd,jdbcType=VARCHAR}, #{cvcGrjxFlg,jdbcType=CHAR}, 
+      #{cvcHyFlg,jdbcType=CHAR}, #{cvcMemo,jdbcType=VARCHAR}, #{piccDgxh,jdbcType=VARCHAR}, 
+      #{piccDgxhNz,jdbcType=DECIMAL}, #{piccDgxhWz,jdbcType=DECIMAL}, #{sygDgpgCctjCod,jdbcType=VARCHAR}, 
+      #{sygCctjTcFlg,jdbcType=CHAR}, #{sygJwbyy,jdbcType=VARCHAR}, #{sygSd,jdbcType=VARCHAR}, 
+      #{sygGrjxFlg,jdbcType=CHAR}, #{sygDxzccFlg,jdbcType=CHAR}, #{sygBdxzFlg,jdbcType=CHAR}, 
+      #{sygQt,jdbcType=VARCHAR}, #{dgpgYlgFlg,jdbcType=CHAR}, #{ylgGrjxFlg,jdbcType=CHAR}, 
+      #{ylgBgFlg,jdbcType=CHAR}, #{dgpgMemo,jdbcType=VARCHAR}, #{wzjmGdt,jdbcType=CHAR}, 
+      #{dgpgQtFlg,jdbcType=CHAR}, #{qtGrjxFlg,jdbcType=CHAR}, #{qtBgFlg,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgInf">
+    insert into HSP_DGPG_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="xtpgSeq != null">
+        XTPG_SEQ,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="dgpgJmdgFlg != null">
+        DGPG_JMDG_FLG,
+      </if>
+      <if test="wzjmTcFlg != null">
+        WZJM_TC_FLG,
+      </if>
+      <if test="wzjmJwbyy != null">
+        WZJM_JWBYY,
+      </if>
+      <if test="wzjmSd != null">
+        WZJM_SD,
+      </if>
+      <if test="wzjmGrjxFlg != null">
+        WZJM_GRJX_FLG,
+      </if>
+      <if test="wzjmSfbgFlg != null">
+        WZJM_SFBG_FLG,
+      </if>
+      <if test="wzjmMemo != null">
+        WZJM_MEMO,
+      </if>
+      <if test="cvcDgpgCctjCod != null">
+        CVC_DGPG_CCTJ_COD,
+      </if>
+      <if test="cvcDgxhCod != null">
+        CVC_DGXH_COD,
+      </if>
+      <if test="cvcZgsd != null">
+        CVC_ZGSD,
+      </if>
+      <if test="cvcJwbyy != null">
+        CVC_JWBYY,
+      </if>
+      <if test="cvcJwbyySd != null">
+        CVC_JWBYY_SD,
+      </if>
+      <if test="cvcGrjxFlg != null">
+        CVC_GRJX_FLG,
+      </if>
+      <if test="cvcHyFlg != null">
+        CVC_HY_FLG,
+      </if>
+      <if test="cvcMemo != null">
+        CVC_MEMO,
+      </if>
+      <if test="piccDgxh != null">
+        PICC_DGXH,
+      </if>
+      <if test="piccDgxhNz != null">
+        PICC_DGXH_NZ,
+      </if>
+      <if test="piccDgxhWz != null">
+        PICC_DGXH_WZ,
+      </if>
+      <if test="sygDgpgCctjCod != null">
+        SYG_DGPG_CCTJ_COD,
+      </if>
+      <if test="sygCctjTcFlg != null">
+        SYG_CCTJ_TC_FLG,
+      </if>
+      <if test="sygJwbyy != null">
+        SYG_JWBYY,
+      </if>
+      <if test="sygSd != null">
+        SYG_SD,
+      </if>
+      <if test="sygGrjxFlg != null">
+        SYG_GRJX_FLG,
+      </if>
+      <if test="sygDxzccFlg != null">
+        SYG_DXZCC_FLG,
+      </if>
+      <if test="sygBdxzFlg != null">
+        SYG_BDXZ_FLG,
+      </if>
+      <if test="sygQt != null">
+        SYG_QT,
+      </if>
+      <if test="dgpgYlgFlg != null">
+        DGPG_YLG_FLG,
+      </if>
+      <if test="ylgGrjxFlg != null">
+        YLG_GRJX_FLG,
+      </if>
+      <if test="ylgBgFlg != null">
+        YLG_BG_FLG,
+      </if>
+      <if test="dgpgMemo != null">
+        DGPG_MEMO,
+      </if>
+      <if test="wzjmGdt != null">
+        WZJM_GDT,
+      </if>
+      <if test="dgpgQtFlg != null">
+        DGPG_QT_FLG,
+      </if>
+      <if test="qtGrjxFlg != null">
+        QT_GRJX_FLG,
+      </if>
+      <if test="qtBgFlg != null">
+        QT_BG_FLG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="xtpgSeq != null">
+        #{xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="dgpgJmdgFlg != null">
+        #{dgpgJmdgFlg,jdbcType=CHAR},
+      </if>
+      <if test="wzjmTcFlg != null">
+        #{wzjmTcFlg,jdbcType=CHAR},
+      </if>
+      <if test="wzjmJwbyy != null">
+        #{wzjmJwbyy,jdbcType=VARCHAR},
+      </if>
+      <if test="wzjmSd != null">
+        #{wzjmSd,jdbcType=VARCHAR},
+      </if>
+      <if test="wzjmGrjxFlg != null">
+        #{wzjmGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="wzjmSfbgFlg != null">
+        #{wzjmSfbgFlg,jdbcType=CHAR},
+      </if>
+      <if test="wzjmMemo != null">
+        #{wzjmMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcDgpgCctjCod != null">
+        #{cvcDgpgCctjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcDgxhCod != null">
+        #{cvcDgxhCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcZgsd != null">
+        #{cvcZgsd,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcJwbyy != null">
+        #{cvcJwbyy,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcJwbyySd != null">
+        #{cvcJwbyySd,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcGrjxFlg != null">
+        #{cvcGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="cvcHyFlg != null">
+        #{cvcHyFlg,jdbcType=CHAR},
+      </if>
+      <if test="cvcMemo != null">
+        #{cvcMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="piccDgxh != null">
+        #{piccDgxh,jdbcType=VARCHAR},
+      </if>
+      <if test="piccDgxhNz != null">
+        #{piccDgxhNz,jdbcType=DECIMAL},
+      </if>
+      <if test="piccDgxhWz != null">
+        #{piccDgxhWz,jdbcType=DECIMAL},
+      </if>
+      <if test="sygDgpgCctjCod != null">
+        #{sygDgpgCctjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sygCctjTcFlg != null">
+        #{sygCctjTcFlg,jdbcType=CHAR},
+      </if>
+      <if test="sygJwbyy != null">
+        #{sygJwbyy,jdbcType=VARCHAR},
+      </if>
+      <if test="sygSd != null">
+        #{sygSd,jdbcType=VARCHAR},
+      </if>
+      <if test="sygGrjxFlg != null">
+        #{sygGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="sygDxzccFlg != null">
+        #{sygDxzccFlg,jdbcType=CHAR},
+      </if>
+      <if test="sygBdxzFlg != null">
+        #{sygBdxzFlg,jdbcType=CHAR},
+      </if>
+      <if test="sygQt != null">
+        #{sygQt,jdbcType=VARCHAR},
+      </if>
+      <if test="dgpgYlgFlg != null">
+        #{dgpgYlgFlg,jdbcType=CHAR},
+      </if>
+      <if test="ylgGrjxFlg != null">
+        #{ylgGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="ylgBgFlg != null">
+        #{ylgBgFlg,jdbcType=CHAR},
+      </if>
+      <if test="dgpgMemo != null">
+        #{dgpgMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="wzjmGdt != null">
+        #{wzjmGdt,jdbcType=CHAR},
+      </if>
+      <if test="dgpgQtFlg != null">
+        #{dgpgQtFlg,jdbcType=CHAR},
+      </if>
+      <if test="qtGrjxFlg != null">
+        #{qtGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="qtBgFlg != null">
+        #{qtBgFlg,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_DGPG_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_DGPG_INF
+    <set>
+      <if test="record.xtpgSeq != null">
+        XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgpgJmdgFlg != null">
+        DGPG_JMDG_FLG = #{record.dgpgJmdgFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.wzjmTcFlg != null">
+        WZJM_TC_FLG = #{record.wzjmTcFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.wzjmJwbyy != null">
+        WZJM_JWBYY = #{record.wzjmJwbyy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wzjmSd != null">
+        WZJM_SD = #{record.wzjmSd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wzjmGrjxFlg != null">
+        WZJM_GRJX_FLG = #{record.wzjmGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.wzjmSfbgFlg != null">
+        WZJM_SFBG_FLG = #{record.wzjmSfbgFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.wzjmMemo != null">
+        WZJM_MEMO = #{record.wzjmMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cvcDgpgCctjCod != null">
+        CVC_DGPG_CCTJ_COD = #{record.cvcDgpgCctjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cvcDgxhCod != null">
+        CVC_DGXH_COD = #{record.cvcDgxhCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cvcZgsd != null">
+        CVC_ZGSD = #{record.cvcZgsd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cvcJwbyy != null">
+        CVC_JWBYY = #{record.cvcJwbyy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cvcJwbyySd != null">
+        CVC_JWBYY_SD = #{record.cvcJwbyySd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cvcGrjxFlg != null">
+        CVC_GRJX_FLG = #{record.cvcGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.cvcHyFlg != null">
+        CVC_HY_FLG = #{record.cvcHyFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.cvcMemo != null">
+        CVC_MEMO = #{record.cvcMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.piccDgxh != null">
+        PICC_DGXH = #{record.piccDgxh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.piccDgxhNz != null">
+        PICC_DGXH_NZ = #{record.piccDgxhNz,jdbcType=DECIMAL},
+      </if>
+      <if test="record.piccDgxhWz != null">
+        PICC_DGXH_WZ = #{record.piccDgxhWz,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sygDgpgCctjCod != null">
+        SYG_DGPG_CCTJ_COD = #{record.sygDgpgCctjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sygCctjTcFlg != null">
+        SYG_CCTJ_TC_FLG = #{record.sygCctjTcFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.sygJwbyy != null">
+        SYG_JWBYY = #{record.sygJwbyy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sygSd != null">
+        SYG_SD = #{record.sygSd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sygGrjxFlg != null">
+        SYG_GRJX_FLG = #{record.sygGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.sygDxzccFlg != null">
+        SYG_DXZCC_FLG = #{record.sygDxzccFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.sygBdxzFlg != null">
+        SYG_BDXZ_FLG = #{record.sygBdxzFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.sygQt != null">
+        SYG_QT = #{record.sygQt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgpgYlgFlg != null">
+        DGPG_YLG_FLG = #{record.dgpgYlgFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.ylgGrjxFlg != null">
+        YLG_GRJX_FLG = #{record.ylgGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.ylgBgFlg != null">
+        YLG_BG_FLG = #{record.ylgBgFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.dgpgMemo != null">
+        DGPG_MEMO = #{record.dgpgMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wzjmGdt != null">
+        WZJM_GDT = #{record.wzjmGdt,jdbcType=CHAR},
+      </if>
+      <if test="record.dgpgQtFlg != null">
+        DGPG_QT_FLG = #{record.dgpgQtFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.qtGrjxFlg != null">
+        QT_GRJX_FLG = #{record.qtGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.qtBgFlg != null">
+        QT_BG_FLG = #{record.qtBgFlg,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_DGPG_INF
+    set XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      DGPG_JMDG_FLG = #{record.dgpgJmdgFlg,jdbcType=CHAR},
+      WZJM_TC_FLG = #{record.wzjmTcFlg,jdbcType=CHAR},
+      WZJM_JWBYY = #{record.wzjmJwbyy,jdbcType=VARCHAR},
+      WZJM_SD = #{record.wzjmSd,jdbcType=VARCHAR},
+      WZJM_GRJX_FLG = #{record.wzjmGrjxFlg,jdbcType=CHAR},
+      WZJM_SFBG_FLG = #{record.wzjmSfbgFlg,jdbcType=CHAR},
+      WZJM_MEMO = #{record.wzjmMemo,jdbcType=VARCHAR},
+      CVC_DGPG_CCTJ_COD = #{record.cvcDgpgCctjCod,jdbcType=VARCHAR},
+      CVC_DGXH_COD = #{record.cvcDgxhCod,jdbcType=VARCHAR},
+      CVC_ZGSD = #{record.cvcZgsd,jdbcType=VARCHAR},
+      CVC_JWBYY = #{record.cvcJwbyy,jdbcType=VARCHAR},
+      CVC_JWBYY_SD = #{record.cvcJwbyySd,jdbcType=VARCHAR},
+      CVC_GRJX_FLG = #{record.cvcGrjxFlg,jdbcType=CHAR},
+      CVC_HY_FLG = #{record.cvcHyFlg,jdbcType=CHAR},
+      CVC_MEMO = #{record.cvcMemo,jdbcType=VARCHAR},
+      PICC_DGXH = #{record.piccDgxh,jdbcType=VARCHAR},
+      PICC_DGXH_NZ = #{record.piccDgxhNz,jdbcType=DECIMAL},
+      PICC_DGXH_WZ = #{record.piccDgxhWz,jdbcType=DECIMAL},
+      SYG_DGPG_CCTJ_COD = #{record.sygDgpgCctjCod,jdbcType=VARCHAR},
+      SYG_CCTJ_TC_FLG = #{record.sygCctjTcFlg,jdbcType=CHAR},
+      SYG_JWBYY = #{record.sygJwbyy,jdbcType=VARCHAR},
+      SYG_SD = #{record.sygSd,jdbcType=VARCHAR},
+      SYG_GRJX_FLG = #{record.sygGrjxFlg,jdbcType=CHAR},
+      SYG_DXZCC_FLG = #{record.sygDxzccFlg,jdbcType=CHAR},
+      SYG_BDXZ_FLG = #{record.sygBdxzFlg,jdbcType=CHAR},
+      SYG_QT = #{record.sygQt,jdbcType=VARCHAR},
+      DGPG_YLG_FLG = #{record.dgpgYlgFlg,jdbcType=CHAR},
+      YLG_GRJX_FLG = #{record.ylgGrjxFlg,jdbcType=CHAR},
+      YLG_BG_FLG = #{record.ylgBgFlg,jdbcType=CHAR},
+      DGPG_MEMO = #{record.dgpgMemo,jdbcType=VARCHAR},
+      WZJM_GDT = #{record.wzjmGdt,jdbcType=CHAR},
+      DGPG_QT_FLG = #{record.dgpgQtFlg,jdbcType=CHAR},
+      QT_GRJX_FLG = #{record.qtGrjxFlg,jdbcType=CHAR},
+      QT_BG_FLG = #{record.qtBgFlg,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgInf">
+    update HSP_DGPG_INF
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="dgpgJmdgFlg != null">
+        DGPG_JMDG_FLG = #{dgpgJmdgFlg,jdbcType=CHAR},
+      </if>
+      <if test="wzjmTcFlg != null">
+        WZJM_TC_FLG = #{wzjmTcFlg,jdbcType=CHAR},
+      </if>
+      <if test="wzjmJwbyy != null">
+        WZJM_JWBYY = #{wzjmJwbyy,jdbcType=VARCHAR},
+      </if>
+      <if test="wzjmSd != null">
+        WZJM_SD = #{wzjmSd,jdbcType=VARCHAR},
+      </if>
+      <if test="wzjmGrjxFlg != null">
+        WZJM_GRJX_FLG = #{wzjmGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="wzjmSfbgFlg != null">
+        WZJM_SFBG_FLG = #{wzjmSfbgFlg,jdbcType=CHAR},
+      </if>
+      <if test="wzjmMemo != null">
+        WZJM_MEMO = #{wzjmMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcDgpgCctjCod != null">
+        CVC_DGPG_CCTJ_COD = #{cvcDgpgCctjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcDgxhCod != null">
+        CVC_DGXH_COD = #{cvcDgxhCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcZgsd != null">
+        CVC_ZGSD = #{cvcZgsd,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcJwbyy != null">
+        CVC_JWBYY = #{cvcJwbyy,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcJwbyySd != null">
+        CVC_JWBYY_SD = #{cvcJwbyySd,jdbcType=VARCHAR},
+      </if>
+      <if test="cvcGrjxFlg != null">
+        CVC_GRJX_FLG = #{cvcGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="cvcHyFlg != null">
+        CVC_HY_FLG = #{cvcHyFlg,jdbcType=CHAR},
+      </if>
+      <if test="cvcMemo != null">
+        CVC_MEMO = #{cvcMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="piccDgxh != null">
+        PICC_DGXH = #{piccDgxh,jdbcType=VARCHAR},
+      </if>
+      <if test="piccDgxhNz != null">
+        PICC_DGXH_NZ = #{piccDgxhNz,jdbcType=DECIMAL},
+      </if>
+      <if test="piccDgxhWz != null">
+        PICC_DGXH_WZ = #{piccDgxhWz,jdbcType=DECIMAL},
+      </if>
+      <if test="sygDgpgCctjCod != null">
+        SYG_DGPG_CCTJ_COD = #{sygDgpgCctjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sygCctjTcFlg != null">
+        SYG_CCTJ_TC_FLG = #{sygCctjTcFlg,jdbcType=CHAR},
+      </if>
+      <if test="sygJwbyy != null">
+        SYG_JWBYY = #{sygJwbyy,jdbcType=VARCHAR},
+      </if>
+      <if test="sygSd != null">
+        SYG_SD = #{sygSd,jdbcType=VARCHAR},
+      </if>
+      <if test="sygGrjxFlg != null">
+        SYG_GRJX_FLG = #{sygGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="sygDxzccFlg != null">
+        SYG_DXZCC_FLG = #{sygDxzccFlg,jdbcType=CHAR},
+      </if>
+      <if test="sygBdxzFlg != null">
+        SYG_BDXZ_FLG = #{sygBdxzFlg,jdbcType=CHAR},
+      </if>
+      <if test="sygQt != null">
+        SYG_QT = #{sygQt,jdbcType=VARCHAR},
+      </if>
+      <if test="dgpgYlgFlg != null">
+        DGPG_YLG_FLG = #{dgpgYlgFlg,jdbcType=CHAR},
+      </if>
+      <if test="ylgGrjxFlg != null">
+        YLG_GRJX_FLG = #{ylgGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="ylgBgFlg != null">
+        YLG_BG_FLG = #{ylgBgFlg,jdbcType=CHAR},
+      </if>
+      <if test="dgpgMemo != null">
+        DGPG_MEMO = #{dgpgMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="wzjmGdt != null">
+        WZJM_GDT = #{wzjmGdt,jdbcType=CHAR},
+      </if>
+      <if test="dgpgQtFlg != null">
+        DGPG_QT_FLG = #{dgpgQtFlg,jdbcType=CHAR},
+      </if>
+      <if test="qtGrjxFlg != null">
+        QT_GRJX_FLG = #{qtGrjxFlg,jdbcType=CHAR},
+      </if>
+      <if test="qtBgFlg != null">
+        QT_BG_FLG = #{qtBgFlg,jdbcType=CHAR},
+      </if>
+    </set>
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgInf">
+    update HSP_DGPG_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      DGPG_JMDG_FLG = #{dgpgJmdgFlg,jdbcType=CHAR},
+      WZJM_TC_FLG = #{wzjmTcFlg,jdbcType=CHAR},
+      WZJM_JWBYY = #{wzjmJwbyy,jdbcType=VARCHAR},
+      WZJM_SD = #{wzjmSd,jdbcType=VARCHAR},
+      WZJM_GRJX_FLG = #{wzjmGrjxFlg,jdbcType=CHAR},
+      WZJM_SFBG_FLG = #{wzjmSfbgFlg,jdbcType=CHAR},
+      WZJM_MEMO = #{wzjmMemo,jdbcType=VARCHAR},
+      CVC_DGPG_CCTJ_COD = #{cvcDgpgCctjCod,jdbcType=VARCHAR},
+      CVC_DGXH_COD = #{cvcDgxhCod,jdbcType=VARCHAR},
+      CVC_ZGSD = #{cvcZgsd,jdbcType=VARCHAR},
+      CVC_JWBYY = #{cvcJwbyy,jdbcType=VARCHAR},
+      CVC_JWBYY_SD = #{cvcJwbyySd,jdbcType=VARCHAR},
+      CVC_GRJX_FLG = #{cvcGrjxFlg,jdbcType=CHAR},
+      CVC_HY_FLG = #{cvcHyFlg,jdbcType=CHAR},
+      CVC_MEMO = #{cvcMemo,jdbcType=VARCHAR},
+      PICC_DGXH = #{piccDgxh,jdbcType=VARCHAR},
+      PICC_DGXH_NZ = #{piccDgxhNz,jdbcType=DECIMAL},
+      PICC_DGXH_WZ = #{piccDgxhWz,jdbcType=DECIMAL},
+      SYG_DGPG_CCTJ_COD = #{sygDgpgCctjCod,jdbcType=VARCHAR},
+      SYG_CCTJ_TC_FLG = #{sygCctjTcFlg,jdbcType=CHAR},
+      SYG_JWBYY = #{sygJwbyy,jdbcType=VARCHAR},
+      SYG_SD = #{sygSd,jdbcType=VARCHAR},
+      SYG_GRJX_FLG = #{sygGrjxFlg,jdbcType=CHAR},
+      SYG_DXZCC_FLG = #{sygDxzccFlg,jdbcType=CHAR},
+      SYG_BDXZ_FLG = #{sygBdxzFlg,jdbcType=CHAR},
+      SYG_QT = #{sygQt,jdbcType=VARCHAR},
+      DGPG_YLG_FLG = #{dgpgYlgFlg,jdbcType=CHAR},
+      YLG_GRJX_FLG = #{ylgGrjxFlg,jdbcType=CHAR},
+      YLG_BG_FLG = #{ylgBgFlg,jdbcType=CHAR},
+      DGPG_MEMO = #{dgpgMemo,jdbcType=VARCHAR},
+      WZJM_GDT = #{wzjmGdt,jdbcType=CHAR},
+      DGPG_QT_FLG = #{dgpgQtFlg,jdbcType=CHAR},
+      QT_GRJX_FLG = #{qtGrjxFlg,jdbcType=CHAR},
+      QT_BG_FLG = #{qtBgFlg,jdbcType=CHAR}
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

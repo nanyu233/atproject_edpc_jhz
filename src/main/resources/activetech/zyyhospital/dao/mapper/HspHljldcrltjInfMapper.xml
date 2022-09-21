@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspHljldcrltjInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspHljldcrltjInf" >
+    <result column="HLJLDCRLTJ_SEQ" property="hljldcrltjSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="START_DAT" property="startDat" jdbcType="TIMESTAMP" />
+    <result column="END_DAT" property="endDat" jdbcType="TIMESTAMP" />
+    <result column="SUM_RL" property="sumRl" jdbcType="VARCHAR" />
+    <result column="SUM_CL" property="sumCl" jdbcType="VARCHAR" />
+    <result column="TJ_NUM" property="tjNum" jdbcType="VARCHAR" />
+    <result column="TJ_NAM" property="tjNam" jdbcType="VARCHAR" />
+    <result column="TJ_DAT" property="tjDat" jdbcType="TIMESTAMP" />
+    <result column="SUM_PEE" property="sumPee" jdbcType="VARCHAR" />
+    <result column="SJC" property="sjc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    HLJLDCRLTJ_SEQ, EMG_SEQ, START_DAT, END_DAT, SUM_RL, SUM_CL, TJ_NUM, TJ_NAM, TJ_DAT, 
+    SUM_PEE, SJC
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspHljldcrltjInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_HLJLDCRLTJ_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspHljldcrltjInfExample" >
+    delete from HSP_HLJLDCRLTJ_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspHljldcrltjInf" >
+    insert into HSP_HLJLDCRLTJ_INF (HLJLDCRLTJ_SEQ, EMG_SEQ, START_DAT, 
+      END_DAT, SUM_RL, SUM_CL, 
+      TJ_NUM, TJ_NAM, TJ_DAT, 
+      SUM_PEE, SJC)
+    values (#{hljldcrltjSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{startDat,jdbcType=TIMESTAMP}, 
+      #{endDat,jdbcType=TIMESTAMP}, #{sumRl,jdbcType=VARCHAR}, #{sumCl,jdbcType=VARCHAR}, 
+      #{tjNum,jdbcType=VARCHAR}, #{tjNam,jdbcType=VARCHAR}, #{tjDat,jdbcType=TIMESTAMP}, 
+      #{sumPee,jdbcType=VARCHAR}, #{sjc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspHljldcrltjInf" >
+    insert into HSP_HLJLDCRLTJ_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hljldcrltjSeq != null" >
+        HLJLDCRLTJ_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="startDat != null" >
+        START_DAT,
+      </if>
+      <if test="endDat != null" >
+        END_DAT,
+      </if>
+      <if test="sumRl != null" >
+        SUM_RL,
+      </if>
+      <if test="sumCl != null" >
+        SUM_CL,
+      </if>
+      <if test="tjNum != null" >
+        TJ_NUM,
+      </if>
+      <if test="tjNam != null" >
+        TJ_NAM,
+      </if>
+      <if test="tjDat != null" >
+        TJ_DAT,
+      </if>
+      <if test="sumPee != null" >
+        SUM_PEE,
+      </if>
+      <if test="sjc != null" >
+        SJC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hljldcrltjSeq != null" >
+        #{hljldcrltjSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="startDat != null" >
+        #{startDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDat != null" >
+        #{endDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sumRl != null" >
+        #{sumRl,jdbcType=VARCHAR},
+      </if>
+      <if test="sumCl != null" >
+        #{sumCl,jdbcType=VARCHAR},
+      </if>
+      <if test="tjNum != null" >
+        #{tjNum,jdbcType=VARCHAR},
+      </if>
+      <if test="tjNam != null" >
+        #{tjNam,jdbcType=VARCHAR},
+      </if>
+      <if test="tjDat != null" >
+        #{tjDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sumPee != null" >
+        #{sumPee,jdbcType=VARCHAR},
+      </if>
+      <if test="sjc != null" >
+        #{sjc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspHljldcrltjInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_HLJLDCRLTJ_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_HLJLDCRLTJ_INF
+    <set >
+      <if test="record.hljldcrltjSeq != null" >
+        HLJLDCRLTJ_SEQ = #{record.hljldcrltjSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startDat != null" >
+        START_DAT = #{record.startDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endDat != null" >
+        END_DAT = #{record.endDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sumRl != null" >
+        SUM_RL = #{record.sumRl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sumCl != null" >
+        SUM_CL = #{record.sumCl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tjNum != null" >
+        TJ_NUM = #{record.tjNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tjNam != null" >
+        TJ_NAM = #{record.tjNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tjDat != null" >
+        TJ_DAT = #{record.tjDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sumPee != null" >
+        SUM_PEE = #{record.sumPee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sjc != null" >
+        SJC = #{record.sjc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_HLJLDCRLTJ_INF
+    set HLJLDCRLTJ_SEQ = #{record.hljldcrltjSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      START_DAT = #{record.startDat,jdbcType=TIMESTAMP},
+      END_DAT = #{record.endDat,jdbcType=TIMESTAMP},
+      SUM_RL = #{record.sumRl,jdbcType=VARCHAR},
+      SUM_CL = #{record.sumCl,jdbcType=VARCHAR},
+      TJ_NUM = #{record.tjNum,jdbcType=VARCHAR},
+      TJ_NAM = #{record.tjNam,jdbcType=VARCHAR},
+      TJ_DAT = #{record.tjDat,jdbcType=TIMESTAMP},
+      SUM_PEE = #{record.sumPee,jdbcType=VARCHAR},
+      SJC = #{record.sjc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

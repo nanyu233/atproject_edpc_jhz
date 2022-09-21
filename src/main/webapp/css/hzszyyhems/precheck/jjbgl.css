@@ -1,0 +1,65 @@
+
+.queryJjb .editjjb {width:100%;border-top:2px solid #80b9ff;}
+.queryJjb .top-title{width:120px;height:28px;line-height:28px;font-size:16px;background:#80b9ff;color:#fff;text-align:center;display: inline-block;}
+.queryJjb .jjbUl{
+    width:80%;
+    margin-left:10%;
+    min-width: 860px;
+}
+.queryJjb .jjbUl li a.my-linkbutton{
+    height: 20px;
+    line-height: 20px;
+}
+.queryJjb ul .oneLi{
+    width:100%;
+    margin:5px 0;
+    overflow: auto;
+}
+.queryJjb ul .halfLi{
+    width:50%;
+    margin:5px 0;
+    float:left;
+    height: 22px;
+    font-size: 16px;
+    line-height: 22px;
+}
+.queryJjb ul .thirdLi{
+    width:33%;
+    margin:5px 0;
+    float:left
+}
+.queryJjb .userList {
+    position: absolute;
+    top:auto;
+    right: auto;
+    width: 138px;
+}
+.temdiv{
+    border: 1px solid #e0e2e5;
+    height: 32px;
+    margin: 5px 0;
+    padding: 5px;
+}
+.closeImg{
+    float: right;
+    margin: 8px;
+    cursor: pointer;
+}
+.btn-right{
+  float: right;
+  margin-right: 5px;
+}
+.longTextArea {
+    width: 100%;
+    height: 135px;
+    resize: none;
+    box-sizing: border-box;
+    padding: 5px
+}
+.container-fluid{
+    text-align: center;
+    padding-top:15px;
+}
+.listDiv{
+    display: inline-block
+}

@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspXhxtpgInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspXhxtpgInf" >
+    <id column="XTPG_SEQ" property="xtpgSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="XHXTPG_YS_COD" property="xhxtpgYsCod" jdbcType="VARCHAR" />
+    <result column="XHXTPG_SY_COD" property="xhxtpgSyCod" jdbcType="VARCHAR" />
+    <result column="XHXTPG_EX_FLG" property="xhxtpgExFlg" jdbcType="CHAR" />
+    <result column="XHXTPG_OT_FLG" property="xhxtpgOtFlg" jdbcType="CHAR" />
+    <result column="XHXTPG_OT_YS" property="xhxtpgOtYs" jdbcType="VARCHAR" />
+    <result column="XHXTPG_OT_L" property="xhxtpgOtL" jdbcType="DECIMAL" />
+    <result column="XHXTPG_FBPZ" property="xhxtpgFbpz" jdbcType="CHAR" />
+    <result column="XHXTPG_FBCG" property="xhxtpgFbcg" jdbcType="CHAR" />
+    <result column="XHXTPG_FZ_COD" property="xhxtpgFzCod" jdbcType="VARCHAR" />
+    <result column="XHXTPG_FBYT_COD" property="xhxtpgFbytCod" jdbcType="VARCHAR" />
+    <result column="XHXTPG_FBFTT_FLG" property="xhxtpgFbfttFlg" jdbcType="CHAR" />
+    <result column="XHXTPG_CMY_COD" property="xhxtpgCmyCod" jdbcType="VARCHAR" />
+    <result column="XHXTPG_PB_COD" property="xhxtpgPbCod" jdbcType="VARCHAR" />
+    <result column="XHXTPG_FQCX_FLG" property="xhxtpgFqcxFlg" jdbcType="CHAR" />
+    <result column="XHXTPG_FW" property="xhxtpgFw" jdbcType="DECIMAL" />
+    <result column="XHXTPG_TPNDS" property="xhxtpgTpnds" jdbcType="DECIMAL" />
+    <result column="XHXTPG_PPNDS" property="xhxtpgPpnds" jdbcType="DECIMAL" />
+    <result column="XHXTPG_MEMO" property="xhxtpgMemo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    XTPG_SEQ, EMG_SEQ, XHXTPG_YS_COD, XHXTPG_SY_COD, XHXTPG_EX_FLG, XHXTPG_OT_FLG, XHXTPG_OT_YS, 
+    XHXTPG_OT_L, XHXTPG_FBPZ, XHXTPG_FBCG, XHXTPG_FZ_COD, XHXTPG_FBYT_COD, XHXTPG_FBFTT_FLG, 
+    XHXTPG_CMY_COD, XHXTPG_PB_COD, XHXTPG_FQCX_FLG, XHXTPG_FW, XHXTPG_TPNDS, XHXTPG_PPNDS, 
+    XHXTPG_MEMO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspXhxtpgInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_XHXTPG_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_XHXTPG_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_XHXTPG_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspXhxtpgInfExample" >
+    delete from HSP_XHXTPG_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspXhxtpgInf" >
+    insert into HSP_XHXTPG_INF (XTPG_SEQ, EMG_SEQ, XHXTPG_YS_COD, 
+      XHXTPG_SY_COD, XHXTPG_EX_FLG, XHXTPG_OT_FLG, 
+      XHXTPG_OT_YS, XHXTPG_OT_L, XHXTPG_FBPZ, 
+      XHXTPG_FBCG, XHXTPG_FZ_COD, XHXTPG_FBYT_COD, 
+      XHXTPG_FBFTT_FLG, XHXTPG_CMY_COD, XHXTPG_PB_COD, 
+      XHXTPG_FQCX_FLG, XHXTPG_FW, XHXTPG_TPNDS, 
+      XHXTPG_PPNDS, XHXTPG_MEMO)
+    values (#{xtpgSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{xhxtpgYsCod,jdbcType=VARCHAR}, 
+      #{xhxtpgSyCod,jdbcType=VARCHAR}, #{xhxtpgExFlg,jdbcType=CHAR}, #{xhxtpgOtFlg,jdbcType=CHAR}, 
+      #{xhxtpgOtYs,jdbcType=VARCHAR}, #{xhxtpgOtL,jdbcType=DECIMAL}, #{xhxtpgFbpz,jdbcType=CHAR}, 
+      #{xhxtpgFbcg,jdbcType=CHAR}, #{xhxtpgFzCod,jdbcType=VARCHAR}, #{xhxtpgFbytCod,jdbcType=VARCHAR}, 
+      #{xhxtpgFbfttFlg,jdbcType=CHAR}, #{xhxtpgCmyCod,jdbcType=VARCHAR}, #{xhxtpgPbCod,jdbcType=VARCHAR}, 
+      #{xhxtpgFqcxFlg,jdbcType=CHAR}, #{xhxtpgFw,jdbcType=DECIMAL}, #{xhxtpgTpnds,jdbcType=DECIMAL}, 
+      #{xhxtpgPpnds,jdbcType=DECIMAL}, #{xhxtpgMemo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspXhxtpgInf" >
+    insert into HSP_XHXTPG_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xtpgSeq != null" >
+        XTPG_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="xhxtpgYsCod != null" >
+        XHXTPG_YS_COD,
+      </if>
+      <if test="xhxtpgSyCod != null" >
+        XHXTPG_SY_COD,
+      </if>
+      <if test="xhxtpgExFlg != null" >
+        XHXTPG_EX_FLG,
+      </if>
+      <if test="xhxtpgOtFlg != null" >
+        XHXTPG_OT_FLG,
+      </if>
+      <if test="xhxtpgOtYs != null" >
+        XHXTPG_OT_YS,
+      </if>
+      <if test="xhxtpgOtL != null" >
+        XHXTPG_OT_L,
+      </if>
+      <if test="xhxtpgFbpz != null" >
+        XHXTPG_FBPZ,
+      </if>
+      <if test="xhxtpgFbcg != null" >
+        XHXTPG_FBCG,
+      </if>
+      <if test="xhxtpgFzCod != null" >
+        XHXTPG_FZ_COD,
+      </if>
+      <if test="xhxtpgFbytCod != null" >
+        XHXTPG_FBYT_COD,
+      </if>
+      <if test="xhxtpgFbfttFlg != null" >
+        XHXTPG_FBFTT_FLG,
+      </if>
+      <if test="xhxtpgCmyCod != null" >
+        XHXTPG_CMY_COD,
+      </if>
+      <if test="xhxtpgPbCod != null" >
+        XHXTPG_PB_COD,
+      </if>
+      <if test="xhxtpgFqcxFlg != null" >
+        XHXTPG_FQCX_FLG,
+      </if>
+      <if test="xhxtpgFw != null" >
+        XHXTPG_FW,
+      </if>
+      <if test="xhxtpgTpnds != null" >
+        XHXTPG_TPNDS,
+      </if>
+      <if test="xhxtpgPpnds != null" >
+        XHXTPG_PPNDS,
+      </if>
+      <if test="xhxtpgMemo != null" >
+        XHXTPG_MEMO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xtpgSeq != null" >
+        #{xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgYsCod != null" >
+        #{xhxtpgYsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgSyCod != null" >
+        #{xhxtpgSyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgExFlg != null" >
+        #{xhxtpgExFlg,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgOtFlg != null" >
+        #{xhxtpgOtFlg,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgOtYs != null" >
+        #{xhxtpgOtYs,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgOtL != null" >
+        #{xhxtpgOtL,jdbcType=DECIMAL},
+      </if>
+      <if test="xhxtpgFbpz != null" >
+        #{xhxtpgFbpz,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgFbcg != null" >
+        #{xhxtpgFbcg,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgFzCod != null" >
+        #{xhxtpgFzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgFbytCod != null" >
+        #{xhxtpgFbytCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgFbfttFlg != null" >
+        #{xhxtpgFbfttFlg,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgCmyCod != null" >
+        #{xhxtpgCmyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgPbCod != null" >
+        #{xhxtpgPbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgFqcxFlg != null" >
+        #{xhxtpgFqcxFlg,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgFw != null" >
+        #{xhxtpgFw,jdbcType=DECIMAL},
+      </if>
+      <if test="xhxtpgTpnds != null" >
+        #{xhxtpgTpnds,jdbcType=DECIMAL},
+      </if>
+      <if test="xhxtpgPpnds != null" >
+        #{xhxtpgPpnds,jdbcType=DECIMAL},
+      </if>
+      <if test="xhxtpgMemo != null" >
+        #{xhxtpgMemo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspXhxtpgInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_XHXTPG_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_XHXTPG_INF
+    <set >
+      <if test="record.xtpgSeq != null" >
+        XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xhxtpgYsCod != null" >
+        XHXTPG_YS_COD = #{record.xhxtpgYsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xhxtpgSyCod != null" >
+        XHXTPG_SY_COD = #{record.xhxtpgSyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xhxtpgExFlg != null" >
+        XHXTPG_EX_FLG = #{record.xhxtpgExFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.xhxtpgOtFlg != null" >
+        XHXTPG_OT_FLG = #{record.xhxtpgOtFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.xhxtpgOtYs != null" >
+        XHXTPG_OT_YS = #{record.xhxtpgOtYs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xhxtpgOtL != null" >
+        XHXTPG_OT_L = #{record.xhxtpgOtL,jdbcType=DECIMAL},
+      </if>
+      <if test="record.xhxtpgFbpz != null" >
+        XHXTPG_FBPZ = #{record.xhxtpgFbpz,jdbcType=CHAR},
+      </if>
+      <if test="record.xhxtpgFbcg != null" >
+        XHXTPG_FBCG = #{record.xhxtpgFbcg,jdbcType=CHAR},
+      </if>
+      <if test="record.xhxtpgFzCod != null" >
+        XHXTPG_FZ_COD = #{record.xhxtpgFzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xhxtpgFbytCod != null" >
+        XHXTPG_FBYT_COD = #{record.xhxtpgFbytCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xhxtpgFbfttFlg != null" >
+        XHXTPG_FBFTT_FLG = #{record.xhxtpgFbfttFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.xhxtpgCmyCod != null" >
+        XHXTPG_CMY_COD = #{record.xhxtpgCmyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xhxtpgPbCod != null" >
+        XHXTPG_PB_COD = #{record.xhxtpgPbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xhxtpgFqcxFlg != null" >
+        XHXTPG_FQCX_FLG = #{record.xhxtpgFqcxFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.xhxtpgFw != null" >
+        XHXTPG_FW = #{record.xhxtpgFw,jdbcType=DECIMAL},
+      </if>
+      <if test="record.xhxtpgTpnds != null" >
+        XHXTPG_TPNDS = #{record.xhxtpgTpnds,jdbcType=DECIMAL},
+      </if>
+      <if test="record.xhxtpgPpnds != null" >
+        XHXTPG_PPNDS = #{record.xhxtpgPpnds,jdbcType=DECIMAL},
+      </if>
+      <if test="record.xhxtpgMemo != null" >
+        XHXTPG_MEMO = #{record.xhxtpgMemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_XHXTPG_INF
+    set XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      XHXTPG_YS_COD = #{record.xhxtpgYsCod,jdbcType=VARCHAR},
+      XHXTPG_SY_COD = #{record.xhxtpgSyCod,jdbcType=VARCHAR},
+      XHXTPG_EX_FLG = #{record.xhxtpgExFlg,jdbcType=CHAR},
+      XHXTPG_OT_FLG = #{record.xhxtpgOtFlg,jdbcType=CHAR},
+      XHXTPG_OT_YS = #{record.xhxtpgOtYs,jdbcType=VARCHAR},
+      XHXTPG_OT_L = #{record.xhxtpgOtL,jdbcType=DECIMAL},
+      XHXTPG_FBPZ = #{record.xhxtpgFbpz,jdbcType=CHAR},
+      XHXTPG_FBCG = #{record.xhxtpgFbcg,jdbcType=CHAR},
+      XHXTPG_FZ_COD = #{record.xhxtpgFzCod,jdbcType=VARCHAR},
+      XHXTPG_FBYT_COD = #{record.xhxtpgFbytCod,jdbcType=VARCHAR},
+      XHXTPG_FBFTT_FLG = #{record.xhxtpgFbfttFlg,jdbcType=CHAR},
+      XHXTPG_CMY_COD = #{record.xhxtpgCmyCod,jdbcType=VARCHAR},
+      XHXTPG_PB_COD = #{record.xhxtpgPbCod,jdbcType=VARCHAR},
+      XHXTPG_FQCX_FLG = #{record.xhxtpgFqcxFlg,jdbcType=CHAR},
+      XHXTPG_FW = #{record.xhxtpgFw,jdbcType=DECIMAL},
+      XHXTPG_TPNDS = #{record.xhxtpgTpnds,jdbcType=DECIMAL},
+      XHXTPG_PPNDS = #{record.xhxtpgPpnds,jdbcType=DECIMAL},
+      XHXTPG_MEMO = #{record.xhxtpgMemo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspXhxtpgInf" >
+    update HSP_XHXTPG_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgYsCod != null" >
+        XHXTPG_YS_COD = #{xhxtpgYsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgSyCod != null" >
+        XHXTPG_SY_COD = #{xhxtpgSyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgExFlg != null" >
+        XHXTPG_EX_FLG = #{xhxtpgExFlg,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgOtFlg != null" >
+        XHXTPG_OT_FLG = #{xhxtpgOtFlg,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgOtYs != null" >
+        XHXTPG_OT_YS = #{xhxtpgOtYs,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgOtL != null" >
+        XHXTPG_OT_L = #{xhxtpgOtL,jdbcType=DECIMAL},
+      </if>
+      <if test="xhxtpgFbpz != null" >
+        XHXTPG_FBPZ = #{xhxtpgFbpz,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgFbcg != null" >
+        XHXTPG_FBCG = #{xhxtpgFbcg,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgFzCod != null" >
+        XHXTPG_FZ_COD = #{xhxtpgFzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgFbytCod != null" >
+        XHXTPG_FBYT_COD = #{xhxtpgFbytCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgFbfttFlg != null" >
+        XHXTPG_FBFTT_FLG = #{xhxtpgFbfttFlg,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgCmyCod != null" >
+        XHXTPG_CMY_COD = #{xhxtpgCmyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgPbCod != null" >
+        XHXTPG_PB_COD = #{xhxtpgPbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xhxtpgFqcxFlg != null" >
+        XHXTPG_FQCX_FLG = #{xhxtpgFqcxFlg,jdbcType=CHAR},
+      </if>
+      <if test="xhxtpgFw != null" >
+        XHXTPG_FW = #{xhxtpgFw,jdbcType=DECIMAL},
+      </if>
+      <if test="xhxtpgTpnds != null" >
+        XHXTPG_TPNDS = #{xhxtpgTpnds,jdbcType=DECIMAL},
+      </if>
+      <if test="xhxtpgPpnds != null" >
+        XHXTPG_PPNDS = #{xhxtpgPpnds,jdbcType=DECIMAL},
+      </if>
+      <if test="xhxtpgMemo != null" >
+        XHXTPG_MEMO = #{xhxtpgMemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspXhxtpgInf" >
+    update HSP_XHXTPG_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      XHXTPG_YS_COD = #{xhxtpgYsCod,jdbcType=VARCHAR},
+      XHXTPG_SY_COD = #{xhxtpgSyCod,jdbcType=VARCHAR},
+      XHXTPG_EX_FLG = #{xhxtpgExFlg,jdbcType=CHAR},
+      XHXTPG_OT_FLG = #{xhxtpgOtFlg,jdbcType=CHAR},
+      XHXTPG_OT_YS = #{xhxtpgOtYs,jdbcType=VARCHAR},
+      XHXTPG_OT_L = #{xhxtpgOtL,jdbcType=DECIMAL},
+      XHXTPG_FBPZ = #{xhxtpgFbpz,jdbcType=CHAR},
+      XHXTPG_FBCG = #{xhxtpgFbcg,jdbcType=CHAR},
+      XHXTPG_FZ_COD = #{xhxtpgFzCod,jdbcType=VARCHAR},
+      XHXTPG_FBYT_COD = #{xhxtpgFbytCod,jdbcType=VARCHAR},
+      XHXTPG_FBFTT_FLG = #{xhxtpgFbfttFlg,jdbcType=CHAR},
+      XHXTPG_CMY_COD = #{xhxtpgCmyCod,jdbcType=VARCHAR},
+      XHXTPG_PB_COD = #{xhxtpgPbCod,jdbcType=VARCHAR},
+      XHXTPG_FQCX_FLG = #{xhxtpgFqcxFlg,jdbcType=CHAR},
+      XHXTPG_FW = #{xhxtpgFw,jdbcType=DECIMAL},
+      XHXTPG_TPNDS = #{xhxtpgTpnds,jdbcType=DECIMAL},
+      XHXTPG_PPNDS = #{xhxtpgPpnds,jdbcType=DECIMAL},
+      XHXTPG_MEMO = #{xhxtpgMemo,jdbcType=VARCHAR}
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

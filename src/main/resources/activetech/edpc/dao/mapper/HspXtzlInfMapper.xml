@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspXtzlInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspXtzlInf" >
+    <id column="SEQ_NO" property="seqNo" jdbcType="VARCHAR" />
+    <result column="EMG_NO" property="emgNo" jdbcType="VARCHAR" />
+    <result column="PRO_CODE" property="proCode" jdbcType="VARCHAR" />
+    <result column="PRO_VAL" property="proVal" jdbcType="VARCHAR" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="TIMESTAMP" />
+    <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+    <result column="MOD_USER" property="modUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SEQ_NO, EMG_NO, PRO_CODE, PRO_VAL, CRT_TIME, CRT_USER, MOD_TIME, MOD_USER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspXtzlInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_XTZL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_XTZL_INF
+    where SEQ_NO = #{seqNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_XTZL_INF
+    where SEQ_NO = #{seqNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspXtzlInfExample" >
+    delete from HSP_XTZL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspXtzlInf" >
+    insert into HSP_XTZL_INF (SEQ_NO, EMG_NO, PRO_CODE, 
+      PRO_VAL, CRT_TIME, CRT_USER, 
+      MOD_TIME, MOD_USER)
+    values (#{seqNo,jdbcType=VARCHAR}, #{emgNo,jdbcType=VARCHAR}, #{proCode,jdbcType=VARCHAR}, 
+      #{proVal,jdbcType=VARCHAR}, #{crtTime,jdbcType=TIMESTAMP}, #{crtUser,jdbcType=VARCHAR}, 
+      #{modTime,jdbcType=TIMESTAMP}, #{modUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspXtzlInf" >
+    insert into HSP_XTZL_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seqNo != null" >
+        SEQ_NO,
+      </if>
+      <if test="emgNo != null" >
+        EMG_NO,
+      </if>
+      <if test="proCode != null" >
+        PRO_CODE,
+      </if>
+      <if test="proVal != null" >
+        PRO_VAL,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="modUser != null" >
+        MOD_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seqNo != null" >
+        #{seqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="emgNo != null" >
+        #{emgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="proCode != null" >
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="proVal != null" >
+        #{proVal,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null" >
+        #{modUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspXtzlInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_XTZL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_XTZL_INF
+    <set >
+      <if test="record.seqNo != null" >
+        SEQ_NO = #{record.seqNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgNo != null" >
+        EMG_NO = #{record.emgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proCode != null" >
+        PRO_CODE = #{record.proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proVal != null" >
+        PRO_VAL = #{record.proVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTime != null" >
+        CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUser != null" >
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTime != null" >
+        MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUser != null" >
+        MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_XTZL_INF
+    set SEQ_NO = #{record.seqNo,jdbcType=VARCHAR},
+      EMG_NO = #{record.emgNo,jdbcType=VARCHAR},
+      PRO_CODE = #{record.proCode,jdbcType=VARCHAR},
+      PRO_VAL = #{record.proVal,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspXtzlInf" >
+    update HSP_XTZL_INF
+    <set >
+      <if test="emgNo != null" >
+        EMG_NO = #{emgNo,jdbcType=VARCHAR},
+      </if>
+      <if test="proCode != null" >
+        PRO_CODE = #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="proVal != null" >
+        PRO_VAL = #{proVal,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null" >
+        MOD_USER = #{modUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SEQ_NO = #{seqNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspXtzlInf" >
+    update HSP_XTZL_INF
+    set EMG_NO = #{emgNo,jdbcType=VARCHAR},
+      PRO_CODE = #{proCode,jdbcType=VARCHAR},
+      PRO_VAL = #{proVal,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{modUser,jdbcType=VARCHAR}
+    where SEQ_NO = #{seqNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

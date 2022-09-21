@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspDocadviceInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspDocadviceInf" >
+    <id column="DOCADVICE_SEQ" property="docadviceSeq" jdbcType="VARCHAR" />
+    <result column="VST_CAD" property="vstCad" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_ISDAT" property="docadviceIsdat" jdbcType="TIMESTAMP" />
+    <result column="DOCADVICE_BEDAT" property="docadviceBedat" jdbcType="TIMESTAMP" />
+    <result column="DOCADVICE_NAM" property="docadviceNam" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_NUIMDAT" property="docadviceNuimdat" jdbcType="TIMESTAMP" />
+    <result column="DOCADVICE_NUIMNAM" property="docadviceNuimnam" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_DOCSTDAT" property="docadviceDocstdat" jdbcType="TIMESTAMP" />
+    <result column="DOCADVICE_DOCSTNAM" property="docadviceDocstnam" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_NUSTDAT" property="docadviceNustdat" jdbcType="TIMESTAMP" />
+    <result column="DOCADVICE_NUSTNAM" property="docadviceNustnam" jdbcType="VARCHAR" />
+    <result column="CREATE_DAT" property="createDat" jdbcType="TIMESTAMP" />
+    <result column="CREATE_NUM" property="createNum" jdbcType="VARCHAR" />
+    <result column="CREATE_NAM" property="createNam" jdbcType="VARCHAR" />
+    <result column="UPDATE_DAT" property="updateDat" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_NUM" property="updateNum" jdbcType="VARCHAR" />
+    <result column="UPDATE_NAM" property="updateNam" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_WAY" property="docadviceWay" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_TYPE" property="docadviceType" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_FLAG" property="docadviceFlag" jdbcType="CHAR" />
+    <result column="DOCADVICE_YYJL" property="docadviceYyjl" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_BZ" property="docadviceBz" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_MAINFLG" property="docadviceMainflg" jdbcType="VARCHAR" />
+    <result column="PX" property="px" jdbcType="VARCHAR" />
+    <result column="GYFSMC" property="gyfsmc" jdbcType="VARCHAR" />
+    <result column="SL" property="sl" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_STATUS" property="docadviceStatus" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_CHECKNAM" property="docadviceChecknam" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_NUIMNAM2" property="docadviceNuimnam2" jdbcType="VARCHAR" />
+    <result column="ISPRINT" property="isprint" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="activetech.zyyhospital.pojo.domain.HspDocadviceInf" extends="BaseResultMap" >
+    <result column="DOCADVICE_CONTENT" property="docadviceContent" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DOCADVICE_SEQ, VST_CAD, DOCADVICE_ISDAT, DOCADVICE_BEDAT, DOCADVICE_NAM, DOCADVICE_NUIMDAT, 
+    DOCADVICE_NUIMNAM, DOCADVICE_DOCSTDAT, DOCADVICE_DOCSTNAM, DOCADVICE_NUSTDAT, DOCADVICE_NUSTNAM, 
+    CREATE_DAT, CREATE_NUM, CREATE_NAM, UPDATE_DAT, UPDATE_NUM, UPDATE_NAM, DOCADVICE_WAY, 
+    DOCADVICE_TYPE, DOCADVICE_FLAG, DOCADVICE_YYJL, DOCADVICE_BZ, DOCADVICE_MAINFLG, 
+    PX, GYFSMC, SL, DOCADVICE_STATUS, DOCADVICE_CHECKNAM, DOCADVICE_NUIMNAM2, ISPRINT
+  </sql>
+  <sql id="Blob_Column_List" >
+    DOCADVICE_CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspDocadviceInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_DOCADVICE_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspDocadviceInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_DOCADVICE_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_DOCADVICE_INF
+    where DOCADVICE_SEQ = #{docadviceSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_DOCADVICE_INF
+    where DOCADVICE_SEQ = #{docadviceSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDocadviceInfExample" >
+    delete from HSP_DOCADVICE_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspDocadviceInf" >
+    insert into HSP_DOCADVICE_INF (DOCADVICE_SEQ, VST_CAD, DOCADVICE_ISDAT, 
+      DOCADVICE_BEDAT, DOCADVICE_NAM, DOCADVICE_NUIMDAT, 
+      DOCADVICE_NUIMNAM, DOCADVICE_DOCSTDAT, 
+      DOCADVICE_DOCSTNAM, DOCADVICE_NUSTDAT, 
+      DOCADVICE_NUSTNAM, CREATE_DAT, CREATE_NUM, 
+      CREATE_NAM, UPDATE_DAT, UPDATE_NUM, 
+      UPDATE_NAM, DOCADVICE_WAY, DOCADVICE_TYPE, 
+      DOCADVICE_FLAG, DOCADVICE_YYJL, DOCADVICE_BZ, 
+      DOCADVICE_MAINFLG, PX, GYFSMC, 
+      SL, DOCADVICE_STATUS, DOCADVICE_CHECKNAM, 
+      DOCADVICE_NUIMNAM2, ISPRINT, DOCADVICE_CONTENT
+      )
+    values (#{docadviceSeq,jdbcType=VARCHAR}, #{vstCad,jdbcType=VARCHAR}, #{docadviceIsdat,jdbcType=TIMESTAMP}, 
+      #{docadviceBedat,jdbcType=TIMESTAMP}, #{docadviceNam,jdbcType=VARCHAR}, #{docadviceNuimdat,jdbcType=TIMESTAMP}, 
+      #{docadviceNuimnam,jdbcType=VARCHAR}, #{docadviceDocstdat,jdbcType=TIMESTAMP}, 
+      #{docadviceDocstnam,jdbcType=VARCHAR}, #{docadviceNustdat,jdbcType=TIMESTAMP}, 
+      #{docadviceNustnam,jdbcType=VARCHAR}, #{createDat,jdbcType=TIMESTAMP}, #{createNum,jdbcType=VARCHAR}, 
+      #{createNam,jdbcType=VARCHAR}, #{updateDat,jdbcType=TIMESTAMP}, #{updateNum,jdbcType=VARCHAR}, 
+      #{updateNam,jdbcType=VARCHAR}, #{docadviceWay,jdbcType=VARCHAR}, #{docadviceType,jdbcType=VARCHAR}, 
+      #{docadviceFlag,jdbcType=CHAR}, #{docadviceYyjl,jdbcType=VARCHAR}, #{docadviceBz,jdbcType=VARCHAR}, 
+      #{docadviceMainflg,jdbcType=VARCHAR}, #{px,jdbcType=VARCHAR}, #{gyfsmc,jdbcType=VARCHAR}, 
+      #{sl,jdbcType=VARCHAR}, #{docadviceStatus,jdbcType=VARCHAR}, #{docadviceChecknam,jdbcType=VARCHAR}, 
+      #{docadviceNuimnam2,jdbcType=VARCHAR}, #{isprint,jdbcType=VARCHAR}, #{docadviceContent,jdbcType=CLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspDocadviceInf" >
+    insert into HSP_DOCADVICE_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="docadviceSeq != null" >
+        DOCADVICE_SEQ,
+      </if>
+      <if test="vstCad != null" >
+        VST_CAD,
+      </if>
+      <if test="docadviceIsdat != null" >
+        DOCADVICE_ISDAT,
+      </if>
+      <if test="docadviceBedat != null" >
+        DOCADVICE_BEDAT,
+      </if>
+      <if test="docadviceNam != null" >
+        DOCADVICE_NAM,
+      </if>
+      <if test="docadviceNuimdat != null" >
+        DOCADVICE_NUIMDAT,
+      </if>
+      <if test="docadviceNuimnam != null" >
+        DOCADVICE_NUIMNAM,
+      </if>
+      <if test="docadviceDocstdat != null" >
+        DOCADVICE_DOCSTDAT,
+      </if>
+      <if test="docadviceDocstnam != null" >
+        DOCADVICE_DOCSTNAM,
+      </if>
+      <if test="docadviceNustdat != null" >
+        DOCADVICE_NUSTDAT,
+      </if>
+      <if test="docadviceNustnam != null" >
+        DOCADVICE_NUSTNAM,
+      </if>
+      <if test="createDat != null" >
+        CREATE_DAT,
+      </if>
+      <if test="createNum != null" >
+        CREATE_NUM,
+      </if>
+      <if test="createNam != null" >
+        CREATE_NAM,
+      </if>
+      <if test="updateDat != null" >
+        UPDATE_DAT,
+      </if>
+      <if test="updateNum != null" >
+        UPDATE_NUM,
+      </if>
+      <if test="updateNam != null" >
+        UPDATE_NAM,
+      </if>
+      <if test="docadviceWay != null" >
+        DOCADVICE_WAY,
+      </if>
+      <if test="docadviceType != null" >
+        DOCADVICE_TYPE,
+      </if>
+      <if test="docadviceFlag != null" >
+        DOCADVICE_FLAG,
+      </if>
+      <if test="docadviceYyjl != null" >
+        DOCADVICE_YYJL,
+      </if>
+      <if test="docadviceBz != null" >
+        DOCADVICE_BZ,
+      </if>
+      <if test="docadviceMainflg != null" >
+        DOCADVICE_MAINFLG,
+      </if>
+      <if test="px != null" >
+        PX,
+      </if>
+      <if test="gyfsmc != null" >
+        GYFSMC,
+      </if>
+      <if test="sl != null" >
+        SL,
+      </if>
+      <if test="docadviceStatus != null" >
+        DOCADVICE_STATUS,
+      </if>
+      <if test="docadviceChecknam != null" >
+        DOCADVICE_CHECKNAM,
+      </if>
+      <if test="docadviceNuimnam2 != null" >
+        DOCADVICE_NUIMNAM2,
+      </if>
+      <if test="isprint != null" >
+        ISPRINT,
+      </if>
+      <if test="docadviceContent != null" >
+        DOCADVICE_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="docadviceSeq != null" >
+        #{docadviceSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="vstCad != null" >
+        #{vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceIsdat != null" >
+        #{docadviceIsdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docadviceBedat != null" >
+        #{docadviceBedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docadviceNam != null" >
+        #{docadviceNam,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceNuimdat != null" >
+        #{docadviceNuimdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docadviceNuimnam != null" >
+        #{docadviceNuimnam,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceDocstdat != null" >
+        #{docadviceDocstdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docadviceDocstnam != null" >
+        #{docadviceDocstnam,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceNustdat != null" >
+        #{docadviceNustdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docadviceNustnam != null" >
+        #{docadviceNustnam,jdbcType=VARCHAR},
+      </if>
+      <if test="createDat != null" >
+        #{createDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createNum != null" >
+        #{createNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createNam != null" >
+        #{createNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDat != null" >
+        #{updateDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateNum != null" >
+        #{updateNum,jdbcType=VARCHAR},
+      </if>
+      <if test="updateNam != null" >
+        #{updateNam,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceWay != null" >
+        #{docadviceWay,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceType != null" >
+        #{docadviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceFlag != null" >
+        #{docadviceFlag,jdbcType=CHAR},
+      </if>
+      <if test="docadviceYyjl != null" >
+        #{docadviceYyjl,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceBz != null" >
+        #{docadviceBz,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceMainflg != null" >
+        #{docadviceMainflg,jdbcType=VARCHAR},
+      </if>
+      <if test="px != null" >
+        #{px,jdbcType=VARCHAR},
+      </if>
+      <if test="gyfsmc != null" >
+        #{gyfsmc,jdbcType=VARCHAR},
+      </if>
+      <if test="sl != null" >
+        #{sl,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceStatus != null" >
+        #{docadviceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceChecknam != null" >
+        #{docadviceChecknam,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceNuimnam2 != null" >
+        #{docadviceNuimnam2,jdbcType=VARCHAR},
+      </if>
+      <if test="isprint != null" >
+        #{isprint,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceContent != null" >
+        #{docadviceContent,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDocadviceInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_DOCADVICE_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_DOCADVICE_INF
+    <set >
+      <if test="record.docadviceSeq != null" >
+        DOCADVICE_SEQ = #{record.docadviceSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vstCad != null" >
+        VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceIsdat != null" >
+        DOCADVICE_ISDAT = #{record.docadviceIsdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.docadviceBedat != null" >
+        DOCADVICE_BEDAT = #{record.docadviceBedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.docadviceNam != null" >
+        DOCADVICE_NAM = #{record.docadviceNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceNuimdat != null" >
+        DOCADVICE_NUIMDAT = #{record.docadviceNuimdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.docadviceNuimnam != null" >
+        DOCADVICE_NUIMNAM = #{record.docadviceNuimnam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceDocstdat != null" >
+        DOCADVICE_DOCSTDAT = #{record.docadviceDocstdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.docadviceDocstnam != null" >
+        DOCADVICE_DOCSTNAM = #{record.docadviceDocstnam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceNustdat != null" >
+        DOCADVICE_NUSTDAT = #{record.docadviceNustdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.docadviceNustnam != null" >
+        DOCADVICE_NUSTNAM = #{record.docadviceNustnam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDat != null" >
+        CREATE_DAT = #{record.createDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createNum != null" >
+        CREATE_NUM = #{record.createNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createNam != null" >
+        CREATE_NAM = #{record.createNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDat != null" >
+        UPDATE_DAT = #{record.updateDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateNum != null" >
+        UPDATE_NUM = #{record.updateNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateNam != null" >
+        UPDATE_NAM = #{record.updateNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceWay != null" >
+        DOCADVICE_WAY = #{record.docadviceWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceType != null" >
+        DOCADVICE_TYPE = #{record.docadviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceFlag != null" >
+        DOCADVICE_FLAG = #{record.docadviceFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.docadviceYyjl != null" >
+        DOCADVICE_YYJL = #{record.docadviceYyjl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceBz != null" >
+        DOCADVICE_BZ = #{record.docadviceBz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceMainflg != null" >
+        DOCADVICE_MAINFLG = #{record.docadviceMainflg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.px != null" >
+        PX = #{record.px,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gyfsmc != null" >
+        GYFSMC = #{record.gyfsmc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sl != null" >
+        SL = #{record.sl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceStatus != null" >
+        DOCADVICE_STATUS = #{record.docadviceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceChecknam != null" >
+        DOCADVICE_CHECKNAM = #{record.docadviceChecknam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceNuimnam2 != null" >
+        DOCADVICE_NUIMNAM2 = #{record.docadviceNuimnam2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isprint != null" >
+        ISPRINT = #{record.isprint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docadviceContent != null" >
+        DOCADVICE_CONTENT = #{record.docadviceContent,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update HSP_DOCADVICE_INF
+    set DOCADVICE_SEQ = #{record.docadviceSeq,jdbcType=VARCHAR},
+      VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      DOCADVICE_ISDAT = #{record.docadviceIsdat,jdbcType=TIMESTAMP},
+      DOCADVICE_BEDAT = #{record.docadviceBedat,jdbcType=TIMESTAMP},
+      DOCADVICE_NAM = #{record.docadviceNam,jdbcType=VARCHAR},
+      DOCADVICE_NUIMDAT = #{record.docadviceNuimdat,jdbcType=TIMESTAMP},
+      DOCADVICE_NUIMNAM = #{record.docadviceNuimnam,jdbcType=VARCHAR},
+      DOCADVICE_DOCSTDAT = #{record.docadviceDocstdat,jdbcType=TIMESTAMP},
+      DOCADVICE_DOCSTNAM = #{record.docadviceDocstnam,jdbcType=VARCHAR},
+      DOCADVICE_NUSTDAT = #{record.docadviceNustdat,jdbcType=TIMESTAMP},
+      DOCADVICE_NUSTNAM = #{record.docadviceNustnam,jdbcType=VARCHAR},
+      CREATE_DAT = #{record.createDat,jdbcType=TIMESTAMP},
+      CREATE_NUM = #{record.createNum,jdbcType=VARCHAR},
+      CREATE_NAM = #{record.createNam,jdbcType=VARCHAR},
+      UPDATE_DAT = #{record.updateDat,jdbcType=TIMESTAMP},
+      UPDATE_NUM = #{record.updateNum,jdbcType=VARCHAR},
+      UPDATE_NAM = #{record.updateNam,jdbcType=VARCHAR},
+      DOCADVICE_WAY = #{record.docadviceWay,jdbcType=VARCHAR},
+      DOCADVICE_TYPE = #{record.docadviceType,jdbcType=VARCHAR},
+      DOCADVICE_FLAG = #{record.docadviceFlag,jdbcType=CHAR},
+      DOCADVICE_YYJL = #{record.docadviceYyjl,jdbcType=VARCHAR},
+      DOCADVICE_BZ = #{record.docadviceBz,jdbcType=VARCHAR},
+      DOCADVICE_MAINFLG = #{record.docadviceMainflg,jdbcType=VARCHAR},
+      PX = #{record.px,jdbcType=VARCHAR},
+      GYFSMC = #{record.gyfsmc,jdbcType=VARCHAR},
+      SL = #{record.sl,jdbcType=VARCHAR},
+      DOCADVICE_STATUS = #{record.docadviceStatus,jdbcType=VARCHAR},
+      DOCADVICE_CHECKNAM = #{record.docadviceChecknam,jdbcType=VARCHAR},
+      DOCADVICE_NUIMNAM2 = #{record.docadviceNuimnam2,jdbcType=VARCHAR},
+      ISPRINT = #{record.isprint,jdbcType=VARCHAR},
+      DOCADVICE_CONTENT = #{record.docadviceContent,jdbcType=CLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_DOCADVICE_INF
+    set DOCADVICE_SEQ = #{record.docadviceSeq,jdbcType=VARCHAR},
+      VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      DOCADVICE_ISDAT = #{record.docadviceIsdat,jdbcType=TIMESTAMP},
+      DOCADVICE_BEDAT = #{record.docadviceBedat,jdbcType=TIMESTAMP},
+      DOCADVICE_NAM = #{record.docadviceNam,jdbcType=VARCHAR},
+      DOCADVICE_NUIMDAT = #{record.docadviceNuimdat,jdbcType=TIMESTAMP},
+      DOCADVICE_NUIMNAM = #{record.docadviceNuimnam,jdbcType=VARCHAR},
+      DOCADVICE_DOCSTDAT = #{record.docadviceDocstdat,jdbcType=TIMESTAMP},
+      DOCADVICE_DOCSTNAM = #{record.docadviceDocstnam,jdbcType=VARCHAR},
+      DOCADVICE_NUSTDAT = #{record.docadviceNustdat,jdbcType=TIMESTAMP},
+      DOCADVICE_NUSTNAM = #{record.docadviceNustnam,jdbcType=VARCHAR},
+      CREATE_DAT = #{record.createDat,jdbcType=TIMESTAMP},
+      CREATE_NUM = #{record.createNum,jdbcType=VARCHAR},
+      CREATE_NAM = #{record.createNam,jdbcType=VARCHAR},
+      UPDATE_DAT = #{record.updateDat,jdbcType=TIMESTAMP},
+      UPDATE_NUM = #{record.updateNum,jdbcType=VARCHAR},
+      UPDATE_NAM = #{record.updateNam,jdbcType=VARCHAR},
+      DOCADVICE_WAY = #{record.docadviceWay,jdbcType=VARCHAR},
+      DOCADVICE_TYPE = #{record.docadviceType,jdbcType=VARCHAR},
+      DOCADVICE_FLAG = #{record.docadviceFlag,jdbcType=CHAR},
+      DOCADVICE_YYJL = #{record.docadviceYyjl,jdbcType=VARCHAR},
+      DOCADVICE_BZ = #{record.docadviceBz,jdbcType=VARCHAR},
+      DOCADVICE_MAINFLG = #{record.docadviceMainflg,jdbcType=VARCHAR},
+      PX = #{record.px,jdbcType=VARCHAR},
+      GYFSMC = #{record.gyfsmc,jdbcType=VARCHAR},
+      SL = #{record.sl,jdbcType=VARCHAR},
+      DOCADVICE_STATUS = #{record.docadviceStatus,jdbcType=VARCHAR},
+      DOCADVICE_CHECKNAM = #{record.docadviceChecknam,jdbcType=VARCHAR},
+      DOCADVICE_NUIMNAM2 = #{record.docadviceNuimnam2,jdbcType=VARCHAR},
+      ISPRINT = #{record.isprint,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspDocadviceInf" >
+    update HSP_DOCADVICE_INF
+    <set >
+      <if test="vstCad != null" >
+        VST_CAD = #{vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceIsdat != null" >
+        DOCADVICE_ISDAT = #{docadviceIsdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docadviceBedat != null" >
+        DOCADVICE_BEDAT = #{docadviceBedat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docadviceNam != null" >
+        DOCADVICE_NAM = #{docadviceNam,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceNuimdat != null" >
+        DOCADVICE_NUIMDAT = #{docadviceNuimdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docadviceNuimnam != null" >
+        DOCADVICE_NUIMNAM = #{docadviceNuimnam,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceDocstdat != null" >
+        DOCADVICE_DOCSTDAT = #{docadviceDocstdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docadviceDocstnam != null" >
+        DOCADVICE_DOCSTNAM = #{docadviceDocstnam,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceNustdat != null" >
+        DOCADVICE_NUSTDAT = #{docadviceNustdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="docadviceNustnam != null" >
+        DOCADVICE_NUSTNAM = #{docadviceNustnam,jdbcType=VARCHAR},
+      </if>
+      <if test="createDat != null" >
+        CREATE_DAT = #{createDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createNum != null" >
+        CREATE_NUM = #{createNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createNam != null" >
+        CREATE_NAM = #{createNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDat != null" >
+        UPDATE_DAT = #{updateDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateNum != null" >
+        UPDATE_NUM = #{updateNum,jdbcType=VARCHAR},
+      </if>
+      <if test="updateNam != null" >
+        UPDATE_NAM = #{updateNam,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceWay != null" >
+        DOCADVICE_WAY = #{docadviceWay,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceType != null" >
+        DOCADVICE_TYPE = #{docadviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceFlag != null" >
+        DOCADVICE_FLAG = #{docadviceFlag,jdbcType=CHAR},
+      </if>
+      <if test="docadviceYyjl != null" >
+        DOCADVICE_YYJL = #{docadviceYyjl,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceBz != null" >
+        DOCADVICE_BZ = #{docadviceBz,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceMainflg != null" >
+        DOCADVICE_MAINFLG = #{docadviceMainflg,jdbcType=VARCHAR},
+      </if>
+      <if test="px != null" >
+        PX = #{px,jdbcType=VARCHAR},
+      </if>
+      <if test="gyfsmc != null" >
+        GYFSMC = #{gyfsmc,jdbcType=VARCHAR},
+      </if>
+      <if test="sl != null" >
+        SL = #{sl,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceStatus != null" >
+        DOCADVICE_STATUS = #{docadviceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceChecknam != null" >
+        DOCADVICE_CHECKNAM = #{docadviceChecknam,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceNuimnam2 != null" >
+        DOCADVICE_NUIMNAM2 = #{docadviceNuimnam2,jdbcType=VARCHAR},
+      </if>
+      <if test="isprint != null" >
+        ISPRINT = #{isprint,jdbcType=VARCHAR},
+      </if>
+      <if test="docadviceContent != null" >
+        DOCADVICE_CONTENT = #{docadviceContent,jdbcType=CLOB},
+      </if>
+    </set>
+    where DOCADVICE_SEQ = #{docadviceSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspDocadviceInf" >
+    update HSP_DOCADVICE_INF
+    set VST_CAD = #{vstCad,jdbcType=VARCHAR},
+      DOCADVICE_ISDAT = #{docadviceIsdat,jdbcType=TIMESTAMP},
+      DOCADVICE_BEDAT = #{docadviceBedat,jdbcType=TIMESTAMP},
+      DOCADVICE_NAM = #{docadviceNam,jdbcType=VARCHAR},
+      DOCADVICE_NUIMDAT = #{docadviceNuimdat,jdbcType=TIMESTAMP},
+      DOCADVICE_NUIMNAM = #{docadviceNuimnam,jdbcType=VARCHAR},
+      DOCADVICE_DOCSTDAT = #{docadviceDocstdat,jdbcType=TIMESTAMP},
+      DOCADVICE_DOCSTNAM = #{docadviceDocstnam,jdbcType=VARCHAR},
+      DOCADVICE_NUSTDAT = #{docadviceNustdat,jdbcType=TIMESTAMP},
+      DOCADVICE_NUSTNAM = #{docadviceNustnam,jdbcType=VARCHAR},
+      CREATE_DAT = #{createDat,jdbcType=TIMESTAMP},
+      CREATE_NUM = #{createNum,jdbcType=VARCHAR},
+      CREATE_NAM = #{createNam,jdbcType=VARCHAR},
+      UPDATE_DAT = #{updateDat,jdbcType=TIMESTAMP},
+      UPDATE_NUM = #{updateNum,jdbcType=VARCHAR},
+      UPDATE_NAM = #{updateNam,jdbcType=VARCHAR},
+      DOCADVICE_WAY = #{docadviceWay,jdbcType=VARCHAR},
+      DOCADVICE_TYPE = #{docadviceType,jdbcType=VARCHAR},
+      DOCADVICE_FLAG = #{docadviceFlag,jdbcType=CHAR},
+      DOCADVICE_YYJL = #{docadviceYyjl,jdbcType=VARCHAR},
+      DOCADVICE_BZ = #{docadviceBz,jdbcType=VARCHAR},
+      DOCADVICE_MAINFLG = #{docadviceMainflg,jdbcType=VARCHAR},
+      PX = #{px,jdbcType=VARCHAR},
+      GYFSMC = #{gyfsmc,jdbcType=VARCHAR},
+      SL = #{sl,jdbcType=VARCHAR},
+      DOCADVICE_STATUS = #{docadviceStatus,jdbcType=VARCHAR},
+      DOCADVICE_CHECKNAM = #{docadviceChecknam,jdbcType=VARCHAR},
+      DOCADVICE_NUIMNAM2 = #{docadviceNuimnam2,jdbcType=VARCHAR},
+      ISPRINT = #{isprint,jdbcType=VARCHAR},
+      DOCADVICE_CONTENT = #{docadviceContent,jdbcType=CLOB}
+    where DOCADVICE_SEQ = #{docadviceSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspDocadviceInf" >
+    update HSP_DOCADVICE_INF
+    set VST_CAD = #{vstCad,jdbcType=VARCHAR},
+      DOCADVICE_ISDAT = #{docadviceIsdat,jdbcType=TIMESTAMP},
+      DOCADVICE_BEDAT = #{docadviceBedat,jdbcType=TIMESTAMP},
+      DOCADVICE_NAM = #{docadviceNam,jdbcType=VARCHAR},
+      DOCADVICE_NUIMDAT = #{docadviceNuimdat,jdbcType=TIMESTAMP},
+      DOCADVICE_NUIMNAM = #{docadviceNuimnam,jdbcType=VARCHAR},
+      DOCADVICE_DOCSTDAT = #{docadviceDocstdat,jdbcType=TIMESTAMP},
+      DOCADVICE_DOCSTNAM = #{docadviceDocstnam,jdbcType=VARCHAR},
+      DOCADVICE_NUSTDAT = #{docadviceNustdat,jdbcType=TIMESTAMP},
+      DOCADVICE_NUSTNAM = #{docadviceNustnam,jdbcType=VARCHAR},
+      CREATE_DAT = #{createDat,jdbcType=TIMESTAMP},
+      CREATE_NUM = #{createNum,jdbcType=VARCHAR},
+      CREATE_NAM = #{createNam,jdbcType=VARCHAR},
+      UPDATE_DAT = #{updateDat,jdbcType=TIMESTAMP},
+      UPDATE_NUM = #{updateNum,jdbcType=VARCHAR},
+      UPDATE_NAM = #{updateNam,jdbcType=VARCHAR},
+      DOCADVICE_WAY = #{docadviceWay,jdbcType=VARCHAR},
+      DOCADVICE_TYPE = #{docadviceType,jdbcType=VARCHAR},
+      DOCADVICE_FLAG = #{docadviceFlag,jdbcType=CHAR},
+      DOCADVICE_YYJL = #{docadviceYyjl,jdbcType=VARCHAR},
+      DOCADVICE_BZ = #{docadviceBz,jdbcType=VARCHAR},
+      DOCADVICE_MAINFLG = #{docadviceMainflg,jdbcType=VARCHAR},
+      PX = #{px,jdbcType=VARCHAR},
+      GYFSMC = #{gyfsmc,jdbcType=VARCHAR},
+      SL = #{sl,jdbcType=VARCHAR},
+      DOCADVICE_STATUS = #{docadviceStatus,jdbcType=VARCHAR},
+      DOCADVICE_CHECKNAM = #{docadviceChecknam,jdbcType=VARCHAR},
+      DOCADVICE_NUIMNAM2 = #{docadviceNuimnam2,jdbcType=VARCHAR},
+      ISPRINT = #{isprint,jdbcType=VARCHAR}
+    where DOCADVICE_SEQ = #{docadviceSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

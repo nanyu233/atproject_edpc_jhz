@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspOperationDictCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspOperationDict" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="OPERATION_CODE" property="operationCode" jdbcType="VARCHAR" />
+    <result column="OPERATION_NAME" property="operationName" jdbcType="VARCHAR" />
+    <result column="OPERATION_GRADE" property="operationGrade" jdbcType="VARCHAR" />
+    <result column="OPERATION_TYPE" property="operationType" jdbcType="VARCHAR" />
+    <result column="PINYIN_CODE" property="pinyinCode" jdbcType="VARCHAR" />
+    <result column="WUBI_CODE" property="wubiCode" jdbcType="VARCHAR" />
+    <result column="DESCN" property="descn" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+ <resultMap id="BaseResultMap2" type="activetech.hospital.pojo.dto.HspOperationDictCustom" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="OPERATION_CODE" property="operationCode" jdbcType="VARCHAR" />
+    <result column="OPERATION_NAME" property="operationName" jdbcType="VARCHAR" />
+    <result column="OPERATION_TYPE" property="operationType" jdbcType="VARCHAR" />
+    <result column="PINYIN_CODE" property="pinyinCode" jdbcType="VARCHAR" />
+
+  </resultMap>
+  
+ <!-- 查询手术操作字典列表 -->
+ 	<select id="findOperationByPysm" parameterType="activetech.hospital.pojo.dto.HspJbzdInfQueryDto"
+ 		resultMap="BaseResultMap2">
+ 		 select ID,OPERATION_CODE,OPERATION_NAME,PINYIN_CODE
+				from HSP_OPERATION_dict
+		where
+				 HSP_OPERATION_dict.PINYIN_CODE like UPPER(#{hspOperationDictCustom.pinyinCode}||'%')
+				or HSP_OPERATION_dict.OPERATION_NAME like #{hspOperationDictCustom.pinyinCode}||'%' 
+ 	</select>
+</mapper>

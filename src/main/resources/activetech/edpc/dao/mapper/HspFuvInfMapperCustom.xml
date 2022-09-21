@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspFuvInfMapperCustom" >
+  <sql id="Base_Column_List" >
+    FUV_SEQ, PAT_ID, OUT_TIM, DIA_RST, FUV_WAY_COD, FUV_TYP, FUV_TIM, FUV_GRP, FUV_DOC, 
+    DGR_STF, PAT_SYM_COD, PAT_WGT, SMK_CON, ALC_CON, FOD_CON, SLT_CON_COD, SPT_CON_WEK, 
+    SPT_CON_TIM, MTL_SET_COD, COM_ACT_COD, ASS_EXM_COD, EXM_RST, MED_CON, COO_MBT_COD, 
+    SCD_VST_COD, TAK_MED_COD, MED_RFT_FLG, HAV_BLD_FLG, ADD_EXP, FUV_AGN_FLG, NXT_FUV_TIM, 
+    NXT_FUV_GRP, NXT_FUV_DOC, PAT_COO, PLN_SEQ
+  </sql>
+  
+  <sql id="Base_Column_With_Translate_List">
+      a.fuv_seq,
+	  a.pat_id,      
+	  a.out_tim,     
+	  a.dia_rst,     
+	  a.fuv_way_cod,  
+	  a.fuv_typ,     
+	  a.fuv_tim,     
+	  a.fuv_grp,
+	  (select t.fuv_grp_nam from hsp_fuv_grp_inf t where t.fuv_grp_cod = a.fuv_grp) fuvGrpNam,       
+	  a.fuv_doc, 
+	  (select t.doc_nam from hsp_fuv_doc_inf t where t.doc_cod = a.fuv_grp) docNam,      
+	  a.dgr_stf,     
+	  a.pat_sym_cod, 
+	  a.pat_wgt,     
+	  a.smk_con,     
+	  a.alc_con,     
+	  a.fod_con,     
+	  a.slt_con_cod, 
+	  a.spt_con_wek, 
+	  a.spt_con_tim, 
+	  a.mtl_set_cod, 
+	  a.com_act_cod, 
+	  a.ass_exm_cod, 
+	  a.exm_rst,     
+	  a.med_con,     
+	  a.coo_mbt_cod, 
+	  a.scd_vst_cod, 
+	  a.tak_med_cod, 
+	  a.med_rft_flg, 
+	  a.hav_bld_flg, 
+	  a.add_exp,     
+	  a.fuv_agn_flg, 
+	  a.nxt_fuv_tim, 
+	  a.nxt_fuv_grp, 
+	  a.nxt_fuv_doc,
+	  (select t.doc_nam from hsp_fuv_doc_inf t where t.doc_cod = a.nxt_fuv_doc) nxtFuvDocNme, 
+	  a.pat_coo, 
+	  a.pln_seq,
+	  b.pat_nam,
+	  c.pln_sta,
+	  c.pln_fuv_typ
+  </sql>  
+  
+  <sql id="condition">
+    <where>
+    	<if test="hspFuvInfCustom!=null">
+    		<if test="hspFuvInfCustom.fuvSeq!=null">
+            	and a.fuv_seq = #{hspFuvInfCustom.fuvSeq}
+            </if>
+       		<if test="hspFuvInfCustom.plnSeq!=null">
+            	and a.pln_seq = #{hspFuvInfCustom.plnSeq}
+            </if>
+            <if test="hspFuvInfCustom.patId!=null">
+            	and a.pat_id = #{hspFuvInfCustom.patId}
+            </if>   
+            <if test="startDate != null and startDate != '' ">            	
+            	and to_char(a.fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')	
+			</if>
+			<if test="endDate != null and endDate != '' ">				
+            	and to_char(a.fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')	
+			</if>
+        </if>
+    </where>
+  </sql>
+
+  <select id="countByCondition" resultType="java.lang.Integer"
+            parameterType="activetech.edpc.pojo.dto.HspFuvInfQueryDto">
+        select count(*)
+          from hsp_fuv_inf a
+        <include refid="condition"/>
+  </select>
+  <select id="selectByCondition" resultType="activetech.edpc.pojo.dto.HspFuvInfCustom"
+      parameterType="activetech.edpc.pojo.dto.HspFuvInfQueryDto" >
+    <include refid="activetech.base.CommonSql.page_start"/>
+      select  <include refid="Base_Column_With_Translate_List"/>  
+        from hsp_fuv_inf a
+        left join hsp_fuv_pat b on a.pat_id=b.pat_id
+        left join hsp_fuv_pln c on a.pln_seq=c.pln_seq
+    <include refid="condition"/>
+    order by a.fuv_seq desc
+    <include refid="activetech.base.CommonSql.page_end"/>
+  </select>
+  
+  <select id="selectOneByCondition" resultType="activetech.edpc.pojo.dto.HspFuvInfCustom" parameterType="activetech.edpc.pojo.dto.HspFuvInfQueryDto" >
+      select <include refid="Base_Column_With_Translate_List"/>
+        from hsp_fuv_inf a
+        left join hsp_fuv_pat b on a.pat_id=b.pat_id
+        left join hsp_fuv_pln c on a.pln_seq=c.pln_seq
+    <include refid="condition"/>
+  </select>
+ </mapper>

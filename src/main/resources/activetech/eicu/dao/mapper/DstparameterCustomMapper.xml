@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.eicu.dao.mapper.DstparameterCustomMapper" >
+  <update id="mergeParameter" parameterType="java.util.List">
+	merge into dstparameter a
+	using (
+		<foreach collection="list" open="(" close=")" index="ind" item="param" separator="union all">
+		   select #{param.partype, jdbcType = VARCHAR } partype,
+	              #{param.parcode, jdbcType = VARCHAR } parcode,
+	              #{param.parname, jdbcType = VARCHAR } parname,
+	              #{param.parmemo, jdbcType = VARCHAR } parmemo,
+	              #{param.parvalue1, jdbcType = VARCHAR } parvalue1,
+	              #{param.parvalue2, jdbcType = VARCHAR } parvalue2,
+	              #{param.parvalue3, jdbcType = VARCHAR } parvalue3,
+	              to_char(sysdate,'yyyy/MM/dd hh24:mi:ss') parvalue4,
+	              #{param.parvalue5, jdbcType = VARCHAR } parvalue5
+	         from dual
+		</foreach>
+	         ) b
+	on (a.partype = b.partype and a.parcode = b.parcode)
+	when matched then
+	  update
+	     set a.parname   = b.parname,
+	         a.parmemo   = b.parmemo,
+	         a.parvalue1 = b.parvalue1,
+	         a.parvalue2 = b.parvalue2,
+	         a.parvalue3 = b.parvalue3,
+	         a.parvalue4 = b.parvalue4,
+	         a.parvalue5 = b.parvalue5
+	when not matched then
+	  insert
+	  values
+	    (b.partype,
+	     b.parcode,
+	     b.parname,
+	     b.parmemo,
+	     b.parvalue1,
+	     b.parvalue2,
+	     b.parvalue3,
+	     b.parvalue4,
+	     b.parvalue5)
+  </update>
+</mapper>

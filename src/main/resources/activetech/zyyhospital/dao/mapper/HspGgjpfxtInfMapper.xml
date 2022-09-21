@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspGgjpfxtInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspGgjpfxtInf">
+    <id column="XTPG_SEQ" jdbcType="VARCHAR" property="xtpgSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="GGJPFXT_PFYS_COD" jdbcType="VARCHAR" property="ggjpfxtPfysCod" />
+    <result column="GGJPFXT_PFWD_COD" jdbcType="VARCHAR" property="ggjpfxtPfwdCod" />
+    <result column="GGJPFXT_SZFW_COD" jdbcType="VARCHAR" property="ggjpfxtSzfwCod" />
+    <result column="GGJPFXT_SZFW_QT" jdbcType="VARCHAR" property="ggjpfxtSzfwQt" />
+    <result column="GGJPFXT_SZXZ_COD" jdbcType="VARCHAR" property="ggjpfxtSzxzCod" />
+    <result column="GGJPFXT_SZCD_COD" jdbcType="VARCHAR" property="ggjpfxtSzcdCod" />
+    <result column="GGJPFXT_BTT_COD" jdbcType="VARCHAR" property="ggjpfxtBttCod" />
+    <result column="GGJPFXT_KQNM_COD" jdbcType="VARCHAR" property="ggjpfxtKqnmCod" />
+    <result column="GGJPFXT_ZKNM_COD" jdbcType="VARCHAR" property="ggjpfxtZknmCod" />
+    <result column="GGJPFXT_BH_FLG" jdbcType="CHAR" property="ggjpfxtBhFlg" />
+    <result column="GGJPFXT_SKBW_COD" jdbcType="VARCHAR" property="ggjpfxtSkbwCod" />
+    <result column="GGJPFXT_SKBW_QT" jdbcType="VARCHAR" property="ggjpfxtSkbwQt" />
+    <result column="GGJPFXT_SK_COD" jdbcType="VARCHAR" property="ggjpfxtSkCod" />
+    <result column="GGJPFXT_YC" jdbcType="VARCHAR" property="ggjpfxtYc" />
+    <result column="GGJPFXT_JZ_FLG" jdbcType="CHAR" property="ggjpfxtJzFlg" />
+    <result column="GGJPFXT_GD_COD" jdbcType="VARCHAR" property="ggjpfxtGdCod" />
+    <result column="GGJPFXT_GD_QT" jdbcType="VARCHAR" property="ggjpfxtGdQt" />
+    <result column="GGJPFXT_HDFS_COD" jdbcType="VARCHAR" property="ggjpfxtHdfsCod" />
+    <result column="GGJPFXT_HDFS_QT" jdbcType="VARCHAR" property="ggjpfxtHdfsQt" />
+    <result column="GGJPFXT_KQY_COD" jdbcType="VARCHAR" property="ggjpfxtKqyCod" />
+    <result column="GGJPFXT_MEMO" jdbcType="VARCHAR" property="ggjpfxtMemo" />
+    <result column="GGJPFXT_PFWD_QT" jdbcType="VARCHAR" property="ggjpfxtPfwdQt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    XTPG_SEQ, EMG_SEQ, GGJPFXT_PFYS_COD, GGJPFXT_PFWD_COD, GGJPFXT_SZFW_COD, GGJPFXT_SZFW_QT, 
+    GGJPFXT_SZXZ_COD, GGJPFXT_SZCD_COD, GGJPFXT_BTT_COD, GGJPFXT_KQNM_COD, GGJPFXT_ZKNM_COD, 
+    GGJPFXT_BH_FLG, GGJPFXT_SKBW_COD, GGJPFXT_SKBW_QT, GGJPFXT_SK_COD, GGJPFXT_YC, GGJPFXT_JZ_FLG, 
+    GGJPFXT_GD_COD, GGJPFXT_GD_QT, GGJPFXT_HDFS_COD, GGJPFXT_HDFS_QT, GGJPFXT_KQY_COD, 
+    GGJPFXT_MEMO, GGJPFXT_PFWD_QT
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspGgjpfxtInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_GGJPFXT_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_GGJPFXT_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_GGJPFXT_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspGgjpfxtInfExample">
+    delete from HSP_GGJPFXT_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspGgjpfxtInf">
+    insert into HSP_GGJPFXT_INF (XTPG_SEQ, EMG_SEQ, GGJPFXT_PFYS_COD, 
+      GGJPFXT_PFWD_COD, GGJPFXT_SZFW_COD, GGJPFXT_SZFW_QT, 
+      GGJPFXT_SZXZ_COD, GGJPFXT_SZCD_COD, GGJPFXT_BTT_COD, 
+      GGJPFXT_KQNM_COD, GGJPFXT_ZKNM_COD, GGJPFXT_BH_FLG, 
+      GGJPFXT_SKBW_COD, GGJPFXT_SKBW_QT, GGJPFXT_SK_COD, 
+      GGJPFXT_YC, GGJPFXT_JZ_FLG, GGJPFXT_GD_COD, 
+      GGJPFXT_GD_QT, GGJPFXT_HDFS_COD, GGJPFXT_HDFS_QT, 
+      GGJPFXT_KQY_COD, GGJPFXT_MEMO, GGJPFXT_PFWD_QT
+      )
+    values (#{xtpgSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{ggjpfxtPfysCod,jdbcType=VARCHAR}, 
+      #{ggjpfxtPfwdCod,jdbcType=VARCHAR}, #{ggjpfxtSzfwCod,jdbcType=VARCHAR}, #{ggjpfxtSzfwQt,jdbcType=VARCHAR}, 
+      #{ggjpfxtSzxzCod,jdbcType=VARCHAR}, #{ggjpfxtSzcdCod,jdbcType=VARCHAR}, #{ggjpfxtBttCod,jdbcType=VARCHAR}, 
+      #{ggjpfxtKqnmCod,jdbcType=VARCHAR}, #{ggjpfxtZknmCod,jdbcType=VARCHAR}, #{ggjpfxtBhFlg,jdbcType=CHAR}, 
+      #{ggjpfxtSkbwCod,jdbcType=VARCHAR}, #{ggjpfxtSkbwQt,jdbcType=VARCHAR}, #{ggjpfxtSkCod,jdbcType=VARCHAR}, 
+      #{ggjpfxtYc,jdbcType=VARCHAR}, #{ggjpfxtJzFlg,jdbcType=CHAR}, #{ggjpfxtGdCod,jdbcType=VARCHAR}, 
+      #{ggjpfxtGdQt,jdbcType=VARCHAR}, #{ggjpfxtHdfsCod,jdbcType=VARCHAR}, #{ggjpfxtHdfsQt,jdbcType=VARCHAR}, 
+      #{ggjpfxtKqyCod,jdbcType=VARCHAR}, #{ggjpfxtMemo,jdbcType=VARCHAR}, #{ggjpfxtPfwdQt,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspGgjpfxtInf">
+    insert into HSP_GGJPFXT_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="xtpgSeq != null">
+        XTPG_SEQ,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="ggjpfxtPfysCod != null">
+        GGJPFXT_PFYS_COD,
+      </if>
+      <if test="ggjpfxtPfwdCod != null">
+        GGJPFXT_PFWD_COD,
+      </if>
+      <if test="ggjpfxtSzfwCod != null">
+        GGJPFXT_SZFW_COD,
+      </if>
+      <if test="ggjpfxtSzfwQt != null">
+        GGJPFXT_SZFW_QT,
+      </if>
+      <if test="ggjpfxtSzxzCod != null">
+        GGJPFXT_SZXZ_COD,
+      </if>
+      <if test="ggjpfxtSzcdCod != null">
+        GGJPFXT_SZCD_COD,
+      </if>
+      <if test="ggjpfxtBttCod != null">
+        GGJPFXT_BTT_COD,
+      </if>
+      <if test="ggjpfxtKqnmCod != null">
+        GGJPFXT_KQNM_COD,
+      </if>
+      <if test="ggjpfxtZknmCod != null">
+        GGJPFXT_ZKNM_COD,
+      </if>
+      <if test="ggjpfxtBhFlg != null">
+        GGJPFXT_BH_FLG,
+      </if>
+      <if test="ggjpfxtSkbwCod != null">
+        GGJPFXT_SKBW_COD,
+      </if>
+      <if test="ggjpfxtSkbwQt != null">
+        GGJPFXT_SKBW_QT,
+      </if>
+      <if test="ggjpfxtSkCod != null">
+        GGJPFXT_SK_COD,
+      </if>
+      <if test="ggjpfxtYc != null">
+        GGJPFXT_YC,
+      </if>
+      <if test="ggjpfxtJzFlg != null">
+        GGJPFXT_JZ_FLG,
+      </if>
+      <if test="ggjpfxtGdCod != null">
+        GGJPFXT_GD_COD,
+      </if>
+      <if test="ggjpfxtGdQt != null">
+        GGJPFXT_GD_QT,
+      </if>
+      <if test="ggjpfxtHdfsCod != null">
+        GGJPFXT_HDFS_COD,
+      </if>
+      <if test="ggjpfxtHdfsQt != null">
+        GGJPFXT_HDFS_QT,
+      </if>
+      <if test="ggjpfxtKqyCod != null">
+        GGJPFXT_KQY_COD,
+      </if>
+      <if test="ggjpfxtMemo != null">
+        GGJPFXT_MEMO,
+      </if>
+      <if test="ggjpfxtPfwdQt != null">
+        GGJPFXT_PFWD_QT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="xtpgSeq != null">
+        #{xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtPfysCod != null">
+        #{ggjpfxtPfysCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtPfwdCod != null">
+        #{ggjpfxtPfwdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSzfwCod != null">
+        #{ggjpfxtSzfwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSzfwQt != null">
+        #{ggjpfxtSzfwQt,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSzxzCod != null">
+        #{ggjpfxtSzxzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSzcdCod != null">
+        #{ggjpfxtSzcdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtBttCod != null">
+        #{ggjpfxtBttCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtKqnmCod != null">
+        #{ggjpfxtKqnmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtZknmCod != null">
+        #{ggjpfxtZknmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtBhFlg != null">
+        #{ggjpfxtBhFlg,jdbcType=CHAR},
+      </if>
+      <if test="ggjpfxtSkbwCod != null">
+        #{ggjpfxtSkbwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSkbwQt != null">
+        #{ggjpfxtSkbwQt,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSkCod != null">
+        #{ggjpfxtSkCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtYc != null">
+        #{ggjpfxtYc,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtJzFlg != null">
+        #{ggjpfxtJzFlg,jdbcType=CHAR},
+      </if>
+      <if test="ggjpfxtGdCod != null">
+        #{ggjpfxtGdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtGdQt != null">
+        #{ggjpfxtGdQt,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtHdfsCod != null">
+        #{ggjpfxtHdfsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtHdfsQt != null">
+        #{ggjpfxtHdfsQt,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtKqyCod != null">
+        #{ggjpfxtKqyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtMemo != null">
+        #{ggjpfxtMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtPfwdQt != null">
+        #{ggjpfxtPfwdQt,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspGgjpfxtInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_GGJPFXT_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_GGJPFXT_INF
+    <set>
+      <if test="record.xtpgSeq != null">
+        XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtPfysCod != null">
+        GGJPFXT_PFYS_COD = #{record.ggjpfxtPfysCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtPfwdCod != null">
+        GGJPFXT_PFWD_COD = #{record.ggjpfxtPfwdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtSzfwCod != null">
+        GGJPFXT_SZFW_COD = #{record.ggjpfxtSzfwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtSzfwQt != null">
+        GGJPFXT_SZFW_QT = #{record.ggjpfxtSzfwQt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtSzxzCod != null">
+        GGJPFXT_SZXZ_COD = #{record.ggjpfxtSzxzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtSzcdCod != null">
+        GGJPFXT_SZCD_COD = #{record.ggjpfxtSzcdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtBttCod != null">
+        GGJPFXT_BTT_COD = #{record.ggjpfxtBttCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtKqnmCod != null">
+        GGJPFXT_KQNM_COD = #{record.ggjpfxtKqnmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtZknmCod != null">
+        GGJPFXT_ZKNM_COD = #{record.ggjpfxtZknmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtBhFlg != null">
+        GGJPFXT_BH_FLG = #{record.ggjpfxtBhFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.ggjpfxtSkbwCod != null">
+        GGJPFXT_SKBW_COD = #{record.ggjpfxtSkbwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtSkbwQt != null">
+        GGJPFXT_SKBW_QT = #{record.ggjpfxtSkbwQt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtSkCod != null">
+        GGJPFXT_SK_COD = #{record.ggjpfxtSkCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtYc != null">
+        GGJPFXT_YC = #{record.ggjpfxtYc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtJzFlg != null">
+        GGJPFXT_JZ_FLG = #{record.ggjpfxtJzFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.ggjpfxtGdCod != null">
+        GGJPFXT_GD_COD = #{record.ggjpfxtGdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtGdQt != null">
+        GGJPFXT_GD_QT = #{record.ggjpfxtGdQt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtHdfsCod != null">
+        GGJPFXT_HDFS_COD = #{record.ggjpfxtHdfsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtHdfsQt != null">
+        GGJPFXT_HDFS_QT = #{record.ggjpfxtHdfsQt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtKqyCod != null">
+        GGJPFXT_KQY_COD = #{record.ggjpfxtKqyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtMemo != null">
+        GGJPFXT_MEMO = #{record.ggjpfxtMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ggjpfxtPfwdQt != null">
+        GGJPFXT_PFWD_QT = #{record.ggjpfxtPfwdQt,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_GGJPFXT_INF
+    set XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      GGJPFXT_PFYS_COD = #{record.ggjpfxtPfysCod,jdbcType=VARCHAR},
+      GGJPFXT_PFWD_COD = #{record.ggjpfxtPfwdCod,jdbcType=VARCHAR},
+      GGJPFXT_SZFW_COD = #{record.ggjpfxtSzfwCod,jdbcType=VARCHAR},
+      GGJPFXT_SZFW_QT = #{record.ggjpfxtSzfwQt,jdbcType=VARCHAR},
+      GGJPFXT_SZXZ_COD = #{record.ggjpfxtSzxzCod,jdbcType=VARCHAR},
+      GGJPFXT_SZCD_COD = #{record.ggjpfxtSzcdCod,jdbcType=VARCHAR},
+      GGJPFXT_BTT_COD = #{record.ggjpfxtBttCod,jdbcType=VARCHAR},
+      GGJPFXT_KQNM_COD = #{record.ggjpfxtKqnmCod,jdbcType=VARCHAR},
+      GGJPFXT_ZKNM_COD = #{record.ggjpfxtZknmCod,jdbcType=VARCHAR},
+      GGJPFXT_BH_FLG = #{record.ggjpfxtBhFlg,jdbcType=CHAR},
+      GGJPFXT_SKBW_COD = #{record.ggjpfxtSkbwCod,jdbcType=VARCHAR},
+      GGJPFXT_SKBW_QT = #{record.ggjpfxtSkbwQt,jdbcType=VARCHAR},
+      GGJPFXT_SK_COD = #{record.ggjpfxtSkCod,jdbcType=VARCHAR},
+      GGJPFXT_YC = #{record.ggjpfxtYc,jdbcType=VARCHAR},
+      GGJPFXT_JZ_FLG = #{record.ggjpfxtJzFlg,jdbcType=CHAR},
+      GGJPFXT_GD_COD = #{record.ggjpfxtGdCod,jdbcType=VARCHAR},
+      GGJPFXT_GD_QT = #{record.ggjpfxtGdQt,jdbcType=VARCHAR},
+      GGJPFXT_HDFS_COD = #{record.ggjpfxtHdfsCod,jdbcType=VARCHAR},
+      GGJPFXT_HDFS_QT = #{record.ggjpfxtHdfsQt,jdbcType=VARCHAR},
+      GGJPFXT_KQY_COD = #{record.ggjpfxtKqyCod,jdbcType=VARCHAR},
+      GGJPFXT_MEMO = #{record.ggjpfxtMemo,jdbcType=VARCHAR},
+      GGJPFXT_PFWD_QT = #{record.ggjpfxtPfwdQt,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspGgjpfxtInf">
+    update HSP_GGJPFXT_INF
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtPfysCod != null">
+        GGJPFXT_PFYS_COD = #{ggjpfxtPfysCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtPfwdCod != null">
+        GGJPFXT_PFWD_COD = #{ggjpfxtPfwdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSzfwCod != null">
+        GGJPFXT_SZFW_COD = #{ggjpfxtSzfwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSzfwQt != null">
+        GGJPFXT_SZFW_QT = #{ggjpfxtSzfwQt,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSzxzCod != null">
+        GGJPFXT_SZXZ_COD = #{ggjpfxtSzxzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSzcdCod != null">
+        GGJPFXT_SZCD_COD = #{ggjpfxtSzcdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtBttCod != null">
+        GGJPFXT_BTT_COD = #{ggjpfxtBttCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtKqnmCod != null">
+        GGJPFXT_KQNM_COD = #{ggjpfxtKqnmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtZknmCod != null">
+        GGJPFXT_ZKNM_COD = #{ggjpfxtZknmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtBhFlg != null">
+        GGJPFXT_BH_FLG = #{ggjpfxtBhFlg,jdbcType=CHAR},
+      </if>
+      <if test="ggjpfxtSkbwCod != null">
+        GGJPFXT_SKBW_COD = #{ggjpfxtSkbwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSkbwQt != null">
+        GGJPFXT_SKBW_QT = #{ggjpfxtSkbwQt,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtSkCod != null">
+        GGJPFXT_SK_COD = #{ggjpfxtSkCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtYc != null">
+        GGJPFXT_YC = #{ggjpfxtYc,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtJzFlg != null">
+        GGJPFXT_JZ_FLG = #{ggjpfxtJzFlg,jdbcType=CHAR},
+      </if>
+      <if test="ggjpfxtGdCod != null">
+        GGJPFXT_GD_COD = #{ggjpfxtGdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtGdQt != null">
+        GGJPFXT_GD_QT = #{ggjpfxtGdQt,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtHdfsCod != null">
+        GGJPFXT_HDFS_COD = #{ggjpfxtHdfsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtHdfsQt != null">
+        GGJPFXT_HDFS_QT = #{ggjpfxtHdfsQt,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtKqyCod != null">
+        GGJPFXT_KQY_COD = #{ggjpfxtKqyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtMemo != null">
+        GGJPFXT_MEMO = #{ggjpfxtMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="ggjpfxtPfwdQt != null">
+        GGJPFXT_PFWD_QT = #{ggjpfxtPfwdQt,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspGgjpfxtInf">
+    update HSP_GGJPFXT_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      GGJPFXT_PFYS_COD = #{ggjpfxtPfysCod,jdbcType=VARCHAR},
+      GGJPFXT_PFWD_COD = #{ggjpfxtPfwdCod,jdbcType=VARCHAR},
+      GGJPFXT_SZFW_COD = #{ggjpfxtSzfwCod,jdbcType=VARCHAR},
+      GGJPFXT_SZFW_QT = #{ggjpfxtSzfwQt,jdbcType=VARCHAR},
+      GGJPFXT_SZXZ_COD = #{ggjpfxtSzxzCod,jdbcType=VARCHAR},
+      GGJPFXT_SZCD_COD = #{ggjpfxtSzcdCod,jdbcType=VARCHAR},
+      GGJPFXT_BTT_COD = #{ggjpfxtBttCod,jdbcType=VARCHAR},
+      GGJPFXT_KQNM_COD = #{ggjpfxtKqnmCod,jdbcType=VARCHAR},
+      GGJPFXT_ZKNM_COD = #{ggjpfxtZknmCod,jdbcType=VARCHAR},
+      GGJPFXT_BH_FLG = #{ggjpfxtBhFlg,jdbcType=CHAR},
+      GGJPFXT_SKBW_COD = #{ggjpfxtSkbwCod,jdbcType=VARCHAR},
+      GGJPFXT_SKBW_QT = #{ggjpfxtSkbwQt,jdbcType=VARCHAR},
+      GGJPFXT_SK_COD = #{ggjpfxtSkCod,jdbcType=VARCHAR},
+      GGJPFXT_YC = #{ggjpfxtYc,jdbcType=VARCHAR},
+      GGJPFXT_JZ_FLG = #{ggjpfxtJzFlg,jdbcType=CHAR},
+      GGJPFXT_GD_COD = #{ggjpfxtGdCod,jdbcType=VARCHAR},
+      GGJPFXT_GD_QT = #{ggjpfxtGdQt,jdbcType=VARCHAR},
+      GGJPFXT_HDFS_COD = #{ggjpfxtHdfsCod,jdbcType=VARCHAR},
+      GGJPFXT_HDFS_QT = #{ggjpfxtHdfsQt,jdbcType=VARCHAR},
+      GGJPFXT_KQY_COD = #{ggjpfxtKqyCod,jdbcType=VARCHAR},
+      GGJPFXT_MEMO = #{ggjpfxtMemo,jdbcType=VARCHAR},
+      GGJPFXT_PFWD_QT = #{ggjpfxtPfwdQt,jdbcType=VARCHAR}
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

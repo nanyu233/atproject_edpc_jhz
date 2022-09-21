@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspDevSysMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspDevSys" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DEVTYP_COD" property="devtypCod" jdbcType="VARCHAR" />
+    <result column="IPADDR" property="ipaddr" jdbcType="VARCHAR" />
+    <result column="DEVNO" property="devno" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="CRT_DAT" property="crtDat" jdbcType="TIMESTAMP" />
+    <result column="CRT_USR_NBR" property="crtUsrNbr" jdbcType="VARCHAR" />
+    <result column="UPD_DAT" property="updDat" jdbcType="TIMESTAMP" />
+    <result column="UPD_USR_NBR" property="updUsrNbr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, DEVTYP_COD, IPADDR, DEVNO, MEMO, CRT_DAT, CRT_USR_NBR, UPD_DAT, UPD_USR_NBR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.domain.HspDevSysExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_DEV_SYS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_DEV_SYS
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_DEV_SYS
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.hospital.pojo.domain.HspDevSysExample" >
+    delete from HSP_DEV_SYS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.hospital.pojo.domain.HspDevSys" >
+    insert into HSP_DEV_SYS (ID, DEVTYP_COD, IPADDR, 
+      DEVNO, MEMO, CRT_DAT, 
+      CRT_USR_NBR, UPD_DAT, UPD_USR_NBR
+      )
+    values (#{id,jdbcType=VARCHAR}, #{devtypCod,jdbcType=VARCHAR}, #{ipaddr,jdbcType=VARCHAR}, 
+      #{devno,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{crtDat,jdbcType=TIMESTAMP}, 
+      #{crtUsrNbr,jdbcType=VARCHAR}, #{updDat,jdbcType=TIMESTAMP}, #{updUsrNbr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.hospital.pojo.domain.HspDevSys" >
+    insert into HSP_DEV_SYS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="devtypCod != null" >
+        DEVTYP_COD,
+      </if>
+      <if test="ipaddr != null" >
+        IPADDR,
+      </if>
+      <if test="devno != null" >
+        DEVNO,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+      <if test="crtDat != null" >
+        CRT_DAT,
+      </if>
+      <if test="crtUsrNbr != null" >
+        CRT_USR_NBR,
+      </if>
+      <if test="updDat != null" >
+        UPD_DAT,
+      </if>
+      <if test="updUsrNbr != null" >
+        UPD_USR_NBR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="devtypCod != null" >
+        #{devtypCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ipaddr != null" >
+        #{ipaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="devno != null" >
+        #{devno,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDat != null" >
+        #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrNbr != null" >
+        #{crtUsrNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="updDat != null" >
+        #{updDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updUsrNbr != null" >
+        #{updUsrNbr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.hospital.pojo.domain.HspDevSysExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_DEV_SYS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_DEV_SYS
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devtypCod != null" >
+        DEVTYP_COD = #{record.devtypCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipaddr != null" >
+        IPADDR = #{record.ipaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devno != null" >
+        DEVNO = #{record.devno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtDat != null" >
+        CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUsrNbr != null" >
+        CRT_USR_NBR = #{record.crtUsrNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updDat != null" >
+        UPD_DAT = #{record.updDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updUsrNbr != null" >
+        UPD_USR_NBR = #{record.updUsrNbr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_DEV_SYS
+    set ID = #{record.id,jdbcType=VARCHAR},
+      DEVTYP_COD = #{record.devtypCod,jdbcType=VARCHAR},
+      IPADDR = #{record.ipaddr,jdbcType=VARCHAR},
+      DEVNO = #{record.devno,jdbcType=VARCHAR},
+      MEMO = #{record.memo,jdbcType=VARCHAR},
+      CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      CRT_USR_NBR = #{record.crtUsrNbr,jdbcType=VARCHAR},
+      UPD_DAT = #{record.updDat,jdbcType=TIMESTAMP},
+      UPD_USR_NBR = #{record.updUsrNbr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.hospital.pojo.domain.HspDevSys" >
+    update HSP_DEV_SYS
+    <set >
+      <if test="devtypCod != null" >
+        DEVTYP_COD = #{devtypCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ipaddr != null" >
+        IPADDR = #{ipaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="devno != null" >
+        DEVNO = #{devno,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDat != null" >
+        CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrNbr != null" >
+        CRT_USR_NBR = #{crtUsrNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="updDat != null" >
+        UPD_DAT = #{updDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updUsrNbr != null" >
+        UPD_USR_NBR = #{updUsrNbr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.hospital.pojo.domain.HspDevSys" >
+    update HSP_DEV_SYS
+    set DEVTYP_COD = #{devtypCod,jdbcType=VARCHAR},
+      IPADDR = #{ipaddr,jdbcType=VARCHAR},
+      DEVNO = #{devno,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      CRT_USR_NBR = #{crtUsrNbr,jdbcType=VARCHAR},
+      UPD_DAT = #{updDat,jdbcType=TIMESTAMP},
+      UPD_USR_NBR = #{updUsrNbr,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

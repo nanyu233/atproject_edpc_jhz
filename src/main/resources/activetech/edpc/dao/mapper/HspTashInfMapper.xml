@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspTashInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspTashInf" >
+    <id column="TASH_SEQ" property="tashSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="XHDB_COD" property="xhdbCod" jdbcType="VARCHAR" />
+    <result column="JSY_COD" property="jsyCod" jdbcType="VARCHAR" />
+    <result column="SSY_COD" property="ssyCod" jdbcType="VARCHAR" />
+    <result column="XL_COD" property="xlCod" jdbcType="VARCHAR" />
+    <result column="IS_FQYLY" property="isFqyly" jdbcType="CHAR" />
+    <result column="IS_GPGZ" property="isGpgz" jdbcType="CHAR" />
+    <result column="IS_GGGZ" property="isGggz" jdbcType="CHAR" />
+    <result column="IS_SEX" property="isSex" jdbcType="CHAR" />
+    <result column="TASH_SCO" property="tashSco" jdbcType="VARCHAR" />
+    <result column="TASH_PR" property="tashPr" jdbcType="DECIMAL" />
+    <result column="CRT_DAT" property="crtDat" jdbcType="TIMESTAMP" />
+    <result column="CRT_USR" property="crtUsr" jdbcType="VARCHAR" />
+    <result column="MOD_TIM" property="modTim" jdbcType="TIMESTAMP" />
+    <result column="MOD_USR" property="modUsr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TASH_SEQ, EMG_SEQ, XHDB_COD, JSY_COD, SSY_COD, XL_COD, IS_FQYLY, IS_GPGZ, IS_GGGZ, 
+    IS_SEX, TASH_SCO, TASH_PR, CRT_DAT, CRT_USR, MOD_TIM, MOD_USR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspTashInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_TASH_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_TASH_INF
+    where TASH_SEQ = #{tashSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_TASH_INF
+    where TASH_SEQ = #{tashSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspTashInfExample" >
+    delete from HSP_TASH_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspTashInf" >
+    insert into HSP_TASH_INF (TASH_SEQ, EMG_SEQ, XHDB_COD, 
+      JSY_COD, SSY_COD, XL_COD, 
+      IS_FQYLY, IS_GPGZ, IS_GGGZ, IS_SEX, 
+      TASH_SCO, TASH_PR, CRT_DAT, 
+      CRT_USR, MOD_TIM, MOD_USR
+      )
+    values (#{tashSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{xhdbCod,jdbcType=VARCHAR}, 
+      #{jsyCod,jdbcType=VARCHAR}, #{ssyCod,jdbcType=VARCHAR}, #{xlCod,jdbcType=VARCHAR}, 
+      #{isFqyly,jdbcType=CHAR}, #{isGpgz,jdbcType=CHAR}, #{isGggz,jdbcType=CHAR}, #{isSex,jdbcType=CHAR}, 
+      #{tashSco,jdbcType=VARCHAR}, #{tashPr,jdbcType=DECIMAL}, #{crtDat,jdbcType=TIMESTAMP}, 
+      #{crtUsr,jdbcType=VARCHAR}, #{modTim,jdbcType=TIMESTAMP}, #{modUsr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspTashInf" >
+    insert into HSP_TASH_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tashSeq != null" >
+        TASH_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="xhdbCod != null" >
+        XHDB_COD,
+      </if>
+      <if test="jsyCod != null" >
+        JSY_COD,
+      </if>
+      <if test="ssyCod != null" >
+        SSY_COD,
+      </if>
+      <if test="xlCod != null" >
+        XL_COD,
+      </if>
+      <if test="isFqyly != null" >
+        IS_FQYLY,
+      </if>
+      <if test="isGpgz != null" >
+        IS_GPGZ,
+      </if>
+      <if test="isGggz != null" >
+        IS_GGGZ,
+      </if>
+      <if test="isSex != null" >
+        IS_SEX,
+      </if>
+      <if test="tashSco != null" >
+        TASH_SCO,
+      </if>
+      <if test="tashPr != null" >
+        TASH_PR,
+      </if>
+      <if test="crtDat != null" >
+        CRT_DAT,
+      </if>
+      <if test="crtUsr != null" >
+        CRT_USR,
+      </if>
+      <if test="modTim != null" >
+        MOD_TIM,
+      </if>
+      <if test="modUsr != null" >
+        MOD_USR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tashSeq != null" >
+        #{tashSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="xhdbCod != null" >
+        #{xhdbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="jsyCod != null" >
+        #{jsyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ssyCod != null" >
+        #{ssyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xlCod != null" >
+        #{xlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="isFqyly != null" >
+        #{isFqyly,jdbcType=CHAR},
+      </if>
+      <if test="isGpgz != null" >
+        #{isGpgz,jdbcType=CHAR},
+      </if>
+      <if test="isGggz != null" >
+        #{isGggz,jdbcType=CHAR},
+      </if>
+      <if test="isSex != null" >
+        #{isSex,jdbcType=CHAR},
+      </if>
+      <if test="tashSco != null" >
+        #{tashSco,jdbcType=VARCHAR},
+      </if>
+      <if test="tashPr != null" >
+        #{tashPr,jdbcType=DECIMAL},
+      </if>
+      <if test="crtDat != null" >
+        #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsr != null" >
+        #{crtUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null" >
+        #{modTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUsr != null" >
+        #{modUsr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspTashInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_TASH_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_TASH_INF
+    <set >
+      <if test="record.tashSeq != null" >
+        TASH_SEQ = #{record.tashSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xhdbCod != null" >
+        XHDB_COD = #{record.xhdbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jsyCod != null" >
+        JSY_COD = #{record.jsyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ssyCod != null" >
+        SSY_COD = #{record.ssyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xlCod != null" >
+        XL_COD = #{record.xlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isFqyly != null" >
+        IS_FQYLY = #{record.isFqyly,jdbcType=CHAR},
+      </if>
+      <if test="record.isGpgz != null" >
+        IS_GPGZ = #{record.isGpgz,jdbcType=CHAR},
+      </if>
+      <if test="record.isGggz != null" >
+        IS_GGGZ = #{record.isGggz,jdbcType=CHAR},
+      </if>
+      <if test="record.isSex != null" >
+        IS_SEX = #{record.isSex,jdbcType=CHAR},
+      </if>
+      <if test="record.tashSco != null" >
+        TASH_SCO = #{record.tashSco,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tashPr != null" >
+        TASH_PR = #{record.tashPr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.crtDat != null" >
+        CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUsr != null" >
+        CRT_USR = #{record.crtUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTim != null" >
+        MOD_TIM = #{record.modTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUsr != null" >
+        MOD_USR = #{record.modUsr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_TASH_INF
+    set TASH_SEQ = #{record.tashSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      XHDB_COD = #{record.xhdbCod,jdbcType=VARCHAR},
+      JSY_COD = #{record.jsyCod,jdbcType=VARCHAR},
+      SSY_COD = #{record.ssyCod,jdbcType=VARCHAR},
+      XL_COD = #{record.xlCod,jdbcType=VARCHAR},
+      IS_FQYLY = #{record.isFqyly,jdbcType=CHAR},
+      IS_GPGZ = #{record.isGpgz,jdbcType=CHAR},
+      IS_GGGZ = #{record.isGggz,jdbcType=CHAR},
+      IS_SEX = #{record.isSex,jdbcType=CHAR},
+      TASH_SCO = #{record.tashSco,jdbcType=VARCHAR},
+      TASH_PR = #{record.tashPr,jdbcType=DECIMAL},
+      CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      CRT_USR = #{record.crtUsr,jdbcType=VARCHAR},
+      MOD_TIM = #{record.modTim,jdbcType=TIMESTAMP},
+      MOD_USR = #{record.modUsr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspTashInf" >
+    update HSP_TASH_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="xhdbCod != null" >
+        XHDB_COD = #{xhdbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="jsyCod != null" >
+        JSY_COD = #{jsyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="ssyCod != null" >
+        SSY_COD = #{ssyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xlCod != null" >
+        XL_COD = #{xlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="isFqyly != null" >
+        IS_FQYLY = #{isFqyly,jdbcType=CHAR},
+      </if>
+      <if test="isGpgz != null" >
+        IS_GPGZ = #{isGpgz,jdbcType=CHAR},
+      </if>
+      <if test="isGggz != null" >
+        IS_GGGZ = #{isGggz,jdbcType=CHAR},
+      </if>
+      <if test="isSex != null" >
+        IS_SEX = #{isSex,jdbcType=CHAR},
+      </if>
+      <if test="tashSco != null" >
+        TASH_SCO = #{tashSco,jdbcType=VARCHAR},
+      </if>
+      <if test="tashPr != null" >
+        TASH_PR = #{tashPr,jdbcType=DECIMAL},
+      </if>
+      <if test="crtDat != null" >
+        CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsr != null" >
+        CRT_USR = #{crtUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null" >
+        MOD_TIM = #{modTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUsr != null" >
+        MOD_USR = #{modUsr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TASH_SEQ = #{tashSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspTashInf" >
+    update HSP_TASH_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      XHDB_COD = #{xhdbCod,jdbcType=VARCHAR},
+      JSY_COD = #{jsyCod,jdbcType=VARCHAR},
+      SSY_COD = #{ssyCod,jdbcType=VARCHAR},
+      XL_COD = #{xlCod,jdbcType=VARCHAR},
+      IS_FQYLY = #{isFqyly,jdbcType=CHAR},
+      IS_GPGZ = #{isGpgz,jdbcType=CHAR},
+      IS_GGGZ = #{isGggz,jdbcType=CHAR},
+      IS_SEX = #{isSex,jdbcType=CHAR},
+      TASH_SCO = #{tashSco,jdbcType=VARCHAR},
+      TASH_PR = #{tashPr,jdbcType=DECIMAL},
+      CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      CRT_USR = #{crtUsr,jdbcType=VARCHAR},
+      MOD_TIM = #{modTim,jdbcType=TIMESTAMP},
+      MOD_USR = #{modUsr,jdbcType=VARCHAR}
+    where TASH_SEQ = #{tashSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

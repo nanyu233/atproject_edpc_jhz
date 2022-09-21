@@ -1,0 +1,261 @@
+body{
+    font-size: 12px;
+}
+.selectdiv{
+    height: 36px;
+    font-size: 14px;
+    line-height: 36px;
+    padding: 0 10px;
+}
+.cutoff2{
+    margin: 0 10px;
+    border-bottom: solid 1px #a2c1e8;
+}
+.cutoff{
+    width:100%;
+    float:left;
+    /* margin-top: 15px; */
+    border-bottom:1px solid #e0e2e5;
+}
+.maindiv{
+    height: calc(100vh - 52px);
+    padding: 0 0 0 10px;
+    left: 10px;
+    /* border-bottom: 1px solid #e0e2e5; */
+}
+.maindiv2{
+    height: calc(100vh - 25px);
+    padding: 0 0 0 10px;
+    left: 10px;
+    margin-top: 10px;
+    /* border-bottom: 1px solid #e0e2e5; */
+}
+.all-title{
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    padding:10px 0;
+}
+.all-title2{
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    padding:0 0 10px 0;
+}
+.subtitle{
+    width:99%;
+    margin-right: 5px;
+    height: 35px;
+    line-height: 35px;
+}
+.span-left{
+    float: left;
+    margin-top: 5px;
+    padding-left: 5px;
+    font-size: 12px;
+    font-weight: 800;
+}
+.infoli{
+    padding: 5px 0;
+    height: 22px;
+}
+.infoli2{
+    padding: 5px 0;
+    height: 28px;
+}
+.no-height-li {
+    min-height: 28px;
+    height: auto;
+}
+.no-height-lis {
+    min-height: 22px;
+    height: auto;
+}
+.no-height-li .progressinput, .no-height-lis .progressinput2 {
+    min-height: 26px;
+    height: auto;
+}
+.infoli input,.baseinput{
+    height: 22px;
+    line-height: 14px;
+    width: 93px;
+    padding-left:5px; 
+    border: #fff 1px solid;
+    border-bottom: #ddd 1px solid;
+}
+.inputlong{
+    width: 150px !important;
+}
+.progressarea{
+    width: 833px;
+    height: 185px;
+    margin-left: 5px;
+    padding: 5px;
+}
+.diseasePointarea{
+    width: 833px;
+    height: 255px;
+    margin-left: 5px;
+    padding: 5px;
+}
+.progressinput{
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+    margin-left:5px;
+    padding-left: 5px;
+    width: 843px;
+    box-sizing: border-box;
+    vertical-align: bottom;
+}
+
+.progressinput2{
+    margin-top:5px;
+    display: inline-block;
+    width: 724px;
+    height: 26px;
+    line-height: 26px;
+    margin-left:5px;
+    padding-left: 5px;
+    vertical-align: bottom;
+}
+.areareadonly{
+    background-color:#ececec; 
+    border: 1px solid #dcdcdc;
+}
+.ptitle{
+    display: inline-block;
+}
+.rightli, .rightli3 {
+    float: right;
+    padding-bottom: 10px;
+    text-align: right;
+    margin-right: 12px;
+}
+.rightli2{
+    text-align: right;
+    padding-right: 7%;
+    margin-top: 10px;
+}
+.btndiv{
+    position: absolute;
+    right: 10px;
+    bottom: 7.5px;
+}
+.middleul{
+    width: 860px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.titleinput{
+    border: none;
+    width: 130px !important;
+    border-bottom: #DDD 1px solid;
+}
+.titleinputSpc{
+    border: none;
+    width: 60px !important;
+    border-bottom: #DDD 1px solid;
+}
+.titleinput_kb{
+    border: none;
+    width: 155px !important;
+    border-bottom: #DDD 1px solid;
+}
+input[readonly].titleinput,input[readonly].titleinput_kb,input[readonly].titleinputSpc{
+    border: none;
+    background: none;
+    color: #666;
+    border-bottom: #DDD 1px solid;
+}
+
+.selectli{
+    padding: 5px 0;
+}
+
+.doctorList{
+    /* left: 313px; */
+    top: 97px;
+    margin-left:calc(50% + 29px);
+    width: 136px;
+}
+
+.inlinediv{
+    width: 407px;
+    display: inline-block;
+}
+.btnemp{
+    margin-left: 10px;
+}
+.hr0{
+    height:1px;
+    border:none;
+    border-top:1px dashed #ddd;
+    width: 860px;
+    /* margin: 20px auto; */
+    margin: 40px 0 30px 0;
+}
+.answerinput{
+    height: 22px;
+    line-height: 14px;
+    width: 538px;
+    padding-left:5px;
+    border: solid #ddd 1px;
+}
+.nearight{
+    margin-left: calc(50% - 217px);
+}
+.hrrr{
+    position: absolute;
+    border-top:1px solid #e0e2e5;
+    width: 100%;
+    bottom: 45px;
+}
+.temdiv, .temDiv {
+    border: 1px solid #e0e2e5;
+    width: 833px;
+    height: 32px;
+    margin: 5px;
+    padding: 5px;
+}
+.closeImg{
+    float: right;
+    margin: 8px;
+    cursor: pointer;
+}
+.atitle{
+    font-weight: 400 !important;
+}
+.mainbody {
+    margin: 0 auto;
+    overflow: auto;
+    border-bottom: 1px solid #ddd;
+}
+.small-input-wth {
+    width: 46px;
+}
+#dzqm img,#dzqmsq img,#dzqmhf img{
+    width: 45px;
+    vertical-align: middle;
+    height: auto
+}
+.temp-div-trans {
+    display: block;
+    width: 79%;
+    margin-left: 114px;
+    box-sizing: border-box;
+    height: 42px;
+}
+.check-label-style {
+    font-weight: normal;
+    color: #2a00ff;
+    line-height: 28px;
+    vertical-align: top;
+}
+.whiteInput{
+    background-color: #fff !important
+}

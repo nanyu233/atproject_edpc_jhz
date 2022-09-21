@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspCgxjInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspCgxjInfCustom" >
+    <id column="CGXJ_SEQ" jdbcType="VARCHAR" property="cgxjSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="RYRQ_DAT" jdbcType="TIMESTAMP" property="ryrqDat" />
+    <result column="CYRQ_DAT" jdbcType="TIMESTAMP" property="cyrqDat" />
+    <result column="LGSC_LEN" jdbcType="DECIMAL" property="lgscLen" />
+    <result column="RYQK_DES" jdbcType="VARCHAR" property="ryqkDes" />
+    <result column="ZLJG_DES" jdbcType="VARCHAR" property="zljgDes" />
+    <result column="CYQK_DES" jdbcType="VARCHAR" property="cyqkDes" />
+    <result column="CYYZ_DES" jdbcType="VARCHAR" property="cyyzDes" />
+    <result column="OPRT_DAT" jdbcType="TIMESTAMP" property="oprtDat" />
+    <result column="CRAT_DAT" jdbcType="TIMESTAMP" property="cratDat" />
+    <result column="CRAT_NBR" jdbcType="VARCHAR" property="cratNbr" />
+    <result column="CRAT_NAM" jdbcType="VARCHAR" property="cratNam" />
+    <result column="UPDT_DAT" jdbcType="TIMESTAMP" property="updtDat" />
+    <result column="UPDT_NBR" jdbcType="VARCHAR" property="updtNbr" />
+    <result column="UPDT_NAM" jdbcType="VARCHAR" property="updtNam" />
+    <result column="CGXJ_DAT_TYP" jdbcType="CHAR" property="cgxjDatTyp" />
+    <result column="SQL_TYPE" jdbcType="VARCHAR" property="sqlType" />
+    <result column="SQL_DES" jdbcType="VARCHAR" property="sqlDes" />
+    <result column="SQL_DEP_COD" jdbcType="VARCHAR" property="sqlDepCod" />
+    <result column="sqlDepName" property="sqlDepName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CGXJ_SEQ, EMG_SEQ, RYRQ_DAT, CYRQ_DAT, LGSC_LEN, RYQK_DES, ZLJG_DES, CYQK_DES, CYYZ_DES, 
+    OPRT_DAT, CRAT_DAT, CRAT_NBR, CRAT_NAM, UPDT_DAT, UPDT_NBR, UPDT_NAM, CGXJ_DAT_TYP, 
+    SQL_TYPE, SQL_DES, SQL_DEP_COD
+  </sql>
+  <select id="findCgxjByEmgSeq" resultMap="BaseResultMap" parameterType="String" >
+    select
+	    CGXJ_SEQ, 
+	    EMG_SEQ, 
+	    RYRQ_DAT, 
+	    CYRQ_DAT, 
+	    LGSC_LEN, 
+	    RYQK_DES, 
+	    ZLJG_DES, 
+	    CYQK_DES, 
+	    CYYZ_DES, 
+	    OPRT_DAT, 
+	    CRAT_DAT, 
+	    CRAT_NBR, 
+	    CRAT_NAM, 
+	    UPDT_DAT, 
+	    UPDT_NBR, 
+	    UPDT_NAM, 
+	    CGXJ_DAT_TYP, 
+	    SQL_TYPE, 
+	    SQL_DES, 
+	    SQL_DEP_COD,
+	    (select COMCNAME from DSTCOMPCTL where COMNO = SQL_DEP_COD) sqlDepName
+    from HSP_CGXJ_INF
+    where emg_seq=#{emgSeq}
+  </select>
+</mapper>

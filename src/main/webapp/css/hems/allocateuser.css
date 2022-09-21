@@ -1,0 +1,40 @@
+@charset "utf-8";
+/**
+*  用户调配页面css
+*/
+
+.log-check {
+    height: 25px;
+    margin-top: 20px;
+    margin-left: 5px;
+    width:200px
+}
+
+.checkss {
+    display: none;
+    line-height: 16px;
+    height: 20px;
+    color: red;
+    border: none;
+    font-size: 14px;
+    float:left;
+}
+
+.check-icon {
+    display: none;       
+    border: none;
+    width: 20px;
+    height: 16px;
+    float:left;
+    margin-left:10px;
+}
+
+.add-error {
+     background:url(../../images/common/onError.gif) left center;
+    /* background-repeat: no-repeat; */
+}
+
+.div-check{
+	width:200px;
+	float: left; 
+}

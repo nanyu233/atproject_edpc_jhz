@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HisCzCustomMapper" >
+  <resultMap id="HisczMap" type="activetech.zyyhospital.pojo.dto.HisCzCustom">
+  	<result column="TRIAGEID" property="triageid" jdbcType="VARCHAR" />
+    <result column="CARDNO" property="cardno" jdbcType="VARCHAR" />
+    <result column="PATIENTID" property="patientid" jdbcType="VARCHAR" />
+    <result column="TRIAGEDATE" property="triagedate" jdbcType="TIMESTAMP" />
+    <result column="OPERNO" property="operno" jdbcType="VARCHAR" />
+    <result column="OPERID" property="operid" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
+    <result column="DOCUMENTNO" property="documentno" jdbcType="VARCHAR" />
+    <result column="IDENTITY" property="identity" jdbcType="VARCHAR" />
+    <result column="CHARGETYPE" property="chargetype" jdbcType="VARCHAR" />
+    <result column="NATION" property="nation" jdbcType="VARCHAR" />
+    <result column="CONTACTPERSON" property="contactperson" jdbcType="VARCHAR" />
+    <result column="CONTACTPHONE" property="contactphone" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="TRIAGELEVEL" property="triagelevel" jdbcType="DECIMAL" />
+    <result column="TRIAGEDIRECTION" property="triagedirection" jdbcType="VARCHAR" />
+    <result column="GREENROAD1" property="greenroad1" jdbcType="VARCHAR" />
+    <result column="GREENROAD2" property="greenroad2" jdbcType="VARCHAR" />
+    <result column="GREENROAD3" property="greenroad3" jdbcType="VARCHAR" />
+    <result column="GREENROAD4" property="greenroad4" jdbcType="VARCHAR" />
+    <result column="GREENROAD5" property="greenroad5" jdbcType="VARCHAR" />
+    <result column="RFIDCODE" property="rfidcode" jdbcType="VARCHAR" />
+    <result column="SHOUSUOYA" property="shousuoya" jdbcType="VARCHAR" />
+    <result column="SHUZHANGYA" property="shuzhangya" jdbcType="VARCHAR" />
+    <result column="SPO2" property="spo2" jdbcType="VARCHAR" />
+    <result column="MAIBO" property="maibo" jdbcType="VARCHAR" />
+    <result column="HUXI" property="huxi" jdbcType="VARCHAR" />
+    <result column="TIWEN" property="tiwen" jdbcType="VARCHAR" />
+    <result column="ReturnCode" property="returncode" jdbcType="VARCHAR" />
+    <result column="ReturnMsg" property="returnmsg" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <parameterMap type="activetech.zyyhospital.pojo.dto.HisCzCustom" id="hisczCustom">
+  	 <parameter property="triageid" mode="IN" jdbcType="VARCHAR"/>
+  	 <parameter property="cardno" mode="IN" jdbcType="VARCHAR"/>
+  	 <parameter property="patientid" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="triagedate" mode="IN" jdbcType="TIMESTAMP" />
+     <parameter property="operno" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="operid" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="name" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="sex" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="birthday" mode="IN" jdbcType="TIMESTAMP" />
+     <parameter property="documentno" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="identity" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="chargetype" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="nation" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="contactperson" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="contactphone" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="address" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="triagelevel" mode="IN" jdbcType="DECIMAL" />
+     <parameter property="triagedirection" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="greenroad1" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="greenroad2" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="greenroad3" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="greenroad4" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="greenroad5" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="rfidcode" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="shousuoya" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="shuzhangya" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="spo2" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="maibo" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="huxi" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="tiwen" mode="IN" jdbcType="VARCHAR" />
+     <parameter property="returncode" mode="OUT" jdbcType="VARCHAR" />
+  </parameterMap>
+  
+  <select id="workHspCzCustom" parameterMap="hisczCustom" statementType="CALLABLE">
+          {CALL pro_SaveStrokeInfo(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}
+   </select>
+</mapper>

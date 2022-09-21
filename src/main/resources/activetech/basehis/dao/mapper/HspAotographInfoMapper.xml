@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.basehis.dao.mapper.HspAotographInfoMapper" >
+  <resultMap id="BaseResultMap" type="activetech.basehis.pojo.domain.HspAotographInfo" >
+    <id column="AOTOGRAPH_ID" property="aotographId" jdbcType="VARCHAR" />
+    <result column="RELEVANCE_ID" property="relevanceId" jdbcType="VARCHAR" />
+    <result column="DOCUMENT_TYPE" property="documentType" jdbcType="VARCHAR" />
+    <result column="AOTOGRAPH_TIME" property="aotographTime" jdbcType="TIMESTAMP" />
+    <result column="AOTOGRAPH_RETURN" property="aotographReturn" jdbcType="VARCHAR" />
+    <result column="DOC_NO" property="docNo" jdbcType="VARCHAR" />
+    <result column="DOC_NAME" property="docName" jdbcType="VARCHAR" />
+    <result column="DOCUMENT_TABLE" property="documentTable" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="activetech.basehis.pojo.domain.HspAotographInfo" extends="BaseResultMap" >
+    <result column="DOC_IMG" property="docImg" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AOTOGRAPH_ID, RELEVANCE_ID, DOCUMENT_TYPE, AOTOGRAPH_TIME, AOTOGRAPH_RETURN, DOC_NO, 
+    DOC_NAME, DOCUMENT_TABLE, REMARK
+  </sql>
+  <sql id="Blob_Column_List" >
+    DOC_IMG
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="activetech.basehis.pojo.domain.HspAotographInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_AOTOGRAPH_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.basehis.pojo.domain.HspAotographInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_AOTOGRAPH_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_AOTOGRAPH_INFO
+    where AOTOGRAPH_ID = #{aotographId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_AOTOGRAPH_INFO
+    where AOTOGRAPH_ID = #{aotographId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.basehis.pojo.domain.HspAotographInfoExample" >
+    delete from HSP_AOTOGRAPH_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.basehis.pojo.domain.HspAotographInfo" >
+    insert into HSP_AOTOGRAPH_INFO (AOTOGRAPH_ID, RELEVANCE_ID, DOCUMENT_TYPE, 
+      AOTOGRAPH_TIME, AOTOGRAPH_RETURN, DOC_NO, 
+      DOC_NAME, DOCUMENT_TABLE, REMARK, 
+      DOC_IMG)
+    values (#{aotographId,jdbcType=VARCHAR}, #{relevanceId,jdbcType=VARCHAR}, #{documentType,jdbcType=VARCHAR}, 
+      #{aotographTime,jdbcType=TIMESTAMP}, #{aotographReturn,jdbcType=VARCHAR}, #{docNo,jdbcType=VARCHAR}, 
+      #{docName,jdbcType=VARCHAR}, #{documentTable,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{docImg,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.basehis.pojo.domain.HspAotographInfo" >
+    insert into HSP_AOTOGRAPH_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aotographId != null" >
+        AOTOGRAPH_ID,
+      </if>
+      <if test="relevanceId != null" >
+        RELEVANCE_ID,
+      </if>
+      <if test="documentType != null" >
+        DOCUMENT_TYPE,
+      </if>
+      <if test="aotographTime != null" >
+        AOTOGRAPH_TIME,
+      </if>
+      <if test="aotographReturn != null" >
+        AOTOGRAPH_RETURN,
+      </if>
+      <if test="docNo != null" >
+        DOC_NO,
+      </if>
+      <if test="docName != null" >
+        DOC_NAME,
+      </if>
+      <if test="documentTable != null" >
+        DOCUMENT_TABLE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="docImg != null" >
+        DOC_IMG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aotographId != null" >
+        #{aotographId,jdbcType=VARCHAR},
+      </if>
+      <if test="relevanceId != null" >
+        #{relevanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="documentType != null" >
+        #{documentType,jdbcType=VARCHAR},
+      </if>
+      <if test="aotographTime != null" >
+        #{aotographTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aotographReturn != null" >
+        #{aotographReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="docNo != null" >
+        #{docNo,jdbcType=VARCHAR},
+      </if>
+      <if test="docName != null" >
+        #{docName,jdbcType=VARCHAR},
+      </if>
+      <if test="documentTable != null" >
+        #{documentTable,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="docImg != null" >
+        #{docImg,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.basehis.pojo.domain.HspAotographInfoExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_AOTOGRAPH_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_AOTOGRAPH_INFO
+    <set >
+      <if test="record.aotographId != null" >
+        AOTOGRAPH_ID = #{record.aotographId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relevanceId != null" >
+        RELEVANCE_ID = #{record.relevanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.documentType != null" >
+        DOCUMENT_TYPE = #{record.documentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aotographTime != null" >
+        AOTOGRAPH_TIME = #{record.aotographTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.aotographReturn != null" >
+        AOTOGRAPH_RETURN = #{record.aotographReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docNo != null" >
+        DOC_NO = #{record.docNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docName != null" >
+        DOC_NAME = #{record.docName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.documentTable != null" >
+        DOCUMENT_TABLE = #{record.documentTable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docImg != null" >
+        DOC_IMG = #{record.docImg,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update HSP_AOTOGRAPH_INFO
+    set AOTOGRAPH_ID = #{record.aotographId,jdbcType=VARCHAR},
+      RELEVANCE_ID = #{record.relevanceId,jdbcType=VARCHAR},
+      DOCUMENT_TYPE = #{record.documentType,jdbcType=VARCHAR},
+      AOTOGRAPH_TIME = #{record.aotographTime,jdbcType=TIMESTAMP},
+      AOTOGRAPH_RETURN = #{record.aotographReturn,jdbcType=VARCHAR},
+      DOC_NO = #{record.docNo,jdbcType=VARCHAR},
+      DOC_NAME = #{record.docName,jdbcType=VARCHAR},
+      DOCUMENT_TABLE = #{record.documentTable,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      DOC_IMG = #{record.docImg,jdbcType=CLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_AOTOGRAPH_INFO
+    set AOTOGRAPH_ID = #{record.aotographId,jdbcType=VARCHAR},
+      RELEVANCE_ID = #{record.relevanceId,jdbcType=VARCHAR},
+      DOCUMENT_TYPE = #{record.documentType,jdbcType=VARCHAR},
+      AOTOGRAPH_TIME = #{record.aotographTime,jdbcType=TIMESTAMP},
+      AOTOGRAPH_RETURN = #{record.aotographReturn,jdbcType=VARCHAR},
+      DOC_NO = #{record.docNo,jdbcType=VARCHAR},
+      DOC_NAME = #{record.docName,jdbcType=VARCHAR},
+      DOCUMENT_TABLE = #{record.documentTable,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.basehis.pojo.domain.HspAotographInfo" >
+    update HSP_AOTOGRAPH_INFO
+    <set >
+      <if test="relevanceId != null" >
+        RELEVANCE_ID = #{relevanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="documentType != null" >
+        DOCUMENT_TYPE = #{documentType,jdbcType=VARCHAR},
+      </if>
+      <if test="aotographTime != null" >
+        AOTOGRAPH_TIME = #{aotographTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aotographReturn != null" >
+        AOTOGRAPH_RETURN = #{aotographReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="docNo != null" >
+        DOC_NO = #{docNo,jdbcType=VARCHAR},
+      </if>
+      <if test="docName != null" >
+        DOC_NAME = #{docName,jdbcType=VARCHAR},
+      </if>
+      <if test="documentTable != null" >
+        DOCUMENT_TABLE = #{documentTable,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="docImg != null" >
+        DOC_IMG = #{docImg,jdbcType=CLOB},
+      </if>
+    </set>
+    where AOTOGRAPH_ID = #{aotographId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.basehis.pojo.domain.HspAotographInfo" >
+    update HSP_AOTOGRAPH_INFO
+    set RELEVANCE_ID = #{relevanceId,jdbcType=VARCHAR},
+      DOCUMENT_TYPE = #{documentType,jdbcType=VARCHAR},
+      AOTOGRAPH_TIME = #{aotographTime,jdbcType=TIMESTAMP},
+      AOTOGRAPH_RETURN = #{aotographReturn,jdbcType=VARCHAR},
+      DOC_NO = #{docNo,jdbcType=VARCHAR},
+      DOC_NAME = #{docName,jdbcType=VARCHAR},
+      DOCUMENT_TABLE = #{documentTable,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      DOC_IMG = #{docImg,jdbcType=CLOB}
+    where AOTOGRAPH_ID = #{aotographId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.basehis.pojo.domain.HspAotographInfo" >
+    update HSP_AOTOGRAPH_INFO
+    set RELEVANCE_ID = #{relevanceId,jdbcType=VARCHAR},
+      DOCUMENT_TYPE = #{documentType,jdbcType=VARCHAR},
+      AOTOGRAPH_TIME = #{aotographTime,jdbcType=TIMESTAMP},
+      AOTOGRAPH_RETURN = #{aotographReturn,jdbcType=VARCHAR},
+      DOC_NO = #{docNo,jdbcType=VARCHAR},
+      DOC_NAME = #{docName,jdbcType=VARCHAR},
+      DOCUMENT_TABLE = #{documentTable,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where AOTOGRAPH_ID = #{aotographId,jdbcType=VARCHAR}
+  </update>
+</mapper>

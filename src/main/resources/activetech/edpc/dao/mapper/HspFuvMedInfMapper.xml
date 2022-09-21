@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspFuvMedInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspFuvMedInf" >
+    <id column="FMI_SEQ" property="fmiSeq" jdbcType="VARCHAR" />
+    <result column="MED_NAM" property="medNam" jdbcType="VARCHAR" />
+    <result column="MED_SPE" property="medSpe" jdbcType="VARCHAR" />
+    <result column="MED_QTY" property="medQty" jdbcType="VARCHAR" />
+    <result column="MED_MTD" property="medMtd" jdbcType="VARCHAR" />
+    <result column="FUV_SEQ" property="fuvSeq" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FMI_SEQ, MED_NAM, MED_SPE, MED_QTY, MED_MTD, FUV_SEQ
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspFuvMedInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_FUV_MED_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_FUV_MED_INF
+    where FMI_SEQ = #{fmiSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_FUV_MED_INF
+    where FMI_SEQ = #{fmiSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspFuvMedInfExample" >
+    delete from HSP_FUV_MED_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspFuvMedInf" >
+    insert into HSP_FUV_MED_INF (FMI_SEQ, MED_NAM, MED_SPE, 
+      MED_QTY, MED_MTD, FUV_SEQ
+      )
+    values (#{fmiSeq,jdbcType=VARCHAR}, #{medNam,jdbcType=VARCHAR}, #{medSpe,jdbcType=VARCHAR}, 
+      #{medQty,jdbcType=VARCHAR}, #{medMtd,jdbcType=VARCHAR}, #{fuvSeq,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspFuvMedInf" >
+    insert into HSP_FUV_MED_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fmiSeq != null" >
+        FMI_SEQ,
+      </if>
+      <if test="medNam != null" >
+        MED_NAM,
+      </if>
+      <if test="medSpe != null" >
+        MED_SPE,
+      </if>
+      <if test="medQty != null" >
+        MED_QTY,
+      </if>
+      <if test="medMtd != null" >
+        MED_MTD,
+      </if>
+      <if test="fuvSeq != null" >
+        FUV_SEQ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fmiSeq != null" >
+        #{fmiSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="medNam != null" >
+        #{medNam,jdbcType=VARCHAR},
+      </if>
+      <if test="medSpe != null" >
+        #{medSpe,jdbcType=VARCHAR},
+      </if>
+      <if test="medQty != null" >
+        #{medQty,jdbcType=VARCHAR},
+      </if>
+      <if test="medMtd != null" >
+        #{medMtd,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvSeq != null" >
+        #{fuvSeq,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspFuvMedInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_FUV_MED_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_FUV_MED_INF
+    <set >
+      <if test="record.fmiSeq != null" >
+        FMI_SEQ = #{record.fmiSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medNam != null" >
+        MED_NAM = #{record.medNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medSpe != null" >
+        MED_SPE = #{record.medSpe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medQty != null" >
+        MED_QTY = #{record.medQty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medMtd != null" >
+        MED_MTD = #{record.medMtd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuvSeq != null" >
+        FUV_SEQ = #{record.fuvSeq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_FUV_MED_INF
+    set FMI_SEQ = #{record.fmiSeq,jdbcType=VARCHAR},
+      MED_NAM = #{record.medNam,jdbcType=VARCHAR},
+      MED_SPE = #{record.medSpe,jdbcType=VARCHAR},
+      MED_QTY = #{record.medQty,jdbcType=VARCHAR},
+      MED_MTD = #{record.medMtd,jdbcType=VARCHAR},
+      FUV_SEQ = #{record.fuvSeq,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspFuvMedInf" >
+    update HSP_FUV_MED_INF
+    <set >
+      <if test="medNam != null" >
+        MED_NAM = #{medNam,jdbcType=VARCHAR},
+      </if>
+      <if test="medSpe != null" >
+        MED_SPE = #{medSpe,jdbcType=VARCHAR},
+      </if>
+      <if test="medQty != null" >
+        MED_QTY = #{medQty,jdbcType=VARCHAR},
+      </if>
+      <if test="medMtd != null" >
+        MED_MTD = #{medMtd,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvSeq != null" >
+        FUV_SEQ = #{fuvSeq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FMI_SEQ = #{fmiSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspFuvMedInf" >
+    update HSP_FUV_MED_INF
+    set MED_NAM = #{medNam,jdbcType=VARCHAR},
+      MED_SPE = #{medSpe,jdbcType=VARCHAR},
+      MED_QTY = #{medQty,jdbcType=VARCHAR},
+      MED_MTD = #{medMtd,jdbcType=VARCHAR},
+      FUV_SEQ = #{fuvSeq,jdbcType=VARCHAR}
+    where FMI_SEQ = #{fmiSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

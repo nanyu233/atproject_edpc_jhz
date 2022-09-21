@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.aid.dao.mapper.AidPatientXtMapperCustom" >
+
+
+  		<update id="mergeAidPatientXt" parameterType="activetech.aid.pojo.domain.AidPatientXt">
+  			merge into aid_patient_xt a
+                using (select 
+	                	   #{xtSeq, jdbcType = VARCHAR} xt_seq,
+	                	   #{bqpg,jdbcType=VARCHAR} bqpg, 
+	                	   #{scyljc,jdbcType=TIMESTAMP} scyljc, 
+	      				   #{wlyyry,jdbcType=TIMESTAMP} wlyyry, 
+	      				   #{zzcm,jdbcType=TIMESTAMP} zzcm, 
+	      				   #{sfxdt,jdbcType=TIMESTAMP} sfxdt,
+	      				   #{ycxdtcs,jdbcType=CHAR} ycxdtcs, 
+	      				   #{csfs,jdbcType=CHAR} csfs, 
+	      				   #{cssj,jdbcType=TIMESTAMP} cssj, 
+	      				   #{kxxbgy,jdbcType=CHAR} kxxbgy, 
+	      				   #{gysj,jdbcType=TIMESTAMP} gysj, 
+	      				   #{aspl,jdbcType=DECIMAL} aspl, 
+	      				   #{tgrl,jdbcType=DECIMAL} tgrl, 
+	      				   #{lpgl,jdbcType=DECIMAL} lpgl, 
+	      				   #{zd,jdbcType=VARCHAR} zd, 
+	                       #{yqrssc,jdbcType=CHAR} yqrssc, 
+	                       #{yqrs,jdbcType=CHAR} yqrs, 
+	                       #{rscs,jdbcType=CHAR} rscs, 
+	                       #{zqtyks,jdbcType=TIMESTAMP} zqtyks, 
+	                       #{qszqty,jdbcType=TIMESTAMP} qszqty, 
+	                       #{rsks,jdbcType=TIMESTAMP} rsks, 
+	                       #{rsjs,jdbcType=TIMESTAMP} rsjs, 
+	                       #{rshzy,jdbcType=TIMESTAMP} rshzy, 
+	                       #{rsyw,jdbcType=CHAR} rsyw, 
+	                       #{rsywjl,jdbcType=CHAR} rsywjl, 
+	                       #{rszt,jdbcType=CHAR} rszt, 
+	                       #{sfxdtqz,jdbcType=TIMESTAMP} sfxdtqz, 
+	                       #{bqpgmx,jdbcType=VARCHAR} bqpgmx, 
+	                       #{zycs,jdbcType=CHAR} zycs,
+	                       #{djry,jdbcType=VARCHAR} djry, 
+	                       #{djrymc,jdbcType=VARCHAR} djrymc,
+	                       #{djsj,jdbcType=TIMESTAMP} djsj,
+	                       #{ddyydmsj,jdbcType=TIMESTAMP} ddyydmsj,
+	                       #{ddfs,jdbcType=VARCHAR} ddfs,
+	                       #{wlyy,jdbcType=VARCHAR} wlyy
+                        from dual) b
+                on (a.xt_seq = b.xt_seq)
+                when matched then
+                  update
+                   set 	 a.BQPG = b.BQPG,
+                         a.SCYLJC = b.SCYLJC, 
+      					 a.WLYYRY = b.WLYYRY,
+      					 a.SFXDT = b.SFXDT,
+      					 a.YCXDTCS = b.YCXDTCS,
+      					 a.CSFS = b.CSFS,
+      					 a.KXXBGY = b.KXXBGY,
+      					 a.GYSJ = b.GYSJ,
+      					 a.ASPL = b.ASPL,
+      					 a.TGRL = b.TGRL,
+      					 a.LPGL = b.LPGL,
+      					 a.ZD = b.ZD,
+      					 a.YQRSSC = b.YQRSSC,
+      					 a.YQRS = b.YQRS,
+      					 a.RSCS = b.RSCS,
+      					 a.ZQTYKS = b.ZQTYKS,
+      					 a.QSZQTY = b.QSZQTY,
+      					 a.RSKS = b.RSKS,
+      					 a.RSJS = b.RSJS,
+      					 a.RSHZY = b.RSHZY,
+      					 a.RSYW = b.RSYW,
+      					 a.RSYWJL = b.RSYWJL,
+      					 a.RSZT = b.RSZT,
+      					 a.SFXDTQZ = b.SFXDTQZ,
+      					 a.BQPGMX = b.BQPGMX,
+      					 a.ZYCS = b.ZYCS,
+      					 a.DDYYDMSJ = b.DDYYDMSJ,
+      					 a.DDFS = b.DDFS,
+      					 a.WLYY = b.WLYY
+                when not matched then
+                  insert
+                    (XT_SEQ, BQPG, SCYLJC, 
+     				 WLYYRY, SFXDT, YCXDTCS, 
+      				 CSFS, KXXBGY, GYSJ, 
+      				 ASPL, TGRL, LPGL, ZD, 
+      				 YQRSSC, YQRS, RSCS, ZQTYKS, 
+      				 QSZQTY, RSKS, RSJS, RSHZY, 
+      				 RSYW, RSYWJL, RSZT, SFXDTQZ, 
+      				 BQPGMX, ZYCS,DJRY,DJRYMC,DJSJ,DDYYDMSJ,DDFS,WLYY)
+                  values
+                    (AID_PATIENT_XT_SEQ.nextval,
+                     b.BQPG,
+                     b.SCYLJC, 
+					 b.WLYYRY,
+					 b.SFXDT,
+					 b.YCXDTCS,
+					 b.CSFS,
+					 b.KXXBGY,
+					 b.GYSJ,
+					 b.ASPL,
+					 b.TGRL,
+					 b.LPGL,
+					 b.ZD,
+					 b.YQRSSC,
+					 b.YQRS,
+					 b.RSCS,
+					 b.ZQTYKS,
+					 b.QSZQTY,
+					 b.RSKS,
+					 b.RSJS,
+					 b.RSHZY,
+					 b.RSYW,
+					 b.RSYWJL,
+					 b.RSZT,
+					 b.SFXDTQZ,
+					 b.BQPGMX,
+					 b.ZYCS,
+					 b.DJRY,
+					 b.DJRYMC,
+					 b.DJSJ,
+					 b.ddyydmsj,
+					 b.ddfs,
+					 b.wlyy) 
+  		
+  		</update>
+  		
+  		 <insert id="insert" parameterType="activetech.aid.pojo.domain.AidPatientXt" >
+                    insert into AID_PATIENT_XT (XT_SEQ, BQPG, SCYLJC, 
+                      WLYYRY, ZZCM, SFXDT, YCXDTCS, 
+                      CSFS, CSSJ, KXXBGY, GYSJ, 
+                      ASPL, TGRL, LPGL, ZD, 
+                      YQRSSC, YQRS, RSCS, ZQTYKS, 
+                      QSZQTY, RSKS, RSJS, RSHZY, 
+                      RSYW, RSYWJL, RSZT, SFXDTQZ, 
+                      BQPGMX, ZYCS,DJRY,DJRYMC,DJSJ,
+					  DDYYDMSJ,DDFS,WLYY)
+                    values (#{xtSeq,jdbcType=VARCHAR}, #{bqpg,jdbcType=VARCHAR}, #{scyljc,jdbcType=TIMESTAMP}, 
+                      #{wlyyry,jdbcType=TIMESTAMP}, #{zzcm,jdbcType=TIMESTAMP}, #{sfxdt,jdbcType=TIMESTAMP}, #{ycxdtcs,jdbcType=CHAR}, 
+                      #{csfs,jdbcType=CHAR}, #{cssj,jdbcType=TIMESTAMP}, #{kxxbgy,jdbcType=CHAR}, #{gysj,jdbcType=TIMESTAMP}, 
+                      #{aspl,jdbcType=DECIMAL}, #{tgrl,jdbcType=DECIMAL}, #{lpgl,jdbcType=DECIMAL}, #{zd,jdbcType=VARCHAR}, 
+                      #{yqrssc,jdbcType=CHAR}, #{yqrs,jdbcType=CHAR}, #{rscs,jdbcType=CHAR}, #{zqtyks,jdbcType=DATE}, 
+                      #{qszqty,jdbcType=TIMESTAMP}, #{rsks,jdbcType=TIMESTAMP}, #{rsjs,jdbcType=TIMESTAMP}, #{rshzy,jdbcType=TIMESTAMP}, 
+                      #{rsyw,jdbcType=CHAR}, #{rsywjl,jdbcType=CHAR}, #{rszt,jdbcType=CHAR}, #{sfxdtqz,jdbcType=TIMESTAMP}, 
+                      #{bqpgmx,jdbcType=VARCHAR}, #{zycs,jdbcType=CHAR},#{djry,jdbcType=VARCHAR}, #{djrymc,jdbcType=VARCHAR},
+                      #{djsj,jdbcType=TIMESTAMP},#{ddyydmsj,jdbcType=TIMESTAMP},#{ddfs,jdbcType=VARCHAR},#{wlyy,jdbcType=VARCHAR})
+          </insert>
+  		
+</mapper>

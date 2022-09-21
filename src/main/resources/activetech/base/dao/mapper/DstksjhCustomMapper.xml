@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.DstksjhCustomMapper" >
+  <sql id="query_ksjh_where">
+       <if test="dstKsjhCustom!=null">
+           <if test="dstKsjhCustom.oprtTyp!=null and dstKsjhCustom.oprtTyp!=''" >
+               and OPRT_TYP=#{dstKsjhCustom.oprtTyp}
+           </if>
+           <if test="dstKsjhCustom.returnStatus!=null and dstKsjhCustom.returnStatus!=''" >
+               and RETURN_STATUS=#{dstKsjhCustom.returnStatus}
+           </if>
+           <if test="dstKsjhCustom.startdate!=null and dstKsjhCustom.startdate!=''" >
+               and LEND_DAT<![CDATA[>=]]> #{dstKsjhCustom.startdate}
+           </if>
+           <if test="dstKsjhCustom.enddate!=null and dstKsjhCustom.enddate!=''" >
+               and LEND_DAT<![CDATA[<]]> #{dstKsjhCustom.enddate}
+           </if>
+       </if>
+  
+  </sql>
+  <select id="findKsjhList" resultType="activetech.base.pojo.dto.DstKsjhCustom" parameterType="activetech.base.pojo.dto.DstKsjhQueryDto" >
+    <!-- 分页头 -->
+	<include refid="activetech.base.CommonSql.page_start" />
+    select ID, OPRT_TYP oprtTyp, OBJT objt, LEND_DPM lendDpm, LEND_DAT lendDat,
+    to_char(LEND_DAT,'yyyy/mm/dd hh24:mi:ss') lendDatStr, BORROW_DPM borrowDpm,
+     BORROW_USR borrowUsr, BORROW_USR_TEL borrowUsrTel, 
+    RETURN_STATUS returnStatus, OPRT_USR oprtUsr,
+    (select usrname from DSTUSER where DSTUSER.USRNO=dstksjh.OPRT_USR)as oprtUsrNam,OPRT_DAT oprtDat,
+    to_char(OPRT_DAT,'yyyy/mm/dd hh24:mi:ss') oprtDatStr ,LNED_USR lnedUsr,DEPOSIT deposit
+    from dstksjh
+    <where>
+        <include refid="query_ksjh_where"/>
+    </where>
+    order by ${sort} ${order}
+    <!-- 分页尾部 -->
+	<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  <select id="findKsjhListCount" resultType="int" parameterType="activetech.base.pojo.dto.DstKsjhQueryDto">
+      select count(*) from dstksjh
+       <where>
+          <include refid="query_ksjh_where"/>
+       </where>
+  </select>
+  <select id="findKsjhById" resultType="activetech.base.pojo.dto.DstKsjhCustom" parameterType="java.lang.String" >
+    select ID, OPRT_TYP oprtTyp, OBJT objt, LEND_DPM lendDpm, to_char(LEND_DAT,'yyyy/mm/dd hh24:mi:ss') lendDatStr, BORROW_DPM borrowDpm,
+     BORROW_USR borrowUsr, BORROW_USR_TEL borrowUsrTel, 
+    RETURN_STATUS returnStatus, OPRT_USR oprtUsr, OPRT_DAT oprtDat ,LNED_USR lnedUsr,DEPOSIT deposit
+    from dstksjh where ID=#{id}
+  </select>
+</mapper>

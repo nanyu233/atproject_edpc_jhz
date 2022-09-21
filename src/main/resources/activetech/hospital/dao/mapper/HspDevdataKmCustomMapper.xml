@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspDevdataKmCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.dto.HspDevdataKmCustom" >
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="PT_PM_TYPE" property="ptPmType" jdbcType="DECIMAL" />
+    <result column="DEVNO" property="devno" jdbcType="DECIMAL" />
+    <result column="CRT_DAT" property="crtDat" jdbcType="TIMESTAMP" />
+    <result column="IYEAR" property="iyear" jdbcType="DECIMAL" />
+    <result column="IMONTH" property="imonth" jdbcType="DECIMAL" />
+    <result column="IDAY" property="iday" jdbcType="DECIMAL" />
+    <result column="IHOUR" property="ihour" jdbcType="DECIMAL" />
+    <result column="IMINUTE" property="iminute" jdbcType="DECIMAL" />
+    <result column="ISECOND" property="isecond" jdbcType="DECIMAL" />
+    <result column="ISYS" property="isys" jdbcType="DECIMAL" />
+    <result column="IMEAN" property="imean" jdbcType="DECIMAL" />
+    <result column="IDIA" property="idia" jdbcType="DECIMAL" />
+    <result column="IFINISH" property="ifinish" jdbcType="DECIMAL" />
+    <result column="IERRCODE" property="ierrcode" jdbcType="DECIMAL" />
+    <result column="IPR" property="ipr" jdbcType="DECIMAL" />
+    <result column="ISRC" property="isrc" jdbcType="DECIMAL" />
+    <result column="BLLEADOFF" property="blleadoff" jdbcType="DECIMAL" />
+    <result column="ISPO2" property="ispo2" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <insert id="insertSelective" parameterType="activetech.hospital.pojo.dto.HspDevdataKmCustom" >
+    insert into HSP_DEVDATA_KM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="devno != null" >
+        DEVNO,
+      </if>
+      <if test="crtDat != null" >
+        CRT_DAT,
+      </if>
+      <if test="iyear != null" >
+        IYEAR,
+      </if>
+      <if test="imonth != null" >
+        IMONTH,
+      </if>
+      <if test="iday != null" >
+        IDAY,
+      </if>
+      <if test="ihour != null" >
+        IHOUR,
+      </if>
+      <if test="iminute != null" >
+        IMINUTE,
+      </if>
+      <if test="isecond != null" >
+        ISECOND,
+      </if>
+      <if test="isys != null" >
+        ISYS,
+      </if>
+      <if test="imean != null" >
+        IMEAN,
+      </if>
+      <if test="idia != null" >
+        IDIA,
+      </if>
+      <if test="ifinish != null" >
+        IFINISH,
+      </if>
+      <if test="ierrcode != null" >
+        IERRCODE,
+      </if>
+      <if test="ipr != null" >
+        IPR,
+      </if>
+      <if test="isrc != null" >
+        ISRC,
+      </if>
+      <if test="blleadoff != null" >
+        BLLEADOFF,
+      </if>
+      <if test="ispo2 != null" >
+        ISPO2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="devno != null" >
+        #{devno,jdbcType=DECIMAL},
+      </if>
+      <if test="crtDat != null" >
+        #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iyear != null" >
+        #{iyear,jdbcType=DECIMAL},
+      </if>
+      <if test="imonth != null" >
+        #{imonth,jdbcType=DECIMAL},
+      </if>
+      <if test="iday != null" >
+        #{iday,jdbcType=DECIMAL},
+      </if>
+      <if test="ihour != null" >
+        #{ihour,jdbcType=DECIMAL},
+      </if>
+      <if test="iminute != null" >
+        #{iminute,jdbcType=DECIMAL},
+      </if>
+      <if test="isecond != null" >
+        #{isecond,jdbcType=DECIMAL},
+      </if>
+      <if test="isys != null" >
+        #{isys,jdbcType=DECIMAL},
+      </if>
+      <if test="imean != null" >
+        #{imean,jdbcType=DECIMAL},
+      </if>
+      <if test="idia != null" >
+        #{idia,jdbcType=DECIMAL},
+      </if>
+      <if test="ifinish != null" >
+        #{ifinish,jdbcType=DECIMAL},
+      </if>
+      <if test="ierrcode != null" >
+        #{ierrcode,jdbcType=DECIMAL},
+      </if>
+      <if test="ipr != null" >
+        #{ipr,jdbcType=DECIMAL},
+      </if>
+      <if test="isrc != null" >
+        #{isrc,jdbcType=DECIMAL},
+      </if>
+      <if test="blleadoff != null" >
+        #{blleadoff,jdbcType=DECIMAL},
+      </if>
+      <if test="ispo2 != null" >
+        #{ispo2,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+	<select id="selectHspDevdataKmCustomList" parameterType="activetech.hospital.pojo.dto.HspDevdataKmCustom"
+	resultType="activetech.hospital.pojo.dto.HspDevdataKmCustom">
+	select * from HSP_DEVDATA_KM
+	<where>
+		<if test="emgSeq != null  ">
+			and EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+		</if>
+		<if test="devno != null">
+			and DEVNO = #{devno,jdbcType=DECIMAL}
+		</if>
+		<if test="crtDat != null">
+			and CRT_DAT = #{crtDat,jdbcType=TIMESTAMP}
+		</if>
+		<if test="iyear != null">
+			and IYEAR = #{iyear,jdbcType=DECIMAL}
+		</if>
+		<if test="imonth != null">
+			IMONTH = #{imonth,jdbcType=DECIMAL}
+		</if>
+		<if test="iday != null">
+			and IDAY = #{iday,jdbcType=DECIMAL}
+		</if>
+		<if test="ihour != null">
+			and IHOUR = #{ihour,jdbcType=DECIMAL}
+		</if>
+		<if test="iminute != null">
+			and IMINUTE = #{iminute,jdbcType=DECIMAL}
+		</if>
+		<if test="isecond != null">
+			and ISECOND = #{isecond,jdbcType=DECIMAL}
+		</if>
+		<if test="isys != null">
+			and ISYS = #{isys,jdbcType=DECIMAL}
+		</if>
+		<if test="imean != null">
+			and IMEAN = #{imean,jdbcType=DECIMAL}
+		</if>
+		<if test="idia != null">
+			and IDIA = #{idia,jdbcType=DECIMAL}
+		</if>
+		<if test="ifinish != null">
+			and IFINISH = #{ifinish,jdbcType=DECIMAL}
+		</if>
+		<if test="ierrcode != null">
+			and IERRCODE = #{ierrcode,jdbcType=DECIMAL}
+		</if>
+		<if test="ipr != null">
+			and IPR = #{ipr,jdbcType=DECIMAL}
+		</if>
+		<if test="isrc != null">
+			and ISRC = #{isrc,jdbcType=DECIMAL}
+		</if>
+		<if test="blleadoff != null">
+			and BLLEADOFF = #{blleadoff,jdbcType=DECIMAL}
+		</if>
+		<if test="ispo2 != null">
+			and ISPO2 = #{ispo2,jdbcType=DECIMAL}
+		</if>
+	</where>
+
+</select>
+  <!-- <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_DEVDATA_KM
+    <set >
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devno != null" >
+        DEVNO = #{record.devno,jdbcType=DECIMAL},
+      </if>
+      <if test="record.crtDat != null" >
+        CRT_DAT = #{record.crtDat,jdbcType=DATE},
+      </if>
+      <if test="record.iyear != null" >
+        IYEAR = #{record.iyear,jdbcType=DECIMAL},
+      </if>
+      <if test="record.imonth != null" >
+        IMONTH = #{record.imonth,jdbcType=DECIMAL},
+      </if>
+      <if test="record.iday != null" >
+        IDAY = #{record.iday,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ihour != null" >
+        IHOUR = #{record.ihour,jdbcType=DECIMAL},
+      </if>
+      <if test="record.iminute != null" >
+        IMINUTE = #{record.iminute,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isecond != null" >
+        ISECOND = #{record.isecond,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isys != null" >
+        ISYS = #{record.isys,jdbcType=DECIMAL},
+      </if>
+      <if test="record.imean != null" >
+        IMEAN = #{record.imean,jdbcType=DECIMAL},
+      </if>
+      <if test="record.idia != null" >
+        IDIA = #{record.idia,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ifinish != null" >
+        IFINISH = #{record.ifinish,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ierrcode != null" >
+        IERRCODE = #{record.ierrcode,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ipr != null" >
+        IPR = #{record.ipr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isrc != null" >
+        ISRC = #{record.isrc,jdbcType=DECIMAL},
+      </if>
+      <if test="record.blleadoff != null" >
+        BLLEADOFF = #{record.blleadoff,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ispo2 != null" >
+        ISPO2 = #{record.ispo2,jdbcType=DECIMAL},
+      </if>
+    </set>
+   
+  </update> -->
+  
+  <delete id="deleteTempByDevno" parameterType="java.lang.Integer">
+  	delete from HSP_DEVDATA_KM_temp where DEVNO = #{devno,jdbcType=DECIMAL}
+  </delete>
+  <update id="updateCrtDat" parameterType="activetech.hospital.pojo.dto.HspDevdataKmCustom" >
+    update HSP_DEVDATA_KM
+    set  CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+     IYEAR = &apos;&apos;,
+      IMONTH = &apos;&apos;,
+      IDAY = &apos;&apos;,
+      IHOUR =&apos;&apos;,
+      IMINUTE = &apos;&apos;,
+      ISECOND = &apos;&apos;,
+      ISYS = &apos;&apos;,
+      IMEAN =&apos;&apos;,
+      IDIA = &apos;&apos;,
+      IFINISH = &apos;&apos;,
+      IERRCODE = &apos;&apos;,
+      IPR = &apos;&apos;,
+      ISRC = &apos;&apos;,
+      BLLEADOFF = &apos;&apos;,
+      ISPO2 = &apos;&apos;
+   where EMG_SEQ= #{emgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

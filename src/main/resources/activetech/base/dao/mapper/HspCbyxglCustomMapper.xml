@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.HspCbyxglCustomMapper">
+	<resultMap id="BaseResultMap" type="activetech.base.pojo.dto.HspCbyxglInfCustom">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="CBYX" property="cbyx" jdbcType="VARCHAR" />
+		<result column="PYSM" property="pysm" jdbcType="VARCHAR" />
+		<result column="MEMO" property="memo" jdbcType="VARCHAR" />
+
+	</resultMap>
+	<sql id="Query_HspCbyx_where">
+		<if test="hspCbyxglInfCustom!=null">
+			<if test="hspCbyxglInfCustom.cbyx!=null and hspCbyxglInfCustom.cbyx!=''">
+				and CBYX like '%'|| #{hspCbyxglInfCustom.cbyx} || '%' 
+			</if>
+			<if test="hspCbyxglInfCustom.pysm!=null and hspCbyxglInfCustom.pysm!=''">
+				and CBYX like '%'|| #{hspCbyxglInfCustom.pysm} || '%' or
+				pysm like upper(#{hspCbyxglInfCustom.pysm}||'%')
+			</if>
+			<if test="hspCbyxglInfCustom.fzks!=null and hspCbyxglInfCustom.fzks!=''">
+				and fzks = #{hspCbyxglInfCustom.fzks}
+			</if>
+		</if>
+	</sql>
+
+	<!-- 查询疾病字典列表 -->
+	<select id="findCbyxglByPysm" parameterType="activetech.base.pojo.dto.HspCbyxglInfQueryDto"
+		resultType="activetech.base.pojo.dto.HspCbyxglInfCustom">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select  id,
+		cbyx,
+		pysm,
+		(select info from dstdictinfo a where typecode = 'CST_DSP_COD' and infocode = brqx)brqxname,
+		(select comcname from dstcompctl a where comno = fzks and is_jzks=1)fzksname,
+		(select info from dstdictinfo a where typecode = 'MOD_LVL_COD' and infocode = yjdj)yjdjname,
+		yjdj,zbcs,memo
+		from hsp_cbyxgl
+		where hsp_cbyxgl.pysm like
+		upper(#{hspCbyxglInfCustom.pysm}||'%')
+		or hsp_cbyxgl.cbyx like
+		upper(#{hspCbyxglInfCustom.pysm}||'%')
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	<select id="findHspCbyxgl" parameterType="activetech.base.pojo.dto.HspCbyxglInfQueryDto"
+		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select id,
+		cbyx,
+		pysm,
+		memo,
+		(select info from dstdictinfo a where typecode = 'CST_DSP_COD' and infocode = brqx)brqxname,
+		(select comcname from dstcompctl a where comno = fzks and is_jzks=1)fzksname,
+		(select info from dstdictinfo a where typecode = 'MOD_LVL_COD' and infocode = yjdj)yjdjname
+		from hsp_cbyxgl
+		<where>
+			<include refid="Query_HspCbyx_where" />
+		</where>
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+		order by CBYX
+	</select>
+	<select id="findHspCbyxglCount" parameterType="activetech.base.pojo.dto.HspCbyxglInfQueryDto"
+		resultType="int">
+		select count(1) from hsp_cbyxgl
+		<where>
+			<include refid="Query_HspCbyx_where" />
+		</where>
+	</select>
+	<select id="findHspCbyxglByCbyx" parameterType="activetech.base.pojo.dto.HspCbyxglInfQueryDto"
+		resultMap="BaseResultMap">
+		select id,
+		cbyx,
+		pysm,
+		memo
+		from hsp_cbyxgl
+		where
+		CBYX=#{hspCbyxglInfCustom.cbyx}
+		<if test="hspCbyxglInfCustom.id!=null and hspCbyxglInfCustom.id!=''">
+			and ID!=#{hspCbyxglInfCustom.id}
+		</if>
+	</select>
+	
+	<select id="queryZsk_resultCount" parameterType="activetech.base.pojo.dto.HspCbyxglInfQueryDto"
+		resultType="int">
+		select count(*)
+		from hsp_cbyxgl
+		<where>
+			<include refid="Query_HspCbyx_where" />
+		</where>
+	</select>
+	
+		<select id="queryZsk_result" parameterType="activetech.base.pojo.dto.HspCbyxglInfQueryDto"
+		resultType="activetech.base.pojo.dto.HspCbyxglInfCustom">
+		<include refid="activetech.base.CommonSql.page_start" />
+		select id,
+		cbyx,
+		pysm,
+		brqx,
+		fzks,
+		(select info from dstdictinfo a where typecode = 'CST_DSP_COD' and infocode = brqx)brqxname,
+		(select comcname from dstcompctl a where comno = fzks and is_jzks=1)fzksname,
+		yjdj,zbcs,memo
+		from hsp_cbyxgl
+		<where>
+			<include refid="Query_HspCbyx_where" />
+		</where>
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+</mapper>

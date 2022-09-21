@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspZcddexpfInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspZcddexpfInf" >
+    <id column="XTPG_SEQ" property="xtpgSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="ZCDDEXPF_YNBMDD" property="zcddexpfYnbmdd" jdbcType="DECIMAL" />
+    <result column="ZCDDEXPF_YSZA" property="zcddexpfYsza" jdbcType="DECIMAL" />
+    <result column="ZCDDEXPF_SLZA" property="zcddexpfSlza" jdbcType="DECIMAL" />
+    <result column="ZCDDEXPF_HDZA" property="zcddexpfHdza" jdbcType="DECIMAL" />
+    <result column="ZCDDEXPF_NL" property="zcddexpfNl" jdbcType="DECIMAL" />
+    <result column="ZCDDEXPF_TNXR" property="zcddexpfTnxr" jdbcType="DECIMAL" />
+    <result column="ZCDDEXPF_TYXY" property="zcddexpfTyxy" jdbcType="DECIMAL" />
+    <result column="ZCDDEXPF_ZYYWJR" property="zcddexpfZyywjr" jdbcType="DECIMAL" />
+    <result column="ZCDDEXPF_JRPB" property="zcddexpfJrpb" jdbcType="DECIMAL" />
+    <result column="ZCDDEXPF_MY" property="zcddexpfMy" jdbcType="DECIMAL" />
+    <result column="ZCDDEXPF_SCO" property="zcddexpfSco" jdbcType="DECIMAL" />
+    <result column="ZCDDEXPF_MEMO" property="zcddexpfMemo" jdbcType="VARCHAR" />
+    <result column="CRAT_DAT" property="cratDat" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    XTPG_SEQ, EMG_SEQ, ZCDDEXPF_YNBMDD, ZCDDEXPF_YSZA, ZCDDEXPF_SLZA, ZCDDEXPF_HDZA, 
+    ZCDDEXPF_NL, ZCDDEXPF_TNXR, ZCDDEXPF_TYXY, ZCDDEXPF_ZYYWJR, ZCDDEXPF_JRPB, ZCDDEXPF_MY, 
+    ZCDDEXPF_SCO, ZCDDEXPF_MEMO, CRAT_DAT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspZcddexpfInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_ZCDDEXPF_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_ZCDDEXPF_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_ZCDDEXPF_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspZcddexpfInfExample" >
+    delete from HSP_ZCDDEXPF_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspZcddexpfInf" >
+    insert into HSP_ZCDDEXPF_INF (XTPG_SEQ, EMG_SEQ, ZCDDEXPF_YNBMDD, 
+      ZCDDEXPF_YSZA, ZCDDEXPF_SLZA, ZCDDEXPF_HDZA, 
+      ZCDDEXPF_NL, ZCDDEXPF_TNXR, ZCDDEXPF_TYXY, 
+      ZCDDEXPF_ZYYWJR, ZCDDEXPF_JRPB, ZCDDEXPF_MY, 
+      ZCDDEXPF_SCO, ZCDDEXPF_MEMO, CRAT_DAT
+      )
+    values (#{xtpgSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{zcddexpfYnbmdd,jdbcType=DECIMAL}, 
+      #{zcddexpfYsza,jdbcType=DECIMAL}, #{zcddexpfSlza,jdbcType=DECIMAL}, #{zcddexpfHdza,jdbcType=DECIMAL}, 
+      #{zcddexpfNl,jdbcType=DECIMAL}, #{zcddexpfTnxr,jdbcType=DECIMAL}, #{zcddexpfTyxy,jdbcType=DECIMAL}, 
+      #{zcddexpfZyywjr,jdbcType=DECIMAL}, #{zcddexpfJrpb,jdbcType=DECIMAL}, #{zcddexpfMy,jdbcType=DECIMAL}, 
+      #{zcddexpfSco,jdbcType=DECIMAL}, #{zcddexpfMemo,jdbcType=VARCHAR}, #{cratDat,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspZcddexpfInf" >
+    insert into HSP_ZCDDEXPF_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xtpgSeq != null" >
+        XTPG_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="zcddexpfYnbmdd != null" >
+        ZCDDEXPF_YNBMDD,
+      </if>
+      <if test="zcddexpfYsza != null" >
+        ZCDDEXPF_YSZA,
+      </if>
+      <if test="zcddexpfSlza != null" >
+        ZCDDEXPF_SLZA,
+      </if>
+      <if test="zcddexpfHdza != null" >
+        ZCDDEXPF_HDZA,
+      </if>
+      <if test="zcddexpfNl != null" >
+        ZCDDEXPF_NL,
+      </if>
+      <if test="zcddexpfTnxr != null" >
+        ZCDDEXPF_TNXR,
+      </if>
+      <if test="zcddexpfTyxy != null" >
+        ZCDDEXPF_TYXY,
+      </if>
+      <if test="zcddexpfZyywjr != null" >
+        ZCDDEXPF_ZYYWJR,
+      </if>
+      <if test="zcddexpfJrpb != null" >
+        ZCDDEXPF_JRPB,
+      </if>
+      <if test="zcddexpfMy != null" >
+        ZCDDEXPF_MY,
+      </if>
+      <if test="zcddexpfSco != null" >
+        ZCDDEXPF_SCO,
+      </if>
+      <if test="zcddexpfMemo != null" >
+        ZCDDEXPF_MEMO,
+      </if>
+      <if test="cratDat != null" >
+        CRAT_DAT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xtpgSeq != null" >
+        #{xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="zcddexpfYnbmdd != null" >
+        #{zcddexpfYnbmdd,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfYsza != null" >
+        #{zcddexpfYsza,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfSlza != null" >
+        #{zcddexpfSlza,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfHdza != null" >
+        #{zcddexpfHdza,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfNl != null" >
+        #{zcddexpfNl,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfTnxr != null" >
+        #{zcddexpfTnxr,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfTyxy != null" >
+        #{zcddexpfTyxy,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfZyywjr != null" >
+        #{zcddexpfZyywjr,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfJrpb != null" >
+        #{zcddexpfJrpb,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfMy != null" >
+        #{zcddexpfMy,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfSco != null" >
+        #{zcddexpfSco,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfMemo != null" >
+        #{zcddexpfMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="cratDat != null" >
+        #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspZcddexpfInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_ZCDDEXPF_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_ZCDDEXPF_INF
+    <set >
+      <if test="record.xtpgSeq != null" >
+        XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zcddexpfYnbmdd != null" >
+        ZCDDEXPF_YNBMDD = #{record.zcddexpfYnbmdd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zcddexpfYsza != null" >
+        ZCDDEXPF_YSZA = #{record.zcddexpfYsza,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zcddexpfSlza != null" >
+        ZCDDEXPF_SLZA = #{record.zcddexpfSlza,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zcddexpfHdza != null" >
+        ZCDDEXPF_HDZA = #{record.zcddexpfHdza,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zcddexpfNl != null" >
+        ZCDDEXPF_NL = #{record.zcddexpfNl,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zcddexpfTnxr != null" >
+        ZCDDEXPF_TNXR = #{record.zcddexpfTnxr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zcddexpfTyxy != null" >
+        ZCDDEXPF_TYXY = #{record.zcddexpfTyxy,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zcddexpfZyywjr != null" >
+        ZCDDEXPF_ZYYWJR = #{record.zcddexpfZyywjr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zcddexpfJrpb != null" >
+        ZCDDEXPF_JRPB = #{record.zcddexpfJrpb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zcddexpfMy != null" >
+        ZCDDEXPF_MY = #{record.zcddexpfMy,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zcddexpfSco != null" >
+        ZCDDEXPF_SCO = #{record.zcddexpfSco,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zcddexpfMemo != null" >
+        ZCDDEXPF_MEMO = #{record.zcddexpfMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cratDat != null" >
+        CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_ZCDDEXPF_INF
+    set XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      ZCDDEXPF_YNBMDD = #{record.zcddexpfYnbmdd,jdbcType=DECIMAL},
+      ZCDDEXPF_YSZA = #{record.zcddexpfYsza,jdbcType=DECIMAL},
+      ZCDDEXPF_SLZA = #{record.zcddexpfSlza,jdbcType=DECIMAL},
+      ZCDDEXPF_HDZA = #{record.zcddexpfHdza,jdbcType=DECIMAL},
+      ZCDDEXPF_NL = #{record.zcddexpfNl,jdbcType=DECIMAL},
+      ZCDDEXPF_TNXR = #{record.zcddexpfTnxr,jdbcType=DECIMAL},
+      ZCDDEXPF_TYXY = #{record.zcddexpfTyxy,jdbcType=DECIMAL},
+      ZCDDEXPF_ZYYWJR = #{record.zcddexpfZyywjr,jdbcType=DECIMAL},
+      ZCDDEXPF_JRPB = #{record.zcddexpfJrpb,jdbcType=DECIMAL},
+      ZCDDEXPF_MY = #{record.zcddexpfMy,jdbcType=DECIMAL},
+      ZCDDEXPF_SCO = #{record.zcddexpfSco,jdbcType=DECIMAL},
+      ZCDDEXPF_MEMO = #{record.zcddexpfMemo,jdbcType=VARCHAR},
+      CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspZcddexpfInf" >
+    update HSP_ZCDDEXPF_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="zcddexpfYnbmdd != null" >
+        ZCDDEXPF_YNBMDD = #{zcddexpfYnbmdd,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfYsza != null" >
+        ZCDDEXPF_YSZA = #{zcddexpfYsza,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfSlza != null" >
+        ZCDDEXPF_SLZA = #{zcddexpfSlza,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfHdza != null" >
+        ZCDDEXPF_HDZA = #{zcddexpfHdza,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfNl != null" >
+        ZCDDEXPF_NL = #{zcddexpfNl,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfTnxr != null" >
+        ZCDDEXPF_TNXR = #{zcddexpfTnxr,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfTyxy != null" >
+        ZCDDEXPF_TYXY = #{zcddexpfTyxy,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfZyywjr != null" >
+        ZCDDEXPF_ZYYWJR = #{zcddexpfZyywjr,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfJrpb != null" >
+        ZCDDEXPF_JRPB = #{zcddexpfJrpb,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfMy != null" >
+        ZCDDEXPF_MY = #{zcddexpfMy,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfSco != null" >
+        ZCDDEXPF_SCO = #{zcddexpfSco,jdbcType=DECIMAL},
+      </if>
+      <if test="zcddexpfMemo != null" >
+        ZCDDEXPF_MEMO = #{zcddexpfMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="cratDat != null" >
+        CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspZcddexpfInf" >
+    update HSP_ZCDDEXPF_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      ZCDDEXPF_YNBMDD = #{zcddexpfYnbmdd,jdbcType=DECIMAL},
+      ZCDDEXPF_YSZA = #{zcddexpfYsza,jdbcType=DECIMAL},
+      ZCDDEXPF_SLZA = #{zcddexpfSlza,jdbcType=DECIMAL},
+      ZCDDEXPF_HDZA = #{zcddexpfHdza,jdbcType=DECIMAL},
+      ZCDDEXPF_NL = #{zcddexpfNl,jdbcType=DECIMAL},
+      ZCDDEXPF_TNXR = #{zcddexpfTnxr,jdbcType=DECIMAL},
+      ZCDDEXPF_TYXY = #{zcddexpfTyxy,jdbcType=DECIMAL},
+      ZCDDEXPF_ZYYWJR = #{zcddexpfZyywjr,jdbcType=DECIMAL},
+      ZCDDEXPF_JRPB = #{zcddexpfJrpb,jdbcType=DECIMAL},
+      ZCDDEXPF_MY = #{zcddexpfMy,jdbcType=DECIMAL},
+      ZCDDEXPF_SCO = #{zcddexpfSco,jdbcType=DECIMAL},
+      ZCDDEXPF_MEMO = #{zcddexpfMemo,jdbcType=VARCHAR},
+      CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP}
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspJzcspgInfCustomMapper">
+	<resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspJzcspgInfCustom">
+	    <id column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+	    <result column="OPR_DAT" jdbcType="TIMESTAMP" property="oprDat" />
+	    <result column="QD_COD" jdbcType="CHAR" property="qdCod" />
+	    <result column="QD_OTHER" jdbcType="VARCHAR" property="qdOther" />
+	    <result column="HX_COD" jdbcType="CHAR" property="hxCod" />
+	    <result column="HX_OTHER" jdbcType="VARCHAR" property="hxOther" />
+	    <result column="XH_COD" jdbcType="VARCHAR" property="xhCod" />
+	    <result column="CX_COD" jdbcType="VARCHAR" property="cxCod" />
+	    <result column="CX_QTBW" jdbcType="VARCHAR" property="cxQtbw" />
+	    <result column="NS_COD" jdbcType="CHAR" property="nsCod" />
+	    <result column="NS_DAQT" jdbcType="CHAR" property="nsDaqt" />
+	    <result column="NS_TTCJ" jdbcType="CHAR" property="nsTtcj" />
+	    <result column="NS_THZT" jdbcType="CHAR" property="nsThzt" />
+	    <result column="NS_THZT_DES" jdbcType="VARCHAR" property="nsThztDes" />
+	    <result column="TB_COD" jdbcType="VARCHAR" property="tbCod" />
+	    <result column="TB_OTHER" jdbcType="VARCHAR" property="tbOther" />
+	    <result column="TK_LEFT" jdbcType="VARCHAR" property="tkLeft" />
+	    <result column="TK_LEFT_COD" jdbcType="CHAR" property="tkLeftCod" />
+	    <result column="TK_RIGHT" jdbcType="VARCHAR" property="tkRight" />
+	    <result column="TK_RIGHT_COD" jdbcType="CHAR" property="tkRightCod" />
+	    <result column="TK_LEFT_OTHER" jdbcType="VARCHAR" property="tkLeftOther" />
+	    <result column="TK_RIGHT_OTHER" jdbcType="VARCHAR" property="tkRightOther" />
+	    <result column="JB_COD" jdbcType="VARCHAR" property="jbCod" />
+	    <result column="PF_COD" jdbcType="VARCHAR" property="pfCod" />
+	    <result column="PF_FW" jdbcType="VARCHAR" property="pfFw" />
+	    <result column="XB_COD" jdbcType="VARCHAR" property="xbCod" />
+	    <result column="XB_JY_DES" jdbcType="VARCHAR" property="xbJyDes" />
+	    <result column="XB_LEFT_DES" jdbcType="VARCHAR" property="xbLeftDes" />
+	    <result column="XB_RIGHT_DES" jdbcType="VARCHAR" property="xbRightDes" />
+	    <result column="XB_XC_DES" jdbcType="VARCHAR" property="xbXcDes" />
+	    <result column="FB_COD" jdbcType="VARCHAR" property="fbCod" />
+	    <result column="FB_FC_DES" jdbcType="VARCHAR" property="fbFcDes" />
+	    <result column="FB_OTHER" jdbcType="VARCHAR" property="fbOther" />
+	    <result column="JZ_COD" jdbcType="VARCHAR" property="jzCod" />
+	    <result column="GP_COD" jdbcType="VARCHAR" property="gpCod" />
+	    <result column="GG_COD" jdbcType="VARCHAR" property="ggCod" />
+	    <result column="CLBZ_COD" jdbcType="VARCHAR" property="clbzCod" />
+	    <result column="JMSY_PV" jdbcType="VARCHAR" property="jmsyPv" />
+	    <result column="JMSY_CV" jdbcType="VARCHAR" property="jmsyCv" />
+	    <result column="XQYLG_COD" jdbcType="CHAR" property="xqylgCod" />
+	    <result column="JYBZ_BW" jdbcType="VARCHAR" property="jybzBw" />
+	    <result column="JBGD_BW" jdbcType="VARCHAR" property="jbgdBw" />
+	    <result column="QY_BW" jdbcType="VARCHAR" property="qyBw" />
+	    <result column="XX_DAT" jdbcType="TIMESTAMP" property="xxDat" />
+	    <result column="PX_DAT" jdbcType="TIMESTAMP" property="pxDat" />
+	    <result column="SX_DAT" jdbcType="TIMESTAMP" property="sxDat" />
+	    <result column="CBPG_NAM" jdbcType="VARCHAR" property="cbpgNam" />
+	    <result column="CLBZ_NAM" jdbcType="VARCHAR" property="clbzNam" />
+	    <result column="MEMO" jdbcType="VARCHAR" property="memo" />
+	    <result column="CREATE_DAT" jdbcType="TIMESTAMP" property="createDat" />
+	    <result column="CREATE_NBR" jdbcType="VARCHAR" property="createNbr" />
+	    <result column="UPDATE_DAT" jdbcType="TIMESTAMP" property="updateDat" />
+	    <result column="UPDATE_NBR" jdbcType="VARCHAR" property="updateNbr" />
+	    <result column="BRADEN_SEQ" jdbcType="VARCHAR" property="bradenSeq" />
+	    <result column="ADL_SEQ" jdbcType="VARCHAR" property="adlSeq" />
+	    <result column="NRS_SEQ" jdbcType="VARCHAR" property="nrsSeq" />
+	    <result column="ZYFXPF_SEQ" jdbcType="VARCHAR" property="zyfxpfSeq" />
+	    <result column="GCS_SEQ" jdbcType="VARCHAR" property="gcsSeq" />
+	    <result column="DDFXPGB_SEQ" jdbcType="VARCHAR" property="ddfxpgbSeq" />
+	    <result column="bradenSco" property="bradenSco" jdbcType="VARCHAR" />
+	    <result column="adlSco" property="adlSco" jdbcType="VARCHAR" />
+	    <result column="nrsSco" property="nrsSco" jdbcType="VARCHAR" />
+	    <result column="zyfxpfSco" property="zyfxpfSco" jdbcType="VARCHAR" />
+	    <result column="gcsSco" property="gcsSco" jdbcType="VARCHAR" />
+	    <result column="morseSco" property="morseSco" jdbcType="VARCHAR" />
+	    <result column="CLBZ_OTHER" jdbcType="VARCHAR" property="clbzOther" />
+	    <result column="PRE_DGN_COD" jdbcType="VARCHAR" property="preDgnCod" />
+	    <result column="HLBZ_COD" jdbcType="VARCHAR" property="hlbzCod" />
+	    <result column="HLBZ_OTHER" jdbcType="VARCHAR" property="hlbzOther" />
+	    <result column="XY_DES" jdbcType="VARCHAR" property="xyDes" />
+    	<result column="HZ_DES" jdbcType="VARCHAR" property="hzDes" />
+    	<result column="INFORM_DOC_DAT" jdbcType="TIMESTAMP" property="informDocDat" />
+	    <result column="DOC_DAT" jdbcType="TIMESTAMP" property="docDat" />
+	    <result column="SQL_DCT_NBR" jdbcType="VARCHAR" property="sqlDctNbr" />
+	    <result column="ARV_CHL_COD" jdbcType="VARCHAR" property="arvChlCod" />
+	    <result column="CMP_PSN_COD" jdbcType="VARCHAR" property="cmpPsnCod" />
+	    <result column="PRE_HOSPITAL_TREATMENT" jdbcType="VARCHAR" property="preHospitalTreatment" />
+	    <result column="TMP_NBR" jdbcType="VARCHAR" property="tmpNbr" />
+	    <result column="PULSE" jdbcType="VARCHAR" property="pulse" />
+	    <result column="BRE_NBR" jdbcType="VARCHAR" property="breNbr" />
+	    <result column="SBP_UP_NBR" jdbcType="VARCHAR" property="sbpUpNbr" />
+    	<result column="SBP_DOWN_NBR" jdbcType="VARCHAR" property="sbpDownNbr" />
+	    <result column="OXY_NBR" jdbcType="VARCHAR" property="oxyNbr" />
+	    <result column="HRT_RTE" jdbcType="VARCHAR" property="hrtRte" />
+	    <result column="WORK_ADDRESS" jdbcType="VARCHAR" property="workAddress" />
+	    <result column="GLS_COD" jdbcType="VARCHAR" property="glsCod" />
+    	<result column="PBG_NBR" jdbcType="VARCHAR" property="pbgNbr" />
+    	<result column="PBG_NBR_FLG" jdbcType="VARCHAR" property="pbgNbrFlg" />	
+    	<result column="TMP_NBR_FLG" jdbcType="VARCHAR" property="tmpNbrFlg" />
+    	<result column="BRE_NBR_FLG" jdbcType="VARCHAR" property="breNbrFlg" />
+    	<result column="SBP_NBR_FLG" jdbcType="VARCHAR" property="sbpNbrFlg" />
+    	<result column="XY_FLG" jdbcType="VARCHAR" property="xyFlg" />
+    	<result column="ASSESSMENT_DAT" jdbcType="TIMESTAMP" property="assessmentDat" />
+    	<result column="ABN_SCO_NME" jdbcType="VARCHAR" property="abnScoNme" />
+	    <result column="ABN_DRIVER" jdbcType="VARCHAR" property="abnDriver" />
+	    <result column="ABN_DOCTOR" jdbcType="VARCHAR" property="abnDoctor" />
+	    <result column="PSRYQT" jdbcType="VARCHAR" property="psryqt" />
+	    <result column="SEE_DOC_DAT" jdbcType="TIMESTAMP" property="seeDocDat" />
+	    <result column="QK_COD" jdbcType="VARCHAR" property="qkCod" />
+	    <result column="HL_ADDR" jdbcType="VARCHAR" property="hlAddr" />
+	    <result column="JJLX_NAM" jdbcType="VARCHAR" property="jjlxNam" />
+	    <result column="JJLX_TEL" jdbcType="VARCHAR" property="jjlxTel" />
+	    <result column="JJLX_NAM2" jdbcType="VARCHAR" property="jjlxNam2" />
+	    <result column="JJLX_TEL2" jdbcType="VARCHAR" property="jjlxTel2" />
+	    <result column="HL_ADDR_OTHER" jdbcType="VARCHAR" property="hlAddrOther" />
+	    <result column="PULSE_FLG" jdbcType="VARCHAR" property="pulseFlg" />
+    	<result column="HRT_RTE_FLG" jdbcType="VARCHAR" property="hrtRteFlg" />	
+    	<result column="YLXSS_DES" jdbcType="VARCHAR" property="ylxssDes" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	    EMG_SEQ, OPR_DAT, QD_COD, QD_OTHER, HX_COD, HX_OTHER, XH_COD, CX_COD, CX_QTBW, NS_COD, 
+	    NS_DAQT, NS_TTCJ, NS_THZT, NS_THZT_DES, TB_COD, TB_OTHER, TK_LEFT, TK_LEFT_COD, TK_RIGHT, 
+	    TK_RIGHT_COD, TK_LEFT_OTHER, TK_RIGHT_OTHER, JB_COD, PF_COD, PF_FW, XB_COD, XB_JY_DES, 
+	    XB_LEFT_DES, XB_RIGHT_DES, XB_XC_DES, FB_COD, FB_FC_DES, FB_OTHER, JZ_COD, GP_COD, 
+	    GG_COD, CLBZ_COD, JMSY_PV, JMSY_CV, XQYLG_COD, JYBZ_BW, JBGD_BW, QY_BW, XX_DAT, PX_DAT, 
+	    SX_DAT, CBPG_NAM, CLBZ_NAM, MEMO, CREATE_DAT, CREATE_NBR, UPDATE_DAT, UPDATE_NBR, 
+	    BRADEN_SEQ, ADL_SEQ, NRS_SEQ, ZYFXPF_SEQ, GCS_SEQ, DDFXPGB_SEQ, CLBZ_OTHER, PRE_DGN_COD, 
+	    HLBZ_COD, HLBZ_OTHER, XY_DES, HZ_DES, INFORM_DOC_DAT, DOC_DAT, SQL_DCT_NBR, ARV_CHL_COD, 
+	    CMP_PSN_COD, PRE_HOSPITAL_TREATMENT, TMP_NBR, PULSE, BRE_NBR, SBP_UP_NBR, SBP_DOWN_NBR, 
+	    OXY_NBR, HRT_RTE, WORK_ADDRESS, GLS_COD, PBG_NBR, PBG_NBR_FLG, TMP_NBR_FLG, BRE_NBR_FLG, 
+	    SBP_NBR_FLG, XY_FLG, ASSESSMENT_DAT, ABN_SCO_NME, ABN_DRIVER, ABN_DOCTOR, PSRYQT, 
+	    SEE_DOC_DAT, QK_COD, HL_ADDR, JJLX_NAM, JJLX_TEL, JJLX_NAM2, JJLX_TEL2, HL_ADDR_OTHER,
+	    PULSE_FLG, HRT_RTE_FLG, YLXSS_DES
+	</sql>
+	<select id="findJzcspgByEmgSeq" parameterType="java.lang.String"  resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />,
+	    (select braden_sco from hsp_braden_inf where xtpg_seq=HSP_JZCSPG_INF.BRADEN_SEQ) bradenSco,
+	    (select adl_sco from hsp_adl_inf where xtpg_seq=HSP_JZCSPG_INF.ADL_SEQ) adlSco,
+	    (select nrs_sco from hsp_nrs_inf where xtpg_seq=HSP_JZCSPG_INF.NRS_SEQ) nrsSco,
+	    (select zyfxpf_sco from hsp_zyfxpf_inf where zyfxpf_seq =HSP_JZCSPG_INF.zyfxpf_seq)zyfxpfSco,
+	    (select TOT_SCO from HSP_GCS_INF where EMG_SEQ = HSP_JZCSPG_INF.GCS_SEQ) gcsSco,
+	    (select ZF from HSP_DDFXPGB_INF where DDFXPGB_SEQ = HSP_JZCSPG_INF.DDFXPGB_SEQ) morseSco
+	    from HSP_JZCSPG_INF where EMG_SEQ=#{emgSeq}
+ 	</select>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.DstroleoperateCustomMapper" >
+  <delete id="deleteDstroleoperateMapperByRmid" parameterType="activetech.base.pojo.domain.Dstrolemodule">
+  	delete DSTROLEOPERATE where RMID in 
+  	<foreach item="item" index="index" collection="dstrolemoduleList"
+      open="(" separator="," close=")">
+        #{item.id}
+  	</foreach>
+  </delete>
+   <insert id="insertList" parameterType="activetech.base.pojo.domain.Dstroleoperate" >
+   
+   
+      insert into DSTROLEOPERATE (ID, RMID, OPERATEID, 
+      VCHAR1, VCHAR2, VCHAR3, 
+      VCHAR4)
+   <foreach item="item" index="index" collection="dstroleoperateList" separator="union all">
+	   select #{item.id,jdbcType=VARCHAR}, #{item.rmid,jdbcType=VARCHAR}, #{item.operateid,jdbcType=VARCHAR}, 
+      #{item.vchar1,jdbcType=VARCHAR}, #{item.vchar2,jdbcType=VARCHAR}, #{item.vchar3,jdbcType=VARCHAR}, 
+      #{item.vchar4,jdbcType=VARCHAR} from dual
+      </foreach>
+  </insert>
+  
+	<select id="getUserButtonOperationList" resultType="java.lang.String" >
+		select a.OPERATEID
+  		from dstroleoperate a,dstoperation b
+		where a.OPERATEID = b.OPERATEID
+ 		and b.OPERTYPE=#{operType}
+ 		and RMID in(select id from dstrolemodule a where roleid = #{roleId})
+	</select>
+</mapper>

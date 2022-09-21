@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspFuvPatMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspFuvPat" >
+    <id column="PAT_ID" property="patId" jdbcType="VARCHAR" />
+    <result column="PAT_NAM" property="patNam" jdbcType="VARCHAR" />
+    <result column="CST_SEX_COD" property="cstSexCod" jdbcType="VARCHAR" />
+    <result column="BTH_DAT" property="bthDat" jdbcType="DATE" />
+    <result column="LNK_NBR" property="lnkNbr" jdbcType="VARCHAR" />
+    <result column="PAT_NAT_COD" property="patNatCod" jdbcType="VARCHAR" />
+    <result column="MAR_STA_COD" property="marStaCod" jdbcType="CHAR" />
+    <result column="PAT_JOB" property="patJob" jdbcType="VARCHAR" />
+    <result column="ID_NBR" property="idNbr" jdbcType="VARCHAR" />
+    <result column="PAT_ADR" property="patAdr" jdbcType="VARCHAR" />
+    <result column="PAT_TEL" property="patTel" jdbcType="VARCHAR" />
+    <result column="LST_FUV_TIM" property="lstFuvTim" jdbcType="TIMESTAMP" />
+    <result column="PLN_FUV_TIM" property="plnFuvTim" jdbcType="TIMESTAMP" />
+    <result column="FUV_STA" property="fuvSta" jdbcType="CHAR" />
+    <result column="LFT_NUM" property="lftNum" jdbcType="DECIMAL" />
+    <result column="XTF_FLG" property="xtfFlg" jdbcType="CHAR" />
+    <result column="CZF_FLG" property="czfFlg" jdbcType="CHAR" />
+    <result column="CSF_FLG" property="csfFlg" jdbcType="CHAR" />
+    <result column="LST_FUV_SEQ" property="lstFuvSeq" jdbcType="VARCHAR" />
+    <result column="PLN_FUV_SEQ" property="plnFuvSeq" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PAT_ID, PAT_NAM, CST_SEX_COD, BTH_DAT, LNK_NBR, PAT_NAT_COD, MAR_STA_COD, PAT_JOB, 
+    ID_NBR, PAT_ADR, PAT_TEL, LST_FUV_TIM, PLN_FUV_TIM, FUV_STA, LFT_NUM, XTF_FLG, CZF_FLG, 
+    CSF_FLG, LST_FUV_SEQ, PLN_FUV_SEQ
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspFuvPatExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_FUV_PAT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_FUV_PAT
+    where PAT_ID = #{patId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_FUV_PAT
+    where PAT_ID = #{patId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspFuvPatExample" >
+    delete from HSP_FUV_PAT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspFuvPat" >
+    insert into HSP_FUV_PAT (PAT_ID, PAT_NAM, CST_SEX_COD, 
+      BTH_DAT, LNK_NBR, PAT_NAT_COD, 
+      MAR_STA_COD, PAT_JOB, ID_NBR, 
+      PAT_ADR, PAT_TEL, LST_FUV_TIM, 
+      PLN_FUV_TIM, FUV_STA, LFT_NUM, 
+      XTF_FLG, CZF_FLG, CSF_FLG, LST_FUV_SEQ, 
+      PLN_FUV_SEQ)
+    values (#{patId,jdbcType=VARCHAR}, #{patNam,jdbcType=VARCHAR}, #{cstSexCod,jdbcType=VARCHAR}, 
+      #{bthDat,jdbcType=DATE}, #{lnkNbr,jdbcType=VARCHAR}, #{patNatCod,jdbcType=VARCHAR}, 
+      #{marStaCod,jdbcType=CHAR}, #{patJob,jdbcType=VARCHAR}, #{idNbr,jdbcType=VARCHAR}, 
+      #{patAdr,jdbcType=VARCHAR}, #{patTel,jdbcType=VARCHAR}, #{lstFuvTim,jdbcType=TIMESTAMP}, 
+      #{plnFuvTim,jdbcType=TIMESTAMP}, #{fuvSta,jdbcType=CHAR}, #{lftNum,jdbcType=DECIMAL}, 
+      #{xtfFlg,jdbcType=CHAR}, #{czfFlg,jdbcType=CHAR}, #{csfFlg,jdbcType=CHAR}, #{lstFuvSeq,jdbcType=VARCHAR}, 
+      #{plnFuvSeq,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspFuvPat" >
+    insert into HSP_FUV_PAT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="patId != null" >
+        PAT_ID,
+      </if>
+      <if test="patNam != null" >
+        PAT_NAM,
+      </if>
+      <if test="cstSexCod != null" >
+        CST_SEX_COD,
+      </if>
+      <if test="bthDat != null" >
+        BTH_DAT,
+      </if>
+      <if test="lnkNbr != null" >
+        LNK_NBR,
+      </if>
+      <if test="patNatCod != null" >
+        PAT_NAT_COD,
+      </if>
+      <if test="marStaCod != null" >
+        MAR_STA_COD,
+      </if>
+      <if test="patJob != null" >
+        PAT_JOB,
+      </if>
+      <if test="idNbr != null" >
+        ID_NBR,
+      </if>
+      <if test="patAdr != null" >
+        PAT_ADR,
+      </if>
+      <if test="patTel != null" >
+        PAT_TEL,
+      </if>
+      <if test="lstFuvTim != null" >
+        LST_FUV_TIM,
+      </if>
+      <if test="plnFuvTim != null" >
+        PLN_FUV_TIM,
+      </if>
+      <if test="fuvSta != null" >
+        FUV_STA,
+      </if>
+      <if test="lftNum != null" >
+        LFT_NUM,
+      </if>
+      <if test="xtfFlg != null" >
+        XTF_FLG,
+      </if>
+      <if test="czfFlg != null" >
+        CZF_FLG,
+      </if>
+      <if test="csfFlg != null" >
+        CSF_FLG,
+      </if>
+      <if test="lstFuvSeq != null" >
+        LST_FUV_SEQ,
+      </if>
+      <if test="plnFuvSeq != null" >
+        PLN_FUV_SEQ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="patId != null" >
+        #{patId,jdbcType=VARCHAR},
+      </if>
+      <if test="patNam != null" >
+        #{patNam,jdbcType=VARCHAR},
+      </if>
+      <if test="cstSexCod != null" >
+        #{cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bthDat != null" >
+        #{bthDat,jdbcType=DATE},
+      </if>
+      <if test="lnkNbr != null" >
+        #{lnkNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="patNatCod != null" >
+        #{patNatCod,jdbcType=VARCHAR},
+      </if>
+      <if test="marStaCod != null" >
+        #{marStaCod,jdbcType=CHAR},
+      </if>
+      <if test="patJob != null" >
+        #{patJob,jdbcType=VARCHAR},
+      </if>
+      <if test="idNbr != null" >
+        #{idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="patAdr != null" >
+        #{patAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="patTel != null" >
+        #{patTel,jdbcType=VARCHAR},
+      </if>
+      <if test="lstFuvTim != null" >
+        #{lstFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plnFuvTim != null" >
+        #{plnFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fuvSta != null" >
+        #{fuvSta,jdbcType=CHAR},
+      </if>
+      <if test="lftNum != null" >
+        #{lftNum,jdbcType=DECIMAL},
+      </if>
+      <if test="xtfFlg != null" >
+        #{xtfFlg,jdbcType=CHAR},
+      </if>
+      <if test="czfFlg != null" >
+        #{czfFlg,jdbcType=CHAR},
+      </if>
+      <if test="csfFlg != null" >
+        #{csfFlg,jdbcType=CHAR},
+      </if>
+      <if test="lstFuvSeq != null" >
+        #{lstFuvSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="plnFuvSeq != null" >
+        #{plnFuvSeq,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspFuvPatExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_FUV_PAT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_FUV_PAT
+    <set >
+      <if test="record.patId != null" >
+        PAT_ID = #{record.patId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patNam != null" >
+        PAT_NAM = #{record.patNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstSexCod != null" >
+        CST_SEX_COD = #{record.cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bthDat != null" >
+        BTH_DAT = #{record.bthDat,jdbcType=DATE},
+      </if>
+      <if test="record.lnkNbr != null" >
+        LNK_NBR = #{record.lnkNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patNatCod != null" >
+        PAT_NAT_COD = #{record.patNatCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marStaCod != null" >
+        MAR_STA_COD = #{record.marStaCod,jdbcType=CHAR},
+      </if>
+      <if test="record.patJob != null" >
+        PAT_JOB = #{record.patJob,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idNbr != null" >
+        ID_NBR = #{record.idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patAdr != null" >
+        PAT_ADR = #{record.patAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patTel != null" >
+        PAT_TEL = #{record.patTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lstFuvTim != null" >
+        LST_FUV_TIM = #{record.lstFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.plnFuvTim != null" >
+        PLN_FUV_TIM = #{record.plnFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fuvSta != null" >
+        FUV_STA = #{record.fuvSta,jdbcType=CHAR},
+      </if>
+      <if test="record.lftNum != null" >
+        LFT_NUM = #{record.lftNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.xtfFlg != null" >
+        XTF_FLG = #{record.xtfFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.czfFlg != null" >
+        CZF_FLG = #{record.czfFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.csfFlg != null" >
+        CSF_FLG = #{record.csfFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.lstFuvSeq != null" >
+        LST_FUV_SEQ = #{record.lstFuvSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plnFuvSeq != null" >
+        PLN_FUV_SEQ = #{record.plnFuvSeq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_FUV_PAT
+    set PAT_ID = #{record.patId,jdbcType=VARCHAR},
+      PAT_NAM = #{record.patNam,jdbcType=VARCHAR},
+      CST_SEX_COD = #{record.cstSexCod,jdbcType=VARCHAR},
+      BTH_DAT = #{record.bthDat,jdbcType=DATE},
+      LNK_NBR = #{record.lnkNbr,jdbcType=VARCHAR},
+      PAT_NAT_COD = #{record.patNatCod,jdbcType=VARCHAR},
+      MAR_STA_COD = #{record.marStaCod,jdbcType=CHAR},
+      PAT_JOB = #{record.patJob,jdbcType=VARCHAR},
+      ID_NBR = #{record.idNbr,jdbcType=VARCHAR},
+      PAT_ADR = #{record.patAdr,jdbcType=VARCHAR},
+      PAT_TEL = #{record.patTel,jdbcType=VARCHAR},
+      LST_FUV_TIM = #{record.lstFuvTim,jdbcType=TIMESTAMP},
+      PLN_FUV_TIM = #{record.plnFuvTim,jdbcType=TIMESTAMP},
+      FUV_STA = #{record.fuvSta,jdbcType=CHAR},
+      LFT_NUM = #{record.lftNum,jdbcType=DECIMAL},
+      XTF_FLG = #{record.xtfFlg,jdbcType=CHAR},
+      CZF_FLG = #{record.czfFlg,jdbcType=CHAR},
+      CSF_FLG = #{record.csfFlg,jdbcType=CHAR},
+      LST_FUV_SEQ = #{record.lstFuvSeq,jdbcType=VARCHAR},
+      PLN_FUV_SEQ = #{record.plnFuvSeq,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspFuvPat" >
+    update HSP_FUV_PAT
+    <set >
+      <if test="patNam != null" >
+        PAT_NAM = #{patNam,jdbcType=VARCHAR},
+      </if>
+      <if test="cstSexCod != null" >
+        CST_SEX_COD = #{cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bthDat != null" >
+        BTH_DAT = #{bthDat,jdbcType=DATE},
+      </if>
+      <if test="lnkNbr != null" >
+        LNK_NBR = #{lnkNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="patNatCod != null" >
+        PAT_NAT_COD = #{patNatCod,jdbcType=VARCHAR},
+      </if>
+      <if test="marStaCod != null" >
+        MAR_STA_COD = #{marStaCod,jdbcType=CHAR},
+      </if>
+      <if test="patJob != null" >
+        PAT_JOB = #{patJob,jdbcType=VARCHAR},
+      </if>
+      <if test="idNbr != null" >
+        ID_NBR = #{idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="patAdr != null" >
+        PAT_ADR = #{patAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="patTel != null" >
+        PAT_TEL = #{patTel,jdbcType=VARCHAR},
+      </if>
+      <if test="lstFuvTim != null" >
+        LST_FUV_TIM = #{lstFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plnFuvTim != null" >
+        PLN_FUV_TIM = #{plnFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fuvSta != null" >
+        FUV_STA = #{fuvSta,jdbcType=CHAR},
+      </if>
+      <if test="lftNum != null" >
+        LFT_NUM = #{lftNum,jdbcType=DECIMAL},
+      </if>
+      <if test="xtfFlg != null" >
+        XTF_FLG = #{xtfFlg,jdbcType=CHAR},
+      </if>
+      <if test="czfFlg != null" >
+        CZF_FLG = #{czfFlg,jdbcType=CHAR},
+      </if>
+      <if test="csfFlg != null" >
+        CSF_FLG = #{csfFlg,jdbcType=CHAR},
+      </if>
+      <if test="lstFuvSeq != null" >
+        LST_FUV_SEQ = #{lstFuvSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="plnFuvSeq != null" >
+        PLN_FUV_SEQ = #{plnFuvSeq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PAT_ID = #{patId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspFuvPat" >
+    update HSP_FUV_PAT
+    set PAT_NAM = #{patNam,jdbcType=VARCHAR},
+      CST_SEX_COD = #{cstSexCod,jdbcType=VARCHAR},
+      BTH_DAT = #{bthDat,jdbcType=DATE},
+      LNK_NBR = #{lnkNbr,jdbcType=VARCHAR},
+      PAT_NAT_COD = #{patNatCod,jdbcType=VARCHAR},
+      MAR_STA_COD = #{marStaCod,jdbcType=CHAR},
+      PAT_JOB = #{patJob,jdbcType=VARCHAR},
+      ID_NBR = #{idNbr,jdbcType=VARCHAR},
+      PAT_ADR = #{patAdr,jdbcType=VARCHAR},
+      PAT_TEL = #{patTel,jdbcType=VARCHAR},
+      LST_FUV_TIM = #{lstFuvTim,jdbcType=TIMESTAMP},
+      PLN_FUV_TIM = #{plnFuvTim,jdbcType=TIMESTAMP},
+      FUV_STA = #{fuvSta,jdbcType=CHAR},
+      LFT_NUM = #{lftNum,jdbcType=DECIMAL},
+      XTF_FLG = #{xtfFlg,jdbcType=CHAR},
+      CZF_FLG = #{czfFlg,jdbcType=CHAR},
+      CSF_FLG = #{csfFlg,jdbcType=CHAR},
+      LST_FUV_SEQ = #{lstFuvSeq,jdbcType=VARCHAR},
+      PLN_FUV_SEQ = #{plnFuvSeq,jdbcType=VARCHAR}
+    where PAT_ID = #{patId,jdbcType=VARCHAR}
+  </update>
+</mapper>

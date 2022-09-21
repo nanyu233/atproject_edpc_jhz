@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspObsvtfstInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspObsvtfstInf" >
+    <id column="OBSVTFST_SEQ" property="obsvtfstSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="ADMT_DAT" property="admtDat" jdbcType="TIMESTAMP" />
+    <result column="DSCG_DAT" property="dscgDat" jdbcType="TIMESTAMP" />
+    <result column="OBSVT_LEN" property="obsvtLen" jdbcType="DECIMAL" />
+    <result column="CRAT_DAT" property="cratDat" jdbcType="TIMESTAMP" />
+    <result column="CRAT_NBR" property="cratNbr" jdbcType="VARCHAR" />
+    <result column="CRAT_NAM" property="cratNam" jdbcType="VARCHAR" />
+    <result column="UPDT_DAT" property="updtDat" jdbcType="TIMESTAMP" />
+    <result column="UPDT_NBR" property="updtNbr" jdbcType="VARCHAR" />
+    <result column="UPDT_NAM" property="updtNam" jdbcType="VARCHAR" />
+    <result column="UPDT_DAT2" property="updtDat2" jdbcType="TIMESTAMP" />
+    <result column="UPDT_NBR2" property="updtNbr2" jdbcType="VARCHAR" />
+    <result column="UPDT_NAM2" property="updtNam2" jdbcType="VARCHAR" />
+    <result column="UPDT_DAT3" property="updtDat3" jdbcType="TIMESTAMP" />
+    <result column="UPDT_NBR3" property="updtNbr3" jdbcType="VARCHAR" />
+    <result column="UPDT_NAM3" property="updtNam3" jdbcType="VARCHAR" />
+    <result column="OPRT_DAT" property="oprtDat" jdbcType="TIMESTAMP" />
+    <result column="OBSVT_ZG" property="obsvtZg" jdbcType="VARCHAR" />
+    <result column="OBSVT_TYPE" property="obsvtType" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    OBSVTFST_SEQ, EMG_SEQ, ADMT_DAT, DSCG_DAT, OBSVT_LEN, CRAT_DAT, CRAT_NBR, CRAT_NAM, 
+    UPDT_DAT, UPDT_NBR, UPDT_NAM, UPDT_DAT2, UPDT_NBR2, UPDT_NAM2, UPDT_DAT3, UPDT_NBR3, 
+    UPDT_NAM3, OPRT_DAT, OBSVT_ZG, OBSVT_TYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspObsvtfstInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_OBSVTFST_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_OBSVTFST_INF
+    where OBSVTFST_SEQ = #{obsvtfstSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_OBSVTFST_INF
+    where OBSVTFST_SEQ = #{obsvtfstSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspObsvtfstInfExample" >
+    delete from HSP_OBSVTFST_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspObsvtfstInf" >
+    insert into HSP_OBSVTFST_INF (OBSVTFST_SEQ, EMG_SEQ, ADMT_DAT, 
+      DSCG_DAT, OBSVT_LEN, CRAT_DAT, 
+      CRAT_NBR, CRAT_NAM, UPDT_DAT, 
+      UPDT_NBR, UPDT_NAM, UPDT_DAT2, 
+      UPDT_NBR2, UPDT_NAM2, UPDT_DAT3, 
+      UPDT_NBR3, UPDT_NAM3, OPRT_DAT, 
+      OBSVT_ZG, OBSVT_TYPE)
+    values (#{obsvtfstSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{admtDat,jdbcType=TIMESTAMP}, 
+      #{dscgDat,jdbcType=TIMESTAMP}, #{obsvtLen,jdbcType=DECIMAL}, #{cratDat,jdbcType=TIMESTAMP}, 
+      #{cratNbr,jdbcType=VARCHAR}, #{cratNam,jdbcType=VARCHAR}, #{updtDat,jdbcType=TIMESTAMP}, 
+      #{updtNbr,jdbcType=VARCHAR}, #{updtNam,jdbcType=VARCHAR}, #{updtDat2,jdbcType=TIMESTAMP}, 
+      #{updtNbr2,jdbcType=VARCHAR}, #{updtNam2,jdbcType=VARCHAR}, #{updtDat3,jdbcType=TIMESTAMP}, 
+      #{updtNbr3,jdbcType=VARCHAR}, #{updtNam3,jdbcType=VARCHAR}, #{oprtDat,jdbcType=TIMESTAMP}, 
+      #{obsvtZg,jdbcType=VARCHAR}, #{obsvtType,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspObsvtfstInf" >
+    insert into HSP_OBSVTFST_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="obsvtfstSeq != null" >
+        OBSVTFST_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="admtDat != null" >
+        ADMT_DAT,
+      </if>
+      <if test="dscgDat != null" >
+        DSCG_DAT,
+      </if>
+      <if test="obsvtLen != null" >
+        OBSVT_LEN,
+      </if>
+      <if test="cratDat != null" >
+        CRAT_DAT,
+      </if>
+      <if test="cratNbr != null" >
+        CRAT_NBR,
+      </if>
+      <if test="cratNam != null" >
+        CRAT_NAM,
+      </if>
+      <if test="updtDat != null" >
+        UPDT_DAT,
+      </if>
+      <if test="updtNbr != null" >
+        UPDT_NBR,
+      </if>
+      <if test="updtNam != null" >
+        UPDT_NAM,
+      </if>
+      <if test="updtDat2 != null" >
+        UPDT_DAT2,
+      </if>
+      <if test="updtNbr2 != null" >
+        UPDT_NBR2,
+      </if>
+      <if test="updtNam2 != null" >
+        UPDT_NAM2,
+      </if>
+      <if test="updtDat3 != null" >
+        UPDT_DAT3,
+      </if>
+      <if test="updtNbr3 != null" >
+        UPDT_NBR3,
+      </if>
+      <if test="updtNam3 != null" >
+        UPDT_NAM3,
+      </if>
+      <if test="oprtDat != null" >
+        OPRT_DAT,
+      </if>
+      <if test="obsvtZg != null" >
+        OBSVT_ZG,
+      </if>
+      <if test="obsvtType != null" >
+        OBSVT_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="obsvtfstSeq != null" >
+        #{obsvtfstSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="admtDat != null" >
+        #{admtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dscgDat != null" >
+        #{dscgDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="obsvtLen != null" >
+        #{obsvtLen,jdbcType=DECIMAL},
+      </if>
+      <if test="cratDat != null" >
+        #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cratNbr != null" >
+        #{cratNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cratNam != null" >
+        #{cratNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updtDat != null" >
+        #{updtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtNbr != null" >
+        #{updtNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="updtNam != null" >
+        #{updtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updtDat2 != null" >
+        #{updtDat2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtNbr2 != null" >
+        #{updtNbr2,jdbcType=VARCHAR},
+      </if>
+      <if test="updtNam2 != null" >
+        #{updtNam2,jdbcType=VARCHAR},
+      </if>
+      <if test="updtDat3 != null" >
+        #{updtDat3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtNbr3 != null" >
+        #{updtNbr3,jdbcType=VARCHAR},
+      </if>
+      <if test="updtNam3 != null" >
+        #{updtNam3,jdbcType=VARCHAR},
+      </if>
+      <if test="oprtDat != null" >
+        #{oprtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="obsvtZg != null" >
+        #{obsvtZg,jdbcType=VARCHAR},
+      </if>
+      <if test="obsvtType != null" >
+        #{obsvtType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspObsvtfstInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_OBSVTFST_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_OBSVTFST_INF
+    <set >
+      <if test="record.obsvtfstSeq != null" >
+        OBSVTFST_SEQ = #{record.obsvtfstSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admtDat != null" >
+        ADMT_DAT = #{record.admtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dscgDat != null" >
+        DSCG_DAT = #{record.dscgDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.obsvtLen != null" >
+        OBSVT_LEN = #{record.obsvtLen,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cratDat != null" >
+        CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cratNbr != null" >
+        CRAT_NBR = #{record.cratNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cratNam != null" >
+        CRAT_NAM = #{record.cratNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updtDat != null" >
+        UPDT_DAT = #{record.updtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updtNbr != null" >
+        UPDT_NBR = #{record.updtNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updtNam != null" >
+        UPDT_NAM = #{record.updtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updtDat2 != null" >
+        UPDT_DAT2 = #{record.updtDat2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updtNbr2 != null" >
+        UPDT_NBR2 = #{record.updtNbr2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updtNam2 != null" >
+        UPDT_NAM2 = #{record.updtNam2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updtDat3 != null" >
+        UPDT_DAT3 = #{record.updtDat3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updtNbr3 != null" >
+        UPDT_NBR3 = #{record.updtNbr3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updtNam3 != null" >
+        UPDT_NAM3 = #{record.updtNam3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oprtDat != null" >
+        OPRT_DAT = #{record.oprtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.obsvtZg != null" >
+        OBSVT_ZG = #{record.obsvtZg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.obsvtType != null" >
+        OBSVT_TYPE = #{record.obsvtType,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_OBSVTFST_INF
+    set OBSVTFST_SEQ = #{record.obsvtfstSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      ADMT_DAT = #{record.admtDat,jdbcType=TIMESTAMP},
+      DSCG_DAT = #{record.dscgDat,jdbcType=TIMESTAMP},
+      OBSVT_LEN = #{record.obsvtLen,jdbcType=DECIMAL},
+      CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP},
+      CRAT_NBR = #{record.cratNbr,jdbcType=VARCHAR},
+      CRAT_NAM = #{record.cratNam,jdbcType=VARCHAR},
+      UPDT_DAT = #{record.updtDat,jdbcType=TIMESTAMP},
+      UPDT_NBR = #{record.updtNbr,jdbcType=VARCHAR},
+      UPDT_NAM = #{record.updtNam,jdbcType=VARCHAR},
+      UPDT_DAT2 = #{record.updtDat2,jdbcType=TIMESTAMP},
+      UPDT_NBR2 = #{record.updtNbr2,jdbcType=VARCHAR},
+      UPDT_NAM2 = #{record.updtNam2,jdbcType=VARCHAR},
+      UPDT_DAT3 = #{record.updtDat3,jdbcType=TIMESTAMP},
+      UPDT_NBR3 = #{record.updtNbr3,jdbcType=VARCHAR},
+      UPDT_NAM3 = #{record.updtNam3,jdbcType=VARCHAR},
+      OPRT_DAT = #{record.oprtDat,jdbcType=TIMESTAMP},
+      OBSVT_ZG = #{record.obsvtZg,jdbcType=VARCHAR},
+      OBSVT_TYPE = #{record.obsvtType,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspObsvtfstInf" >
+    update HSP_OBSVTFST_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="admtDat != null" >
+        ADMT_DAT = #{admtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dscgDat != null" >
+        DSCG_DAT = #{dscgDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="obsvtLen != null" >
+        OBSVT_LEN = #{obsvtLen,jdbcType=DECIMAL},
+      </if>
+      <if test="cratDat != null" >
+        CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cratNbr != null" >
+        CRAT_NBR = #{cratNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cratNam != null" >
+        CRAT_NAM = #{cratNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updtDat != null" >
+        UPDT_DAT = #{updtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtNbr != null" >
+        UPDT_NBR = #{updtNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="updtNam != null" >
+        UPDT_NAM = #{updtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updtDat2 != null" >
+        UPDT_DAT2 = #{updtDat2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtNbr2 != null" >
+        UPDT_NBR2 = #{updtNbr2,jdbcType=VARCHAR},
+      </if>
+      <if test="updtNam2 != null" >
+        UPDT_NAM2 = #{updtNam2,jdbcType=VARCHAR},
+      </if>
+      <if test="updtDat3 != null" >
+        UPDT_DAT3 = #{updtDat3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtNbr3 != null" >
+        UPDT_NBR3 = #{updtNbr3,jdbcType=VARCHAR},
+      </if>
+      <if test="updtNam3 != null" >
+        UPDT_NAM3 = #{updtNam3,jdbcType=VARCHAR},
+      </if>
+      <if test="oprtDat != null" >
+        OPRT_DAT = #{oprtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="obsvtZg != null" >
+        OBSVT_ZG = #{obsvtZg,jdbcType=VARCHAR},
+      </if>
+      <if test="obsvtType != null" >
+        OBSVT_TYPE = #{obsvtType,jdbcType=CHAR},
+      </if>
+    </set>
+    where OBSVTFST_SEQ = #{obsvtfstSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspObsvtfstInf" >
+    update HSP_OBSVTFST_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      ADMT_DAT = #{admtDat,jdbcType=TIMESTAMP},
+      DSCG_DAT = #{dscgDat,jdbcType=TIMESTAMP},
+      OBSVT_LEN = #{obsvtLen,jdbcType=DECIMAL},
+      CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP},
+      CRAT_NBR = #{cratNbr,jdbcType=VARCHAR},
+      CRAT_NAM = #{cratNam,jdbcType=VARCHAR},
+      UPDT_DAT = #{updtDat,jdbcType=TIMESTAMP},
+      UPDT_NBR = #{updtNbr,jdbcType=VARCHAR},
+      UPDT_NAM = #{updtNam,jdbcType=VARCHAR},
+      UPDT_DAT2 = #{updtDat2,jdbcType=TIMESTAMP},
+      UPDT_NBR2 = #{updtNbr2,jdbcType=VARCHAR},
+      UPDT_NAM2 = #{updtNam2,jdbcType=VARCHAR},
+      UPDT_DAT3 = #{updtDat3,jdbcType=TIMESTAMP},
+      UPDT_NBR3 = #{updtNbr3,jdbcType=VARCHAR},
+      UPDT_NAM3 = #{updtNam3,jdbcType=VARCHAR},
+      OPRT_DAT = #{oprtDat,jdbcType=TIMESTAMP},
+      OBSVT_ZG = #{obsvtZg,jdbcType=VARCHAR},
+      OBSVT_TYPE = #{obsvtType,jdbcType=CHAR}
+    where OBSVTFST_SEQ = #{obsvtfstSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

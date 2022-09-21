@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.eicu.dao.mapper.IcuVsDefCustomMapper" >
+<resultMap id="BaseResultMap" type="activetech.eicu.pojo.dto.IcuVsDefCustom">
+    <result column="VS_SEQ" jdbcType="VARCHAR" property="vsSeq" />
+    <result column="VS_TYPE" jdbcType="VARCHAR" property="vsType" />
+    <result column="VS_NAME" jdbcType="VARCHAR" property="vsName" />
+    <result column="VS_UNIT" jdbcType="VARCHAR" property="vsUnit" />
+    <result column="VS_LOW_LMT" jdbcType="DECIMAL" property="vsLowLmt" />
+    <result column="VS_UPP_LMT" jdbcType="DECIMAL" property="vsUppLmt" />
+    <result column="VS_SORT" jdbcType="DECIMAL" property="vsSort" />
+  </resultMap>
+  
+  
+	<!-- 获取生命体征列表 -->	
+	<select id="getIcuVsDefList" resultMap="BaseResultMap">
+		select * from icu_vs_def order by vs_sort
+	</select>
+	
+  <select id="getSimpPipeDic" resultType="activetech.eicu.pojo.dto.IcuVsDefCustom">
+	select b.pipe_type,b.type_name,b.vs_type ,b.vs_code,b.vs_name,b.vs_unit,b.rslt_mode,b.rslt_code,b.vs_sort
+	  from dstparameter a,
+	       (select *
+	          from icu_pipe_def a
+	          left join (select * from icu_vs_def where vs_type = 'PR') b
+	            on 1 = 1) b
+	 where a.parcode = b.pipe_type
+	   and a.parvalue1 = b.vs_code
+	order by pipe_type,vs_sort
+  </select>
+
+</mapper>

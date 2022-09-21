@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.eicu.dao.mapper.IcuVsDefMapper" >
+  <resultMap id="BaseResultMap" type="activetech.eicu.pojo.domain.IcuVsDef" >
+    <id column="VS_TYPE" property="vsType" jdbcType="VARCHAR" />
+    <id column="VS_CODE" property="vsCode" jdbcType="VARCHAR" />
+    <result column="VS_NAME" property="vsName" jdbcType="VARCHAR" />
+    <result column="VS_UNIT" property="vsUnit" jdbcType="VARCHAR" />
+    <result column="RSLT_MODE" property="rsltMode" jdbcType="VARCHAR" />
+    <result column="RSLT_CODE" property="rsltCode" jdbcType="VARCHAR" />
+    <result column="UDEF_FLAG" property="udefFlag" jdbcType="VARCHAR" />
+    <result column="LMT_FLAG" property="lmtFlag" jdbcType="VARCHAR" />
+    <result column="CG_FLAG" property="cgFlag" jdbcType="VARCHAR" />
+    <result column="CUST_SHOW" property="custShow" jdbcType="VARCHAR" />
+    <result column="WHOL_MAIN" property="wholMain" jdbcType="VARCHAR" />
+    <result column="COL_NUMB" property="colNumb" jdbcType="DECIMAL" />
+    <result column="VS_SORT" property="vsSort" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    VS_TYPE, VS_CODE, VS_NAME, VS_UNIT, RSLT_MODE, RSLT_CODE, UDEF_FLAG, LMT_FLAG, CG_FLAG, 
+    CUST_SHOW, WHOL_MAIN, COL_NUMB, VS_SORT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.eicu.pojo.domain.IcuVsDefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ICU_VS_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="activetech.eicu.pojo.domain.IcuVsDefKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ICU_VS_DEF
+    where VS_TYPE = #{vsType,jdbcType=VARCHAR}
+      and VS_CODE = #{vsCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="activetech.eicu.pojo.domain.IcuVsDefKey" >
+    delete from ICU_VS_DEF
+    where VS_TYPE = #{vsType,jdbcType=VARCHAR}
+      and VS_CODE = #{vsCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.eicu.pojo.domain.IcuVsDefExample" >
+    delete from ICU_VS_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.eicu.pojo.domain.IcuVsDef" >
+    insert into ICU_VS_DEF (VS_TYPE, VS_CODE, VS_NAME, 
+      VS_UNIT, RSLT_MODE, RSLT_CODE, 
+      UDEF_FLAG, LMT_FLAG, CG_FLAG, 
+      CUST_SHOW, WHOL_MAIN, COL_NUMB, 
+      VS_SORT)
+    values (#{vsType,jdbcType=VARCHAR}, #{vsCode,jdbcType=VARCHAR}, #{vsName,jdbcType=VARCHAR}, 
+      #{vsUnit,jdbcType=VARCHAR}, #{rsltMode,jdbcType=VARCHAR}, #{rsltCode,jdbcType=VARCHAR}, 
+      #{udefFlag,jdbcType=VARCHAR}, #{lmtFlag,jdbcType=VARCHAR}, #{cgFlag,jdbcType=VARCHAR}, 
+      #{custShow,jdbcType=VARCHAR}, #{wholMain,jdbcType=VARCHAR}, #{colNumb,jdbcType=DECIMAL}, 
+      #{vsSort,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.eicu.pojo.domain.IcuVsDef" >
+    insert into ICU_VS_DEF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vsType != null" >
+        VS_TYPE,
+      </if>
+      <if test="vsCode != null" >
+        VS_CODE,
+      </if>
+      <if test="vsName != null" >
+        VS_NAME,
+      </if>
+      <if test="vsUnit != null" >
+        VS_UNIT,
+      </if>
+      <if test="rsltMode != null" >
+        RSLT_MODE,
+      </if>
+      <if test="rsltCode != null" >
+        RSLT_CODE,
+      </if>
+      <if test="udefFlag != null" >
+        UDEF_FLAG,
+      </if>
+      <if test="lmtFlag != null" >
+        LMT_FLAG,
+      </if>
+      <if test="cgFlag != null" >
+        CG_FLAG,
+      </if>
+      <if test="custShow != null" >
+        CUST_SHOW,
+      </if>
+      <if test="wholMain != null" >
+        WHOL_MAIN,
+      </if>
+      <if test="colNumb != null" >
+        COL_NUMB,
+      </if>
+      <if test="vsSort != null" >
+        VS_SORT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vsType != null" >
+        #{vsType,jdbcType=VARCHAR},
+      </if>
+      <if test="vsCode != null" >
+        #{vsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vsName != null" >
+        #{vsName,jdbcType=VARCHAR},
+      </if>
+      <if test="vsUnit != null" >
+        #{vsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="rsltMode != null" >
+        #{rsltMode,jdbcType=VARCHAR},
+      </if>
+      <if test="rsltCode != null" >
+        #{rsltCode,jdbcType=VARCHAR},
+      </if>
+      <if test="udefFlag != null" >
+        #{udefFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="lmtFlag != null" >
+        #{lmtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="cgFlag != null" >
+        #{cgFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="custShow != null" >
+        #{custShow,jdbcType=VARCHAR},
+      </if>
+      <if test="wholMain != null" >
+        #{wholMain,jdbcType=VARCHAR},
+      </if>
+      <if test="colNumb != null" >
+        #{colNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="vsSort != null" >
+        #{vsSort,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.eicu.pojo.domain.IcuVsDefExample" resultType="java.lang.Integer" >
+    select count(*) from ICU_VS_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ICU_VS_DEF
+    <set >
+      <if test="record.vsType != null" >
+        VS_TYPE = #{record.vsType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vsCode != null" >
+        VS_CODE = #{record.vsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vsName != null" >
+        VS_NAME = #{record.vsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vsUnit != null" >
+        VS_UNIT = #{record.vsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsltMode != null" >
+        RSLT_MODE = #{record.rsltMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsltCode != null" >
+        RSLT_CODE = #{record.rsltCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.udefFlag != null" >
+        UDEF_FLAG = #{record.udefFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lmtFlag != null" >
+        LMT_FLAG = #{record.lmtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cgFlag != null" >
+        CG_FLAG = #{record.cgFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custShow != null" >
+        CUST_SHOW = #{record.custShow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wholMain != null" >
+        WHOL_MAIN = #{record.wholMain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.colNumb != null" >
+        COL_NUMB = #{record.colNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vsSort != null" >
+        VS_SORT = #{record.vsSort,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ICU_VS_DEF
+    set VS_TYPE = #{record.vsType,jdbcType=VARCHAR},
+      VS_CODE = #{record.vsCode,jdbcType=VARCHAR},
+      VS_NAME = #{record.vsName,jdbcType=VARCHAR},
+      VS_UNIT = #{record.vsUnit,jdbcType=VARCHAR},
+      RSLT_MODE = #{record.rsltMode,jdbcType=VARCHAR},
+      RSLT_CODE = #{record.rsltCode,jdbcType=VARCHAR},
+      UDEF_FLAG = #{record.udefFlag,jdbcType=VARCHAR},
+      LMT_FLAG = #{record.lmtFlag,jdbcType=VARCHAR},
+      CG_FLAG = #{record.cgFlag,jdbcType=VARCHAR},
+      CUST_SHOW = #{record.custShow,jdbcType=VARCHAR},
+      WHOL_MAIN = #{record.wholMain,jdbcType=VARCHAR},
+      COL_NUMB = #{record.colNumb,jdbcType=DECIMAL},
+      VS_SORT = #{record.vsSort,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.eicu.pojo.domain.IcuVsDef" >
+    update ICU_VS_DEF
+    <set >
+      <if test="vsName != null" >
+        VS_NAME = #{vsName,jdbcType=VARCHAR},
+      </if>
+      <if test="vsUnit != null" >
+        VS_UNIT = #{vsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="rsltMode != null" >
+        RSLT_MODE = #{rsltMode,jdbcType=VARCHAR},
+      </if>
+      <if test="rsltCode != null" >
+        RSLT_CODE = #{rsltCode,jdbcType=VARCHAR},
+      </if>
+      <if test="udefFlag != null" >
+        UDEF_FLAG = #{udefFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="lmtFlag != null" >
+        LMT_FLAG = #{lmtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="cgFlag != null" >
+        CG_FLAG = #{cgFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="custShow != null" >
+        CUST_SHOW = #{custShow,jdbcType=VARCHAR},
+      </if>
+      <if test="wholMain != null" >
+        WHOL_MAIN = #{wholMain,jdbcType=VARCHAR},
+      </if>
+      <if test="colNumb != null" >
+        COL_NUMB = #{colNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="vsSort != null" >
+        VS_SORT = #{vsSort,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where VS_TYPE = #{vsType,jdbcType=VARCHAR}
+      and VS_CODE = #{vsCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.eicu.pojo.domain.IcuVsDef" >
+    update ICU_VS_DEF
+    set VS_NAME = #{vsName,jdbcType=VARCHAR},
+      VS_UNIT = #{vsUnit,jdbcType=VARCHAR},
+      RSLT_MODE = #{rsltMode,jdbcType=VARCHAR},
+      RSLT_CODE = #{rsltCode,jdbcType=VARCHAR},
+      UDEF_FLAG = #{udefFlag,jdbcType=VARCHAR},
+      LMT_FLAG = #{lmtFlag,jdbcType=VARCHAR},
+      CG_FLAG = #{cgFlag,jdbcType=VARCHAR},
+      CUST_SHOW = #{custShow,jdbcType=VARCHAR},
+      WHOL_MAIN = #{wholMain,jdbcType=VARCHAR},
+      COL_NUMB = #{colNumb,jdbcType=DECIMAL},
+      VS_SORT = #{vsSort,jdbcType=DECIMAL}
+    where VS_TYPE = #{vsType,jdbcType=VARCHAR}
+      and VS_CODE = #{vsCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

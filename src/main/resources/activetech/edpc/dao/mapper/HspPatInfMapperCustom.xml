@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspPatInfMapperCustom" >
+
+  <sql id="condition">
+    <where>
+        <if test="hspPatInfCustom!=null">
+        	<if test="hspPatInfCustom.mpi!=null and hspPatInfCustom.mpi != ''.toString()">
+                and (a.pat_id like '%' || #{hspPatInfCustom.mpi} || '%'
+                	 or a.pat_nam like '%' || #{hspPatInfCustom.mpi} || '%'
+                	 or a.lnk_nbr like '%' || #{hspPatInfCustom.mpi} || '%'
+                	 or a.id_nbr like '%' || #{hspPatInfCustom.mpi} || '%'
+                	)
+            </if>
+        	<if test="hspPatInfCustom.patId!=null and hspPatInfCustom.patId != ''.toString()">
+                and a.pat_id like '%' || #{hspPatInfCustom.patId,jdbcType=VARCHAR} || '%'
+            </if>
+            <if test="hspPatInfCustom.patNam!=null and hspPatInfCustom.patNam != ''.toString()">
+                and a.pat_nam like '%' || #{hspPatInfCustom.patNam,jdbcType=VARCHAR} || '%'
+            </if>
+            <if test="hspPatInfCustom.lnkNbr!=null and hspPatInfCustom.lnkNbr != ''.toString()">
+            	and a.lnk_nbr like '%' || #{hspPatInfCustom.lnkNbr,jdbcType=VARCHAR} || '%'
+            </if>
+            <if test="hspPatInfCustom.idNbr!=null and hspPatInfCustom.idNbr != ''.toString()">
+            	and a.id_nbr like '%' || #{hspPatInfCustom.idNbr,jdbcType=VARCHAR} || '%'
+            </if>
+            <if test="hspPatInfCustom.xtfFlg != null and hspPatInfCustom.xtfFlg != ''.toString() ">	
+            	and a.xtf_flg = #{hspPatInfCustom.xtfFlg}	
+			</if>
+			<if test="hspPatInfCustom.csfFlg != null and hspPatInfCustom.csfFlg != ''.toString() ">		
+				and a.csf_flg = #{hspPatInfCustom.csfFlg}			
+			</if>
+			<if test="hspPatInfCustom.czfFlg != null and hspPatInfCustom.czfFlg != ''.toString() ">		
+				and a.czf_flg = #{hspPatInfCustom.czfFlg}			
+			</if>
+        </if>
+    </where>
+  </sql>
+
+  <select id="countByCondition" resultType="java.lang.Integer"
+            parameterType="activetech.edpc.pojo.dto.HspPatInfQueryDto">
+        select count(*)
+          from hsp_pat_inf a
+        <include refid="condition"/>
+  </select>
+  <select id="selectByCondition" resultType="activetech.edpc.pojo.dto.HspPatInfCustom"
+      parameterType="activetech.edpc.pojo.dto.HspPatInfQueryDto" >
+    <include refid="activetech.base.CommonSql.page_start"/>
+      select a.pat_id,
+             a.pat_nam,
+             a.cst_sex_cod,
+             a.bth_dat,
+             a.lnk_nbr,
+             a.pat_nat_cod,
+             a.mar_sta_cod,
+             a.pat_job,
+             a.id_nbr,
+             a.pat_adr,
+             a.pat_tel,
+             a.pat_lng,
+             a.pat_nat,
+             a.bth_adr,
+             a.pat_rel
+        from hsp_pat_inf a
+    <include refid="condition"/>
+    order by a.pat_id desc
+    <include refid="activetech.base.CommonSql.page_end"/>
+  </select>
+</mapper>

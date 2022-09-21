@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspOperateInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspOperateInf">
+    <id column="OPER_SEQ" jdbcType="VARCHAR" property="operSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="OPER_NAM" jdbcType="VARCHAR" property="operNam" />
+    <result column="OPER_DAT" jdbcType="TIMESTAMP" property="operDat" />
+    <result column="OPER_YS" jdbcType="VARCHAR" property="operYs" />
+    <result column="CRE_DAT" jdbcType="TIMESTAMP" property="creDat" />
+    <result column="CRE_COD" jdbcType="VARCHAR" property="creCod" />
+    <result column="CRE_NAM" jdbcType="VARCHAR" property="creNam" />
+    <result column="UPD_DAT" jdbcType="TIMESTAMP" property="updDat" />
+    <result column="UPD_COD" jdbcType="VARCHAR" property="updCod" />
+    <result column="UPD_NAM" jdbcType="VARCHAR" property="updNam" />
+    <result column="OPER_BCJL" jdbcType="VARCHAR" property="operBcjl" />
+    <result column="OPERATION_CODE" jdbcType="VARCHAR" property="operationCode" />
+    <result column="ISPRINT" jdbcType="VARCHAR" property="isprint" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    OPER_SEQ, EMG_SEQ, OPER_NAM, OPER_DAT, OPER_YS, CRE_DAT, CRE_COD, CRE_NAM, UPD_DAT, 
+    UPD_COD, UPD_NAM, OPER_BCJL, OPERATION_CODE, ISPRINT
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspOperateInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_OPERATE_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_OPERATE_INF
+    where OPER_SEQ = #{operSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_OPERATE_INF
+    where OPER_SEQ = #{operSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspOperateInfExample">
+    delete from HSP_OPERATE_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspOperateInf">
+    insert into HSP_OPERATE_INF (OPER_SEQ, EMG_SEQ, OPER_NAM, 
+      OPER_DAT, OPER_YS, CRE_DAT, 
+      CRE_COD, CRE_NAM, UPD_DAT, 
+      UPD_COD, UPD_NAM, OPER_BCJL, 
+      OPERATION_CODE, ISPRINT)
+    values (#{operSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{operNam,jdbcType=VARCHAR}, 
+      #{operDat,jdbcType=TIMESTAMP}, #{operYs,jdbcType=VARCHAR}, #{creDat,jdbcType=TIMESTAMP}, 
+      #{creCod,jdbcType=VARCHAR}, #{creNam,jdbcType=VARCHAR}, #{updDat,jdbcType=TIMESTAMP}, 
+      #{updCod,jdbcType=VARCHAR}, #{updNam,jdbcType=VARCHAR}, #{operBcjl,jdbcType=VARCHAR}, 
+      #{operationCode,jdbcType=VARCHAR}, #{isprint,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspOperateInf">
+    insert into HSP_OPERATE_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="operSeq != null">
+        OPER_SEQ,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="operNam != null">
+        OPER_NAM,
+      </if>
+      <if test="operDat != null">
+        OPER_DAT,
+      </if>
+      <if test="operYs != null">
+        OPER_YS,
+      </if>
+      <if test="creDat != null">
+        CRE_DAT,
+      </if>
+      <if test="creCod != null">
+        CRE_COD,
+      </if>
+      <if test="creNam != null">
+        CRE_NAM,
+      </if>
+      <if test="updDat != null">
+        UPD_DAT,
+      </if>
+      <if test="updCod != null">
+        UPD_COD,
+      </if>
+      <if test="updNam != null">
+        UPD_NAM,
+      </if>
+      <if test="operBcjl != null">
+        OPER_BCJL,
+      </if>
+      <if test="operationCode != null">
+        OPERATION_CODE,
+      </if>
+      <if test="isprint != null">
+        ISPRINT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="operSeq != null">
+        #{operSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="operNam != null">
+        #{operNam,jdbcType=VARCHAR},
+      </if>
+      <if test="operDat != null">
+        #{operDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operYs != null">
+        #{operYs,jdbcType=VARCHAR},
+      </if>
+      <if test="creDat != null">
+        #{creDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creCod != null">
+        #{creCod,jdbcType=VARCHAR},
+      </if>
+      <if test="creNam != null">
+        #{creNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updDat != null">
+        #{updDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updCod != null">
+        #{updCod,jdbcType=VARCHAR},
+      </if>
+      <if test="updNam != null">
+        #{updNam,jdbcType=VARCHAR},
+      </if>
+      <if test="operBcjl != null">
+        #{operBcjl,jdbcType=VARCHAR},
+      </if>
+      <if test="operationCode != null">
+        #{operationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isprint != null">
+        #{isprint,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspOperateInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_OPERATE_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_OPERATE_INF
+    <set>
+      <if test="record.operSeq != null">
+        OPER_SEQ = #{record.operSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operNam != null">
+        OPER_NAM = #{record.operNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operDat != null">
+        OPER_DAT = #{record.operDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operYs != null">
+        OPER_YS = #{record.operYs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creDat != null">
+        CRE_DAT = #{record.creDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creCod != null">
+        CRE_COD = #{record.creCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creNam != null">
+        CRE_NAM = #{record.creNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updDat != null">
+        UPD_DAT = #{record.updDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updCod != null">
+        UPD_COD = #{record.updCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updNam != null">
+        UPD_NAM = #{record.updNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operBcjl != null">
+        OPER_BCJL = #{record.operBcjl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationCode != null">
+        OPERATION_CODE = #{record.operationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isprint != null">
+        ISPRINT = #{record.isprint,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_OPERATE_INF
+    set OPER_SEQ = #{record.operSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      OPER_NAM = #{record.operNam,jdbcType=VARCHAR},
+      OPER_DAT = #{record.operDat,jdbcType=TIMESTAMP},
+      OPER_YS = #{record.operYs,jdbcType=VARCHAR},
+      CRE_DAT = #{record.creDat,jdbcType=TIMESTAMP},
+      CRE_COD = #{record.creCod,jdbcType=VARCHAR},
+      CRE_NAM = #{record.creNam,jdbcType=VARCHAR},
+      UPD_DAT = #{record.updDat,jdbcType=TIMESTAMP},
+      UPD_COD = #{record.updCod,jdbcType=VARCHAR},
+      UPD_NAM = #{record.updNam,jdbcType=VARCHAR},
+      OPER_BCJL = #{record.operBcjl,jdbcType=VARCHAR},
+      OPERATION_CODE = #{record.operationCode,jdbcType=VARCHAR},
+      ISPRINT = #{record.isprint,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspOperateInf">
+    update HSP_OPERATE_INF
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="operNam != null">
+        OPER_NAM = #{operNam,jdbcType=VARCHAR},
+      </if>
+      <if test="operDat != null">
+        OPER_DAT = #{operDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operYs != null">
+        OPER_YS = #{operYs,jdbcType=VARCHAR},
+      </if>
+      <if test="creDat != null">
+        CRE_DAT = #{creDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creCod != null">
+        CRE_COD = #{creCod,jdbcType=VARCHAR},
+      </if>
+      <if test="creNam != null">
+        CRE_NAM = #{creNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updDat != null">
+        UPD_DAT = #{updDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updCod != null">
+        UPD_COD = #{updCod,jdbcType=VARCHAR},
+      </if>
+      <if test="updNam != null">
+        UPD_NAM = #{updNam,jdbcType=VARCHAR},
+      </if>
+      <if test="operBcjl != null">
+        OPER_BCJL = #{operBcjl,jdbcType=VARCHAR},
+      </if>
+      <if test="operationCode != null">
+        OPERATION_CODE = #{operationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isprint != null">
+        ISPRINT = #{isprint,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OPER_SEQ = #{operSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspOperateInf">
+    update HSP_OPERATE_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      OPER_NAM = #{operNam,jdbcType=VARCHAR},
+      OPER_DAT = #{operDat,jdbcType=TIMESTAMP},
+      OPER_YS = #{operYs,jdbcType=VARCHAR},
+      CRE_DAT = #{creDat,jdbcType=TIMESTAMP},
+      CRE_COD = #{creCod,jdbcType=VARCHAR},
+      CRE_NAM = #{creNam,jdbcType=VARCHAR},
+      UPD_DAT = #{updDat,jdbcType=TIMESTAMP},
+      UPD_COD = #{updCod,jdbcType=VARCHAR},
+      UPD_NAM = #{updNam,jdbcType=VARCHAR},
+      OPER_BCJL = #{operBcjl,jdbcType=VARCHAR},
+      OPERATION_CODE = #{operationCode,jdbcType=VARCHAR},
+      ISPRINT = #{isprint,jdbcType=VARCHAR}
+    where OPER_SEQ = #{operSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.DstarchivesMapper" >
+  <resultMap id="BaseResultMap" type="activetech.base.pojo.domain.Dstarchives" >
+    <id column="FILE_SEQ" property="fileSeq" jdbcType="VARCHAR" />
+    <result column="REF_ID" property="refId" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="CRT_DATE" property="crtDate" jdbcType="TIMESTAMP" />
+    <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+    <result column="FILE_TYPE" property="fileType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FILE_SEQ, REF_ID, FILE_NAME, CRT_DATE, CRT_USER, FILE_TYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.base.pojo.domain.DstarchivesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DSTARCHIVES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DSTARCHIVES
+    where FILE_SEQ = #{fileSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DSTARCHIVES
+    where FILE_SEQ = #{fileSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.DstarchivesExample" >
+    delete from DSTARCHIVES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.base.pojo.domain.Dstarchives" >
+    insert into DSTARCHIVES (FILE_SEQ, REF_ID, FILE_NAME, 
+      CRT_DATE, CRT_USER, FILE_TYPE
+      )
+    values (#{fileSeq,jdbcType=VARCHAR}, #{refId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{crtDate,jdbcType=TIMESTAMP}, #{crtUser,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.base.pojo.domain.Dstarchives" >
+    insert into DSTARCHIVES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileSeq != null" >
+        FILE_SEQ,
+      </if>
+      <if test="refId != null" >
+        REF_ID,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+      <if test="crtDate != null" >
+        CRT_DATE,
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER,
+      </if>
+      <if test="fileType != null" >
+        FILE_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileSeq != null" >
+        #{fileSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="refId != null" >
+        #{refId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDate != null" >
+        #{crtDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.base.pojo.domain.DstarchivesExample" resultType="java.lang.Integer" >
+    select count(*) from DSTARCHIVES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DSTARCHIVES
+    <set >
+      <if test="record.fileSeq != null" >
+        FILE_SEQ = #{record.fileSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refId != null" >
+        REF_ID = #{record.refId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileName != null" >
+        FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtDate != null" >
+        CRT_DATE = #{record.crtDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUser != null" >
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileType != null" >
+        FILE_TYPE = #{record.fileType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DSTARCHIVES
+    set FILE_SEQ = #{record.fileSeq,jdbcType=VARCHAR},
+      REF_ID = #{record.refId,jdbcType=VARCHAR},
+      FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      CRT_DATE = #{record.crtDate,jdbcType=TIMESTAMP},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      FILE_TYPE = #{record.fileType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.Dstarchives" >
+    update DSTARCHIVES
+    <set >
+      <if test="refId != null" >
+        REF_ID = #{refId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDate != null" >
+        CRT_DATE = #{crtDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FILE_SEQ = #{fileSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.Dstarchives" >
+    update DSTARCHIVES
+    set REF_ID = #{refId,jdbcType=VARCHAR},
+      FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      CRT_DATE = #{crtDate,jdbcType=TIMESTAMP},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      FILE_TYPE = #{fileType,jdbcType=VARCHAR}
+    where FILE_SEQ = #{fileSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspCramsInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspCramsInf" >
+    <id column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="CIR_LVL_COD" property="cirLvlCod" jdbcType="VARCHAR" />
+    <result column="BRE_LVL_COD" property="breLvlCod" jdbcType="VARCHAR" />
+    <result column="BDY_LVL_COD" property="bdyLvlCod" jdbcType="VARCHAR" />
+    <result column="SPT_LVL_COD" property="sptLvlCod" jdbcType="VARCHAR" />
+    <result column="LAN_LVL_COD" property="lanLvlCod" jdbcType="VARCHAR" />
+    <result column="TOT_SCO" property="totSco" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMG_SEQ, CIR_LVL_COD, BRE_LVL_COD, BDY_LVL_COD, SPT_LVL_COD, LAN_LVL_COD, TOT_SCO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.domain.HspCramsInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CRAMS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CRAMS_INF
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_CRAMS_INF
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.hospital.pojo.domain.HspCramsInfExample" >
+    delete from HSP_CRAMS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.hospital.pojo.domain.HspCramsInf" >
+    insert into HSP_CRAMS_INF (EMG_SEQ, CIR_LVL_COD, BRE_LVL_COD, 
+      BDY_LVL_COD, SPT_LVL_COD, LAN_LVL_COD, 
+      TOT_SCO)
+    values (#{emgSeq,jdbcType=VARCHAR}, #{cirLvlCod,jdbcType=VARCHAR}, #{breLvlCod,jdbcType=VARCHAR}, 
+      #{bdyLvlCod,jdbcType=VARCHAR}, #{sptLvlCod,jdbcType=VARCHAR}, #{lanLvlCod,jdbcType=VARCHAR}, 
+      #{totSco,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.hospital.pojo.domain.HspCramsInf" >
+    insert into HSP_CRAMS_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="cirLvlCod != null" >
+        CIR_LVL_COD,
+      </if>
+      <if test="breLvlCod != null" >
+        BRE_LVL_COD,
+      </if>
+      <if test="bdyLvlCod != null" >
+        BDY_LVL_COD,
+      </if>
+      <if test="sptLvlCod != null" >
+        SPT_LVL_COD,
+      </if>
+      <if test="lanLvlCod != null" >
+        LAN_LVL_COD,
+      </if>
+      <if test="totSco != null" >
+        TOT_SCO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="cirLvlCod != null" >
+        #{cirLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="breLvlCod != null" >
+        #{breLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bdyLvlCod != null" >
+        #{bdyLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sptLvlCod != null" >
+        #{sptLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="lanLvlCod != null" >
+        #{lanLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="totSco != null" >
+        #{totSco,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.hospital.pojo.domain.HspCramsInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_CRAMS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_CRAMS_INF
+    <set >
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cirLvlCod != null" >
+        CIR_LVL_COD = #{record.cirLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.breLvlCod != null" >
+        BRE_LVL_COD = #{record.breLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bdyLvlCod != null" >
+        BDY_LVL_COD = #{record.bdyLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sptLvlCod != null" >
+        SPT_LVL_COD = #{record.sptLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lanLvlCod != null" >
+        LAN_LVL_COD = #{record.lanLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totSco != null" >
+        TOT_SCO = #{record.totSco,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_CRAMS_INF
+    set EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      CIR_LVL_COD = #{record.cirLvlCod,jdbcType=VARCHAR},
+      BRE_LVL_COD = #{record.breLvlCod,jdbcType=VARCHAR},
+      BDY_LVL_COD = #{record.bdyLvlCod,jdbcType=VARCHAR},
+      SPT_LVL_COD = #{record.sptLvlCod,jdbcType=VARCHAR},
+      LAN_LVL_COD = #{record.lanLvlCod,jdbcType=VARCHAR},
+      TOT_SCO = #{record.totSco,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.hospital.pojo.domain.HspCramsInf" >
+    update HSP_CRAMS_INF
+    <set >
+      <if test="cirLvlCod != null" >
+        CIR_LVL_COD = #{cirLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="breLvlCod != null" >
+        BRE_LVL_COD = #{breLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bdyLvlCod != null" >
+        BDY_LVL_COD = #{bdyLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sptLvlCod != null" >
+        SPT_LVL_COD = #{sptLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="lanLvlCod != null" >
+        LAN_LVL_COD = #{lanLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="totSco != null" >
+        TOT_SCO = #{totSco,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.hospital.pojo.domain.HspCramsInf" >
+    update HSP_CRAMS_INF
+    set CIR_LVL_COD = #{cirLvlCod,jdbcType=VARCHAR},
+      BRE_LVL_COD = #{breLvlCod,jdbcType=VARCHAR},
+      BDY_LVL_COD = #{bdyLvlCod,jdbcType=VARCHAR},
+      SPT_LVL_COD = #{sptLvlCod,jdbcType=VARCHAR},
+      LAN_LVL_COD = #{lanLvlCod,jdbcType=VARCHAR},
+      TOT_SCO = #{totSco,jdbcType=DECIMAL}
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

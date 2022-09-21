@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspDgpgclrInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspDgpgclrInfCustom" >
+    <id column="XTPG_SEQ" property="xtpgSeq" jdbcType="VARCHAR" />
+    <result column="YLG_DGMC_COD" property="ylgDgmcCod" jdbcType="VARCHAR" />
+    <result column="DGPGCLR_DGSD" property="dgpgclrDgsd" jdbcType="VARCHAR" />
+    <result column="DGPGCLR_TC" property="dgpgclrTc" jdbcType="VARCHAR" />
+    <result column="DGPGCLR_YLYYS" property="dgpgclrYlyys" jdbcType="VARCHAR" />
+    <result column="DGPGCLR_TYPE" jdbcType="VARCHAR" property="dgpgclrType" />
+    </resultMap>
+    
+    <select id='selectByxtpgSeq' parameterType="java.lang.String"
+	resultType="activetech.zyyhospital.pojo.dto.HspDgpgclrInfCustom">
+    	select t1.XTPG_SEQ xtpgseq,
+    	t1.YLG_DGMC_COD ylgDgmcNam,
+    	(select info from dstdictinfo a where a.typecode='YLG_DGMC_COD' and a.infocode=t1.YLG_DGMC_COD) as  ylgDgmcCod,
+    	t1.DGPGCLR_DGSD dgpgclrDgsd,
+    	t1.DGPGCLR_TC dgpgclrTcNam,
+       (select info from dstdictinfo a where a.typecode='ISORNOT' and a.infocode=t1.DGPGCLR_TC) as dgpgclrTc,
+    	t1.DGPGCLR_YLYYS dgpgclrYlyys,t1.DGPGCLR_TYPE dgpgclrType
+    	from HSP_DGPGCLR_INF t1  where t1.XTPG_SEQ=#{xtpgSeq}
+    </select>
+    
+</mapper>

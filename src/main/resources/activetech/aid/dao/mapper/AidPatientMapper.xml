@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.aid.dao.mapper.AidPatientMapper" >
+  <resultMap id="BaseResultMap" type="activetech.aid.pojo.domain.AidPatient" >
+    <id column="PATID" property="patid" jdbcType="VARCHAR" />
+    <result column="PATNAME" property="patname" jdbcType="VARCHAR" />
+    <result column="IDCARD" property="idcard" jdbcType="VARCHAR" />
+    <result column="PATNAT" property="patnat" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
+    <result column="PATSEX" property="patsex" jdbcType="VARCHAR" />
+    <result column="PATAGE" property="patage" jdbcType="VARCHAR" />
+    <result column="AGECODE" property="agecode" jdbcType="VARCHAR" />
+    <result column="PATMTEL" property="patmtel" jdbcType="VARCHAR" />
+    <result column="CONNTEL" property="conntel" jdbcType="VARCHAR" />
+    <result column="PATADDR" property="pataddr" jdbcType="VARCHAR" />
+    <result column="OCRFLAG" property="ocrflag" jdbcType="VARCHAR" />
+    <result column="PATTYPE" property="pattype" jdbcType="VARCHAR" />
+    <result column="PATMEMO" property="patmemo" jdbcType="VARCHAR" />
+    <result column="TMP_NBR" property="tmpNbr" jdbcType="DECIMAL" />
+    <result column="HRT_RTE" property="hrtRte" jdbcType="DECIMAL" />
+    <result column="BRE_NBR" property="breNbr" jdbcType="DECIMAL" />
+    <result column="SBP_NBR" property="sbpNbr" jdbcType="DECIMAL" />
+    <result column="SEN_RCT" property="senRct" jdbcType="VARCHAR" />
+    <result column="DBP_NBR" property="dbpNbr" jdbcType="DECIMAL" />
+    <result column="BLD_OXY" property="bldOxy" jdbcType="DECIMAL" />
+    <result column="MEWSSCO" property="mewssco" jdbcType="DECIMAL" />
+    <result column="MEWSLVL" property="mewslvl" jdbcType="VARCHAR" />
+    <result column="ISBIND" property="isbind" jdbcType="VARCHAR" />
+    <result column="CRTUSERID" property="crtuserid" jdbcType="VARCHAR" />
+    <result column="CRTTIME" property="crttime" jdbcType="TIMESTAMP" />
+    <result column="HAV_FMY" property="havFmy" jdbcType="CHAR" />
+    <result column="CST_OCC_COD" property="cstOccCod" jdbcType="VARCHAR" />
+    <result column="SCE_AR1_COD" property="sceAr1Cod" jdbcType="VARCHAR" />
+    <result column="SCE_AR2_COD" property="sceAr2Cod" jdbcType="VARCHAR" />
+    <result column="SCE_ADR" property="sceAdr" jdbcType="VARCHAR" />
+    <result column="LNK_MAN" property="lnkMan" jdbcType="VARCHAR" />
+    <result column="ALM_SEQ" property="almSeq" jdbcType="VARCHAR" />
+    <result column="DRR_NO" property="drrNo" jdbcType="VARCHAR" />
+    <result column="DRR_NME" property="drrNme" jdbcType="VARCHAR" />
+    <result column="CAR_NO" property="carNo" jdbcType="VARCHAR" />
+    <result column="DOC_NO" property="docNo" jdbcType="VARCHAR" />
+    <result column="DOC_NME" property="docNme" jdbcType="VARCHAR" />
+    <result column="NUR_NO" property="nurNo" jdbcType="VARCHAR" />
+    <result column="NUR_NME" property="nurNme" jdbcType="VARCHAR" />
+    <result column="ILL_TIM" property="illTim" jdbcType="TIMESTAMP" />
+    <result column="ILLPERD" property="illperd" jdbcType="VARCHAR" />
+    <result column="ALMTIME" property="almtime" jdbcType="TIMESTAMP" />
+    <result column="OUTTIME" property="outtime" jdbcType="TIMESTAMP" />
+    <result column="AASTIME" property="aastime" jdbcType="TIMESTAMP" />
+    <result column="LESTIME" property="lestime" jdbcType="TIMESTAMP" />
+    <result column="AAHTIME" property="aahtime" jdbcType="TIMESTAMP" />
+    <result column="SCE_LNG" property="sceLng" jdbcType="DECIMAL" />
+    <result column="SCE_LAT" property="sceLat" jdbcType="DECIMAL" />
+    <result column="SCE_HGT" property="sceHgt" jdbcType="DECIMAL" />
+    <result column="SCE_PRV_COD" property="scePrvCod" jdbcType="VARCHAR" />
+    <result column="SCE_CTY_COD" property="sceCtyCod" jdbcType="VARCHAR" />
+    <result column="SCE_AR0_COD" property="sceAr0Cod" jdbcType="VARCHAR" />
+    <result column="ILL_TIM_FLG" property="illTimFlg" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PATID, PATNAME, IDCARD, PATNAT, BIRTHDAY, PATSEX, PATAGE, AGECODE, PATMTEL, CONNTEL, 
+    PATADDR, OCRFLAG, PATTYPE, PATMEMO, TMP_NBR, HRT_RTE, BRE_NBR, SBP_NBR, SEN_RCT, 
+    DBP_NBR, BLD_OXY, MEWSSCO, MEWSLVL, ISBIND, CRTUSERID, CRTTIME, HAV_FMY, CST_OCC_COD, 
+    SCE_AR1_COD, SCE_AR2_COD, SCE_ADR, LNK_MAN, ALM_SEQ, DRR_NO, DRR_NME, CAR_NO, DOC_NO, 
+    DOC_NME, NUR_NO, NUR_NME, ILL_TIM, ILLPERD, ALMTIME, OUTTIME, AASTIME, LESTIME, AAHTIME, 
+    SCE_LNG, SCE_LAT, SCE_HGT, SCE_PRV_COD, SCE_CTY_COD, SCE_AR0_COD, ILL_TIM_FLG
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.aid.pojo.domain.AidPatientExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from AID_PATIENT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from AID_PATIENT
+    where PATID = #{patid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from AID_PATIENT
+    where PATID = #{patid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.aid.pojo.domain.AidPatientExample" >
+    delete from AID_PATIENT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.aid.pojo.domain.AidPatient" >
+    insert into AID_PATIENT (PATID, PATNAME, IDCARD, 
+      PATNAT, BIRTHDAY, PATSEX, 
+      PATAGE, AGECODE, PATMTEL, 
+      CONNTEL, PATADDR, OCRFLAG, 
+      PATTYPE, PATMEMO, TMP_NBR, 
+      HRT_RTE, BRE_NBR, SBP_NBR, 
+      SEN_RCT, DBP_NBR, BLD_OXY, 
+      MEWSSCO, MEWSLVL, ISBIND, 
+      CRTUSERID, CRTTIME, HAV_FMY, 
+      CST_OCC_COD, SCE_AR1_COD, SCE_AR2_COD, 
+      SCE_ADR, LNK_MAN, ALM_SEQ, 
+      DRR_NO, DRR_NME, CAR_NO, 
+      DOC_NO, DOC_NME, NUR_NO, 
+      NUR_NME, ILL_TIM, ILLPERD, 
+      ALMTIME, OUTTIME, AASTIME, 
+      LESTIME, AAHTIME, SCE_LNG, 
+      SCE_LAT, SCE_HGT, SCE_PRV_COD, 
+      SCE_CTY_COD, SCE_AR0_COD, ILL_TIM_FLG
+      )
+    values (#{patid,jdbcType=VARCHAR}, #{patname,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
+      #{patnat,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{patsex,jdbcType=VARCHAR}, 
+      #{patage,jdbcType=VARCHAR}, #{agecode,jdbcType=VARCHAR}, #{patmtel,jdbcType=VARCHAR}, 
+      #{conntel,jdbcType=VARCHAR}, #{pataddr,jdbcType=VARCHAR}, #{ocrflag,jdbcType=VARCHAR}, 
+      #{pattype,jdbcType=VARCHAR}, #{patmemo,jdbcType=VARCHAR}, #{tmpNbr,jdbcType=DECIMAL}, 
+      #{hrtRte,jdbcType=DECIMAL}, #{breNbr,jdbcType=DECIMAL}, #{sbpNbr,jdbcType=DECIMAL}, 
+      #{senRct,jdbcType=VARCHAR}, #{dbpNbr,jdbcType=DECIMAL}, #{bldOxy,jdbcType=DECIMAL}, 
+      #{mewssco,jdbcType=DECIMAL}, #{mewslvl,jdbcType=VARCHAR}, #{isbind,jdbcType=VARCHAR}, 
+      #{crtuserid,jdbcType=VARCHAR}, #{crttime,jdbcType=TIMESTAMP}, #{havFmy,jdbcType=CHAR}, 
+      #{cstOccCod,jdbcType=VARCHAR}, #{sceAr1Cod,jdbcType=VARCHAR}, #{sceAr2Cod,jdbcType=VARCHAR}, 
+      #{sceAdr,jdbcType=VARCHAR}, #{lnkMan,jdbcType=VARCHAR}, #{almSeq,jdbcType=VARCHAR}, 
+      #{drrNo,jdbcType=VARCHAR}, #{drrNme,jdbcType=VARCHAR}, #{carNo,jdbcType=VARCHAR}, 
+      #{docNo,jdbcType=VARCHAR}, #{docNme,jdbcType=VARCHAR}, #{nurNo,jdbcType=VARCHAR}, 
+      #{nurNme,jdbcType=VARCHAR}, #{illTim,jdbcType=TIMESTAMP}, #{illperd,jdbcType=VARCHAR}, 
+      #{almtime,jdbcType=TIMESTAMP}, #{outtime,jdbcType=TIMESTAMP}, #{aastime,jdbcType=TIMESTAMP}, 
+      #{lestime,jdbcType=TIMESTAMP}, #{aahtime,jdbcType=TIMESTAMP}, #{sceLng,jdbcType=DECIMAL}, 
+      #{sceLat,jdbcType=DECIMAL}, #{sceHgt,jdbcType=DECIMAL}, #{scePrvCod,jdbcType=VARCHAR}, 
+      #{sceCtyCod,jdbcType=VARCHAR}, #{sceAr0Cod,jdbcType=VARCHAR}, #{illTimFlg,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.aid.pojo.domain.AidPatient" >
+    insert into AID_PATIENT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="patid != null" >
+        PATID,
+      </if>
+      <if test="patname != null" >
+        PATNAME,
+      </if>
+      <if test="idcard != null" >
+        IDCARD,
+      </if>
+      <if test="patnat != null" >
+        PATNAT,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="patsex != null" >
+        PATSEX,
+      </if>
+      <if test="patage != null" >
+        PATAGE,
+      </if>
+      <if test="agecode != null" >
+        AGECODE,
+      </if>
+      <if test="patmtel != null" >
+        PATMTEL,
+      </if>
+      <if test="conntel != null" >
+        CONNTEL,
+      </if>
+      <if test="pataddr != null" >
+        PATADDR,
+      </if>
+      <if test="ocrflag != null" >
+        OCRFLAG,
+      </if>
+      <if test="pattype != null" >
+        PATTYPE,
+      </if>
+      <if test="patmemo != null" >
+        PATMEMO,
+      </if>
+      <if test="tmpNbr != null" >
+        TMP_NBR,
+      </if>
+      <if test="hrtRte != null" >
+        HRT_RTE,
+      </if>
+      <if test="breNbr != null" >
+        BRE_NBR,
+      </if>
+      <if test="sbpNbr != null" >
+        SBP_NBR,
+      </if>
+      <if test="senRct != null" >
+        SEN_RCT,
+      </if>
+      <if test="dbpNbr != null" >
+        DBP_NBR,
+      </if>
+      <if test="bldOxy != null" >
+        BLD_OXY,
+      </if>
+      <if test="mewssco != null" >
+        MEWSSCO,
+      </if>
+      <if test="mewslvl != null" >
+        MEWSLVL,
+      </if>
+      <if test="isbind != null" >
+        ISBIND,
+      </if>
+      <if test="crtuserid != null" >
+        CRTUSERID,
+      </if>
+      <if test="crttime != null" >
+        CRTTIME,
+      </if>
+      <if test="havFmy != null" >
+        HAV_FMY,
+      </if>
+      <if test="cstOccCod != null" >
+        CST_OCC_COD,
+      </if>
+      <if test="sceAr1Cod != null" >
+        SCE_AR1_COD,
+      </if>
+      <if test="sceAr2Cod != null" >
+        SCE_AR2_COD,
+      </if>
+      <if test="sceAdr != null" >
+        SCE_ADR,
+      </if>
+      <if test="lnkMan != null" >
+        LNK_MAN,
+      </if>
+      <if test="almSeq != null" >
+        ALM_SEQ,
+      </if>
+      <if test="drrNo != null" >
+        DRR_NO,
+      </if>
+      <if test="drrNme != null" >
+        DRR_NME,
+      </if>
+      <if test="carNo != null" >
+        CAR_NO,
+      </if>
+      <if test="docNo != null" >
+        DOC_NO,
+      </if>
+      <if test="docNme != null" >
+        DOC_NME,
+      </if>
+      <if test="nurNo != null" >
+        NUR_NO,
+      </if>
+      <if test="nurNme != null" >
+        NUR_NME,
+      </if>
+      <if test="illTim != null" >
+        ILL_TIM,
+      </if>
+      <if test="illperd != null" >
+        ILLPERD,
+      </if>
+      <if test="almtime != null" >
+        ALMTIME,
+      </if>
+      <if test="outtime != null" >
+        OUTTIME,
+      </if>
+      <if test="aastime != null" >
+        AASTIME,
+      </if>
+      <if test="lestime != null" >
+        LESTIME,
+      </if>
+      <if test="aahtime != null" >
+        AAHTIME,
+      </if>
+      <if test="sceLng != null" >
+        SCE_LNG,
+      </if>
+      <if test="sceLat != null" >
+        SCE_LAT,
+      </if>
+      <if test="sceHgt != null" >
+        SCE_HGT,
+      </if>
+      <if test="scePrvCod != null" >
+        SCE_PRV_COD,
+      </if>
+      <if test="sceCtyCod != null" >
+        SCE_CTY_COD,
+      </if>
+      <if test="sceAr0Cod != null" >
+        SCE_AR0_COD,
+      </if>
+      <if test="illTimFlg != null" >
+        ILL_TIM_FLG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="patid != null" >
+        #{patid,jdbcType=VARCHAR},
+      </if>
+      <if test="patname != null" >
+        #{patname,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="patnat != null" >
+        #{patnat,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="patsex != null" >
+        #{patsex,jdbcType=VARCHAR},
+      </if>
+      <if test="patage != null" >
+        #{patage,jdbcType=VARCHAR},
+      </if>
+      <if test="agecode != null" >
+        #{agecode,jdbcType=VARCHAR},
+      </if>
+      <if test="patmtel != null" >
+        #{patmtel,jdbcType=VARCHAR},
+      </if>
+      <if test="conntel != null" >
+        #{conntel,jdbcType=VARCHAR},
+      </if>
+      <if test="pataddr != null" >
+        #{pataddr,jdbcType=VARCHAR},
+      </if>
+      <if test="ocrflag != null" >
+        #{ocrflag,jdbcType=VARCHAR},
+      </if>
+      <if test="pattype != null" >
+        #{pattype,jdbcType=VARCHAR},
+      </if>
+      <if test="patmemo != null" >
+        #{patmemo,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpNbr != null" >
+        #{tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="hrtRte != null" >
+        #{hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="breNbr != null" >
+        #{breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpNbr != null" >
+        #{sbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="senRct != null" >
+        #{senRct,jdbcType=VARCHAR},
+      </if>
+      <if test="dbpNbr != null" >
+        #{dbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="bldOxy != null" >
+        #{bldOxy,jdbcType=DECIMAL},
+      </if>
+      <if test="mewssco != null" >
+        #{mewssco,jdbcType=DECIMAL},
+      </if>
+      <if test="mewslvl != null" >
+        #{mewslvl,jdbcType=VARCHAR},
+      </if>
+      <if test="isbind != null" >
+        #{isbind,jdbcType=VARCHAR},
+      </if>
+      <if test="crtuserid != null" >
+        #{crtuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="crttime != null" >
+        #{crttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="havFmy != null" >
+        #{havFmy,jdbcType=CHAR},
+      </if>
+      <if test="cstOccCod != null" >
+        #{cstOccCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sceAr1Cod != null" >
+        #{sceAr1Cod,jdbcType=VARCHAR},
+      </if>
+      <if test="sceAr2Cod != null" >
+        #{sceAr2Cod,jdbcType=VARCHAR},
+      </if>
+      <if test="sceAdr != null" >
+        #{sceAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="lnkMan != null" >
+        #{lnkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="almSeq != null" >
+        #{almSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="drrNo != null" >
+        #{drrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drrNme != null" >
+        #{drrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="carNo != null" >
+        #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="docNo != null" >
+        #{docNo,jdbcType=VARCHAR},
+      </if>
+      <if test="docNme != null" >
+        #{docNme,jdbcType=VARCHAR},
+      </if>
+      <if test="nurNo != null" >
+        #{nurNo,jdbcType=VARCHAR},
+      </if>
+      <if test="nurNme != null" >
+        #{nurNme,jdbcType=VARCHAR},
+      </if>
+      <if test="illTim != null" >
+        #{illTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="illperd != null" >
+        #{illperd,jdbcType=VARCHAR},
+      </if>
+      <if test="almtime != null" >
+        #{almtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outtime != null" >
+        #{outtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aastime != null" >
+        #{aastime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lestime != null" >
+        #{lestime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aahtime != null" >
+        #{aahtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sceLng != null" >
+        #{sceLng,jdbcType=DECIMAL},
+      </if>
+      <if test="sceLat != null" >
+        #{sceLat,jdbcType=DECIMAL},
+      </if>
+      <if test="sceHgt != null" >
+        #{sceHgt,jdbcType=DECIMAL},
+      </if>
+      <if test="scePrvCod != null" >
+        #{scePrvCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sceCtyCod != null" >
+        #{sceCtyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sceAr0Cod != null" >
+        #{sceAr0Cod,jdbcType=VARCHAR},
+      </if>
+      <if test="illTimFlg != null" >
+        #{illTimFlg,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.aid.pojo.domain.AidPatientExample" resultType="java.lang.Integer" >
+    select count(*) from AID_PATIENT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update AID_PATIENT
+    <set >
+      <if test="record.patid != null" >
+        PATID = #{record.patid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patname != null" >
+        PATNAME = #{record.patname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcard != null" >
+        IDCARD = #{record.idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patnat != null" >
+        PATNAT = #{record.patnat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        BIRTHDAY = #{record.birthday,jdbcType=DATE},
+      </if>
+      <if test="record.patsex != null" >
+        PATSEX = #{record.patsex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patage != null" >
+        PATAGE = #{record.patage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agecode != null" >
+        AGECODE = #{record.agecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patmtel != null" >
+        PATMTEL = #{record.patmtel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conntel != null" >
+        CONNTEL = #{record.conntel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pataddr != null" >
+        PATADDR = #{record.pataddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ocrflag != null" >
+        OCRFLAG = #{record.ocrflag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pattype != null" >
+        PATTYPE = #{record.pattype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patmemo != null" >
+        PATMEMO = #{record.patmemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tmpNbr != null" >
+        TMP_NBR = #{record.tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hrtRte != null" >
+        HRT_RTE = #{record.hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="record.breNbr != null" >
+        BRE_NBR = #{record.breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sbpNbr != null" >
+        SBP_NBR = #{record.sbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.senRct != null" >
+        SEN_RCT = #{record.senRct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbpNbr != null" >
+        DBP_NBR = #{record.dbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bldOxy != null" >
+        BLD_OXY = #{record.bldOxy,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mewssco != null" >
+        MEWSSCO = #{record.mewssco,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mewslvl != null" >
+        MEWSLVL = #{record.mewslvl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isbind != null" >
+        ISBIND = #{record.isbind,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtuserid != null" >
+        CRTUSERID = #{record.crtuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crttime != null" >
+        CRTTIME = #{record.crttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.havFmy != null" >
+        HAV_FMY = #{record.havFmy,jdbcType=CHAR},
+      </if>
+      <if test="record.cstOccCod != null" >
+        CST_OCC_COD = #{record.cstOccCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sceAr1Cod != null" >
+        SCE_AR1_COD = #{record.sceAr1Cod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sceAr2Cod != null" >
+        SCE_AR2_COD = #{record.sceAr2Cod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sceAdr != null" >
+        SCE_ADR = #{record.sceAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lnkMan != null" >
+        LNK_MAN = #{record.lnkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.almSeq != null" >
+        ALM_SEQ = #{record.almSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drrNo != null" >
+        DRR_NO = #{record.drrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drrNme != null" >
+        DRR_NME = #{record.drrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carNo != null" >
+        CAR_NO = #{record.carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docNo != null" >
+        DOC_NO = #{record.docNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docNme != null" >
+        DOC_NME = #{record.docNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nurNo != null" >
+        NUR_NO = #{record.nurNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nurNme != null" >
+        NUR_NME = #{record.nurNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.illTim != null" >
+        ILL_TIM = #{record.illTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.illperd != null" >
+        ILLPERD = #{record.illperd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.almtime != null" >
+        ALMTIME = #{record.almtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.outtime != null" >
+        OUTTIME = #{record.outtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.aastime != null" >
+        AASTIME = #{record.aastime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lestime != null" >
+        LESTIME = #{record.lestime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.aahtime != null" >
+        AAHTIME = #{record.aahtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sceLng != null" >
+        SCE_LNG = #{record.sceLng,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sceLat != null" >
+        SCE_LAT = #{record.sceLat,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sceHgt != null" >
+        SCE_HGT = #{record.sceHgt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.scePrvCod != null" >
+        SCE_PRV_COD = #{record.scePrvCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sceCtyCod != null" >
+        SCE_CTY_COD = #{record.sceCtyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sceAr0Cod != null" >
+        SCE_AR0_COD = #{record.sceAr0Cod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.illTimFlg != null" >
+        ILL_TIM_FLG = #{record.illTimFlg,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update AID_PATIENT
+    set PATID = #{record.patid,jdbcType=VARCHAR},
+      PATNAME = #{record.patname,jdbcType=VARCHAR},
+      IDCARD = #{record.idcard,jdbcType=VARCHAR},
+      PATNAT = #{record.patnat,jdbcType=VARCHAR},
+      BIRTHDAY = #{record.birthday,jdbcType=DATE},
+      PATSEX = #{record.patsex,jdbcType=VARCHAR},
+      PATAGE = #{record.patage,jdbcType=VARCHAR},
+      AGECODE = #{record.agecode,jdbcType=VARCHAR},
+      PATMTEL = #{record.patmtel,jdbcType=VARCHAR},
+      CONNTEL = #{record.conntel,jdbcType=VARCHAR},
+      PATADDR = #{record.pataddr,jdbcType=VARCHAR},
+      OCRFLAG = #{record.ocrflag,jdbcType=VARCHAR},
+      PATTYPE = #{record.pattype,jdbcType=VARCHAR},
+      PATMEMO = #{record.patmemo,jdbcType=VARCHAR},
+      TMP_NBR = #{record.tmpNbr,jdbcType=DECIMAL},
+      HRT_RTE = #{record.hrtRte,jdbcType=DECIMAL},
+      BRE_NBR = #{record.breNbr,jdbcType=DECIMAL},
+      SBP_NBR = #{record.sbpNbr,jdbcType=DECIMAL},
+      SEN_RCT = #{record.senRct,jdbcType=VARCHAR},
+      DBP_NBR = #{record.dbpNbr,jdbcType=DECIMAL},
+      BLD_OXY = #{record.bldOxy,jdbcType=DECIMAL},
+      MEWSSCO = #{record.mewssco,jdbcType=DECIMAL},
+      MEWSLVL = #{record.mewslvl,jdbcType=VARCHAR},
+      ISBIND = #{record.isbind,jdbcType=VARCHAR},
+      CRTUSERID = #{record.crtuserid,jdbcType=VARCHAR},
+      CRTTIME = #{record.crttime,jdbcType=TIMESTAMP},
+      HAV_FMY = #{record.havFmy,jdbcType=CHAR},
+      CST_OCC_COD = #{record.cstOccCod,jdbcType=VARCHAR},
+      SCE_AR1_COD = #{record.sceAr1Cod,jdbcType=VARCHAR},
+      SCE_AR2_COD = #{record.sceAr2Cod,jdbcType=VARCHAR},
+      SCE_ADR = #{record.sceAdr,jdbcType=VARCHAR},
+      LNK_MAN = #{record.lnkMan,jdbcType=VARCHAR},
+      ALM_SEQ = #{record.almSeq,jdbcType=VARCHAR},
+      DRR_NO = #{record.drrNo,jdbcType=VARCHAR},
+      DRR_NME = #{record.drrNme,jdbcType=VARCHAR},
+      CAR_NO = #{record.carNo,jdbcType=VARCHAR},
+      DOC_NO = #{record.docNo,jdbcType=VARCHAR},
+      DOC_NME = #{record.docNme,jdbcType=VARCHAR},
+      NUR_NO = #{record.nurNo,jdbcType=VARCHAR},
+      NUR_NME = #{record.nurNme,jdbcType=VARCHAR},
+      ILL_TIM = #{record.illTim,jdbcType=TIMESTAMP},
+      ILLPERD = #{record.illperd,jdbcType=VARCHAR},
+      ALMTIME = #{record.almtime,jdbcType=TIMESTAMP},
+      OUTTIME = #{record.outtime,jdbcType=TIMESTAMP},
+      AASTIME = #{record.aastime,jdbcType=TIMESTAMP},
+      LESTIME = #{record.lestime,jdbcType=TIMESTAMP},
+      AAHTIME = #{record.aahtime,jdbcType=TIMESTAMP},
+      SCE_LNG = #{record.sceLng,jdbcType=DECIMAL},
+      SCE_LAT = #{record.sceLat,jdbcType=DECIMAL},
+      SCE_HGT = #{record.sceHgt,jdbcType=DECIMAL},
+      SCE_PRV_COD = #{record.scePrvCod,jdbcType=VARCHAR},
+      SCE_CTY_COD = #{record.sceCtyCod,jdbcType=VARCHAR},
+      SCE_AR0_COD = #{record.sceAr0Cod,jdbcType=VARCHAR},
+      ILL_TIM_FLG = #{record.illTimFlg,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.aid.pojo.domain.AidPatient" >
+    update AID_PATIENT
+    <set >
+      <if test="patname != null" >
+        PATNAME = #{patname,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        IDCARD = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="patnat != null" >
+        PATNAT = #{patnat,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="patsex != null" >
+        PATSEX = #{patsex,jdbcType=VARCHAR},
+      </if>
+      <if test="patage != null" >
+        PATAGE = #{patage,jdbcType=VARCHAR},
+      </if>
+      <if test="agecode != null" >
+        AGECODE = #{agecode,jdbcType=VARCHAR},
+      </if>
+      <if test="patmtel != null" >
+        PATMTEL = #{patmtel,jdbcType=VARCHAR},
+      </if>
+      <if test="conntel != null" >
+        CONNTEL = #{conntel,jdbcType=VARCHAR},
+      </if>
+      <if test="pataddr != null" >
+        PATADDR = #{pataddr,jdbcType=VARCHAR},
+      </if>
+      <if test="ocrflag != null" >
+        OCRFLAG = #{ocrflag,jdbcType=VARCHAR},
+      </if>
+      <if test="pattype != null" >
+        PATTYPE = #{pattype,jdbcType=VARCHAR},
+      </if>
+      <if test="patmemo != null" >
+        PATMEMO = #{patmemo,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpNbr != null" >
+        TMP_NBR = #{tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="hrtRte != null" >
+        HRT_RTE = #{hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="breNbr != null" >
+        BRE_NBR = #{breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpNbr != null" >
+        SBP_NBR = #{sbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="senRct != null" >
+        SEN_RCT = #{senRct,jdbcType=VARCHAR},
+      </if>
+      <if test="dbpNbr != null" >
+        DBP_NBR = #{dbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="bldOxy != null" >
+        BLD_OXY = #{bldOxy,jdbcType=DECIMAL},
+      </if>
+      <if test="mewssco != null" >
+        MEWSSCO = #{mewssco,jdbcType=DECIMAL},
+      </if>
+      <if test="mewslvl != null" >
+        MEWSLVL = #{mewslvl,jdbcType=VARCHAR},
+      </if>
+      <if test="isbind != null" >
+        ISBIND = #{isbind,jdbcType=VARCHAR},
+      </if>
+      <if test="crtuserid != null" >
+        CRTUSERID = #{crtuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="crttime != null" >
+        CRTTIME = #{crttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="havFmy != null" >
+        HAV_FMY = #{havFmy,jdbcType=CHAR},
+      </if>
+      <if test="cstOccCod != null" >
+        CST_OCC_COD = #{cstOccCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sceAr1Cod != null" >
+        SCE_AR1_COD = #{sceAr1Cod,jdbcType=VARCHAR},
+      </if>
+      <if test="sceAr2Cod != null" >
+        SCE_AR2_COD = #{sceAr2Cod,jdbcType=VARCHAR},
+      </if>
+      <if test="sceAdr != null" >
+        SCE_ADR = #{sceAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="lnkMan != null" >
+        LNK_MAN = #{lnkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="almSeq != null" >
+        ALM_SEQ = #{almSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="drrNo != null" >
+        DRR_NO = #{drrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="drrNme != null" >
+        DRR_NME = #{drrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="carNo != null" >
+        CAR_NO = #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="docNo != null" >
+        DOC_NO = #{docNo,jdbcType=VARCHAR},
+      </if>
+      <if test="docNme != null" >
+        DOC_NME = #{docNme,jdbcType=VARCHAR},
+      </if>
+      <if test="nurNo != null" >
+        NUR_NO = #{nurNo,jdbcType=VARCHAR},
+      </if>
+      <if test="nurNme != null" >
+        NUR_NME = #{nurNme,jdbcType=VARCHAR},
+      </if>
+      <if test="illTim != null" >
+        ILL_TIM = #{illTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="illperd != null" >
+        ILLPERD = #{illperd,jdbcType=VARCHAR},
+      </if>
+      <if test="almtime != null" >
+        ALMTIME = #{almtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outtime != null" >
+        OUTTIME = #{outtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aastime != null" >
+        AASTIME = #{aastime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lestime != null" >
+        LESTIME = #{lestime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aahtime != null" >
+        AAHTIME = #{aahtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sceLng != null" >
+        SCE_LNG = #{sceLng,jdbcType=DECIMAL},
+      </if>
+      <if test="sceLat != null" >
+        SCE_LAT = #{sceLat,jdbcType=DECIMAL},
+      </if>
+      <if test="sceHgt != null" >
+        SCE_HGT = #{sceHgt,jdbcType=DECIMAL},
+      </if>
+      <if test="scePrvCod != null" >
+        SCE_PRV_COD = #{scePrvCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sceCtyCod != null" >
+        SCE_CTY_COD = #{sceCtyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sceAr0Cod != null" >
+        SCE_AR0_COD = #{sceAr0Cod,jdbcType=VARCHAR},
+      </if>
+      <if test="illTimFlg != null" >
+        ILL_TIM_FLG = #{illTimFlg,jdbcType=CHAR},
+      </if>
+    </set>
+    where PATID = #{patid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.aid.pojo.domain.AidPatient" >
+    update AID_PATIENT
+    set PATNAME = #{patname,jdbcType=VARCHAR},
+      IDCARD = #{idcard,jdbcType=VARCHAR},
+      PATNAT = #{patnat,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=DATE},
+      PATSEX = #{patsex,jdbcType=VARCHAR},
+      PATAGE = #{patage,jdbcType=VARCHAR},
+      AGECODE = #{agecode,jdbcType=VARCHAR},
+      PATMTEL = #{patmtel,jdbcType=VARCHAR},
+      CONNTEL = #{conntel,jdbcType=VARCHAR},
+      PATADDR = #{pataddr,jdbcType=VARCHAR},
+      OCRFLAG = #{ocrflag,jdbcType=VARCHAR},
+      PATTYPE = #{pattype,jdbcType=VARCHAR},
+      PATMEMO = #{patmemo,jdbcType=VARCHAR},
+      TMP_NBR = #{tmpNbr,jdbcType=DECIMAL},
+      HRT_RTE = #{hrtRte,jdbcType=DECIMAL},
+      BRE_NBR = #{breNbr,jdbcType=DECIMAL},
+      SBP_NBR = #{sbpNbr,jdbcType=DECIMAL},
+      SEN_RCT = #{senRct,jdbcType=VARCHAR},
+      DBP_NBR = #{dbpNbr,jdbcType=DECIMAL},
+      BLD_OXY = #{bldOxy,jdbcType=DECIMAL},
+      MEWSSCO = #{mewssco,jdbcType=DECIMAL},
+      MEWSLVL = #{mewslvl,jdbcType=VARCHAR},
+      ISBIND = #{isbind,jdbcType=VARCHAR},
+      CRTUSERID = #{crtuserid,jdbcType=VARCHAR},
+      CRTTIME = #{crttime,jdbcType=TIMESTAMP},
+      HAV_FMY = #{havFmy,jdbcType=CHAR},
+      CST_OCC_COD = #{cstOccCod,jdbcType=VARCHAR},
+      SCE_AR1_COD = #{sceAr1Cod,jdbcType=VARCHAR},
+      SCE_AR2_COD = #{sceAr2Cod,jdbcType=VARCHAR},
+      SCE_ADR = #{sceAdr,jdbcType=VARCHAR},
+      LNK_MAN = #{lnkMan,jdbcType=VARCHAR},
+      ALM_SEQ = #{almSeq,jdbcType=VARCHAR},
+      DRR_NO = #{drrNo,jdbcType=VARCHAR},
+      DRR_NME = #{drrNme,jdbcType=VARCHAR},
+      CAR_NO = #{carNo,jdbcType=VARCHAR},
+      DOC_NO = #{docNo,jdbcType=VARCHAR},
+      DOC_NME = #{docNme,jdbcType=VARCHAR},
+      NUR_NO = #{nurNo,jdbcType=VARCHAR},
+      NUR_NME = #{nurNme,jdbcType=VARCHAR},
+      ILL_TIM = #{illTim,jdbcType=TIMESTAMP},
+      ILLPERD = #{illperd,jdbcType=VARCHAR},
+      ALMTIME = #{almtime,jdbcType=TIMESTAMP},
+      OUTTIME = #{outtime,jdbcType=TIMESTAMP},
+      AASTIME = #{aastime,jdbcType=TIMESTAMP},
+      LESTIME = #{lestime,jdbcType=TIMESTAMP},
+      AAHTIME = #{aahtime,jdbcType=TIMESTAMP},
+      SCE_LNG = #{sceLng,jdbcType=DECIMAL},
+      SCE_LAT = #{sceLat,jdbcType=DECIMAL},
+      SCE_HGT = #{sceHgt,jdbcType=DECIMAL},
+      SCE_PRV_COD = #{scePrvCod,jdbcType=VARCHAR},
+      SCE_CTY_COD = #{sceCtyCod,jdbcType=VARCHAR},
+      SCE_AR0_COD = #{sceAr0Cod,jdbcType=VARCHAR},
+      ILL_TIM_FLG = #{illTimFlg,jdbcType=CHAR}
+    where PATID = #{patid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspZjpfInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspZjpfInf" >
+    <id column="ZJPF_SEQ" property="zjpfSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="JL_DAT" property="jlDat" jdbcType="TIMESTAMP" />
+    <result column="ZJPFNRX" property="zjpfnrx" jdbcType="VARCHAR" />
+    <result column="ZJPF_ZF" property="zjpfZf" jdbcType="DECIMAL" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="PF_TYPE" property="pfType" jdbcType="VARCHAR" />
+    <result column="CRAT_DAT" property="cratDat" jdbcType="TIMESTAMP" />
+    <result column="CRT_USR_NO" property="crtUsrNo" jdbcType="VARCHAR" />
+    <result column="CRT_USR_NME" property="crtUsrNme" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ZJPF_SEQ, EMG_SEQ, JL_DAT, ZJPFNRX, ZJPF_ZF, MEMO, PF_TYPE, CRAT_DAT, CRT_USR_NO, 
+    CRT_USR_NME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.domain.HspZjpfInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_ZJPF_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_ZJPF_INF
+    where ZJPF_SEQ = #{zjpfSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_ZJPF_INF
+    where ZJPF_SEQ = #{zjpfSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.hospital.pojo.domain.HspZjpfInfExample" >
+    delete from HSP_ZJPF_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.hospital.pojo.domain.HspZjpfInf" >
+    insert into HSP_ZJPF_INF (ZJPF_SEQ, EMG_SEQ, JL_DAT, 
+      ZJPFNRX, ZJPF_ZF, MEMO, 
+      PF_TYPE, CRAT_DAT, CRT_USR_NO, 
+      CRT_USR_NME)
+    values (#{zjpfSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{jlDat,jdbcType=TIMESTAMP}, 
+      #{zjpfnrx,jdbcType=VARCHAR}, #{zjpfZf,jdbcType=DECIMAL}, #{memo,jdbcType=VARCHAR}, 
+      #{pfType,jdbcType=VARCHAR}, #{cratDat,jdbcType=TIMESTAMP}, #{crtUsrNo,jdbcType=VARCHAR}, 
+      #{crtUsrNme,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.hospital.pojo.domain.HspZjpfInf" >
+    insert into HSP_ZJPF_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="zjpfSeq != null" >
+        ZJPF_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="jlDat != null" >
+        JL_DAT,
+      </if>
+      <if test="zjpfnrx != null" >
+        ZJPFNRX,
+      </if>
+      <if test="zjpfZf != null" >
+        ZJPF_ZF,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+      <if test="pfType != null" >
+        PF_TYPE,
+      </if>
+      <if test="cratDat != null" >
+        CRAT_DAT,
+      </if>
+      <if test="crtUsrNo != null" >
+        CRT_USR_NO,
+      </if>
+      <if test="crtUsrNme != null" >
+        CRT_USR_NME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="zjpfSeq != null" >
+        #{zjpfSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="jlDat != null" >
+        #{jlDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zjpfnrx != null" >
+        #{zjpfnrx,jdbcType=VARCHAR},
+      </if>
+      <if test="zjpfZf != null" >
+        #{zjpfZf,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="pfType != null" >
+        #{pfType,jdbcType=VARCHAR},
+      </if>
+      <if test="cratDat != null" >
+        #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrNo != null" >
+        #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNme != null" >
+        #{crtUsrNme,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.hospital.pojo.domain.HspZjpfInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_ZJPF_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_ZJPF_INF
+    <set >
+      <if test="record.zjpfSeq != null" >
+        ZJPF_SEQ = #{record.zjpfSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jlDat != null" >
+        JL_DAT = #{record.jlDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.zjpfnrx != null" >
+        ZJPFNRX = #{record.zjpfnrx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zjpfZf != null" >
+        ZJPF_ZF = #{record.zjpfZf,jdbcType=DECIMAL},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pfType != null" >
+        PF_TYPE = #{record.pfType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cratDat != null" >
+        CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUsrNo != null" >
+        CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUsrNme != null" >
+        CRT_USR_NME = #{record.crtUsrNme,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_ZJPF_INF
+    set ZJPF_SEQ = #{record.zjpfSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      JL_DAT = #{record.jlDat,jdbcType=TIMESTAMP},
+      ZJPFNRX = #{record.zjpfnrx,jdbcType=VARCHAR},
+      ZJPF_ZF = #{record.zjpfZf,jdbcType=DECIMAL},
+      MEMO = #{record.memo,jdbcType=VARCHAR},
+      PF_TYPE = #{record.pfType,jdbcType=VARCHAR},
+      CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP},
+      CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NME = #{record.crtUsrNme,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.hospital.pojo.domain.HspZjpfInf" >
+    update HSP_ZJPF_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="jlDat != null" >
+        JL_DAT = #{jlDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zjpfnrx != null" >
+        ZJPFNRX = #{zjpfnrx,jdbcType=VARCHAR},
+      </if>
+      <if test="zjpfZf != null" >
+        ZJPF_ZF = #{zjpfZf,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="pfType != null" >
+        PF_TYPE = #{pfType,jdbcType=VARCHAR},
+      </if>
+      <if test="cratDat != null" >
+        CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrNo != null" >
+        CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNme != null" >
+        CRT_USR_NME = #{crtUsrNme,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ZJPF_SEQ = #{zjpfSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.hospital.pojo.domain.HspZjpfInf" >
+    update HSP_ZJPF_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      JL_DAT = #{jlDat,jdbcType=TIMESTAMP},
+      ZJPFNRX = #{zjpfnrx,jdbcType=VARCHAR},
+      ZJPF_ZF = #{zjpfZf,jdbcType=DECIMAL},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      PF_TYPE = #{pfType,jdbcType=VARCHAR},
+      CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP},
+      CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NME = #{crtUsrNme,jdbcType=VARCHAR}
+    where ZJPF_SEQ = #{zjpfSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

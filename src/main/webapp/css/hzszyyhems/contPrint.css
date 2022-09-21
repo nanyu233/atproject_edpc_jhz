@@ -1,0 +1,57 @@
+
+.tbody{width:190mm; margin:0px auto}
+.title {line-height:30px; font-size:16px; text-align:center;}
+.title1 {line-height:30px; font-size:20px; text-align:center;font-weight:bold;}
+.messages{line-height:26px;}
+.m_t10{margin-top:3mm;}
+.tbody{
+  font-size:0.35cm;
+}
+.input_tb{
+  width:110px;
+  border: none !important;
+  border-bottom: 1px solid #ddd !important;
+}
+.input_date{
+  width:120px;
+  border: none !important;
+  border-bottom: 1px solid #ddd !important;
+}
+.tableIn{
+  width:190mm;
+  border: 1px solid #000;
+  border-collapse: collapse
+}
+.tableIn td{
+  width:25%;
+  border: 1px solid #000;
+  height: .35cm;
+  line-height: .35cm;
+  padding-left:2mm;
+}
+.dqmDiv img{
+  vertical-align: middle;
+  height: 0.5cm;
+  width: auto;
+}
+.titleDivJZ{
+  width: 70%;
+  float: left;
+}
+.logoDivZJ{
+  display:block;
+  float:left;
+  width:15%;
+  margin-left:5%
+}
+.logoDivZJ img{
+  vertical-align:middle;
+  text-align: center;
+  width:15mm;
+  float: right;
+  margin-top:2mm
+}
+input:disabled {
+  background: #fff;
+  color: #000;
+}

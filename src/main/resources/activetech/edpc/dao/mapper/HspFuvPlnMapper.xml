@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspFuvPlnMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspFuvPln" >
+    <id column="PLN_SEQ" property="plnSeq" jdbcType="VARCHAR" />
+    <result column="PAT_ID" property="patId" jdbcType="VARCHAR" />
+    <result column="PLN_STA" property="plnSta" jdbcType="CHAR" />
+    <result column="LST_FUV_TIM" property="lstFuvTim" jdbcType="TIMESTAMP" />
+    <result column="PLN_FUV_TIM" property="plnFuvTim" jdbcType="TIMESTAMP" />
+    <result column="ALM_USR_NO" property="almUsrNo" jdbcType="VARCHAR" />
+    <result column="ALM_USR_NME" property="almUsrNme" jdbcType="VARCHAR" />
+    <result column="FUV_ALM_TIM" property="fuvAlmTim" jdbcType="TIMESTAMP" />
+    <result column="ALM_RED_FLG" property="almRedFlg" jdbcType="CHAR" />
+    <result column="ALM_RED_TIM" property="almRedTim" jdbcType="TIMESTAMP" />
+    <result column="CRT_USR_NO" property="crtUsrNo" jdbcType="VARCHAR" />
+    <result column="CRT_USR_NME" property="crtUsrNme" jdbcType="VARCHAR" />
+    <result column="CRT_TIM" property="crtTim" jdbcType="TIMESTAMP" />
+    <result column="PLN_FUV_TYP" property="plnFuvTyp" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PLN_SEQ, PAT_ID, PLN_STA, LST_FUV_TIM, PLN_FUV_TIM, ALM_USR_NO, ALM_USR_NME, FUV_ALM_TIM, 
+    ALM_RED_FLG, ALM_RED_TIM, CRT_USR_NO, CRT_USR_NME, CRT_TIM, PLN_FUV_TYP
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspFuvPlnExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_FUV_PLN
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_FUV_PLN
+    where PLN_SEQ = #{plnSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_FUV_PLN
+    where PLN_SEQ = #{plnSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspFuvPlnExample" >
+    delete from HSP_FUV_PLN
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspFuvPln" >
+    insert into HSP_FUV_PLN (PLN_SEQ, PAT_ID, PLN_STA, 
+      LST_FUV_TIM, PLN_FUV_TIM, ALM_USR_NO, 
+      ALM_USR_NME, FUV_ALM_TIM, ALM_RED_FLG, 
+      ALM_RED_TIM, CRT_USR_NO, CRT_USR_NME, 
+      CRT_TIM, PLN_FUV_TYP)
+    values (#{plnSeq,jdbcType=VARCHAR}, #{patId,jdbcType=VARCHAR}, #{plnSta,jdbcType=CHAR}, 
+      #{lstFuvTim,jdbcType=TIMESTAMP}, #{plnFuvTim,jdbcType=TIMESTAMP}, #{almUsrNo,jdbcType=VARCHAR}, 
+      #{almUsrNme,jdbcType=VARCHAR}, #{fuvAlmTim,jdbcType=TIMESTAMP}, #{almRedFlg,jdbcType=CHAR}, 
+      #{almRedTim,jdbcType=TIMESTAMP}, #{crtUsrNo,jdbcType=VARCHAR}, #{crtUsrNme,jdbcType=VARCHAR}, 
+      #{crtTim,jdbcType=TIMESTAMP}, #{plnFuvTyp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspFuvPln" >
+    insert into HSP_FUV_PLN
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="plnSeq != null" >
+        PLN_SEQ,
+      </if>
+      <if test="patId != null" >
+        PAT_ID,
+      </if>
+      <if test="plnSta != null" >
+        PLN_STA,
+      </if>
+      <if test="lstFuvTim != null" >
+        LST_FUV_TIM,
+      </if>
+      <if test="plnFuvTim != null" >
+        PLN_FUV_TIM,
+      </if>
+      <if test="almUsrNo != null" >
+        ALM_USR_NO,
+      </if>
+      <if test="almUsrNme != null" >
+        ALM_USR_NME,
+      </if>
+      <if test="fuvAlmTim != null" >
+        FUV_ALM_TIM,
+      </if>
+      <if test="almRedFlg != null" >
+        ALM_RED_FLG,
+      </if>
+      <if test="almRedTim != null" >
+        ALM_RED_TIM,
+      </if>
+      <if test="crtUsrNo != null" >
+        CRT_USR_NO,
+      </if>
+      <if test="crtUsrNme != null" >
+        CRT_USR_NME,
+      </if>
+      <if test="crtTim != null" >
+        CRT_TIM,
+      </if>
+      <if test="plnFuvTyp != null" >
+        PLN_FUV_TYP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="plnSeq != null" >
+        #{plnSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="patId != null" >
+        #{patId,jdbcType=VARCHAR},
+      </if>
+      <if test="plnSta != null" >
+        #{plnSta,jdbcType=CHAR},
+      </if>
+      <if test="lstFuvTim != null" >
+        #{lstFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plnFuvTim != null" >
+        #{plnFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="almUsrNo != null" >
+        #{almUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="almUsrNme != null" >
+        #{almUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvAlmTim != null" >
+        #{fuvAlmTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="almRedFlg != null" >
+        #{almRedFlg,jdbcType=CHAR},
+      </if>
+      <if test="almRedTim != null" >
+        #{almRedTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrNo != null" >
+        #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNme != null" >
+        #{crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null" >
+        #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plnFuvTyp != null" >
+        #{plnFuvTyp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspFuvPlnExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_FUV_PLN
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_FUV_PLN
+    <set >
+      <if test="record.plnSeq != null" >
+        PLN_SEQ = #{record.plnSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patId != null" >
+        PAT_ID = #{record.patId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plnSta != null" >
+        PLN_STA = #{record.plnSta,jdbcType=CHAR},
+      </if>
+      <if test="record.lstFuvTim != null" >
+        LST_FUV_TIM = #{record.lstFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.plnFuvTim != null" >
+        PLN_FUV_TIM = #{record.plnFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.almUsrNo != null" >
+        ALM_USR_NO = #{record.almUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.almUsrNme != null" >
+        ALM_USR_NME = #{record.almUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuvAlmTim != null" >
+        FUV_ALM_TIM = #{record.fuvAlmTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.almRedFlg != null" >
+        ALM_RED_FLG = #{record.almRedFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.almRedTim != null" >
+        ALM_RED_TIM = #{record.almRedTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUsrNo != null" >
+        CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUsrNme != null" >
+        CRT_USR_NME = #{record.crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTim != null" >
+        CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.plnFuvTyp != null" >
+        PLN_FUV_TYP = #{record.plnFuvTyp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_FUV_PLN
+    set PLN_SEQ = #{record.plnSeq,jdbcType=VARCHAR},
+      PAT_ID = #{record.patId,jdbcType=VARCHAR},
+      PLN_STA = #{record.plnSta,jdbcType=CHAR},
+      LST_FUV_TIM = #{record.lstFuvTim,jdbcType=TIMESTAMP},
+      PLN_FUV_TIM = #{record.plnFuvTim,jdbcType=TIMESTAMP},
+      ALM_USR_NO = #{record.almUsrNo,jdbcType=VARCHAR},
+      ALM_USR_NME = #{record.almUsrNme,jdbcType=VARCHAR},
+      FUV_ALM_TIM = #{record.fuvAlmTim,jdbcType=TIMESTAMP},
+      ALM_RED_FLG = #{record.almRedFlg,jdbcType=CHAR},
+      ALM_RED_TIM = #{record.almRedTim,jdbcType=TIMESTAMP},
+      CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NME = #{record.crtUsrNme,jdbcType=VARCHAR},
+      CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      PLN_FUV_TYP = #{record.plnFuvTyp,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspFuvPln" >
+    update HSP_FUV_PLN
+    <set >
+      <if test="patId != null" >
+        PAT_ID = #{patId,jdbcType=VARCHAR},
+      </if>
+      <if test="plnSta != null" >
+        PLN_STA = #{plnSta,jdbcType=CHAR},
+      </if>
+      <if test="lstFuvTim != null" >
+        LST_FUV_TIM = #{lstFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plnFuvTim != null" >
+        PLN_FUV_TIM = #{plnFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="almUsrNo != null" >
+        ALM_USR_NO = #{almUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="almUsrNme != null" >
+        ALM_USR_NME = #{almUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvAlmTim != null" >
+        FUV_ALM_TIM = #{fuvAlmTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="almRedFlg != null" >
+        ALM_RED_FLG = #{almRedFlg,jdbcType=CHAR},
+      </if>
+      <if test="almRedTim != null" >
+        ALM_RED_TIM = #{almRedTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrNo != null" >
+        CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNme != null" >
+        CRT_USR_NME = #{crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null" >
+        CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plnFuvTyp != null" >
+        PLN_FUV_TYP = #{plnFuvTyp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PLN_SEQ = #{plnSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspFuvPln" >
+    update HSP_FUV_PLN
+    set PAT_ID = #{patId,jdbcType=VARCHAR},
+      PLN_STA = #{plnSta,jdbcType=CHAR},
+      LST_FUV_TIM = #{lstFuvTim,jdbcType=TIMESTAMP},
+      PLN_FUV_TIM = #{plnFuvTim,jdbcType=TIMESTAMP},
+      ALM_USR_NO = #{almUsrNo,jdbcType=VARCHAR},
+      ALM_USR_NME = #{almUsrNme,jdbcType=VARCHAR},
+      FUV_ALM_TIM = #{fuvAlmTim,jdbcType=TIMESTAMP},
+      ALM_RED_FLG = #{almRedFlg,jdbcType=CHAR},
+      ALM_RED_TIM = #{almRedTim,jdbcType=TIMESTAMP},
+      CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NME = #{crtUsrNme,jdbcType=VARCHAR},
+      CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      PLN_FUV_TYP = #{plnFuvTyp,jdbcType=VARCHAR}
+    where PLN_SEQ = #{plnSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspXtpgInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspXtpgInf">
+    <id column="XTPG_SEQ" jdbcType="VARCHAR" property="xtpgSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="XTPG_SX" jdbcType="VARCHAR" property="xtpgSx" />
+    <result column="XTPG_ST" jdbcType="VARCHAR" property="xtpgSt" />
+    <result column="XTPG_MX" jdbcType="VARCHAR" property="xtpgMx" />
+    <result column="XTPG_BM" jdbcType="VARCHAR" property="xtpgBm" />
+    <result column="XTPG_AQCS_COD" jdbcType="VARCHAR" property="xtpgAqcsCod" />
+    <result column="XTPG_HS" jdbcType="VARCHAR" property="xtpgHs" />
+    <result column="XTPG_SJHS" jdbcType="VARCHAR" property="xtpgSjhs" />
+    <result column="XTPG_MEMO" jdbcType="VARCHAR" property="xtpgMemo" />
+    <result column="CRT_DAT" jdbcType="TIMESTAMP" property="crtDat" />
+    <result column="CRT_NUR" jdbcType="VARCHAR" property="crtNur" />
+    <result column="CRT_NAME" jdbcType="VARCHAR" property="crtName" />
+    <result column="UP_DAT" jdbcType="TIMESTAMP" property="upDat" />
+    <result column="UP_NUR" jdbcType="VARCHAR" property="upNur" />
+    <result column="UP_NAME" jdbcType="VARCHAR" property="upName" />
+    <result column="XTPG_SJ_FLG" jdbcType="VARCHAR" property="xtpgSjFlg" />
+    <result column="XTPG_HX_FLG" jdbcType="VARCHAR" property="xtpgHxFlg" />
+    <result column="XTPG_XXG_FLG" jdbcType="VARCHAR" property="xtpgXxgFlg" />
+    <result column="XTPG_XH_FLG" jdbcType="VARCHAR" property="xtpgXhFlg" />
+    <result column="XTPG_MN_FLG" jdbcType="VARCHAR" property="xtpgMnFlg" />
+    <result column="XTPG_GG_FLG" jdbcType="VARCHAR" property="xtpgGgFlg" />
+    <result column="XTPG_XL_FLG" jdbcType="VARCHAR" property="xtpgXlFlg" />
+    <result column="XTPG_DG_FLG" jdbcType="VARCHAR" property="xtpgDgFlg" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="activetech.zyyhospital.pojo.domain.HspXtpgInf">
+    <result column="XTPG_JLHZ" jdbcType="CLOB" property="xtpgJlhz" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    XTPG_SEQ, EMG_SEQ, XTPG_SX, XTPG_ST, XTPG_MX, XTPG_BM, XTPG_AQCS_COD, XTPG_HS, XTPG_SJHS, 
+    XTPG_MEMO, CRT_DAT, CRT_NUR, CRT_NAME, UP_DAT, UP_NUR, UP_NAME, XTPG_SJ_FLG, XTPG_HX_FLG, 
+    XTPG_XXG_FLG, XTPG_XH_FLG, XTPG_MN_FLG, XTPG_GG_FLG, XTPG_XL_FLG, XTPG_DG_FLG
+  </sql>
+  <sql id="Blob_Column_List">
+    XTPG_JLHZ
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspXtpgInfExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_XTPG_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspXtpgInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_XTPG_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_XTPG_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_XTPG_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspXtpgInfExample">
+    delete from HSP_XTPG_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspXtpgInf">
+    insert into HSP_XTPG_INF (XTPG_SEQ, EMG_SEQ, XTPG_SX, 
+      XTPG_ST, XTPG_MX, XTPG_BM, 
+      XTPG_AQCS_COD, XTPG_HS, XTPG_SJHS, 
+      XTPG_MEMO, CRT_DAT, CRT_NUR, 
+      CRT_NAME, UP_DAT, UP_NUR, 
+      UP_NAME, XTPG_SJ_FLG, XTPG_HX_FLG, 
+      XTPG_XXG_FLG, XTPG_XH_FLG, XTPG_MN_FLG, 
+      XTPG_GG_FLG, XTPG_XL_FLG, XTPG_DG_FLG, 
+      XTPG_JLHZ)
+    values (#{xtpgSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{xtpgSx,jdbcType=VARCHAR}, 
+      #{xtpgSt,jdbcType=VARCHAR}, #{xtpgMx,jdbcType=VARCHAR}, #{xtpgBm,jdbcType=VARCHAR}, 
+      #{xtpgAqcsCod,jdbcType=VARCHAR}, #{xtpgHs,jdbcType=VARCHAR}, #{xtpgSjhs,jdbcType=VARCHAR}, 
+      #{xtpgMemo,jdbcType=VARCHAR}, #{crtDat,jdbcType=TIMESTAMP}, #{crtNur,jdbcType=VARCHAR}, 
+      #{crtName,jdbcType=VARCHAR}, #{upDat,jdbcType=TIMESTAMP}, #{upNur,jdbcType=VARCHAR}, 
+      #{upName,jdbcType=VARCHAR}, #{xtpgSjFlg,jdbcType=VARCHAR}, #{xtpgHxFlg,jdbcType=VARCHAR}, 
+      #{xtpgXxgFlg,jdbcType=VARCHAR}, #{xtpgXhFlg,jdbcType=VARCHAR}, #{xtpgMnFlg,jdbcType=VARCHAR}, 
+      #{xtpgGgFlg,jdbcType=VARCHAR}, #{xtpgXlFlg,jdbcType=VARCHAR}, #{xtpgDgFlg,jdbcType=VARCHAR}, 
+      #{xtpgJlhz,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspXtpgInf">
+    insert into HSP_XTPG_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="xtpgSeq != null">
+        XTPG_SEQ,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="xtpgSx != null">
+        XTPG_SX,
+      </if>
+      <if test="xtpgSt != null">
+        XTPG_ST,
+      </if>
+      <if test="xtpgMx != null">
+        XTPG_MX,
+      </if>
+      <if test="xtpgBm != null">
+        XTPG_BM,
+      </if>
+      <if test="xtpgAqcsCod != null">
+        XTPG_AQCS_COD,
+      </if>
+      <if test="xtpgHs != null">
+        XTPG_HS,
+      </if>
+      <if test="xtpgSjhs != null">
+        XTPG_SJHS,
+      </if>
+      <if test="xtpgMemo != null">
+        XTPG_MEMO,
+      </if>
+      <if test="crtDat != null">
+        CRT_DAT,
+      </if>
+      <if test="crtNur != null">
+        CRT_NUR,
+      </if>
+      <if test="crtName != null">
+        CRT_NAME,
+      </if>
+      <if test="upDat != null">
+        UP_DAT,
+      </if>
+      <if test="upNur != null">
+        UP_NUR,
+      </if>
+      <if test="upName != null">
+        UP_NAME,
+      </if>
+      <if test="xtpgSjFlg != null">
+        XTPG_SJ_FLG,
+      </if>
+      <if test="xtpgHxFlg != null">
+        XTPG_HX_FLG,
+      </if>
+      <if test="xtpgXxgFlg != null">
+        XTPG_XXG_FLG,
+      </if>
+      <if test="xtpgXhFlg != null">
+        XTPG_XH_FLG,
+      </if>
+      <if test="xtpgMnFlg != null">
+        XTPG_MN_FLG,
+      </if>
+      <if test="xtpgGgFlg != null">
+        XTPG_GG_FLG,
+      </if>
+      <if test="xtpgXlFlg != null">
+        XTPG_XL_FLG,
+      </if>
+      <if test="xtpgDgFlg != null">
+        XTPG_DG_FLG,
+      </if>
+      <if test="xtpgJlhz != null">
+        XTPG_JLHZ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="xtpgSeq != null">
+        #{xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgSx != null">
+        #{xtpgSx,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgSt != null">
+        #{xtpgSt,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgMx != null">
+        #{xtpgMx,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgBm != null">
+        #{xtpgBm,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgAqcsCod != null">
+        #{xtpgAqcsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgHs != null">
+        #{xtpgHs,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgSjhs != null">
+        #{xtpgSjhs,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgMemo != null">
+        #{xtpgMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDat != null">
+        #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtNur != null">
+        #{crtNur,jdbcType=VARCHAR},
+      </if>
+      <if test="crtName != null">
+        #{crtName,jdbcType=VARCHAR},
+      </if>
+      <if test="upDat != null">
+        #{upDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upNur != null">
+        #{upNur,jdbcType=VARCHAR},
+      </if>
+      <if test="upName != null">
+        #{upName,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgSjFlg != null">
+        #{xtpgSjFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgHxFlg != null">
+        #{xtpgHxFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgXxgFlg != null">
+        #{xtpgXxgFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgXhFlg != null">
+        #{xtpgXhFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgMnFlg != null">
+        #{xtpgMnFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgGgFlg != null">
+        #{xtpgGgFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgXlFlg != null">
+        #{xtpgXlFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgDgFlg != null">
+        #{xtpgDgFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgJlhz != null">
+        #{xtpgJlhz,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspXtpgInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_XTPG_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_XTPG_INF
+    <set>
+      <if test="record.xtpgSeq != null">
+        XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgSx != null">
+        XTPG_SX = #{record.xtpgSx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgSt != null">
+        XTPG_ST = #{record.xtpgSt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgMx != null">
+        XTPG_MX = #{record.xtpgMx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgBm != null">
+        XTPG_BM = #{record.xtpgBm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgAqcsCod != null">
+        XTPG_AQCS_COD = #{record.xtpgAqcsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgHs != null">
+        XTPG_HS = #{record.xtpgHs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgSjhs != null">
+        XTPG_SJHS = #{record.xtpgSjhs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgMemo != null">
+        XTPG_MEMO = #{record.xtpgMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtDat != null">
+        CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtNur != null">
+        CRT_NUR = #{record.crtNur,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtName != null">
+        CRT_NAME = #{record.crtName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upDat != null">
+        UP_DAT = #{record.upDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.upNur != null">
+        UP_NUR = #{record.upNur,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upName != null">
+        UP_NAME = #{record.upName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgSjFlg != null">
+        XTPG_SJ_FLG = #{record.xtpgSjFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgHxFlg != null">
+        XTPG_HX_FLG = #{record.xtpgHxFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgXxgFlg != null">
+        XTPG_XXG_FLG = #{record.xtpgXxgFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgXhFlg != null">
+        XTPG_XH_FLG = #{record.xtpgXhFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgMnFlg != null">
+        XTPG_MN_FLG = #{record.xtpgMnFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgGgFlg != null">
+        XTPG_GG_FLG = #{record.xtpgGgFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgXlFlg != null">
+        XTPG_XL_FLG = #{record.xtpgXlFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgDgFlg != null">
+        XTPG_DG_FLG = #{record.xtpgDgFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtpgJlhz != null">
+        XTPG_JLHZ = #{record.xtpgJlhz,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update HSP_XTPG_INF
+    set XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      XTPG_SX = #{record.xtpgSx,jdbcType=VARCHAR},
+      XTPG_ST = #{record.xtpgSt,jdbcType=VARCHAR},
+      XTPG_MX = #{record.xtpgMx,jdbcType=VARCHAR},
+      XTPG_BM = #{record.xtpgBm,jdbcType=VARCHAR},
+      XTPG_AQCS_COD = #{record.xtpgAqcsCod,jdbcType=VARCHAR},
+      XTPG_HS = #{record.xtpgHs,jdbcType=VARCHAR},
+      XTPG_SJHS = #{record.xtpgSjhs,jdbcType=VARCHAR},
+      XTPG_MEMO = #{record.xtpgMemo,jdbcType=VARCHAR},
+      CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      CRT_NUR = #{record.crtNur,jdbcType=VARCHAR},
+      CRT_NAME = #{record.crtName,jdbcType=VARCHAR},
+      UP_DAT = #{record.upDat,jdbcType=TIMESTAMP},
+      UP_NUR = #{record.upNur,jdbcType=VARCHAR},
+      UP_NAME = #{record.upName,jdbcType=VARCHAR},
+      XTPG_SJ_FLG = #{record.xtpgSjFlg,jdbcType=VARCHAR},
+      XTPG_HX_FLG = #{record.xtpgHxFlg,jdbcType=VARCHAR},
+      XTPG_XXG_FLG = #{record.xtpgXxgFlg,jdbcType=VARCHAR},
+      XTPG_XH_FLG = #{record.xtpgXhFlg,jdbcType=VARCHAR},
+      XTPG_MN_FLG = #{record.xtpgMnFlg,jdbcType=VARCHAR},
+      XTPG_GG_FLG = #{record.xtpgGgFlg,jdbcType=VARCHAR},
+      XTPG_XL_FLG = #{record.xtpgXlFlg,jdbcType=VARCHAR},
+      XTPG_DG_FLG = #{record.xtpgDgFlg,jdbcType=VARCHAR},
+      XTPG_JLHZ = #{record.xtpgJlhz,jdbcType=CLOB}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_XTPG_INF
+    set XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      XTPG_SX = #{record.xtpgSx,jdbcType=VARCHAR},
+      XTPG_ST = #{record.xtpgSt,jdbcType=VARCHAR},
+      XTPG_MX = #{record.xtpgMx,jdbcType=VARCHAR},
+      XTPG_BM = #{record.xtpgBm,jdbcType=VARCHAR},
+      XTPG_AQCS_COD = #{record.xtpgAqcsCod,jdbcType=VARCHAR},
+      XTPG_HS = #{record.xtpgHs,jdbcType=VARCHAR},
+      XTPG_SJHS = #{record.xtpgSjhs,jdbcType=VARCHAR},
+      XTPG_MEMO = #{record.xtpgMemo,jdbcType=VARCHAR},
+      CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      CRT_NUR = #{record.crtNur,jdbcType=VARCHAR},
+      CRT_NAME = #{record.crtName,jdbcType=VARCHAR},
+      UP_DAT = #{record.upDat,jdbcType=TIMESTAMP},
+      UP_NUR = #{record.upNur,jdbcType=VARCHAR},
+      UP_NAME = #{record.upName,jdbcType=VARCHAR},
+      XTPG_SJ_FLG = #{record.xtpgSjFlg,jdbcType=VARCHAR},
+      XTPG_HX_FLG = #{record.xtpgHxFlg,jdbcType=VARCHAR},
+      XTPG_XXG_FLG = #{record.xtpgXxgFlg,jdbcType=VARCHAR},
+      XTPG_XH_FLG = #{record.xtpgXhFlg,jdbcType=VARCHAR},
+      XTPG_MN_FLG = #{record.xtpgMnFlg,jdbcType=VARCHAR},
+      XTPG_GG_FLG = #{record.xtpgGgFlg,jdbcType=VARCHAR},
+      XTPG_XL_FLG = #{record.xtpgXlFlg,jdbcType=VARCHAR},
+      XTPG_DG_FLG = #{record.xtpgDgFlg,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspXtpgInf">
+    update HSP_XTPG_INF
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgSx != null">
+        XTPG_SX = #{xtpgSx,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgSt != null">
+        XTPG_ST = #{xtpgSt,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgMx != null">
+        XTPG_MX = #{xtpgMx,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgBm != null">
+        XTPG_BM = #{xtpgBm,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgAqcsCod != null">
+        XTPG_AQCS_COD = #{xtpgAqcsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgHs != null">
+        XTPG_HS = #{xtpgHs,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgSjhs != null">
+        XTPG_SJHS = #{xtpgSjhs,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgMemo != null">
+        XTPG_MEMO = #{xtpgMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDat != null">
+        CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtNur != null">
+        CRT_NUR = #{crtNur,jdbcType=VARCHAR},
+      </if>
+      <if test="crtName != null">
+        CRT_NAME = #{crtName,jdbcType=VARCHAR},
+      </if>
+      <if test="upDat != null">
+        UP_DAT = #{upDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upNur != null">
+        UP_NUR = #{upNur,jdbcType=VARCHAR},
+      </if>
+      <if test="upName != null">
+        UP_NAME = #{upName,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgSjFlg != null">
+        XTPG_SJ_FLG = #{xtpgSjFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgHxFlg != null">
+        XTPG_HX_FLG = #{xtpgHxFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgXxgFlg != null">
+        XTPG_XXG_FLG = #{xtpgXxgFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgXhFlg != null">
+        XTPG_XH_FLG = #{xtpgXhFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgMnFlg != null">
+        XTPG_MN_FLG = #{xtpgMnFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgGgFlg != null">
+        XTPG_GG_FLG = #{xtpgGgFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgXlFlg != null">
+        XTPG_XL_FLG = #{xtpgXlFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgDgFlg != null">
+        XTPG_DG_FLG = #{xtpgDgFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtpgJlhz != null">
+        XTPG_JLHZ = #{xtpgJlhz,jdbcType=CLOB},
+      </if>
+    </set>
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspXtpgInf">
+    update HSP_XTPG_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      XTPG_SX = #{xtpgSx,jdbcType=VARCHAR},
+      XTPG_ST = #{xtpgSt,jdbcType=VARCHAR},
+      XTPG_MX = #{xtpgMx,jdbcType=VARCHAR},
+      XTPG_BM = #{xtpgBm,jdbcType=VARCHAR},
+      XTPG_AQCS_COD = #{xtpgAqcsCod,jdbcType=VARCHAR},
+      XTPG_HS = #{xtpgHs,jdbcType=VARCHAR},
+      XTPG_SJHS = #{xtpgSjhs,jdbcType=VARCHAR},
+      XTPG_MEMO = #{xtpgMemo,jdbcType=VARCHAR},
+      CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      CRT_NUR = #{crtNur,jdbcType=VARCHAR},
+      CRT_NAME = #{crtName,jdbcType=VARCHAR},
+      UP_DAT = #{upDat,jdbcType=TIMESTAMP},
+      UP_NUR = #{upNur,jdbcType=VARCHAR},
+      UP_NAME = #{upName,jdbcType=VARCHAR},
+      XTPG_SJ_FLG = #{xtpgSjFlg,jdbcType=VARCHAR},
+      XTPG_HX_FLG = #{xtpgHxFlg,jdbcType=VARCHAR},
+      XTPG_XXG_FLG = #{xtpgXxgFlg,jdbcType=VARCHAR},
+      XTPG_XH_FLG = #{xtpgXhFlg,jdbcType=VARCHAR},
+      XTPG_MN_FLG = #{xtpgMnFlg,jdbcType=VARCHAR},
+      XTPG_GG_FLG = #{xtpgGgFlg,jdbcType=VARCHAR},
+      XTPG_XL_FLG = #{xtpgXlFlg,jdbcType=VARCHAR},
+      XTPG_DG_FLG = #{xtpgDgFlg,jdbcType=VARCHAR},
+      XTPG_JLHZ = #{xtpgJlhz,jdbcType=CLOB}
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspXtpgInf">
+    update HSP_XTPG_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      XTPG_SX = #{xtpgSx,jdbcType=VARCHAR},
+      XTPG_ST = #{xtpgSt,jdbcType=VARCHAR},
+      XTPG_MX = #{xtpgMx,jdbcType=VARCHAR},
+      XTPG_BM = #{xtpgBm,jdbcType=VARCHAR},
+      XTPG_AQCS_COD = #{xtpgAqcsCod,jdbcType=VARCHAR},
+      XTPG_HS = #{xtpgHs,jdbcType=VARCHAR},
+      XTPG_SJHS = #{xtpgSjhs,jdbcType=VARCHAR},
+      XTPG_MEMO = #{xtpgMemo,jdbcType=VARCHAR},
+      CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      CRT_NUR = #{crtNur,jdbcType=VARCHAR},
+      CRT_NAME = #{crtName,jdbcType=VARCHAR},
+      UP_DAT = #{upDat,jdbcType=TIMESTAMP},
+      UP_NUR = #{upNur,jdbcType=VARCHAR},
+      UP_NAME = #{upName,jdbcType=VARCHAR},
+      XTPG_SJ_FLG = #{xtpgSjFlg,jdbcType=VARCHAR},
+      XTPG_HX_FLG = #{xtpgHxFlg,jdbcType=VARCHAR},
+      XTPG_XXG_FLG = #{xtpgXxgFlg,jdbcType=VARCHAR},
+      XTPG_XH_FLG = #{xtpgXhFlg,jdbcType=VARCHAR},
+      XTPG_MN_FLG = #{xtpgMnFlg,jdbcType=VARCHAR},
+      XTPG_GG_FLG = #{xtpgGgFlg,jdbcType=VARCHAR},
+      XTPG_XL_FLG = #{xtpgXlFlg,jdbcType=VARCHAR},
+      XTPG_DG_FLG = #{xtpgDgFlg,jdbcType=VARCHAR}
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

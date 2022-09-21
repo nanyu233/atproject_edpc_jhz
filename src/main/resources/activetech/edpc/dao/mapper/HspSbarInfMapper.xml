@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspSbarInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspSbarInf">
+    <id column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="CRT_TIM" jdbcType="TIMESTAMP" property="crtTim" />
+    <result column="CRT_USR" jdbcType="VARCHAR" property="crtUsr" />
+    <result column="MOD_TIM" jdbcType="TIMESTAMP" property="modTim" />
+    <result column="MOD_USR" jdbcType="VARCHAR" property="modUsr" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="activetech.edpc.pojo.domain.HspSbarInf">
+    <result column="SBARCONTENT" jdbcType="CLOB" property="sbarcontent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    EMG_SEQ, CRT_TIM, CRT_USR, MOD_TIM, MOD_USR
+  </sql>
+  <sql id="Blob_Column_List">
+    SBARCONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="activetech.edpc.pojo.domain.HspSbarInfExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_SBAR_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="activetech.edpc.pojo.domain.HspSbarInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_SBAR_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_SBAR_INF
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_SBAR_INF
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspSbarInfExample">
+    delete from HSP_SBAR_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspSbarInf">
+    insert into HSP_SBAR_INF (EMG_SEQ, CRT_TIM, CRT_USR, 
+      MOD_TIM, MOD_USR, SBARCONTENT
+      )
+    values (#{emgSeq,jdbcType=VARCHAR}, #{crtTim,jdbcType=TIMESTAMP}, #{crtUsr,jdbcType=VARCHAR}, 
+      #{modTim,jdbcType=TIMESTAMP}, #{modUsr,jdbcType=VARCHAR}, #{sbarcontent,jdbcType=CLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspSbarInf">
+    insert into HSP_SBAR_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="crtTim != null">
+        CRT_TIM,
+      </if>
+      <if test="crtUsr != null">
+        CRT_USR,
+      </if>
+      <if test="modTim != null">
+        MOD_TIM,
+      </if>
+      <if test="modUsr != null">
+        MOD_USR,
+      </if>
+      <if test="sbarcontent != null">
+        SBARCONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null">
+        #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsr != null">
+        #{crtUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null">
+        #{modTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUsr != null">
+        #{modUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="sbarcontent != null">
+        #{sbarcontent,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspSbarInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_SBAR_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_SBAR_INF
+    <set>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTim != null">
+        CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUsr != null">
+        CRT_USR = #{record.crtUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTim != null">
+        MOD_TIM = #{record.modTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUsr != null">
+        MOD_USR = #{record.modUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbarcontent != null">
+        SBARCONTENT = #{record.sbarcontent,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update HSP_SBAR_INF
+    set EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      CRT_USR = #{record.crtUsr,jdbcType=VARCHAR},
+      MOD_TIM = #{record.modTim,jdbcType=TIMESTAMP},
+      MOD_USR = #{record.modUsr,jdbcType=VARCHAR},
+      SBARCONTENT = #{record.sbarcontent,jdbcType=CLOB}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_SBAR_INF
+    set EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      CRT_USR = #{record.crtUsr,jdbcType=VARCHAR},
+      MOD_TIM = #{record.modTim,jdbcType=TIMESTAMP},
+      MOD_USR = #{record.modUsr,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspSbarInf">
+    update HSP_SBAR_INF
+    <set>
+      <if test="crtTim != null">
+        CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsr != null">
+        CRT_USR = #{crtUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null">
+        MOD_TIM = #{modTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUsr != null">
+        MOD_USR = #{modUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="sbarcontent != null">
+        SBARCONTENT = #{sbarcontent,jdbcType=CLOB},
+      </if>
+    </set>
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.edpc.pojo.domain.HspSbarInf">
+    update HSP_SBAR_INF
+    set CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      CRT_USR = #{crtUsr,jdbcType=VARCHAR},
+      MOD_TIM = #{modTim,jdbcType=TIMESTAMP},
+      MOD_USR = #{modUsr,jdbcType=VARCHAR},
+      SBARCONTENT = #{sbarcontent,jdbcType=CLOB}
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspSbarInf">
+    update HSP_SBAR_INF
+    set CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      CRT_USR = #{crtUsr,jdbcType=VARCHAR},
+      MOD_TIM = #{modTim,jdbcType=TIMESTAMP},
+      MOD_USR = #{modUsr,jdbcType=VARCHAR}
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

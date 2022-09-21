@@ -1,0 +1,20 @@
+.addyzxx .mainbody{padding: 5px 10px 10px 10px;}
+.addyzxx .tipLab{float: left;line-height: 120px;display: inline-block;margin-right: 4px;}
+.addyzxx .contentTab{max-height: 290px;overflow-y: auto;}
+.addyzxx .tabsDiv,.addyzxx .addyzxxDiv,.addyzxx .extraDiv,.addyzxx .exameDiv{margin-top: 5px;display: none;}
+.addyzxx .bottomDiv{position: absolute;bottom: 15px;}
+.addyzxx .grp_btn{position: absolute;bottom: 15px;right: 20px;}
+.addyzxx .centertd{display:inline-block;width:100%;text-align: center;}
+.addyzxx .importtable td,.addyzxx .importtable th{border-width: 0 1px 1px 0;border: 1px dotted #ccc;}
+.addyzxx .longinput{width:629px;}
+.addyzxx .leftMargin{margin-left: 10px;}
+.addyzxx .leftp{color:#fff;width:332px;float:left;margin-right:2px;text-indent: 4px;height: 24px;line-height: 24px;margin-bottom: 5px;}
+.addyzxx .mould,.addyzxx .handmade{background:#1477bc}
+.addyzxx .marginRight{display: inline-block;margin-right: 10px;}
+.addyzxx .spcWdate{width:160px;}
+.addyzxx .importtable{border: 1px solid #95B8E7;border-width: 0px 1px 1px 1px;}
+.addyzxx .titletable{border: 1px solid #95B8E7;border-bottom: 1px solid #ccc;}
+.addyzxx .firsttr td{border-top:none;}
+.addyzxx .clearBoth{clear: both;}
+.addyzxx img{cursor: pointer;}
+.addyzxx .titletable .fixedTr{height: 28px;}

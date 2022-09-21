@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspCsampInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspCsampInf" >
+    <id column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="ITM_ALS" property="itmAls" jdbcType="VARCHAR" />
+    <result column="ITM_AQT" property="itmAqt" jdbcType="VARCHAR" />
+    <result column="ITM_MLS" property="itmMls" jdbcType="VARCHAR" />
+    <result column="ITM_MQT" property="itmMqt" jdbcType="VARCHAR" />
+    <result column="ITM_PLS" property="itmPls" jdbcType="VARCHAR" />
+    <result column="ITM_PQT" property="itmPqt" jdbcType="VARCHAR" />
+    <result column="ITM_LTM" property="itmLtm" jdbcType="TIMESTAMP" />
+    <result column="ITM_LFD" property="itmLfd" jdbcType="VARCHAR" />
+    <result column="ITM_EME" property="itmEme" jdbcType="VARCHAR" />
+    <result column="USR_NO" property="usrNo" jdbcType="VARCHAR" />
+    <result column="USR_NME" property="usrNme" jdbcType="VARCHAR" />
+    <result column="CRT_TIM" property="crtTim" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMG_SEQ, ITM_ALS, ITM_AQT, ITM_MLS, ITM_MQT, ITM_PLS, ITM_PQT, ITM_LTM, ITM_LFD, 
+    ITM_EME, USR_NO, USR_NME, CRT_TIM
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspCsampInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CSAMP_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CSAMP_INF
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_CSAMP_INF
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspCsampInfExample" >
+    delete from HSP_CSAMP_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspCsampInf" >
+    insert into HSP_CSAMP_INF (EMG_SEQ, ITM_ALS, ITM_AQT, 
+      ITM_MLS, ITM_MQT, ITM_PLS, 
+      ITM_PQT, ITM_LTM, ITM_LFD, 
+      ITM_EME, USR_NO, USR_NME, 
+      CRT_TIM)
+    values (#{emgSeq,jdbcType=VARCHAR}, #{itmAls,jdbcType=VARCHAR}, #{itmAqt,jdbcType=VARCHAR}, 
+      #{itmMls,jdbcType=VARCHAR}, #{itmMqt,jdbcType=VARCHAR}, #{itmPls,jdbcType=VARCHAR}, 
+      #{itmPqt,jdbcType=VARCHAR}, #{itmLtm,jdbcType=TIMESTAMP}, #{itmLfd,jdbcType=VARCHAR}, 
+      #{itmEme,jdbcType=VARCHAR}, #{usrNo,jdbcType=VARCHAR}, #{usrNme,jdbcType=VARCHAR}, 
+      #{crtTim,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspCsampInf" >
+    insert into HSP_CSAMP_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="itmAls != null" >
+        ITM_ALS,
+      </if>
+      <if test="itmAqt != null" >
+        ITM_AQT,
+      </if>
+      <if test="itmMls != null" >
+        ITM_MLS,
+      </if>
+      <if test="itmMqt != null" >
+        ITM_MQT,
+      </if>
+      <if test="itmPls != null" >
+        ITM_PLS,
+      </if>
+      <if test="itmPqt != null" >
+        ITM_PQT,
+      </if>
+      <if test="itmLtm != null" >
+        ITM_LTM,
+      </if>
+      <if test="itmLfd != null" >
+        ITM_LFD,
+      </if>
+      <if test="itmEme != null" >
+        ITM_EME,
+      </if>
+      <if test="usrNo != null" >
+        USR_NO,
+      </if>
+      <if test="usrNme != null" >
+        USR_NME,
+      </if>
+      <if test="crtTim != null" >
+        CRT_TIM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="itmAls != null" >
+        #{itmAls,jdbcType=VARCHAR},
+      </if>
+      <if test="itmAqt != null" >
+        #{itmAqt,jdbcType=VARCHAR},
+      </if>
+      <if test="itmMls != null" >
+        #{itmMls,jdbcType=VARCHAR},
+      </if>
+      <if test="itmMqt != null" >
+        #{itmMqt,jdbcType=VARCHAR},
+      </if>
+      <if test="itmPls != null" >
+        #{itmPls,jdbcType=VARCHAR},
+      </if>
+      <if test="itmPqt != null" >
+        #{itmPqt,jdbcType=VARCHAR},
+      </if>
+      <if test="itmLtm != null" >
+        #{itmLtm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itmLfd != null" >
+        #{itmLfd,jdbcType=VARCHAR},
+      </if>
+      <if test="itmEme != null" >
+        #{itmEme,jdbcType=VARCHAR},
+      </if>
+      <if test="usrNo != null" >
+        #{usrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="usrNme != null" >
+        #{usrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null" >
+        #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspCsampInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_CSAMP_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_CSAMP_INF
+    <set >
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itmAls != null" >
+        ITM_ALS = #{record.itmAls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itmAqt != null" >
+        ITM_AQT = #{record.itmAqt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itmMls != null" >
+        ITM_MLS = #{record.itmMls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itmMqt != null" >
+        ITM_MQT = #{record.itmMqt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itmPls != null" >
+        ITM_PLS = #{record.itmPls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itmPqt != null" >
+        ITM_PQT = #{record.itmPqt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itmLtm != null" >
+        ITM_LTM = #{record.itmLtm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.itmLfd != null" >
+        ITM_LFD = #{record.itmLfd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itmEme != null" >
+        ITM_EME = #{record.itmEme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrNo != null" >
+        USR_NO = #{record.usrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrNme != null" >
+        USR_NME = #{record.usrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTim != null" >
+        CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_CSAMP_INF
+    set EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      ITM_ALS = #{record.itmAls,jdbcType=VARCHAR},
+      ITM_AQT = #{record.itmAqt,jdbcType=VARCHAR},
+      ITM_MLS = #{record.itmMls,jdbcType=VARCHAR},
+      ITM_MQT = #{record.itmMqt,jdbcType=VARCHAR},
+      ITM_PLS = #{record.itmPls,jdbcType=VARCHAR},
+      ITM_PQT = #{record.itmPqt,jdbcType=VARCHAR},
+      ITM_LTM = #{record.itmLtm,jdbcType=TIMESTAMP},
+      ITM_LFD = #{record.itmLfd,jdbcType=VARCHAR},
+      ITM_EME = #{record.itmEme,jdbcType=VARCHAR},
+      USR_NO = #{record.usrNo,jdbcType=VARCHAR},
+      USR_NME = #{record.usrNme,jdbcType=VARCHAR},
+      CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspCsampInf" >
+    update HSP_CSAMP_INF
+    <set >
+      <if test="itmAls != null" >
+        ITM_ALS = #{itmAls,jdbcType=VARCHAR},
+      </if>
+      <if test="itmAqt != null" >
+        ITM_AQT = #{itmAqt,jdbcType=VARCHAR},
+      </if>
+      <if test="itmMls != null" >
+        ITM_MLS = #{itmMls,jdbcType=VARCHAR},
+      </if>
+      <if test="itmMqt != null" >
+        ITM_MQT = #{itmMqt,jdbcType=VARCHAR},
+      </if>
+      <if test="itmPls != null" >
+        ITM_PLS = #{itmPls,jdbcType=VARCHAR},
+      </if>
+      <if test="itmPqt != null" >
+        ITM_PQT = #{itmPqt,jdbcType=VARCHAR},
+      </if>
+      <if test="itmLtm != null" >
+        ITM_LTM = #{itmLtm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itmLfd != null" >
+        ITM_LFD = #{itmLfd,jdbcType=VARCHAR},
+      </if>
+      <if test="itmEme != null" >
+        ITM_EME = #{itmEme,jdbcType=VARCHAR},
+      </if>
+      <if test="usrNo != null" >
+        USR_NO = #{usrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="usrNme != null" >
+        USR_NME = #{usrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null" >
+        CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspCsampInf" >
+    update HSP_CSAMP_INF
+    set ITM_ALS = #{itmAls,jdbcType=VARCHAR},
+      ITM_AQT = #{itmAqt,jdbcType=VARCHAR},
+      ITM_MLS = #{itmMls,jdbcType=VARCHAR},
+      ITM_MQT = #{itmMqt,jdbcType=VARCHAR},
+      ITM_PLS = #{itmPls,jdbcType=VARCHAR},
+      ITM_PQT = #{itmPqt,jdbcType=VARCHAR},
+      ITM_LTM = #{itmLtm,jdbcType=TIMESTAMP},
+      ITM_LFD = #{itmLfd,jdbcType=VARCHAR},
+      ITM_EME = #{itmEme,jdbcType=VARCHAR},
+      USR_NO = #{usrNo,jdbcType=VARCHAR},
+      USR_NME = #{usrNme,jdbcType=VARCHAR},
+      CRT_TIM = #{crtTim,jdbcType=TIMESTAMP}
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

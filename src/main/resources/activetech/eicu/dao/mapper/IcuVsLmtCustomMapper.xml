@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.eicu.dao.mapper.IcuVsLmtCustomMapper" >
+
+  <select id="findVsLmtList" parameterType="java.lang.String"
+  	resultType="activetech.eicu.pojo.dto.IcuVsLmtCustom">
+	select b.vs_type,
+	       b.vs_code,
+	       decode(a.upp_lmt, '', b.upp_lmt, a.upp_lmt) upp_lmt,
+	       decode(a.low_lmt, '', b.low_lmt, a.low_lmt) low_lmt
+	  from icu_vs_lmt a
+	 right join (select	
+	 					<choose>
+	 						<when test="liveNo != null and liveNo != ''">
+	 							#{liveNo, jdbcType = VARCHAR} live_no,
+	 						</when>
+	 						<otherwise>
+	 							'DEFAULT' live_no,
+	 						</otherwise>
+	 					</choose>
+	 					vs_type, vs_code, upp_lmt, low_lmt
+	               from icu_vs_lmt
+	              where live_no = 'DEFAULT') b
+	    on a.vs_type = b.vs_type
+	   and a.vs_code = b.vs_code
+	   and a.live_no = b.live_no
+	 <where>
+	 	<choose>
+			<when test="liveNo != null and liveNo != ''">
+				b.live_no = #{liveNo, jdbcType = VARCHAR}
+			</when>
+			<otherwise>
+				b.live_no = 'DEFAULT'
+			</otherwise>
+		</choose>
+	 </where>
+  </select>
+  
+  <select id="getVsLmtList" resultType="activetech.eicu.pojo.dto.IcuVsLmtCustom"
+  	parameterType="activetech.eicu.pojo.dto.IcuVsLmtQueryDto">
+	select a.lmt_seq,
+		   a.live_no,
+	       b.vs_code,
+	       b.vs_type,
+	       b.vs_name,
+	       b.vs_unit,
+	       a.upp_lmt,
+	       a.low_lmt,
+	       c.upp_lmt defUpp,
+	       c.low_lmt defLow
+	  from (select * from icu_vs_lmt where live_no = #{liveNo, jdbcType = VARCHAR }) a
+	 right join icu_vs_def b
+	    on a.vs_type = b.vs_type
+	   and a.vs_code = b.vs_code
+	 inner join (select * from icu_vs_lmt where live_no = 'DEFAULT') c
+	    on b.vs_type = c.vs_type
+	   and b.vs_code = c.vs_code
+	 where b.lmt_flag = '1'
+	 order by b.vs_sort
+  </select>
+
+  <update id="mergeVsLmt" parameterType="activetech.eicu.pojo.dto.IcuVsLmtCustom">
+	merge into icu_vs_lmt a
+	using (select #{lmtSeq, jdbcType = VARCHAR } lmt_seq,
+				  #{liveNo, jdbcType = VARCHAR } live_no,
+				  #{vsType, jdbcType = VARCHAR } vs_type,
+	              #{vsCode, jdbcType = VARCHAR } vs_code,
+	              #{lowLmt, jdbcType = DECIMAL} low_lmt,
+	              #{uppLmt, jdbcType = DECIMAL} upp_lmt,
+	              sysdate crt_time,
+	              #{modUser, jdbcType = VARCHAR } crt_user,
+	              sysdate mod_time,
+	              #{modUser, jdbcType = VARCHAR } mod_user
+	         from dual) b
+	on (a.lmt_seq = b.lmt_seq)
+	when matched then
+	  update
+	     set a.low_lmt  = b.low_lmt,
+	         a.upp_lmt  = b.upp_lmt,
+	         a.mod_time = b.mod_time,
+	         a.mod_user = b.mod_user
+	   where a.low_lmt != b.low_lmt
+	      or a.upp_lmt != b.upp_lmt
+	when not matched then
+	  insert
+	  values
+	    (b.lmt_seq,
+	     b.live_no,
+	     b.vs_type,
+	     b.vs_code,
+	     b.low_lmt,
+	     b.upp_lmt,
+	     b.crt_time,
+	     b.crt_user,
+	     '',
+	     '')
+  </update>
+  
+  <delete id="deleVsLmtByCode" parameterType="activetech.eicu.pojo.dto.IcuVsLmtQueryDto">
+	delete from icu_vs_lmt
+	 where live_no = #{liveNo, jdbcType = VARCHAR }
+	   and lmt_seq in 
+  	<foreach collection="lmtSeqList" open="(" close=")" item="lmtSeq" separator="," index="ind">
+  		#{lmtSeq, jdbcType = VARCHAR }
+  	</foreach>
+  </delete>
+
+</mapper>

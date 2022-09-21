@@ -1,0 +1,66 @@
+@charset "utf-8";
+.ryhlpgbDiv {
+  width: 990px;
+  margin: 0 auto;
+}
+.mainBody{
+  margin: 0 auto;
+  overflow: auto;
+  border-bottom: 1px solid #ddd;
+}
+.queryhlpgb .content-ul li.longSpcLi {
+  width: 100%;
+}
+.queryhlpgb .bigDataHlpgDiv {
+  width: 90%;
+}
+.hlNote .btnGroup {
+  display: none;
+}
+.hlNote .queryhlpgb {
+  margin-left: 0px;
+  width: 990px;
+  margin: 0 auto;
+  overflow-x: auto;
+  display: block;
+  border: 0;
+}
+.queryhlpgb .sub-top .spanRight {
+  margin-right: 50px
+}
+.btnPos{
+  position: absolute;
+  right: 20px;
+  bottom: 7.5px;
+}
+.hlNote {
+  min-width: auto;
+}
+.hlNote input[type=text] {
+  padding-left: 0;
+  width: 85px;
+}
+.hlNote input[type=text].spcWdate {
+  width: 140px;
+}
+.hlNote .queryhlpgb .readInput, .hlNote .queryhlpgb .tkwidth {
+  width: 45px;
+}
+.hlNote .Signsel {
+  width: 40px;
+}
+.hlNote .queryhlpgb .spc-inputC {
+  width: 300px;
+}
+.hlNote .queryhlpgb .spc-input {
+  width: 358px;
+}
+.hlNote .queryhlpgb .maxLongInputGD, .hlNote .queryhlpgb .mainDes {
+  width: 800px;
+}
+.queryhlpgb li label.labtitle {
+  padding-right: 0px;
+}
+.hlNote .queryhlpgb li.nsli {
+  width: 100%;
+}

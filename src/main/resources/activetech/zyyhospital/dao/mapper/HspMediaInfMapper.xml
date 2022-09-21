@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspMediaInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspMediaInf" >
+    <id column="MED_SEQ" property="medSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="MED_CLASS" property="medClass" jdbcType="VARCHAR" />
+    <result column="MED_NAME" property="medName" jdbcType="VARCHAR" />
+    <result column="MED_FILE" property="medFile" jdbcType="VARCHAR" />
+    <result column="MED_EXTEND" property="medExtend" jdbcType="VARCHAR" />
+    <result column="MED_TYPE" property="medType" jdbcType="VARCHAR" />
+    <result column="MED_DATE" property="medDate" jdbcType="TIMESTAMP" />
+    <result column="MED_SIZE" property="medSize" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="activetech.zyyhospital.pojo.domain.HspMediaInf" extends="BaseResultMap" >
+    <result column="MED_DATA" property="medData" jdbcType="BLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MED_SEQ, EMG_SEQ, MED_CLASS, MED_NAME, MED_FILE, MED_EXTEND, MED_TYPE, MED_DATE, 
+    MED_SIZE
+  </sql>
+  <sql id="Blob_Column_List" >
+    MED_DATA
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspMediaInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_MEDIA_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspMediaInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_MEDIA_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_MEDIA_INF
+    where MED_SEQ = #{medSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_MEDIA_INF
+    where MED_SEQ = #{medSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspMediaInfExample" >
+    delete from HSP_MEDIA_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspMediaInf" >
+    insert into HSP_MEDIA_INF (MED_SEQ, EMG_SEQ, MED_CLASS, 
+      MED_NAME, MED_FILE, MED_EXTEND, 
+      MED_TYPE, MED_DATE, MED_SIZE, 
+      MED_DATA)
+    values (#{medSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{medClass,jdbcType=VARCHAR}, 
+      #{medName,jdbcType=VARCHAR}, #{medFile,jdbcType=VARCHAR}, #{medExtend,jdbcType=VARCHAR}, 
+      #{medType,jdbcType=VARCHAR}, #{medDate,jdbcType=TIMESTAMP}, #{medSize,jdbcType=DECIMAL}, 
+      #{medData,jdbcType=BLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspMediaInf" >
+    insert into HSP_MEDIA_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="medSeq != null" >
+        MED_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="medClass != null" >
+        MED_CLASS,
+      </if>
+      <if test="medName != null" >
+        MED_NAME,
+      </if>
+      <if test="medFile != null" >
+        MED_FILE,
+      </if>
+      <if test="medExtend != null" >
+        MED_EXTEND,
+      </if>
+      <if test="medType != null" >
+        MED_TYPE,
+      </if>
+      <if test="medDate != null" >
+        MED_DATE,
+      </if>
+      <if test="medSize != null" >
+        MED_SIZE,
+      </if>
+      <if test="medData != null" >
+        MED_DATA,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="medSeq != null" >
+        #{medSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="medClass != null" >
+        #{medClass,jdbcType=VARCHAR},
+      </if>
+      <if test="medName != null" >
+        #{medName,jdbcType=VARCHAR},
+      </if>
+      <if test="medFile != null" >
+        #{medFile,jdbcType=VARCHAR},
+      </if>
+      <if test="medExtend != null" >
+        #{medExtend,jdbcType=VARCHAR},
+      </if>
+      <if test="medType != null" >
+        #{medType,jdbcType=VARCHAR},
+      </if>
+      <if test="medDate != null" >
+        #{medDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medSize != null" >
+        #{medSize,jdbcType=DECIMAL},
+      </if>
+      <if test="medData != null" >
+        #{medData,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspMediaInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_MEDIA_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_MEDIA_INF
+    <set >
+      <if test="record.medSeq != null" >
+        MED_SEQ = #{record.medSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medClass != null" >
+        MED_CLASS = #{record.medClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medName != null" >
+        MED_NAME = #{record.medName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medFile != null" >
+        MED_FILE = #{record.medFile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medExtend != null" >
+        MED_EXTEND = #{record.medExtend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medType != null" >
+        MED_TYPE = #{record.medType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medDate != null" >
+        MED_DATE = #{record.medDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.medSize != null" >
+        MED_SIZE = #{record.medSize,jdbcType=DECIMAL},
+      </if>
+      <if test="record.medData != null" >
+        MED_DATA = #{record.medData,jdbcType=BLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update HSP_MEDIA_INF
+    set MED_SEQ = #{record.medSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      MED_CLASS = #{record.medClass,jdbcType=VARCHAR},
+      MED_NAME = #{record.medName,jdbcType=VARCHAR},
+      MED_FILE = #{record.medFile,jdbcType=VARCHAR},
+      MED_EXTEND = #{record.medExtend,jdbcType=VARCHAR},
+      MED_TYPE = #{record.medType,jdbcType=VARCHAR},
+      MED_DATE = #{record.medDate,jdbcType=TIMESTAMP},
+      MED_SIZE = #{record.medSize,jdbcType=DECIMAL},
+      MED_DATA = #{record.medData,jdbcType=BLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_MEDIA_INF
+    set MED_SEQ = #{record.medSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      MED_CLASS = #{record.medClass,jdbcType=VARCHAR},
+      MED_NAME = #{record.medName,jdbcType=VARCHAR},
+      MED_FILE = #{record.medFile,jdbcType=VARCHAR},
+      MED_EXTEND = #{record.medExtend,jdbcType=VARCHAR},
+      MED_TYPE = #{record.medType,jdbcType=VARCHAR},
+      MED_DATE = #{record.medDate,jdbcType=TIMESTAMP},
+      MED_SIZE = #{record.medSize,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspMediaInf" >
+    update HSP_MEDIA_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="medClass != null" >
+        MED_CLASS = #{medClass,jdbcType=VARCHAR},
+      </if>
+      <if test="medName != null" >
+        MED_NAME = #{medName,jdbcType=VARCHAR},
+      </if>
+      <if test="medFile != null" >
+        MED_FILE = #{medFile,jdbcType=VARCHAR},
+      </if>
+      <if test="medExtend != null" >
+        MED_EXTEND = #{medExtend,jdbcType=VARCHAR},
+      </if>
+      <if test="medType != null" >
+        MED_TYPE = #{medType,jdbcType=VARCHAR},
+      </if>
+      <if test="medDate != null" >
+        MED_DATE = #{medDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medSize != null" >
+        MED_SIZE = #{medSize,jdbcType=DECIMAL},
+      </if>
+      <if test="medData != null" >
+        MED_DATA = #{medData,jdbcType=BLOB},
+      </if>
+    </set>
+    where MED_SEQ = #{medSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspMediaInf" >
+    update HSP_MEDIA_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      MED_CLASS = #{medClass,jdbcType=VARCHAR},
+      MED_NAME = #{medName,jdbcType=VARCHAR},
+      MED_FILE = #{medFile,jdbcType=VARCHAR},
+      MED_EXTEND = #{medExtend,jdbcType=VARCHAR},
+      MED_TYPE = #{medType,jdbcType=VARCHAR},
+      MED_DATE = #{medDate,jdbcType=TIMESTAMP},
+      MED_SIZE = #{medSize,jdbcType=DECIMAL},
+      MED_DATA = #{medData,jdbcType=BLOB}
+    where MED_SEQ = #{medSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspMediaInf" >
+    update HSP_MEDIA_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      MED_CLASS = #{medClass,jdbcType=VARCHAR},
+      MED_NAME = #{medName,jdbcType=VARCHAR},
+      MED_FILE = #{medFile,jdbcType=VARCHAR},
+      MED_EXTEND = #{medExtend,jdbcType=VARCHAR},
+      MED_TYPE = #{medType,jdbcType=VARCHAR},
+      MED_DATE = #{medDate,jdbcType=TIMESTAMP},
+      MED_SIZE = #{medSize,jdbcType=DECIMAL}
+    where MED_SEQ = #{medSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

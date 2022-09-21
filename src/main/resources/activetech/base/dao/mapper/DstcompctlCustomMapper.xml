@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.base.dao.mapper.DstcompctlCustomMapper">
+	<resultMap id="BaseResultMap" type="activetech.base.pojo.dto.DstcompctlCustom" >
+	    <id column="COMNO" property="comno" jdbcType="VARCHAR" />
+	    <result column="COMCNAME" property="comcname" jdbcType="VARCHAR" />
+	    <result column="COMMAN" property="comman" jdbcType="VARCHAR" />
+	    <result column="AREAID" property="areaid" jdbcType="VARCHAR" />
+	    <result column="ISENABLE" property="isenable" jdbcType="CHAR" />
+	    <result column="ADDR" property="addr" jdbcType="VARCHAR" />
+	    <result column="POST" property="post" jdbcType="VARCHAR" />
+	    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+	    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+	    <result column="VCHAR1" property="vchar1" jdbcType="VARCHAR" />
+	    <result column="VCHAR2" property="vchar2" jdbcType="VARCHAR" />
+	    <result column="VCHAR3" property="vchar3" jdbcType="VARCHAR" />
+	    <result column="VCHAR4" property="vchar4" jdbcType="VARCHAR" />
+	    <result column="PYBM" property="pybm" jdbcType="VARCHAR" />
+	    <result column="SHOWORDER" property="showorder" jdbcType="DECIMAL" />
+	    <result column="IS_JZKS" property="isJzks" jdbcType="CHAR" />
+	    <result column="_parentId" property="_parentId" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 角色是查询条件 通常情况，为了提高 sql片段可重用性，按单表创建sql片段 -->
+	<sql id="query_compctl_where">
+		<if test="dstcompctlCustom!=null">
+			<if test="dstcompctlCustom.comman!=null and dstcompctlCustom.comman!=''">
+				and dstcompctl.comman = #{dstcompctlCustom.comman}
+			</if>
+			<if test="dstcompctlCustom.pybm!=null and dstcompctlCustom.pybm!=''">
+				and  upper(dstcompctl.pybm) like upper(#{dstcompctlCustom.pybm})||'%' 
+			</if>
+			<if test="dstcompctlCustom.comno!=null and dstcompctlCustom.comno!=''">
+				and dstcompctl.comno = #{dstcompctlCustom.comno}
+			</if>
+			<if test="dstcompctlCustom.comcname!=null and dstcompctlCustom.comcname!=''">
+				and dstcompctl.comcname like '%'|| #{dstcompctlCustom.comcname}||'%' 
+			</if>
+		</if>
+	</sql>
+	
+  <!-- 根据comno查询机构包含上级机构名称 -->
+  <select id="selectCompctlByComno" parameterType="java.lang.String" resultType="activetech.base.pojo.dto.DstcompctlCustom">
+	 select 
+		       comno,
+		       comcname,
+		       comman,
+		       (select comcname from dstcompctl t where t.comno=dstcompctl.comman) as commanname,
+		       areaid,
+		       isenable,
+		       addr,
+		       post,
+		       fax,
+		       phone,
+		       vchar1,
+		       vchar2,
+		       vchar3,
+		       vchar4,
+		       (select info from dstdictinfo where typecode='ISORNOT' and dstdictinfo.infocode=dstcompctl.is_Jzks)as isJzks
+		       from dstcompctl
+		       where dstcompctl.comno=#{comno}
+  </select>
+  <select id="getDstcompctlCustomList"  parameterType="activetech.base.pojo.dto.DstcompctlQueryDto" resultMap="BaseResultMap">
+    select comno,comcname,comman,comman as "_parentId",areaid,
+    (select info from dstdictinfo where typecode='USERSTAT' and dstdictinfo.infocode=dstcompctl.isenable) as isenable,
+    addr,post,fax,phone,vchar1,vchar2,vchar3,vchar4,
+    (select info from dstdictinfo where typecode='ISORNOT' and dstdictinfo.infocode=dstcompctl.is_Jzks)as isJzks
+    from dstcompctl  
+    where dstcompctl.isenable != 3 
+    <if test="dstcompctlCustom.comcname!=null and dstcompctlCustom.comcname!=''">
+        and ((comcname like '%'|| #{dstcompctlCustom.comcname} ||'%') or 
+        (comno like '%'|| #{dstcompctlCustom.comcname} ||'%') or 
+        (vchar1 like lower(#{dstcompctlCustom.comcname}) ||'%') or
+        (vchar1 like upper(#{dstcompctlCustom.comcname}) ||'%'))
+    </if>
+    <if test="dstcompctlCustom.isJzks!=null and dstcompctlCustom.isJzks!=''">
+        and is_jzks=#{dstcompctlCustom.isJzks}
+    </if>
+    START WITH comno=#{dstcompctlCustom.comno} CONNECT BY PRIOR comno=comman
+  </select>
+  
+   <select id="getDstcompctlCustomParentList"  parameterType="activetech.base.pojo.dto.DstcompctlQueryDto" resultType="activetech.base.pojo.dto.DstcompctlCustom">
+    select comno,comcname,comman,comman as "_parentId",areaid,
+    (select info from dstdictinfo where typecode='USERSTAT' and dstdictinfo.infocode=dstcompctl.isenable) as isenable,
+    addr,post,fax,phone,vchar1,vchar2,vchar3,vchar4,
+    (select info from dstdictinfo where typecode='ISORNOT' and dstdictinfo.infocode=dstcompctl.is_Jzks)as isJzks
+    from dstcompctl  
+    where dstcompctl.isenable != 3 
+    <if test="dstcompctlCustom.comcname!=null and dstcompctlCustom.comcname!=''">
+        and ((comcname like '%'|| #{dstcompctlCustom.comcname} ||'%') or 
+        (comno like '%'|| #{dstcompctlCustom.comcname} ||'%') or 
+        (vchar1 like lower(#{dstcompctlCustom.comcname}) ||'%') or
+        (vchar1 like upper(#{dstcompctlCustom.comcname}) ||'%'))
+    </if>
+    <if test="dstcompctlCustom.isJzks!=null and dstcompctlCustom.isJzks!=''">
+        and is_jzks=#{dstcompctlCustom.isJzks}
+    </if>
+    START WITH comno=#{dstcompctlCustom.comno} CONNECT BY PRIOR comno=comman
+  </select>
+  
+  <select id="getDstcompctlCustomBycomno"  parameterType="java.lang.String" resultType="activetech.base.pojo.dto.DstcompctlCustom">
+    select comno,comcname,comman,comman as "_parentId",areaid,
+    (select info from dstdictinfo where typecode='USERSTAT' and dstdictinfo.infocode=dstcompctl.isenable) as isenable,
+    addr,post,fax,phone,vchar1,vchar2,vchar3,vchar4,
+    (select info from dstdictinfo where typecode='ISORNOT' and dstdictinfo.infocode=dstcompctl.is_Jzks)as isJzks
+    from dstcompctl  
+    where comno=#{comman}
+  </select>
+  
+  <select id="getDstcompctlCustomListGroupByComman"  parameterType="activetech.base.pojo.dto.DstcompctlQueryDto" resultType="activetech.base.pojo.dto.DstcompctlCustom">
+    select comman from dstcompctl  
+    where dstcompctl.isenable != 3 
+    <if test="dstcompctlCustom.comcname!=null and dstcompctlCustom.comcname!=''">
+        and ((comcname like '%'|| #{dstcompctlCustom.comcname} ||'%') or 
+        (comno like '%'|| #{dstcompctlCustom.comcname} ||'%') or 
+        (vchar1 like lower(#{dstcompctlCustom.comcname}) ||'%') or
+        (vchar1 like upper(#{dstcompctlCustom.comcname}) ||'%'))
+    </if>
+    <if test="dstcompctlCustom.isJzks!=null and dstcompctlCustom.isJzks!=''">
+        and is_jzks=#{dstcompctlCustom.isJzks}
+    </if>
+    group by comman
+    START WITH comno=#{dstcompctlCustom.comno} CONNECT BY PRIOR comno=comman order by comman
+  </select>
+  
+  	<!-- 查询列表的总记录数 -->
+	<select id="selectCompctlCount" parameterType="activetech.base.pojo.dto.DstcompctlQueryDto" resultType="int">
+		select COUNT(*)
+		  from (select *
+		          from dstcompctl
+		         start with comman = '00100'
+		        connect by prior comno = comman) temp
+		 where comno not in ('00100', '001001', '001002', '001003','001009')
+		 <if test="dstcompctlCustom!=null">
+			<if test="dstcompctlCustom.comno!=null and dstcompctlCustom.comno!=''">
+				and  upper(temp.pybm) like upper(#{dstcompctlCustom.comno})||'%' 
+				or temp.comno = #{dstcompctlCustom.comno}
+				or temp.comcname like '%'|| #{dstcompctlCustom.comno}||'%' 
+			</if>
+		</if>
+		and isenable = 1
+		 order by showorder asc
+	</select>
+	
+  <!-- 根据comno查询机构分页 -->
+  <select id="selectCompctl" parameterType="activetech.base.pojo.dto.DstcompctlQueryDto" resultType="activetech.base.pojo.dto.DstcompctlCustom">
+	 	<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select comno,
+	 	      comcname,
+	       comman,
+	       (select comcname from dstcompctl t where t.comno = temp.comman) as commanname,
+	       areaid,
+	       isenable,
+	       addr,
+	       post,
+	       fax,
+	       phone,
+	       vchar1,
+	       vchar2,
+	       vchar3,
+	       vchar4,
+	       pybm,
+	       showorder
+	  from (select *
+	          from dstcompctl
+	         start with comman = '00100'
+	        connect by prior comno = comman) temp
+	 where comno not in ('00100', '001001', '001002', '001003','001009')
+		 <if test="dstcompctlCustom!=null">
+		 	<if test="dstcompctlCustom.comno!=null and dstcompctlCustom.comno!=''">
+				and (temp.comno = #{dstcompctlCustom.comno}) or
+				(upper(temp.pybm) like upper(#{dstcompctlCustom.comno})||'%' ) or 
+				(temp.comcname like '%'|| #{dstcompctlCustom.comno}||'%' )
+			</if>
+		    <!-- 
+			<if test="dstcompctlCustom.pybm!=null and dstcompctlCustom.pybm!=''">
+				and  upper(temp.pybm) like upper(#{dstcompctlCustom.pybm})||'%' 
+			</if>
+			<if test="dstcompctlCustom.comno!=null and dstcompctlCustom.comno!=''">
+				and temp.comno = #{dstcompctlCustom.comno}
+			</if>
+			<if test="dstcompctlCustom.comcname!=null and dstcompctlCustom.comcname!=''">
+				and temp.comcname like '%'|| #{dstcompctlCustom.comcname}||'%' 
+			</if>
+			 -->
+		</if>	
+		 and isenable = 1
+		 order by showorder asc
+		 <!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  
+    <!-- 根据userno查询 -->
+  <select id="selectCompctlByUsrno" parameterType="java.lang.String" resultType="activetech.base.pojo.dto.DstcompctlCustom">
+	select comno,comcname 
+		from dstcompctl 
+		where comno = (select sysid from dstuser  where usrno = #{usrno})
+  </select>
+  </mapper>

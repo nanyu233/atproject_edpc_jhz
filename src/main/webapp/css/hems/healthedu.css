@@ -1,0 +1,91 @@
+@charset "UTF-8";
+.addhealth .leftPart{
+  width: 248px;
+  float: left;
+  height: 100%;
+  margin-left:1px;
+  margin-top:4px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding-bottom:5px;
+}
+.addhealth .rightPart{
+  float: right;
+  width: 74%;
+}
+.addhealth .ulwrapper{
+  float: left;
+  width: 100%;
+}
+.addhealth .ulwrapper li{
+  float: left;
+  width: 85%;
+  height: 26px;
+  line-height: 26px;
+  margin: 3px 0px;
+}
+.addhealth .ulwrapper li.twoli{
+  height: 52px;
+}
+.addhealth .ulwrapper li.spcli{
+  height: 150px;
+}
+.addhealth .ulwrapper li.twoli span{
+  height: 52px;
+}
+.addhealth .smalltitle {
+  display: inline-block;
+  float: left;
+  font-weight: bold;
+  padding-right: 10px;
+}
+.addhealth .checklabel{
+  margin-right: 10px;
+  color: #2a00ff;
+}
+.addhealth .topQueryDiv {
+	background: rgb(243,249,255);
+    height: 30px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+.addhealth .topQueryDiv input {
+    margin-top: 2px;
+    width: 140px;
+    margin-left: 8%;
+}
+.addhealth .twotitle{
+  letter-spacing:1em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+  margin-right:-1em; /*同上*/
+}
+.addhealth textarea{
+  width: 99%;
+  height: 180px;
+}
+.addhealth .longText{
+  width: 99%;
+}
+.addhealth .btnli{
+  text-align: center;
+}
+.healthedu .leftPart{
+  float:left;
+  margin-top:4px;
+  margin-right:4px;
+  margin-left:2px;
+}
+.healthedu .rightPart{
+  float:left;
+  margin-top:4px;
+}
+.form table th{
+  width: 8%;
+  line-height: 26px;
+}
+.rightPart .panel-header{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.rightPart .panel-header .panel-title{
+    margin-left: 5px;
+}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspXwhljldInfCustomMapper">
+	<resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspXwhljldInfCustom">
+		<id column="XWHI_SEQ" jdbcType="VARCHAR" property="xwhiSeq" />
+		<result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+		<result column="ASS_DAT" jdbcType="TIMESTAMP" property="assDat" />
+		<result column="ASS_NAME" jdbcType="VARCHAR" property="assName" />
+		<result column="HRT_RTE" jdbcType="DECIMAL" property="hrtRte" />
+		<result column="BRE_NBR" jdbcType="DECIMAL" property="breNbr" />
+		<result column="SPO2" jdbcType="DECIMAL" property="spo2" />
+		<result column="SBP_UP_NBR" jdbcType="DECIMAL" property="sbpUpNbr" />
+		<result column="SBP_DOWN_NBR" jdbcType="DECIMAL" property="sbpDownNbr" />
+		<result column="DW_COD" jdbcType="VARCHAR" property="dwCod" />
+		<result column="DW_YM1" jdbcType="VARCHAR" property="dwYm1" />
+		<result column="DW_YM2" jdbcType="VARCHAR" property="dwYm2" />
+		<result column="DW_YM3" jdbcType="VARCHAR" property="dwYm3" />
+		<result column="XWY_COD" jdbcType="VARCHAR" property="xwyCod" />
+		<result column="XWY_WD" jdbcType="DECIMAL" property="xwyWd" />
+		<result column="XWY_RL" jdbcType="VARCHAR" property="xwyRl" />
+		<result column="XCY_YS" jdbcType="VARCHAR" property="xcyYs" />
+		<result column="XCY_XZ" jdbcType="VARCHAR" property="xcyXz" />
+		<result column="XCY_CL" jdbcType="VARCHAR" property="xcyCl" />
+		<result column="MSCB_COD" jdbcType="CHAR" property="mscbCod" />
+		<result column="EX_COD" jdbcType="CHAR" property="exCod" />
+		<result column="OT_COD" jdbcType="CHAR" property="otCod" />
+		<result column="FBPL_COD" jdbcType="CHAR" property="fbplCod" />
+		<result column="FZ_COD" jdbcType="CHAR" property="fzCod" />
+		<result column="FT_COD" jdbcType="CHAR" property="ftCod" />
+		<result column="XWTZ_QT" jdbcType="VARCHAR" property="xwtzQt" />
+		<result column="XWY_QT" jdbcType="VARCHAR" property="xwyQt" />
+		<result column="RECORD_DAT" jdbcType="TIMESTAMP" property="recordDat" />
+		<result column="CRT_DAT" jdbcType="TIMESTAMP" property="crtDat" />
+		<result column="CRT_NUR" jdbcType="VARCHAR" property="crtNur" />
+		<result column="CRT_NAME" jdbcType="VARCHAR" property="crtName" />
+		<result column="UP_DAT" jdbcType="TIMESTAMP" property="upDat" />
+		<result column="UP_NUR" jdbcType="VARCHAR" property="upNur" />
+		<result column="UP_NAME" jdbcType="VARCHAR" property="upName" />
+		<result column="sbp" jdbcType="VARCHAR" property="sbp" />
+		<result column="zztzDes" jdbcType="VARCHAR" property="zztzDes" />
+		<result column="xwyDes" jdbcType="VARCHAR" property="xwyDes" />
+		<result column="dwDes" jdbcType="VARCHAR" property="dwDes" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		XWHI_SEQ, EMG_SEQ, ASS_DAT, ASS_NAME, HRT_RTE, BRE_NBR, SPO2, SBP_UP_NBR,
+		SBP_DOWN_NBR,DW_COD, DW_YM1, DW_YM2, DW_YM3, XWY_COD, XWY_WD, XWY_RL, XCY_YS, XCY_XZ,
+		XCY_CL,MSCB_COD, EX_COD, OT_COD, FBPL_COD, FZ_COD, FT_COD, XWTZ_QT, XWY_QT,
+		RECORD_DAT,CRT_DAT, CRT_NUR, CRT_NAME, UP_DAT, UP_NUR, UP_NAME
+	</sql>
+	<sql id="query_xwhljld_where">
+		<if test="hspXwhljldInfCustom!=null">
+			<if test="hspXwhljldInfCustom.emgSeq!=null and hspXwhljldInfCustom.emgSeq!=''">
+				and a.emg_seq = #{hspXwhljldInfCustom.emgSeq}
+			</if>
+		</if>
+	</sql>
+	
+	<select id="findXwhljldCount" parameterType="activetech.zyyhospital.pojo.dto.ZyyTshljlQueryDto"
+		resultType="int">
+		select count(*) from HSP_XWHLJLD_INF a
+		<where>
+			<include refid="query_xwhljld_where" />
+		</where>
+	</select>
+	
+	<select id="findXwhljldList" parameterType="activetech.zyyhospital.pojo.dto.ZyyTshljlQueryDto"
+		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select XWHI_SEQ, EMG_SEQ, ASS_DAT, ASS_NAME, HRT_RTE, BRE_NBR, SPO2, SBP_UP_NBR,
+	    SBP_DOWN_NBR,DW_COD, DW_YM1, DW_YM2, DW_YM3, XWY_COD, XWY_WD, XWY_RL, XCY_YS, XCY_XZ,
+	    XCY_CL,MSCB_COD, EX_COD, OT_COD, FBPL_COD, FZ_COD, FT_COD, XWTZ_QT, XWY_QT,
+	    RECORD_DAT,CRT_DAT, CRT_NUR, CRT_NAME, UP_DAT, UP_NUR, UP_NAME,
+	    ((case when sbp_up_nbr is null then '' else sbp_up_nbr||'' end)||(case when sbp_up_nbr is null and sbp_down_nbr is null then '' else '/' end)|| (case when sbp_down_nbr is null then '' else sbp_down_nbr||'' end))as sbp,
+	    ((case when MSCB_COD is not null and MSCB_COD = '1' then '面色苍白,' else '' end) || 
+	    (case when EX_COD is not null and EX_COD = '1' then '恶心,' else '' end) || 
+	    (case when OT_COD is not null and OT_COD = '1' then '呕吐,' else '' end) || 
+	    (case when FBPL_COD is not null and FBPL_COD = '1' then '腹部膨隆,' else '' end) || 
+	    (case when FZ_COD is not null and FZ_COD = '1' then '腹胀,' else '' end) || 
+	    (case when FT_COD is not null and FT_COD = '1' then '腹痛,' else '' end) || 
+	    (case when XWTZ_QT is not null then XWTZ_QT else '' end)) as zztzDes,
+	    spilt('XWY_COD',XWY_COD) as xwyDes,
+	    spilt('DW_COD',DW_COD) as dwDes
+	  	from HSP_XWHLJLD_INF a
+		<where>
+			<include refid="query_xwhljld_where" />
+		</where>
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+</mapper>

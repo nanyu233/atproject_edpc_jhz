@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspMewsInfCustomMapper" >
+
+	<sql id="condition_querySmtzwcqktj">
+		<if test="emgFkCod != null and emgFkCod != ''">
+			and e.emg_fk_cod = #{emgFkCod}
+		</if>
+		<if test="ksfz == '0'.toString()">
+			and e.ksfz is null
+		</if>
+		<if test="startdate != null and startdate != ''">
+			<![CDATA[
+				and e.emg_dat >= #{startdate}
+			]]>
+		</if>
+		<if test="enddate != null and enddate != ''">
+			<![CDATA[
+				and e.emg_dat <= #{enddate}
+			]]>
+		</if>
+	</sql>
+	<select id="querySmtzwcqktj" parameterType="activetech.hospital.pojo.dto.HspmewsinfCustom" resultType="activetech.hospital.pojo.dto.HspmewsinfCustom">
+		with temp as
+		 (select count(1) total,
+		         count(tmp_nbr) tmpcount,
+		         count(hrt_rte) hrtcount,
+		         count(bre_nbr) brecount,
+		         count(sbpup_nbr) sbpupcount,
+		         count(sbpdown_nbr) sbpdowncount,
+		         count(oxy_nbr) bldcount
+		    from hsp_mews_inf m, hsp_emg_inf e,dstcompctl d
+		   where m.emg_seq = e.emg_seq
+		    and d.comno = e.emg_fk_cod
+		  <include refid="condition_querySmtzwcqktj" />
+		  )
+		select *
+		  from (select 'tmp_nbr' infocode,
+		               '体温' info,
+		               total,
+		               tmpcount finished,
+		               (total - tmpcount) unfinished,
+		               1 showorder
+		          from temp
+		        union all
+		        select 'hrt_rte' infocode,
+		               '心率' info,
+		               total,
+		               hrtcount finished,
+		               (total - hrtcount) unfinished,
+		               2 showorder
+		          from temp
+		        union all
+		        select 'bre_nbr' infocode,
+		               '呼吸' info,
+		               total,
+		               brecount finished,
+		               (total - brecount) unfinished,
+		               3 showorder
+		          from temp
+		        union all
+		        select 'sbpup_nbr' infocode,
+		               '收缩压' info,
+		               total,
+		               sbpupcount finished,
+		               (total - sbpupcount) unfinished,
+		               4 showorder
+		          from temp
+		        union all
+		        select 'sbpdown_nbr' infocode,
+		               '舒张压' info,
+		               total,
+		               sbpdowncount finished,
+		               (total - sbpdowncount) unfinished,
+		               5 showorder
+		          from temp
+		        union all
+		        select 'oxy_nbr' infocode,
+		               '血氧饱和度' info,
+		               total,
+		               bldcount finished,
+		               (total - bldcount) unfinished,
+		               6 showorder
+		          from temp)
+		 order by showorder asc
+	</select> 
+	
+	<!-- 生命体征完成情况的公用方法 -->
+	<sql id="queryEmgBySmtzCond">
+		<where>
+			e.emg_seq = m.emg_seq
+			and d.comno = e.emg_fk_cod
+			<if test="emgFkCod != null and emgFkCod != ''">
+				and e.emg_fk_cod = #{emgFkCod}
+			</if>
+			<if test="ksfz == '0'.toString()">
+				and e.ksfz is null
+			</if>
+			<if test="startdate != null and startdate != ''">
+				<![CDATA[
+					and e.emg_dat >= #{startdate}
+				]]>
+			</if>
+			<if test="enddate != null and enddate != ''">
+				<![CDATA[
+					and e.emg_dat <= #{enddate}
+				]]>
+			</if>
+			<if test="seriesId != null and seriesId != '' and infocode != null and infocode != ''">
+				<choose>
+					<when test="seriesId == '0'.toString() and infocode == 'oxy_nbr'.toString()">
+							and e.${infocode} is null
+					</when>
+					<when test="seriesId == '1'.toString() and infocode == 'oxy_nbr'.toString()">
+							and e.${infocode} is not null
+					</when>
+					<when test="seriesId == '0'.toString() and infocode != 'oxy_nbr'.toString()">
+							and m.${infocode} is null
+					</when>
+					<otherwise>
+						and m.${infocode} is not null
+					</otherwise>
+				</choose>
+			</if>
+			<if test="infocode == null or infocode == ''">
+				<choose>
+					<when test="seriesId == '0'.toString()">
+						and m.tmp_nbr is null
+						and m.hrt_rte is null
+						and m.bre_nbr is null
+						and m.sbpup_nbr is null
+						and m.sbpdown_nbr is null
+						and e.oxy_nbr is null
+					</when>
+					<when test="seriesId == '1'.toString()">
+						and m.tmp_nbr is not null
+						and m.hrt_rte is not null
+						and m.bre_nbr is not null
+						and m.sbpup_nbr is not null
+						and m.sbpdown_nbr is not null
+						and e.oxy_nbr is not null
+					</when>
+				</choose>
+			</if>
+		</where>
+	</sql>
+	
+	<select id="queryEmgCountBySmtz" parameterType="activetech.hospital.pojo.dto.HspmewsinfCustom" resultType="java.lang.Integer">
+		select count(*) 
+		  from hsp_mews_inf m, hsp_emg_inf e,dstcompctl d
+		<include refid="queryEmgBySmtzCond"/>
+	</select>
+	
+	<!-- 查询生命体征完成情况列表 -->
+	<select id="queryEmgListBySmtz" parameterType="activetech.hospital.pojo.dto.HspmewsinfCustom" resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		<include refid="activetech.base.CommonSql.page_start" />
+		select e.emg_seq,
+		       e.vst_cad,
+		       e.id_nbr,
+		       e.cst_nam,
+		       e.bth_dat,
+		       e.cst_adr,
+		       e.emg_dat,
+		       e.oxy_nbr,
+		       e.mpi,
+		       m.hrt_rte,
+		       m.sbpup_nbr,
+		       m.bre_nbr,
+		       m.tmp_nbr,
+		       m.sen_rct_cod,
+		       m.tot_sco,
+		       m.chk_lvl_cod,
+		       m.mod_lvl_cod,
+		       m.mod_lvl_des,
+		       m.sbpdown_nbr
+		  from hsp_mews_inf m, hsp_emg_inf e,dstcompctl d
+		<include refid="queryEmgBySmtzCond"/>
+		order by emg_dat desc
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+  
+</mapper>

@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.pda.dao.mapper.HspCfxxInfoMapper">
+  <resultMap id="BaseResultMap" type="activetech.pda.pojo.domain.HspCfxxInfo">
+    <id column="DA_SEQ" jdbcType="VARCHAR" property="daSeq" />
+    <result column="DA_NO" jdbcType="VARCHAR" property="daNo" />
+    <result column="DA_SUB" jdbcType="VARCHAR" property="daSub" />
+    <result column="VST_CAD" jdbcType="VARCHAR" property="vstCad" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="START_DOCT" jdbcType="VARCHAR" property="startDoct" />
+    <result column="DA_TYPE" jdbcType="VARCHAR" property="daType" />
+    <result column="DA_INFO" jdbcType="VARCHAR" property="daInfo" />
+    <result column="DA_DOSE" jdbcType="VARCHAR" property="daDose" />
+    <result column="DA_UNIT" jdbcType="VARCHAR" property="daUnit" />
+    <result column="DA_NUMB" jdbcType="DECIMAL" property="daNumb" />
+    <result column="YFDW" jdbcType="VARCHAR" property="yfdw" />
+    <result column="DA_WAY" jdbcType="VARCHAR" property="daWay" />
+    <result column="DA_FREQ" jdbcType="VARCHAR" property="daFreq" />
+    <result column="INFO_SRC" jdbcType="VARCHAR" property="infoSrc" />
+    <result column="HDDAT" jdbcType="TIMESTAMP" property="hddat" />
+    <result column="HDHS" jdbcType="VARCHAR" property="hdhs" />
+    <result column="HDHSXM" jdbcType="VARCHAR" property="hdhsxm" />
+    <result column="YZZT" jdbcType="VARCHAR" property="yzzt" />
+    <result column="CRT_TIME" jdbcType="TIMESTAMP" property="crtTime" />
+    <result column="CRT_USER" jdbcType="VARCHAR" property="crtUser" />
+    <result column="MOD_TIME" jdbcType="TIMESTAMP" property="modTime" />
+    <result column="MOD_USER" jdbcType="VARCHAR" property="modUser" />
+    <result column="MPI" jdbcType="VARCHAR" property="mpi" />
+    <result column="DA_WAY_COD" jdbcType="VARCHAR" property="daWayCod" />
+    <result column="HIGH_RISK" jdbcType="VARCHAR" property="highRisk" />
+    <result column="ENTER_TIME" jdbcType="TIMESTAMP" property="enterTime" />
+    <result column="SERIES" jdbcType="DECIMAL" property="series" />
+    <result column="MRN" jdbcType="VARCHAR" property="mrn" />
+    <result column="WARD_CODE" jdbcType="VARCHAR" property="wardCode" />
+    <result column="DEPT_CODE" jdbcType="VARCHAR" property="deptCode" />
+    <result column="ORDER_STATUS" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="ORDER_CLASS" jdbcType="VARCHAR" property="orderClass" />
+    <result column="TODAY_TIMES" jdbcType="DECIMAL" property="todayTimes" />
+    <result column="PROVIDE_BY_SELF" jdbcType="DECIMAL" property="provideBySelf" />
+    <result column="IS_AUX" jdbcType="DECIMAL" property="isAux" />
+    <result column="EXHORTATION" jdbcType="VARCHAR" property="exhortation" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="DRUG_SPEC" jdbcType="VARCHAR" property="drugSpec" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DA_SEQ, DA_NO, DA_SUB, VST_CAD, START_TIME, START_DOCT, DA_TYPE, DA_INFO, DA_DOSE, 
+    DA_UNIT, DA_NUMB, YFDW, DA_WAY, DA_FREQ, INFO_SRC, HDDAT, HDHS, HDHSXM, YZZT, CRT_TIME, 
+    CRT_USER, MOD_TIME, MOD_USER, MPI, DA_WAY_COD, HIGH_RISK, ENTER_TIME, SERIES, MRN, 
+    WARD_CODE, DEPT_CODE, ORDER_STATUS, ORDER_CLASS, TODAY_TIMES, PROVIDE_BY_SELF, IS_AUX, 
+    EXHORTATION, REMARK, DRUG_SPEC
+  </sql>
+  <select id="selectByExample" parameterType="activetech.pda.pojo.domain.HspCfxxInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CFXX_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CFXX_INFO
+    where DA_SEQ = #{daSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_CFXX_INFO
+    where DA_SEQ = #{daSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.pda.pojo.domain.HspCfxxInfoExample">
+    delete from HSP_CFXX_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.pda.pojo.domain.HspCfxxInfo">
+    insert into HSP_CFXX_INFO (DA_SEQ, DA_NO, DA_SUB, 
+      VST_CAD, START_TIME, START_DOCT, 
+      DA_TYPE, DA_INFO, DA_DOSE, 
+      DA_UNIT, DA_NUMB, YFDW, 
+      DA_WAY, DA_FREQ, INFO_SRC, 
+      HDDAT, HDHS, HDHSXM, 
+      YZZT, CRT_TIME, CRT_USER, 
+      MOD_TIME, MOD_USER, MPI, 
+      DA_WAY_COD, HIGH_RISK, ENTER_TIME, 
+      SERIES, MRN, WARD_CODE, 
+      DEPT_CODE, ORDER_STATUS, ORDER_CLASS, 
+      TODAY_TIMES, PROVIDE_BY_SELF, IS_AUX, 
+      EXHORTATION, REMARK, DRUG_SPEC
+      )
+    values (#{daSeq,jdbcType=VARCHAR}, #{daNo,jdbcType=VARCHAR}, #{daSub,jdbcType=VARCHAR}, 
+      #{vstCad,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{startDoct,jdbcType=VARCHAR}, 
+      #{daType,jdbcType=VARCHAR}, #{daInfo,jdbcType=VARCHAR}, #{daDose,jdbcType=VARCHAR}, 
+      #{daUnit,jdbcType=VARCHAR}, #{daNumb,jdbcType=DECIMAL}, #{yfdw,jdbcType=VARCHAR}, 
+      #{daWay,jdbcType=VARCHAR}, #{daFreq,jdbcType=VARCHAR}, #{infoSrc,jdbcType=VARCHAR}, 
+      #{hddat,jdbcType=TIMESTAMP}, #{hdhs,jdbcType=VARCHAR}, #{hdhsxm,jdbcType=VARCHAR}, 
+      #{yzzt,jdbcType=VARCHAR}, #{crtTime,jdbcType=TIMESTAMP}, #{crtUser,jdbcType=VARCHAR}, 
+      #{modTime,jdbcType=TIMESTAMP}, #{modUser,jdbcType=VARCHAR}, #{mpi,jdbcType=VARCHAR}, 
+      #{daWayCod,jdbcType=VARCHAR}, #{highRisk,jdbcType=VARCHAR}, #{enterTime,jdbcType=TIMESTAMP}, 
+      #{series,jdbcType=DECIMAL}, #{mrn,jdbcType=VARCHAR}, #{wardCode,jdbcType=VARCHAR}, 
+      #{deptCode,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR}, #{orderClass,jdbcType=VARCHAR}, 
+      #{todayTimes,jdbcType=DECIMAL}, #{provideBySelf,jdbcType=DECIMAL}, #{isAux,jdbcType=DECIMAL}, 
+      #{exhortation,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{drugSpec,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.pda.pojo.domain.HspCfxxInfo">
+    insert into HSP_CFXX_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="daSeq != null">
+        DA_SEQ,
+      </if>
+      <if test="daNo != null">
+        DA_NO,
+      </if>
+      <if test="daSub != null">
+        DA_SUB,
+      </if>
+      <if test="vstCad != null">
+        VST_CAD,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="startDoct != null">
+        START_DOCT,
+      </if>
+      <if test="daType != null">
+        DA_TYPE,
+      </if>
+      <if test="daInfo != null">
+        DA_INFO,
+      </if>
+      <if test="daDose != null">
+        DA_DOSE,
+      </if>
+      <if test="daUnit != null">
+        DA_UNIT,
+      </if>
+      <if test="daNumb != null">
+        DA_NUMB,
+      </if>
+      <if test="yfdw != null">
+        YFDW,
+      </if>
+      <if test="daWay != null">
+        DA_WAY,
+      </if>
+      <if test="daFreq != null">
+        DA_FREQ,
+      </if>
+      <if test="infoSrc != null">
+        INFO_SRC,
+      </if>
+      <if test="hddat != null">
+        HDDAT,
+      </if>
+      <if test="hdhs != null">
+        HDHS,
+      </if>
+      <if test="hdhsxm != null">
+        HDHSXM,
+      </if>
+      <if test="yzzt != null">
+        YZZT,
+      </if>
+      <if test="crtTime != null">
+        CRT_TIME,
+      </if>
+      <if test="crtUser != null">
+        CRT_USER,
+      </if>
+      <if test="modTime != null">
+        MOD_TIME,
+      </if>
+      <if test="modUser != null">
+        MOD_USER,
+      </if>
+      <if test="mpi != null">
+        MPI,
+      </if>
+      <if test="daWayCod != null">
+        DA_WAY_COD,
+      </if>
+      <if test="highRisk != null">
+        HIGH_RISK,
+      </if>
+      <if test="enterTime != null">
+        ENTER_TIME,
+      </if>
+      <if test="series != null">
+        SERIES,
+      </if>
+      <if test="mrn != null">
+        MRN,
+      </if>
+      <if test="wardCode != null">
+        WARD_CODE,
+      </if>
+      <if test="deptCode != null">
+        DEPT_CODE,
+      </if>
+      <if test="orderStatus != null">
+        ORDER_STATUS,
+      </if>
+      <if test="orderClass != null">
+        ORDER_CLASS,
+      </if>
+      <if test="todayTimes != null">
+        TODAY_TIMES,
+      </if>
+      <if test="provideBySelf != null">
+        PROVIDE_BY_SELF,
+      </if>
+      <if test="isAux != null">
+        IS_AUX,
+      </if>
+      <if test="exhortation != null">
+        EXHORTATION,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="drugSpec != null">
+        DRUG_SPEC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="daSeq != null">
+        #{daSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="daNo != null">
+        #{daNo,jdbcType=VARCHAR},
+      </if>
+      <if test="daSub != null">
+        #{daSub,jdbcType=VARCHAR},
+      </if>
+      <if test="vstCad != null">
+        #{vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startDoct != null">
+        #{startDoct,jdbcType=VARCHAR},
+      </if>
+      <if test="daType != null">
+        #{daType,jdbcType=VARCHAR},
+      </if>
+      <if test="daInfo != null">
+        #{daInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="daDose != null">
+        #{daDose,jdbcType=VARCHAR},
+      </if>
+      <if test="daUnit != null">
+        #{daUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="daNumb != null">
+        #{daNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="yfdw != null">
+        #{yfdw,jdbcType=VARCHAR},
+      </if>
+      <if test="daWay != null">
+        #{daWay,jdbcType=VARCHAR},
+      </if>
+      <if test="daFreq != null">
+        #{daFreq,jdbcType=VARCHAR},
+      </if>
+      <if test="infoSrc != null">
+        #{infoSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="hddat != null">
+        #{hddat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hdhs != null">
+        #{hdhs,jdbcType=VARCHAR},
+      </if>
+      <if test="hdhsxm != null">
+        #{hdhsxm,jdbcType=VARCHAR},
+      </if>
+      <if test="yzzt != null">
+        #{yzzt,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null">
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null">
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null">
+        #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="mpi != null">
+        #{mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="daWayCod != null">
+        #{daWayCod,jdbcType=VARCHAR},
+      </if>
+      <if test="highRisk != null">
+        #{highRisk,jdbcType=VARCHAR},
+      </if>
+      <if test="enterTime != null">
+        #{enterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="series != null">
+        #{series,jdbcType=DECIMAL},
+      </if>
+      <if test="mrn != null">
+        #{mrn,jdbcType=VARCHAR},
+      </if>
+      <if test="wardCode != null">
+        #{wardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderClass != null">
+        #{orderClass,jdbcType=VARCHAR},
+      </if>
+      <if test="todayTimes != null">
+        #{todayTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="provideBySelf != null">
+        #{provideBySelf,jdbcType=DECIMAL},
+      </if>
+      <if test="isAux != null">
+        #{isAux,jdbcType=DECIMAL},
+      </if>
+      <if test="exhortation != null">
+        #{exhortation,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="drugSpec != null">
+        #{drugSpec,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.pda.pojo.domain.HspCfxxInfoExample" resultType="java.lang.Long">
+    select count(*) from HSP_CFXX_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_CFXX_INFO
+    <set>
+      <if test="record.daSeq != null">
+        DA_SEQ = #{record.daSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daNo != null">
+        DA_NO = #{record.daNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daSub != null">
+        DA_SUB = #{record.daSub,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vstCad != null">
+        VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null">
+        START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startDoct != null">
+        START_DOCT = #{record.startDoct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daType != null">
+        DA_TYPE = #{record.daType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daInfo != null">
+        DA_INFO = #{record.daInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daDose != null">
+        DA_DOSE = #{record.daDose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daUnit != null">
+        DA_UNIT = #{record.daUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daNumb != null">
+        DA_NUMB = #{record.daNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yfdw != null">
+        YFDW = #{record.yfdw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daWay != null">
+        DA_WAY = #{record.daWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daFreq != null">
+        DA_FREQ = #{record.daFreq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoSrc != null">
+        INFO_SRC = #{record.infoSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hddat != null">
+        HDDAT = #{record.hddat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hdhs != null">
+        HDHS = #{record.hdhs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hdhsxm != null">
+        HDHSXM = #{record.hdhsxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yzzt != null">
+        YZZT = #{record.yzzt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTime != null">
+        CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUser != null">
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTime != null">
+        MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUser != null">
+        MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mpi != null">
+        MPI = #{record.mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daWayCod != null">
+        DA_WAY_COD = #{record.daWayCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.highRisk != null">
+        HIGH_RISK = #{record.highRisk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterTime != null">
+        ENTER_TIME = #{record.enterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.series != null">
+        SERIES = #{record.series,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mrn != null">
+        MRN = #{record.mrn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wardCode != null">
+        WARD_CODE = #{record.wardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptCode != null">
+        DEPT_CODE = #{record.deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null">
+        ORDER_STATUS = #{record.orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderClass != null">
+        ORDER_CLASS = #{record.orderClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.todayTimes != null">
+        TODAY_TIMES = #{record.todayTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.provideBySelf != null">
+        PROVIDE_BY_SELF = #{record.provideBySelf,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isAux != null">
+        IS_AUX = #{record.isAux,jdbcType=DECIMAL},
+      </if>
+      <if test="record.exhortation != null">
+        EXHORTATION = #{record.exhortation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugSpec != null">
+        DRUG_SPEC = #{record.drugSpec,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_CFXX_INFO
+    set DA_SEQ = #{record.daSeq,jdbcType=VARCHAR},
+      DA_NO = #{record.daNo,jdbcType=VARCHAR},
+      DA_SUB = #{record.daSub,jdbcType=VARCHAR},
+      VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      START_DOCT = #{record.startDoct,jdbcType=VARCHAR},
+      DA_TYPE = #{record.daType,jdbcType=VARCHAR},
+      DA_INFO = #{record.daInfo,jdbcType=VARCHAR},
+      DA_DOSE = #{record.daDose,jdbcType=VARCHAR},
+      DA_UNIT = #{record.daUnit,jdbcType=VARCHAR},
+      DA_NUMB = #{record.daNumb,jdbcType=DECIMAL},
+      YFDW = #{record.yfdw,jdbcType=VARCHAR},
+      DA_WAY = #{record.daWay,jdbcType=VARCHAR},
+      DA_FREQ = #{record.daFreq,jdbcType=VARCHAR},
+      INFO_SRC = #{record.infoSrc,jdbcType=VARCHAR},
+      HDDAT = #{record.hddat,jdbcType=TIMESTAMP},
+      HDHS = #{record.hdhs,jdbcType=VARCHAR},
+      HDHSXM = #{record.hdhsxm,jdbcType=VARCHAR},
+      YZZT = #{record.yzzt,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      MPI = #{record.mpi,jdbcType=VARCHAR},
+      DA_WAY_COD = #{record.daWayCod,jdbcType=VARCHAR},
+      HIGH_RISK = #{record.highRisk,jdbcType=VARCHAR},
+      ENTER_TIME = #{record.enterTime,jdbcType=TIMESTAMP},
+      SERIES = #{record.series,jdbcType=DECIMAL},
+      MRN = #{record.mrn,jdbcType=VARCHAR},
+      WARD_CODE = #{record.wardCode,jdbcType=VARCHAR},
+      DEPT_CODE = #{record.deptCode,jdbcType=VARCHAR},
+      ORDER_STATUS = #{record.orderStatus,jdbcType=VARCHAR},
+      ORDER_CLASS = #{record.orderClass,jdbcType=VARCHAR},
+      TODAY_TIMES = #{record.todayTimes,jdbcType=DECIMAL},
+      PROVIDE_BY_SELF = #{record.provideBySelf,jdbcType=DECIMAL},
+      IS_AUX = #{record.isAux,jdbcType=DECIMAL},
+      EXHORTATION = #{record.exhortation,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      DRUG_SPEC = #{record.drugSpec,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.pda.pojo.domain.HspCfxxInfo">
+    update HSP_CFXX_INFO
+    <set>
+      <if test="daNo != null">
+        DA_NO = #{daNo,jdbcType=VARCHAR},
+      </if>
+      <if test="daSub != null">
+        DA_SUB = #{daSub,jdbcType=VARCHAR},
+      </if>
+      <if test="vstCad != null">
+        VST_CAD = #{vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startDoct != null">
+        START_DOCT = #{startDoct,jdbcType=VARCHAR},
+      </if>
+      <if test="daType != null">
+        DA_TYPE = #{daType,jdbcType=VARCHAR},
+      </if>
+      <if test="daInfo != null">
+        DA_INFO = #{daInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="daDose != null">
+        DA_DOSE = #{daDose,jdbcType=VARCHAR},
+      </if>
+      <if test="daUnit != null">
+        DA_UNIT = #{daUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="daNumb != null">
+        DA_NUMB = #{daNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="yfdw != null">
+        YFDW = #{yfdw,jdbcType=VARCHAR},
+      </if>
+      <if test="daWay != null">
+        DA_WAY = #{daWay,jdbcType=VARCHAR},
+      </if>
+      <if test="daFreq != null">
+        DA_FREQ = #{daFreq,jdbcType=VARCHAR},
+      </if>
+      <if test="infoSrc != null">
+        INFO_SRC = #{infoSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="hddat != null">
+        HDDAT = #{hddat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hdhs != null">
+        HDHS = #{hdhs,jdbcType=VARCHAR},
+      </if>
+      <if test="hdhsxm != null">
+        HDHSXM = #{hdhsxm,jdbcType=VARCHAR},
+      </if>
+      <if test="yzzt != null">
+        YZZT = #{yzzt,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null">
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null">
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null">
+        MOD_USER = #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="mpi != null">
+        MPI = #{mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="daWayCod != null">
+        DA_WAY_COD = #{daWayCod,jdbcType=VARCHAR},
+      </if>
+      <if test="highRisk != null">
+        HIGH_RISK = #{highRisk,jdbcType=VARCHAR},
+      </if>
+      <if test="enterTime != null">
+        ENTER_TIME = #{enterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="series != null">
+        SERIES = #{series,jdbcType=DECIMAL},
+      </if>
+      <if test="mrn != null">
+        MRN = #{mrn,jdbcType=VARCHAR},
+      </if>
+      <if test="wardCode != null">
+        WARD_CODE = #{wardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null">
+        DEPT_CODE = #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderClass != null">
+        ORDER_CLASS = #{orderClass,jdbcType=VARCHAR},
+      </if>
+      <if test="todayTimes != null">
+        TODAY_TIMES = #{todayTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="provideBySelf != null">
+        PROVIDE_BY_SELF = #{provideBySelf,jdbcType=DECIMAL},
+      </if>
+      <if test="isAux != null">
+        IS_AUX = #{isAux,jdbcType=DECIMAL},
+      </if>
+      <if test="exhortation != null">
+        EXHORTATION = #{exhortation,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="drugSpec != null">
+        DRUG_SPEC = #{drugSpec,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DA_SEQ = #{daSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.pda.pojo.domain.HspCfxxInfo">
+    update HSP_CFXX_INFO
+    set DA_NO = #{daNo,jdbcType=VARCHAR},
+      DA_SUB = #{daSub,jdbcType=VARCHAR},
+      VST_CAD = #{vstCad,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      START_DOCT = #{startDoct,jdbcType=VARCHAR},
+      DA_TYPE = #{daType,jdbcType=VARCHAR},
+      DA_INFO = #{daInfo,jdbcType=VARCHAR},
+      DA_DOSE = #{daDose,jdbcType=VARCHAR},
+      DA_UNIT = #{daUnit,jdbcType=VARCHAR},
+      DA_NUMB = #{daNumb,jdbcType=DECIMAL},
+      YFDW = #{yfdw,jdbcType=VARCHAR},
+      DA_WAY = #{daWay,jdbcType=VARCHAR},
+      DA_FREQ = #{daFreq,jdbcType=VARCHAR},
+      INFO_SRC = #{infoSrc,jdbcType=VARCHAR},
+      HDDAT = #{hddat,jdbcType=TIMESTAMP},
+      HDHS = #{hdhs,jdbcType=VARCHAR},
+      HDHSXM = #{hdhsxm,jdbcType=VARCHAR},
+      YZZT = #{yzzt,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{modUser,jdbcType=VARCHAR},
+      MPI = #{mpi,jdbcType=VARCHAR},
+      DA_WAY_COD = #{daWayCod,jdbcType=VARCHAR},
+      HIGH_RISK = #{highRisk,jdbcType=VARCHAR},
+      ENTER_TIME = #{enterTime,jdbcType=TIMESTAMP},
+      SERIES = #{series,jdbcType=DECIMAL},
+      MRN = #{mrn,jdbcType=VARCHAR},
+      WARD_CODE = #{wardCode,jdbcType=VARCHAR},
+      DEPT_CODE = #{deptCode,jdbcType=VARCHAR},
+      ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR},
+      ORDER_CLASS = #{orderClass,jdbcType=VARCHAR},
+      TODAY_TIMES = #{todayTimes,jdbcType=DECIMAL},
+      PROVIDE_BY_SELF = #{provideBySelf,jdbcType=DECIMAL},
+      IS_AUX = #{isAux,jdbcType=DECIMAL},
+      EXHORTATION = #{exhortation,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      DRUG_SPEC = #{drugSpec,jdbcType=VARCHAR}
+    where DA_SEQ = #{daSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

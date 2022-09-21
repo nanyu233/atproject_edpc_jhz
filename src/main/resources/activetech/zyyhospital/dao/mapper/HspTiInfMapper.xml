@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspTiInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspTiInf" >
+    <id column="TI_SEQ" property="tiSeq" jdbcType="VARCHAR" />
+    <result column="TI_PART_COD" property="tiPartCod" jdbcType="VARCHAR" />
+    <result column="TI_TRM_COD" property="tiTrmCod" jdbcType="VARCHAR" />
+    <result column="TI_SBU_COD" property="tiSbuCod" jdbcType="VARCHAR" />
+    <result column="TI_PUL_COD" property="tiPulCod" jdbcType="VARCHAR" />
+    <result column="TI_CSC_COD" property="tiCscCod" jdbcType="VARCHAR" />
+    <result column="TI_BRE_COD" property="tiBreCod" jdbcType="VARCHAR" />
+    <result column="TI_WCX_COD" property="tiWcxCod" jdbcType="VARCHAR" />
+    <result column="CRAT_DAT" property="cratDat" jdbcType="TIMESTAMP" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="TI_TRM_OTHER" property="tiTrmOther" jdbcType="VARCHAR" />
+    <result column="TI_SCO" property="tiSco" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TI_SEQ, TI_PART_COD, TI_TRM_COD, TI_SBU_COD, TI_PUL_COD, TI_CSC_COD, TI_BRE_COD, 
+    TI_WCX_COD, CRAT_DAT, EMG_SEQ, TI_TRM_OTHER, TI_SCO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspTiInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_TI_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_TI_INF
+    where TI_SEQ = #{tiSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_TI_INF
+    where TI_SEQ = #{tiSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspTiInfExample" >
+    delete from HSP_TI_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspTiInf" >
+    insert into HSP_TI_INF (TI_SEQ, TI_PART_COD, TI_TRM_COD,
+      TI_SBU_COD, TI_PUL_COD, TI_CSC_COD, 
+      TI_BRE_COD, TI_WCX_COD, CRAT_DAT, 
+      EMG_SEQ, TI_TRM_OTHER, TI_SCO
+      )
+    values (#{tiSeq,jdbcType=VARCHAR}, #{tiPartCod,jdbcType=VARCHAR}, #{tiTrmCod,jdbcType=VARCHAR}, 
+      #{tiSbuCod,jdbcType=VARCHAR}, #{tiPulCod,jdbcType=VARCHAR}, #{tiCscCod,jdbcType=VARCHAR}, 
+      #{tiBreCod,jdbcType=VARCHAR}, #{tiWcxCod,jdbcType=VARCHAR}, #{cratDat,jdbcType=TIMESTAMP}, 
+      #{emgSeq,jdbcType=VARCHAR}, #{tiTrmOther,jdbcType=VARCHAR}, #{tiSco,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspTiInf" >
+    insert into HSP_TI_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tiSeq != null" >
+        TI_SEQ,
+      </if>
+      <if test="tiPartCod != null" >
+        TI_PART_COD,
+      </if>
+      <if test="tiTrmCod != null" >
+        TI_TRM_COD,
+      </if>
+      <if test="tiSbuCod != null" >
+        TI_SBU_COD,
+      </if>
+      <if test="tiPulCod != null" >
+        TI_PUL_COD,
+      </if>
+      <if test="tiCscCod != null" >
+        TI_CSC_COD,
+      </if>
+      <if test="tiBreCod != null" >
+        TI_BRE_COD,
+      </if>
+      <if test="tiWcxCod != null" >
+        TI_WCX_COD,
+      </if>
+      <if test="cratDat != null" >
+        CRAT_DAT,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="tiTrmOther != null" >
+        TI_TRM_OTHER,
+      </if>
+      <if test="tiSco != null" >
+        TI_SCO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tiSeq != null" >
+        #{tiSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="tiPartCod != null" >
+        #{tiPartCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiTrmCod != null" >
+        #{tiTrmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiSbuCod != null" >
+        #{tiSbuCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiPulCod != null" >
+        #{tiPulCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiCscCod != null" >
+        #{tiCscCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiBreCod != null" >
+        #{tiBreCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiWcxCod != null" >
+        #{tiWcxCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cratDat != null" >
+        #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="tiTrmOther != null" >
+        #{tiTrmOther,jdbcType=VARCHAR},
+      </if>
+      <if test="tiSco != null" >
+        #{tiSco,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspTiInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_TI_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_TI_INF
+    <set >
+      <if test="record.tiSeq != null" >
+        TI_SEQ = #{record.tiSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tiPartCod != null" >
+        TI_PART_COD = #{record.tiPartCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tiTrmCod != null" >
+        TI_TRM_COD = #{record.tiTrmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tiSbuCod != null" >
+        TI_SBU_COD = #{record.tiSbuCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tiPulCod != null" >
+        TI_PUL_COD = #{record.tiPulCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tiCscCod != null" >
+        TI_CSC_COD = #{record.tiCscCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tiBreCod != null" >
+        TI_BRE_COD = #{record.tiBreCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tiWcxCod != null" >
+        TI_WCX_COD = #{record.tiWcxCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cratDat != null" >
+        CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tiTrmOther != null" >
+        TI_TRM_OTHER = #{record.tiTrmOther,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tiSco != null" >
+        TI_SCO = #{record.tiSco,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_TI_INF
+    set TI_SEQ = #{record.tiSeq,jdbcType=VARCHAR},
+      TI_PART_COD = #{record.tiPartCod,jdbcType=VARCHAR},
+      TI_TRM_COD = #{record.tiTrmCod,jdbcType=VARCHAR},
+      TI_SBU_COD = #{record.tiSbuCod,jdbcType=VARCHAR},
+      TI_PUL_COD = #{record.tiPulCod,jdbcType=VARCHAR},
+      TI_CSC_COD = #{record.tiCscCod,jdbcType=VARCHAR},
+      TI_BRE_COD = #{record.tiBreCod,jdbcType=VARCHAR},
+      TI_WCX_COD = #{record.tiWcxCod,jdbcType=VARCHAR},
+      CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      TI_TRM_OTHER = #{record.tiTrmOther,jdbcType=VARCHAR},
+      TI_SCO = #{record.tiSco,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspTiInf" >
+    update HSP_TI_INF
+    <set >
+      <if test="tiPartCod != null" >
+        TI_PART_COD = #{tiPartCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiTrmCod != null" >
+        TI_TRM_COD = #{tiTrmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiSbuCod != null" >
+        TI_SBU_COD = #{tiSbuCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiPulCod != null" >
+        TI_PUL_COD = #{tiPulCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiCscCod != null" >
+        TI_CSC_COD = #{tiCscCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiBreCod != null" >
+        TI_BRE_COD = #{tiBreCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tiWcxCod != null" >
+        TI_WCX_COD = #{tiWcxCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cratDat != null" >
+        CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="tiTrmOther != null" >
+        TI_TRM_OTHER = #{tiTrmOther,jdbcType=VARCHAR},
+      </if>
+      <if test="tiSco != null" >
+        TI_SCO = #{tiSco,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TI_SEQ = #{tiSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspTiInf" >
+    update HSP_TI_INF
+    set TI_PART_COD = #{tiPartCod,jdbcType=VARCHAR},
+      TI_TRM_COD = #{tiTrmCod,jdbcType=VARCHAR},
+      TI_SBU_COD = #{tiSbuCod,jdbcType=VARCHAR},
+      TI_PUL_COD = #{tiPulCod,jdbcType=VARCHAR},
+      TI_CSC_COD = #{tiCscCod,jdbcType=VARCHAR},
+      TI_BRE_COD = #{tiBreCod,jdbcType=VARCHAR},
+      TI_WCX_COD = #{tiWcxCod,jdbcType=VARCHAR},
+      CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP},
+      EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      TI_TRM_OTHER = #{tiTrmOther,jdbcType=VARCHAR},
+      TI_SCO = #{tiSco,jdbcType=VARCHAR}
+    where TI_SEQ = #{tiSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

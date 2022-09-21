@@ -1,0 +1,860 @@
+@charset "utf-8";
+
+/**
+*  各种知情同意书
+*/
+.tys {
+    margin: 0 auto;
+    width: 864px;
+    height:100%;
+    min-width: 864px;
+}
+.smalltitle{
+    font-weight: bold;
+}
+.tys .headtitle{
+    width: 100%;
+    float: left;
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0px;
+}
+.tys .functiontitle{
+    width: 100%;
+    float: left;
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0px;
+    font-weight:bold;
+}
+.tys .hospitalname{
+    display: none;
+}
+.tys .basicDiv {
+    float: left;
+    width: 86%;
+    margin-left: 7%;
+    /* width: 100%; */
+}
+#ws2024 .tys .basicDiv,#ws2026 .tys .basicDiv{
+    float: left;
+    width: 100%;
+    margin-left:0;
+}
+.tys .basicDiv label{
+    display: inline-block;
+    margin-right: 15px;
+}
+.tys .basicDiv label.firstlab{
+    /* margin-left: 53px; */
+}
+.tys .basicDiv label.lastlab {
+    margin-right: 0px;
+}
+.tys .basicDiv input{
+    width: 100px;
+}
+.tys .mainInputBox {
+    width: 100%;
+    margin: 0 auto;
+    /* padding: 0px 0px 10px 10px; */
+/*    border: 1px solid #9abce9;*/
+}
+.tys .miniinput{
+    width:20px;
+}
+
+.tys .smallInput{
+    width: 58px;
+}
+.tys .mediumInput,.tys .mediumInput2{
+    width: 300px;
+}
+.tys .spcInput{
+    width: 100px;
+}
+.userput{
+    width:80px;
+}
+.tys .mainInputBox .ulwrapper{
+    float: left;
+    width: 100%;
+}
+.tys .ulwrapper li{
+    float: left;
+    width: 100%;
+    height: 26px;
+    line-height: 26px;
+    margin: 3px 0px;
+}
+.tys .ulwrapper li.specli{
+    height: 58px;
+}
+.tys .ulwrapper li.hspecli{
+    height: 87px;
+}
+.tys .ulwrapper li.specinputli{
+    height: 84px;
+}
+.tys .ulwrapper li.halfli {
+    width: 50%;
+}
+.tys .ulwrapper li.fourli {
+    width: 25%;
+}
+.tys .ulwrapper li.threeli{
+    width: 33%;
+}
+.tys .ulwrapper li.twothreeli{
+    width: 67%;
+}
+.tys .ulwrapper li.threefoldli{
+    height: 90px;
+}
+.tys .userList {
+    position: absolute;
+    top: 20px;
+    right: 4px;
+    z-index: 3;
+    width: 105px;
+    max-height: 130px;
+    display: none;
+    background: rgb(30, 144, 255);
+    border: 1px solid #ddd;
+    cursor: default;
+    overflow-y: scroll;
+}
+.receTp .crtList {
+    position: relative;
+    margin-left: 60px;
+    z-index: 3;
+    width: 132px;
+    max-height: 130px;
+    display: none;
+    background: rgb(30, 144, 255);
+    border: 1px solid #ddd;
+    cursor: default;
+    overflow-y: scroll;
+}
+.tys .userList li:hover,.tys .crtList li:hover {
+    background: rgb(30, 144, 255);
+    text-decoration: none;
+    color: #fff;
+    cursor: default
+}
+.tys .userList li,.tys .crtList li{
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    height: 20px;
+    line-height: 20px;
+    text-indent: 0.5em;
+    margin: 0;
+}
+.tys .relative input{
+    width: 100px;
+}
+.tys .smalltitle {
+    display: inline-block;
+    float: left;
+    font-weight: bold;
+    padding-right: 10px;
+}
+.tys .fourtitle{
+    text-align: center;
+    /* width: 4em;  */
+    /*这个值是看最长能显示几个文字，如x，则为x em*/
+}
+.tys .twotitle{
+    letter-spacing:2em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-2em; /*同上*/
+}
+.tys .threetitle{
+    letter-spacing:0.5em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.5em; /*同上*/
+}
+.tys .fifvtitle{
+    text-align: center;
+    width: 5em; /*这个值是看最长能显示几个文字，如x，则为x em*/
+}
+.tys .twofivetitle{
+    letter-spacing:3em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-3em; /*同上*/
+}
+.tys .fourfivetitle {
+    letter-spacing: 0.333em;
+    margin-right: -0.333em;
+}
+.tys .tentitle{
+    text-align: center;
+    /* width: 10em; */
+    /*这个值是看最长能显示几个文字，如x，则为x em*/
+}
+.tys .srtitle{
+    width:12em;
+}
+.tys .seventitle {
+    letter-spacing:0.5em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.5em; /*同上*/
+}
+.tys .sixtitle{
+    letter-spacing:0.8em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.8em; /*同上*/
+}
+.sevenSize{
+    width:7em
+}
+.sixSize {
+    letter-spacing: 0.2em;
+    margin-right: -0.2em;
+}
+.fourSize{
+    letter-spacing: 1em;
+    margin-right: -1em;
+}
+.twoSize {
+    letter-spacing: 4em;
+    margin-right: -4em;
+}
+.showtable {
+    width: 565px;
+    margin: 10px 0px;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+.spcSize {
+    letter-spacing: 3.8em;
+    margin-right: -3.8em;
+}
+.twoThreeSize {
+    letter-spacing: 0.667em;
+    margin-right: -0.667em;
+}
+.tys .marginSpan{
+    margin-left:10px;
+}
+.showtable td {
+    border: 1px solid #000;
+    height: 30px;
+}
+.emleft{
+    margin-left:1em;
+}
+.tys .mainInputBox .subtitle {
+    float: left;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+}
+.tys .mainInputBox .ulwith {
+    width: 877px;
+}
+.hrul{
+    border: 0.5px solid #000;
+    float: left;
+    width: 95%;
+    margin: 15px 0;
+}
+.tys .ulwrapper .rightli {
+    float: right;
+    text-align: right;
+}
+.tys .basicDiv .spcWdate{
+    width: 140px;
+}
+.tys .smallWdate{
+    border: 1px solid #d1d1d1;
+    width: 100px;
+}
+.tys .noClickWdate{
+    border: 1px solid #d1d1d1;
+    width: 80px;
+}
+.tys .dayWdate{
+    border: 1px solid #d1d1d1;
+    width: 120px;
+}
+.tys .minWdate{
+    border: 1px solid #d1d1d1;
+    width: 60px;
+}
+.checklabel{
+    margin-right: 10px;
+    color: #2a00ff;
+}
+#show_text{
+    float: left;
+    width: 60%;
+    height: 26px;
+    line-height: 26px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+#show_text2{
+    float: left;
+    width: 300px;
+    height: 26px;
+    line-height: 26px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.tys .mainInputBox .fullinputa{
+    width: 600px;
+}
+.tys .middleDiv{
+    margin-bottom: 5px;
+}
+.tys .divwrapper{
+    float: left;
+}
+.logoDiv {
+	display: none;
+}
+.wrapperwidth{
+    width:499px;
+}
+.wrapperwidth div{
+    float:right;
+    margin-bottom:5px;
+}
+.hospitaltitle,.hosnameBasic{
+    font-size: 16px;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    padding: 10px 0 10px 0;
+}
+.hosnameBasic{
+    font-weight: bolder
+}
+.docuTitleBaisc{
+    font-size: 20px;
+    text-align: center;
+    min-height: 22px;
+    line-height: 22px;
+    padding: 3px 0 5px 0;
+    font-weight: bolder
+}
+.docuTitleBaisc2{
+    font-size: 20px;
+    text-align: center;
+    height: 22px;
+    line-height: 22px;
+    padding: 3px 0 5px 0;
+    font-weight: bolder;
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+}
+.functype{
+    width: 100%;
+    float: left;
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0px;
+    font-weight: bold;
+}
+.maintext{
+    width:86%;
+    margin-left:7%;
+    float: left;
+}
+.maintext2{
+    width:86%;
+    margin-left:7%;
+}
+/* .gracetable{
+    width:80%;
+    margin-left:10%;
+    min-width: 880px;
+} */
+.gracetable{
+    width:86%;
+    margin-left:7%;
+    min-width: 880px;
+}
+.gracetable td{
+    border:1px solid #000;
+    padding-left:5px;
+}
+.pointtext{
+    text-decoration:underline;
+    font-size:14px;
+    font-weight: bolder;
+    text-align: center;
+    width:150px;
+}
+.sectiontitle{
+    font-size:13px;
+    font-weight: bolder;
+}
+.firstli{
+    margin-top:10px;
+}
+.firstli2{
+    margin-top:10px;
+    margin-left:55mm;
+}
+.firstli3{
+    margin-top:10px;
+    margin-left:45mm;
+}
+.infoli{
+    margin-top:10px;
+}
+.maintext li{
+    line-height: 25px;
+}
+.mainView{
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+.hdtable{
+    border: 1px solid #000;
+    width: 100%;
+    font-size:13px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+.tabletitle{
+    text-align: center;
+}
+.titletr{
+    border-bottom: 1px solid #000
+}
+.td-left{
+    border-right: 1px solid #000;
+    width: 50%;
+}
+.hdtable td{
+    padding-left:5px;
+}
+.hdtable tr{
+    height:35px;
+}
+.pretextarea{
+    display: block;
+    width: 795px;
+    height: 100px;
+    border: #ddd 1px solid;
+    text-indent: .5em;
+    font-size: 12px;
+    resize: none;
+    padding:2px 2px;
+}
+.qtmargin{
+    margin-left:20px;
+}
+.twoGrid{
+    float:left;
+}
+.inputli{
+    height:30px;
+}
+.longinput,.opmedicineinput,.qtmedicne{
+    width:289px !important;
+}
+.totalinput,.tstotalinput,.zxtotalinput{
+    width:680px;
+}
+.infoli input[type=text]{
+    width:110px;
+}
+.intextinput{
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    width: 50px;
+}
+.intextinput2{
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    width: 80px;
+}
+.intextinput3{
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    width: 130px;
+}
+.intextinputlong2,.intextinputlong{
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    width: 130px;
+}
+.intextinputlong3{
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    width: 150px;
+}
+.trunright{
+    height:30px;
+    float:left;
+    width:30%;
+    margin-left:70%;
+    text-align:left;
+    line-height:1.5;
+}
+.intextinputall{
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    width: 680px;
+}
+.indenttwo{
+    text-indent:2em;
+}
+.indentthree{
+    text-indent:3em;
+}
+.indentfour{
+    text-indent:4em;
+}
+.managetable{
+    border: 1px solid #000;
+    margin-top:10px;
+}
+/* .childtable{
+    width:70%;
+    margin-left:15%;
+    margin-top:10px;
+} */
+.childtable{
+    width:86%;
+    margin-left:7%;
+    margin-top:10px;
+} 
+.titletd{
+    width:5%;
+    border: 1px solid #000;
+    text-align: center;
+}
+.maintd{
+    width:95%;
+    border: 1px solid #000;
+}
+.lithree{
+    height:30px;
+    line-height: 30px !important;
+    width:33%;
+    float:left;
+}
+.lifour{
+    height:30px;
+    line-height: 30px !important;
+    width:25%;
+    float:left;
+}
+.lifortht{
+    height:30px;
+    line-height: 30px !important;
+    width:75%;
+    float:left;
+}
+.lithirdtwo{
+    height:30px;
+    line-height: 30px !important;
+    width:67%;
+    float:left;
+}
+.tableul{
+    margin:5px 0.5%;
+    width:99%;
+    float:left;
+    min-width: 860px;
+}
+.titlespan{
+    font-weight: bolder;
+    font-size: 14px;
+}
+.f-left{
+    float:left;
+}
+.chbox{
+    float:left;
+    margin-left:5px;
+}
+.chbox label{
+    margin-left:10px;
+}
+.litwo{
+    height:30px;
+    line-height: 30px !important;
+    width:50%;
+    float:left;
+}
+.intextmorelong{
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    width: 70%;
+}
+.assign{
+    height:30px;
+    line-height: 30px;
+    width:65%;
+    margin-left:35%;
+    float:left;
+    font-weight: bolder;
+}
+.lione{
+    line-height: 30px !important;
+    width:100%;
+    float:left;
+}
+.chtitletd{
+    width:55%;
+    border: 1px solid #000;
+}
+.chmaintd{
+    width:10%;
+    border: 1px solid #000;
+}
+.chqxtd{
+    width:15%;
+    border: 1px solid #000;
+}
+.chmaintd input[type='checkbox']{
+    width:100%;
+}
+input[type=checkbox]{
+    vertical-align:middle;
+}
+.chqxtd label{
+    margin-left:5px;
+}
+.titleinp{
+    font-size: 16px;
+    font-weight: bolder;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 0 10px 0;
+    width:100%;
+    float: left;
+}
+.tableinp{
+    font-size: 14px;
+    font-weight: bolder;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    width:100%;
+    float: left;
+}
+.chtitletd2{
+    width:40%;
+    border: 1px solid #000;
+}
+.chmaintd2{
+    width:60%;
+    border: 1px solid #000;
+    padding:5px 5px;
+}
+.pintable{
+    width:70%;
+    margin-left:15%;
+    margin-top:10px;
+    margin-bottom:10px;
+    float: left;
+}
+.childtable th{
+    font-weight: bolder;
+}
+.dftd{
+    width:5%;
+    border: 1px solid #000;
+}
+.gracetd{
+    width:10%;
+    border: 1px solid #000;
+}
+.gracetd2{
+    width:15%;
+    border: 1px solid #000;
+}
+.bolderfont{
+    font-weight: bolder;
+}
+.tip2{
+    float: left;
+    width: 100%;
+}
+.tip2 p{
+    float: left !important;
+    width: 100% !important;
+}
+.tip2 p label{
+    width: 4em;
+    text-align: right;
+    display: inline-block;
+}
+.tip2 p label{
+    width: 4em;
+    text-align: right;
+    display: inline-block;
+}
+.tip2 p ._name {
+    width: 66%;
+    display: inline-block;
+}
+.tip2 span {
+    color: #2a00ff;
+}
+.labeltwo{
+    letter-spacing:2em; 
+    margin-right:-2em; 
+}
+.labelthree{
+    letter-spacing:0.5em;
+    margin-right:-0.5em;
+}
+.infoli span{
+    margin-left:8px;
+}
+.showym{
+    display: block;
+}
+.showdy{
+    display: none;
+}
+.lthreefont{
+    padding-left:36px;
+}
+.lonefont{
+    padding-left:12px;
+}
+.intextinputshort{
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    width: 30px;
+}
+
+/***
+**  危重患者外出转运单
+***/
+.receTp .leftspan {
+    display: inline-block;
+    float: left;
+    margin-left: 10px;
+}
+.receTp .recpTable {
+    width: 98%;
+    margin-left:1%;
+    margin-right:1%;
+    margin-top: 10px;
+    float: left;
+}
+.receTp .recpTable td {
+    border: 1px solid #000;
+    height: 26px;
+    padding: 3px 0;
+    line-height: 26px;
+}
+#ws2042 .receTp .recpTable td {
+    padding-left: 3px;
+}
+.receTp .recpTable td.tleTd {
+    text-align: center;
+}
+.receTp .recpTable td.indentTd {
+    text-indent: 4px;
+}
+.receTp .recpTable .marginVal {
+    float: left;
+    width: 100%;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    height: 26px;
+    line-height: 26px;
+}
+.receTp .userList  {
+    right: 0px;
+}
+.receTp .Listpos {
+    right: 4px;
+}
+.receTp .zdDiv {
+    width: 100%;
+    float: left;
+    margin-bottom: 4px;
+}
+.receTp .basicDiv label.firstlab{
+    margin-left: 53px; 
+}
+.receTp .extraDiv {
+    float: left;
+    width: 100%;
+    margin-left: 6px;
+}
+.receTp input.tableInput {
+	border: none !important;
+    border-bottom: 1px solid #ddd !important;
+}
+.receTp .wrapperDiv {
+    width: 800px;
+    margin: 0 auto;
+}
+#nzz2029 .receTp .wrapperDiv {
+    width: 810px;
+    margin: 0 auto;
+}
+#currentTitle,#mainTitle {
+    display: none
+}
+.bqgcintext{
+    width:90%;
+}
+.wbInput{
+    width:250px;
+}
+.titleTxt {
+    float: left;
+    font-weight: bold;
+    font-size: 15px;
+    background: #ddd;
+}
+.titleTxtSmall {
+    float: left;
+    font-weight: bold;
+    font-size: 13px;
+    background: #ddd;
+}
+.borderTable td{
+    padding: 2px 0 2px 4px;
+    border: 1px solid #000;
+}
+.focusDiv {
+    float: left;
+    background: yellow;
+}
+.focusDiv input {
+    border-bottom: 1px solid #000 !important;
+}
+.smallSize {
+    font-size: 10px !important;
+}
+.clockdate {
+    width: 56px !important;
+}
+.print-title-div {
+    margin-left: 10%;
+    width: 86%;
+}
+.onlyPrintBq {
+	display: none !important;
+}
+.noPrintBq {
+	display: block !important;
+}
+.doctorType{
+	color:blue;
+}
+.tys .childTitle{
+    font-weight: bolder;
+    text-align: center;
+}
+.zdInput{
+    width: 280px !important;
+}

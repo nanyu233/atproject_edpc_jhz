@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspFallassInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspFallassInf">
+    <id column="FALLASS_SEQ" jdbcType="VARCHAR" property="fallassSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="FALL_ASS_COD" jdbcType="VARCHAR" property="fallAssCod" />
+    <result column="FALL_ASSESS" jdbcType="CHAR" property="fallAssess" />
+    <result column="FALL_MEMO" jdbcType="VARCHAR" property="fallMemo" />
+    <result column="FALL_USRNO" jdbcType="VARCHAR" property="fallUsrno" />
+    <result column="FALL_USRNAM" jdbcType="VARCHAR" property="fallUsrnam" />
+    <result column="FALL_DATE" jdbcType="TIMESTAMP" property="fallDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    FALLASS_SEQ, EMG_SEQ, FALL_ASS_COD, FALL_ASSESS, FALL_MEMO, FALL_USRNO, FALL_USRNAM, 
+    FALL_DATE
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspFallassInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_FALLASS_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_FALLASS_INF
+    where FALLASS_SEQ = #{fallassSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_FALLASS_INF
+    where FALLASS_SEQ = #{fallassSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspFallassInfExample">
+    delete from HSP_FALLASS_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspFallassInf">
+    insert into HSP_FALLASS_INF (FALLASS_SEQ, EMG_SEQ, FALL_ASS_COD, 
+      FALL_ASSESS, FALL_MEMO, FALL_USRNO, 
+      FALL_USRNAM, FALL_DATE)
+    values (#{fallassSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{fallAssCod,jdbcType=VARCHAR}, 
+      #{fallAssess,jdbcType=CHAR}, #{fallMemo,jdbcType=VARCHAR}, #{fallUsrno,jdbcType=VARCHAR}, 
+      #{fallUsrnam,jdbcType=VARCHAR}, #{fallDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspFallassInf">
+    insert into HSP_FALLASS_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fallassSeq != null">
+        FALLASS_SEQ,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="fallAssCod != null">
+        FALL_ASS_COD,
+      </if>
+      <if test="fallAssess != null">
+        FALL_ASSESS,
+      </if>
+      <if test="fallMemo != null">
+        FALL_MEMO,
+      </if>
+      <if test="fallUsrno != null">
+        FALL_USRNO,
+      </if>
+      <if test="fallUsrnam != null">
+        FALL_USRNAM,
+      </if>
+      <if test="fallDate != null">
+        FALL_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fallassSeq != null">
+        #{fallassSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="fallAssCod != null">
+        #{fallAssCod,jdbcType=VARCHAR},
+      </if>
+      <if test="fallAssess != null">
+        #{fallAssess,jdbcType=CHAR},
+      </if>
+      <if test="fallMemo != null">
+        #{fallMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="fallUsrno != null">
+        #{fallUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="fallUsrnam != null">
+        #{fallUsrnam,jdbcType=VARCHAR},
+      </if>
+      <if test="fallDate != null">
+        #{fallDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspFallassInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_FALLASS_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_FALLASS_INF
+    <set>
+      <if test="record.fallassSeq != null">
+        FALLASS_SEQ = #{record.fallassSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fallAssCod != null">
+        FALL_ASS_COD = #{record.fallAssCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fallAssess != null">
+        FALL_ASSESS = #{record.fallAssess,jdbcType=CHAR},
+      </if>
+      <if test="record.fallMemo != null">
+        FALL_MEMO = #{record.fallMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fallUsrno != null">
+        FALL_USRNO = #{record.fallUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fallUsrnam != null">
+        FALL_USRNAM = #{record.fallUsrnam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fallDate != null">
+        FALL_DATE = #{record.fallDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_FALLASS_INF
+    set FALLASS_SEQ = #{record.fallassSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      FALL_ASS_COD = #{record.fallAssCod,jdbcType=VARCHAR},
+      FALL_ASSESS = #{record.fallAssess,jdbcType=CHAR},
+      FALL_MEMO = #{record.fallMemo,jdbcType=VARCHAR},
+      FALL_USRNO = #{record.fallUsrno,jdbcType=VARCHAR},
+      FALL_USRNAM = #{record.fallUsrnam,jdbcType=VARCHAR},
+      FALL_DATE = #{record.fallDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspFallassInf">
+    update HSP_FALLASS_INF
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="fallAssCod != null">
+        FALL_ASS_COD = #{fallAssCod,jdbcType=VARCHAR},
+      </if>
+      <if test="fallAssess != null">
+        FALL_ASSESS = #{fallAssess,jdbcType=CHAR},
+      </if>
+      <if test="fallMemo != null">
+        FALL_MEMO = #{fallMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="fallUsrno != null">
+        FALL_USRNO = #{fallUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="fallUsrnam != null">
+        FALL_USRNAM = #{fallUsrnam,jdbcType=VARCHAR},
+      </if>
+      <if test="fallDate != null">
+        FALL_DATE = #{fallDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FALLASS_SEQ = #{fallassSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspFallassInf">
+    update HSP_FALLASS_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      FALL_ASS_COD = #{fallAssCod,jdbcType=VARCHAR},
+      FALL_ASSESS = #{fallAssess,jdbcType=CHAR},
+      FALL_MEMO = #{fallMemo,jdbcType=VARCHAR},
+      FALL_USRNO = #{fallUsrno,jdbcType=VARCHAR},
+      FALL_USRNAM = #{fallUsrnam,jdbcType=VARCHAR},
+      FALL_DATE = #{fallDate,jdbcType=TIMESTAMP}
+    where FALLASS_SEQ = #{fallassSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

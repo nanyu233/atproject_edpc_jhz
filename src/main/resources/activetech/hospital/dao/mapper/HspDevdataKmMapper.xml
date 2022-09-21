@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspDevdataKmMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspDevdataKm" >
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="DEVNO" property="devno" jdbcType="DECIMAL" />
+    <result column="CRT_DAT" property="crtDat" jdbcType="DATE" />
+    <result column="IYEAR" property="iyear" jdbcType="DECIMAL" />
+    <result column="IMONTH" property="imonth" jdbcType="DECIMAL" />
+    <result column="IDAY" property="iday" jdbcType="DECIMAL" />
+    <result column="IHOUR" property="ihour" jdbcType="DECIMAL" />
+    <result column="IMINUTE" property="iminute" jdbcType="DECIMAL" />
+    <result column="ISECOND" property="isecond" jdbcType="DECIMAL" />
+    <result column="ISYS" property="isys" jdbcType="DECIMAL" />
+    <result column="IMEAN" property="imean" jdbcType="DECIMAL" />
+    <result column="IDIA" property="idia" jdbcType="DECIMAL" />
+    <result column="IFINISH" property="ifinish" jdbcType="DECIMAL" />
+    <result column="IERRCODE" property="ierrcode" jdbcType="DECIMAL" />
+    <result column="IPR" property="ipr" jdbcType="DECIMAL" />
+    <result column="ISRC" property="isrc" jdbcType="DECIMAL" />
+    <result column="BLLEADOFF" property="blleadoff" jdbcType="DECIMAL" />
+    <result column="ISPO2" property="ispo2" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMG_SEQ, DEVNO, CRT_DAT, IYEAR, IMONTH, IDAY, IHOUR, IMINUTE, ISECOND, ISYS, IMEAN, 
+    IDIA, IFINISH, IERRCODE, IPR, ISRC, BLLEADOFF, ISPO2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.domain.HspDevdataKmExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_DEVDATA_KM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.hospital.pojo.domain.HspDevdataKmExample" >
+    delete from HSP_DEVDATA_KM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.hospital.pojo.domain.HspDevdataKm" >
+    insert into HSP_DEVDATA_KM (EMG_SEQ, DEVNO, CRT_DAT, 
+      IYEAR, IMONTH, IDAY, 
+      IHOUR, IMINUTE, ISECOND, 
+      ISYS, IMEAN, IDIA, 
+      IFINISH, IERRCODE, IPR, 
+      ISRC, BLLEADOFF, ISPO2
+      )
+    values (#{emgSeq,jdbcType=VARCHAR}, #{devno,jdbcType=DECIMAL}, #{crtDat,jdbcType=DATE}, 
+      #{iyear,jdbcType=DECIMAL}, #{imonth,jdbcType=DECIMAL}, #{iday,jdbcType=DECIMAL}, 
+      #{ihour,jdbcType=DECIMAL}, #{iminute,jdbcType=DECIMAL}, #{isecond,jdbcType=DECIMAL}, 
+      #{isys,jdbcType=DECIMAL}, #{imean,jdbcType=DECIMAL}, #{idia,jdbcType=DECIMAL}, 
+      #{ifinish,jdbcType=DECIMAL}, #{ierrcode,jdbcType=DECIMAL}, #{ipr,jdbcType=DECIMAL}, 
+      #{isrc,jdbcType=DECIMAL}, #{blleadoff,jdbcType=DECIMAL}, #{ispo2,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.hospital.pojo.domain.HspDevdataKm" >
+    insert into HSP_DEVDATA_KM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="devno != null" >
+        DEVNO,
+      </if>
+      <if test="crtDat != null" >
+        CRT_DAT,
+      </if>
+      <if test="iyear != null" >
+        IYEAR,
+      </if>
+      <if test="imonth != null" >
+        IMONTH,
+      </if>
+      <if test="iday != null" >
+        IDAY,
+      </if>
+      <if test="ihour != null" >
+        IHOUR,
+      </if>
+      <if test="iminute != null" >
+        IMINUTE,
+      </if>
+      <if test="isecond != null" >
+        ISECOND,
+      </if>
+      <if test="isys != null" >
+        ISYS,
+      </if>
+      <if test="imean != null" >
+        IMEAN,
+      </if>
+      <if test="idia != null" >
+        IDIA,
+      </if>
+      <if test="ifinish != null" >
+        IFINISH,
+      </if>
+      <if test="ierrcode != null" >
+        IERRCODE,
+      </if>
+      <if test="ipr != null" >
+        IPR,
+      </if>
+      <if test="isrc != null" >
+        ISRC,
+      </if>
+      <if test="blleadoff != null" >
+        BLLEADOFF,
+      </if>
+      <if test="ispo2 != null" >
+        ISPO2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="devno != null" >
+        #{devno,jdbcType=DECIMAL},
+      </if>
+      <if test="crtDat != null" >
+        #{crtDat,jdbcType=DATE},
+      </if>
+      <if test="iyear != null" >
+        #{iyear,jdbcType=DECIMAL},
+      </if>
+      <if test="imonth != null" >
+        #{imonth,jdbcType=DECIMAL},
+      </if>
+      <if test="iday != null" >
+        #{iday,jdbcType=DECIMAL},
+      </if>
+      <if test="ihour != null" >
+        #{ihour,jdbcType=DECIMAL},
+      </if>
+      <if test="iminute != null" >
+        #{iminute,jdbcType=DECIMAL},
+      </if>
+      <if test="isecond != null" >
+        #{isecond,jdbcType=DECIMAL},
+      </if>
+      <if test="isys != null" >
+        #{isys,jdbcType=DECIMAL},
+      </if>
+      <if test="imean != null" >
+        #{imean,jdbcType=DECIMAL},
+      </if>
+      <if test="idia != null" >
+        #{idia,jdbcType=DECIMAL},
+      </if>
+      <if test="ifinish != null" >
+        #{ifinish,jdbcType=DECIMAL},
+      </if>
+      <if test="ierrcode != null" >
+        #{ierrcode,jdbcType=DECIMAL},
+      </if>
+      <if test="ipr != null" >
+        #{ipr,jdbcType=DECIMAL},
+      </if>
+      <if test="isrc != null" >
+        #{isrc,jdbcType=DECIMAL},
+      </if>
+      <if test="blleadoff != null" >
+        #{blleadoff,jdbcType=DECIMAL},
+      </if>
+      <if test="ispo2 != null" >
+        #{ispo2,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.hospital.pojo.domain.HspDevdataKmExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_DEVDATA_KM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_DEVDATA_KM
+    <set >
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devno != null" >
+        DEVNO = #{record.devno,jdbcType=DECIMAL},
+      </if>
+      <if test="record.crtDat != null" >
+        CRT_DAT = #{record.crtDat,jdbcType=DATE},
+      </if>
+      <if test="record.iyear != null" >
+        IYEAR = #{record.iyear,jdbcType=DECIMAL},
+      </if>
+      <if test="record.imonth != null" >
+        IMONTH = #{record.imonth,jdbcType=DECIMAL},
+      </if>
+      <if test="record.iday != null" >
+        IDAY = #{record.iday,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ihour != null" >
+        IHOUR = #{record.ihour,jdbcType=DECIMAL},
+      </if>
+      <if test="record.iminute != null" >
+        IMINUTE = #{record.iminute,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isecond != null" >
+        ISECOND = #{record.isecond,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isys != null" >
+        ISYS = #{record.isys,jdbcType=DECIMAL},
+      </if>
+      <if test="record.imean != null" >
+        IMEAN = #{record.imean,jdbcType=DECIMAL},
+      </if>
+      <if test="record.idia != null" >
+        IDIA = #{record.idia,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ifinish != null" >
+        IFINISH = #{record.ifinish,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ierrcode != null" >
+        IERRCODE = #{record.ierrcode,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ipr != null" >
+        IPR = #{record.ipr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isrc != null" >
+        ISRC = #{record.isrc,jdbcType=DECIMAL},
+      </if>
+      <if test="record.blleadoff != null" >
+        BLLEADOFF = #{record.blleadoff,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ispo2 != null" >
+        ISPO2 = #{record.ispo2,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_DEVDATA_KM
+    set EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      DEVNO = #{record.devno,jdbcType=DECIMAL},
+      CRT_DAT = #{record.crtDat,jdbcType=DATE},
+      IYEAR = #{record.iyear,jdbcType=DECIMAL},
+      IMONTH = #{record.imonth,jdbcType=DECIMAL},
+      IDAY = #{record.iday,jdbcType=DECIMAL},
+      IHOUR = #{record.ihour,jdbcType=DECIMAL},
+      IMINUTE = #{record.iminute,jdbcType=DECIMAL},
+      ISECOND = #{record.isecond,jdbcType=DECIMAL},
+      ISYS = #{record.isys,jdbcType=DECIMAL},
+      IMEAN = #{record.imean,jdbcType=DECIMAL},
+      IDIA = #{record.idia,jdbcType=DECIMAL},
+      IFINISH = #{record.ifinish,jdbcType=DECIMAL},
+      IERRCODE = #{record.ierrcode,jdbcType=DECIMAL},
+      IPR = #{record.ipr,jdbcType=DECIMAL},
+      ISRC = #{record.isrc,jdbcType=DECIMAL},
+      BLLEADOFF = #{record.blleadoff,jdbcType=DECIMAL},
+      ISPO2 = #{record.ispo2,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

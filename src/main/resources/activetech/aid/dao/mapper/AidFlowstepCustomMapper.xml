@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.aid.dao.mapper.AidFlowstepCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.aid.pojo.dto.AidFlowstepCustom" >
+    <result column="FLOWSEQ" property="flowseq" jdbcType="VARCHAR" />
+    <result column="PATID" property="patid" jdbcType="VARCHAR" />
+    <result column="STEPTYPE" property="steptype" jdbcType="VARCHAR" />
+    <result column="FLOWTIME" property="flowtime" jdbcType="TIMESTAMP" />
+    <result column="MODFLAG" property="modflag" jdbcType="VARCHAR" />
+    <result column="CRTUSERID" property="crtuserid" jdbcType="VARCHAR" />
+    <result column="CRTUSERNME" property="crtUserName" jdbcType="VARCHAR" />
+    <result column="CRTTIME" property="crttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="findAidFlowstepCustomListByPatid"  resultMap="BaseResultMap"
+  		parameterType="activetech.aid.pojo.dto.AidPatientQueryDto">
+        select FLOWSEQ,
+		       PATID,
+		       FLOWTIME,
+		       FLOWMEMO,
+		       MODFLAG,
+		       (select stepname
+		          from aid_stepdef
+		         where stepseq = a.stepseq) steptype,
+		       (select stepsort
+		          from aid_stepdef
+		         where stepseq = a.stepseq) dictsort,
+		       CRTUSERID,
+		       (select usrname from dstuser where usrno = a.CRTUSERID) CRTUSERNME,
+		       CRTTIME
+		  from AID_FLOWSTEP a
+		 where emg_seq = #{aidPatientCustom.patid}
+		 order by FLOWTIME,dictsort
+  </select>
+  
+  <select id="getFinishedFlowStepByPatid" parameterType="java.lang.String" resultType="activetech.aid.pojo.dto.AidFlowstepCustom">
+  	select a.flowseq,
+  		   a.flowentry,
+	       a.patid,
+	       a.steptype,
+	       a.stepseq,
+	       a.modflag,
+	       a.flowtime,
+	       a.flowmemo,
+	       a.crtuserid,
+	       a.crttime,
+	       a.modtime,
+	       b.stepname
+	  from aid_flowstep a, aid_stepdef b
+	 where a.emg_seq = #{patid,jdbcType=VARCHAR}
+	   and a.stepseq = b.stepseq
+	   and b.stepflag ='0'
+	   and a.steptype = #{steptype,jdbcType=VARCHAR}
+	 order by a.flowtime, b.stepsort
+  </select>
+  
+   <select id="getFlowStepByPatid" parameterType="java.lang.String" resultType="activetech.aid.pojo.dto.AidFlowstepCustom">
+  	select a.flowseq,
+  		   a.flowentry,
+	       a.patid,
+	       a.steptype,
+	       a.stepseq,
+	       a.modflag,
+	       a.flowtime,
+	       a.flowmemo,
+	       a.crtuserid,
+	       a.crttime,
+	       a.modtime,
+	       b.stepname
+	  from aid_flowstep a, aid_stepdef b
+	 where a.patid = #{patid,jdbcType=VARCHAR}
+	   and a.stepseq = b.stepseq
+	   and b.stepflag ='0'
+	   and a.stepseq = #{stepseq,jdbcType=VARCHAR}
+	 order by a.flowtime, b.stepsort
+  </select>
+  
+ <insert id="insert" parameterType="activetech.aid.pojo.domain.AidFlowstep" >     
+   insert into AID_FLOWSTEP (FLOWSEQ,FLOWENTRY, PATID, EMG_SEQ,STEPTYPE, MODFLAG,
+      STEPSEQ, FLOWTIME, FLOWMEMO, 
+      CRTUSERID, CRTTIME)
+    values (AID_FLOWSTEP_FLOWSEQ.nextval, #{flowentry,jdbcType=VARCHAR}, nvl((select patid from hsp_emg_inf where emg_seq = #{patid,jdbcType=VARCHAR}),'#'), #{patid,jdbcType=VARCHAR},#{steptype,jdbcType=VARCHAR}, 
+    #{modflag,jdbcType=VARCHAR},#{stepseq,jdbcType=VARCHAR}, #{flowtime,jdbcType=TIMESTAMP}, #{flowmemo,jdbcType=VARCHAR}, 
+      #{crtuserid,jdbcType=VARCHAR}, sysdate)
+  </insert>
+  
+  <insert id="insertAtRegister" parameterType="activetech.aid.pojo.domain.AidFlowstep" >     
+   insert into AID_FLOWSTEP (FLOWSEQ,FLOWENTRY, PATID, EMG_SEQ,STEPTYPE, MODFLAG,
+      STEPSEQ, FLOWTIME, FLOWMEMO, 
+      CRTUSERID, CRTTIME)
+    values (AID_FLOWSTEP_FLOWSEQ.nextval, #{flowentry,jdbcType=VARCHAR}, #{patid,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{steptype,jdbcType=VARCHAR}, 
+    #{modflag,jdbcType=VARCHAR},#{stepseq,jdbcType=VARCHAR}, #{flowtime,jdbcType=TIMESTAMP}, #{flowmemo,jdbcType=VARCHAR}, 
+      #{crtuserid,jdbcType=VARCHAR}, sysdate)
+  </insert>
+  
+  
+  
+  <update id="updateFlowStepInf" parameterType="activetech.aid.pojo.domain.AidFlowstep" >     
+   update AID_FLOWSTEP
+      set FLOWTIME = #{flowtime,jdbcType=TIMESTAMP},
+	      FLOWMEMO = #{flowmemo,jdbcType=VARCHAR},
+	      MODTIME = sysdate
+    where FLOWSEQ = #{flowseq,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getFlowStepQC" parameterType="java.lang.String" resultType="activetech.aid.pojo.dto.QCTimeLine">
+	 select headnode flowtype1,
+	       (select stepname
+	          from aid_stepdef
+	         where stepseq = a.headnode) flowname1,
+	       (select flowtime
+	          from aid_flowstep
+	         where stepseq = a.headnode
+	           and emg_seq = #{patid,jdbcType=VARCHAR}
+	           and steptype = a.nodetype) flowtime1,
+	       tailnode flowtype2,
+	       (select stepname
+	          from aid_stepdef
+	         where stepseq = a.tailnode) flowname2,
+	       (select flowtime
+	          from aid_flowstep
+	         where stepseq = a.tailnode
+	           and emg_seq = #{patid,jdbcType=VARCHAR} 
+	           and steptype = a.nodetype) flowtime2,
+	        qcnumb
+	  from aid_qcnode a
+	 where nodetype = #{steptype,jdbcType=VARCHAR}
+	 order by headnode,tailnode
+  </select>
+  
+  <select id="getQCPointTimeOutList" parameterType="activetech.aid.pojo.dto.AidQcnodeQueryDto" resultType="activetech.aid.pojo.dto.PatQCtimeOut">
+	select patid,
+	       patname,
+	       mewslvl,
+	       round((flowtime1 - flowtime2) * 24 * 60, 2) diffminute,
+	       qcnumb
+	  from (select b.patid,
+	               b.patname,
+	               b.mewslvl,
+	               nvl((select to_date(to_char(flowtime, 'YYYY-MM-DD HH24:MI'),
+	                                  'YYYY-MM-DD HH24:MI')
+	                     from aid_flowstep
+	                    where patid = a.patid
+	                      and stepseq = #{aidQcnode.tailnode,jdbcType=VARCHAR}), 
+	                   to_date(to_char(sysdate, 'YYYY-MM-DD HH24:MI'),
+	                           'YYYY-MM-DD HH24:MI')) flowtime1,
+	               (select to_date(to_char(flowtime, 'YYYY-MM-DD HH24:MI'),
+	                               'YYYY-MM-DD HH24:MI')
+	                  from aid_flowstep
+	                 where patid = a.patid
+	                   and stepseq = #{aidQcnode.headnode,jdbcType=VARCHAR}) flowtime2, 
+	               (select qcnumb
+	                  from aid_qcnode
+	                 where headnode = #{aidQcnode.headnode,jdbcType=VARCHAR} 
+	                   and tailnode = #{aidQcnode.tailnode,jdbcType=VARCHAR}) qcnumb 
+	          from (select patid
+	                  from aid_flowstep
+	                 where steptype = #{aidQcnode.nodetype,jdbcType=VARCHAR}
+	                   and stepseq in (#{aidQcnode.headnode,jdbcType=VARCHAR}, #{aidQcnode.tailnode,jdbcType=VARCHAR}) 
+	                 group by patid
+	                having count(*) = 2
+	                union all
+	                select patid
+	                  from aid_flowstep f
+	                 where steptype = #{aidQcnode.nodetype,jdbcType=VARCHAR}
+	                   and stepseq = #{aidQcnode.headnode,jdbcType=VARCHAR} 
+	                   and not exists (select 1 from aid_flowstep l
+	                                    where l.patid = f.patid
+	                                      and l.stepseq = #{aidQcnode.tailnode,jdbcType=VARCHAR})) a, 
+	               aid_patient b
+	         where a.patid = b.patid
+	           and b.pattype = #{aidQcnode.nodetype,jdbcType=VARCHAR}
+	           and b.crtuserid = #{usrno,jdbcType=VARCHAR} 
+	           and to_char(b.crttime, 'YYYYMMDD') >= #{startDate,jdbcType=VARCHAR}
+		       and to_char(b.crttime, 'YYYYMMDD') <![CDATA[<=]]> #{endDate,jdbcType=VARCHAR})
+	 where round((flowtime1 - flowtime2) * 24 * 60, 2) > qcnumb
+  </select>
+  
+  <select id="findPatFlowTypeList" resultType="activetech.aid.pojo.domain.AidStepdef"  parameterType="activetech.aid.pojo.dto.AidPatientQueryDto" >
+		with patids as (
+		    select patid from AID_PATIENT where patid=#{aidPatientCustom.patid,jdbcType=VARCHAR}
+		    union all
+		    select patid from hsp_emg_inf where emg_seq=#{aidPatientCustom.patid ,jdbcType=VARCHAR}
+		    union all
+		    select emg_seq from hsp_emg_inf where emg_seq=#{aidPatientCustom.patid ,jdbcType=VARCHAR}
+		  )
+	    select a.STEPSEQ,
+		       a.STEPNAME,
+		       a.STEPTYPE,
+		       a.STEPRANGE,
+		       a.STEPFLAG,
+		       a.STEPSORT,
+		       a.SETPMEMO
+		  from aid_stepdef a
+		 where steptype = #{typecode,jdbcType=VARCHAR}
+		 <if test="steprange !=null">
+		 	and a.steprange = #{steprange,jdbcType=VARCHAR}
+		 </if>
+		 <if test="isFlowstep == 1">
+		 and stepseq in (select stepseq
+		                     from aid_flowstep
+		                    where patid in (select patid from patids))
+		 </if>
+		 <if test="isFlowstep == 0 ">
+		  and stepseq not in (select stepseq
+		                     from aid_flowstep
+		                    where patid in (select patid from patids))
+		  </if>
+	      order by STEPSORT  
+	</select>
+	
+	
+</mapper>

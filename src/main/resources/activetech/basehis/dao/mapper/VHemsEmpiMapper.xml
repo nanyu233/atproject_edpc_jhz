@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.basehis.dao.mapper.VHemsEmpiMapper" >
+  <resultMap id="VHemsEmpiCustomMap" type="activetech.basehis.pojo.dto.VHemsEmpiCustom">
+<!--   <id property="id" column="ID"/> -->
+  	<result property="zyh" column="zyh"/>
+  	<result property="xm" column="xm" />	
+  	<result property="sfzh" column="sfzh"/>
+  	<result property="xb" column="xb"/>
+  	<result property="csny" column="csny" jdbcType="TIMESTAMP" />
+  	<result property="nl" column="nl"/>
+  	<result property="zlkh" column="zlkh"/>
+  	<result property="brxzdm" column="brxzdm"/>
+  	<result property="brlb" column="brlb"/>
+  	<result property="mpi" column="mpi"/>
+</resultMap>
+  
+	
+	<select id="findvHemsEmpi" parameterType="java.util.Map"
+		resultMap="VHemsEmpiCustomMap">
+		select * from 
+		(select * from V_hems_empi
+		<where>
+			<if test="zyh!=null and zyh!=''">
+				and  zyh= #{zyh}
+			</if>
+			<if test="zlkh!=null and zlkh!=''">
+				and   zyh= #{zlkh}
+			</if>
+		</where>
+		)
+		where rownum = 1
+	</select>
+  
+</mapper>

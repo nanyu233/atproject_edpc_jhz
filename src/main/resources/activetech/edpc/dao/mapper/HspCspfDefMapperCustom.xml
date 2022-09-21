@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspCspfDefMapperCustom" >
+  	
+  	<select id="getHspCsInfListWithChecked" parameterType="java.lang.String"
+  		resultType="activetech.edpc.pojo.dto.HspCspfDefCustom">
+  		select a.prt_item,
+		       a.sub_item,
+		       a.sub_name,
+		       a.opt_code,
+		       a.opt_name,
+		       a.opt_scoe,
+		       a.prt_name,
+		       b.emg_seq checked
+		  from hsp_cspf_def a,
+		       (select * from HSP_CSPF_DTL where emg_seq = #{emgSeq,jdbcType=VARCHAR}) b
+		 where a.prt_item = b.prt_item(+)
+		   and a.sub_item = b.sub_item(+)
+		   and a.opt_code = b.opt_code(+)
+  	</select>
+</mapper>

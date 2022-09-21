@@ -1,0 +1,167 @@
+<div id="ws2003">
+		<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+		<div>
+			<!-- <p class="hospitaltitle">${hospitalPlatformNameGap}</p> -->
+			<jsp:include page="/WEB-INF/jsp/hzszyyhospital/printBasicInfo/printBasicInfo.jsp"></jsp:include>
+			<p class="functype">诊疗操作知情同意书</p>
+			<div>
+				<ul class="maintext">
+					<li>
+						<label>
+							这是一份关于 
+							<font class="pointtext">脑血管造影术+颈内动脉海绵窦瘘封堵术</font>
+							的知情同意书，医生会用通俗易懂的方式告知该诊疗相关事宜。
+						</label>
+					</li>
+					<li class="firstli">
+						<label class="sectiontitle">1. 目前诊断(Current Diagnosis) </label>
+					</li>
+					<li>
+					<label>[ 颈动脉海绵窦瘘 ]</label>
+					</li>
+					<li class="firstli">
+					<label class="sectiontitle">2. 诊疗操作目的(Purposes) </label>
+					</li>
+					<li>
+						<label class="checklabel">
+							<input type="checkbox">明确病因，完善诊断；
+						</label>
+						<label class="checklabel">
+							<input type="checkbox">确定治疗方案，判定预后；
+						</label>
+						<label class="checklabel">
+							<input type="checkbox">对症治疗，缓解病情；
+						</label>
+						<label class="checklabel">
+							<input type="checkbox">其他
+						</label>
+					</li>
+					<li class="firstli">
+						<label class="sectiontitle">3. 主要意外、风险及并发症(Major Accidents, Risk Factors and Complications) </label>
+					</li>
+					<li>
+						<label>
+							[术中的可能意外和风险：1.造影剂过敏或损伤，导致休克、视力障碍、静脉炎、多脏 
+							器功能衰竭以及脱发等；2.血管破裂，造成脑出血，致瘫痪、失语、昏迷、癫痫、死亡等。3.操作部分及相关部分血管痉挛、
+							动脉夹层、斑块脱落、空气栓塞，导致相关部位功能缺失，甚至瘫痪、失语、昏迷、死亡等。4.使用肝素等抗凝药物，造成
+							凝血机制障碍，出血可能。介入材料在血管内可能诱发血栓，造成脑及其他脏器的梗塞。5.导管折断、导丝扭结，可能需手
+							术取出或终身带管，同时需终生服用抗凝药物。6.栓塞材料造成误栓，造成正常血管闭塞，发生相应脑缺氧症状，导致脑梗
+							死可能。出现意外情况改为手术可能。7.血管扭曲或严重痉挛等导致导管、球囊无法到位，手术失败。<br/>
+							术后可能风险：1.瘘口栓塞不全、残留，术后可能复发，需要定期随访，必要时再次治疗。2.穿刺部位血肿、
+							假性动脉瘤或者动静脉瘘行程，穿刺下肢血管痉挛、狭窄、血栓形成导致下肢缺血，可能需要进一步处理或手术治疗。3.手术
+							不成功仍需承担所需费用，出现意外积极抢救所产生费用患者承担。4.有手术中死亡可能，有术后症状加重可能。]
+						</label>
+					</li>
+					<li class="firstli">
+						<label class="sectiontitle">4. 防范措施(Preventive Measures) </label>
+					</li>
+					<li>
+						<span>1) 严格按照诊疗操作规范执行；</span><br>
+						<span>2) 加强监测，仔细操作，及时处理。</span><br>
+						<span class="twoGrid">3) 其他：</span><textarea id="areavalue" class="pretextarea qtmargin showym"></textarea><span id="spanvalue" class="prespan qtmargin showdy"></span><br>
+					</li>
+					<li class="firstli">
+						<label class="sectiontitle">5. 可替代的方案(Alternative Programs)</label>
+					</li>
+					<li>
+						<label class="checklabel">
+							<input type="checkbox" name="alprograms">有[  ]
+						</label>
+						<label class="checklabel">
+							<input type="checkbox" name="alprograms">不确定
+						</label>
+						<label class="checklabel">
+							<input type="checkbox" name="alprograms">无
+						</label>
+					</li>
+					<li class="inputli">
+						<span>
+							<label class="sectiontitle">谈话医师签名：</label>
+							<span><input type="text"/></span>
+						</span>
+						<label class="sectiontitle">签名时间：</label>
+						<input class="Wdate spcWdate" readonly="readonly" type="text" style="width: 130px;" onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})">
+					</li>
+					<li>
+						<label class="sectiontitle">
+							医师已经告知该诊疗操作的必要性和相关事项，我已充分理解并选择[脑血管造影术+颈内动脉海绵窦瘘封堵术]治疗。
+						</label>
+					</li>
+					<li class="inputli">
+						<span>
+							<label class="sectiontitle">患者或代理人签名：</label>
+							<span><input type="text"/></span>
+						</span>
+						<span>
+							<label class="sectiontitle">签字时间：</label>
+							<input class="Wdate spcWdate" readonly="readonly" type="text" style="width: 130px;" onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})">
+						</span>
+					</li>
+					<li class="firstli">
+						<table class="hdtable">
+							<tr>
+								<td colspan="2" class="tabletitle titletr">诊疗操作安全核对表</td>
+							</tr>
+							<tr>
+								<td class="td-left">
+									<label class="checklabel">
+										<input type="checkbox">同意书填写完整正确
+									</label>
+								</td>
+								<td>医生签名：<input type="text"/></td>
+							</tr>
+							<tr>
+								<td class="td-left">
+									<label class="checklabel">
+										<input type="checkbox">患者身份正确
+									</label>
+								</td>
+								<td>护士签名：<input type="text"/></td>
+							</tr>
+							<tr>
+								<td class="td-left">
+									<label class="checklabel">
+										<input type="checkbox">检查/治疗项目正确
+									</label>
+								</td>
+								<td>麻醉医师（如有）签名：<input type="text"/></td>
+							</tr>
+							<tr>
+								<td class="td-left">
+									<label class="checklabel">
+										<input type="checkbox">处置部位正确
+									</label>
+								</td>
+								<td>核对时间：
+									<input class="Wdate spcWdate" readonly="readonly" type="text" style="width: 130px;" onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})">
+								</td>
+							</tr>
+							<tr>
+								<td class="td-left">
+									<label class="checklabel">
+										<input type="checkbox">设备/仪器正常 ( 操作仪器<input type="text" class="intextinputlong"/> )
+									</label>
+								</td>
+								<td></td>
+							</tr>
+						</table>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function singlecheck(a,thisname){
+			$(a).click(function(){
+				if($(a).attr('checked')){
+					$(thisname).removeAttr('checked');
+					$(a).attr('checked','checked');
+				}
+			});
+		}
+
+		$('input[name="alprograms"]').each(function(){
+			singlecheck(this,'input[name="alprograms"]');
+		});
+	</script>
+		

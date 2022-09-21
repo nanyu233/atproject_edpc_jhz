@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspTpctInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspTpctInfCustom" >
+     <id column="TEMPERATURE_CHART_SEQ" property="temperatureChartSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="ENTERING_DAT" property="enteringDat" jdbcType="TIMESTAMP" />
+    <result column="TPCT_TW_COD" property="tpctTwCod" jdbcType="VARCHAR" />
+    <result column="TPCT_TW" property="tpctTw" jdbcType="VARCHAR" />
+    <result column="TPCT_JWH" property="tpctJwh" jdbcType="VARCHAR" />
+    <result column="TPCT_MB_COD" property="tpctMbCod" jdbcType="VARCHAR" />
+    <result column="TPCT_MB" property="tpctMb" jdbcType="VARCHAR" />
+    <result column="TPCT_HX_COD" property="tpctHxCod" jdbcType="VARCHAR" />
+    <result column="TPCT_HX" property="tpctHx" jdbcType="VARCHAR" />
+    <result column="TPCT_XL" property="tpctXl" jdbcType="VARCHAR" />
+    <result column="TPCT_XY_COD" property="tpctXyCod" jdbcType="VARCHAR" />
+    <result column="TPCT_XY_UP" property="tpctXyUp" jdbcType="VARCHAR" />
+    <result column="TPCT_XY_DOWN" property="tpctXyDown" jdbcType="VARCHAR" />
+    <result column="TPCT_TTPF" property="tpctTtpf" jdbcType="VARCHAR" />
+    <result column="TPCT_JTH" property="tpctJth" jdbcType="VARCHAR" />
+    <result column="TPCT_DB_COD" property="tpctDbCod" jdbcType="VARCHAR" />
+    <result column="TPCT_DB_PT" property="tpctDbPt" jdbcType="VARCHAR" />
+    <result column="TPCT_DB_GC" property="tpctDbGc" jdbcType="VARCHAR" />
+    <result column="TPCT_NL_COD" property="tpctNlCod" jdbcType="VARCHAR" />
+    <result column="TPCT_NL" property="tpctNl" jdbcType="VARCHAR" />
+    <result column="TPCT_RL" property="tpctRl" jdbcType="VARCHAR" />
+    <result column="TPCT_CL" property="tpctCl" jdbcType="VARCHAR" />
+    <result column="TPCT_TZ_COD" property="tpctTzCod" jdbcType="VARCHAR" />
+    <result column="TPCT_TZ" property="tpctTz" jdbcType="VARCHAR" />
+    <result column="TPCT_SG" property="tpctSg" jdbcType="VARCHAR" />
+    <result column="TPCT_SJMC_COD" property="tpctSjmcCod" jdbcType="VARCHAR" />
+    <result column="CRAT_DAT" property="cratDat" jdbcType="TIMESTAMP" />
+    <result column="CRAT_NBR" property="cratNbr" jdbcType="VARCHAR" />
+    <result column="CRAT_NAM" property="cratNam" jdbcType="VARCHAR" />
+    <result column="UPDT_DAT" property="updtDat" jdbcType="TIMESTAMP" />
+    <result column="UPDT_NBR" property="updtNbr" jdbcType="VARCHAR" />
+    <result column="UPDT_NAM" property="updtNam" jdbcType="VARCHAR" />
+    <result column="TPCT_CATA" property="tpctCata" jdbcType="VARCHAR" />
+    <result column="TPCT_VALUE" property="tpctValue" jdbcType="VARCHAR" />
+    <result column="TPCT_TYPE" property="tpctType" jdbcType="VARCHAR" />
+    <result column="TPCT_JLR" property="tpctJlr" jdbcType="VARCHAR" />
+    <result column="TPCT_DATEFLG" property="tpctDateflg" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE1" property="tpctZdyType1" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE1" property="tpctZdyValue1" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE2" property="tpctZdyType2" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE2" property="tpctZdyValue2" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE3" property="tpctZdyType3" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE3" property="tpctZdyValue3" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE4" property="tpctZdyType4" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE4" property="tpctZdyValue4" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE5" property="tpctZdyType5" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE5" property="tpctZdyValue5" jdbcType="VARCHAR" />
+    <result column="TPCT_XT_COD" jdbcType="VARCHAR" property="tpctXtCod" />
+    <result column="TPCT_XT_FLG" jdbcType="VARCHAR" property="tpctXtFlg" />
+    <result column="TPCT_XT" jdbcType="DECIMAL" property="tpctXt" />
+    <result column="TPCT_NL_FLG" property="tpctNlFlg" jdbcType="VARCHAR" />
+    <result column="TPCT_RL_FLG" property="tpctRlFlg" jdbcType="VARCHAR" />
+    <result column="TPCT_CL_FLG" property="tpctClFlg" jdbcType="VARCHAR" />
+    <result column="TPCT_XL_COD" property="tpctXlCod" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE6" property="tpctZdyType6" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE6" property="tpctZdyValue6" jdbcType="VARCHAR" />
+    <result column="TPCT_GMYW" property="tpctGmyw" jdbcType="VARCHAR" />
+    <result column="dTimeString" property="dTimeString" jdbcType="VARCHAR" />
+    <result column="deletetype" property="deletetype" jdbcType="VARCHAR" />
+    <result column="deletevalue" property="deletevalue" jdbcType="VARCHAR" />
+    <result column="deleteadd" property="deleteadd" jdbcType="VARCHAR" />
+    <result column="pollDate" property="pollDate" jdbcType="DATE" />
+    <result column="deleteadd" property="deleteadd" jdbcType="VARCHAR" />
+    <result column="ordernum" property="ordernum" jdbcType="VARCHAR" />
+    <result column="abdat" property="abdat" jdbcType="VARCHAR" />
+    <result column="abodat" property="abodat" jdbcType="VARCHAR" />
+    <result column="enteringDatString" property="enteringDatString" jdbcType="VARCHAR" />
+    <result column="xtName" jdbcType="VARCHAR" property="xtName" />
+  </resultMap>
+  
+  <sql id="query_HspTpctInf_where">
+ 		<if test="startdate!=null and startdate!=''">
+		    and  ENTERING_DAT<![CDATA[>=]]> #{startdate,jdbcType=DATE}
+		</if>
+		<if test="enddate!=null and enddate!=''">
+			and  ENTERING_DAT<![CDATA[<=]]> #{enddate,jdbcType=DATE}
+		</if>
+		<if test="hspTpctInfCustom!=null">
+			<if test="hspTpctInfCustom.emgSeq!=null">
+					and EMG_SEQ = #{hspTpctInfCustom.emgSeq}
+			</if>
+		</if>
+	</sql>
+  
+  <select id="findhspTpctInfList" parameterType="activetech.zyyhospital.pojo.dto.HspTpctInfQueryDto"
+		resultMap="BaseResultMap">
+		 select   
+			TEMPERATURE_CHART_SEQ, EMG_SEQ, ENTERING_DAT, TPCT_TW_COD, TPCT_TW, TPCT_JWH, TPCT_MB_COD, 
+    		TPCT_MB, TPCT_HX_COD, TPCT_HX, TPCT_XL, TPCT_XY_COD, TPCT_XY_UP, TPCT_XY_DOWN, TPCT_TTPF, 
+    		TPCT_JTH, TPCT_DB_COD, TPCT_DB_PT, TPCT_DB_GC, TPCT_NL_COD, TPCT_NL, TPCT_RL, TPCT_CL, 
+    		TPCT_TZ_COD, TPCT_TZ, TPCT_SG, TPCT_SJMC_COD, CRAT_DAT, CRAT_NBR, CRAT_NAM, UPDT_DAT, 
+    		UPDT_NBR, UPDT_NAM, TPCT_CATA, TPCT_VALUE, TPCT_TYPE, TPCT_JLR, TPCT_DATEFLG, TPCT_ZDY_TYPE1, 
+    		TPCT_ZDY_VALUE1, TPCT_ZDY_TYPE2, TPCT_ZDY_VALUE2, TPCT_ZDY_TYPE3, TPCT_ZDY_VALUE3, 
+    		TPCT_ZDY_TYPE4, TPCT_ZDY_VALUE4, TPCT_ZDY_TYPE5, TPCT_ZDY_VALUE5, TPCT_XT_COD, TPCT_XT_FLG,
+    		TPCT_XT,TPCT_GMYW,TPCT_NL_FLG,TPCT_RL_FLG,TPCT_CL_FLG,TPCT_XL_COD,TPCT_ZDY_TYPE6,TPCT_ZDY_VALUE6,
+    		(select INFO from dstdictinfo where typecode = 'XT_COD' and INFOCODE = TPCT_XT_COD) xtName
+		  from HSP_TPCT_INF 
+      	<where>
+     	 <include refid="query_HspTpctInf_where" />
+      	</where>
+			order by  ENTERING_DAT desc
+	</select>
+	
+	<select id="findhspTpctInfcount" parameterType="activetech.zyyhospital.pojo.dto.HspTpctInfQueryDto"
+					 resultType="int">
+		select count(*) from HSP_TPCT_INF
+		<where>
+				<include refid="query_HspTpctInf_where" />
+		</where>
+	</select>
+	
+	<select id="findzyytpctBySeq" resultMap="BaseResultMap" parameterType="String" >
+     select  
+      TEMPERATURE_CHART_SEQ,EMG_SEQ,ENTERING_DAT,
+      TPCT_TW_COD,decode(TPCT_TW,null, null, regexp_replace(TPCT_TW,'[^0-9,.]'))  TPCT_TW, decode(TPCT_JWH,null, null, regexp_replace(TPCT_JWH,'[^0-9,.]'))  TPCT_JWH,
+      TPCT_MB_COD,decode(TPCT_MB,null, null, regexp_replace(TPCT_MB,'[^0-9,.]'))  TPCT_MB,
+      TPCT_HX_COD,decode(TPCT_HX,null, null, regexp_replace(TPCT_HX,'[^0-9,.]'))  TPCT_HX,
+      decode(TPCT_XL,null, null, regexp_replace(TPCT_XL,'[^0-9,.]'))  TPCT_XL,TPCT_XL_COD,
+      TPCT_XY_COD,decode(TPCT_XY_UP,null, null, regexp_replace(TPCT_XY_UP,'[^0-9,.]'))  TPCT_XY_UP,decode(TPCT_XY_DOWN,null, null, regexp_replace(TPCT_XY_DOWN,'[^0-9,.]'))  TPCT_XY_DOWN,
+      decode(TPCT_TTPF,null, null, regexp_replace(TPCT_TTPF,'[^0-9,.]'))  TPCT_TTPF,decode(TPCT_JTH,null, null, regexp_replace(TPCT_JTH,'[^0-9,.]'))  TPCT_JTH,
+      TPCT_DB_COD,decode(TPCT_DB_PT,null, null, regexp_replace(TPCT_DB_PT,'[^0-9,.]'))  TPCT_DB_PT,decode(TPCT_DB_GC,null, null, regexp_replace(TPCT_DB_GC,'[^0-9,.]'))  TPCT_DB_GC,
+      TPCT_NL_COD, decode(TPCT_NL,null, null, regexp_replace(TPCT_NL,'[^0-9,.]'))  TPCT_NL,
+      decode(TPCT_RL,null, null, regexp_replace(TPCT_RL,'[^0-9,.]'))  TPCT_RL,
+      decode(TPCT_CL,null, null, regexp_replace(TPCT_CL,'[^0-9,.]'))  TPCT_CL,
+      TPCT_TZ_COD,decode(TPCT_TZ,null, null, regexp_replace(TPCT_TZ,'[^0-9,.]'))  TPCT_TZ,
+      decode(TPCT_SG,null, null, regexp_replace(TPCT_SG,'[^0-9,.]'))  TPCT_SG,
+      TPCT_SJMC_COD,TPCT_JLR,TPCT_DATEFLG,
+      TPCT_ZDY_TYPE1,decode(TPCT_ZDY_VALUE1,null, null, regexp_replace(TPCT_ZDY_VALUE1,'[^0-9,.]'))  TPCT_ZDY_VALUE1,
+       TPCT_ZDY_TYPE2,decode(TPCT_ZDY_VALUE2,null, null, regexp_replace(TPCT_ZDY_VALUE2,'[^0-9,.]'))  TPCT_ZDY_VALUE2,
+       TPCT_ZDY_TYPE3,decode(TPCT_ZDY_VALUE3,null, null, regexp_replace(TPCT_ZDY_VALUE3,'[^0-9,.]'))  TPCT_ZDY_VALUE3,
+       TPCT_ZDY_TYPE4,decode(TPCT_ZDY_VALUE4,null, null, regexp_replace(TPCT_ZDY_VALUE4,'[^0-9,.]'))  TPCT_ZDY_VALUE4,
+       TPCT_ZDY_TYPE5,decode(TPCT_ZDY_VALUE5,null, null, regexp_replace(TPCT_ZDY_VALUE5,'[^0-9,.]'))  TPCT_ZDY_VALUE5,
+       TPCT_ZDY_TYPE6,decode(TPCT_ZDY_VALUE6,null, null, regexp_replace(TPCT_ZDY_VALUE6,'[^0-9,.]'))  TPCT_ZDY_VALUE6,
+       TPCT_XT_COD,TPCT_XT_FLG,
+       decode(TPCT_XT,null, null, regexp_replace(TPCT_XT,'[^0-9,.]'))  TPCT_XT,TPCT_NL_FLG,TPCT_RL_FLG,TPCT_CL_FLG,
+       TPCT_GMYW,TPCT_RL_FLG,TPCT_CL_FLG,TPCT_NL_FLG   
+      from HSP_TPCT_INF
+    where 1=1
+    <if test="hspTpctInfCustom.emgSeq!=null">
+		and EMG_SEQ = #{hspTpctInfCustom.emgSeq}
+	</if>
+	<if test="hspTpctInfCustom.temperatureChartSeq!=null">
+		and TEMPERATURE_CHART_SEQ = #{hspTpctInfCustom.temperatureChartSeq}
+	</if>
+	<if test="hspTpctInfCustom.enteringDat!=null">
+		and ENTERING_DAT = #{hspTpctInfCustom.enteringDat,jdbcType=TIMESTAMP}
+	</if>
+	order by  ENTERING_DAT desc
+  </select>
+  
+  <select id="deletezyytpct" parameterType="activetech.zyyhospital.pojo.dto.HspTpctInfQueryDto">
+		update  HSP_TPCT_INF set
+		 TEMPERATURE_CHART_SEQ = #{hspTpctInfCustom.temperatureChartSeq}
+		 <if test="hspTpctInfCustom.deletetype!=null ">
+		 	, ${hspTpctInfCustom.deletetype} ='' 
+		</if>
+		<if test="hspTpctInfCustom.deletevalue!=null ">
+		 	, ${hspTpctInfCustom.deletevalue} ='' 
+		</if>
+		<if test="hspTpctInfCustom.deleteadd!=null">
+		 	, ${hspTpctInfCustom.deleteadd} ='' 
+		</if> 
+		   where TEMPERATURE_CHART_SEQ=#{hspTpctInfCustom.temperatureChartSeq}
+	</select>
+  
+  <select id="findhspTpctInfDat" parameterType="activetech.zyyhospital.pojo.dto.HspTpctInfQueryDto"
+		resultMap="BaseResultMap">
+		    
+          select to_date(polldate,'yyyy-mm-dd hh24:mi:ss') pollDate   from (
+           select     distinct
+            to_char(ENTERING_DAT,'yyyy-mm-dd') pollDate
+		  from HSP_TPCT_INF 
+      	<where>
+     	 <include refid="query_HspTpctInf_where" />
+      	</where>
+			) order by pollDate
+	</select>
+  <select id="findhspTpctInfDatandorder" parameterType="activetech.zyyhospital.pojo.dto.HspTpctInfQueryDto"
+		resultMap="BaseResultMap">
+		<![CDATA[
+  		select ordernum,abodat,TEMPERATURE_CHART_SEQ,ENTERING_DAT,
+			TPCT_TW_COD,decode(TPCT_TW,null, null, regexp_replace(TPCT_TW,'[^0-9,.]')) TPCT_TW,
+			decode(TPCT_MB,null, null, regexp_replace(TPCT_MB,'[^0-9,.]')) TPCT_MB,
+			decode(TPCT_HX,null, null, regexp_replace(TPCT_HX,'[^0-9,.]')) TPCT_HX,
+			decode(TPCT_TTPF,null, null, regexp_replace(TPCT_TTPF,'[^0-9,.]')) TPCT_TTPF,
+			decode(TPCT_XL,null, null, regexp_replace(TPCT_XL,'[^0-9,.]')) TPCT_XL,TPCT_HX_COD,
+			decode(TPCT_XY_UP,null, null, regexp_replace(TPCT_XY_UP,'[^0-9,.]'))  TPCT_XY_UP,decode(TPCT_XY_DOWN,null, null, regexp_replace(TPCT_XY_DOWN,'[^0-9,.]'))  TPCT_XY_DOWN,
+			decode(TPCT_RL,null, null, regexp_replace(TPCT_RL,'[^0-9,.]'))  TPCT_RL,
+      		decode(TPCT_CL,null, null, regexp_replace(TPCT_CL,'[^0-9,.]'))  TPCT_CL,
+      		decode(TPCT_SG,null, null, regexp_replace(TPCT_SG,'[^0-9,.]'))  TPCT_SG,
+			decode(TPCT_TZ,null, null, regexp_replace(TPCT_TZ,'[^0-9,.]'))  TPCT_TZ,TPCT_TZ_COD,TPCT_GMYW,TPCT_SJMC_COD,
+			decode(TPCT_DB_PT,null, null, regexp_replace(TPCT_DB_PT,'[^0-9,.]'))  TPCT_DB_PT,TPCT_DB_COD,
+			decode(TPCT_DB_GC,null, null, regexp_replace(TPCT_DB_GC,'[^0-9,.]'))  TPCT_DB_GC,
+			decode(TPCT_NL,null, null, regexp_replace(TPCT_NL,'[^0-9,.]'))  TPCT_NL,TPCT_NL_COD,
+			decode(TPCT_JWH,null, null, regexp_replace(TPCT_JWH,'[^0-9,.]')) TPCT_JWH,TPCT_RL_FLG,TPCT_CL_FLG,TPCT_NL_FLG
+		from 
+		(select (level-1)ordernum,(2+(level-1)*4||':00')abodat from dual connect by level <=6) d  left join(
+			select  t.TEMPERATURE_CHART_SEQ,t.ENTERING_DAT,t.TPCT_TW_COD,t.TPCT_TW,t.TPCT_MB,t.TPCT_HX,t.TPCT_TTPF,t.TPCT_XL,t.TPCT_HX_COD,t.TPCT_XY_UP,
+				t.TPCT_XY_DOWN,t.TPCT_XY_COD,t.TPCT_RL,t.TPCT_CL,t.TPCT_SG,t.TPCT_TZ,t.TPCT_TZ_COD,t.TPCT_GMYW,t.TPCT_SJMC_COD,t.TPCT_DB_PT,t.TPCT_DB_COD,t.TPCT_DB_GC,t.TPCT_NL,t.TPCT_NL_COD,t.TPCT_JWH,t.TPCT_RL_FLG,t.TPCT_CL_FLG,t.TPCT_NL_FLG,
+    			a.abdat  from HSP_TPCT_INF t , (SELECT   
+    			TEMPERATURE_CHART_SEQ,emg_seq, ENTERING_DAT,		   
+    			CASE 
+    			WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') >= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'00:00:00','yyyy-MM-dd HH24:mi:ss') and 
+               	      to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'04:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '2:00'
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'04:00:00','yyyy-MM-dd HH24:mi:ss') and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'08:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '6:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'08:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'12:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '10:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'12:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'16:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '14:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'16:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'20:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '18:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'20:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'23:59:59','yyyy-MM-dd HH24:mi:ss') THEN  '22:00'
+		        WHEN to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') = to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'00:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '22:00'
+		    END  abdat
+			FROM HSP_TPCT_INF where emg_seq=#{hspTpctInfCustom.emgSeq} and  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd'),'yyyy-MM-dd HH24:mi:ss')=#{hspTpctInfCustom.pollDate} ) a  
+			where  a.TEMPERATURE_CHART_SEQ=t.TEMPERATURE_CHART_SEQ   
+			and  t.emg_seq=#{hspTpctInfCustom.emgSeq}) b 
+			on d.abodat= b.abdat  order by ordernum , ENTERING_DAT 
+  ]]>
+  </select>
+
+	<select id="leadtcpt" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.dto.HspTpctInfQueryDto" >
+	     select TEMPERATURE_CHART_SEQ,EMG_SEQ,ENTERING_DAT, TPCT_TW_COD,
+			decode(TPCT_TW,null, null, regexp_replace(TPCT_TW,'[^0-9,.]')) TPCT_TW, 
+			decode(TPCT_JWH,null, null, regexp_replace(TPCT_JWH,'[^0-9,.]')) TPCT_JWH, 
+			TPCT_MB_COD,decode(TPCT_MB,null, null, regexp_replace(TPCT_MB,'[^0-9,.]')) TPCT_MB, 
+			TPCT_HX_COD,decode(TPCT_HX,null, null, regexp_replace(TPCT_HX,'[^0-9,.]')) TPCT_HX, 
+			decode(TPCT_XL,null, null, regexp_replace(TPCT_XL,'[^0-9,.]')) TPCT_XL, TPCT_XL_COD, TPCT_XY_COD,
+			decode(TPCT_XY_UP,null, null, regexp_replace(TPCT_XY_UP,'[^0-9,.]')) TPCT_XY_UP,
+			decode(TPCT_XY_DOWN,null, null, regexp_replace(TPCT_XY_DOWN,'[^0-9,.]')) TPCT_XY_DOWN,
+			decode(TPCT_TTPF,null, null, regexp_replace(TPCT_TTPF,'[^0-9,.]')) TPCT_TTPF,
+			decode(TPCT_JTH,null, null, regexp_replace(TPCT_JTH,'[^0-9,.]')) TPCT_JTH, 
+			TPCT_DB_COD,decode(TPCT_DB_PT,null, null, regexp_replace(TPCT_DB_PT,'[^0-9,.]')) TPCT_DB_PT,
+			decode(TPCT_DB_GC,null, null, regexp_replace(TPCT_DB_GC,'[^0-9,.]')) TPCT_DB_GC, TPCT_NL_COD, 
+			decode(TPCT_NL,null, null, regexp_replace(TPCT_NL,'[^0-9,.]')) TPCT_NL,
+			decode(TPCT_RL,null, null, regexp_replace(TPCT_RL,'[^0-9,.]')) TPCT_RL, 
+			decode(TPCT_CL,null, null, regexp_replace(TPCT_CL,'[^0-9,.]')) TPCT_CL, 
+			TPCT_TZ_COD,decode(TPCT_TZ,null, null, regexp_replace(TPCT_TZ,'[^0-9,.]')) TPCT_TZ,
+			decode(TPCT_SG,null, null, regexp_replace(TPCT_SG,'[^0-9,.]')) TPCT_SG, 
+			TPCT_SJMC_COD,TPCT_JLR,TPCT_DATEFLG from 
+			(select TEMPERATURE_CHART_SEQ,EMG_SEQ,ENTERING_DAT, TPCT_TW_COD,decode(TPCT_TW,null, null, regexp_replace(TPCT_TW,'[^0-9,.]')) TPCT_TW,
+			decode(TPCT_JWH,null, null, regexp_replace(TPCT_JWH,'[^0-9,.]')) TPCT_JWH, TPCT_MB_COD,decode(TPCT_MB,null, null, regexp_replace(TPCT_MB,'[^0-9,.]')) TPCT_MB, 
+			TPCT_HX_COD,decode(TPCT_HX,null, null, regexp_replace(TPCT_HX,'[^0-9,.]')) TPCT_HX, decode(TPCT_XL,null, null, regexp_replace(TPCT_XL,'[^0-9,.]')) TPCT_XL,
+			TPCT_XY_COD,decode(TPCT_XY_UP,null, null, regexp_replace(TPCT_XY_UP,'[^0-9,.]')) TPCT_XY_UP,decode(TPCT_XY_DOWN,null, null, regexp_replace(TPCT_XY_DOWN,'[^0-9,.]')) TPCT_XY_DOWN,
+			decode(TPCT_TTPF,null, null, regexp_replace(TPCT_TTPF,'[^0-9,.]')) TPCT_TTPF,decode(TPCT_JTH,null, null, regexp_replace(TPCT_JTH,'[^0-9,.]')) TPCT_JTH, TPCT_DB_COD,
+			decode(TPCT_DB_PT,null, null, regexp_replace(TPCT_DB_PT,'[^0-9,.]')) TPCT_DB_PT,decode(TPCT_DB_GC,null, null, regexp_replace(TPCT_DB_GC,'[^0-9,.]')) TPCT_DB_GC, 
+			TPCT_NL_COD, decode(TPCT_NL,null, null, regexp_replace(TPCT_NL,'[^0-9,.]')) TPCT_NL, decode(TPCT_RL,null, null, regexp_replace(TPCT_RL,'[^0-9,.]')) TPCT_RL, 
+			decode(TPCT_CL,null, null, regexp_replace(TPCT_CL,'[^0-9,.]')) TPCT_CL, TPCT_TZ_COD,decode(TPCT_TZ,null, null, regexp_replace(TPCT_TZ,'[^0-9,.]')) TPCT_TZ, 
+			decode(TPCT_SG,null, null, regexp_replace(TPCT_SG,'[^0-9,.]')) TPCT_SG, TPCT_SJMC_COD,TPCT_JLR,TPCT_DATEFLG, TPCT_ZDY_TYPE1,TPCT_ZDY_TYPE1 ,
+			trunc(abs(to_char(to_date(TO_CHAR(to_timestamp(#{ctrDate}), 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')-to_date(TO_CHAR(to_timestamp(ENTERING_DAT), 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss'))*24*60*60)) jdz 
+			from HSP_TPCT_INF where emg_seq =#{hspTpctInfCustom.emgSeq}) 
+			where jdz=(
+			select min(trunc(abs(to_char(to_date(TO_CHAR(to_timestamp(#{ctrDate}), 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')-to_date(TO_CHAR(to_timestamp(ENTERING_DAT), 'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss'))*24*60*60))) 
+			from HSP_TPCT_INF where emg_seq =#{hspTpctInfCustom.emgSeq}
+			) and rownum =1 order by  ENTERING_DAT  
+	  </select>
+
+	<select id="findhspTpctInfInAndOut" parameterType="activetech.zyyhospital.pojo.dto.HspTpctInfQueryDto"
+		resultMap="BaseResultMap">
+		<![CDATA[
+  		select TEMPERATURE_CHART_SEQ,ENTERING_DAT,
+			TPCT_TW_COD,decode(TPCT_TW,null, null, regexp_replace(TPCT_TW,'[^0-9,.]')) TPCT_TW,abdat,
+			decode(TPCT_MB,null, null, regexp_replace(TPCT_MB,'[^0-9,.]')) TPCT_MB,
+			decode(TPCT_HX,null, null, regexp_replace(TPCT_HX,'[^0-9,.]')) TPCT_HX,
+			decode(TPCT_TTPF,null, null, regexp_replace(TPCT_TTPF,'[^0-9,.]')) TPCT_TTPF,
+			decode(TPCT_XL,null, null, regexp_replace(TPCT_XL,'[^0-9,.]')) TPCT_XL,TPCT_XL_COD,TPCT_HX_COD,
+			decode(TPCT_XY_UP,null, null, regexp_replace(TPCT_XY_UP,'[^0-9,.]'))  TPCT_XY_UP,decode(TPCT_XY_DOWN,null, null, regexp_replace(TPCT_XY_DOWN,'[^0-9,.]'))  TPCT_XY_DOWN,
+			decode(TPCT_RL,null, null, regexp_replace(TPCT_RL,'[^0-9,.]'))  TPCT_RL,
+      		decode(TPCT_CL,null, null, regexp_replace(TPCT_CL,'[^0-9,.]'))  TPCT_CL,
+      		decode(TPCT_SG,null, null, regexp_replace(TPCT_SG,'[^0-9,.]'))  TPCT_SG,
+			decode(TPCT_TZ,null, null, regexp_replace(TPCT_TZ,'[^0-9,.]'))  TPCT_TZ,TPCT_TZ_COD,TPCT_GMYW,TPCT_SJMC_COD,
+			decode(TPCT_DB_PT,null, null, regexp_replace(TPCT_DB_PT,'[^0-9,.]'))  TPCT_DB_PT,TPCT_DB_COD,
+			decode(TPCT_DB_GC,null, null, regexp_replace(TPCT_DB_GC,'[^0-9,.]'))  TPCT_DB_GC,
+			decode(TPCT_NL,null, null, regexp_replace(TPCT_NL,'[^0-9,.]'))  TPCT_NL,TPCT_NL_COD,
+			decode(TPCT_JWH,null, null, regexp_replace(TPCT_JWH,'[^0-9,.]')) TPCT_JWH,TPCT_RL_FLG,TPCT_CL_FLG,TPCT_NL_FLG
+		from (
+			select  t.TEMPERATURE_CHART_SEQ,t.ENTERING_DAT,t.TPCT_TW_COD,t.TPCT_TW,t.TPCT_MB,T.TPCT_TTPF,t.TPCT_HX,t.TPCT_XL,TPCT_XL_COD,t.TPCT_HX_COD,t.TPCT_XY_UP,
+				t.TPCT_XY_DOWN,t.TPCT_XY_COD,t.TPCT_RL,t.TPCT_CL,t.TPCT_SG,t.TPCT_TZ,t.TPCT_TZ_COD,t.TPCT_GMYW,t.TPCT_SJMC_COD,t.TPCT_DB_PT,t.TPCT_DB_COD,t.TPCT_DB_GC,t.TPCT_NL,t.TPCT_NL_COD,t.TPCT_JWH,t.TPCT_RL_FLG,t.TPCT_CL_FLG,t.TPCT_NL_FLG,
+    			a.abdat  from HSP_TPCT_INF t , (SELECT   
+    			TEMPERATURE_CHART_SEQ,emg_seq,TPCT_SJMC_COD, ENTERING_DAT,		   
+    			CASE 
+    			WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') >= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'00:00:00','yyyy-MM-dd HH24:mi:ss') and 
+               	      to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'04:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '2:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'04:00:00','yyyy-MM-dd HH24:mi:ss') and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'08:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '6:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'08:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'12:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '10:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'12:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'16:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '14:00' 
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'16:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'20:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '18:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'20:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'23:59:59','yyyy-MM-dd HH24:mi:ss') THEN  '22:00'
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') = to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'00:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '22:00'
+		        END  abdat
+			FROM HSP_TPCT_INF where emg_seq=#{hspTpctInfCustom.emgSeq} and  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd'),'yyyy-MM-dd HH24:mi:ss')>=#{startdate,jdbcType=DATE} ) a  where 
+			t.ENTERING_DAT=any(select ENTERING_DAT 
+			from (SELECT  TEMPERATURE_CHART_SEQ,emg_seq,TPCT_SJMC_COD, ENTERING_DAT
+			FROM HSP_TPCT_INF where emg_seq=#{hspTpctInfCustom.emgSeq} and  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd'),'yyyy-MM-dd HH24:mi:ss')>=#{startdate,jdbcType=DATE}
+			and TPCT_SJMC_COD in('出院','出观','入观','入院','入抢','转科','转院','死亡','手术','分娩'))  
+			where emg_seq=#{hspTpctInfCustom.emgSeq}) 
+			and a.TEMPERATURE_CHART_SEQ=t.TEMPERATURE_CHART_SEQ   and  t.emg_seq=#{hspTpctInfCustom.emgSeq}) b order by ENTERING_DAT
+  ]]>
+  </select>
+  
+  
+  <select id="findhspTpctInfDatandordercrnl" parameterType="activetech.zyyhospital.pojo.dto.HspTpctInfQueryDto"
+		resultMap="BaseResultMap">
+		<![CDATA[
+  		select ordernum,abodat,TEMPERATURE_CHART_SEQ,ENTERING_DAT,
+			TPCT_TW_COD,decode(TPCT_TW,null, null, regexp_replace(TPCT_TW,'[^0-9,.]')) TPCT_TW,
+			decode(TPCT_MB,null, null, regexp_replace(TPCT_MB,'[^0-9,.]')) TPCT_MB,
+			decode(TPCT_HX,null, null, regexp_replace(TPCT_HX,'[^0-9,.]')) TPCT_HX,
+			decode(TPCT_TTPF,null, null, regexp_replace(TPCT_TTPF,'[^0-9,.]')) TPCT_TTPF,
+			decode(TPCT_XL,null, null, regexp_replace(TPCT_XL,'[^0-9,.]')) TPCT_XL,TPCT_HX_COD,
+			decode(TPCT_XY_UP,null, null, regexp_replace(TPCT_XY_UP,'[^0-9,.]'))  TPCT_XY_UP,decode(TPCT_XY_DOWN,null, null, regexp_replace(TPCT_XY_DOWN,'[^0-9,.]'))  TPCT_XY_DOWN,
+			decode(TPCT_RL,null, null, regexp_replace(TPCT_RL,'[^0-9,.]'))  TPCT_RL,
+      		decode(TPCT_CL,null, null, regexp_replace(TPCT_CL,'[^0-9,.]'))  TPCT_CL,
+      		decode(TPCT_SG,null, null, regexp_replace(TPCT_SG,'[^0-9,.]'))  TPCT_SG,
+			decode(TPCT_TZ,null, null, regexp_replace(TPCT_TZ,'[^0-9,.]'))  TPCT_TZ,TPCT_TZ_COD,TPCT_GMYW,TPCT_SJMC_COD,
+			decode(TPCT_DB_PT,null, null, regexp_replace(TPCT_DB_PT,'[^0-9,.]'))  TPCT_DB_PT,TPCT_DB_COD,
+			decode(TPCT_DB_GC,null, null, regexp_replace(TPCT_DB_GC,'[^0-9,.]'))  TPCT_DB_GC,
+			decode(TPCT_NL,null, null, regexp_replace(TPCT_NL,'[^0-9,.]'))  TPCT_NL,TPCT_NL_COD,
+			decode(TPCT_JWH,null, null, regexp_replace(TPCT_JWH,'[^0-9,.]')) TPCT_JWH,TPCT_RL_FLG,TPCT_CL_FLG,TPCT_NL_FLG
+		from 
+		(select (level-1)ordernum,(2+(level-1)*4||':00')abodat from dual connect by level <=6) d  left join(
+			select  t.TEMPERATURE_CHART_SEQ,t.ENTERING_DAT,t.TPCT_TW_COD,t.TPCT_TW,t.TPCT_MB,t.TPCT_HX,t.TPCT_TTPF,t.TPCT_XL,t.TPCT_HX_COD,t.TPCT_XY_UP,
+				t.TPCT_XY_DOWN,t.TPCT_XY_COD,t.TPCT_RL,t.TPCT_CL,t.TPCT_SG,t.TPCT_TZ,t.TPCT_TZ_COD,t.TPCT_GMYW,t.TPCT_SJMC_COD,t.TPCT_DB_PT,t.TPCT_DB_COD,t.TPCT_DB_GC,t.TPCT_NL,t.TPCT_NL_COD,t.TPCT_JWH,t.TPCT_RL_FLG,t.TPCT_CL_FLG,t.TPCT_NL_FLG,
+    			a.abdat  from HSP_TPCT_INF t , (SELECT   
+    			TEMPERATURE_CHART_SEQ,emg_seq, ENTERING_DAT,		   
+    			CASE 
+    			WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') >= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'00:00:00','yyyy-MM-dd HH24:mi:ss') and 
+               	      to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'04:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '2:00'
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'04:00:00','yyyy-MM-dd HH24:mi:ss') and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'08:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '6:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'08:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'12:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '10:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'12:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'16:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '14:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'16:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'20:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '18:00'  
+		        WHEN  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') > to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'20:00:00','yyyy-MM-dd HH24:mi:ss')  and 
+		              to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') <= to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'23:59:59','yyyy-MM-dd HH24:mi:ss') THEN  '22:00'
+		        WHEN to_date(to_char(ENTERING_DAT,'yyyy-MM-dd HH24:mi:ss'),'yyyy-MM-dd HH24:mi:ss') = to_date(to_char(ENTERING_DAT,'yyyy-MM-dd')||' '||'00:00:00','yyyy-MM-dd HH24:mi:ss') THEN  '22:00'
+		    END  abdat
+			FROM HSP_TPCT_INF where emg_seq=#{hspTpctInfCustom.emgSeq} and  to_date(to_char(ENTERING_DAT,'yyyy-MM-dd'),'yyyy-MM-dd HH24:mi:ss')=#{hspTpctInfCustom.pollDate} ) a  
+			where  a.TEMPERATURE_CHART_SEQ=t.TEMPERATURE_CHART_SEQ   
+			and  t.emg_seq=#{hspTpctInfCustom.emgSeq}) b 
+			on d.abodat= b.abdat  order by ordernum , ENTERING_DAT 
+  ]]>
+  </select>
+  
+  </mapper>

@@ -1,0 +1,202 @@
+@charset "utf-8";
+/**
+*  心肺复苏记录单
+*/
+a:hover {
+    text-decoration: none;
+}
+.recordBody {
+    float:left;
+    width:100%;
+    margin-top:10px;
+    height:auto;
+    max-width: 1240px;
+    min-width: 1100px;
+}
+
+.recordBody .cutoff{
+    width:99%;
+    float:left;
+    border-bottom:1px solid #444;
+}
+
+.recordBody .content-wrapper{
+    margin:0 auto;
+    width:98%;
+}
+.recordBody .subtitle{
+    width:99%;
+    margin-right: 5px;
+    height: 40px;
+}
+
+.recordBody  .check-label{
+    float:left;
+    margin-right:8px;
+    height: 23px;
+    color: #2a00ff;
+    line-height: 23px;
+}
+.recordBody  .check-label input[type=checkbox]{
+    vertical-align: middle
+}
+.div-qt{
+    padding-top: 15px;
+    width: 700px;
+    height: 40px;
+    line-height: 40px;
+    color: #3b3836;
+}
+.recordBody .span-right{
+    float: right;
+    padding-right: 5px;
+}
+
+.recordBody .span-left{
+    float: left;
+    margin-top: 5px;
+    padding-left: 5px;
+    font-size: 14px;
+    font-weight: 800;
+}
+.basic-li{
+  float: left;
+  width: 100%;
+  margin: 5px 0;
+}
+.recordBody .text-input{
+    width: 93px;
+    height: 22px !important;
+}
+.recordBody .text-small-input {
+  width: 93px;
+  height: 22px !important;
+}
+.recordBody .text-input-small {
+    width: 50px;
+    height: 22px !important;
+}
+.recordBody .SignSelect{
+    width:100px;
+    margin-left: -3px;
+    padding-left: 0 !important
+}
+.content-ul{
+    width:99%;
+    margin-top: 20px;
+}
+.lab-title{
+    float:left;
+    display:inline-block;
+    width:7em;
+    color:#000;
+    vertical-align:top;
+    text-align:right;
+    font-size:12px;
+    line-height:23px;
+    padding-left: 15px;
+}
+.span-wrapper{
+    width: 94%;
+    padding-bottom: 10px;
+}
+.text-sel{
+    width:100px;
+}
+.area-wrap {
+    width: 950px;
+    height: 100px;
+    margin-left: 5px;
+    padding: 5px;
+    resize: none;
+}
+.recordBody .Wdate{
+    border: 1px solid #DDD;
+    width: 140px;
+}
+.recordBody .userList {
+    display: none;
+    position: absolute;
+    top: 19px;
+    left: 0px;
+    z-index: 3;
+    width: 100%;
+    max-height: 130px;
+    background: rgb(30, 144, 255);
+    border: 1px solid #ddd;
+    cursor: default;
+    overflow-y: scroll;
+}
+.recordBody .userList li:hover{
+    background: rgb(30, 144, 255);
+    text-decoration: none;
+    color: #fff;
+    cursor: default
+}
+.recordBody .userList li{
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    text-indent: 0.5em;
+}
+.recordBody .tempBtn label{
+    float: left;
+    line-height: 68px;
+    text-indent: 4px;
+    height: 70px;
+}
+.recordBody .tempBtn{
+    display: none;
+    float: left;
+    position: relative;
+    margin-left: 104px;
+    width: 960px;
+    background: #fff;
+    border: 1px solid #d1d1d1;
+}
+.recordBody .commonbtn{
+    width: 88px;
+    padding: 0px 2px;
+    margin: 4px 5px;
+}
+.normal-lab-title{
+    float:left;
+    display:inline-block;
+    width:6em;
+    color:#000;
+    vertical-align:top;
+    text-align:right;
+    font-size:12px;
+    line-height:23px;
+    padding-left: 15px;
+}
+.left-span {
+  margin-left: 37px;
+}
+.long-lab-title {
+  width: 100px;
+}
+div.grp_btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+.recordBody .closeImg {
+    position: absolute;
+    right: 4px;
+    margin-top: 10px;
+}
+.formTitle {
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    padding: 10px 0;
+}
+.right-gap {
+    width: 338px;
+    display: inline-block;
+}

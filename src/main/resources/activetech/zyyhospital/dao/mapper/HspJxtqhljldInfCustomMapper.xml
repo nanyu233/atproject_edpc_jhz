@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspJxtqhljldInfCustomMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspJxtqhljldInfCustom">
+    <id column="JXTQ_SEQ" jdbcType="VARCHAR" property="jxtqSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="MS_COD" jdbcType="CHAR" property="msCod" />
+    <result column="JXTQ_YND" jdbcType="VARCHAR" property="jxtqYnd" />
+    <result column="JXTQ_CQL" jdbcType="VARCHAR" property="jxtqCql" />
+    <result column="JXTQ_PL" jdbcType="VARCHAR" property="jxtqPl" />
+    <result column="JXTQ_PEEP" jdbcType="VARCHAR" property="jxtqPeep" />
+    <result column="JXTQ_HXB" jdbcType="VARCHAR" property="jxtqHxb" />
+    <result column="RECORD_DAT" jdbcType="TIMESTAMP" property="recordDat" />
+    <result column="CRT_DAT" jdbcType="TIMESTAMP" property="crtDat" />
+    <result column="CRT_NUR" jdbcType="VARCHAR" property="crtNur" />
+    <result column="CRT_NAME" jdbcType="VARCHAR" property="crtName" />
+    <result column="UP_DAT" jdbcType="TIMESTAMP" property="upDat" />
+    <result column="UP_NUR" jdbcType="VARCHAR" property="upNur" />
+    <result column="UP_NAME" jdbcType="VARCHAR" property="upName" />
+    <result column="msDes" jdbcType="VARCHAR" property="msDes" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    JXTQ_SEQ, EMG_SEQ, MS_COD, JXTQ_YND, JXTQ_CQL, JXTQ_PL, JXTQ_PEEP, JXTQ_HXB, RECORD_DAT, 
+    CRT_DAT, CRT_NUR, CRT_NAME, UP_DAT, UP_NUR, UP_NAME
+  </sql>
+  <sql id="query_jxtqhljld_where">
+		<if test="hspJxtqhljldInfCustom!=null">
+			<if test="hspJxtqhljldInfCustom.emgSeq!=null and hspJxtqhljldInfCustom.emgSeq!=''">
+				and a.emg_seq = #{hspJxtqhljldInfCustom.emgSeq}
+			</if>
+		</if>
+  </sql>
+  
+  <select id="findJxtqhljldCount" parameterType="activetech.zyyhospital.pojo.dto.ZyyTshljlQueryDto"
+		resultType="int">
+		select count(*) from HSP_JXTQHLJLD_INF a
+		<where>
+			<include refid="query_jxtqhljld_where" />
+		</where>
+  </select>
+  
+  <select id="findJxtqhljldList" parameterType="activetech.zyyhospital.pojo.dto.ZyyTshljlQueryDto"
+		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select JXTQ_SEQ, EMG_SEQ, MS_COD, JXTQ_YND, JXTQ_CQL, JXTQ_PL, JXTQ_PEEP, JXTQ_HXB, RECORD_DAT, 
+    	CRT_DAT, CRT_NUR, CRT_NAME, UP_DAT, UP_NUR, UP_NAME,
+    	(select info from dstdictinfo where TYPECODE = 'MS_COD' and INFOCODE = a.MS_COD) as msDes  
+	  	from HSP_JXTQHLJLD_INF a
+		<where>
+			<include refid="query_jxtqhljld_where" />
+		</where>
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+</mapper>

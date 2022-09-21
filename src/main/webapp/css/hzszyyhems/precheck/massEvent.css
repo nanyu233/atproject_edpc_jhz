@@ -1,0 +1,58 @@
+.massEventBox {
+  overflow: hidden;
+}
+.massEventBox .bottomGap {
+  margin-bottom: 5px;
+}
+.massEventBox .eventAdd {
+  float: left;
+  width: 98%;
+  margin-left: 1%;
+  margin-top: 8px;
+}
+.massEventBox .addMassTitle, .massEventBox .eventBody {
+  float: left;
+  width: 100%;
+}
+.massForm {
+  margin-top: 8px;
+  float: left;
+  width: 98%;
+}
+.addMassTitle p {
+  width: auto;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+}
+.eqLongText {
+  width: 90%;
+}
+.eqLongText.div-textarea {
+  height: 83px;
+}
+.massEventBox .input-long {
+  width: 170px;
+}
+.patientInfo .form table th {
+	width: 20%;
+}
+.onRadio{
+	width:44px;
+	background:#e0ecff;
+	text-align: center;
+	margin-right:3px;
+	color:rgb(99,99,99);
+	border-radius:2px;
+}
+.activeBox{
+	background:rgb(1,82,189);
+	color:#fff;
+}
+.box{
+	width:64px;
+}
+.zdbox{
+	width:70px;
+	margin-bottom:2px;
+}

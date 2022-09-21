@@ -1,0 +1,1039 @@
+@charset "utf-8";
+/**
+*  各页面css
+*/
+
+/* 急诊科住院人数 */
+.zjzyrs .halfTitle {
+    float: left;
+    width: 100%;
+    line-height: 30px;
+    font-size: 14px;
+}
+.zjzyrs .tabDetail p,
+.tabDetail span {
+    line-height: 60px;
+    margin-right: 4em;
+    float: left;
+    font-size: 14px;
+}
+.zjzyrs .halfTitle p, .zjzyrs .halfTitle span{
+    line-height: 30px;
+}
+.zjzyrs .halfTitle p {
+    width: 15%;
+    margin-right: 0px;
+}
+.zjzyrs .halfTitle  .titleBold {
+    width: 140px;
+}
+.zjzyrs .textDiv {
+    width: 94%;
+}
+.zjzyrs .form_cat,.zjzyrs .list_table{
+    margin-bottom: 0px;
+}
+
+/* 死亡率 */
+
+.death .deathlist_div {
+    margin-bottom: 15px;
+    min-height: 100px !important;
+    box-sizing: border-box;
+}
+
+.death .emglist_div {
+    margin-bottom: 0px;
+    min-height: 196px !important;
+    box-sizing: border-box;
+}
+
+/* 月急诊人数图 */
+
+.yjzfbt .yjzfbt .clr:after {
+    clear: both;
+    display: block;
+    visibility: hidden;
+    overflow: hidden;
+    height: 0;
+    content: ".";
+}
+
+.yjzfbt .clr {
+    float: left;
+    margin-top: -22px;
+    margin-left: 2%;
+    width: 98%;
+}
+
+.yjzfbt .form_chart {
+    float: left;
+    margin-right: 2%;
+    width: 47.6%;
+    height: 60%;
+    min-height: 363px;
+    border: 1px solid #b0c9e4;
+    background: #e4efff;
+}
+
+.yjzfbt .form_chart p {
+    width: 100%;
+    height: 40px;
+    background: url(../../images/hems/index/button_bg.png);
+    color: #666;
+    text-align: left;
+    text-indent: 1em;
+    font-size: 16px;
+    font-family: '微软雅黑';
+    line-height: 40px;
+}
+
+.yjzfbt .form_chart .chart1 {
+    float: left;
+    padding-top: 15px;
+    width: 99.9%;
+    height: 80%;
+    border-top: 1px solid #b0c9e4;
+    background: #e4efff;
+}
+
+.yjzfbt .chart_pos {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+/* 抢救室日报表 */
+
+.qjsrbb .input-data {
+    width: 100px;
+}
+
+/* 联系方式分布图  和急诊科会诊院内统计 和 局部急诊科住院人数统计相同样式 */
+
+.nbyabn .textDiv,.zjzyrs .textDiv ,.qjszlsj .textDiv{
+    background: #edf4fd;
+    border: 1px solid #b3ccef;
+    margin-bottom: 15px;
+    margin-left: 2%;
+    padding-left: 2%;
+    border-radius: 10px;
+    height: 60px;
+    -webkit-box-shadow: 0 0 2px 2px #e1e8f1;
+    -moz-box-shadow: 0 0 2px 2px #e1e8f1;
+    box-shadow: 0 0 2px 2px #e1e8f1;
+}
+.nbyabn .textDiv,.qjszlsj .textDiv{
+    width: 62.5%;
+}
+.nbyabn .chart_grp .list_div ,.qjszlsj .list_div{
+    margin-top: -77px;
+    margin-bottom: 15px;
+}
+
+.nbyabn .chart_grp .tab_lv {
+    margin-bottom: 0px;
+}
+
+.nbyabn .list_table {
+    min-height: 200px !important;
+    margin-bottom: 0px;
+}
+
+.nbyabn .form_cat {
+    margin-bottom: 0px;
+}
+
+.nbyabn .halfmsg .halftitle,.zjzyrs .jzzysj .halftitle {
+    width: 100%;
+    float: left;
+    line-height: 30px;
+}
+
+.nbyabn .halfmsg p {
+    line-height: 30px;
+    width: 8em;
+    float: left;
+    font-size: 14px;
+    text-indent: 0.5em;
+}
+
+.nbyabn .halfmsg span {
+    line-height: 30px;
+    float: left;
+    width: 21%;
+    font-size: 14px;
+}
+
+.nbyabn .msg p,
+.nbyabn .msg span {
+    line-height: 60px;
+    margin-right: 4em;
+    float: left;
+    font-size: 14px;
+    text-indent: 0.5em;
+}
+
+.qjszlsj .msg p {
+    line-height: 60px;
+    margin-right: 4em;
+    float: left;
+    font-size: 20px;
+    text-indent: 0.5em;
+}
+
+.nbyabn .point,.zjzyrs .point,.tjzaban .point ,.qjszlsj .point {
+    color: #0256c8;
+}
+
+.nbyabn .listspan,.zjzyrs .listspan {
+    margin-right: 0.5em;
+}
+
+.nbyabn .titlep ,.zjzyrs .titlep{
+    float: left;
+}
+
+.nbyabn .titlebold ,.zjzyrs .titlebold,.nbyabn .titlebold i ,.zjzyrs .titlebold i {
+    font-weight: bold;
+}
+.nbyabn .chart_grp {
+    margin-top: -22px;
+}
+
+/* 抢救措施统计图 */
+
+.brbzxgtjt .m-b5 .conditionw {
+    background: #edf4fd;
+    border: 1px solid #b3ccef;
+    margin-top: -22px;
+    margin-bottom: 15px;
+    width: 94%;
+    margin-left: 2%;
+    border-radius: 10px;
+    padding-left: 2%;
+    height: 48px;
+    -webkit-box-shadow: 0 0 2px 2px #e1e8f1;
+    -moz-box-shadow: 0 0 2px 2px #e1e8f1;
+    box-shadow: 0 0 2px 2px #e1e8f1;
+}
+
+.brbzxgtjt .m-b5 .conditionw li {
+    color: black;
+    font-family: '微软雅黑';
+    font-size: 14px;
+    line-height: 24px;
+    height: 24px;
+    width: 9%;
+}
+
+.brbzxgtjt [type=checkbox] {
+    margin-right: 2%;
+}
+.checkSpan {
+    margin-right: 0px;
+    display: inline-block;
+    min-width: 20%;
+}
+.checkSpan [type=checkbox] {
+    margin-right: 4px;
+}
+
+/* 基础信息配置表管理 */
+
+.form-groupin {
+    background-color: #fff;
+    line-height: 30px;
+    border-collapse: collapse;
+}
+
+.form-groupin td.changecol {
+    height: 30px;
+    line-height: 20px;
+    word-break: break-all;
+    background: #fff;
+    text-align: center;
+    border: 1px solid #ebecee;
+}
+
+.form-groupin td.head {
+    border: 1px solid #ebecee;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    background: url(../../images/hems/nurse/grid-hrow.gif) repeat-x !important;
+}
+
+.form-groupin td.tail {
+    border: 1px solid #ebecee;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+}
+.queryappoption .tr_bg {
+    background-color: #fafafa;
+}
+
+.queryappoption .form-groupin .tr_bg .head {
+    border: 1px solid #ccc;
+}
+
+.queryappoption .appoptiontab {
+    margin-left: 2px;
+    margin-top: 2px;
+}
+
+/* 机构新增 */
+
+.addcompctl .compctl {
+    width: 273px;
+}
+
+/* 机构管理 */
+
+.compctl .list {
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+/* 机构修改 */
+
+.editcompctl .address {
+    width: 273px;
+}
+
+/* 数据字典 */
+
+.querydict .datagrid-wrap.panel-body.panel-body-noheader,
+.querydict .easyui-panel.panel-body.panel-body-noheader,
+.querydict .datagrid-view,
+.querydict .datagrid-header,
+.querydict .datagrid-header-inner table {
+    width: 100% !important;
+}
+
+.querydict .datagrid-view2 {
+    width: 100% !important;
+}
+
+/* 数据字典列表 */
+
+.querydicttype .list {
+    width: 200px;
+    height: 100%;
+    overflow: hidden;
+    margin-left: 2px;
+    margin-top: 2px;
+}
+
+.querydicttype .paneldict {
+    overflow-y: hidden;
+    border: 0;
+}
+
+.querydicttype .datagrid-body {
+    overflow-x: hidden;
+}
+
+.querydicttype .datagrid-wrap.panel-body.panel-body-noheader,
+.querydicttype .easyui-panel.panel-body.panel-body-noheader,
+.querydicttype .datagrid-view,
+.querydicttype .datagrid-header,
+.querydicttype .datagrid-header-inner table {
+    width: 100% !important;
+}
+
+.querydicttype .datagrid-view2 {
+    left:0px;
+    width: 100% !important;
+}
+
+.querydicttype .dictdiv,.querydict .list  {
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+/* 模块管理 */
+
+.querymodule .list {
+    margin-left: 2px;
+}
+
+/* 模块管理 */
+
+.querymoduleoperate .panelmodule {
+    width: 200px;
+}
+
+.querymoduleoperate .module {
+    margin-left: 4px;
+}
+
+.querymoduleoperate .operationtab {
+    margin-left: 4px;
+    margin-top: 2px;
+}
+
+/* 操作管理 */
+
+.queryoperation .list {
+    margin-left: 2px;
+    margin-top: 2px;
+}
+
+
+/* 新增角色 */
+
+.addrole .divarea {
+    margin: 0 2px;
+}
+
+/* 权限管理 */
+
+.allocaterole .btn_grp {
+    height: 20;
+}
+
+.allocaterole .fmdiv {
+    overflow: auto;
+}
+
+/* 修改角色 */
+
+.editrole .divarea {
+    margin: 0 2px;
+}
+.operateLr .div-textarea {
+    width: 99%;
+    height: 150px;
+    box-sizing: border-box;
+}
+.operateLr .long-input {
+    width: 99%;
+    box-sizing: border-box;
+}
+.operateLr .full-wth {
+    width: 100%;
+    box-sizing: border-box;
+    float: none !important;
+}
+.operateLr .label_left {
+    float: left;
+    width: 72px;
+    text-align: left;
+    font-weight: bold;
+    line-height: 28px;
+}
+.operateLr .label_left_big {
+    width: 102px;
+    min-height: 20px;
+}
+.operateLr .right_content {
+    float: left;
+    margin-left: 12px;
+    width: 80%;
+}
+.operateLr .import-div {
+    float: left;
+    width: 79%;
+    padding: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #e0e2e5;
+    margin: 5px 5px 5px 12px;
+}
+.m-l30 {
+    margin-left: 30px;
+}
+.tableSelectList {
+    display: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    position: absolute;
+    max-height: 200px;
+    border: 1px solid #ddd;
+    border-top: none;
+    background-color: #fff;
+    font-size: 12px;
+    line-height: 1.5;
+    z-index: 999;
+    box-sizing: border-box;
+}
+.tableSelectList tr{
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    text-indent: 0.5em;
+    height: 20px;
+    line-height: 20px;
+}
+.tableSelectList tr td {
+    width: 100%;
+    border: 0;
+    padding: 0;
+}
+.tableSelectList tr.buddyListHighLight {
+    background: rgb(30, 144, 255);
+    color: #fff;
+    text-decoration: none;
+    cursor: default;
+}
+/* 角色管理 */
+
+.queryrole .list {
+    margin-left: 2px
+}
+
+/* 机构用户管理 */
+
+.querycompctluser .compctluser {
+    width: 200px;
+}
+
+.querycompctluser .leftmargin {
+    margin-left: 2px;
+}
+
+.querycompctluser .usertab,
+.querycompctluser .roletab {
+    margin-left: 4px;
+}
+
+/* 新增用户 */
+
+.adduser .form table td {
+    min-width: 302px !important;
+}
+.tree-fix-title {
+    position: fixed;
+    width: 190px;
+}
+.querycompctluser .topQueryDiv {
+    width: 192px;
+    margin-top: 20px;
+    background: rgb(243,249,255);
+    height: 30px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+.querycompctluser .topQueryDiv input {
+    margin-left: 2px;
+    margin-top: 2px;
+    width: 120px;
+    box-sizing: border-box;
+}
+.marginTitleGap {
+    margin-top: 58px;
+}
+.grp_btn_right {
+    position: absolute;
+    right: 20px;
+    bottom: 25px;
+}
+/* 用户管理 */
+
+.queryuser .list {
+    margin-left: 2px;
+}
+
+/* 失败提示信息 */
+
+.errorpage .errortd {
+    font-size: 14px;
+    color: #ff0000;
+    padding-top: 2px;
+}
+
+.errorpage .errorspan {
+    vertical-align: middle;
+}
+
+/* 操作成功 */
+
+.successpage .successtd {
+    font-size: 14px;
+}
+
+.successpage .successspan {
+    vertical-align: middle;
+}
+
+/* 病人列表 */
+
+.addemg .fmdiv {
+    height: 25px;
+}
+
+.addemg .list {
+    overflow: auto;
+    margin-left: 2px;
+}
+
+.addemg .list table {
+    width: 825px;
+    height: 400px;
+    overflow: auto;
+}
+
+/* 新增设备配置 */
+
+.adddevice .divarea {
+    margin: 0 2px;
+}
+.adddevice .fullLab {
+    width: 100%;
+    float: left;
+    display: inline-block;
+}
+/* 修改设备配置 */
+
+.editdevice .divarea {
+    margin: 0 2px;
+}
+
+/* 疾病诊断 */
+
+.queryhspjbzd .list {
+    margin-left: 2px;
+}
+.queryhspjbzd .typeWays {
+    float: left;
+    width: 100%;
+    margin-top: 5px;
+}
+.queryhspjbzd .typeWays .marginRight {
+    margin-right: 11px;
+}
+.queryhspjbzd .long-input {
+    width: 200px;
+}
+.ftBody {
+    float: left;
+    width: 100%;
+    overflow: hidden;
+}
+/* 转归记录 */
+
+.queryzg .datagrid-header-inner,
+.queryzg .datagrid-htable,
+.queryzg .datagrid-btable {
+    width: 100% !important;
+}
+
+/* 会诊登记 */
+.tabhzdj .form table th {
+    width: 13%;
+}
+
+.tabhzdj .form table td {
+    width: 37%;
+}
+
+.tabhzdj .errortip {
+    display: none;
+}
+
+.tabhzdj .div-textarea {
+    width: 98%;
+    height: 100px
+}
+
+.tabhzdj .form table td,
+.querylqxxdj .form table td,
+.tabhzdj .form table th,
+.querylqxxdj .form table th {
+    padding: 6px;
+}
+.querylqxxdj .input.readonly {
+    min-height: 30px;
+    height: auto;
+}
+.tabhzdj .doctorList {
+    left:6px;
+    top: 30px;
+}
+
+/* 科室列表 */
+
+.querydep .fmdiv {
+    height: 25px;
+}
+
+.querydep .list {
+    overflow: auto;
+}
+
+.querydep .list table {
+    width: 570px;
+    height: 313px;
+    overflow: auto;
+}
+
+/* 留抢信息登记 */
+
+.querylqxxdj .btna {
+    display: inline-block;
+    float: none;
+}
+
+.querylqxxdj .lqform table th {
+    width: 18%;
+}
+
+.querylqxxdj .lqform table td {
+    width: 32%;
+}
+
+.querylqxxdj .abnScoList {
+    top: 30px;
+    left: 6px;
+}
+/*管路信息*/
+
+.editPipe .editTable th{
+    width: 15%;
+}
+.editPipe .editTable td{
+    width: 35%;
+}
+
+
+/* 抢救室管理-会诊登记 */
+
+.queryqis {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.queryqis .paddingleft {
+    padding-left: 2px;
+}
+
+/*急诊记录*/
+.queryjzjl .jzjltab {
+    margin-left: 2px;
+}
+.queryjzjl .input-wth, .bottomQjs .input-wth{
+    width: 90px;
+}
+.queryjzjl .otspan, .bottomQjs .line-p-text{
+    line-height: 24px;
+    float:left;
+}
+.bottomQjs .line-p-text label {
+    margin-left: 2px;
+}
+.queryjzjl .otspan input{
+    margin-top: 5px;
+}
+.queryjzjl .otspan span{
+    vertical-align: top;
+}
+.queryjzjl .font-span {
+    cursor: pointer;
+    font-size: 13px;
+    color: dimgray;
+    margin-right: 4px;
+}
+.queryjzjl .black-span {
+    color: #000;
+}
+.queryjzjl a.l-btn span.l-btn-left, .bottomQjs a.l-btn span.l-btn-left {
+    padding: 4px 0px 4px 8px;
+}
+.queryjzjl a.l-btn, .bottomQjs a.l-btn {
+    padding-right: 10px;
+}
+.queryjzjl a.l-btn span span.l-btn-text, .bottomQjs a.l-btn span span.l-btn-text {
+    padding-left: 16px !important;
+}
+.queryjzjl .messager-button a.l-btn span span.l-btn-text, .bottomQjs .messager-button a.l-btn span span.l-btn-text {
+    padding: 0 10px !important;
+}
+.queryPipe a.noIcon span span.l-btn-text,.editPipe a.noIcon span span.l-btn-text{
+    padding-left: 0 !important;
+}
+.queryjzjl .smallList {
+    display: none;
+}
+.queryjzjl .smallList ul {
+    width: 100%;
+}
+/*病程记录*/
+
+.querybcjl .blbclist {
+    margin-left: 2px;
+    margin-top: 2px;
+}
+
+/***
+  * 急诊科抢救护理记录单
+  ***/
+.queryhljld .top-part{
+    height:90px;
+}
+.queryhljld h3{
+    padding-top: 10px;
+    font-weight: 500;
+    font-size: 16px;
+}
+.queryhljld h2{
+    font-weight: 700;
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+.queryhljld .spanDiv,.queryhljld .listDiv{
+    float:left;
+    width: 99.5%;
+}
+.queryhljld .spanDiv span:first-child{
+    margin-left:6px;
+}
+.queryhljld .spanDiv span{
+    display: inline-block;
+    min-width:80px;
+    margin-right:10px;
+}
+.queryhljld .listDiv{
+    padding: 10px 0px 0px 2px;
+}
+.queryhljld .bednum{
+    width:90px;
+}
+.queryhljld .datagrid-view2 {
+    left: 0px;
+    width: 100% !important;
+}
+
+/**
+*  检验信息
+**/
+.examinebody div.mainDiv{
+    float:left;
+    margin-left:2px;
+}
+.examinebody div.subDiv{
+    padding-left: 10px;
+    float:left;
+}
+.examinebody #subfieldText{
+    border: 1px solid #dcdcdc;
+    background-color: #ececec;
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    resize: none;
+}
+.examinebody .grp_btn{
+    width: 965px;
+    margin: 0 auto;
+    float: left;
+    margin-top: 15px;
+}
+.examinebody #list_table {
+    width: 100%;
+    padding: 10px 0;
+}
+.checkinfo{
+    padding: 10px;
+}
+.checkinfo #subfieldText{
+    border: 1px solid #dcdcdc;
+    background-color: #ececec;
+    float: left;
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 0px;
+    resize: none;
+}
+.examinebody #check_table{
+    margin-left: 2px;
+}
+
+/**
+*  处方信息
+**/
+.tabsBody{padding: 7px 0 0 10px;}
+.tabsBody .btnPos{position: absolute;right: 10px;bottom: 7.5px;}
+.tabsBody .leftBtn{margin-left:10px;}
+.tabsBody form{margin-bottom: 10px;}
+.tabsBody a:hover{text-decoration: none}
+.tabsBody .subDiv .datagrid-view2 {left: 25px;width: 100% !important;}
+.tabsBody .subDiv .datagrid,.tabsBody .subDiv .datagrid-view,.tabsBody .subDiv .datagrid-body,.tabsBody .subDiv .datagrid-header-inner table,.tabsBody .subDiv .datagrid-cell div {width: 100% !important;}
+.tabsBody .subDiv .panel-header{padding-left: 0px;padding-right: 0px;}
+.tabsBody .subDiv .panel-header .panel-title{margin-left: 5px;}
+
+/**
+*  医嘱
+**/
+.queryyzxx input[readonly]{background-color: #fff;}
+.queryyzxx input[disabled]{background-color: #ececec;}
+.queryyzxx td[field="docadviceChecknam"], td[field="docadviceNuimnam"], td[field="hdhsxm"], td[field="execUserxm"], td[field="execUserxmSecond"] { position: relative;}
+.queryyzxx .allBuddy {
+    display: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 100px;
+    border: 1px solid #ddd;
+    border-top: none;
+    background-color: #fff;
+    font-size: 12px;
+    line-height: 1.5;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+}
+.queryyzxx .allBuddy tr{
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    text-indent: 0.5em;
+    height: 20px;
+    line-height: 20px;
+}
+.queryyzxx .allBuddy tr.buddyListHighLight {
+    background: rgb(30, 144, 255);
+    color: #fff;
+    text-decoration: none;
+    cursor: default;
+}
+.favorite .showItemDiv{
+    margin-left:2px;margin-top:4px;margin-right:4px;float:left;
+}
+.favorite .rightWrapper{
+    float:left;width:72%;margin-top:4px;
+}
+.favorite #content{
+   width: 98%;border:1px solid #d2d9dc;height:415px;text-align:left;margin-bottom:10px;
+}
+.levelAbg {
+    background: red;
+    text-align: center;
+}
+.levelAColor {
+    color: red;
+}
+.levelBbg {
+    background: #ff9900;
+    text-align: center;
+}
+.levelBColor {
+    color: #ff9900;
+}
+.levelCbg {
+    background: #f3d800;
+    text-align: center;
+}
+.levelCColor {
+    color: #f3d800;
+}
+.levelDbg {
+    background: #44b548;
+    text-align: center;
+}
+.levelDColor {
+    color: #44b548;
+}
+.levelAbg, .levelBbg, .levelCbg, .levelDbg {
+    color: #fff;
+}
+.line-span, .line-text {
+    line-height: 26px;
+    cursor: pointer;
+}
+.span-icon {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-top: 5px
+}
+.totalLevel {
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    font-size: 14px;
+}
+
+.textForm table td, .textForm table th {
+    padding: 6px;
+}
+.newDocRatio .m-b5 .form_hc {
+    float:left;
+    margin-top: 0px;
+    height: 55px;
+}
+.newDocRatio .form_cat {
+    width: 47%;
+}
+.massEvent .totalLong{
+    width: 550px
+}
+.heavyFont p {
+    line-height: 60px;
+    margin-right: 4em;
+    float: left;
+    font-size: 20px;
+    text-indent: 0.5em;
+}
+.right-grp {
+    float: right;
+    margin: 8px 0;
+}
+.form input[type="text"].smallText {
+  margin-left: 3px;
+  width: 80px;
+}
+.editPipe .pipeMemo{
+    width:470px
+}
+.frdjform .frdjArea{
+    height: 45px;
+    width: 625px;
+    resize: none
+}
+.frdjform .fullInput{
+    width: 620px;
+}
+.frdjform .age-type{
+    width: 107px
+}
+.lqform .timeTypeSel{
+    height: 26px;
+}
+.lqform .timeAreaInput{
+    width: 75px
+}
+/**
+*洗胃
+**/
+.xwXz .form table th{
+    width: 12%
+}
+.xwXz .form table td{
+    width: 13%
+}
+.xwXz .tzInput{
+    width: 50px
+}
+.xwXz .tzxyInput{
+    width: 30px
+}
+.xwXz .f-right{
+    float: right
+}
+.xwXz .checklabel{
+    margin-right: 7px;
+    color: #2a00ff;
+    float: left;
+    height: 28px;
+    line-height: 28px
+}
+.xwXz .fullQtInput{
+    width: 685px;
+}
+.xwXz .checklabel input[type=text]{
+    display: inline-block;
+    float: right;
+}

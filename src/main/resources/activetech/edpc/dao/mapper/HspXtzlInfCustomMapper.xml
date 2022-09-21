@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspXtzlInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.dto.HspXtzlInfCustom" >
+    <id column="SEQ_NO" property="seqNo" jdbcType="VARCHAR" />
+    <result column="EMG_NO" property="emgNo" jdbcType="VARCHAR" />
+    <result column="PRO_CODE" property="proCode" jdbcType="VARCHAR" />
+    <result column="PRO_VAL" property="proVal" jdbcType="VARCHAR" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="TIMESTAMP" />
+    <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+    <result column="MOD_USER" property="modUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <resultMap id="hspemginfCustomxt" type="activetech.edpc.pojo.dto.HspXtzlInfCustom">
+  	<result column="emg_no" property="emgNo" jdbcType="VARCHAR" />
+  	<result column="pro_code" property="proCode" jdbcType="VARCHAR" />
+  	<result column="pro_val" property="proVal" jdbcType="VARCHAR" />
+  	<result column="pro_name" property="proName" jdbcType="VARCHAR" />
+  	<result column="pro_type" property="proType" jdbcType="VARCHAR" />
+  	<result column="pro_list" property="proList" jdbcType="VARCHAR" />
+  	<collection property="hspCrivelInf" ofType="activetech.edpc.pojo.domain.HspCrivelInf">
+  		<result column="vel_seq" property="velSeq" jdbcType="VARCHAR" />
+  		<result column="emg_seq" property="emgSeq" jdbcType="VARCHAR" />
+  		<result column="xzcd" property="xzcd" jdbcType="VARCHAR" />
+  		<result column="zystimixl" property="zystimixl" jdbcType="VARCHAR" />
+  		<result column="zjnxs" property="zjnxs" jdbcType="VARCHAR" />
+  		<result column="sffcbb" property="sffcbb" jdbcType="VARCHAR" />
+  		<result column="sfcto" property="sfcto" jdbcType="VARCHAR" />
+  		<result column="ghbb" property="ghbb" jdbcType="VARCHAR" />
+  		<result column="zfbb" property="zfbb" jdbcType="VARCHAR" />
+  		<result column="pci" property="pci" jdbcType="VARCHAR" />
+	    <result column="SZCL" property="szcl" jdbcType="VARCHAR" />
+	    <result column="DSTGSJ" property="dstgsj" jdbcType="TIMESTAMP" />
+	    <result column="SHTIMIXL" property="shtimixl" jdbcType="VARCHAR" />
+	    <result column="ZRZJGS" property="zrzjgs" jdbcType="VARCHAR" />
+	    <result column="ZJZL" property="zjzl" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  
+  <update id="mergeHspXtzlInf" parameterType="activetech.edpc.pojo.dto.HspXtzlInfCustom">
+		merge into hsp_xtzl_inf a
+		using (select #{emgNo, jdbcType = VARCHAR} emg_no,
+		              #{proCode, jdbcType = VARCHAR} pro_code,
+		              #{proVal, jdbcType = VARCHAR} pro_val
+		         from dual) b
+		on (a.emg_no = b.emg_no and a.pro_code = b.pro_code)
+		when matched then
+		  update
+		     set a.pro_val   = b.pro_val,
+		         a.mod_user  = #{modUser, jdbcType = VARCHAR},
+		         a.mod_time  = sysdate
+		when not matched then
+		  insert
+		    (SEQ_NO,
+		     EMG_NO,
+		     PRO_CODE,
+		     PRO_VAL,
+		     CRT_TIME,
+		     CRT_USER,
+		     MOD_TIME,
+		     MOD_USER)
+		  values
+		    (HSPXTZLINF_SEQ.nextval,
+		     b.emg_no,
+		     b.pro_code,
+		     b.pro_val,
+		     sysdate,
+		     #{crtUser, jdbcType = VARCHAR},
+		     sysdate,
+		     #{crtUser, jdbcType = VARCHAR})
+
+  </update>
+  
+  <select id="getHspXtzlInfByEmgSeqAndStep" parameterType="java.lang.String" 
+  		resultType="activetech.edpc.pojo.dto.HspXtzlInfCustom">
+		select a.pro_name, a.pro_type, a.pro_code, b.pro_val,a.pro_list,a.pro_unit
+			     from (select pro_name, pro_type, pro_code,pro_list,pro_unit
+			             from hsp_xtzl_def
+			            where node_id = #{nodeId, jdbcType = VARCHAR} order by fld_sort) a,
+			          (select pro_code, pro_val from hsp_xtzl_inf where emg_no = #{emgSeq, jdbcType = VARCHAR}) b
+			    where a.pro_code = b.pro_code 
+  </select>
+  
+  <select id="getHspXtzlInfByEmgSeqAndProCodeList" 
+  		resultType="activetech.edpc.pojo.domain.HspXtzlInf">
+  		select a.seq_no,
+		       a.emg_no,
+		       a.pro_code,
+		       a.pro_val,
+		       a.crt_time,
+		       a.crt_user,
+		       a.mod_time,
+		       a.mod_user
+		  from hsp_xtzl_inf a
+		 where emg_no = #{emgSeq, jdbcType = VARCHAR}
+		   and pro_code in
+		       <foreach item="item" index="index" collection="list" 
+                    open="(" separator="," close=")">
+                   #{item}
+               </foreach>
+  </select>
+  
+  <!-- 胸痛急救时间轴 -->
+  <select id="getCpcTimeline" parameterType="java.lang.String" resultType="activetech.edpc.pojo.dto.HspXtzlInfCustom">
+	select inf.seq_no,
+	       inf.emg_no,
+	       inf.pro_code,
+	       inf.pro_val,
+	       def.pro_type,
+	       def.pro_name,
+	       def.key_time
+	  from hsp_xtzl_inf inf, hsp_xtzl_def def
+	 where inf.pro_code = def.pro_code
+	   and inf.emg_no = #{emgSeq, jdbcType = VARCHAR}
+	   and def.pro_type = 'datetime'
+	   and def.key_time in ('1','2')
+	 order by inf.pro_val asc, def.fld_sort asc
+  </select>
+  
+  <select id="findXtPatientWithCod" resultMap="hspemginfCustomxt">
+		select a.emg_no,
+		       a.pro_code,
+		       a.pro_val,
+		       b.pro_name,
+		       b.pro_type,
+		       b.pro_list,
+		       c.vel_seq,
+		       c.emg_seq,
+		       c.xzcd,
+		       c.zystimixl,
+		       c.zjnxs,
+		       c.sffcbb,
+		       c.sfcto,
+		       c.ghbb,
+		       c.zfbb,
+		       c.pci,
+		       c.szcl,
+		       c.dstgsj,
+		       c.shtimixl,
+		       c.zrzjgs,
+		       c.zjzl
+		  from hsp_xtzl_inf a, hsp_xtzl_def b, hsp_crivel_inf c
+		 where a.pro_code = b.pro_code(+)
+		   and a.pro_val = c.vel_seq(+)
+		   and b.bus_step in
+	   <foreach item="item" index="index" collection="busSteps" 
+            open="(" separator="," close=")">
+           	#{item}
+       </foreach>
+	   and a.emg_no = #{emgNo, jdbcType = VARCHAR}
+  </select>
+  
+  <sql id="xtzl_where">
+  	<if test="cstNam!=null and cstNam!=''">
+	   and a.cst_nam like '%'||#{cstNam,jdbcType=VARCHAR}||'%'
+	 </if>
+	 <if test="endDate!=null and endDate!=''">
+	   and a.emg_dat <![CDATA[<]]> #{endDate,jdbcType=TIMESTAMP}
+	 </if>
+	 <if test="startDate!=null and startDate!=''">
+	   and a.emg_dat <![CDATA[>=]]> #{startDate,jdbcType=TIMESTAMP}
+	 </if>
+	 <if test="dyfs!=null and dyfs!=''">
+	   and exists (select *
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.emg_no = a.emg_seq
+           and hsp_xtzl_inf.pro_code = 'DYFS'
+           and hsp_xtzl_inf.pro_val = #{dyfs,jdbcType=VARCHAR})
+	 </if>
+	 <if test="cbzd!=null and cbzd!=''">
+	   and exists (select *
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.emg_no = a.emg_seq
+           and hsp_xtzl_inf.pro_code = 'CBZD'
+           and hsp_xtzl_inf.pro_val = #{cbzd,jdbcType=VARCHAR})
+	 </if>
+	 <if test="ccdw!=null and ccdw!=''">
+	   and exists (select *
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.emg_no = a.emg_seq
+           and hsp_xtzl_inf.pro_code = 'CCDW'
+           and hsp_xtzl_inf.pro_val = #{ccdw,jdbcType=VARCHAR})
+	 </if>
+	 <if test="yqrszl!=null and yqrszl!=''">
+	   and exists (select *
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.emg_no = a.emg_seq
+           and hsp_xtzl_inf.pro_code = 'YQRSZL'
+           and hsp_xtzl_inf.pro_val = #{yqrszl,jdbcType=VARCHAR})
+	 </if>
+	 <if test="yqrscs!=null and yqrscs!=''">
+	   and exists (select *
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.emg_no = a.emg_seq
+           and hsp_xtzl_inf.pro_code = 'YQRSCS'
+           and hsp_xtzl_inf.pro_val = #{yqrscs,jdbcType=VARCHAR})
+	 </if>
+  </sql>
+  <sql id="xtzl_whereTwo">
+  	<if test="cstNam!=null and cstNam!=''">
+	   and b.cst_Nam like '%'||#{cstNam,jdbcType=VARCHAR}||'%'
+	 </if>
+	 <if test="endDate!=null and endDate!=''">
+	   and b.crt_tim <![CDATA[<]]> #{endDate,jdbcType=TIMESTAMP}
+	 </if>
+	 <if test="startDate!=null and startDate!=''">
+	   and b.crt_tim <![CDATA[>=]]> #{startDate,jdbcType=TIMESTAMP}
+	 </if>
+	 <if test="dyfs!=null and dyfs!=''">
+	   and exists (select *
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.emg_no = b.xt_seq
+           and hsp_xtzl_inf.pro_code = 'DYFS'
+           and hsp_xtzl_inf.pro_val = #{dyfs,jdbcType=VARCHAR})
+	 </if>
+	 <if test="cbzd!=null and cbzd!=''">
+	   and exists (select *
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.emg_no = b.xt_seq
+           and hsp_xtzl_inf.pro_code = 'CBZD'
+           and hsp_xtzl_inf.pro_val = #{cbzd,jdbcType=VARCHAR})
+	 </if>
+	 <if test="ccdw!=null and ccdw!=''">
+	   and exists (select *
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.emg_no = b.xt_seq
+           and hsp_xtzl_inf.pro_code = 'CCDW'
+           and hsp_xtzl_inf.pro_val = #{ccdw,jdbcType=VARCHAR})
+	 </if>
+	 <if test="yqrszl!=null and yqrszl!=''">
+	   and exists (select *
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.emg_no = b.xt_seq
+           and hsp_xtzl_inf.pro_code = 'YQRSZL'
+           and hsp_xtzl_inf.pro_val = #{yqrszl,jdbcType=VARCHAR})
+	 </if>
+	 <if test="yqrscs!=null and yqrscs!=''">
+	   and exists (select *
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.emg_no = b.xt_seq
+           and hsp_xtzl_inf.pro_code = 'YQRSCS'
+           and hsp_xtzl_inf.pro_val = #{yqrscs,jdbcType=VARCHAR})
+	 </if>
+  </sql>
+  
+  <select id="countXtPatientList" parameterType="activetech.edpc.pojo.dto.XtHspEmgInfQueryDto"
+  	resultType="java.lang.Integer">
+	select count(1) from(select a.emg_seq emgSeq
+	  from hsp_emg_inf a
+	 where a.xtlcflg = '1'
+	 <include refid="xtzl_where" />
+    union all
+ 	select b.xt_seq emgSeq from hsp_xt_add b where '1'='1'
+ 	<include refid="xtzl_whereTwo" />
+ 	)
+  </select>
+  
+  <select id="getXtPatientList" parameterType="activetech.edpc.pojo.dto.XtHspEmgInfQueryDto" 
+  	resultType="activetech.edpc.pojo.dto.XtHspEmgInfQueryDto">
+  <include refid="activetech.base.CommonSql.page_start" />
+	select b.xt_seq emgSeq,
+       b.crt_tim emgDat,
+       b.sad_id vstCad,
+       b.id_nbr idNbr,
+       b.cst_Nam cstNam,
+       b.cst_Sex_Cod cstSexCod,
+       (case
+         when b.cst_age_cod = '0' then
+          b.cst_age
+         else
+          '0'
+       end) cstAge,
+       (select pro_val
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.pro_code = 'SCYLJCSJ'
+           and hsp_xtzl_inf.emg_no = b.xt_seq) scyljcsj,
+       (select pro_val
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.pro_code = 'FBSJ'
+           and hsp_xtzl_inf.emg_no = b.xt_seq) fbsj,
+       (select pro_val
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.pro_code = 'CBZD'
+           and hsp_xtzl_inf.emg_no = b.xt_seq) cbzd,
+       b.way_typ wayTyp
+  	from hsp_xt_add b
+  	where '1'='1'
+  	 <include refid="xtzl_whereTwo" />
+	union all
+	select a.emg_seq emgSeq,
+       a.emg_dat emgDat,
+       a.vst_cad vstCad,
+       a.id_nbr idNbr,
+       a.cst_nam cstNam,
+       a.cst_sex_cod cstSexCod,
+       (case
+         when a.cst_age_cod = '0' then
+          a.cst_age
+         else
+          '0'
+       end) cstAge,
+       (select pro_val
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.pro_code = 'SCYLJCSJ'
+           and hsp_xtzl_inf.emg_no = a.emg_seq) scyljcsj,
+       (select pro_val
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.pro_code = 'FBSJ'
+           and hsp_xtzl_inf.emg_no = a.emg_seq) fbsj,
+       (select pro_val
+          from hsp_xtzl_inf
+         where hsp_xtzl_inf.pro_code = 'CBZD'
+           and hsp_xtzl_inf.emg_no = a.emg_seq) cbzd,
+       '0' wayTyp
+    from hsp_emg_inf a
+    where a.xtlcflg = '1'
+     <include refid="xtzl_where" />
+    	order by emgDat desc
+	 <include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  
+  <select id="getD2W" parameterType="java.lang.String"
+  	resultType="java.lang.String">
+	select CEIL((min(dstgsj) + 0 -
+	            (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
+	                from hsp_xtzl_inf
+	               where pro_code = 'DDYYDMSJ'
+	                 and emg_no = #{emgSeq,jdbcType=VARCHAR})) * 24 * 60)
+	  from hsp_crivel_inf
+	 where emg_seq = #{emgSeq,jdbcType=VARCHAR}
+	 group by emg_seq
+  </select>
+
+	<select id="getXtPatientDetail2" parameterType="java.lang.String"
+		resultType="activetech.hospital.pojo.domain.HspEmgInf">
+		select xt_seq,
+		       vst_cad,
+		       cst_nam,
+		       cst_sex_cod,
+		       id_nbr,
+		       cst_age,
+		       bth_dat,
+		       phe_nbr
+		 from hsp_xt_add
+		 where xt_seq = #{emgSeq, jdbcType = VARCHAR}
+	</select>
+	
+	<select id="getHspXtzlInfByEmgSeq" parameterType="java.lang.String" 
+		resultType="activetech.edpc.pojo.dto.HspXtzlInfCustom"  >
+		select a.seq_no,
+		       a.emg_no,
+		       a.pro_code,
+		       a.pro_val,
+		       b.pro_type,
+		       b.pro_name,
+		       b.pro_unit,
+		       b.pro_list,
+		       b.pro_memo,
+		       b.fld_desc
+		  from hsp_xtzl_inf a, hsp_xtzl_def b
+		 where a.pro_code = b.pro_code
+		   and a.emg_no = #{emgSeq, jdbcType = VARCHAR}
+		   and a.pro_val is not null
+	</select>
+  
+</mapper>

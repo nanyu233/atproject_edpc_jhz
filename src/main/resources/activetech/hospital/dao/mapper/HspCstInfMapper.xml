@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspCstInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspCstInf" >
+    <id column="CST_SEQ" property="cstSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="CST_DAT" property="cstDat" jdbcType="DATE" />
+    <result column="CST_DEP_COD" property="cstDepCod" jdbcType="VARCHAR" />
+    <result column="CST_DCT_NBR" property="cstDctNbr" jdbcType="VARCHAR" />
+    <result column="CST_DCT_NME" property="cstDctNme" jdbcType="VARCHAR" />
+    <result column="CST_TZ_DAT" property="cstTzDat" jdbcType="TIMESTAMP" />
+    <result column="CST_DD_DAT" property="cstDdDat" jdbcType="TIMESTAMP" />
+    <result column="CST_NUR_NBR" property="cstNurNbr" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="DATE" />
+    <result column="CRTUSRNO" property="crtusrno" jdbcType="VARCHAR" />
+    <result column="UPDATEDATE" property="updatedate" jdbcType="DATE" />
+    <result column="UPDUSRNO" property="updusrno" jdbcType="VARCHAR" />
+    <result column="CST_COMM" property="cstComm" jdbcType="VARCHAR" />
+    <result column="DCT_FIRST_DAT" property="dctFirstDat" jdbcType="TIMESTAMP" />
+    <result column="DCT_UPDATE_DAT" property="dctUpdateDat" jdbcType="TIMESTAMP" />
+    <result column="HZFS" property="hzfs" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CST_SEQ, EMG_SEQ, CST_DAT, CST_DEP_COD, CST_DCT_NBR, CST_DCT_NME, CST_TZ_DAT, CST_DD_DAT, 
+    CST_NUR_NBR, CREATEDATE, CRTUSRNO, UPDATEDATE, UPDUSRNO, CST_COMM, DCT_FIRST_DAT, 
+    DCT_UPDATE_DAT, HZFS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.domain.HspCstInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CST_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CST_INF
+    where CST_SEQ = #{cstSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_CST_INF
+    where CST_SEQ = #{cstSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.hospital.pojo.domain.HspCstInfExample" >
+    delete from HSP_CST_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.hospital.pojo.domain.HspCstInf" >
+    insert into HSP_CST_INF (CST_SEQ, EMG_SEQ, CST_DAT, 
+      CST_DEP_COD, CST_DCT_NBR, CST_DCT_NME, 
+      CST_TZ_DAT, CST_DD_DAT, CST_NUR_NBR, 
+      CREATEDATE, CRTUSRNO, UPDATEDATE, 
+      UPDUSRNO, CST_COMM, DCT_FIRST_DAT, 
+      DCT_UPDATE_DAT, HZFS)
+    values (#{cstSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{cstDat,jdbcType=DATE}, 
+      #{cstDepCod,jdbcType=VARCHAR}, #{cstDctNbr,jdbcType=VARCHAR}, #{cstDctNme,jdbcType=VARCHAR}, 
+      #{cstTzDat,jdbcType=TIMESTAMP}, #{cstDdDat,jdbcType=TIMESTAMP}, #{cstNurNbr,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=DATE}, #{crtusrno,jdbcType=VARCHAR}, #{updatedate,jdbcType=DATE}, 
+      #{updusrno,jdbcType=VARCHAR}, #{cstComm,jdbcType=VARCHAR}, #{dctFirstDat,jdbcType=TIMESTAMP}, 
+      #{dctUpdateDat,jdbcType=TIMESTAMP}, #{hzfs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.hospital.pojo.domain.HspCstInf" >
+    insert into HSP_CST_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cstSeq != null" >
+        CST_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="cstDat != null" >
+        CST_DAT,
+      </if>
+      <if test="cstDepCod != null" >
+        CST_DEP_COD,
+      </if>
+      <if test="cstDctNbr != null" >
+        CST_DCT_NBR,
+      </if>
+      <if test="cstDctNme != null" >
+        CST_DCT_NME,
+      </if>
+      <if test="cstTzDat != null" >
+        CST_TZ_DAT,
+      </if>
+      <if test="cstDdDat != null" >
+        CST_DD_DAT,
+      </if>
+      <if test="cstNurNbr != null" >
+        CST_NUR_NBR,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="crtusrno != null" >
+        CRTUSRNO,
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE,
+      </if>
+      <if test="updusrno != null" >
+        UPDUSRNO,
+      </if>
+      <if test="cstComm != null" >
+        CST_COMM,
+      </if>
+      <if test="dctFirstDat != null" >
+        DCT_FIRST_DAT,
+      </if>
+      <if test="dctUpdateDat != null" >
+        DCT_UPDATE_DAT,
+      </if>
+      <if test="hzfs != null" >
+        HZFS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cstSeq != null" >
+        #{cstSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="cstDat != null" >
+        #{cstDat,jdbcType=DATE},
+      </if>
+      <if test="cstDepCod != null" >
+        #{cstDepCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cstDctNbr != null" >
+        #{cstDctNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cstDctNme != null" >
+        #{cstDctNme,jdbcType=VARCHAR},
+      </if>
+      <if test="cstTzDat != null" >
+        #{cstTzDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cstDdDat != null" >
+        #{cstDdDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cstNurNbr != null" >
+        #{cstNurNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=DATE},
+      </if>
+      <if test="crtusrno != null" >
+        #{crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=DATE},
+      </if>
+      <if test="updusrno != null" >
+        #{updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="cstComm != null" >
+        #{cstComm,jdbcType=VARCHAR},
+      </if>
+      <if test="dctFirstDat != null" >
+        #{dctFirstDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dctUpdateDat != null" >
+        #{dctUpdateDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hzfs != null" >
+        #{hzfs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.hospital.pojo.domain.HspCstInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_CST_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_CST_INF
+    <set >
+      <if test="record.cstSeq != null" >
+        CST_SEQ = #{record.cstSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstDat != null" >
+        CST_DAT = #{record.cstDat,jdbcType=DATE},
+      </if>
+      <if test="record.cstDepCod != null" >
+        CST_DEP_COD = #{record.cstDepCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstDctNbr != null" >
+        CST_DCT_NBR = #{record.cstDctNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstDctNme != null" >
+        CST_DCT_NME = #{record.cstDctNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstTzDat != null" >
+        CST_TZ_DAT = #{record.cstTzDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cstDdDat != null" >
+        CST_DD_DAT = #{record.cstDdDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cstNurNbr != null" >
+        CST_NUR_NBR = #{record.cstNurNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        CREATEDATE = #{record.createdate,jdbcType=DATE},
+      </if>
+      <if test="record.crtusrno != null" >
+        CRTUSRNO = #{record.crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedate != null" >
+        UPDATEDATE = #{record.updatedate,jdbcType=DATE},
+      </if>
+      <if test="record.updusrno != null" >
+        UPDUSRNO = #{record.updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstComm != null" >
+        CST_COMM = #{record.cstComm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dctFirstDat != null" >
+        DCT_FIRST_DAT = #{record.dctFirstDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dctUpdateDat != null" >
+        DCT_UPDATE_DAT = #{record.dctUpdateDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hzfs != null" >
+        HZFS = #{record.hzfs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_CST_INF
+    set CST_SEQ = #{record.cstSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      CST_DAT = #{record.cstDat,jdbcType=DATE},
+      CST_DEP_COD = #{record.cstDepCod,jdbcType=VARCHAR},
+      CST_DCT_NBR = #{record.cstDctNbr,jdbcType=VARCHAR},
+      CST_DCT_NME = #{record.cstDctNme,jdbcType=VARCHAR},
+      CST_TZ_DAT = #{record.cstTzDat,jdbcType=TIMESTAMP},
+      CST_DD_DAT = #{record.cstDdDat,jdbcType=TIMESTAMP},
+      CST_NUR_NBR = #{record.cstNurNbr,jdbcType=VARCHAR},
+      CREATEDATE = #{record.createdate,jdbcType=DATE},
+      CRTUSRNO = #{record.crtusrno,jdbcType=VARCHAR},
+      UPDATEDATE = #{record.updatedate,jdbcType=DATE},
+      UPDUSRNO = #{record.updusrno,jdbcType=VARCHAR},
+      CST_COMM = #{record.cstComm,jdbcType=VARCHAR},
+      DCT_FIRST_DAT = #{record.dctFirstDat,jdbcType=TIMESTAMP},
+      DCT_UPDATE_DAT = #{record.dctUpdateDat,jdbcType=TIMESTAMP},
+      HZFS = #{record.hzfs,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.hospital.pojo.domain.HspCstInf" >
+    update HSP_CST_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="cstDat != null" >
+        CST_DAT = #{cstDat,jdbcType=DATE},
+      </if>
+      <if test="cstDepCod != null" >
+        CST_DEP_COD = #{cstDepCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cstDctNbr != null" >
+        CST_DCT_NBR = #{cstDctNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cstDctNme != null" >
+        CST_DCT_NME = #{cstDctNme,jdbcType=VARCHAR},
+      </if>
+      <if test="cstTzDat != null" >
+        CST_TZ_DAT = #{cstTzDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cstDdDat != null" >
+        CST_DD_DAT = #{cstDdDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cstNurNbr != null" >
+        CST_NUR_NBR = #{cstNurNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=DATE},
+      </if>
+      <if test="crtusrno != null" >
+        CRTUSRNO = #{crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        UPDATEDATE = #{updatedate,jdbcType=DATE},
+      </if>
+      <if test="updusrno != null" >
+        UPDUSRNO = #{updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="cstComm != null" >
+        CST_COMM = #{cstComm,jdbcType=VARCHAR},
+      </if>
+      <if test="dctFirstDat != null" >
+        DCT_FIRST_DAT = #{dctFirstDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dctUpdateDat != null" >
+        DCT_UPDATE_DAT = #{dctUpdateDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hzfs != null" >
+        HZFS = #{hzfs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CST_SEQ = #{cstSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.hospital.pojo.domain.HspCstInf" >
+    update HSP_CST_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      CST_DAT = #{cstDat,jdbcType=DATE},
+      CST_DEP_COD = #{cstDepCod,jdbcType=VARCHAR},
+      CST_DCT_NBR = #{cstDctNbr,jdbcType=VARCHAR},
+      CST_DCT_NME = #{cstDctNme,jdbcType=VARCHAR},
+      CST_TZ_DAT = #{cstTzDat,jdbcType=TIMESTAMP},
+      CST_DD_DAT = #{cstDdDat,jdbcType=TIMESTAMP},
+      CST_NUR_NBR = #{cstNurNbr,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=DATE},
+      CRTUSRNO = #{crtusrno,jdbcType=VARCHAR},
+      UPDATEDATE = #{updatedate,jdbcType=DATE},
+      UPDUSRNO = #{updusrno,jdbcType=VARCHAR},
+      CST_COMM = #{cstComm,jdbcType=VARCHAR},
+      DCT_FIRST_DAT = #{dctFirstDat,jdbcType=TIMESTAMP},
+      DCT_UPDATE_DAT = #{dctUpdateDat,jdbcType=TIMESTAMP},
+      HZFS = #{hzfs,jdbcType=VARCHAR}
+    where CST_SEQ = #{cstSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

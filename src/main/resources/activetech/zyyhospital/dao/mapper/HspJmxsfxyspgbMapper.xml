@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspJmxsfxyspgbMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspJmxsfxyspgb">
+    <id column="RISK_SEQ" jdbcType="VARCHAR" property="riskSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="MGWXYS_A_COD" jdbcType="VARCHAR" property="mgwxysACod" />
+    <result column="MGWXYS_B_COD" jdbcType="VARCHAR" property="mgwxysBCod" />
+    <result column="MGWXYS_C_COD" jdbcType="VARCHAR" property="mgwxysCCod" />
+    <result column="MGWXYS_D_COD" jdbcType="VARCHAR" property="mgwxysDCod" />
+    <result column="TOTAL_SCO" jdbcType="DECIMAL" property="totalSco" />
+    <result column="ASSESS_DOC" jdbcType="VARCHAR" property="assessDoc" />
+    <result column="ASSESS_DATE" jdbcType="VARCHAR" property="assessDate" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="CREATE_DOC" jdbcType="VARCHAR" property="createDoc" />
+    <result column="UPDATE_DOC" jdbcType="VARCHAR" property="updateDoc" />
+    <result column="ASSESS_DOC_NAM" jdbcType="VARCHAR" property="assessDocNam" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    RISK_SEQ, EMG_SEQ, MGWXYS_A_COD, MGWXYS_B_COD, MGWXYS_C_COD, MGWXYS_D_COD, TOTAL_SCO, 
+    ASSESS_DOC, ASSESS_DATE, CREATE_DATE, UPDATE_DATE, CREATE_DOC, UPDATE_DOC, ASSESS_DOC_NAM
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspJmxsfxyspgbExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_JMXSFXYSPGB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_JMXSFXYSPGB
+    where RISK_SEQ = #{riskSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_JMXSFXYSPGB
+    where RISK_SEQ = #{riskSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspJmxsfxyspgbExample">
+    delete from HSP_JMXSFXYSPGB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspJmxsfxyspgb">
+    insert into HSP_JMXSFXYSPGB (RISK_SEQ, EMG_SEQ, MGWXYS_A_COD, 
+      MGWXYS_B_COD, MGWXYS_C_COD, MGWXYS_D_COD, 
+      TOTAL_SCO, ASSESS_DOC, ASSESS_DATE, 
+      CREATE_DATE, UPDATE_DATE, CREATE_DOC, 
+      UPDATE_DOC, ASSESS_DOC_NAM)
+    values (#{riskSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{mgwxysACod,jdbcType=VARCHAR}, 
+      #{mgwxysBCod,jdbcType=VARCHAR}, #{mgwxysCCod,jdbcType=VARCHAR}, #{mgwxysDCod,jdbcType=VARCHAR}, 
+      #{totalSco,jdbcType=DECIMAL}, #{assessDoc,jdbcType=VARCHAR}, #{assessDate,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{createDoc,jdbcType=VARCHAR}, 
+      #{updateDoc,jdbcType=VARCHAR}, #{assessDocNam,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspJmxsfxyspgb">
+    insert into HSP_JMXSFXYSPGB
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="riskSeq != null">
+        RISK_SEQ,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="mgwxysACod != null">
+        MGWXYS_A_COD,
+      </if>
+      <if test="mgwxysBCod != null">
+        MGWXYS_B_COD,
+      </if>
+      <if test="mgwxysCCod != null">
+        MGWXYS_C_COD,
+      </if>
+      <if test="mgwxysDCod != null">
+        MGWXYS_D_COD,
+      </if>
+      <if test="totalSco != null">
+        TOTAL_SCO,
+      </if>
+      <if test="assessDoc != null">
+        ASSESS_DOC,
+      </if>
+      <if test="assessDate != null">
+        ASSESS_DATE,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="createDoc != null">
+        CREATE_DOC,
+      </if>
+      <if test="updateDoc != null">
+        UPDATE_DOC,
+      </if>
+      <if test="assessDocNam != null">
+        ASSESS_DOC_NAM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="riskSeq != null">
+        #{riskSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="mgwxysACod != null">
+        #{mgwxysACod,jdbcType=VARCHAR},
+      </if>
+      <if test="mgwxysBCod != null">
+        #{mgwxysBCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mgwxysCCod != null">
+        #{mgwxysCCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mgwxysDCod != null">
+        #{mgwxysDCod,jdbcType=VARCHAR},
+      </if>
+      <if test="totalSco != null">
+        #{totalSco,jdbcType=DECIMAL},
+      </if>
+      <if test="assessDoc != null">
+        #{assessDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="assessDate != null">
+        #{assessDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDoc != null">
+        #{createDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDoc != null">
+        #{updateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="assessDocNam != null">
+        #{assessDocNam,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspJmxsfxyspgbExample" resultType="java.lang.Long">
+    select count(*) from HSP_JMXSFXYSPGB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_JMXSFXYSPGB
+    <set>
+      <if test="record.riskSeq != null">
+        RISK_SEQ = #{record.riskSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mgwxysACod != null">
+        MGWXYS_A_COD = #{record.mgwxysACod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mgwxysBCod != null">
+        MGWXYS_B_COD = #{record.mgwxysBCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mgwxysCCod != null">
+        MGWXYS_C_COD = #{record.mgwxysCCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mgwxysDCod != null">
+        MGWXYS_D_COD = #{record.mgwxysDCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalSco != null">
+        TOTAL_SCO = #{record.totalSco,jdbcType=DECIMAL},
+      </if>
+      <if test="record.assessDoc != null">
+        ASSESS_DOC = #{record.assessDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assessDate != null">
+        ASSESS_DATE = #{record.assessDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createDoc != null">
+        CREATE_DOC = #{record.createDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDoc != null">
+        UPDATE_DOC = #{record.updateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assessDocNam != null">
+        ASSESS_DOC_NAM = #{record.assessDocNam,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_JMXSFXYSPGB
+    set RISK_SEQ = #{record.riskSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      MGWXYS_A_COD = #{record.mgwxysACod,jdbcType=VARCHAR},
+      MGWXYS_B_COD = #{record.mgwxysBCod,jdbcType=VARCHAR},
+      MGWXYS_C_COD = #{record.mgwxysCCod,jdbcType=VARCHAR},
+      MGWXYS_D_COD = #{record.mgwxysDCod,jdbcType=VARCHAR},
+      TOTAL_SCO = #{record.totalSco,jdbcType=DECIMAL},
+      ASSESS_DOC = #{record.assessDoc,jdbcType=VARCHAR},
+      ASSESS_DATE = #{record.assessDate,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      CREATE_DOC = #{record.createDoc,jdbcType=VARCHAR},
+      UPDATE_DOC = #{record.updateDoc,jdbcType=VARCHAR},
+      ASSESS_DOC_NAM = #{record.assessDocNam,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspJmxsfxyspgb">
+    update HSP_JMXSFXYSPGB
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="mgwxysACod != null">
+        MGWXYS_A_COD = #{mgwxysACod,jdbcType=VARCHAR},
+      </if>
+      <if test="mgwxysBCod != null">
+        MGWXYS_B_COD = #{mgwxysBCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mgwxysCCod != null">
+        MGWXYS_C_COD = #{mgwxysCCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mgwxysDCod != null">
+        MGWXYS_D_COD = #{mgwxysDCod,jdbcType=VARCHAR},
+      </if>
+      <if test="totalSco != null">
+        TOTAL_SCO = #{totalSco,jdbcType=DECIMAL},
+      </if>
+      <if test="assessDoc != null">
+        ASSESS_DOC = #{assessDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="assessDate != null">
+        ASSESS_DATE = #{assessDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDoc != null">
+        CREATE_DOC = #{createDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDoc != null">
+        UPDATE_DOC = #{updateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="assessDocNam != null">
+        ASSESS_DOC_NAM = #{assessDocNam,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RISK_SEQ = #{riskSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspJmxsfxyspgb">
+    update HSP_JMXSFXYSPGB
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      MGWXYS_A_COD = #{mgwxysACod,jdbcType=VARCHAR},
+      MGWXYS_B_COD = #{mgwxysBCod,jdbcType=VARCHAR},
+      MGWXYS_C_COD = #{mgwxysCCod,jdbcType=VARCHAR},
+      MGWXYS_D_COD = #{mgwxysDCod,jdbcType=VARCHAR},
+      TOTAL_SCO = #{totalSco,jdbcType=DECIMAL},
+      ASSESS_DOC = #{assessDoc,jdbcType=VARCHAR},
+      ASSESS_DATE = #{assessDate,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      CREATE_DOC = #{createDoc,jdbcType=VARCHAR},
+      UPDATE_DOC = #{updateDoc,jdbcType=VARCHAR},
+      ASSESS_DOC_NAM = #{assessDocNam,jdbcType=VARCHAR}
+    where RISK_SEQ = #{riskSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

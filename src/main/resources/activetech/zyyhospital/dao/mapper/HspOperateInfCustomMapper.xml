@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspOperateInfCustomMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspOperateInfCustom">
+    <id column="OPER_SEQ" jdbcType="VARCHAR" property="operSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="OPER_NAM" jdbcType="VARCHAR" property="operNam" />
+    <result column="OPER_DAT" jdbcType="TIMESTAMP" property="operDat" />
+    <result column="OPER_YS" jdbcType="VARCHAR" property="operYs" />
+    <result column="CRE_DAT" jdbcType="TIMESTAMP" property="creDat" />
+    <result column="CRE_COD" jdbcType="VARCHAR" property="creCod" />
+    <result column="CRE_NAM" jdbcType="VARCHAR" property="creNam" />
+    <result column="UPD_DAT" jdbcType="TIMESTAMP" property="updDat" />
+    <result column="UPD_COD" jdbcType="VARCHAR" property="updCod" />
+    <result column="UPD_NAM" jdbcType="VARCHAR" property="updNam" />
+    <result column="OPER_BCJL" jdbcType="VARCHAR" property="operBcjl" />
+    <result column="OPERATION_CODE" jdbcType="VARCHAR" property="operationCode" />
+    <result column="ISPRINT" jdbcType="VARCHAR" property="isprint" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    OPER_SEQ, EMG_SEQ, OPER_NAM, OPER_DAT, OPER_YS, CRE_DAT, CRE_COD, CRE_NAM, UPD_DAT, 
+    UPD_COD, UPD_NAM, OPER_BCJL, OPERATION_CODE, ISPRINT
+  </sql>
+  <!-- 通过emg_seq 查询患者的手术操作情况列表 -->
+  <select id="findOperateListByEmgSeq" parameterType="activetech.zyyhospital.pojo.dto.HspOperateInfQueryDto" resultMap="BaseResultMap">
+  		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+  		select <include refid="Base_Column_List" /> from HSP_OPERATE_INF where EMG_SEQ = #{hspOperateInfCustom.emgSeq} order by OPER_DAT
+  		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  
+  <!-- 查询列表总数 -->
+  <select id="findOperateListCount" parameterType="activetech.zyyhospital.pojo.dto.HspOperateInfQueryDto" resultType="int">
+  		select count(*) from HSP_OPERATE_INF where EMG_SEQ = #{hspOperateInfCustom.emgSeq}
+  </select>
+  
+  <!-- 手术操作列表打印 -->
+  <select id="findOperateListPrint" parameterType="activetech.zyyhospital.pojo.dto.HspLqbljlQueryDto" resultMap="BaseResultMap">
+  		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+  		select <include refid="Base_Column_List" /> from HSP_OPERATE_INF where EMG_SEQ = #{hspOperateInfCustom.emgSeq}
+  		order by ${sort} ${order}
+  		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  
+  <!-- 修改打印状态 -->
+  <update id="updOperateAfterPrint" parameterType="activetech.zyyhospital.pojo.dto.HspDiseaseCourseQueryDto">
+  		  update HSP_OPERATE_INF
+		   set isprint = '1'
+		 where OPER_SEQ in
+		<foreach collection="operateInfList" index="index" item="operSeq" open="(" separator="," close=")">  
+           #{operSeq}  
+       </foreach>
+  	</update>
+</mapper>

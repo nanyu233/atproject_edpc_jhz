@@ -1,0 +1,233 @@
+.winScore {
+    width: 94%;
+    margin:0 auto;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.winScore .DangerContent .title{
+    color:#3b3836;
+    font-size:14px;
+    font-weight:500;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+.DangerContent .labtab {
+    width: 65%;
+    float: left;
+    height: 24px;
+    line-height: 20px;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box;
+    background: #fff;
+}
+.DangerContent .twoLabtab{
+    height: 48px !important;
+    line-height: 22px ;
+}
+.DangerContent .twoLabtab .thirdSpan{
+    line-height: 48px ;
+}
+.DangerContent .threeLabtab{
+    height: 72px !important;
+    line-height:22px;
+}
+.DangerContent .threeLabtab .thirdSpan{
+    line-height: 72px ;
+}
+.DangerContent .labtab.evenLab {
+    background: rgb(243,249,255);
+}
+.DangerContent .tableUl{
+    float: left;
+    border: 1px solid #ccc;
+    border-width: 0px 0px 0px 1px;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+.DangerContent .tableUl  li{
+    float: left;
+    width: 100%;
+    text-align: center;
+    height: 72px;
+    line-height: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-width: 1px 0px 0px 0px;
+}
+.DangerContent .tableUl  li.specialLi {
+    height: 24px;
+}
+.DangerContent .tableUl  li.fourLi {
+    height: 96px;
+}
+.DangerContent .tableUl  li.sixLi {
+    height: 144px;
+}
+.DangerContent .tableUl  li.fiveLi {
+    height: 120px;
+}
+.DangerContent .titleSpan {
+    width: 35%;
+    height: 72px;
+    line-height: 72px;
+    float: left;
+    background: #fff;
+    display: inline-block;
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+.DangerContent .titleCol {
+    background: rgb(243,249,255);
+}
+li.specialLi .titleSpan{
+    height: 24px;
+    line-height: 20px;
+}
+li.fourLi .titleSpan{
+    height: 96px;
+    line-height: 96px;
+}
+li.sixLi .titleSpan{
+    height: 144px;
+    line-height: 144px;
+}
+li.fiveLi .titleSpan{
+    height: 120px;
+    line-height: 120px;
+}
+.DangerContent .tableUl li.twoLi{
+    height: 48px;
+}
+li.twoLi .titleSpan{
+    height: 48px;
+    line-height: 48px;
+}
+.DangerContent .spcLine{
+    line-height: 20px;
+    padding: 7px 7px;
+}
+.DangerContent .thirdSpan,.DangerContent .fourthSpan{
+    float: left;
+    height: 24px;
+    vertical-align: middle;
+    display: inline-block;
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
+}
+.DangerContent .thirdSpan input[type="checkbox"]{
+    margin-top: 5px;
+}
+.DangerContent .fourthSpan {
+    width: 70%;
+}
+.DangerContent .thirdSpan {
+    width: 15%;
+}
+.common_btn{
+    float: right;
+    margin-bottom: 10px;
+}
+.twoLab{
+    height: 48px !important;
+}
+.twoLab input[type='checkbox']{
+    margin-top:18px !important;
+}
+.threeLab{
+    height: 72px !important;
+}
+.threeLab input[type='checkbox']{
+    margin-top:28px !important;
+}
+
+.winScore .showDiv{
+    width:250px;
+    height:60px;
+    border:1px solid #d6cdac;
+    background:#fff8cd;
+    border-radius:8px;
+    margin-top: -80px;
+    margin-left: 0px;
+    position: absolute;
+    display:none;
+}
+.winScore .showMsg{
+    margin:0 auto;
+    width:240px;
+    height: 60px;
+    font-size:12px;
+    color: #3b3836;
+    text-align: center;
+    line-height:20px;
+}
+.winScore .showDivFour{
+    width:250px;
+    height:80px;
+    border:1px solid #d6cdac;
+    background:#fff8cd;
+    border-radius:8px;
+    margin-top: -100px;
+    margin-left: 0px;
+    position: absolute;
+    display:none;
+}
+.winScore .showMsgFour{
+    margin:0 auto;
+    width:240px;
+    height: 80px;
+    font-size:12px;
+    color: #3b3836;
+    text-align: center;
+    line-height:20px;
+}
+
+.winScore .showDivTwo{
+    width:250px;
+    height:40px;
+    border:1px solid #d6cdac;
+    background:#fff8cd;
+    border-radius:8px;
+    margin-top: -60px;
+    margin-left: 0px;
+    position: absolute;
+    display:none;
+}
+.winScore .showMsgTwo{
+    margin:0 auto;
+    width:240px;
+    height: 40px;
+    font-size:12px;
+    color: #3b3836;
+    text-align: center;
+    line-height:20px;
+}
+
+.winScore .showDivFive{
+    width:250px;
+    height:100px;
+    border:1px solid #d6cdac;
+    background:#fff8cd;
+    border-radius:8px;
+    margin-top: -120px;
+    margin-left: 0px;
+    position: absolute;
+    display:none;
+}
+.winScore .showMsgFive{
+    margin:0 auto;
+    width:240px;
+    height: 100px;
+    font-size:12px;
+    color: #3b3836;
+    text-align: center;
+    line-height:20px;
+}
+.winScore .checkLabels{
+    float: left;
+    margin-right: 3px;
+    color:#2a00ff
+}
+.winScore .lab-title{
+    color: #2a00ff;
+}

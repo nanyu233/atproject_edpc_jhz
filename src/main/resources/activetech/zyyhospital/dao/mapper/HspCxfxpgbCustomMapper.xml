@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspCxfxpgbCustomMapper">
+	<resultMap id="BaseResultMap"
+		type="activetech.zyyhospital.pojo.dto.HspCxfxpgbCustom">
+		<id column="RISK_SEQ" property="riskSeq" jdbcType="VARCHAR" />
+		<result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+		<result column="HIGHRISK1" property="highrisk1" jdbcType="VARCHAR" />
+		<result column="HIGHRISK2" property="highrisk2" jdbcType="VARCHAR" />
+		<result column="ASSRESULT" property="assresult" jdbcType="VARCHAR" />
+		<result column="ASSESS_DOC" property="assessDoc" jdbcType="VARCHAR" />
+		<result column="ASSESS_DATE" property="assessDate" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="CREATE_DOC" property="createDoc" jdbcType="VARCHAR" />
+		<result column="UPDATE_DOC" property="updateDoc" jdbcType="VARCHAR" />
+		<result column="ASSESS_DOC_NAM" jdbcType="VARCHAR" property="assessDocNam" />
+	</resultMap>
+
+	<select id="getCxfxpgbByEmgSeq" resultMap="BaseResultMap"
+		parameterType="String">
+		select
+		RISK_SEQ,EMG_SEQ,HIGHRISK1,HIGHRISK2,ASSRESULT,ASSESS_DOC,ASSESS_DATE,CREATE_DATE,UPDATE_DATE,CREATE_DOC,UPDATE_DOC,
+		ASSESS_DOC_NAM assessDocNam
+		from HSP_CXFXPGB
+		where EMG_SEQ=#{emgSeq,jdbcType=VARCHAR}
+	</select>
+</mapper>

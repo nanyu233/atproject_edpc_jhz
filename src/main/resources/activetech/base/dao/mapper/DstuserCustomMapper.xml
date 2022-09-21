@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SysuserMapperCustom就是mapper接口 -->
+<mapper namespace="activetech.base.dao.mapper.DstuserCustomMapper">
+ <!-- 用户是查询条件 通常情况，为了提高 sql片段可重用性，按单表创建sql片段 -->
+	<sql id="query_user_where">
+		<if test="dstuserCustom!=null">
+			<if test="dstuserCustom.usrno!=null and dstuserCustom.usrno!=''">
+				and dstuser.usrno = #{dstuserCustom.usrno}
+			</if>
+			<if test="dstuserCustom.usrname!=null and dstuserCustom.usrname!=''">
+				and dstuser.usrname like  '%'|| #{dstuserCustom.usrname}||'%' 
+			</if>
+			<if test="dstuserCustom.sysid!=null and dstuserCustom.sysid!=''">
+				and dstuser.sysid in (select comno
+                   from dstcompctl
+                  start with comno = #{dstuserCustom.sysid}
+                 connect by prior comno = comman)
+			</if>
+			<if test="dstuserCustom.outCall!=null and dstuserCustom.outCall!=''">
+				and dstuser.out_Call =  #{dstuserCustom.outCall}
+			</if>
+			<if test="dstuserCustom.comno!=null and dstuserCustom.comno!=''">
+				and dstuser.emgsysid =  #{dstuserCustom.comno}
+			</if>
+			<if test="dstuserCustom.queryLike !=null and dstuserCustom.queryLike !=''">
+				and dstuser.usrno = #{dstuserCustom.queryLike}
+				or dstuser.usrname like  #{dstuserCustom.queryLike}||'%' 
+				or dstuser.vchar1 like '%'|| upper(#{dstuserCustom.queryLike})||'%' 
+			</if>
+			<if test="dstuserCustom.selrole!=null and dstuserCustom.selrole!=''">
+				and dstuser.usrno in(select usrno from dstuserrole where roleid = #{dstuserCustom.selrole} )
+			</if>
+			<if test="dstuserCustom.emgsysid != null and dstuserCustom.emgsysid != ''">
+				and dstuser.EMGSYSID in (select comno
+                   from dstcompctl
+                  start with comno = #{dstuserCustom.emgsysid}
+                 connect by prior comno = comman)
+			</if>
+		</if>
+	</sql>
+	<resultMap id="findMenuByroleidResultMap" type="activetech.base.pojo.dto.Menu">
+	    <id column="menuid" property="menuid" />
+	    <result column="menuname" property="menuname" />
+	    <result column="icon" property="icon" />
+	    <result column="mainurl" property="mainurl" />
+	    <collection property="menus" ofType="activetech.base.pojo.dto.Menu">
+	        <result column="menuid_two" property="menuid" />
+	         <result column="menuname_two" property="menuname" />
+	         <result column="url" property="url" />
+	         <result column="icon_two" property="icon" />
+	         <result column="RELOAD_TYPE" property="reloadType"/>
+	    </collection>
+	</resultMap>
+
+  <!-- 根据角色获取菜单(一、二级) -->
+  <select id="findMenuByroleid" parameterType="java.lang.String" resultMap="findMenuByroleidResultMap">
+		select * from (select distinct m1.moduleid menuid,
+		       m1.MODULENAME menuname,
+		       m1.icon,
+		       m1.url mainurl,
+		       m2.moduleid menuid_two,
+		       m2.MODULENAME menuname_two,
+		       m2.icon icon_two,
+		       m2.url,
+		       m2.RELOAD_TYPE,
+		       m1.showorder m1showorder,
+               m2.showorder m2showorder
+		  from dstmodule m1, dstmodule m2
+		 where m2.parentid = m1.moduleid
+		   and m1.parentid = '0'
+		   and m2.parentid != '0'
+		   and m1.isused = '1'
+		   and m2.isused = '1'
+		   and m2.moduleid in (select r2.moduleid
+		                         from dstrole r1, dstrolemodule r2
+		                        where r2.roleid = r1.roleid
+		                          and r1.roleid in  
+		                          <foreach item="item" index="index" collection="list" 
+				                         open="(" separator="," close=")">
+				                        #{item}
+				                </foreach>))temp
+	 order by temp.m1showorder, temp.m2showorder
+  </select>
+  
+  <select id="findOperatByRoleid" parameterType="java.lang.String" resultType="activetech.base.pojo.dto.Operation">
+	 select distinct o.url         actionUrl,
+	        o.operatename operationName,
+	        o.operateid   operationId,
+	        o.moduleid,
+	        o.icon,
+	        o.opertype,
+	        o.showorder
+	   from DSTROLEOPERATE,dstoperation o
+	  where DSTROLEOPERATE.operateid(+)=o.operateid and  
+	  DSTROLEOPERATE.RMID in
+	        (select r2.id
+	           from dstrole r1, dstrolemodule r2
+	          where r2.roleid = r1.roleid 
+	            and r1.roleid in  <foreach item="item" index="index" collection="list" 
+				                         open="(" separator="," close=")">
+				                        #{item}
+				                </foreach>)
+		 order by o.opertype asc, showorder asc
+  </select>
+	<!-- 查询用户列表的总记录数 -->
+	<select id="findUserCount" parameterType="activetech.base.pojo.dto.DstuserQueryDto" resultType="int">
+		select count(*) from dstuser
+		<where>
+			<include refid="query_user_where" />
+			and dstuser.userstate != '3'
+			and dstuser.usrno not like '%'|| 'admin' ||'%'
+		</where>
+	</select>
+	
+	<!-- 查询用户列表 -->
+	<select id="findUserList" parameterType="activetech.base.pojo.dto.DstuserQueryDto"
+		resultType="activetech.base.pojo.dto.DstuserCustom">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select 
+		       userid,
+		       usrno,
+               usrname,
+               usrpass,
+               (select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=dstuser.userstate) as userstate,
+               phone,
+               movephone,
+               addr,
+               email,
+               fax,
+               (select info from dstdictinfo a where a.typecode='USERGROUP' and a.infocode=dstuser.groupid) as groupname,
+               (select comcname from dstcompctl where comno=dstuser.sysid) as dwmc,
+               vchar1,
+               vchar2,
+               vchar3,
+               vchar4,
+               out_Call outCall,
+               emgsysid,
+                (select comcname from dstcompctl where comno=dstuser.emgsysid) as emgdwmc
+                from dstuser 
+		<where>
+			<include refid="query_user_where" />
+			and dstuser.userstate != '3'
+			and dstuser.usrno not like '%'|| 'admin' ||'%'
+			order by to_number(vchar2) asc
+		</where>
+
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+		</select>
+		
+		<!-- 查询出诊管理用户列表的总记录数 -->
+	<select id="findCZGLUserCount" parameterType="activetech.base.pojo.dto.DstuserQueryDto" resultType="int">
+		select count(*) from dstuser
+		<where>
+			<include refid="query_user_where" />
+			and dstuser.userstate = '1'
+			and dstuser.usrno not like '%'|| 'admin' ||'%'
+		</where>
+	</select>
+	
+	<!-- 查询出诊管理用户列表 -->
+	<select id="findCZGLUserList" parameterType="activetech.base.pojo.dto.DstuserQueryDto"
+		resultType="activetech.base.pojo.dto.DstuserCustom">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select * from (
+		select 
+		       userid,
+		       usrno,
+               usrname,
+               usrpass,
+               (select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=dstuser.userstate) as userstate,
+               phone,
+               movephone,
+               addr,
+               email,
+               fax,
+               (select info from dstdictinfo a where a.typecode='USERGROUP' and a.infocode=dstuser.groupid) as groupname,
+               (select comcname from dstcompctl where comno=dstuser.sysid) as dwmc,
+               vchar1,
+               vchar2,
+               vchar3,
+               vchar4,
+               out_Call outCall,
+               emgsysid,
+                (select comcname from dstcompctl where comno=dstuser.emgsysid) as emgdwmc
+                from dstuser 
+		<where>
+			<include refid="query_user_where" />
+			and dstuser.userstate = '1'
+			and dstuser.usrno not like '%'|| 'admin' ||'%'
+		</where>
+		) temp
+		order by ${sort} ${order}
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+  <select id="getHighChartsUser" resultType="activetech.base.pojo.dto.HighChartsDemoCustom">
+  select count(sysid) count,(select comcname from dstcompctl where comno=sysid) name from dstuser group by sysid order by sysid
+  </select>
+ 
+  <update id="updateOutCall2Cz" >
+	   update DSTUSER set out_call=&apos;1&apos; where userid in 
+	  <foreach collection="array"  item="userIdList" open="("
+	    separator="," close=")">
+	   	#{userIdList}
+	  </foreach>
+  </update>
+  <update id="updateOutCall2Wcz">
+	   update DSTUSER set out_call=&apos;0&apos; where userid in 
+	  <foreach collection="array"  item="userIdList" open="("
+	    separator="," close=")">
+	   	#{userIdList}
+	  </foreach>
+  </update>
+  
+  <select id="findDstuserCustomDriv" resultType="activetech.base.pojo.dto.DstuserCustom">
+  	select * from DSTUSER where SYSID =(select COMNO from DSTCOMPCTL where COMCNAME = #{comcname})
+  </select>
+  
+  <!-- 查询用户列表的总记录数 -->
+	<select id="findAbnUserCount" parameterType="activetech.base.pojo.dto.DstuserQueryDto" resultType="int">
+		select count(*) from dstuser
+		<where>
+			<if test="dstuserCustom!=null">
+				<if test="dstuserCustom.usrno!=null and dstuserCustom.usrno!=''">
+					and dstuser.usrno like '%'|| #{dstuserCustom.usrno}||'%'
+				</if>
+				<if test="dstuserCustom.usrname!=null and dstuserCustom.usrname!=''">
+					and dstuser.usrname like  '%'|| #{dstuserCustom.usrname}||'%' 
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 查询用户列表 -->
+	<select id="findAbnUserList" parameterType="activetech.base.pojo.dto.DstuserQueryDto"
+		resultType="activetech.base.pojo.dto.DstuserCustom">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select 
+		       userid,
+		       usrno,
+               usrname,
+               usrpass,
+               (select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=dstuser.userstate) as userstate,
+               phone,
+               movephone,
+               addr,
+               email,
+               fax,
+               (select info from dstdictinfo a where a.typecode='USERGROUP' and a.infocode=dstuser.groupid) as groupname,
+               (select comcname from dstcompctl where comno=dstuser.sysid) as dwmc,
+               vchar1,
+               vchar2,
+               vchar3,
+               vchar4,
+               out_Call outCall,
+               emgsysid,
+                (select comcname from dstcompctl where comno=dstuser.emgsysid) as emgdwmc
+                from dstuser 
+		<where>
+			<if test="dstuserCustom!=null">
+				<if test="dstuserCustom.usrno!=null and dstuserCustom.usrno!=''">
+					and dstuser.usrno like '%'|| #{dstuserCustom.usrno}||'%'
+				</if>
+				<if test="dstuserCustom.usrname!=null and dstuserCustom.usrname!=''">
+					and dstuser.usrname like  '%'|| #{dstuserCustom.usrname}||'%' 
+				</if>
+			</if>
+		</where>
+		order by outCall
+
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+		</select>
+		<!-- 忽略大小写会诊医生查询 -->
+		<select id="findDstUserByQueryLike"  parameterType="java.lang.String"  resultType="activetech.base.pojo.dto.DstuserCustom">
+			select * from dstuser 
+			where userstate = '1'
+			<if test="cstDepCod !=null and cstDepCod !=''">
+				and SYSID = #{cstDepCod} 
+			</if>
+			<if test="queryLike !=null and queryLike !=''">
+				and dstuser.usrno = #{queryLike}
+				or dstuser.usrname like  #{queryLike}||'%' 
+				or dstuser.vchar1 like '%'|| upper(#{queryLike})||'%' 
+				or dstuser.vchar1 like '%'|| lower(#{queryLike})||'%' 
+			</if>
+		</select>
+		
+	<select id="findOperatForAdmin" parameterType="java.lang.String" resultType="activetech.base.pojo.dto.Operation">
+	 select distinct o.url         actionUrl,
+	        o.operatename operationName,
+	        o.operateid   operationId,
+	        o.moduleid,
+	        o.icon,
+	        o.opertype,
+	        o.showorder
+	   from dstoperation o
+		 order by o.opertype asc, showorder asc
+  </select>
+  
+  <select id="findMenuForAdmin" resultMap="findMenuByroleidResultMap">
+		select * from (select distinct m1.moduleid menuid,
+		       m1.MODULENAME menuname,
+		       m1.icon,
+		       m1.url mainurl,
+		       m2.moduleid menuid_two,
+		       m2.MODULENAME menuname_two,
+		       m2.icon icon_two,
+		       m2.url,
+		       m2.RELOAD_TYPE,
+		       m1.showorder m1showorder,
+               m2.showorder m2showorder
+		  from dstmodule m1, dstmodule m2
+		 where m2.parentid = m1.moduleid)temp
+	 order by temp.m1showorder, temp.m2showorder
+  </select>
+  
+  <!-- 查询用户列表  (用户号和用户名合并查询)-->
+	<select id="findUserListByNameAndNo" parameterType="activetech.base.pojo.dto.DstuserQueryDto"
+		resultType="activetech.base.pojo.dto.DstuserCustom">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select 
+		       userid,
+		       usrno,
+               usrname,
+               usrpass,
+               (select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=dstuser.userstate) as userstate,
+               phone,
+               movephone,
+               addr,
+               email,
+               fax,
+               (select info from dstdictinfo a where a.typecode='USERGROUP' and a.infocode=dstuser.groupid) as groupname,
+               (select comcname from dstcompctl where comno=dstuser.sysid) as dwmc,
+               vchar1,
+               vchar2,
+               vchar3,
+               vchar4,
+               out_Call outCall,
+               emgsysid,
+                (select comcname from dstcompctl where comno=dstuser.emgsysid) as emgdwmc
+                from dstuser 
+		<where>
+			<if test="dstuserCustom!=null">
+				<if test="dstuserCustom.usrno!=null and dstuserCustom.usrno!=''">
+					(dstuser.usrno  = #{dstuserCustom.usrno}
+					or 
+					dstuser.usrname like  '%'|| #{dstuserCustom.usrno}||'%' 
+					or 
+					upper(dstuser.vchar1) like '%'|| upper(#{dstuserCustom.usrno})||'%' )
+					and
+				</if>
+			</if>
+			dstuser.userstate != '3'
+			and dstuser.usrno not like '%'|| 'admin' ||'%'
+		</where>
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	<!-- 查询用户列表的总记录数 (用户号和用户名合并查询)-->
+	<select id="findCountByNameAndNo" parameterType="activetech.base.pojo.dto.DstuserQueryDto" resultType="int">
+		select count(*) from dstuser
+		<where>
+			<if test="dstuserCustom!=null">
+				<if test="dstuserCustom.usrno!=null and dstuserCustom.usrno!=''">
+					(dstuser.usrno  = #{dstuserCustom.usrno}
+					or 
+					dstuser.usrname like  '%'|| #{dstuserCustom.usrno}||'%' 
+					or 
+					dstuser.vchar1 like '%'|| #{dstuserCustom.usrno}||'%' )
+					and
+				</if>
+			</if>
+			dstuser.userstate != '3'
+			and dstuser.usrno not like '%'|| 'admin' ||'%'
+		</where>
+	</select>
+	
+
+		
+</mapper>

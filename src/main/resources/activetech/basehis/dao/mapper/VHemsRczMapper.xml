@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.basehis.dao.mapper.VHemsRczMapper" >
+  <resultMap id="BaseResultMap" type="activetech.basehis.pojo.dto.VHemsRczCustom" >
+    <id column="RCZ_ID" property="rczId" jdbcType="VARCHAR" />
+    <result column="GHID" property="ghid" jdbcType="VARCHAR" />
+    <result column="ADT_A01" property="adtA01" jdbcType="VARCHAR" />
+    <result column="MPI" property="mpi" jdbcType="VARCHAR" />
+    <result column="TASK_TIME" property="taskTime" jdbcType="TIMESTAMP" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="TASH_PERSONEL" property="tashPersonel" jdbcType="VARCHAR" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="GHSJ" property="ghsj" jdbcType="TIMESTAMP" />
+    <result column="JZXH" property="jzxh" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="CSRQ" property="csrq" jdbcType="TIMESTAMP" />
+    <result column="BRXM" property="brxm" jdbcType="VARCHAR" />
+    <result column="SFZH" property="sfzh" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="LXFS" property="lxfs" jdbcType="VARCHAR" />
+    <result column="GHKS" property="ghks" jdbcType="VARCHAR" />
+    <result column="ghsjStr" property="ghsjStr" jdbcType="VARCHAR" />
+    <result column="csrqStr" property="csrqStr" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="findRczGhxx" resultMap="BaseResultMap" 
+  	parameterType="activetech.basehis.pojo.dto.HemshisDto">
+  	<!-- 分页头 -->
+	<include refid="activetech.base.CommonSql.page_start" />
+  	select MPI,
+	    RCZ_ID,
+	    to_char(GHSJ,'yyyy/mm/dd hh24:mi:ss') ghsjStr,
+	    JZXH,
+	    SEX,
+	    to_char(CSRQ,'yyyy/mm/dd') csrqStr,
+	    BRXM,
+	    SFZH,
+	    LXFS,
+	    GHKS,
+	    ADT_A01
+	from zjyy_sd.v_hems_rcz
+	where EMG_SEQ is null
+	and TYPE = 'REG'
+	<![CDATA[
+    and GHSJ > #{startdate}
+	and GHSJ < #{enddate}
+	]]>
+	<if test="hspemginfCustom.jzxhOld !=null and hspemginfCustom.jzxhOld !=''">
+		and  (MPI= #{hspemginfCustom.mpi} 
+			or BRXM = #{brxm,jdbcType=VARCHAR} )
+	</if>
+	<if test="brxm !=null and brxm !=''">
+		and  BRXM like  '%'|| #{brxm}||'%'
+	</if>
+	order by GHSJ desc
+	<!-- 分页尾部 -->
+	<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  
+  <select id="findRczGhxxCount" resultType="int" 
+  	parameterType="activetech.basehis.pojo.dto.HemshisDto">
+  	select count(1)
+	from zjyy_sd.v_hems_rcz
+	where EMG_SEQ is null
+	and TYPE = 'REG'
+	<![CDATA[
+    and GHSJ > #{startdate}
+	and GHSJ < #{enddate}
+	]]>
+	<if test="hspemginfCustom.jzxhOld !=null and hspemginfCustom.jzxhOld !=''">
+		and  MPI= #{hspemginfCustom.mpi}
+	</if>
+	<if test="brxm !=null and brxm !=''">
+		and  BRXM like  '%'|| #{brxm}||'%'
+	</if>
+  </select>
+  
+  <select id="selectRczById" resultType="activetech.basehis.pojo.domain.VHemsRcz" 
+  	parameterType="java.lang.String">
+  	select *
+	from zjyy_sd.v_hems_rcz
+	where RCZ_ID = #{rczId}
+  </select>
+  
+  <select id="selectForMz" resultType="activetech.basehis.pojo.domain.VHemsRcz" 
+  	parameterType="java.lang.String">
+  	select *
+	from zjyy_sd.v_hems_rcz
+	where mpi = #{mpi}
+	and jzxh = #{jzxh}
+	and TYPE = 'REG'
+  </select>
+  
+  <update id="updateEmgSeq" parameterType="activetech.basehis.pojo.domain.VHemsRcz" >
+    update zjyy_sd.v_hems_rcz
+    set emg_seq = #{emgSeq,jdbcType=VARCHAR}
+    where RCZ_ID = #{rczId}
+  </update>
+  
+  <update id="updateJzxx" parameterType="activetech.hospital.pojo.dto.HspemginfCustom" >
+    update HSP_EMG_INF
+    set DOC_DAT = #{docDat},
+    	JZYS = #{jzys},
+		YSXM = #{ysxm},
+		KSDM = #{ksdm}
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectRczByJzxh" resultMap="BaseResultMap"  >
+  	select * from (
+	    select RCZ_ID,
+	        ADT_A01
+	    from zjyy_sd.v_hems_rcz
+	    where type=#{type}
+	    and mpi = #{mpi}
+	    and jzxh=#{jzxh}
+	    order by TASK_TIME desc
+	)
+	where rownum = 1
+  </select>
+  
+  <update id="updateCleanRcz"  >
+    update zjyy_sd.v_hems_rcz
+    set emg_seq = #{emgSeq,jdbcType=VARCHAR}
+    where mpi = #{mpi,jdbcType=VARCHAR}
+    and jzxh = #{jzxh,jdbcType=VARCHAR}
+  </update>
+</mapper>

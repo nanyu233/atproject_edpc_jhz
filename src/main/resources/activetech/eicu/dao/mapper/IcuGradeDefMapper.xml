@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.eicu.dao.mapper.IcuGradeDefMapper" >
+  <resultMap id="BaseResultMap" type="activetech.eicu.pojo.domain.IcuGradeDef" >
+    <id column="ITEM_FIELD" property="itemField" jdbcType="VARCHAR" />
+    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+    <result column="ITEM_ROOT" property="itemRoot" jdbcType="VARCHAR" />
+    <result column="ITEM_FLAG" property="itemFlag" jdbcType="VARCHAR" />
+    <result column="ITEM_GROUP" property="itemGroup" jdbcType="VARCHAR" />
+    <result column="SCORE_MEMO" property="scoreMemo" jdbcType="VARCHAR" />
+    <result column="SCORE_VALUE" property="scoreValue" jdbcType="VARCHAR" />
+    <result column="SCORE_COL" property="scoreCol" jdbcType="DECIMAL" />
+    <result column="LMT_FLAG" property="lmtFlag" jdbcType="VARCHAR" />
+    <result column="LMT_VALUE" property="lmtValue" jdbcType="DECIMAL" />
+    <result column="ITEM_UNIT" property="itemUnit" jdbcType="VARCHAR" />
+    <result column="ITEM_SORT" property="itemSort" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ITEM_FIELD, ITEM_NAME, ITEM_ROOT, ITEM_FLAG, ITEM_GROUP, SCORE_MEMO, SCORE_VALUE, 
+    SCORE_COL, LMT_FLAG, LMT_VALUE, ITEM_UNIT, ITEM_SORT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.eicu.pojo.domain.IcuGradeDefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ICU_GRADE_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ICU_GRADE_DEF
+    where ITEM_FIELD = #{itemField,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ICU_GRADE_DEF
+    where ITEM_FIELD = #{itemField,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.eicu.pojo.domain.IcuGradeDefExample" >
+    delete from ICU_GRADE_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.eicu.pojo.domain.IcuGradeDef" >
+    insert into ICU_GRADE_DEF (ITEM_FIELD, ITEM_NAME, ITEM_ROOT, 
+      ITEM_FLAG, ITEM_GROUP, SCORE_MEMO, 
+      SCORE_VALUE, SCORE_COL, LMT_FLAG, 
+      LMT_VALUE, ITEM_UNIT, ITEM_SORT
+      )
+    values (#{itemField,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{itemRoot,jdbcType=VARCHAR}, 
+      #{itemFlag,jdbcType=VARCHAR}, #{itemGroup,jdbcType=VARCHAR}, #{scoreMemo,jdbcType=VARCHAR}, 
+      #{scoreValue,jdbcType=VARCHAR}, #{scoreCol,jdbcType=DECIMAL}, #{lmtFlag,jdbcType=VARCHAR}, 
+      #{lmtValue,jdbcType=DECIMAL}, #{itemUnit,jdbcType=VARCHAR}, #{itemSort,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.eicu.pojo.domain.IcuGradeDef" >
+    insert into ICU_GRADE_DEF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemField != null" >
+        ITEM_FIELD,
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME,
+      </if>
+      <if test="itemRoot != null" >
+        ITEM_ROOT,
+      </if>
+      <if test="itemFlag != null" >
+        ITEM_FLAG,
+      </if>
+      <if test="itemGroup != null" >
+        ITEM_GROUP,
+      </if>
+      <if test="scoreMemo != null" >
+        SCORE_MEMO,
+      </if>
+      <if test="scoreValue != null" >
+        SCORE_VALUE,
+      </if>
+      <if test="scoreCol != null" >
+        SCORE_COL,
+      </if>
+      <if test="lmtFlag != null" >
+        LMT_FLAG,
+      </if>
+      <if test="lmtValue != null" >
+        LMT_VALUE,
+      </if>
+      <if test="itemUnit != null" >
+        ITEM_UNIT,
+      </if>
+      <if test="itemSort != null" >
+        ITEM_SORT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemField != null" >
+        #{itemField,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemRoot != null" >
+        #{itemRoot,jdbcType=VARCHAR},
+      </if>
+      <if test="itemFlag != null" >
+        #{itemFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="itemGroup != null" >
+        #{itemGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreMemo != null" >
+        #{scoreMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreValue != null" >
+        #{scoreValue,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreCol != null" >
+        #{scoreCol,jdbcType=DECIMAL},
+      </if>
+      <if test="lmtFlag != null" >
+        #{lmtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="lmtValue != null" >
+        #{lmtValue,jdbcType=DECIMAL},
+      </if>
+      <if test="itemUnit != null" >
+        #{itemUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSort != null" >
+        #{itemSort,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.eicu.pojo.domain.IcuGradeDefExample" resultType="java.lang.Integer" >
+    select count(*) from ICU_GRADE_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ICU_GRADE_DEF
+    <set >
+      <if test="record.itemField != null" >
+        ITEM_FIELD = #{record.itemField,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemName != null" >
+        ITEM_NAME = #{record.itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemRoot != null" >
+        ITEM_ROOT = #{record.itemRoot,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemFlag != null" >
+        ITEM_FLAG = #{record.itemFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemGroup != null" >
+        ITEM_GROUP = #{record.itemGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scoreMemo != null" >
+        SCORE_MEMO = #{record.scoreMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scoreValue != null" >
+        SCORE_VALUE = #{record.scoreValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scoreCol != null" >
+        SCORE_COL = #{record.scoreCol,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lmtFlag != null" >
+        LMT_FLAG = #{record.lmtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lmtValue != null" >
+        LMT_VALUE = #{record.lmtValue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemUnit != null" >
+        ITEM_UNIT = #{record.itemUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemSort != null" >
+        ITEM_SORT = #{record.itemSort,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ICU_GRADE_DEF
+    set ITEM_FIELD = #{record.itemField,jdbcType=VARCHAR},
+      ITEM_NAME = #{record.itemName,jdbcType=VARCHAR},
+      ITEM_ROOT = #{record.itemRoot,jdbcType=VARCHAR},
+      ITEM_FLAG = #{record.itemFlag,jdbcType=VARCHAR},
+      ITEM_GROUP = #{record.itemGroup,jdbcType=VARCHAR},
+      SCORE_MEMO = #{record.scoreMemo,jdbcType=VARCHAR},
+      SCORE_VALUE = #{record.scoreValue,jdbcType=VARCHAR},
+      SCORE_COL = #{record.scoreCol,jdbcType=DECIMAL},
+      LMT_FLAG = #{record.lmtFlag,jdbcType=VARCHAR},
+      LMT_VALUE = #{record.lmtValue,jdbcType=DECIMAL},
+      ITEM_UNIT = #{record.itemUnit,jdbcType=VARCHAR},
+      ITEM_SORT = #{record.itemSort,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.eicu.pojo.domain.IcuGradeDef" >
+    update ICU_GRADE_DEF
+    <set >
+      <if test="itemName != null" >
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemRoot != null" >
+        ITEM_ROOT = #{itemRoot,jdbcType=VARCHAR},
+      </if>
+      <if test="itemFlag != null" >
+        ITEM_FLAG = #{itemFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="itemGroup != null" >
+        ITEM_GROUP = #{itemGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreMemo != null" >
+        SCORE_MEMO = #{scoreMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreValue != null" >
+        SCORE_VALUE = #{scoreValue,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreCol != null" >
+        SCORE_COL = #{scoreCol,jdbcType=DECIMAL},
+      </if>
+      <if test="lmtFlag != null" >
+        LMT_FLAG = #{lmtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="lmtValue != null" >
+        LMT_VALUE = #{lmtValue,jdbcType=DECIMAL},
+      </if>
+      <if test="itemUnit != null" >
+        ITEM_UNIT = #{itemUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSort != null" >
+        ITEM_SORT = #{itemSort,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ITEM_FIELD = #{itemField,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.eicu.pojo.domain.IcuGradeDef" >
+    update ICU_GRADE_DEF
+    set ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      ITEM_ROOT = #{itemRoot,jdbcType=VARCHAR},
+      ITEM_FLAG = #{itemFlag,jdbcType=VARCHAR},
+      ITEM_GROUP = #{itemGroup,jdbcType=VARCHAR},
+      SCORE_MEMO = #{scoreMemo,jdbcType=VARCHAR},
+      SCORE_VALUE = #{scoreValue,jdbcType=VARCHAR},
+      SCORE_COL = #{scoreCol,jdbcType=DECIMAL},
+      LMT_FLAG = #{lmtFlag,jdbcType=VARCHAR},
+      LMT_VALUE = #{lmtValue,jdbcType=DECIMAL},
+      ITEM_UNIT = #{itemUnit,jdbcType=VARCHAR},
+      ITEM_SORT = #{itemSort,jdbcType=DECIMAL}
+    where ITEM_FIELD = #{itemField,jdbcType=VARCHAR}
+  </update>
+</mapper>

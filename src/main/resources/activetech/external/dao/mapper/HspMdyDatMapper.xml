@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.external.dao.mapper.HspMdyDatMapper" >
+  <resultMap id="BaseResultMap" type="activetech.external.pojo.domain.HspMdyDat" >
+    <result column="BED_NUM" property="bedNum" jdbcType="VARCHAR" />
+    <result column="DAT_TIM" property="datTim" jdbcType="TIMESTAMP" />
+    <result column="ECG" property="ecg" jdbcType="DECIMAL" />
+    <result column="SPO2" property="spo2" jdbcType="DECIMAL" />
+    <result column="RESP" property="resp" jdbcType="DECIMAL" />
+    <result column="TEMP" property="temp" jdbcType="DECIMAL" />
+    <result column="NIBP_SYS" property="nibpSys" jdbcType="DECIMAL" />
+    <result column="NIBP_DIA" property="nibpDia" jdbcType="DECIMAL" />
+    <result column="NIBP_MEA" property="nibpMea" jdbcType="DECIMAL" />
+    <result column="ALM_ECG" property="almEcg" jdbcType="VARCHAR" />
+    <result column="ALM_SPO2" property="almSpo2" jdbcType="VARCHAR" />
+    <result column="ALM_RESP" property="almResp" jdbcType="VARCHAR" />
+    <result column="ALM_TEMP" property="almTemp" jdbcType="VARCHAR" />
+    <result column="ALM_NIBP_SYS" property="almNibpSys" jdbcType="VARCHAR" />
+    <result column="ALM_NIBP_DIA" property="almNibpDia" jdbcType="VARCHAR" />
+    <result column="ALM_NIBP_MEA" property="almNibpMea" jdbcType="VARCHAR" />
+    <result column="ALM_TEC" property="almTec" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BED_NUM, DAT_TIM, ECG, SPO2, RESP, TEMP, NIBP_SYS, NIBP_DIA, NIBP_MEA, ALM_ECG, ALM_SPO2, 
+    ALM_RESP, ALM_TEMP, ALM_NIBP_SYS, ALM_NIBP_DIA, ALM_NIBP_MEA, ALM_TEC
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.external.pojo.domain.HspMdyDatExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_MDY_DAT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.external.pojo.domain.HspMdyDatExample" >
+    delete from HSP_MDY_DAT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.external.pojo.domain.HspMdyDat" >
+    insert into HSP_MDY_DAT (BED_NUM, DAT_TIM, ECG, 
+      SPO2, RESP, TEMP, NIBP_SYS, 
+      NIBP_DIA, NIBP_MEA, ALM_ECG, 
+      ALM_SPO2, ALM_RESP, ALM_TEMP, 
+      ALM_NIBP_SYS, ALM_NIBP_DIA, ALM_NIBP_MEA, 
+      ALM_TEC)
+    values (#{bedNum,jdbcType=VARCHAR}, #{datTim,jdbcType=TIMESTAMP}, #{ecg,jdbcType=DECIMAL}, 
+      #{spo2,jdbcType=DECIMAL}, #{resp,jdbcType=DECIMAL}, #{temp,jdbcType=DECIMAL}, #{nibpSys,jdbcType=DECIMAL}, 
+      #{nibpDia,jdbcType=DECIMAL}, #{nibpMea,jdbcType=DECIMAL}, #{almEcg,jdbcType=VARCHAR}, 
+      #{almSpo2,jdbcType=VARCHAR}, #{almResp,jdbcType=VARCHAR}, #{almTemp,jdbcType=VARCHAR}, 
+      #{almNibpSys,jdbcType=VARCHAR}, #{almNibpDia,jdbcType=VARCHAR}, #{almNibpMea,jdbcType=VARCHAR}, 
+      #{almTec,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.external.pojo.domain.HspMdyDat" >
+    insert into HSP_MDY_DAT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bedNum != null" >
+        BED_NUM,
+      </if>
+      <if test="datTim != null" >
+        DAT_TIM,
+      </if>
+      <if test="ecg != null" >
+        ECG,
+      </if>
+      <if test="spo2 != null" >
+        SPO2,
+      </if>
+      <if test="resp != null" >
+        RESP,
+      </if>
+      <if test="temp != null" >
+        TEMP,
+      </if>
+      <if test="nibpSys != null" >
+        NIBP_SYS,
+      </if>
+      <if test="nibpDia != null" >
+        NIBP_DIA,
+      </if>
+      <if test="nibpMea != null" >
+        NIBP_MEA,
+      </if>
+      <if test="almEcg != null" >
+        ALM_ECG,
+      </if>
+      <if test="almSpo2 != null" >
+        ALM_SPO2,
+      </if>
+      <if test="almResp != null" >
+        ALM_RESP,
+      </if>
+      <if test="almTemp != null" >
+        ALM_TEMP,
+      </if>
+      <if test="almNibpSys != null" >
+        ALM_NIBP_SYS,
+      </if>
+      <if test="almNibpDia != null" >
+        ALM_NIBP_DIA,
+      </if>
+      <if test="almNibpMea != null" >
+        ALM_NIBP_MEA,
+      </if>
+      <if test="almTec != null" >
+        ALM_TEC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bedNum != null" >
+        #{bedNum,jdbcType=VARCHAR},
+      </if>
+      <if test="datTim != null" >
+        #{datTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ecg != null" >
+        #{ecg,jdbcType=DECIMAL},
+      </if>
+      <if test="spo2 != null" >
+        #{spo2,jdbcType=DECIMAL},
+      </if>
+      <if test="resp != null" >
+        #{resp,jdbcType=DECIMAL},
+      </if>
+      <if test="temp != null" >
+        #{temp,jdbcType=DECIMAL},
+      </if>
+      <if test="nibpSys != null" >
+        #{nibpSys,jdbcType=DECIMAL},
+      </if>
+      <if test="nibpDia != null" >
+        #{nibpDia,jdbcType=DECIMAL},
+      </if>
+      <if test="nibpMea != null" >
+        #{nibpMea,jdbcType=DECIMAL},
+      </if>
+      <if test="almEcg != null" >
+        #{almEcg,jdbcType=VARCHAR},
+      </if>
+      <if test="almSpo2 != null" >
+        #{almSpo2,jdbcType=VARCHAR},
+      </if>
+      <if test="almResp != null" >
+        #{almResp,jdbcType=VARCHAR},
+      </if>
+      <if test="almTemp != null" >
+        #{almTemp,jdbcType=VARCHAR},
+      </if>
+      <if test="almNibpSys != null" >
+        #{almNibpSys,jdbcType=VARCHAR},
+      </if>
+      <if test="almNibpDia != null" >
+        #{almNibpDia,jdbcType=VARCHAR},
+      </if>
+      <if test="almNibpMea != null" >
+        #{almNibpMea,jdbcType=VARCHAR},
+      </if>
+      <if test="almTec != null" >
+        #{almTec,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.external.pojo.domain.HspMdyDatExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_MDY_DAT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_MDY_DAT
+    <set >
+      <if test="record.bedNum != null" >
+        BED_NUM = #{record.bedNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datTim != null" >
+        DAT_TIM = #{record.datTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ecg != null" >
+        ECG = #{record.ecg,jdbcType=DECIMAL},
+      </if>
+      <if test="record.spo2 != null" >
+        SPO2 = #{record.spo2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.resp != null" >
+        RESP = #{record.resp,jdbcType=DECIMAL},
+      </if>
+      <if test="record.temp != null" >
+        TEMP = #{record.temp,jdbcType=DECIMAL},
+      </if>
+      <if test="record.nibpSys != null" >
+        NIBP_SYS = #{record.nibpSys,jdbcType=DECIMAL},
+      </if>
+      <if test="record.nibpDia != null" >
+        NIBP_DIA = #{record.nibpDia,jdbcType=DECIMAL},
+      </if>
+      <if test="record.nibpMea != null" >
+        NIBP_MEA = #{record.nibpMea,jdbcType=DECIMAL},
+      </if>
+      <if test="record.almEcg != null" >
+        ALM_ECG = #{record.almEcg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.almSpo2 != null" >
+        ALM_SPO2 = #{record.almSpo2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.almResp != null" >
+        ALM_RESP = #{record.almResp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.almTemp != null" >
+        ALM_TEMP = #{record.almTemp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.almNibpSys != null" >
+        ALM_NIBP_SYS = #{record.almNibpSys,jdbcType=VARCHAR},
+      </if>
+      <if test="record.almNibpDia != null" >
+        ALM_NIBP_DIA = #{record.almNibpDia,jdbcType=VARCHAR},
+      </if>
+      <if test="record.almNibpMea != null" >
+        ALM_NIBP_MEA = #{record.almNibpMea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.almTec != null" >
+        ALM_TEC = #{record.almTec,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_MDY_DAT
+    set BED_NUM = #{record.bedNum,jdbcType=VARCHAR},
+      DAT_TIM = #{record.datTim,jdbcType=TIMESTAMP},
+      ECG = #{record.ecg,jdbcType=DECIMAL},
+      SPO2 = #{record.spo2,jdbcType=DECIMAL},
+      RESP = #{record.resp,jdbcType=DECIMAL},
+      TEMP = #{record.temp,jdbcType=DECIMAL},
+      NIBP_SYS = #{record.nibpSys,jdbcType=DECIMAL},
+      NIBP_DIA = #{record.nibpDia,jdbcType=DECIMAL},
+      NIBP_MEA = #{record.nibpMea,jdbcType=DECIMAL},
+      ALM_ECG = #{record.almEcg,jdbcType=VARCHAR},
+      ALM_SPO2 = #{record.almSpo2,jdbcType=VARCHAR},
+      ALM_RESP = #{record.almResp,jdbcType=VARCHAR},
+      ALM_TEMP = #{record.almTemp,jdbcType=VARCHAR},
+      ALM_NIBP_SYS = #{record.almNibpSys,jdbcType=VARCHAR},
+      ALM_NIBP_DIA = #{record.almNibpDia,jdbcType=VARCHAR},
+      ALM_NIBP_MEA = #{record.almNibpMea,jdbcType=VARCHAR},
+      ALM_TEC = #{record.almTec,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

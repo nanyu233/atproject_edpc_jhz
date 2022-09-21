@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspBodyPartsDefMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspBodyPartsDef" >
+    <id column="PART_ID" property="partId" jdbcType="VARCHAR" />
+    <result column="PART_NAME" property="partName" jdbcType="VARCHAR" />
+    <result column="ORIGIN_AXIS_X" property="originAxisX" jdbcType="DECIMAL" />
+    <result column="ORIGIN_AXIS_Y" property="originAxisY" jdbcType="DECIMAL" />
+    <result column="RADIUS" property="radius" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PART_ID, PART_NAME, ORIGIN_AXIS_X, ORIGIN_AXIS_Y, RADIUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspBodyPartsDefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_BODY_PARTS_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_BODY_PARTS_DEF
+    where PART_ID = #{partId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_BODY_PARTS_DEF
+    where PART_ID = #{partId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspBodyPartsDefExample" >
+    delete from HSP_BODY_PARTS_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspBodyPartsDef" >
+    insert into HSP_BODY_PARTS_DEF (PART_ID, PART_NAME, ORIGIN_AXIS_X, 
+      ORIGIN_AXIS_Y, RADIUS)
+    values (#{partId,jdbcType=VARCHAR}, #{partName,jdbcType=VARCHAR}, #{originAxisX,jdbcType=DECIMAL}, 
+      #{originAxisY,jdbcType=DECIMAL}, #{radius,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspBodyPartsDef" >
+    insert into HSP_BODY_PARTS_DEF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="partId != null" >
+        PART_ID,
+      </if>
+      <if test="partName != null" >
+        PART_NAME,
+      </if>
+      <if test="originAxisX != null" >
+        ORIGIN_AXIS_X,
+      </if>
+      <if test="originAxisY != null" >
+        ORIGIN_AXIS_Y,
+      </if>
+      <if test="radius != null" >
+        RADIUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="partId != null" >
+        #{partId,jdbcType=VARCHAR},
+      </if>
+      <if test="partName != null" >
+        #{partName,jdbcType=VARCHAR},
+      </if>
+      <if test="originAxisX != null" >
+        #{originAxisX,jdbcType=DECIMAL},
+      </if>
+      <if test="originAxisY != null" >
+        #{originAxisY,jdbcType=DECIMAL},
+      </if>
+      <if test="radius != null" >
+        #{radius,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspBodyPartsDefExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_BODY_PARTS_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_BODY_PARTS_DEF
+    <set >
+      <if test="record.partId != null" >
+        PART_ID = #{record.partId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partName != null" >
+        PART_NAME = #{record.partName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originAxisX != null" >
+        ORIGIN_AXIS_X = #{record.originAxisX,jdbcType=DECIMAL},
+      </if>
+      <if test="record.originAxisY != null" >
+        ORIGIN_AXIS_Y = #{record.originAxisY,jdbcType=DECIMAL},
+      </if>
+      <if test="record.radius != null" >
+        RADIUS = #{record.radius,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_BODY_PARTS_DEF
+    set PART_ID = #{record.partId,jdbcType=VARCHAR},
+      PART_NAME = #{record.partName,jdbcType=VARCHAR},
+      ORIGIN_AXIS_X = #{record.originAxisX,jdbcType=DECIMAL},
+      ORIGIN_AXIS_Y = #{record.originAxisY,jdbcType=DECIMAL},
+      RADIUS = #{record.radius,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspBodyPartsDef" >
+    update HSP_BODY_PARTS_DEF
+    <set >
+      <if test="partName != null" >
+        PART_NAME = #{partName,jdbcType=VARCHAR},
+      </if>
+      <if test="originAxisX != null" >
+        ORIGIN_AXIS_X = #{originAxisX,jdbcType=DECIMAL},
+      </if>
+      <if test="originAxisY != null" >
+        ORIGIN_AXIS_Y = #{originAxisY,jdbcType=DECIMAL},
+      </if>
+      <if test="radius != null" >
+        RADIUS = #{radius,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PART_ID = #{partId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspBodyPartsDef" >
+    update HSP_BODY_PARTS_DEF
+    set PART_NAME = #{partName,jdbcType=VARCHAR},
+      ORIGIN_AXIS_X = #{originAxisX,jdbcType=DECIMAL},
+      ORIGIN_AXIS_Y = #{originAxisY,jdbcType=DECIMAL},
+      RADIUS = #{radius,jdbcType=DECIMAL}
+    where PART_ID = #{partId,jdbcType=VARCHAR}
+  </update>
+</mapper>

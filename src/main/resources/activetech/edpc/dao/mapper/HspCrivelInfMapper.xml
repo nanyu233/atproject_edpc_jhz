@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspCrivelInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspCrivelInf" >
+    <id column="VEL_SEQ" property="velSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="XZCD" property="xzcd" jdbcType="VARCHAR" />
+    <result column="ZYSTIMIXL" property="zystimixl" jdbcType="VARCHAR" />
+    <result column="ZJNXS" property="zjnxs" jdbcType="VARCHAR" />
+    <result column="SFFCBB" property="sffcbb" jdbcType="VARCHAR" />
+    <result column="SFCTO" property="sfcto" jdbcType="VARCHAR" />
+    <result column="GHBB" property="ghbb" jdbcType="VARCHAR" />
+    <result column="ZFBB" property="zfbb" jdbcType="VARCHAR" />
+    <result column="PCI" property="pci" jdbcType="VARCHAR" />
+    <result column="SZCL" property="szcl" jdbcType="VARCHAR" />
+    <result column="DSTGSJ" property="dstgsj" jdbcType="TIMESTAMP" />
+    <result column="SHTIMIXL" property="shtimixl" jdbcType="VARCHAR" />
+    <result column="ZRZJGS" property="zrzjgs" jdbcType="VARCHAR" />
+    <result column="ZJZL" property="zjzl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    VEL_SEQ, EMG_SEQ, XZCD, ZYSTIMIXL, ZJNXS, SFFCBB, SFCTO, GHBB, ZFBB, PCI, SZCL, DSTGSJ, 
+    SHTIMIXL, ZRZJGS, ZJZL
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspCrivelInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CRIVEL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CRIVEL_INF
+    where VEL_SEQ = #{velSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_CRIVEL_INF
+    where VEL_SEQ = #{velSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspCrivelInfExample" >
+    delete from HSP_CRIVEL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspCrivelInf" >
+    insert into HSP_CRIVEL_INF (VEL_SEQ, EMG_SEQ, XZCD, 
+      ZYSTIMIXL, ZJNXS, SFFCBB, 
+      SFCTO, GHBB, ZFBB, 
+      PCI, SZCL, DSTGSJ, 
+      SHTIMIXL, ZRZJGS, ZJZL
+      )
+    values (#{velSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{xzcd,jdbcType=VARCHAR}, 
+      #{zystimixl,jdbcType=VARCHAR}, #{zjnxs,jdbcType=VARCHAR}, #{sffcbb,jdbcType=VARCHAR}, 
+      #{sfcto,jdbcType=VARCHAR}, #{ghbb,jdbcType=VARCHAR}, #{zfbb,jdbcType=VARCHAR}, 
+      #{pci,jdbcType=VARCHAR}, #{szcl,jdbcType=VARCHAR}, #{dstgsj,jdbcType=TIMESTAMP}, 
+      #{shtimixl,jdbcType=VARCHAR}, #{zrzjgs,jdbcType=VARCHAR}, #{zjzl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspCrivelInf" >
+    insert into HSP_CRIVEL_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="velSeq != null" >
+        VEL_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="xzcd != null" >
+        XZCD,
+      </if>
+      <if test="zystimixl != null" >
+        ZYSTIMIXL,
+      </if>
+      <if test="zjnxs != null" >
+        ZJNXS,
+      </if>
+      <if test="sffcbb != null" >
+        SFFCBB,
+      </if>
+      <if test="sfcto != null" >
+        SFCTO,
+      </if>
+      <if test="ghbb != null" >
+        GHBB,
+      </if>
+      <if test="zfbb != null" >
+        ZFBB,
+      </if>
+      <if test="pci != null" >
+        PCI,
+      </if>
+      <if test="szcl != null" >
+        SZCL,
+      </if>
+      <if test="dstgsj != null" >
+        DSTGSJ,
+      </if>
+      <if test="shtimixl != null" >
+        SHTIMIXL,
+      </if>
+      <if test="zrzjgs != null" >
+        ZRZJGS,
+      </if>
+      <if test="zjzl != null" >
+        ZJZL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="velSeq != null" >
+        #{velSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="xzcd != null" >
+        #{xzcd,jdbcType=VARCHAR},
+      </if>
+      <if test="zystimixl != null" >
+        #{zystimixl,jdbcType=VARCHAR},
+      </if>
+      <if test="zjnxs != null" >
+        #{zjnxs,jdbcType=VARCHAR},
+      </if>
+      <if test="sffcbb != null" >
+        #{sffcbb,jdbcType=VARCHAR},
+      </if>
+      <if test="sfcto != null" >
+        #{sfcto,jdbcType=VARCHAR},
+      </if>
+      <if test="ghbb != null" >
+        #{ghbb,jdbcType=VARCHAR},
+      </if>
+      <if test="zfbb != null" >
+        #{zfbb,jdbcType=VARCHAR},
+      </if>
+      <if test="pci != null" >
+        #{pci,jdbcType=VARCHAR},
+      </if>
+      <if test="szcl != null" >
+        #{szcl,jdbcType=VARCHAR},
+      </if>
+      <if test="dstgsj != null" >
+        #{dstgsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shtimixl != null" >
+        #{shtimixl,jdbcType=VARCHAR},
+      </if>
+      <if test="zrzjgs != null" >
+        #{zrzjgs,jdbcType=VARCHAR},
+      </if>
+      <if test="zjzl != null" >
+        #{zjzl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspCrivelInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_CRIVEL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_CRIVEL_INF
+    <set >
+      <if test="record.velSeq != null" >
+        VEL_SEQ = #{record.velSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xzcd != null" >
+        XZCD = #{record.xzcd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zystimixl != null" >
+        ZYSTIMIXL = #{record.zystimixl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zjnxs != null" >
+        ZJNXS = #{record.zjnxs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sffcbb != null" >
+        SFFCBB = #{record.sffcbb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sfcto != null" >
+        SFCTO = #{record.sfcto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ghbb != null" >
+        GHBB = #{record.ghbb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zfbb != null" >
+        ZFBB = #{record.zfbb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pci != null" >
+        PCI = #{record.pci,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szcl != null" >
+        SZCL = #{record.szcl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dstgsj != null" >
+        DSTGSJ = #{record.dstgsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shtimixl != null" >
+        SHTIMIXL = #{record.shtimixl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrzjgs != null" >
+        ZRZJGS = #{record.zrzjgs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zjzl != null" >
+        ZJZL = #{record.zjzl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_CRIVEL_INF
+    set VEL_SEQ = #{record.velSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      XZCD = #{record.xzcd,jdbcType=VARCHAR},
+      ZYSTIMIXL = #{record.zystimixl,jdbcType=VARCHAR},
+      ZJNXS = #{record.zjnxs,jdbcType=VARCHAR},
+      SFFCBB = #{record.sffcbb,jdbcType=VARCHAR},
+      SFCTO = #{record.sfcto,jdbcType=VARCHAR},
+      GHBB = #{record.ghbb,jdbcType=VARCHAR},
+      ZFBB = #{record.zfbb,jdbcType=VARCHAR},
+      PCI = #{record.pci,jdbcType=VARCHAR},
+      SZCL = #{record.szcl,jdbcType=VARCHAR},
+      DSTGSJ = #{record.dstgsj,jdbcType=TIMESTAMP},
+      SHTIMIXL = #{record.shtimixl,jdbcType=VARCHAR},
+      ZRZJGS = #{record.zrzjgs,jdbcType=VARCHAR},
+      ZJZL = #{record.zjzl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspCrivelInf" >
+    update HSP_CRIVEL_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="xzcd != null" >
+        XZCD = #{xzcd,jdbcType=VARCHAR},
+      </if>
+      <if test="zystimixl != null" >
+        ZYSTIMIXL = #{zystimixl,jdbcType=VARCHAR},
+      </if>
+      <if test="zjnxs != null" >
+        ZJNXS = #{zjnxs,jdbcType=VARCHAR},
+      </if>
+      <if test="sffcbb != null" >
+        SFFCBB = #{sffcbb,jdbcType=VARCHAR},
+      </if>
+      <if test="sfcto != null" >
+        SFCTO = #{sfcto,jdbcType=VARCHAR},
+      </if>
+      <if test="ghbb != null" >
+        GHBB = #{ghbb,jdbcType=VARCHAR},
+      </if>
+      <if test="zfbb != null" >
+        ZFBB = #{zfbb,jdbcType=VARCHAR},
+      </if>
+      <if test="pci != null" >
+        PCI = #{pci,jdbcType=VARCHAR},
+      </if>
+      <if test="szcl != null" >
+        SZCL = #{szcl,jdbcType=VARCHAR},
+      </if>
+      <if test="dstgsj != null" >
+        DSTGSJ = #{dstgsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shtimixl != null" >
+        SHTIMIXL = #{shtimixl,jdbcType=VARCHAR},
+      </if>
+      <if test="zrzjgs != null" >
+        ZRZJGS = #{zrzjgs,jdbcType=VARCHAR},
+      </if>
+      <if test="zjzl != null" >
+        ZJZL = #{zjzl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where VEL_SEQ = #{velSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspCrivelInf" >
+    update HSP_CRIVEL_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      XZCD = #{xzcd,jdbcType=VARCHAR},
+      ZYSTIMIXL = #{zystimixl,jdbcType=VARCHAR},
+      ZJNXS = #{zjnxs,jdbcType=VARCHAR},
+      SFFCBB = #{sffcbb,jdbcType=VARCHAR},
+      SFCTO = #{sfcto,jdbcType=VARCHAR},
+      GHBB = #{ghbb,jdbcType=VARCHAR},
+      ZFBB = #{zfbb,jdbcType=VARCHAR},
+      PCI = #{pci,jdbcType=VARCHAR},
+      SZCL = #{szcl,jdbcType=VARCHAR},
+      DSTGSJ = #{dstgsj,jdbcType=TIMESTAMP},
+      SHTIMIXL = #{shtimixl,jdbcType=VARCHAR},
+      ZRZJGS = #{zrzjgs,jdbcType=VARCHAR},
+      ZJZL = #{zjzl,jdbcType=VARCHAR}
+    where VEL_SEQ = #{velSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

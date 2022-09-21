@@ -1,0 +1,58 @@
+.input_txt {
+
+}
+.fullTb{
+  width: 800px;
+}
+.doctorType {
+  color: blue;
+}
+.cstNam,.emgFkCod,.inputA,.inputF{
+  width: 100px;
+}
+.cstSexCod,.age{
+  width: 40px;
+}
+.mpi{
+  width: 96px;
+}
+.inputB{
+  width: 150px;
+}
+.inputC{
+  width: 200px;
+}
+.inputD{
+  width: 120px;
+}
+.inputE{
+  width: 400px;
+}
+.inputG{
+  width: 490px
+}
+td{
+  height: 30px;
+}
+.pageHide{
+  display: none
+}
+.childPoint{
+  margin-left: 2em
+}
+.childPointB{
+  margin-left: 1em
+}
+.fullArea{
+  width: 800px;
+  height: 100px;
+  resize: none;
+  padding: 1px 1px;
+}
+.fullAreaA{
+  width: 500px;
+  height: 66px;
+  margin-top: 10px;
+  resize: none;
+  padding: 1px 1px;
+}

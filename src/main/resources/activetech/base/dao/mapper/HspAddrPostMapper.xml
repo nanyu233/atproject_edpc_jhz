@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.HspAddrPostMapper" >
+  <resultMap id="BaseResultMap" type="activetech.base.pojo.domain.HspAddrPost" >
+    <id column="ADDR_CODE" property="addrCode" jdbcType="VARCHAR" />
+    <result column="ADDR_TYPE" property="addrType" jdbcType="VARCHAR" />
+    <result column="ADDR_NAME" property="addrName" jdbcType="VARCHAR" />
+    <result column="ADDR_STAT" property="addrStat" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="PHE_CODE" property="pheCode" jdbcType="VARCHAR" />
+    <result column="SUPR_CODE" property="suprCode" jdbcType="VARCHAR" />
+    <result column="SUPR_NAME" property="suprName" jdbcType="VARCHAR" />
+    <result column="PROV_CODE" property="provCode" jdbcType="VARCHAR" />
+    <result column="PROV_NAME" property="provName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ADDR_CODE, ADDR_TYPE, ADDR_NAME, ADDR_STAT, POST_CODE, PHE_CODE, SUPR_CODE, SUPR_NAME, 
+    PROV_CODE, PROV_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.base.pojo.domain.HspAddrPostExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_ADDR_POST
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_ADDR_POST
+    where ADDR_CODE = #{addrCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_ADDR_POST
+    where ADDR_CODE = #{addrCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.HspAddrPostExample" >
+    delete from HSP_ADDR_POST
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.base.pojo.domain.HspAddrPost" >
+    insert into HSP_ADDR_POST (ADDR_CODE, ADDR_TYPE, ADDR_NAME, 
+      ADDR_STAT, POST_CODE, PHE_CODE, 
+      SUPR_CODE, SUPR_NAME, PROV_CODE, 
+      PROV_NAME)
+    values (#{addrCode,jdbcType=VARCHAR}, #{addrType,jdbcType=VARCHAR}, #{addrName,jdbcType=VARCHAR}, 
+      #{addrStat,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, #{pheCode,jdbcType=VARCHAR}, 
+      #{suprCode,jdbcType=VARCHAR}, #{suprName,jdbcType=VARCHAR}, #{provCode,jdbcType=VARCHAR}, 
+      #{provName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.base.pojo.domain.HspAddrPost" >
+    insert into HSP_ADDR_POST
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addrCode != null" >
+        ADDR_CODE,
+      </if>
+      <if test="addrType != null" >
+        ADDR_TYPE,
+      </if>
+      <if test="addrName != null" >
+        ADDR_NAME,
+      </if>
+      <if test="addrStat != null" >
+        ADDR_STAT,
+      </if>
+      <if test="postCode != null" >
+        POST_CODE,
+      </if>
+      <if test="pheCode != null" >
+        PHE_CODE,
+      </if>
+      <if test="suprCode != null" >
+        SUPR_CODE,
+      </if>
+      <if test="suprName != null" >
+        SUPR_NAME,
+      </if>
+      <if test="provCode != null" >
+        PROV_CODE,
+      </if>
+      <if test="provName != null" >
+        PROV_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addrCode != null" >
+        #{addrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addrType != null" >
+        #{addrType,jdbcType=VARCHAR},
+      </if>
+      <if test="addrName != null" >
+        #{addrName,jdbcType=VARCHAR},
+      </if>
+      <if test="addrStat != null" >
+        #{addrStat,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pheCode != null" >
+        #{pheCode,jdbcType=VARCHAR},
+      </if>
+      <if test="suprCode != null" >
+        #{suprCode,jdbcType=VARCHAR},
+      </if>
+      <if test="suprName != null" >
+        #{suprName,jdbcType=VARCHAR},
+      </if>
+      <if test="provCode != null" >
+        #{provCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provName != null" >
+        #{provName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.base.pojo.domain.HspAddrPostExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_ADDR_POST
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_ADDR_POST
+    <set >
+      <if test="record.addrCode != null" >
+        ADDR_CODE = #{record.addrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addrType != null" >
+        ADDR_TYPE = #{record.addrType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addrName != null" >
+        ADDR_NAME = #{record.addrName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addrStat != null" >
+        ADDR_STAT = #{record.addrStat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postCode != null" >
+        POST_CODE = #{record.postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pheCode != null" >
+        PHE_CODE = #{record.pheCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suprCode != null" >
+        SUPR_CODE = #{record.suprCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suprName != null" >
+        SUPR_NAME = #{record.suprName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provCode != null" >
+        PROV_CODE = #{record.provCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provName != null" >
+        PROV_NAME = #{record.provName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_ADDR_POST
+    set ADDR_CODE = #{record.addrCode,jdbcType=VARCHAR},
+      ADDR_TYPE = #{record.addrType,jdbcType=VARCHAR},
+      ADDR_NAME = #{record.addrName,jdbcType=VARCHAR},
+      ADDR_STAT = #{record.addrStat,jdbcType=VARCHAR},
+      POST_CODE = #{record.postCode,jdbcType=VARCHAR},
+      PHE_CODE = #{record.pheCode,jdbcType=VARCHAR},
+      SUPR_CODE = #{record.suprCode,jdbcType=VARCHAR},
+      SUPR_NAME = #{record.suprName,jdbcType=VARCHAR},
+      PROV_CODE = #{record.provCode,jdbcType=VARCHAR},
+      PROV_NAME = #{record.provName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.HspAddrPost" >
+    update HSP_ADDR_POST
+    <set >
+      <if test="addrType != null" >
+        ADDR_TYPE = #{addrType,jdbcType=VARCHAR},
+      </if>
+      <if test="addrName != null" >
+        ADDR_NAME = #{addrName,jdbcType=VARCHAR},
+      </if>
+      <if test="addrStat != null" >
+        ADDR_STAT = #{addrStat,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        POST_CODE = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pheCode != null" >
+        PHE_CODE = #{pheCode,jdbcType=VARCHAR},
+      </if>
+      <if test="suprCode != null" >
+        SUPR_CODE = #{suprCode,jdbcType=VARCHAR},
+      </if>
+      <if test="suprName != null" >
+        SUPR_NAME = #{suprName,jdbcType=VARCHAR},
+      </if>
+      <if test="provCode != null" >
+        PROV_CODE = #{provCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provName != null" >
+        PROV_NAME = #{provName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ADDR_CODE = #{addrCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.HspAddrPost" >
+    update HSP_ADDR_POST
+    set ADDR_TYPE = #{addrType,jdbcType=VARCHAR},
+      ADDR_NAME = #{addrName,jdbcType=VARCHAR},
+      ADDR_STAT = #{addrStat,jdbcType=VARCHAR},
+      POST_CODE = #{postCode,jdbcType=VARCHAR},
+      PHE_CODE = #{pheCode,jdbcType=VARCHAR},
+      SUPR_CODE = #{suprCode,jdbcType=VARCHAR},
+      SUPR_NAME = #{suprName,jdbcType=VARCHAR},
+      PROV_CODE = #{provCode,jdbcType=VARCHAR},
+      PROV_NAME = #{provName,jdbcType=VARCHAR}
+    where ADDR_CODE = #{addrCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

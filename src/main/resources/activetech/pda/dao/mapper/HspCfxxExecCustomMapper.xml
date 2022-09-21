@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.pda.dao.mapper.HspCfxxExecCustomMapper">
+  <resultMap id="BaseResultMap" type="activetech.pda.pojo.dto.HspCfxxExecCustom">
+    <id column="EXEC_SEQ" jdbcType="VARCHAR" property="execSeq" />
+    <result column="DA_SEQ" jdbcType="VARCHAR" property="daSeq" />
+    <result column="DA_NO" jdbcType="VARCHAR" property="daNo" />
+    <result column="DA_SUB" jdbcType="VARCHAR" property="daSub" />
+    <result column="VST_CAD" jdbcType="VARCHAR" property="vstCad" />
+    <result column="EXEC_SRC" jdbcType="VARCHAR" property="execSrc" />
+    <result column="PLAN_TIME" jdbcType="TIMESTAMP" property="planTime" />
+    <result column="EXEC_TIME" jdbcType="TIMESTAMP" property="execTime" />
+    <result column="EXEC_USER" jdbcType="VARCHAR" property="execUser" />
+    <result column="EXEC_USERXM" jdbcType="VARCHAR" property="execUserxm" />
+    <result column="EXEC_USER_SECOND" jdbcType="VARCHAR" property="execUserSecond" />
+    <result column="EXEC_USERXM_SECOND" jdbcType="VARCHAR" property="execUserxmSecond" />
+    <result column="FINI_TIME" jdbcType="TIMESTAMP" property="finiTime" />
+    <result column="FINI_USER" jdbcType="VARCHAR" property="finiUser" />
+    <result column="FINI_USERXM" jdbcType="VARCHAR" property="finiUserxm" />
+    <result column="DA_INFO" jdbcType="VARCHAR" property="daInfo" />
+    <result column="DA_DOSE" jdbcType="VARCHAR" property="daDose" />
+    <result column="DA_UNIT" jdbcType="VARCHAR" property="daUnit" />
+    <result column="DA_NUMB" jdbcType="DECIMAL" property="daNumb" />
+    <result column="YFDW" jdbcType="VARCHAR" property="yfdw" />
+    <result column="DA_WAY" jdbcType="VARCHAR" property="daWay" />
+    <result column="DA_FREQ" jdbcType="VARCHAR" property="daFreq" />
+    <result column="EXEC_DOSE" jdbcType="VARCHAR" property="execDose" />
+    <result column="BOOK_FLAG" jdbcType="VARCHAR" property="bookFlag" />
+    <result column="IO_MOD" jdbcType="VARCHAR" property="ioMod" />
+    <result column="IO_FLAG" jdbcType="VARCHAR" property="ioFlag" />
+    <result column="IO_CODE" jdbcType="VARCHAR" property="ioCode" />
+    <result column="NC_FLAG" jdbcType="VARCHAR" property="ncFlag" />
+    <result column="ZXDTYPE" jdbcType="VARCHAR" property="zxdtype" />
+    <result column="ZXDDAT" jdbcType="TIMESTAMP" property="zxddat" />
+    <result column="ISPRINT" jdbcType="VARCHAR" property="isprint" />
+    <result column="PSJG" jdbcType="VARCHAR" property="psjg" />
+    <result column="PSTXRDAT" jdbcType="TIMESTAMP" property="pstxrdat" />
+    <result column="PSTXR" jdbcType="VARCHAR" property="pstxr" />
+    <result column="PSTXRXM" jdbcType="VARCHAR" property="pstxrxm" />
+    <result column="PSSHRDAT" jdbcType="TIMESTAMP" property="psshrdat" />
+    <result column="PSSHR" jdbcType="VARCHAR" property="psshr" />
+    <result column="PSSHRXM" jdbcType="VARCHAR" property="psshrxm" />
+    <result column="ZXDZT" jdbcType="VARCHAR" property="zxdzt" />
+    <result column="CRT_TIME" jdbcType="TIMESTAMP" property="crtTime" />
+    <result column="CRT_USER" jdbcType="VARCHAR" property="crtUser" />
+    <result column="MOD_TIME" jdbcType="TIMESTAMP" property="modTime" />
+    <result column="MOD_USER" jdbcType="VARCHAR" property="modUser" />
+    <result column="DISPENSE_DATE" jdbcType="TIMESTAMP" property="dispenseDate" />
+    <result column="DISPENSE_USER" jdbcType="VARCHAR" property="dispenseUser" />
+    <result column="DISPENSE_USERXM" jdbcType="VARCHAR" property="dispenseUserxm" />
+    <result column="DISPENSE_USER_SECOND" jdbcType="VARCHAR" property="dispenseUserSecond" />
+    <result column="DISPENSE_USERXM_SECOND" jdbcType="VARCHAR" property="dispenseUserxmSecond" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+     <result column="BOOK_FLAG" jdbcType="VARCHAR" property="bookFlag" />
+  </resultMap>
+  
+  <sql id="cfxxExec_query">
+  	<if test="hspCfxxExecCustom != null">
+  		<!--执打印状态  -->
+		 <if test="hspCfxxExecCustom.isprint != null and hspCfxxExecCustom.isprint !='' ">
+		 	and ISPRINT = #{hspCfxxExecCustom.isprint}
+		 </if>
+		 <!-- 执行状态 -->
+		 <if test="hspCfxxExecCustom.zxdzt != null and hspCfxxExecCustom.zxdzt != '' ">
+		 	and zxdzt = #{hspCfxxExecCustom.zxdzt}
+		 </if>
+		 <!-- 执行单类型 -->
+		 <if test="hspCfxxExecCustom.zxdtype != null and hspCfxxExecCustom.zxdtype != '' ">
+		 	and ZXDTYPE = #{hspCfxxExecCustom.zxdtype}
+		 </if>
+		 <if test="hspCfxxExecCustom.daWayCod != null and hspCfxxExecCustom.daWayCod ">
+		 	and exec.DA_WAY_COD = #{hspCfxxExecCustom.daWayCod}
+		 </if>
+	</if>
+	<!--查询类型 已经执行了的输液单(输液中、暂停输液、结束输液、不结束输液)  -->
+	<if test="type != null and type == 'execRecord'">
+		and (zxdzt = '2' or zxdzt = '4' or zxdzt = '5' or zxdzt='6')
+	</if>
+	<if test="startdate != null and startdate != '' ">
+		and to_char(ZXDDAT,'yyyy/mm/dd HH24:mi') <![CDATA[>=]]> to_char(#{startdate},'yyyy/mm/dd HH24:mi')
+	</if>
+	<if test="enddate != null and enddate != '' ">
+		and to_char(ZXDDAT,'yyyy/mm/dd HH24:mi') <![CDATA[<=]]> to_char(#{enddate},'yyyy/mm/dd HH24:mi')
+	</if>
+  </sql>
+  
+    <!-- 获取患者的所有给药方式去重 -->
+   <select id="getDaWayByDate" parameterType="activetech.pda.pojo.dto.HspCfxxExecQueryDto" resultType="activetech.pda.pojo.dto.HspCfxxExecCustom">
+		select distinct DA_WAY daWayStr,DA_WAY_COD daWayCod from HSP_CFXX_EXEC exec where mpi = #{hspCfxxExecCustom.mpi} and DA_WAY_COD is not null
+		<include refid="cfxxExec_query"/>
+   </select>
+  
+  <!--执行单列表（不分组查询） -->
+  <select id="getCfxxExec" parameterType="activetech.pda.pojo.dto.HspCfxxExecQueryDto" resultType="activetech.pda.pojo.dto.HspCfxxExecCustom">
+	  	select *
+		from HSP_CFXX_EXEC exec
+	  	<where>
+	  		mpi = #{hspCfxxExecCustom.mpi}
+	  		<!-- 排除删除状态 -->
+	  		and ZXDZT != '9'
+	  		<include refid="cfxxExec_query"/>
+	  	</where>
+  </select>
+  
+  <!-- 获取执行单总条数 -->
+  <select id="getCfxxExecListCount" parameterType="activetech.pda.pojo.dto.HspCfxxExecQueryDto" resultType="int">
+  	select count(*) from (
+  		select distinct
+	       listagg(EXEC_SEQ, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) execSeq
+		from HSP_CFXX_EXEC exec , HSP_CFXX_INFO info 
+	  	<where>
+	  		exec.DA_SEQ(+) = info.DA_SEQ
+  			and info.mpi = #{hspCfxxExecCustom.mpi}
+  			and UPPER(info.ORDER_CLASS) != UPPER('Q')
+  			<!-- 排除删除状态 -->
+	  		and ZXDZT != '9'
+	  		and YZZT != '9'
+	  		and plan_time is not null
+  			<include refid="cfxxExec_query"/>
+  		</where>)
+  </select>
+  
+  <!--获取执行单列表  -->
+  <select id="getCfxxExecList" parameterType="activetech.pda.pojo.dto.HspCfxxExecQueryDto" resultType="activetech.pda.pojo.dto.HspCfxxExecCustom">
+ 	 <!-- 分页头 -->
+	<include refid="activetech.base.CommonSql.page_start" />
+	  	select distinct
+		    listagg(EXEC_SEQ, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) execSeq,
+		    DISPOSAL_SEQ,
+		    exec.DA_SUB,
+		    exec.DA_NO,
+		    ISPRINT,
+		    ZXDDAT,
+		    listagg(exec.DA_INFO, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daInfo,
+		    listagg(exec.DA_DOSE, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daDose,
+		    listagg(exec.DA_UNIT, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daUnit,
+		    exec.DA_FREQ,
+		    exec.DA_WAY,
+		    PLAN_TIME,
+		    zxdzt,
+		    EXEC_TIME,
+		    EXEC_USER,
+		    EXEC_USERXM,
+		    EXEC_USERXM_SECOND,
+		    exec.MPI,
+		    DISPENSE_DATE,
+		    DISPENSE_USERXM,
+		    DISPENSE_USERXM_SECOND,
+		    listagg(info.High_risk, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) highRisk
+		from HSP_CFXX_EXEC exec, HSP_CFXX_INFO info 
+	  	<where>
+	  		exec.DA_SEQ(+) = info.DA_SEQ
+			and info.mpi = #{hspCfxxExecCustom.mpi}
+			and UPPER(info.ORDER_CLASS) != UPPER('Q')
+	  		<!-- 排除删除状态 -->
+	  		and ZXDZT != '9'
+	  		and YZZT != '9'
+	  		and plan_time is not null
+	  		<include refid="cfxxExec_query"/>
+	  	</where>
+	  	order by ZXDDAT,exec.DA_NO
+  	<!-- 分页尾部 -->
+	<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  
+    <!--医嘱拆分 -->
+  <update id="updateAdviceSplit" parameterType="activetech.pda.pojo.dto.HspCfxxExecQueryDto">
+  		update hsp_cfxx_exec exec set zxdzt = '0' where zxdzt ='8' 
+  		and exec.da_seq in (select da_seq from hsp_cfxx_info where mpi = #{hspCfxxExecCustom.mpi} and UPPER(ORDER_CLASS) != UPPER('Q')
+  		and  to_char(START_TIME,'yyyy/mm/dd HH24:mi') <![CDATA[>=]]> to_char(#{startdate},'yyyy/mm/dd HH24:mi')
+  		and to_char(START_TIME,'yyyy/mm/dd HH24:mi') <![CDATA[<=]]> to_char(#{enddate},'yyyy/mm/dd HH24:mi')) 
+  		and plan_time is not null
+  		<include refid="cfxxExec_query"/>
+  </update> 
+  
+  <!--医嘱拆分打印列表  -->
+  <select id="adviceSplitPrint" parameterType="activetech.pda.pojo.dto.HspCfxxExecQueryDto" resultType="activetech.pda.pojo.dto.HspCfxxExecCustom">
+	  	select distinct
+		    listagg(EXEC_SEQ, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) execSeq,
+		    DISPOSAL_SEQ,
+		    exec.DA_SUB,
+		    exec.DA_NO,
+		    ISPRINT,
+		    ZXDDAT,
+		    listagg(exec.DA_INFO, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daInfo,
+		    listagg(exec.DA_DOSE, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daDose,
+		    listagg(exec.DA_UNIT, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daUnit,
+		    exec.DA_FREQ,
+		    exec.DA_WAY,
+		    PLAN_TIME,
+		    zxdzt,
+		    EXEC_TIME,
+		    EXEC_USER,
+		    EXEC_USERXM,
+		    EXEC_USERXM_SECOND,
+		    DISPENSE_DATE,
+		    DISPENSE_USERXM,
+		    DISPENSE_USERXM_SECOND,
+		    info.ENTER_TIME enterTime,
+		    listagg(info.High_risk, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) highRisk
+		from HSP_CFXX_EXEC exec, HSP_CFXX_INFO info 
+	  	<where>
+	  		exec.DA_SEQ(+) = info.DA_SEQ
+	  		and info.mpi = #{hspCfxxExecCustom.mpi}
+	  		and UPPER(info.ORDER_CLASS) != UPPER('Q')
+	  		and ZXDZT != '8'
+	  		<!-- 排除删除状态 -->
+	  		and ZXDZT != '9'
+	  		and YZZT != '9'
+	  		and plan_time is not null
+	  		<include refid="cfxxExec_query"/>
+	  		order by  ZXDDAT,exec.DA_NO
+	  	</where>
+  </select>
+  
+  <!--打印执行单 -->
+  <update id="printExec" parameterType="string">
+  		update hsp_cfxx_exec set ISPRINT = #{isPrint} where DISPOSAL_SEQ = #{disposalSeq} and plan_time is not null
+  </update> 
+  
+  <!-- 逻辑删除执行单 -->
+  <update id="deleteCfxxExecByDaSub" parameterType="string">
+  		delete from HSP_CFXX_EXEC where DA_SUB = #{daSub}
+  </update> 
+  
+   <!-- 获取医嘱执行总条数 -->
+  <select id="getAdviceExecListCount" parameterType="activetech.pda.pojo.dto.HspCfxxExecQueryDto" resultType="int">
+  	select count(*) from (
+  		select distinct
+	  	   listagg(exec.EXEC_SEQ, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) execSeq,
+	       listagg(exec.DA_SEQ, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daSeq,
+	       listagg(exec.DA_INFO, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daInfo,
+	       listagg(exec.DA_DOSE, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daDose,
+	       listagg(exec.DA_UNIT, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daUnit
+	      from HSP_CFXX_EXEC exec, HSP_CFXX_INFO info 
+  		<where>
+  			exec.DA_SEQ(+) = info.DA_SEQ
+  			and  info.mpi = #{hspCfxxExecCustom.mpi}
+  			and UPPER(info.ORDER_CLASS) != UPPER('Q')
+  			<!-- 排除删除状态 -->
+  			and ZXDZT != '9'
+  			and ZXDZT != '8'
+  			and ISPRINT = '1'
+  			and YZZT != '9'
+  			and plan_time is not null
+  			<include refid="cfxxExec_query"/>
+  		</where>)
+  </select>
+  
+  <!--获取医嘱执行列表  -->
+  <select id="getAdviceExecList" parameterType="activetech.pda.pojo.dto.HspCfxxExecQueryDto" resultType="activetech.pda.pojo.dto.HspCfxxExecCustom">
+ 	 <!-- 分页头 -->
+	<include refid="activetech.base.CommonSql.page_start" />
+	  	select distinct
+	  	   listagg(exec.EXEC_SEQ, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) execSeq,
+	       listagg(exec.DA_SEQ, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daSeq,
+	       ZXDDAT,
+	       ISPRINT,
+	       listagg(exec.DA_INFO, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daInfo,
+	       listagg(exec.DA_DOSE, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daDose,
+	       listagg(exec.DA_UNIT, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) daUnit,
+	       exec.DA_FREQ,
+	       exec.DA_WAY,
+	       PLAN_TIME,
+	       zxdzt,
+	       DISPOSAL_SEQ,
+	       (select START_DOCT from hsp_cfxx_info a where a.da_seq = exec.da_seq) startDoct,
+	       (select HDHSXM from hsp_cfxx_info a where a.da_seq = exec.da_seq) hdhsXm,
+		   listagg(info.High_risk, '|br') within GROUP (order by exec.DA_SEQ desc) over (partition by DISPOSAL_SEQ) highRisk,
+	       EXEC_TIME,
+       	   EXEC_USER,
+           EXEC_USERXM,
+           EXEC_USERXM_SECOND,
+		   DISPENSE_DATE,
+		   DISPENSE_USERXM,
+		   DISPENSE_USERXM_SECOND,
+		   exec.REMARK,
+		   exec.mpi
+	      from HSP_CFXX_EXEC exec, HSP_CFXX_INFO info 
+	  	<where>
+	  		exec.DA_SEQ(+) = info.DA_SEQ
+	  		and  info.mpi = #{hspCfxxExecCustom.mpi}
+	  		and UPPER(info.ORDER_CLASS) != UPPER('Q')
+	  		<!-- 排除删除状态 -->
+	  		and ZXDZT != '9'
+	  		and ZXDZT != '8'
+	  		and ISPRINT = '1'
+	  		and YZZT != '9'
+	  		and plan_time is not null
+	  		<include refid="cfxxExec_query"/>
+	  	</where>
+  	<!-- 分页尾部 -->
+	<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  
+  
+  <!-- 医嘱执行 -->
+  <update id="updateAdviceExec" parameterType="activetech.pda.pojo.dto.HspCfxxExecCustom">
+  		update hsp_cfxx_exec set 
+  		zxdzt = #{zxdzt},
+  		EXEC_TIME=#{execTime},
+  		EXEC_USER=#{execUser},
+  		EXEC_USERXM=#{execUserxm},
+  		DISPENSE_DATE = #{dispenseDate,jdbcType=TIMESTAMP},
+  		EXEC_USER_SECOND=#{execUserSecond,jdbcType=VARCHAR},
+  		EXEC_USERXM_SECOND=#{execUserxmSecond,jdbcType=VARCHAR},
+  		remark = #{remark,jdbcType=VARCHAR}
+  		where DISPOSAL_SEQ = #{disposalSeq}
+  		and plan_time is not null
+  </update> 
+  
+</mapper>

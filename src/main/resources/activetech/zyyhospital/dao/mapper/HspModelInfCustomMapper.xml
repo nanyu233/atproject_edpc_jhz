@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspModelInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspModelInfCustom" >
+    <id column="MODEL_SEQ" property="modelSeq" jdbcType="VARCHAR" />
+    <result column="MODEL_NAM" property="modelNam" jdbcType="VARCHAR" />
+    <result column="MODEL_SORT" property="modelSort" jdbcType="DECIMAL" />
+    <result column="MODEL_CONTENT" property="modelContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MODEL_SEQ, MODEL_NAM, MODEL_SORT, MODEL_CONTENT
+  </sql>
+  <select id="findModelList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from HSP_MODEL_INF where MODEL_CONTENT=#{modelContent}
+    order by model_sort asc
+  </select>
+  
+  <select id="finddocadviceList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from HSP_MODEL_INF where MODEL_CONTENT='1'
+    order by model_sort asc
+  </select>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspFlowChartInfMapperCustom">
+   
+   <update id="mergeFlowChartInf" parameterType="activetech.edpc.pojo.domain.HspFlowChartInf">
+	    merge into HSP_FLOW_CHART_INF a
+		using (select #{emgSeq, jdbcType = VARCHAR} emg_seq,
+		              #{nodeId, jdbcType = VARCHAR} node_id,
+		              #{status, jdbcType = VARCHAR} status,
+		              #{flowType, jdbcType = VARCHAR} flow_type
+		         from dual) b
+		on (a.emg_seq = b.emg_seq and a.node_id = b.node_id)
+		when matched then
+		  update
+		     set a.status = b.status,
+		         a.flow_type = b.flow_type
+		when not matched then
+		  insert
+		    (FLOWCHART_SEQ,
+		     EMG_SEQ,
+		     NODE_ID,
+		     STATUS,
+		     FLOW_TYPE)
+		  values
+		    (hsp_flowchartdata_seq.nextval,
+		     b.emg_seq,
+		     b.node_id,
+		     b.status,
+		     b.flow_type)
+
+   </update>
+   
+   <select id="getHspFlowChartInfCustomList" parameterType="activetech.edpc.pojo.domain.HspFlowChartInf"
+   		resultType="activetech.edpc.pojo.dto.HspFlowChartInfCustom">
+   		select a.node_id, a.status, b.node_type
+		  from hsp_flow_chart_inf a, HSP_FLOW_CHART_DEF b
+		 where a.emg_seq = #{emgSeq, jdbcType = VARCHAR}
+		   and a.flow_type = 'cz'
+		   and a.node_id = b.node_id(+)
+   </select>
+</mapper>

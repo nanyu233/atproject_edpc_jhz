@@ -1,0 +1,2174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.hospital.dao.mapper.HspemginfCustomMapper">
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.dto.HspemginfCustom" >
+        <id column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+	    <result column="VST_CAD" property="vstCad" jdbcType="VARCHAR" />
+	    <result column="ID_NBR" property="idNbr" jdbcType="VARCHAR" />
+	    <result column="CST_NAM" property="cstNam" jdbcType="VARCHAR" />
+	    <result column="CST_SEX_COD" property="cstSexCod" jdbcType="VARCHAR" />
+	    <result column="BTH_DAT" property="bthDat" jdbcType="DATE" />
+	    <result column="CST_AGE" property="cstAge" jdbcType="VARCHAR" />
+	    <result column="PHE_NBR" property="pheNbr" jdbcType="VARCHAR" />
+	    <result column="CST_ADR" property="cstAdr" jdbcType="VARCHAR" />
+	    <result column="GRN_CHL" property="grnChl" jdbcType="CHAR" />
+	    <result column="GRN_CHL_RSN" property="grnChlRsn" jdbcType="VARCHAR" />
+	    <result column="EMG_DAT" property="emgDat" jdbcType="TIMESTAMP"  />
+	    <result column="ARV_CHL_COD" property="arvChlCod" jdbcType="VARCHAR" />
+	    <result column="CMP_PSN_COD" property="cmpPsnCod" jdbcType="VARCHAR" />
+	    <result column="EMG_ARE_COD" property="emgAreCod" jdbcType="VARCHAR" />
+	    <result column="EMG_DEP_COD" property="emgDepCod" jdbcType="VARCHAR" />
+	    <result column="PRE_DGN_COD" property="preDgnCod" jdbcType="VARCHAR" />
+	    <result column="PRE_USR_NBR" property="preUsrNbr" jdbcType="VARCHAR" />
+	    <result column="PRE_USR_NAM" property="preUsrNam" jdbcType="VARCHAR" />
+	    <result column="MOD_GDN_COD" property="modGdnCod" jdbcType="VARCHAR" />
+	    <result column="MOD_USR_NBR" property="modUsrNbr" jdbcType="VARCHAR" />
+	    <result column="MOD_USR_NAM" property="modUsrNam" jdbcType="VARCHAR" />
+	    <result column="CST_DSP_COD" property="cstDspCod" jdbcType="VARCHAR" />
+	    <result column="EMG_FK_COD" property="emgFkCod" jdbcType="VARCHAR" />
+	    <result column="PAI_LVL_COD" property="paiLvlCod" jdbcType="VARCHAR" />
+	    <result column="FAL_ASS_COD" property="falAssCod" jdbcType="VARCHAR" />
+	    <result column="MNS_SIT_COD" property="mnsSitCod" jdbcType="VARCHAR" />
+	    <result column="MNS_LST_DAT" property="mnsLstDat" jdbcType="DATE" />
+	    <result column="ALG_TYP_COD" property="algTypCod" jdbcType="VARCHAR" />
+	    <result column="SYM_SIT_DES" property="symSitDes" jdbcType="VARCHAR" />
+	    <result column="SAV_MNG_COD" property="savMngCod" jdbcType="VARCHAR" />
+	    <result column="SQL_SEQ" property="sqlSeq" jdbcType="VARCHAR" />
+	    <result column="OXY_NBR" property="oxyNbr" jdbcType="DECIMAL" />
+	    <result column="SEN_STU_COD" property="senStuCod" jdbcType="VARCHAR" />
+	    <result column="ALG_HON" property="algHon" jdbcType="CHAR" />
+	    <result column="SQL_DCT_NBR"  property="sqlDctNbr" jdbcType="VARCHAR"/>
+	    <result column="PAST_HIS_COD"  property="pastHisCod" jdbcType="VARCHAR"/>
+	    <result column="CST_AGE_COD"  property="cstAgeCod" jdbcType="VARCHAR"/>
+	    <result column="REFUSED_SURVEY"  property="refusedSurvey" jdbcType="VARCHAR"/>
+	    <result column="JBZD_DES" property="jbzdDes" jdbcType="VARCHAR" />
+		<result column="CSPG_FLG" property="cspgFlg" jdbcType="CHAR" />
+	    <result column="CSPG_COD" property="cspgCod" jdbcType="CHAR" />
+	    <result column="HXKN_FLG" property="hxknFlg" jdbcType="CHAR" />
+	    <result column="HXKN_COD" property="hxknCod" jdbcType="VARCHAR" />
+	    <result column="HXKN_SUB_COD" property="hxknSubCod" jdbcType="VARCHAR" />
+	    <result column="XT_COD" property="xtCod" jdbcType="VARCHAR" />
+	    <result column="XT_SUB_COD" property="xtSubCod" jdbcType="VARCHAR" />
+	    <result column="XM_COD" property="xmCod" jdbcType="VARCHAR" />
+	    <result column="XM_SUB_COD" property="xmSubCod" jdbcType="VARCHAR" />
+	    <result column="XT_FLG" property="xtFlg" jdbcType="CHAR" />
+	    <result column="XM_FLG" property="xmFlg" jdbcType="CHAR" />
+	    <result column="SW_CHL" property="swChl" jdbcType="CHAR" />
+		<result column="EMG_JOB" property="emgJob" jdbcType="VARCHAR" />
+		<result column="MARITAL_STATUS" property="maritalStatus" jdbcType="CHAR" />
+	    <result column="EMG_BED"  property="emgBed" jdbcType="VARCHAR"/>
+	    <result column="NOW_HIS"  property="nowHis" jdbcType="VARCHAR"/>
+	    <result column="PAST_HIS"  property="pastHis" jdbcType="VARCHAR"/>
+	    <result column="CASE_HIS" property="caseHis" jdbcType="VARCHAR" />
+	    <result column="IS_FETATION" property="isFetation" jdbcType="VARCHAR" />
+	    <result column="KSFZ" property="ksfz" jdbcType="VARCHAR" />
+	    <result column="PATID" property="patid" jdbcType="VARCHAR" />
+		<result column="RYZD_XY" property="ryzdXy" jdbcType="VARCHAR" />
+		<result column="CYZD_ZY" property="cyzdZy" jdbcType="VARCHAR" />
+		<result column="CYZD_XY" property="cyzdXy" jdbcType="VARCHAR" />
+	    <result column="OBSERVATION_CODE" property="observationCode" jdbcType="VARCHAR" />
+	    <result column="DEATH_DIAGNOSIS" property="deathDiagnosis" jdbcType="VARCHAR" />
+	    <result column="SPECIAL_OTHER" property="specialOther" jdbcType="VARCHAR" />
+	    <result column="DOC_DAT"  property="docDat" jdbcType="TIMESTAMP"/> 
+	    <result column="PATIENT_TYP" property="patientTyp" jdbcType="CHAR" />
+	    <result column="PREGNANT_YDCX_COD" property="pregnantYdcxCod" jdbcType="CHAR" />
+	    <result column="PREGNANT_GSPL_COD" property="pregnantGsplCod" jdbcType="CHAR" />
+		<result column="JZXH" property="jzxh" jdbcType="DECIMAL" />
+	    <result column="JZYS" property="jzys" jdbcType="VARCHAR" />
+	    <result column="YSXM" property="ysxm" jdbcType="VARCHAR" />
+	    <result column="KSDM" property="ksdm" jdbcType="VARCHAR" />
+		<result column="CHECK_DOCTOR" property="checkDoctor" jdbcType="VARCHAR" />
+		<result column="CHECK_NURSE" property="checkNurse" jdbcType="VARCHAR" />
+		<result column="CHECK_DOC_DAT" property="checkDocDat" jdbcType="DATE" />
+		<result column="CHECK_NURSE_DAT" property="checkNurseDat" jdbcType="DATE" />
+		<result column="CHECK_DOC_STATUS" property="checkDocStatus" jdbcType="CHAR" />
+		<result column="CHECK_NUR_STATUS" property="checkNurStatus" jdbcType="CHAR" />
+	    <result column="MPI" property="mpi" jdbcType="VARCHAR" />
+	    <result column="GHXH" property="ghxh" jdbcType="VARCHAR" />
+		<result column="RFIDCODE" property="rfidcode" jdbcType="VARCHAR" />
+	    <result column="VACCINE_HIS"  property="vaccineHis" jdbcType="VARCHAR"/>
+	    <result column="XFZT_FLG"  property="xfztFlg" jdbcType="CHAR"/>
+	    <result column="QTSJ_FLG"  property="qtsjFlg" jdbcType="CHAR"/>
+	    <result column="ALG_TYP_DES"  property="algTypDes" jdbcType="VARCHAR"/>
+		<result column="BED_LGS"  property="bedLgs" jdbcType="VARCHAR"/>
+	    <result column="FIRSTSQLSEQ" property="firstsqlseq" jdbcType="VARCHAR" />
+	    <result column="QTSJ_SEQ" property="qtsjSeq" jdbcType="VARCHAR" />
+		<result column="CLEANHZ_MEMO" property="cleanhzMemo" jdbcType="VARCHAR" />
+	    <result column="CIR_LVL_COD" property="cirLvlCod" jdbcType="VARCHAR" />
+	    <result column="BRE_LVL_COD" property="breLvlCod" jdbcType="VARCHAR" />
+	    <result column="BDY_LVL_COD" property="bdyLvlCod" jdbcType="VARCHAR" />
+	    <result column="SPT_LVL_COD" property="sptLvlCod" jdbcType="VARCHAR" />
+	    <result column="LAN_LVL_COD" property="lanLvlCod" jdbcType="VARCHAR" />
+	    <result column="tot_sco_gcs" property="gcsTotSco" jdbcType="DECIMAL" />
+	    <result column="EYE_RCT_COD" property="eyeRctCod" jdbcType="VARCHAR" />
+	    <result column="LAN_RCT_COD" property="lanRctCod" jdbcType="VARCHAR" />
+	    <result column="ACT_RCT_COD" property="actRctCod" jdbcType="VARCHAR" />
+	    <result column="tot_sco_crams" property="cramsTotSco" jdbcType="DECIMAL" />
+	    <result column="HRT_RTE" property="hrtRte" jdbcType="DECIMAL" />
+	    <result column="SBPUP_NBR" property="sbpUpNbr" jdbcType="DECIMAL" />
+	    <result column="SBPDOWN_NBR" property="sbpDownNbr" jdbcType="DECIMAL" />
+	    <result column="BRE_NBR" property="breNbr" jdbcType="DECIMAL" />
+	    <result column="TMP_NBR" property="tmpNbr" jdbcType="DECIMAL" />
+	    <result column="SEN_RCT_COD" property="senRctCod" jdbcType="VARCHAR" />
+	    <result column="tot_sco_mews" property="mewsTotSco" jdbcType="DECIMAL" />
+	    <result column="CHK_LVL_COD" property="chkLvlCod" jdbcType="VARCHAR" />
+	    <result column="MOD_LVL_COD" property="modLvlCod" jdbcType="VARCHAR" />
+	    <result column="MOD_LVL_DES" property="modLvlDes" jdbcType="VARCHAR" />
+	    <result column="preDgnName"  property="preDgnName" jdbcType="VARCHAR"/>
+	    <result column="emgJjd"  property="emgJjd" jdbcType="VARCHAR"/>
+	    <result column="JBBC"  property="jbbc" jdbcType="VARCHAR"/>
+	    <result column="SQL_DCT_NAM"  property="sqlDctNam" jdbcType="VARCHAR"/>
+	    <result column="emgFkName"  property="emgFkName" jdbcType="VARCHAR"/>
+	    <result column="abnSco" property="abnSco" jdbcType="VARCHAR" />
+	    <result column="abnScoNme" property="abnScoNme" jdbcType="VARCHAR" />
+	    <result column="SQL_DES" property="sqlDes" jdbcType="CHAR" />
+	    <result column="bthDatStr" property="bthDatStr" jdbcType="VARCHAR" />
+	    <result column="MYSJ" jdbcType="TIMESTAMP" property="mysj" />
+   		<result column="MQSJ" jdbcType="TIMESTAMP" property="mqsj" />
+   		<result column="FR_COD" jdbcType="VARCHAR" property="frCod" />
+    	<result column="FR_DAT" jdbcType="TIMESTAMP" property="frDat" />
+    	<result column="FIRSTEMGSEQ" property="firstemgseq" jdbcType="VARCHAR" />
+    	<result column="INFECTEDAREA_NAM" jdbcType="VARCHAR" property="infectedareaNam" />
+    	<result column="NATIONALITY" jdbcType="VARCHAR" property="nationality" />
+    	<result column="ABN_SCO_NME" jdbcType="VARCHAR" property="abnScoNme" />
+    	<result column="GLS_TYPE" jdbcType="CHAR" property="glsType" />
+    	<result column="GLS_NUM" jdbcType="VARCHAR" property="glsNum" />
+    	<result column="CDXX" property="cdxx" jdbcType="VARCHAR" />
+    	<result column="KHLX" property="khlx" jdbcType="VARCHAR" />
+   		<result column="PSRYQT" property="psryqt" jdbcType="VARCHAR" />
+   	    <result column="GHID" property="ghid" jdbcType="VARCHAR" />
+   	    <result column="jzxhOld" property="jzxhOld" jdbcType="DECIMAL" />
+   	    <result column="GLS_COD" jdbcType="VARCHAR" property="glsCod" />
+   	    <result column="XTLCFLG" property="xtlcflg" jdbcType="CHAR" />
+   		<result column="CZLCFLG" property="czlcflg" jdbcType="CHAR" />
+  </resultMap>
+ <!-- 区域是查询条件 通常情况，为了提高 sql片段可重用性，按单表创建sql片段 -->
+	<sql id="query_hspemginf_where">
+		<if test="hspemginfCustom!=null">
+			<if test="hspemginfCustom.emgSeq!=null and hspemginfCustom.emgSeq!=''">
+				and hsp_emg_inf.emg_seq= #{hspemginfCustom.emgSeq}
+			</if>
+			<if test="hspemginfCustom.cstNam!=null and hspemginfCustom.cstNam!=''">
+				and hsp_emg_inf.cst_nam like  '%'|| #{hspemginfCustom.cstNam}||'%'
+			</if>
+			<if test="hspemginfCustom.cstDspCod!=null and hspemginfCustom.cstDspCod!=''">
+				and hsp_emg_inf.cst_dsp_cod= #{hspemginfCustom.cstDspCod}
+			</if>
+			<if test="hspemginfCustom.mpi!=null and hspemginfCustom.mpi!=''">
+				and hsp_emg_inf.mpi= #{hspemginfCustom.mpi}
+			</if>
+			<if test="hspemginfCustom.jbzdDes!=null and hspemginfCustom.jbzdDes!=''">
+				and hsp_emg_inf.JBZD_DES like  '%'|| #{hspemginfCustom.jbzdDes}||'%'
+			</if>
+			<!-- 120医生 -->
+			<if test="hspemginfCustom.abnDoctor!=null and hspemginfCustom.abnDoctor !=''">
+				and hsp_emg_inf.ABN_DOCTOR like  '%'|| #{hspemginfCustom.abnDoctor}||'%'
+			</if>
+			<!-- 120驾驶员 -->
+			<if test="hspemginfCustom.abnDriver!=null and hspemginfCustom.abnDriver !=''">
+				and hsp_emg_inf.ABN_DRIVER like  '%'|| #{hspemginfCustom.abnDriver}||'%'
+			</if>
+			<if test="hspemginfCustom.startdate!=null and hspemginfCustom.startdate!=''">
+				<choose>
+					<when test="querytype != null and querytype=='month'">
+						and to_char(hsp_emg_inf.emg_dat,'YYYY/MM') <![CDATA[>=]]> to_char(#{hspemginfCustom.startdate},'YYYY/MM')
+					</when>
+					<otherwise>
+						and to_char(hsp_emg_inf.emg_dat,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{hspemginfCustom.startdate},'YYYY/MM/dd')
+					</otherwise>
+				</choose>
+			</if>
+			<if test="hspemginfCustom.enddate!=null and hspemginfCustom.enddate!=''">
+				<choose>
+					<when test="querytype != null and querytype=='month'">
+						and to_char(hsp_emg_inf.emg_dat,'YYYY/MM') <![CDATA[<=]]> to_char(#{hspemginfCustom.enddate},'YYYY/MM')
+					</when>
+					<otherwise>
+						and to_char(hsp_emg_inf.emg_dat,'YYYY/MM/DD') <![CDATA[<=]]> to_char(#{hspemginfCustom.enddate},'YYYY/MM/DD')
+					</otherwise>
+				</choose>
+				
+			</if>
+			<if test="hspemginfCustom.preDgnCod!=null and hspemginfCustom.preDgnCod!=''">
+				and hsp_emg_inf.PRE_DGN_COD like  '%'|| #{hspemginfCustom.preDgnCod}||'%'
+			</if>
+			<if test="hspemginfCustom.emgDepCod!=null and hspemginfCustom.emgDepCod!=''">
+				and hsp_emg_inf.emg_dep_cod= #{hspemginfCustom.emgDepCod}
+			</if>
+			<if test="hspemginfCustom.savMngCod !=null and hspemginfCustom.savMngCod !=''">
+					and hsp_emg_inf.SAV_MNG_COD like  '%'|| #{hspemginfCustom.savMngCod}||'%'
+			</if>
+			<if test="hspemginfCustom.arvChlCod!=null and hspemginfCustom.arvChlCod !=''">
+					and hsp_emg_inf.ARV_CHL_COD = #{hspemginfCustom.arvChlCod}
+			</if>
+			<if test="hspemginfCustom.specialOther!=null and hspemginfCustom.specialOther !=''">
+					and hsp_emg_inf.SPECIAL_OTHER = #{hspemginfCustom.specialOther}
+			</if>
+			<if test="hspemginfCustom.emgFkCod!=null and hspemginfCustom.emgFkCod !=''">
+				and hsp_emg_inf.EMG_FK_COD = #{hspemginfCustom.emgFkCod}
+			</if>
+			<if test="lqflag=='0'.toString()">
+				<if test="hspemginfCustom.islgbed==1">
+					and exists(select 1 from hsp_sql_inf where hsp_emg_inf.emg_seq  = hsp_sql_inf.emg_seq and (SQL_STA_COD in ('6','11')))
+				</if>
+				<if test="hspemginfCustom.islgbed==0">
+					and exists(select 1 from hsp_sql_inf where hsp_emg_inf.emg_seq  = hsp_sql_inf.emg_seq and (SQL_STA_COD ='6'))
+				</if>
+			</if>
+			<if test="lqflag=='1'.toString()">
+				<if test="hspemginfCustom.islgbed==1">
+					and not exists(select 1 from hsp_sql_inf where hsp_emg_inf.emg_seq  = hsp_sql_inf.emg_seq and (SQL_STA_COD in ('6','11')))
+				</if>
+				<if test="hspemginfCustom.islgbed==0">
+					and not exists(select 1 from hsp_sql_inf where hsp_emg_inf.emg_seq  = hsp_sql_inf.emg_seq and (SQL_STA_COD ='6'))
+				</if>
+			</if>
+			<if test="grnChlFlag == '0'.toString()">
+				and hsp_emg_inf.GRN_CHL ='1'
+			</if>
+			<if test="swChlFlag == '0'.toString()">
+				and hsp_emg_inf.SW_CHL ='1'
+			</if>
+			<if test="cstDspFlag == '0'.toString()">
+				and hsp_emg_inf.SQL_SEQ in (select SQL_SEQ from HSP_SQL_INF where SQL_STA_COD='2')
+			</if>
+			<if test="cstDspFlag == '1'.toString()">
+				and hsp_emg_inf.SQL_SEQ in (select SQL_SEQ from HSP_SQL_INF where SQL_STA_COD='13')
+			</if>
+		</if>
+	</sql>
+	
+
+  <!-- 查询急诊患者 -->
+	 <select id="getHighChartsReportCount"  resultType="activetech.base.pojo.dto.HighChartsDemoCustom" 
+	 						parameterType="activetech.base.pojo.dto.HighChartsDemoCustomDto">
+		  <!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+ 		   select emg_dat2 as name,count(emg_dat) as count   
+				from HSP_EMG_INF ,
+					(SELECT TO_CHAR(#{starttime}+ ROWNUM - 1,'YYYY/MM/DD') emg_dat2
+                    	FROM DUAL
+                   		CONNECT BY ROWNUM <![CDATA[<=]]> 
+                    	(to_date(to_char(#{endtime},'YYYY/MM/DD'),'YYYY/MM/DD') -
+                    	to_date(to_char(#{starttime},'YYYY/MM/DD'),'YYYY/MM/DD'))) date1
+					where
+					to_char(emg_dat(+),'YYYY/MM/DD') = emg_dat2
+			GROUP BY emg_dat2 ORDER BY  name  
+			<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	
+	<!-- 获取急诊患者人数 -->
+	<select id="findCount" parameterType="activetech.base.pojo.dto.HighChartsDemoCustom" resultType="int">
+		SELECT  count(TO_CHAR(#{starttime}+ ROWNUM - 1,'YYYY/MM/DD') )
+           FROM DUAL
+           CONNECT BY ROWNUM <![CDATA[<=]]>
+           (to_date(to_char(#{endtime},'YYYY/MM/DD'),'YYYY/MM/DD') -
+            to_date(to_char(#{starttime},'YYYY/MM/DD'),'YYYY/MM/DD'))
+	</select>
+	
+	<!-- 查询抢救室的死亡率 -->
+  <select id="findDeathList"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto" resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+  with death as 
+     (select   
+       (select count(*) from hsp_emg_inf  
+           where exists(select 1 from hsp_sql_inf i where i.emg_seq = hsp_emg_inf.emg_seq and SQL_STA_COD in 
+            <foreach collection="zgztlist" index="index" item="zgzt" open="(" separator="," close=")">  
+	            #{zgzt}  
+	        </foreach>
+	        <if test="startdate!=null and startdate!=''">
+				and to_char(i.sql_dat,'yyyyMMdd')<![CDATA[>=]]> to_char(#{startdate},'yyyyMMdd')
+			</if>
+			<if test="enddate!=null and enddate!=''">
+				and to_char(i.sql_dat,'yyyyMMdd') <![CDATA[<]]>  to_char(#{enddate},'yyyyMMdd')
+			</if>
+            ) 
+           ) as deathNum,
+       (select count(*) from hsp_emg_inf where 1=1
+				<if test="startdate!=null and startdate!=''">
+					and to_char(hsp_emg_inf.emg_dat,'yyyyMMdd')<![CDATA[>=]]> to_char(#{startdate},'yyyyMMdd')
+				</if>
+				<if test="enddate!=null and enddate!=''">
+					and to_char(hsp_emg_inf.emg_dat,'yyyyMMdd') <![CDATA[<=]]>  to_char(#{enddate},'yyyyMMdd')
+				</if>
+       ) as AllNum
+       from  dual
+      )
+      select death.*,
+      	to_char(decode(AllNum,0,0,round(deathNum/AllNum*100,2)),'fm9999990.9999')||'%' deathRate,
+      	to_char(decode(AllNum,0,0,round(100-deathNum/AllNum*100,2) ),'fm9999990.9999')||'%' surRate 
+      from death 
+  </select>
+	  <!-- 统计急诊各级患者人数 -->
+	  <select id="getHighChartsEmg" parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+		resultType="activetech.base.pojo.dto.HighChartsDemoCustom">
+		
+		select
+		info name,infocode,
+		(select count(emg_dep_cod)count from hsp_emg_inf,hsp_mews_inf,hsp_sql_inf where 
+		hsp_emg_inf.emg_seq = hsp_mews_inf.emg_seq
+		and hsp_emg_inf.sql_seq = hsp_sql_inf.sql_seq
+		and emg_dep_cod = infocode
+		and to_char(hsp_emg_inf.emg_dat,'yyyy/mm/dd')<![CDATA[>=]]> to_char(#{startdate},'yyyy/mm/dd')
+		and to_char(hsp_emg_inf.emg_dat,'yyyy/mm/dd')<![CDATA[<=]]> to_char(#{enddate},'yyyy/mm/dd')
+		)count
+		from dstdictinfo
+		where
+		typecode = 'MOD_LVL_COD' order by INFOCODE
+	</select>
+	<select id="getHighChartsEmgAgeGroup" parameterType="activetech.base.pojo.dto.HighChartsDemoCustomDto"
+		resultType="activetech.base.pojo.dto.HighChartsDemoCustom">
+	<![CDATA[
+	  select name, count(name) count
+		  from (select (case
+		                 when (CST_AGE_COD != 0) then
+		                  '儿童'
+		                 when (CST_AGE < 12 and CST_AGE_COD = 0) then
+		                  '儿童'
+		                 when CST_AGE < 18 then
+		                  '少年'
+		                 when CST_AGE < 40 then
+		                  '青年'
+		                 when CST_AGE < 60 then
+		                  '中年'
+		                 when CST_AGE >= 60 then
+		                  '老年'
+		                 else
+		                  '其他'
+		               end) name
+		          from hsp_emg_inf t, dstdictinfo b
+		         where t.emg_dep_cod = b.infocode
+		           and b.typecode = 'MOD_LVL_COD'
+		           and b.info = #{highChartsDemoCustom.name}
+		           ]]>
+					<![CDATA[
+					and to_char(t.emg_dat,'yyyy/mm/dd') >= to_char(#{starttime},'yyyy/mm/dd')
+		 			and to_char(t.emg_dat,'yyyy/mm/dd') <= to_char(#{endtime},'yyyy/mm/dd')
+		            )
+		 group by name
+				 ]]>
+	</select>
+
+
+	<!-- 查询各月份抢救室滞留时间中位数-->
+	<select id="findMedianList"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto" resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	select round(median(hours),2) median, mdate
+	  from (select (to_date(TO_CHAR(to_timestamp(sql_dat), 'yyyy/mm/dd hh24:mi'),
+	                        'yyyy/mm/dd hh24:mi') -
+	               to_date(TO_CHAR(to_timestamp(emg_dat), 'yyyy/mm/dd hh24:mi'),
+	                        'yyyy/mm/dd HH24:mi')) * 24 hours,
+	               SQL_DAT,
+	               emg_dat,
+	               CST_DSP_COD,
+	               SQL_STA_COD
+	          from hsp_emg_inf a, hsp_sql_inf b
+	         where a.sql_seq = b.sql_seq
+	           and a.CST_DSP_COD in('6')
+	           and b.SQL_STA_COD <![CDATA[<>]]> '3'
+	           and a.firstsqlseq <![CDATA[<>]]> a.sql_seq),
+	       (SELECT TO_CHAR(ADD_MONTHS(TO_DATE(to_char(#{startdate},'yyyy-MM'), 'yyyy-MM'), ROWNUM - 1),
+	                       'yyyy/MM') mdate
+	          FROM DUAL
+	        CONNECT BY ROWNUM <![CDATA[<=]]>
+	                   months_between(to_date(to_char(#{enddate},'yyyy-MM'), 'yyyy-MM'),
+	                                  to_date(to_char(#{startdate},'yyyy-MM'), 'yyyy-MM')) + 1) mon
+	 where mon.mdate = to_char(EMG_DAT(+), 'yyyy/MM')
+	 group by mdate
+	 order by mdate asc
+	</select>
+	
+	
+	<!-- 查询各月份IVa级患者就诊达标率-->
+	<select id="findQualifiedList"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto" resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	select  wzhzs,pthzs,  mdate 
+  		from (
+                select count(emg_dat) pthzs, mdate
+                  from hsp_emg_inf right join
+                        (SELECT TO_CHAR(ADD_MONTHS(TO_DATE(to_char(#{startdate},'yyyy/MM'),'yyyy/MM'),ROWNUM - 1),'yyyy/MM') mdate
+                           FROM DUAL
+                         CONNECT BY ROWNUM <![CDATA[<=]]>
+                                    months_between(to_date(to_char(#{enddate},'yyyy/MM'),'yyyy/MM'),
+                                                   to_date(to_char(#{startdate},'yyyy/MM'),'yyyy/MM')) + 1) mon
+                on EMG_DEP_COD = '3'
+                   and doc_dat is not null
+                   and to_char(EMG_DAT, 'yyyy/MM') = mon.mdate
+                   group by mdate
+                ) t1,
+       (
+                select count(emg_Dat) wzhzs, mdates
+                  from hsp_emg_inf a right join
+                        (SELECT TO_CHAR(ADD_MONTHS(TO_DATE(to_char(#{startdate},'yyyy/MM'),'yyyy/MM'),ROWNUM - 1),'yyyy/MM') mdates
+                           FROM DUAL
+                         CONNECT BY ROWNUM <![CDATA[<=]]>
+                                    months_between(to_date(to_char(#{enddate},'yyyy/MM'),'yyyy/MM'),
+                                                   to_date(to_char(#{startdate},'yyyy/MM'),'yyyy/MM')) + 1) mon
+                 on EMG_DEP_COD = '3'
+                   and doc_dat is not null
+                   and to_char(EMG_DAT, 'yyyy/MM') = mon.mdates
+                   and (trunc(extract(DAY FROM doc_dat) * 24 * 60 +
+                              extract(hour FROM doc_dat) * 60 +
+                              extract(minute FROM doc_dat) +
+                              extract(second FROM doc_dat) / 60) -
+                       trunc(extract(DAY FROM emg_dat) * 24 * 60 +
+                              extract(hour FROM emg_dat) * 60 +
+                              extract(minute FROM emg_dat) +
+                              extract(second FROM emg_dat) / 60)) <![CDATA[<]]> 60
+                   group by mdates
+                )  t2
+ where t1.mdate = t2.mdates group by mdate,pthzs,wzhzs order by mdate asc
+
+	</select>
+	
+	
+	<!-- 查询医患比-->
+	<select id="findpatient"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto" resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		select (select comcname from dstcompctl where comno=EMG_FK_COD) emgFkName,
+		    EMG_FK_COD,
+		    (select usrname from dstuser where usrno=sql_dct_nbr) sqlDctNam,
+		    sql_dct_nbr,
+		    count(EMG_FK_COD) hzcount
+		 from HSP_EMG_INF 
+		 where emg_dat<![CDATA[>=]]>#{startdate}
+		and emg_dat<![CDATA[<]]>#{enddate}
+		 GROUP BY EMG_FK_COD,sql_dct_nbr 
+		 order by emgFkName,sqlDctNam
+	</select>
+	
+	
+		<!--月急诊人数  -->
+	<select id="getYjzrsCount"  resultType="activetech.base.pojo.dto.HighChartsDemoCustom" 
+	 						parameterType="activetech.base.pojo.dto.HighChartsDemoCustomDto">
+			
+			select b.name,nvl(a.count,0) count
+  			from (
+        SELECT TO_CHAR(emg_dat, 'YYYY/MM') name, COUNT(emg_dat) count
+          FROM HSP_EMG_INF
+         GROUP BY TO_CHAR(emg_dat, 'YYYY/MM') ) a
+         right   join
+       (SELECT TO_CHAR(add_months(to_date(to_char(#{starttime},'YYYY/MM'), 'YYYY/MM'), ROWNUM - 1),'YYYY/MM') name FROM DUAL
+        CONNECT BY ROWNUM <![CDATA[<=]]> 
+         (SELECT months_between(to_date(to_char(#{endtime},'YYYY/MM'),'YYYY/MM'),
+                 to_date(to_char(#{starttime},'YYYY/MM'),'YYYY/MM'))
+           FROM dual)) b
+           on b.name = a.name order by b.name
+	</select>
+	<!--月急诊留抢人数 -->
+	<select id="getYjzqjrsCount"  resultType="activetech.base.pojo.dto.HighChartsDemoCustom" 
+	 						parameterType="activetech.base.pojo.dto.HighChartsDemoCustomDto">
+			select b.name,nvl(a.count,0) count
+  			from (
+        SELECT TO_CHAR(emg_dat, 'YYYY/MM') name, COUNT(emg_dat) count
+          FROM HSP_EMG_INF where
+          exists(select 1 from hsp_sql_inf i where i.emg_seq = HSP_EMG_INF.emg_seq
+          and i.sql_sta_cod in('6') )
+         GROUP BY TO_CHAR(emg_dat, 'YYYY/MM') ) a
+         right   join
+       (SELECT TO_CHAR(add_months(to_date(to_char(#{starttime},'YYYY/MM'), 'YYYY/MM'), ROWNUM - 1),'YYYY/MM') name FROM DUAL
+        CONNECT BY ROWNUM <![CDATA[<=]]> 
+         (SELECT months_between(to_date(to_char(#{endtime},'YYYY/MM'),'YYYY/MM'),
+                 to_date(to_char(#{starttime},'YYYY/MM'),'YYYY/MM'))
+           FROM dual)) b
+           on b.name = a.name order by b.name
+	</select>
+	<!--月急诊死亡人数 -->
+	<select id="getYjzswrsCount"  resultType="activetech.base.pojo.dto.HighChartsDemoCustom" 
+	 						parameterType="activetech.base.pojo.dto.HighChartsDemoCustomDto">
+         select b.name,nvl(a.count,0) count  from (      
+               select temp.mon name,nvl(count(*),0)count  from (
+					select to_char(sql_dat, 'yyyy/MM') mon, a.*
+					  from hsp_sql_inf a
+					 where sql_seq in
+					       (select max(sql_seq)
+					          from hsp_sql_inf
+					         where emg_seq in
+					               (select emg_seq
+					                  from hsp_emg_inf
+					                 where emg_seq in (select emg_seq
+					                          from hsp_sql_inf a
+					                         where a.emg_seq = hsp_emg_inf.emg_seq
+					                           and a.sql_sta_cod in ('3','14')
+					                            and  to_char(a.SQL_DAT, 'yyyyMM') >= to_char(#{starttime},'yyyyMM') 
+            and to_char(a.SQL_DAT, 'yyyyMM') <![CDATA[<]]>  to_char(#{endtime},'yyyyMM') 
+            )) 
+					         group by emg_seq) )temp
+					 group by temp.mon
+           )   a        right   join
+       (SELECT TO_CHAR(add_months(to_date(to_char(#{starttime},'YYYY/MM'), 'YYYY/MM'), ROWNUM - 1),'YYYY/MM') name FROM DUAL
+        CONNECT BY ROWNUM <![CDATA[<=]]> 
+         (SELECT months_between(to_date(to_char(#{endtime},'YYYY/MM'),'YYYY/MM'),
+                 to_date(to_char(#{starttime},'YYYY/MM'),'YYYY/MM'))
+           FROM dual)) b
+           on b.name = a.name order by b.name              
+	</select>
+	<!--月急诊住院人数 -->
+	<select id="getYjzzyrsCount"  resultType="activetech.base.pojo.dto.HighChartsDemoCustom" 
+	 						parameterType="activetech.base.pojo.dto.HighChartsDemoCustomDto">
+	 						
+	 	select b.name,nvl(a.count,0) count  from (					
+			 select temp.mon name,nvl(count(*),0) count  from (
+				select to_char(sql_dat,'yyyy/MM') mon,a.*
+				  from hsp_sql_inf a
+				 where sql_seq in (select min(t2.sql_seq)
+				                     from hsp_emg_inf t1, hsp_sql_inf t2
+				                    where t1.emg_seq = t2.emg_seq(+)
+				                      and exists
+				                    (select 1
+				                             from hsp_sql_inf a
+				                            where a.emg_seq = t1.emg_seq
+				                              and a.sql_sta_cod = '2')
+				                              and to_char(t2.SQL_DAT, 'yyyyMM') >= to_char(#{starttime},'yyyyMM') 
+				                              and to_char(t2.SQL_DAT, 'yyyyMM') <![CDATA[<]]>  to_char(#{endtime},'yyyyMM') 
+				                    group by t1.emg_seq))temp
+				   group by  temp.mon 
+	  ) a        right   join
+       (SELECT TO_CHAR(add_months(to_date(to_char(#{starttime},'YYYY/MM'), 'YYYY/MM'), ROWNUM - 1),'YYYY/MM') name FROM DUAL
+        CONNECT BY ROWNUM <![CDATA[<=]]> 
+         (SELECT months_between(to_date(to_char(#{endtime},'YYYY/MM'),'YYYY/MM'),
+                 to_date(to_char(#{starttime},'YYYY/MM'),'YYYY/MM'))
+           FROM dual)) b
+           on b.name = a.name order by b.name 
+	</select>
+	
+	
+	<!--抢救措施 -->
+	<select id="getbrbzxgtjt" parameterType="activetech.hospital.pojo.dto.HspBrbzQueryDto"
+		resultType="activetech.hospital.pojo.dto.HspBrbzCustom">
+			
+		select INFOCODE infocode,info from dstdictinfo where typecode = 'SAV_MNG_COD'
+		and INFOCODE in 
+		<foreach collection="brbzIdList"  item="brbzIdList" index="index" open="(" close=")" separator=",">
+			#{brbzIdList, jdbcType=VARCHAR} 		
+		</foreach>
+		 order by INFOCODE asc
+	</select>
+	
+	<select id="getcountbrbzxgtjt" parameterType="activetech.hospital.pojo.dto.HspBrbzQueryDto"
+		resultType="activetech.hospital.pojo.dto.HspBrbzCustom">
+			
+		select SAV_MNG_COD from hsp_emg_inf 
+			where SAV_MNG_COD is not null 
+			and to_char(EMG_DAT,'YYYY/MM')=to_char(#{time},'YYYY/MM')
+			
+	</select>
+	<!--病症查询 -->
+	<select id="getbrbz" parameterType="activetech.hospital.pojo.dto.HspBrbzQueryDto"
+		resultType="activetech.hospital.pojo.dto.HspBrbzCustom">
+		select INFOCODE infocode,info from dstdictinfo where typecode = 'SAV_MNG_COD' order by INFOCODE asc
+	</select>
+  
+	<select id="findHspemginfCustom" parameterType="java.lang.String" 
+		resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		  select hsp_emg_inf.emg_seq emgSeq,
+             vst_cad vstCad,
+             id_nbr idNbr,
+             cst_nam cstNam,
+             (select info from dstdictinfo a where a.typecode='CST_SEX_COD' and a.infocode=hsp_emg_inf.cst_sex_cod) as  cstSexCod,
+             bth_dat bthDat,
+             to_char(bth_dat,'yyyy/mm/dd') bthDatStr,
+             cst_age cstAge,
+             phe_nbr pheNbr,
+             cst_adr cstAdr,
+             MPI mpi,
+             (select info from dstdictinfo a where a.typecode='ISORNOT' and a.infocode=hsp_emg_inf.grn_chl) as  grnChl,
+             (select info from dstdictinfo a where a.typecode='GRN_CHL_RSN' and a.infocode=hsp_emg_inf.grn_chl_rsn) as  grnChlRsn,
+             emg_dat emgDat,
+             to_char(emg_dat,'yyyy/mm/dd') emgDatStr,
+             (select info from dstdictinfo a where a.typecode='ARV_CHL_COD' and a.infocode=hsp_emg_inf.arv_chl_cod) as  arvChlCod,
+             cmp_psn_cod cmpPsnCod,
+            (select info from dstdictinfo a where a.typecode='EMG_ARE_COD' and a.infocode=hsp_emg_inf.emg_are_cod) as  emgAreCod,
+             (select info from dstdictinfo a where a.typecode='MOD_LVL_COD' and a.infocode=hsp_emg_inf.emg_dep_cod) as  emgDepCod,
+             pre_dgn_cod preDgnCod,
+             (select jbbc from hsp_jbzd_lz a where a.id=hsp_emg_inf.pre_dgn_cod) as  jbbc,
+             pre_usr_nbr preUsrNbr,
+             pre_usr_nam preUsrNam,
+             mod_gdn_cod modGdnCod,
+             mod_usr_nbr modUsrNbr,
+             mod_usr_nam modUsrNam,
+             (select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode=hsp_emg_inf.CST_DSP_COD) as cstDspCod,
+             (select COMCNAME from dstcompctl a where  a.COMNO=hsp_emg_inf.emg_fk_cod) as  emgFkCod, 
+             pai_lvl_cod paiLvlCod,
+             fal_ass_cod falAssCod,
+             mns_sit_cod mnsSitCod,
+            mns_lst_dat mnsLstDat,
+             alg_typ_cod algTypCod,
+             sym_sit_des symSitDes,
+             sav_mng_cod savMngCod,
+             hsp_emg_inf.sql_seq sqlSeq,
+             (select info from dstdictinfo a where a.typecode='MOD_LVL_COD' and a.infocode=hsp_emg_inf.emg_dep_cod) as emgJjd,
+             (select info from dstdictinfo a where a.typecode='CST_AGE_COD' and a.infocode=hsp_emg_inf.CST_AGE_COD) as  cstAgeCod,
+          SQL_STA_COD as sqlStaCod,
+        to_char(SQL_DAT,'yyyy/mm/dd hh24:mi:ss') sqlDat,
+        (select COMCNAME from dstcompctl a where  a.COMNO=SQL_DEP_COD) as sqlDepCod,    
+        SQL_DCT_NAM sqlDctNam,getQjsBed(hsp_emg_inf.emg_seq,'6') emgBed,
+        JBZD_DES jbzdDes,
+        RFIDCODE rfidcode,
+             VACCINE_HIS vaccineHis,
+             OBSERVATION_CODE  observationCode,
+             firstsqlseq firstsqlseq,
+             t2.sql_dat sqlDate,
+             t3.HRT_RTE hrtRte,
+             t3.Sbpup_Nbr sbpupNbr,
+             t3.Sbpdown_Nbr sbpdownNbr,
+             t3.Tmp_Nbr tmpNbr,
+             t3.Bre_Nbr breNbr,
+             OXY_NBR oxyNbr,
+             GLS_NUM glsNum,
+             SEN_STU_COD senStuCod,
+             NATION nation,
+             (select info
+                  from dstdictinfo
+                 where dstdictinfo.typecode = 'CST_DSP_COD'
+                   and dstdictinfo.infocode =
+                       (select sql_sta_cod
+                          from hsp_sql_inf
+                         where hsp_sql_inf.sql_seq = hsp_emg_inf.sql_seq
+                           and hsp_sql_inf.sql_seq <![CDATA[<>]]> hsp_emg_inf.firstsqlseq)) cstDspCodNameNew
+             from hsp_emg_inf ,hsp_sql_inf t2,hsp_mews_inf t3
+             where hsp_emg_inf.emg_seq =#{emgSeq}
+             and hsp_emg_inf.sql_seq = t2.sql_seq
+             and hsp_emg_inf.emg_seq = t3.emg_seq
+  </select>
+  
+
+  <select id="getEmginfForPrint" parameterType="java.lang.String" 
+		resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	select  (select comcname from dstcompctl where comno = a.EMG_FK_COD)  emgFkName,
+         cst_nam as cstNam,
+         vst_cad as vstCad,
+         emg_dat emgdat,
+         tmp_Nbr tmpNbr,
+         hrt_Rte hrtRte,
+         bre_Nbr breNbr,
+         sbpUp_Nbr sbpUpNbr,
+         sbpDown_Nbr sbpDownNbr,
+         oxy_Nbr oxyNbr,
+         (select nrs_sco from hsp_nrs_inf where hsp_nrs_inf.emg_seq=a.emg_seq and nrs_status='0') nrsSco,
+         CST_AGE cstAge,
+         (select info from dstdictinfo X where X.typecode='CST_AGE_COD' and X.infocode= a. CST_AGE_COD) as cstAgeCod,
+         (select info from dstdictinfo X where X.typecode='CST_SEX_COD' and X.infocode= a. CST_SEX_COD) as cstSexCod,
+         REFUSED_SURVEY REFUSEDSURVEY
+    from hsp_emg_inf a, hsp_mews_inf c
+   where a.emg_seq = c.emg_seq 
+		 and  a.emg_seq = #{emgSeq}
+  </select>
+	<select id="fingDrhzrs" resultType="int"
+	 						parameterType="activetech.base.pojo.dto.HighChartsDemoCustomDto">
+  		 select count(*) rscount from hsp_emg_inf  
+  		 	where to_char(emg_dat,'YYYY/MM/DD') 
+  		 		=  to_char(#{datetime},'YYYY/MM/DD')
+  </select>
+  
+
+  
+  <select id="fingylqcount" resultType="int"
+	 						parameterType="activetech.base.pojo.dto.HighChartsDemoCustomDto">
+  		 select count(*) ylqcount from hsp_emg_inf　a where 
+  		 exists(select 1 from hsp_sql_inf b where a.emg_seq = b.emg_seq and b.SQL_STA_COD='6') 
+  		 and to_char(a.emg_dat,'YYYY/MM') <![CDATA[=]]> to_char(#{startdate} ,'YYYY/MM')
+  </select>
+  
+    <select id="fingrlqcount" resultType="int"
+	 						parameterType="activetech.base.pojo.dto.HighChartsDemoCustomDto">
+  		 select count(*) ylqcount from hsp_emg_inf　a where 
+  		 exists(select 1 from hsp_sql_inf b where a.emg_seq = b.emg_seq and b.SQL_STA_COD='6') 
+  		 and to_char(a.emg_dat,'YYYY/MM/dd') <![CDATA[=]]> to_char(#{startdate} ,'YYYY/MM/dd')
+  </select>
+  
+  <select id="findHspemginfCustomLqxxdj" parameterType="java.lang.String" 
+		resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		select hsp_emg_inf.emg_seq emgSeq,
+		      vst_cad vstCad,
+		      cst_nam cstNam,
+		      cst_age cstAge,
+		      (select info from dstdictinfo a where a.typecode='CST_AGE_COD' and a.infocode=hsp_emg_inf.CST_AGE_COD) as cstAgeCod,
+		      (select info from dstdictinfo a where a.typecode='CST_SEX_COD' and a.infocode=hsp_emg_inf.cst_sex_cod) as  cstSexCod,
+		      phe_nbr pheNbr,
+			  cst_adr cstAdr,
+		      (select COMCNAME from dstcompctl a where  a.COMNO=hsp_emg_inf.emg_fk_cod) as  emgFkCod,
+		      sym_sit_des symSitDes,
+		      (select info from dstdictinfo a where a.typecode='MOD_LVL_COD' and a.infocode=hsp_emg_inf.emg_dep_cod) as  emgDepCod,
+		      (select info from dstdictinfo a where a.typecode='EMG_ARE_COD' and a.infocode=hsp_emg_inf.emg_are_cod) as  emgAreCod,
+		      to_char((select sql_dat from hsp_sql_inf a where a.sql_seq=hsp_emg_inf.sql_seq),'yyyy/mm/dd hh24:mi:ss') sqlDat,
+		      JBZD_DES jbzdDes,
+		      PRE_DGN_COD jbbc,
+		     (select usrname from dstuser where usrno = hsp_emg_inf.SQL_DCT_NBR) sqlDctNam,
+		     (select SQL_STA_COD from hsp_sql_inf a  where a.sql_seq=hsp_emg_inf.sql_seq) cstDspCodNew,
+		     (select comcname from dstcompctl a where  a.comno= (select sql_dep_cod from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ )) as cstDepCodNew,
+		     (select sql_dep_cod from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ ) sqlDepCod,
+		     sql_seq sqlSeq,
+		     (select sql_des from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ ) as sqlDes,
+		     firstsqlseq,
+		     (select sql_sta_cod from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ ) sqlStaCod,
+		      (select sql_dep_cod from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ ) bedId,
+		      mpi
+		from hsp_emg_inf
+		where hsp_emg_inf.emg_seq= #{emgSeq}
+</select>
+
+<select id="findAllCount"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+		resultType="activetech.hospital.pojo.dto.HighChartsReportCustom">
+	select 
+	       (select count(*) from hsp_emg_inf
+	       	where emg_dat <![CDATA[>=]]> #{startdate,jdbcType=DATE}
+	       	and emg_dat <![CDATA[<]]>  #{enddate,jdbcType=DATE}) emgCount,
+	       (select count(*) 
+	          from hsp_emg_inf where emg_seq in 
+	          (select emg_seq from hsp_sql_inf where sql_sta_cod in ('3','14') 
+	          and sql_dat <![CDATA[>=]]> #{startdate,jdbcType=DATE}
+	         	and sql_dat <![CDATA[<]]>  #{enddate,jdbcType=DATE}
+	          ) ) deathCount,
+	        (select count(*) 
+		      from hsp_emg_inf
+		      where emg_seq in 
+		      (
+		        select emg_seq from hsp_sql_inf 
+		        where sql_sta_cod in ('2')
+		        and sql_dat <![CDATA[>=]]> #{startdate,jdbcType=DATE}
+	         	and sql_dat <![CDATA[<]]>  #{enddate,jdbcType=DATE}
+		      )) zyCount,
+	        (select count(*) 
+		      from hsp_emg_inf
+		      where emg_seq in 
+		      (
+		        select emg_seq from hsp_sql_inf 
+		        where sql_sta_cod in ('6')
+		        and sql_dat <![CDATA[>=]]> #{startdate,jdbcType=DATE}
+	         	and sql_dat <![CDATA[<]]>  #{enddate,jdbcType=DATE}
+		      )) lqCount,
+		      (select count(*) from hsp_emg_inf
+	       	where ARV_CHL_COD like '%'||5||'%'
+	       	and emg_dat <![CDATA[>=]]> #{startdate,jdbcType=DATE}
+	       	and emg_dat <![CDATA[<]]>  #{enddate,jdbcType=DATE}) cgcount
+	from dual
+</select>
+
+<select id="findAllCountByDay"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+		resultType="activetech.hospital.pojo.dto.HighChartsReportCustom">
+	select 
+	       (select count(*) from hsp_emg_inf
+	       	where  to_char(emg_dat,'yyyyMMdd') <![CDATA[=]]> to_char(#{startdate} ,'yyyyMMdd')) emgCount,
+	       	
+	       (select count(*) 
+	          from hsp_emg_inf where emg_seq in 
+	          (select emg_seq from hsp_sql_inf where sql_sta_cod in ('3','14') 
+	        	 and to_char(sql_dat,'yyyyMMdd') <![CDATA[=]]> to_char(#{startdate} ,'yyyyMMdd')
+	          ) ) deathCount,
+	        (select count(*) 
+		      from hsp_emg_inf
+		      where emg_seq in 
+		      (
+		        select emg_seq from hsp_sql_inf 
+		        where sql_sta_cod in ('2')
+		        and  to_char(sql_dat,'yyyyMMdd') <![CDATA[=]]> to_char(#{startdate} ,'yyyyMMdd')
+		      )) zyCount,
+	        (select count(*) 
+		      from hsp_emg_inf
+		      where emg_seq in 
+		      (
+		        select emg_seq from hsp_sql_inf 
+		        where sql_sta_cod in ('6')
+		        and  to_char(sql_dat,'yyyyMMdd') <![CDATA[=]]> to_char(#{startdate} ,'yyyyMMdd')
+		      )) lqCount,
+		      (select count(*) 
+	          from hsp_emg_inf 
+	          where ARV_CHL_COD like '%'||5||'%'
+	          and to_char(emg_dat,'yyyyMMdd') <![CDATA[=]]> to_char(#{startdate} ,'yyyyMMdd')
+	          ) cgcount
+	from dual
+</select>
+
+<select id="findGkhzjztjListByDay"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+	resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	select nvl(querydate,to_char( #{startdate},'yyyy/mm/dd')) querydate,nvl(counts,0) hzcount,t2.comcname emgFkName,
+	t2.showorder
+	from 
+	  (select to_char(emg_dat,'yyyy/mm/dd') querydate,
+	          count(dstcompctl.comno) counts,
+	          dstcompctl.comcname
+	  from hsp_emg_inf,dstcompctl
+	  where dstcompctl.is_jzks='1' and  dstcompctl.ISENABLE='1'
+	  and hsp_emg_inf.emg_fk_cod=dstcompctl.comno(+)
+	  and trunc(emg_dat)=trunc( #{startdate})
+	  group by to_char(emg_dat,'yyyy/mm/dd'),dstcompctl.comcname
+	  ) t1,
+	  (select * from dstcompctl where is_jzks='1'  and ISENABLE='1') t2
+	where t1.comcname(+)=t2.comcname
+	order by querydate,showorder asc
+</select>
+<select id="findGkhzjztjListByYear"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+	resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	select t2.querydate,emgFkName,nvl(counts,0) hzcount,showorder
+	from
+	  (select to_char(emg_dat,'yyyy') querydate,
+	            count(dstcompctl.comno) counts,
+	            dstcompctl.comcname
+	    from hsp_emg_inf,dstcompctl
+	    where dstcompctl.is_jzks='1' and  dstcompctl.ISENABLE='1'
+	    and hsp_emg_inf.emg_fk_cod=dstcompctl.comno(+)
+	    group by to_char(emg_dat,'yyyy'),dstcompctl.comcname order by showorder asc
+	    ) t1,
+	  (select querydate,comcname emgFkName,showorder 
+	  from
+	    (SELECT TO_CHAR(add_months(#{startdate}, 12*(ROWNUM - 1)), 'YYYY' ) querydate FROM DUAL  
+	              CONNECT BY ROWNUM <![CDATA[<=]]>  
+	              (SELECT months_between(#{enddate}, #{startdate}) FROM dual) /12),
+	    (select * from dstcompctl where is_jzks='1' and ISENABLE='1' order by showorder asc)   
+	  ) t2
+	where t1.querydate(+)=t2.querydate
+	and t1.comcname(+)=t2.emgFkName
+    order by querydate,showorder asc
+</select>
+
+<select id="findGkhzjztjListByMonth"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+	resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	select nvl(querydate,to_char( #{startdate},'yyyy/mm')) querydate,nvl(counts,0) hzcount,t2.comcname emgFkName
+	,t2.showorder
+	from 
+	  (select to_char(emg_dat,'yyyy/mm') querydate,
+	          count(dstcompctl.comno) counts,
+	          dstcompctl.comcname
+	  from hsp_emg_inf,dstcompctl
+	  where dstcompctl.is_jzks='1' and dstcompctl.ISENABLE='1'
+	  and hsp_emg_inf.emg_fk_cod=dstcompctl.comno(+)
+	  and trunc(emg_dat,'mm')=trunc( #{startdate},'mm')
+	  group by to_char(emg_dat,'yyyy/mm'),dstcompctl.comcname
+	  ) t1,
+	  (select * from dstcompctl where is_jzks='1'  and ISENABLE='1') t2
+	where t1.comcname(+)=t2.comcname
+	order by querydate,showorder asc
+</select>
+
+<select id="findGkhzjztjListByHalfyear"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+	resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	<![CDATA[
+	select t2.querydate,emgFkName,nvl(counts,0) hzcount,t2.showorder
+	from
+	  (select querydate,comcname,count(comcname) counts
+	    from
+		  (select case when(emg_dat<to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm')) then #{halfdate,jdbcType=VARCHAR}||'上半年'
+		          else #{halfdate,jdbcType=VARCHAR}||'下半年' end querydate,
+		              dstcompctl.comcname
+		      from hsp_emg_inf,dstcompctl
+		      where dstcompctl.is_jzks='1'  and dstcompctl.ISENABLE='1'
+		      and emg_dat >=  #{startdate}
+		      and emg_dat < #{enddate}
+		      and hsp_emg_inf.emg_fk_cod=dstcompctl.comno(+)
+		      ) 
+	    group by querydate,comcname
+	      ) t1,
+	  (select querydate,comcname emgFkName ,showorder
+	  from
+	    (SELECT case when ((add_months( #{startdate}, 6*(ROWNUM - 1))) < to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm'))  
+	        then #{halfdate,jdbcType=VARCHAR}||'上半年' else #{halfdate,jdbcType=VARCHAR}||'下半年' end querydate FROM DUAL CONNECT BY ROWNUM <=
+	          (SELECT months_between(#{enddate},  #{startdate}) FROM dual)/6),
+	    (select * from dstcompctl where is_jzks='1'  and ISENABLE='1')) t2
+	where t1.querydate(+)=t2.querydate
+	and t1.comcname(+)=t2.emgFkName
+	order by querydate,emgFkName,showorder asc
+	]]> 
+</select>
+
+<select id="findhzxqByEmgSeq" parameterType="java.lang.String"
+	resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	<![CDATA[
+			select t1.emg_seq emgSeq,
+		      vst_cad vstCad,
+		      id_nbr idNbr,
+		      cst_nam cstNam,
+		      (select info from dstdictinfo a where a.typecode='CST_SEX_COD' and a.infocode=t1.cst_sex_cod) as  cstSexCod,
+		      bth_dat bthDat,
+		      cst_age cstAge,
+		      phe_nbr pheNbr,
+		      cst_adr cstAdr,
+		      SW_CHL swChl,
+		      CSPG_FLG cspgFlg,
+		      HXKN_FLG hxknFlg,
+		      XT_FLG xtFlg,
+		      XM_FLG xmFlg,
+		      t1.CSPG_COD cspgCod,
+		      t1.HXKN_COD hxknCod,
+		      (select info from dstdictinfo a where a.typecode='HXKNZB' and a.infocode=t1.HXKN_COD) as  hxknCodStr,
+		      t1.XT_COD xtCod,
+		      (select info from dstdictinfo a where a.typecode='XTXMZB' and a.infocode=t1.XT_COD) as  xtCodStr,
+		      t1.XM_COD xmCod,
+		      (select info from dstdictinfo a where a.typecode='XTXMZB' and a.infocode=t1.XM_COD) as  xmCodStr,
+		      t1.grn_chl  grnChl,
+		      (select info from dstdictinfo a where a.typecode='GRN_CHL_RSN' and a.infocode=t1.grn_chl_rsn) as  grnChlRsn,
+		      emg_dat emgDat,
+		      (select info from dstdictinfo a where a.typecode='ARV_CHL_COD' and a.infocode=t1.arv_chl_cod) as  arvChlCod,
+		      spilt('CMP_PSN_COD',CMP_PSN_COD) cmpPsnCod,
+		      (select info from dstdictinfo a where a.typecode='EMG_ARE_COD' and a.infocode=t1.emg_are_cod) as  emgAreCod,
+		      t1.emg_dep_cod  emgDepCod,
+		      pre_dgn_cod preDgnCod,
+		      (select jbbc from hsp_jbzd_lz a where a.id=t1.pre_dgn_cod) as  jbbc,
+		      pre_usr_nbr preUsrNbr,
+		      pre_usr_nam preUsrNam,
+		      mod_gdn_cod modGdnCod,
+		      mod_usr_nbr modUsrNbr,
+		      mod_usr_nam modUsrNam,
+		      (select USRNAME from dstuser a where a.USRNO = t1.SQL_DCT_NBR) sqlDctNbr,
+		      (select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode=t1.CST_DSP_COD) as cstDspCod,
+		      (select COMCNAME from dstcompctl a where  a.COMNO=t1.emg_fk_cod) as  emgFkCod, 
+		      (select info from dstdictinfo a where a.typecode='FAL_ASS_COD' and a.infocode=t1.fal_ass_cod) as falAssCod,
+		      PAI_LVL_COD paiLvlCod,
+		      mns_lst_dat mnsLstDat,
+		      sym_sit_des symSitDes,
+		      ALG_HON algHon,
+		      spilt('SAV_MNG_COD',SAV_MNG_COD) savMngCod,
+		      (select info from dstdictinfo a where a.typecode='MOD_LVL_COD' and a.infocode=t1.emg_dep_cod) as emgJjd,
+		      (select info from dstdictinfo a where a.typecode='CST_AGE_COD' and a.infocode=t1.CST_AGE_COD) as  cstAgeCod,
+		      (select info from dstdictinfo a where a.typecode='MNS_SIT_COD' and a.infocode=t1.MNS_SIT_COD) as  mnsSitCod,
+		      JBZD_DES jbzdDes,
+		      OXY_NBR oxyNbr,
+		      (select info from dstdictinfo a where a.typecode='SEN_STU_COD' and a.infocode=t1.SEN_STU_COD) as  senStuCod,
+		       spilt('REFUSED_SURVEY',REFUSED_SURVEY) refusedSurvey,
+		      spilt('ALG_TYP_COD',ALG_TYP_COD) algTypCod,
+		      spilt('PAST_HIS',PAST_HIS_COD) pastHisCod,
+		      XFZT_FLG  xfztFlg,
+		      (select cz_flag from HSP_FAST_INF where emg_seq = t1.emg_Seq)czFlg,
+		      ALG_TYP_DES algTypDes,
+		      PAST_HIS pastHis,
+			t1.firstsqlSeq,
+			to_char(t2.sql_dat,'yyyy/mm/dd hh24:mi') sqlDat,
+			t2.sql_sta_cod sqlStaCod,
+			(select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode= t2.sql_sta_cod) as cstDspCodNameNew,
+			t2.sql_Dep_cod sqlDepCod,
+			(select comcname from dstcompctl a where  a.comno= t2.sql_Dep_cod) as cstDepCodNew,
+			t2.sql_des sqlDes,
+			t2.sql_seq sqlSeq,
+			 (select info from dstdictinfo a where a.typecode='PREGNANT_GSPL_COD' and a.infocode=t1.PREGNANT_GSPL_COD) as pregnantGsplCod,
+			 (select info from dstdictinfo a where a.typecode='PREGNANT_YDCX_COD' and a.infocode=t1.PREGNANT_YDCX_COD) as pregnantYdcxCod,
+			patient_Typ patientTyp
+		    from 
+		    hsp_emg_inf t1,hsp_sql_inf t2 where t1.sql_seq = t2.sql_seq
+		    and t1.emg_seq=#{emgSeq}
+	]]>
+</select>
+
+<select id="findhzgcsByEmgSeq" parameterType="java.lang.String"
+	resultType="activetech.hospital.pojo.dto.HspgcsinfCustom">
+	select emg_seq emgSeq,
+	t1.EYE_RCT_COD  eyeRctCod,
+	  (select info from dstdictinfo a where a.typecode='EYE_RCT_COD' and a.infocode=t1.EYE_RCT_COD) as  eyeRctCodStr,
+	  t1.LAN_RCT_COD  lanRctCod,
+	  (select info from dstdictinfo a where a.typecode='LAN_RCT_COD' and a.infocode=t1.LAN_RCT_COD) as  lanRctCodStr,
+	  t1.ACT_RCT_COD  actRctCod,
+	  (select info from dstdictinfo a where a.typecode='ACT_RCT_COD' and a.infocode=t1.ACT_RCT_COD) as  actRctCodStr,
+	  TOT_SCO totSco
+	from hsp_gcs_inf t1
+	where t1.emg_seq=#{emgSeq}
+</select>
+
+<select id="findhzcramsByEmgSeq" parameterType="java.lang.String"
+	resultType="activetech.hospital.pojo.dto.HspcramsinfCustom">
+	select emg_seq emgSeq,
+	  t1.CIR_LVL_COD  cirLvlCod,
+	  (select info from dstdictinfo a where a.typecode='CIR_LVL_COD' and a.infocode=t1.CIR_LVL_COD) as cirLvlCodStr,
+	 t1.BRE_LVL_COD breLvlCod,
+	 (select info from dstdictinfo a where a.typecode='BRE_LVL_COD' and a.infocode=t1.BRE_LVL_COD) as breLvlCodStr,
+	 t1.BDY_LVL_COD  bdyLvlCod,
+	  (select info from dstdictinfo a where a.typecode='BDY_LVL_COD' and a.infocode=t1.BDY_LVL_COD) as bdyLvlCodStr,
+	  t1.SPT_LVL_COD sptLvlCod,
+	  (select info from dstdictinfo a where a.typecode='SPT_LVL_COD' and a.infocode=t1.SPT_LVL_COD) as sptLvlCodStr,
+	  t1.LAN_LVL_COD  lanLvlCod,
+	  (select info from dstdictinfo a where a.typecode='LAN_LVL_COD' and a.infocode=t1.LAN_LVL_COD) as lanLvlCodStr,
+	  TOT_SCO totSco
+	from HSP_CRAMS_INF t1
+	where t1.emg_seq=#{emgSeq}
+</select>
+
+<select id="findhzmewsByEmgSeq"  parameterType="java.lang.String"
+	resultType="activetech.hospital.pojo.dto.HspmewsinfCustom">
+	select EMG_SEQ emgSeq, 
+			HRT_RTE hrtRte,
+			  SBPUP_NBR sbpUpNbr,
+			  BRE_NBR breNbr,
+			  TMP_NBR tmpNbr,
+			  t1.SEN_RCT_COD senRctCod,
+			  (select info from dstdictinfo a where a.typecode='SEN_RCT' and a.infocode=t1.SEN_RCT_COD) as senRctCodStr,
+			  TOT_SCO totSco,
+			  CHK_LVL_COD chkLvlCod,
+			  MOD_LVL_COD modLvlCod,
+			  MOD_LVL_DES modLvlDes,
+			  SBPDOWN_NBR sbpDownNbr
+	from hsp_mews_inf t1
+	where t1.emg_seq=#{emgSeq}
+</select>
+
+<!-- 修改转归的信息获取 -->
+<select id="findHspemginfByemgSql_jzt" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select a.emg_seq,
+	       vst_cad,
+	       id_nbr,
+	       cst_nam,
+	       cst_sex_cod,
+	       bth_dat,
+	       to_char(bth_dat, 'yyyy/mm/dd') bthDatStr,
+	       cst_age,
+	       phe_nbr,
+	       cst_adr,
+	       grn_chl,
+	       grn_chl_rsn,
+	       emg_dat,
+	       to_char(emg_dat,'yyyy/mm/dd hh24:mi:ss') emgDatStr,
+	       mysj,
+	       to_char(mysj,'yyyy/mm/dd hh24:mi:ss') mysjStr,
+	       mqsj,
+	       to_char(mqsj,'yyyy/mm/dd hh24:mi:ss') mqsjStr,
+	       arv_chl_cod,
+	       cmp_psn_cod,
+	       emg_are_cod,
+	       emg_dep_cod,
+	       pre_dgn_cod,
+	       (select jbbc from hsp_jbzd_lz where hsp_jbzd_lz.id = pre_dgn_cod) as preDgnName,
+	       pre_usr_nbr,
+	       pre_usr_nam,
+	       mod_gdn_cod,
+	       mod_usr_nbr,
+	       mod_usr_nam,
+	       cst_dsp_cod,
+	       emg_fk_cod,
+	       pai_lvl_cod,
+	       fal_ass_cod,
+	       mns_sit_cod,
+	       mns_lst_dat,
+	       alg_typ_cod,
+	       sym_sit_des,
+	       sav_mng_cod,
+	       a.sql_seq,
+	       sql_dct_nbr,
+	       past_his_cod,
+	       cst_age_cod,
+	       refused_survey,
+	       jbzd_des,
+	       cspg_flg,
+	       cspg_cod,
+	       hxkn_flg,
+	       hxkn_cod,
+	       hxkn_sub_cod,
+	       xt_cod,
+	       xt_sub_cod,
+	       XM_COD,
+	       XM_SUB_COD,
+	       XT_FLG,
+	       XM_FLG,
+	       SW_CHL,
+	       EMG_JOB,
+	       MARITAL_STATUS,
+	       emg_bed,
+	       NOW_HIS,
+	       PAST_HIS,
+	       CASE_HIS,
+	       IS_FETATION,
+	       KSFZ,
+	       PATID,
+	       RYZD_XY,
+	       CYZD_ZY,
+	       CYZD_XY,
+	       OBSERVATION_CODE,
+	       DEATH_DIAGNOSIS,
+	       a.SPECIAL_OTHER,
+	       DOC_DAT,
+	       PATIENT_TYP,
+	       PREGNANT_GSPL_COD,
+	       PREGNANT_YDCX_COD,
+	       JZXH,
+	       JZXH jzxhOld,
+	       JZYS,
+	       YSXM,
+	       KSDM,
+	       CHECK_DOCTOR,
+	       CHECK_NURSE,
+	       CHECK_DOC_DAT,
+	       CHECK_NURSE_DAT,
+	       CHECK_DOC_STATUS,
+	       CHECK_NUR_STATUS,
+	       mpi,
+	       GHXH,
+	       a.rfidcode ,
+	       VACCINE_HIS,
+	       XFZT_FLG,
+	       QTSJ_FLG,
+	       ALG_TYP_DES,
+	       BED_LGS,
+	       firstsqlseq,
+	       CLEANHZ_MEMO,
+	       QTSJ_SEQ,
+	       oxy_nbr,
+	       sen_stu_cod,
+	       alg_hon,
+	       eye_rct_cod,
+	       lan_rct_cod,
+	       act_rct_cod,
+	       b.tot_sco as tot_sco_gcs,
+	       hrt_rte,
+	       sbpup_nbr,
+	       bre_nbr,
+	       tmp_nbr,
+	       sen_rct_cod,
+	       c.tot_sco as tot_sco_mews,
+	       chk_lvl_cod,
+	       mod_lvl_cod,
+	       mod_lvl_des,
+	       sbpdown_nbr,
+	       cir_lvl_cod,
+	       bre_lvl_cod,
+	       bdy_lvl_cod,
+	       spt_lvl_cod,
+	       lan_lvl_cod,
+	       (select usrname from dstuser where usrno = a.sql_dct_nbr) sql_dct_nam,
+	       (select comcname from dstcompctl where comno = a.emg_fk_cod) emgFkName,
+	       d.tot_sco as tot_sco_crams,
+	       a.CARD_TYPE as cardType,
+	       NATIONALITY nationality,
+		   NATION nation,
+		   GZDW gzdw,
+		   FR_COD frCod,
+		   FR_DAT frDat,
+		   INFECTEDAREA_NAM infectedareaNam,
+		   a.ABN_SCO_NME abnScoNme,
+		   a.ABN_DRIVER abnDriver,
+		   a.ABN_DOCTOR abnDoctor,
+		   a.GLS_TYPE,
+		   a.GLS_NUM,
+		   CDXX,
+		   KHLX,
+		   PSRYQT,
+		   GHID,
+		   PATID,
+		   GLS_COD,
+		   czlcflg,
+		   xtlcflg
+	  from hsp_emg_inf a, hsp_gcs_inf b, hsp_mews_inf c, hsp_crams_inf d
+	 where a.emg_seq = b.emg_seq
+	   and a.emg_seq = c.emg_seq
+	   and a.emg_seq = d.emg_seq
+	   and a.emg_seq = #{emgSeq}
+
+  </select>
+<!-- 查询患者的信息补充 -->
+	<select id="findEmmgxxbc"  parameterType="java.lang.String" 
+		resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	<![CDATA[
+	select cst_age cstAge,
+		vst_cad vstCad,
+		emg_dat emgDat,
+		(select info from dstdictinfo a where a.typecode='CST_AGE_COD' and a.infocode=t1.CST_AGE_COD) as  cstAgeCod,
+		cst_nam cstNam,
+		(select info from dstdictinfo a where a.typecode='CST_SEX_COD' and a.infocode=t1.cst_sex_cod) as  cstSexCod, 
+		(select info from dstdictinfo a where a.typecode='ARV_CHL_COD' and a.infocode=t1.arv_chl_cod) as  arvChlCod,
+		 t1.grn_chl  grnChl,
+		 (select info from dstdictinfo a where a.typecode='MOD_LVL_COD' and a.infocode=t1.emg_dep_cod) as emgJjd,
+		 JBZD_DES jbzdDes,
+		EMG_JOB emgJob,
+		SYM_SIT_DES symSitDes,
+        MARITAL_STATUS maritalStatus,
+        (select bed_num from HSP_BED_INF where HSP_BED_INF.bedid = EMG_BED) emgBed,
+        NOW_HIS nowHis,
+        PAST_HIS pastHis,
+        CASE_HIS caseHis,
+        IS_FETATION isFetation,
+      spilt('CMP_PSN_COD',t1.CMP_PSN_COD) cmpPsnCod
+    from hsp_emg_inf t1
+    where t1.emg_seq = #{emgSeq}
+    ]]>
+	</select>
+	
+
+	
+	<select id="findEmgListByCsrtdspcod" 
+		resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		select emg_seq emgSeq,
+			emg_dat emgDat,
+			to_char(emg_dat,'yyyy/mm/dd hh24:mi') emgDatStr,
+			vst_cad vstCad,
+			mpi,
+			CST_NAM cstNam,
+			(select info from dstdictinfo a where a.typecode='CST_SEX_COD' and a.infocode=hsp_emg_inf.cst_sex_cod) as  cstSexCod
+		from hsp_emg_inf
+		where emg_seq in
+		(select emg_seq from hsp_sql_inf a where a.SQL_STA_COD in 
+			<foreach collection="zgztlist" index="index" item="zgzt" open="(" separator="," close=")">  
+	            #{zgzt}  
+	        </foreach> 
+			and a.sql_dat <![CDATA[>=]]> #{startdate,jdbcType=DATE}
+	        and a.sql_dat <![CDATA[<]]>  #{enddate,jdbcType=DATE}
+		)
+		
+	</select>
+	
+	
+	<!-- 住院患者列表 -->
+	<select id="findZyhzList" parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+	resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	    <![CDATA[
+	    select * from(
+	        select emg_seq emgSeq,vst_cad vstCad,cst_nam cstNam,emg_dat emgDat,
+			(select info from dstdictinfo t1 where hsp_emg_inf.CST_SEX_COD=t1.infocode and typecode='CST_SEX_COD') cstSexCod,
+			cst_age cstAge,
+			(select info from dstdictinfo t1 where hsp_emg_inf.cst_age_cod=t1.infocode and typecode='CST_AGE_COD') cstAgeCod,
+			(select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode=hsp_emg_inf.CST_DSP_COD) as cstDspCod,
+			(select COMCNAME from dstcompctl a where  a.COMNO=hsp_emg_inf.emg_fk_cod) as  emgFkCod,
+			(select comcname from dstcompctl a where  a.comno= 
+			(select Distinct sql_dep_cod from HSP_SQL_INF where sql_dat=(select Distinct max(sql_dat)  from HSP_SQL_INF where 
+			HSP_SQL_INF.emg_seq=hsp_emg_inf.emg_seq and sql_sta_cod='2' group by emg_seq
+            ) and HSP_SQL_INF.emg_seq=hsp_emg_inf.emg_seq and sql_sta_cod='2')) as cstDepCodNew,
+			(select to_char(max(sql_dat),'yyyy/mm/dd hh24:mi:ss')  from HSP_SQL_INF where 
+			HSP_SQL_INF.emg_seq=hsp_emg_inf.emg_seq and sql_sta_cod='2' group by emg_seq
+            ) as sqlDat,mpi
+			from hsp_emg_inf where 
+            emg_seq in(select emg_seq from hsp_sql_inf 
+		      where sql_sta_cod in ('2')
+		      and sql_dat >= #{startdate}
+		      and sql_dat < #{enddate}
+		      group by emg_seq)
+		      ) temp
+		      order by temp.sqlDat
+	    ]]>
+	</select>
+
+	<select id="findBqhztjYear"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+   		resultType="activetech.hospital.pojo.dto.HspemginfCustom">    
+   		<![CDATA[
+	    select queryyear querydate,nvl(counts,0) counts,sqlDepCod from(
+      select queryyear,counts,('胸痛') sqlDepCod
+		      from (select to_char(emg_dat,'yyyy') querydate, ('胸痛') sqlDepCod,count(XT_FLG) counts from hsp_emg_inf where XT_FLG='1'  group by to_char(emg_dat,'yyyy')) t1,
+		            (SELECT TO_CHAR( add_months(#{startdate,jdbcType=DATE}, 12*(ROWNUM - 1)), 'YYYY' ) queryyear FROM DUAL  
+		            CONNECT BY ROWNUM <=
+		            (SELECT months_between(#{startdate,jdbcType=DATE}, #{startdate,jdbcType=DATE}) FROM dual) /12)
+          where queryyear=querydate(+))
+          union
+          select queryyear querydate,nvl(counts,0) counts,('呼吸困难') sqlDepCod from(
+      select queryyear,counts,('呼吸困难') sqlDepCod
+		      from (select to_char(emg_dat,'yyyy') querydate, ('呼吸困难') sqlDepCod,count(HXKN_FLG) counts from hsp_emg_inf where HXKN_FLG='1'  group by to_char(emg_dat,'yyyy')) t1,
+		            (SELECT TO_CHAR( add_months(#{startdate,jdbcType=DATE}, 12*(ROWNUM - 1)), 'YYYY' ) queryyear FROM DUAL  
+		            CONNECT BY ROWNUM <=
+		            (SELECT months_between(#{startdate,jdbcType=DATE}, #{startdate,jdbcType=DATE}) FROM dual) /12)
+          where queryyear=querydate(+)) 
+          union
+           select queryyear querydate,nvl(counts,0) counts,('创伤标志') sqlDepCod from(
+      select queryyear,counts,('创伤标志') sqlDepCod
+		      from (select to_char(emg_dat,'yyyy') querydate, ('创伤标志') sqlDepCod,count(CSPG_FLG) counts from hsp_emg_inf where CSPG_FLG='1'  group by to_char(emg_dat,'yyyy')) t1,
+		            (SELECT TO_CHAR( add_months(#{startdate,jdbcType=DATE}, 12*(ROWNUM - 1)), 'YYYY' ) queryyear FROM DUAL  
+		            CONNECT BY ROWNUM <=
+		            (SELECT months_between(#{startdate,jdbcType=DATE}, #{startdate,jdbcType=DATE}) FROM dual) /12)
+          where queryyear=querydate(+))
+          union
+           select queryyear querydate,nvl(counts,0) counts,('卒中') sqlDepCod from(
+          select queryyear,counts,('卒中') sqlDepCod
+		      from (select to_char(z.emg_dat,'yyyy') querydate, ('卒中') sqlDepCod,count(l.CZ_FLAG) counts from hsp_emg_inf z,HSP_FAST_INF l  where l.EMG_SEQ =z. EMG_SEQ and l.CZ_FLAG='1'  group by to_char(z.emg_dat,'yyyy')) t1,
+		            (SELECT TO_CHAR( add_months(#{startdate,jdbcType=DATE}, 12*(ROWNUM - 1)), 'YYYY' ) queryyear FROM DUAL  
+		            CONNECT BY ROWNUM <=
+		            (SELECT months_between(#{startdate,jdbcType=DATE}, #{startdate,jdbcType=DATE}) FROM dual) /12) where queryyear=querydate(+)) 
+		  union
+          select queryyear querydate,nvl(counts,0) counts,('心脏骤停') sqlDepCod from(
+      select queryyear,counts,('心脏骤停') sqlDepCod
+		      from (select to_char(emg_dat,'yyyy') querydate, ('心脏骤停') sqlDepCod,count(HXKN_FLG) counts from hsp_emg_inf where XFZT_FLG='1'  group by to_char(emg_dat,'yyyy')) t1,
+		            (SELECT TO_CHAR( add_months(#{startdate,jdbcType=DATE}, 12*(ROWNUM - 1)), 'YYYY' ) queryyear FROM DUAL  
+		            CONNECT BY ROWNUM <=
+		            (SELECT months_between(#{startdate,jdbcType=DATE}, #{startdate,jdbcType=DATE}) FROM dual) /12)
+          where queryyear=querydate(+)) order by querydate,sqlDepCod
+		]]>
+  </select>
+  <select id="findBqhztjHalfyear"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+   		resultType="activetech.hospital.pojo.dto.HspemginfCustom"> 
+   		<![CDATA[
+   		select queryyear querydate,nvl(counts,0) counts,('胸痛') sqlDepCod from(
+           SELECT case when ((add_months(#{startdate,jdbcType=DATE}, 6*(ROWNUM - 1))) <  to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm')) 
+			     then #{halfdate,jdbcType=VARCHAR}||'上半年' else #{halfdate,jdbcType=VARCHAR}||'下半年' end queryyear FROM DUAL CONNECT BY ROWNUM <=
+			        (SELECT months_between(#{enddate,jdbcType=DATE}, #{startdate,jdbcType=DATE}) 
+			      FROM dual)/6) t1,
+            (select yearchar,count(EMG_DAT) counts
+			    from ( select EMG_DAT,case when (EMG_DAT <to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm')) then #{halfdate,jdbcType=VARCHAR}||'上半年' else #{halfdate,jdbcType=VARCHAR}||'下半年'
+			        end yearchar from HSP_EMG_INF 
+			      where  XT_FLG='1'  and EMG_DAT >=  #{startdate,jdbcType=DATE} and EMG_DAT < #{enddate,jdbcType=DATE})
+			    group by yearchar) t2  where queryyear=yearchar(+) 
+			    union
+		 select queryyear querydate,nvl(counts,0) counts,('呼吸困难') sqlDepCod from(
+           SELECT case when ((add_months(#{startdate,jdbcType=DATE}, 6*(ROWNUM - 1))) <  to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm')) 
+			     then #{halfdate,jdbcType=VARCHAR}||'上半年' else #{halfdate,jdbcType=VARCHAR}||'下半年' end queryyear FROM DUAL CONNECT BY ROWNUM <=
+			        (SELECT months_between(#{enddate,jdbcType=DATE}, #{startdate,jdbcType=DATE}) 
+			      FROM dual)/6) t1,
+            (select yearchar,count(EMG_DAT) counts
+			    from ( select EMG_DAT,case when (EMG_DAT <to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm')) then #{halfdate,jdbcType=VARCHAR}||'上半年' else #{halfdate,jdbcType=VARCHAR}||'下半年'
+			        end yearchar from HSP_EMG_INF 
+			      where  HXKN_FLG='1'  and EMG_DAT >=  #{startdate,jdbcType=DATE} and EMG_DAT < #{enddate,jdbcType=DATE})
+			    group by yearchar) t2  where queryyear=yearchar(+) 
+			   union
+			select queryyear querydate,nvl(counts,0) counts,('创伤标志') sqlDepCod from(
+           SELECT case when ((add_months(#{startdate,jdbcType=DATE}, 6*(ROWNUM - 1))) <  to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm')) 
+			     then #{halfdate,jdbcType=VARCHAR}||'上半年' else #{halfdate,jdbcType=VARCHAR}||'下半年' end queryyear FROM DUAL CONNECT BY ROWNUM <=
+			        (SELECT months_between(#{enddate,jdbcType=DATE}, #{startdate,jdbcType=DATE}) 
+			      FROM dual)/6) t1,
+            (select yearchar,count(EMG_DAT) counts
+			    from ( select EMG_DAT,case when (EMG_DAT <to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm')) then #{halfdate,jdbcType=VARCHAR}||'上半年' else #{halfdate,jdbcType=VARCHAR}||'下半年'
+			        end yearchar from HSP_EMG_INF 
+			      where  CSPG_FLG='1'  and EMG_DAT >=  #{startdate,jdbcType=DATE} and EMG_DAT < #{enddate,jdbcType=DATE})
+			    group by yearchar) t2  where queryyear=yearchar(+)   
+			    union
+			   select queryyear querydate,nvl(counts,0) counts,('卒中') sqlDepCod from(
+           SELECT case when ((add_months(#{startdate,jdbcType=DATE}, 6*(ROWNUM - 1))) <  to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm')) 
+			     then #{halfdate,jdbcType=VARCHAR}||'上半年' else #{halfdate,jdbcType=VARCHAR}||'下半年' end queryyear FROM DUAL CONNECT BY ROWNUM <=
+			        (SELECT months_between(#{enddate,jdbcType=DATE}, #{startdate,jdbcType=DATE}) 
+			      FROM dual)/6) t1,
+            (select yearchar,count(EMG_DAT) counts
+			    from ( select z.EMG_DAT,case when (z.EMG_DAT <to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm')) then #{halfdate,jdbcType=VARCHAR}||'上半年' else #{halfdate,jdbcType=VARCHAR}||'下半年'
+			        end yearchar from HSP_EMG_INF z, HSP_FAST_INF l
+			      where  l.EMG_SEQ =z. EMG_SEQ and l.CZ_FLAG='1'  and z.EMG_DAT >=   #{startdate,jdbcType=DATE} and z.EMG_DAT < #{enddate,jdbcType=DATE})
+			    group by yearchar) t2  where queryyear=yearchar(+) 
+			     union
+		 select queryyear querydate,nvl(counts,0) counts,('心脏骤停') sqlDepCod from(
+           SELECT case when ((add_months(#{startdate,jdbcType=DATE}, 6*(ROWNUM - 1))) <  to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm')) 
+			     then #{halfdate,jdbcType=VARCHAR}||'上半年' else #{halfdate,jdbcType=VARCHAR}||'下半年' end queryyear FROM DUAL CONNECT BY ROWNUM <=
+			        (SELECT months_between(#{enddate,jdbcType=DATE}, #{startdate,jdbcType=DATE}) 
+			      FROM dual)/6) t1,
+            (select yearchar,count(EMG_DAT) counts
+			    from ( select EMG_DAT,case when (EMG_DAT <to_date(#{halfdate,jdbcType=VARCHAR}||'-07','yyyy-mm')) then #{halfdate,jdbcType=VARCHAR}||'上半年' else #{halfdate,jdbcType=VARCHAR}||'下半年'
+			        end yearchar from HSP_EMG_INF 
+			      where  XFZT_FLG='1'  and EMG_DAT >=  #{startdate,jdbcType=DATE} and EMG_DAT < #{enddate,jdbcType=DATE})
+			    group by yearchar) t2  where queryyear=yearchar(+)  order by querydate,sqlDepCod
+          ]]>
+   </select>
+   
+  <select id="findBqhztjMonth"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+  		resultType="activetech.hospital.pojo.dto.HspemginfCustom"> 
+  		<![CDATA[
+   		select queryyear querydate,nvl(counts,0) counts,('胸痛') sqlDepCod from
+	      (SELECT TO_CHAR(add_months( #{startdate,jdbcType=DATE}, ROWNUM - 1), 'YYYY/MM' ) queryyear FROM DUAL CONNECT BY ROWNUM <=
+	        (SELECT months_between( #{startdate,jdbcType=DATE},   #{enddate,jdbcType=DATE})FROM dual)) t1,
+		      (select to_char(emg_dat,'yyyy/mm') yearchar, count(emg_dat) counts,('胸痛') sqlDepCod  from hsp_emg_inf where  XT_FLG='1'
+                          group by to_char(emg_dat,'yyyy/mm')) t2
+		    where queryyear=yearchar(+) union
+		    select queryyear querydate,nvl(counts,0) counts, ('呼吸困难') sqlDepCod from
+	      (SELECT TO_CHAR(add_months( #{startdate,jdbcType=DATE}, ROWNUM - 1), 'YYYY/MM' ) queryyear FROM DUAL CONNECT BY ROWNUM <=
+	        (SELECT months_between( #{startdate,jdbcType=DATE},   #{enddate,jdbcType=DATE})FROM dual)) t1,
+		      (select to_char(emg_dat,'yyyy/mm') yearchar, count(emg_dat) counts,('呼吸困难') sqlDepCod  from hsp_emg_inf where HXKN_FLG='1'
+                          group by to_char(emg_dat,'yyyy/mm')) t2
+		    where queryyear=yearchar(+) union
+		    select queryyear querydate,nvl(counts,0) counts, ('创伤标志') sqlDepCod from
+	      (SELECT TO_CHAR(add_months( #{startdate,jdbcType=DATE}, ROWNUM - 1), 'YYYY/MM' ) queryyear FROM DUAL CONNECT BY ROWNUM <=
+	        (SELECT months_between( #{startdate,jdbcType=DATE},   #{enddate,jdbcType=DATE})FROM dual)) t1,
+		      (select to_char(emg_dat,'yyyy/mm') yearchar, count(emg_dat) counts,('创伤标志') sqlDepCod  from hsp_emg_inf where  CSPG_FLG='1'
+                          group by to_char(emg_dat,'yyyy/mm')) t2
+		    where queryyear=yearchar(+) union 
+		    select queryyear querydate,nvl(counts,0) counts,('卒中') sqlDepCod from
+	      (SELECT TO_CHAR(add_months( #{startdate,jdbcType=DATE}, ROWNUM - 1), 'YYYY/MM' ) queryyear FROM DUAL CONNECT BY ROWNUM <=
+	        (SELECT months_between( #{startdate,jdbcType=DATE}, #{enddate,jdbcType=DATE})FROM dual)) t1,
+		      (select to_char(z.emg_dat,'yyyy/mm') yearchar, count(z.emg_dat) counts,('卒中') sqlDepCod  from hsp_emg_inf z , HSP_FAST_INF l
+			      where  l.EMG_SEQ =z.EMG_SEQ and l.CZ_FLAG='1' group by to_char(emg_dat,'yyyy/mm')) t2
+		    where queryyear=yearchar(+) 
+		    union
+		    select queryyear querydate,nvl(counts,0) counts, ('心脏骤停') sqlDepCod from
+	      (SELECT TO_CHAR(add_months( #{startdate,jdbcType=DATE}, ROWNUM - 1), 'YYYY/MM' ) queryyear FROM DUAL CONNECT BY ROWNUM <=
+	        (SELECT months_between( #{startdate,jdbcType=DATE},   #{enddate,jdbcType=DATE})FROM dual)) t1,
+		      (select to_char(emg_dat,'yyyy/mm') yearchar, count(emg_dat) counts,('心脏骤停') sqlDepCod  from hsp_emg_inf where XFZT_FLG='1'
+                          group by to_char(emg_dat,'yyyy/mm')) t2
+		    where queryyear=yearchar(+) order by querydate,sqlDepCod
+  		  ]]>
+   </select>
+   <select id="findBqhztjDay"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+  		resultType="activetech.hospital.pojo.dto.HspemginfCustom"> 
+  		<![CDATA[
+  		select to_char(#{startdate,jdbcType=DATE},'yyyy/mm/dd') querydate, ('胸痛') sqlDepCod, 
+		    (select count(emg_dat)  from hsp_emg_inf  where XT_FLG='1'  and trunc(emg_dat) = trunc(#{startdate,jdbcType=DATE})) counts from dual  union
+		select to_char(#{startdate,jdbcType=DATE},'yyyy/mm/dd') querydate, ('呼吸困难') sqlDepCod, 
+		    (select count(emg_dat)  from hsp_emg_inf  where HXKN_FLG='1'  and trunc(emg_dat) = trunc(#{startdate,jdbcType=DATE})) counts from dual  union
+		 select to_char(#{startdate,jdbcType=DATE},'yyyy/mm/dd') querydate, ('创伤标志') sqlDepCod, 
+		    (select count(emg_dat)  from hsp_emg_inf  where CSPG_FLG='1'  and trunc(emg_dat) = trunc(#{startdate,jdbcType=DATE})) counts from dual  union
+		 select to_char(#{startdate,jdbcType=DATE},'yyyy/mm/dd') querydate, ('卒中') sqlDepCod, 
+		    (select count(z.emg_dat)  from hsp_emg_inf z, HSP_FAST_INF l where l.EMG_SEQ =z.EMG_SEQ and l.CZ_FLAG='1'  and trunc(z.emg_dat) = trunc(#{startdate,jdbcType=DATE})) counts from dual union
+		select to_char(#{startdate,jdbcType=DATE},'yyyy/mm/dd') querydate, ('心脏骤停') sqlDepCod, 
+		    (select count(emg_dat)  from hsp_emg_inf  where XFZT_FLG='1'  and trunc(emg_dat) = trunc(#{startdate,jdbcType=DATE})) counts from dual
+		   order by querydate,sqlDepCod
+  		]]>
+   </select>
+    <!-- 病情统计 患者明细总数 -->
+   <select id="findBqhztjHzmxCount" parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto" resultType="int">
+   		select count(*)                                                                                                   
+				from HSP_EMG_INF 
+         		left join HSP_FAST_INF t2 on HSP_EMG_INF.EMG_SEQ = t2.EMG_SEQ
+				WHERE (t2.CZ_FLAG = '1'
+   				or HSP_EMG_INF.HXKN_FLG = '1'
+   				or HSP_EMG_INF.CSPG_FLG = '1'
+   				or HSP_EMG_INF.XFZT_FLG = '1'
+   				or HSP_EMG_INF.XT_FLG = '1')	
+		        <include refid="query_hspemginf_where"/>
+   </select>
+   <!-- 病情统计 患者明细 -->
+   <select id="findBqhztjHzmx" parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto" resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+   		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+   		select  HSP_EMG_INF.EMG_SEQ,
+       			to_char(HSP_EMG_INF.EMG_DAT,'yyyy/mm/dd hh24:mi:ss') emgDatStr,
+       			HSP_EMG_INF.EMG_DAT emgDat,
+       			HSP_EMG_INF.VST_CAD vstCad,
+       			HSP_EMG_INF.CST_NAM cstNam,
+       			HSP_EMG_INF.mpi,
+              	HSP_EMG_INF.jbzd_des,
+              	HSP_EMG_INF.ABN_DOCTOR,
+		      	HSP_EMG_INF.ABN_DRIVER,
+              	(select info from dstdictinfo a where a.typecode = 'MOD_LVL_COD' and a.infocode = HSP_EMG_INF.emg_dep_cod) as emgJjd,
+       			(select info from DSTDICTINFO where INFOCODE = HSP_EMG_INF.CST_SEX_COD and TYPECODE='CST_SEX_COD') cstSexCod,
+       			HSP_EMG_INF.CST_AGE cstAge,
+       			(select info from dstdictinfo a where a.typecode='CST_AGE_COD' and a.infocode=HSP_EMG_INF.CST_AGE_COD) as  cstAgeCod,
+       			HSP_EMG_INF.PRE_DGN_COD preDgnCod,
+       			(select info from DSTDICTINFO where INFOCODE = HSP_EMG_INF.EMG_DEP_COD and TYPECODE='MOD_LVL_COD') emgDepCod,
+       			(select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode=HSP_EMG_INF.CST_DSP_COD) as cstDspCod,
+       			(select COMCNAME from DSTCOMPCTL where COMNO = HSP_EMG_INF.EMG_FK_COD )emgFkCod,
+       			(select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode= (select SQL_STA_COD from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=HSP_EMG_INF.SQL_SEQ )) as cstDspCodNameNew,
+       			to_char((select sql_dat from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = HSP_EMG_INF.SQL_SEQ),'yyyy/mm/dd hh24:mi:ss') sqlDat,
+       			(select SQL_STA_COD from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = HSP_EMG_INF.SQL_SEQ)  as cstDspCodNew,
+       			(select comcname from dstcompctl a where a.comno = (select sql_dep_cod from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = HSP_EMG_INF.SQL_SEQ))    as cstDepCodNew,
+       			(select sql_des from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = HSP_EMG_INF.SQL_SEQ) sqlDes,
+       			(select info from dstdictinfo a where a.typecode='ARV_CHL_COD' and a.infocode=HSP_EMG_INF.arv_chl_cod) as  arvChlCod,
+       			(select info from dstdictinfo a where a.typecode='ISORNOT' and a.infocode=HSP_EMG_INF.grn_chl) as  grnChl,
+       			HSP_EMG_INF.pre_usr_nam preUsrNam,
+       			HSP_EMG_INF.FIRSTSQLSEQ firstsqlseq,
+	   			HSP_EMG_INF.SQL_SEQ sqlSeq
+			from HSP_EMG_INF 
+    			left join HSP_FAST_INF t2  on  HSP_EMG_INF.EMG_SEQ=t2.EMG_SEQ
+			where (t2.CZ_FLAG='1'
+   			   or HSP_EMG_INF.HXKN_FLG='1'
+   			   or HSP_EMG_INF.CSPG_FLG='1'
+   			   or HSP_EMG_INF.XFZT_FLG='1'
+   			   or HSP_EMG_INF.XT_FLG='1')
+		       <include refid="query_hspemginf_where"/>
+		       <!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+   </select>
+   <!-- 中医院病情护理单 打印时  根据emgseq 查询病人信息 liulj -->
+    <select id="findemghljldByemgSeq" parameterType="java.lang.String" 
+		resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+	select  (select comcname from dstcompctl where comno = a.EMG_FK_COD)  emgFkName,
+	        a.cst_nam as cstNam,
+	       (select info from dstdictinfo c where c.typecode='CST_SEX_COD' and c.infocode=a.cst_sex_cod) as  cstSexCod, 
+	        a.cst_age as cstAge,(select info from dstdictinfo c where c.typecode='CST_AGE_COD' and c.infocode=a.cst_age_cod)cstAgeCod,
+	       getQjsBed(a.emg_seq,'6') as emgBed,
+	        a.jbzd_des as jbzdDes,PRE_DGN_COD preDgnCod,
+	         (select  b.qx_zyh from hsp_hlpgb b where b.emg_seq=a.emg_seq ) as qxZyh,mpi
+	  from hsp_emg_inf a
+	 where  a.emg_seq = #{emgSeq}
+  </select>
+  
+ 
+  <!-- 就诊时间分布列表 按月、天 隔两小时制-->
+  <select id="findVisDatByTwoList"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+  		resultType="activetech.hospital.pojo.dto.HspemginfCustom"> 
+  		with t1 as(select emg_seq,emg_dat from hsp_emg_inf where to_char(emg_dat,#{querytype})=to_char(#{startdate},#{querytype})
+  			<if test="hspemginfCustom.emgDepCod!=null and hspemginfCustom.emgDepCod!=''">
+				and hsp_emg_inf.emg_dep_cod= #{hspemginfCustom.emgDepCod}
+			</if>),
+			 t4 as(select emg_seq,emg_dat from hsp_emg_inf where to_char(emg_dat,#{querytype})=to_char(#{startdate},#{querytype}) and CST_DSP_COD = '6'
+     		<if test="hspemginfCustom.emgDepCod!=null and hspemginfCustom.emgDepCod!=''">
+				and hsp_emg_inf.emg_dep_cod= #{hspemginfCustom.emgDepCod}
+			</if>),
+			 t6 as(select emg_seq,emg_dat from hsp_emg_inf where to_char(emg_dat,#{querytype})=to_char(#{startdate},#{querytype}) and CST_DSP_COD = '5'
+     		<if test="hspemginfCustom.emgDepCod!=null and hspemginfCustom.emgDepCod!=''">
+				and hsp_emg_inf.emg_dep_cod= #{hspemginfCustom.emgDepCod}
+			</if>)
+		select (to_char(#{startdate},#{querytype}))querydate,a.querydate querytype,(a.total+b.total) counts,(a.lqtotal + b.lqtotal) lqcounts,(a.zjtotal + b.zjtotal) zjcounts from (
+		select queryhour,querydate,total,lqtotal,zjtotal from 
+		(select t3.queryhour,nvl(t2.total, 0) total,nvl(t5.total, 0) lqtotal,nvl(t7.total, 0) zjtotal,t3.querydate from 
+		(select queryhour,count(queryhour)total from 
+		(select emg_dat,to_char(emg_dat,'hh24')as queryhour from t1)group by queryhour)t2,
+		(select queryhour,count(queryhour) total from
+		(select emg_dat,to_char(emg_dat, 'hh24') as queryhour from t4) group by queryhour) t5,
+		(select queryhour,count(queryhour) total from
+		(select emg_dat,to_char(emg_dat, 'hh24') as queryhour from t6) group by queryhour) t7,
+		(select 
+		(case querynum 
+			when 1 then '01' 
+			when 3 then '03' 
+			when 5 then '05' 
+			when 7 then '07' 
+			when 9 then '09' 
+			else to_char(querynum)
+		end)as queryhour,querydate from 
+		(select (level*2-1)querynum,(level*2-1|| ':00')querydate from dual connect by level <![CDATA[<=]]>12))t3
+		where t2.queryhour(+)=t3.queryhour and t5.queryhour(+) = t3.queryhour and t7.queryhour(+) = t3.queryhour) order by queryhour
+		)a,(
+		select queryhour,querydate,total,lqtotal,zjtotal from 
+		(select t3.queryhour,nvl(t2.total, 0) total,nvl(t5.total, 0) lqtotal,nvl(t7.total, 0) zjtotal,t3.querydate from 
+		(select queryhour,count(queryhour)total from 
+		(select emg_dat,to_char(emg_dat,'hh24')as queryhour from t1)group by queryhour)t2,
+		(select queryhour,count(queryhour) total from
+		(select emg_dat,to_char(emg_dat, 'hh24') as queryhour from t4) group by queryhour) t5,
+		(select queryhour,count(queryhour) total from
+		(select emg_dat,to_char(emg_dat, 'hh24') as queryhour from t6) group by queryhour) t7,
+		(select 
+		(case querynum 
+			when 0 then '00' 
+			when 2 then '02' 
+			when 4 then '04' 
+			when 6 then '06' 
+			when 8 then '08' 
+			else to_char(querynum)
+		end)as queryhour,querydate from 
+		(select ((level-1)*2)querynum,(level*2-1|| ':00')querydate from 
+		dual connect by level <![CDATA[<=]]>12))t3
+		where t2.queryhour(+)=t3.queryhour and t5.queryhour(+) = t3.queryhour and t7.queryhour(+) = t3.queryhour) order by queryhour)b 
+		where 
+		a.querydate=b.querydate
+  </select>
+  
+  <!-- 就诊时间分布列表 按月、天 一小时制-->
+  <select id="findVisDatByOneList"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+  		resultType="activetech.hospital.pojo.dto.HspemginfCustom"> 
+  		with t1 as(select emg_seq,emg_dat from hsp_emg_inf where to_char(emg_dat,#{querytype})=to_char(#{startdate},#{querytype})
+  			<if test="hspemginfCustom.emgDepCod!=null and hspemginfCustom.emgDepCod!=''">
+				and hsp_emg_inf.emg_dep_cod= #{hspemginfCustom.emgDepCod}
+			</if>),
+     		 t4 as(select emg_seq,emg_dat from hsp_emg_inf where to_char(emg_dat,#{querytype})=to_char(#{startdate},#{querytype}) and CST_DSP_COD = '6'
+     		<if test="hspemginfCustom.emgDepCod!=null and hspemginfCustom.emgDepCod!=''">
+				and hsp_emg_inf.emg_dep_cod= #{hspemginfCustom.emgDepCod}
+			</if>),
+			 t6 as(select emg_seq,emg_dat from hsp_emg_inf where to_char(emg_dat,#{querytype})=to_char(#{startdate},#{querytype}) and CST_DSP_COD = '5'
+     		<if test="hspemginfCustom.emgDepCod!=null and hspemginfCustom.emgDepCod!=''">
+				and hsp_emg_inf.emg_dep_cod= #{hspemginfCustom.emgDepCod}
+			</if>)
+		select queryhour,
+		(to_char(#{startdate},#{querytype}))querydate,querytype,nvl(total,0) counts,nvl(lqtotal, 0) lqcounts,nvl(zjtotal, 0) zjcounts
+		from (select t3.queryhour,t2.total total,t5.total lqtotal,t7.total zjtotal,t3.querydate querytype from 
+		(select queryhour,count(queryhour)total from 
+		(select emg_dat,to_char(emg_dat,'hh24')as queryhour from t1) group by queryhour) t2,
+		(select queryhour,count(queryhour) total from
+		(select emg_dat,to_char(emg_dat, 'hh24') as queryhour from t4) group by queryhour) t5,
+		(select queryhour,count(queryhour) total from
+		(select emg_dat,to_char(emg_dat, 'hh24') as queryhour from t6) group by queryhour) t7,
+		(select (case querynum when 1 then '01' when 2 then '02' when 3 then '03' when 4 then '04' when 5 then '05' 
+		when 6 then '06' when 7 then '07' when 8 then '08' when 9 then '09' when 0 then '00' else to_char(querynum)
+		end)as queryhour,querydate from 
+		(select (level-1) querynum,(level-1|| ':00')querydate from dual connect by level <![CDATA[<=]]>24))t3
+		where t2.queryhour(+)=t3.queryhour and t5.queryhour(+) = t3.queryhour and t7.queryhour(+) = t3.queryhour) order by queryhour
+  </select>
+  
+  <select id="findEmergencyOuttime" resultType="activetech.hospital.pojo.dto.HspemginfCustom"
+		parameterType="activetech.basehis.pojo.dto.HemshisDto">
+		select emg_seq emgSeq,
+	         vst_cad vstCad,
+	         cst_nam cstNam,
+	         (select info from dstdictinfo a where a.typecode='CST_SEX_COD' and a.infocode=hsp_emg_inf.cst_sex_cod) as  cstSexCod,
+	         cst_age cstAge,
+	         cst_adr cstAdr,
+	         emg_dat emgDat,
+	         (select info from dstdictinfo a where a.typecode='MOD_LVL_COD' and a.infocode=hsp_emg_inf.emg_dep_cod) as  emgDepCod,
+	         pre_dgn_cod preDgnCod,
+	         (select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode=hsp_emg_inf.CST_DSP_COD) as cstDspCod,
+	         (select SQL_STA_COD from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ ) as cstDspCodNew,
+		     (select to_char(sql_dat,'yyyy/mm/dd hh24:mi') from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ ) as sqlDat,
+	         (select jbbc from hsp_jbzd_lz a where a.id=hsp_emg_inf.pre_dgn_cod) as  jbbc,
+	         (select comcname from dstcompctl a where  a.comno= (select sql_dep_cod from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ )) as cstDepCodNew,
+	         (select COMCNAME from dstcompctl a where  a.COMNO=hsp_emg_inf.emg_fk_cod) as  emgFkCod, 
+	         (select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode= (select SQL_STA_COD from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ )) as cstDspCodNameNew,
+	         (select info from dstdictinfo a where a.typecode='ISORNOT' and a.infocode=hsp_emg_inf.grn_chl) as  grnChl,
+	         (select info from dstdictinfo a where a.typecode='MOD_LVL_COD' and a.infocode=hsp_emg_inf.emg_dep_cod) as emgJjd,
+	         (select count(*) from hsp_sql_inf t1 where t1.emg_seq = hsp_emg_inf.emg_seq) zgcount,
+	         pre_usr_nbr preUsrNbr,
+	         pre_usr_nam preUsrNam,
+	         sym_sit_des symSitDes,
+	         (select info from dstdictinfo a where a.typecode='CST_AGE_COD' and a.infocode=hsp_emg_inf.CST_AGE_COD) as  cstAgeCod,
+	         jbzd_des jbzdDes,
+	         to_char(emg_dat,'yyyy/mm/dd hh24:mi:ss') ,
+	         mpi,
+	         GHBZ	
+		from hsp_emg_inf
+		<where>
+		<![CDATA[
+		emg_dat >= sysdate - 1
+		and DOC_DAT is null
+		and ( ( EMG_DEP_COD='1' and (trunc(sysdate,'mi') - trunc(EMG_DAT,'mi'))*24*60>=10)
+			 or ( EMG_DEP_COD='2' and (trunc(sysdate,'mi') - trunc(EMG_DAT,'mi'))*24*60>=30)
+			 or ( EMG_DEP_COD='0'))
+		]]>
+		<if test="hspemginfCustom!=null">
+			<if test="hspemginfCustom.cstNam!=null and hspemginfCustom.cstNam!=''">
+				and hsp_emg_inf.cst_nam like  '%'|| #{hspemginfCustom.cstNam}||'%'
+			</if>
+			<if test="hspemginfCustom.mpi!=null and hspemginfCustom.mpi!=''">
+				and hsp_emg_inf.mpi = #{hspemginfCustom.mpi}
+			</if>
+			<if test="hspemginfCustom.emgFkCod!=null and hspemginfCustom.emgFkCod!=''">
+				and hsp_emg_inf.EMG_FK_COD = #{hspemginfCustom.emgFkCod}
+			</if>
+		</if>
+		</where>
+		order by emg_dat
+	</select>
+	
+	<select id="findSlowListOuttime" resultType="activetech.hospital.pojo.dto.HspemginfCustom" 
+		parameterType="activetech.basehis.pojo.dto.HemshisDto">
+		select emg_seq emgSeq,
+	         vst_cad vstCad,
+	         cst_nam cstNam,
+	         (select info from dstdictinfo a where a.typecode='CST_SEX_COD' and a.infocode=hsp_emg_inf.cst_sex_cod) as  cstSexCod,
+	         cst_age cstAge,
+	         cst_adr cstAdr,
+	         emg_dat emgDat,
+	         (select info from dstdictinfo a where a.typecode='MOD_LVL_COD' and a.infocode=hsp_emg_inf.emg_dep_cod) as  emgDepCod,
+	         pre_dgn_cod preDgnCod,
+	         (select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode=hsp_emg_inf.CST_DSP_COD) as cstDspCod,
+	         (select SQL_STA_COD from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ ) as cstDspCodNew,
+		     (select to_char(sql_dat,'yyyy/mm/dd hh24:mi') from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ ) as sqlDat,
+	         (select jbbc from hsp_jbzd_lz a where a.id=hsp_emg_inf.pre_dgn_cod) as  jbbc,
+	         (select COMCNAME from dstcompctl a where  a.COMNO=hsp_emg_inf.emg_fk_cod) as  emgFkCod, 
+	         (select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode= (select SQL_STA_COD from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=hsp_emg_inf.SQL_SEQ )) as cstDspCodNameNew,
+	         (select info from dstdictinfo a where a.typecode='ISORNOT' and a.infocode=hsp_emg_inf.grn_chl) as  grnChl,
+	         (select info from dstdictinfo a where a.typecode='MOD_LVL_COD' and a.infocode=hsp_emg_inf.emg_dep_cod) as emgJjd,
+	         pre_usr_nbr preUsrNbr,
+	         pre_usr_nam preUsrNam,
+	         sym_sit_des symSitDes,
+	         (select info from dstdictinfo a where a.typecode='CST_AGE_COD' and a.infocode=hsp_emg_inf.CST_AGE_COD) as  cstAgeCod,
+	         jbzd_des jbzdDes,
+	         to_char(emg_dat,'yyyy/mm/dd hh24:mi:ss') 	,
+	         mpi,
+	         GHBZ
+		from hsp_emg_inf  
+		<where>
+		<![CDATA[
+		emg_dat >= sysdate - 1
+		and DOC_DAT is null
+		and CST_DSP_COD = '5'
+		and ( ( EMG_DEP_COD='3' and (trunc(sysdate,'mi') - trunc(EMG_DAT,'mi'))*24*60>=60)
+			 or ( EMG_DEP_COD='4' and (trunc(sysdate,'mi') - trunc(EMG_DAT,'mi'))*24*60>=120))
+		]]>
+		<if test="hspemginfCustom!=null">
+			<if test="hspemginfCustom.cstNam!=null and hspemginfCustom.cstNam!=''">
+				and hsp_emg_inf.cst_nam like  '%'|| #{hspemginfCustom.cstNam}||'%'
+			</if>
+			<if test="hspemginfCustom.mpi!=null and hspemginfCustom.mpi!=''">
+				and hsp_emg_inf.mpi = #{hspemginfCustom.mpi}
+			</if>
+			<if test="hspemginfCustom.emgFkCod!=null and hspemginfCustom.emgFkCod!=''">
+				and hsp_emg_inf.EMG_FK_COD = #{hspemginfCustom.emgFkCod}
+			</if>
+		</if>
+		</where>
+		order by emg_dat
+	</select>
+	
+	<select id="getOutTimeList" resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		select JZXH jzxh,
+			 JZYS jzys,
+			 YSXM ysxm,
+	         JZKH vstCad,
+	         JZRQ docDat,
+	         KSDM ksdm,
+             (select count(jzkh) from V_HEMS_JZXX a where a.JZRQ >= sysdate - 2 and a.JZKH = V_HEMS_JZXX.JZKH) counts
+		from V_HEMS_JZXX  
+		<where>
+		<![CDATA[
+		JZRQ >= sysdate - 1
+		and JZKH in 
+		]]>
+		<foreach collection="emergencyList" index="index" item="emergencyCustom" open="(" separator="," close=")">  
+            #{emergencyCustom.emgSeq}  
+        </foreach>		
+		</where>
+	</select>
+	
+	<update id="updateDocDat" parameterType="activetech.hospital.pojo.dto.HspemginfCustom">
+		update hsp_emg_inf 
+		set DOC_DAT = #{docDat},
+			JZXH = #{jzxh},
+			JZYS = #{jzys},
+			YSXM = #{ysxm},
+			KSDM = #{ksdm}
+		where EMG_SEQ = #{emgSeq}
+	</update>
+	
+	<update id="updateCleanListHz" parameterType="activetech.basehis.pojo.dto.HemshisDto">
+		BEGIN
+    	<foreach collection="hspemginfCustomList" item="item" index="index" separator=";">
+	    	update hsp_emg_inf 
+	    	set  JZYS = #{updateNur,jdbcType=VARCHAR},
+	    	YSXM = #{updateName,jdbcType=VARCHAR},
+	    	DOC_DAT = to_date('1970-01-01','yyyy/mm/dd'),
+	    	CLEANHZ_MEMO = #{item.cleanhzMemo,jdbcType=VARCHAR}
+	    	where EMG_SEQ =  #{item.emgSeq,jdbcType=VARCHAR}
+        </foreach>
+	  ;END;
+	</update>
+	<select id="findHspemginfXylghzmxCount" resultType="int">
+		<![CDATA[
+		select count(1)
+		from hsp_emg_inf t1,hsp_sql_inf t2
+		where t1.sql_seq = t2.sql_seq(+)
+		and t2.sql_sta_cod = '6'
+		and sql_dat >= sysdate - 10 
+		and sql_dat < sysdate
+		and SQL_NUR_NBR != 'AUTO'
+		]]>
+	</select>
+	<select id="findXylghzmxList" resultType="activetech.hospital.pojo.dto.HspemginfCustom" 
+	parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		<!--  to_char(i.sql_dat,'yyyyMMdd') <![CDATA[<]]>  to_char(#{enddate},'yyyyMMdd') -->
+		select * from (
+		<![CDATA[
+		select t1.emg_seq emgSeq,t1.vst_cad vstCad,t1.mpi,t1.cst_nam cstNam,t1.emg_dat emgDat,
+   		to_char(t1.emg_dat,'yyyy/mm/dd hh24:mi:ss') emgDatStr,t1.pre_dgn_cod preDgnCod,
+        (select info from dstdictinfo  where t1.CST_SEX_COD=dstdictinfo.infocode and typecode='CST_SEX_COD') cstSexCod,
+		cst_age cstAge,
+		(select info from dstdictinfo where t1.cst_age_cod=dstdictinfo.infocode and typecode='CST_AGE_COD') cstAgeCod ,
+            (select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode=t2.sql_sta_cod) as cstDspCod,
+		(select COMCNAME from dstcompctl a where  a.COMNO=t1.emg_fk_cod) as  emgFkCod,
+		(select info from dstdictinfo a where a.typecode='ISORNOT' and a.infocode=t1.grn_chl) as  grnChl,
+		(select info from dstdictinfo a where a.typecode='MOD_LVL_COD' and a.infocode=t1.emg_dep_cod) as  emgDepCod,
+		(select info from dstdictinfo a where a.typecode='ARV_CHL_COD' and a.infocode=t1.arv_chl_cod) as  arvChlCod,
+		nvl((select bed_num from hsp_bed_inf b where b.bedid =t1.emg_bed ),( select bed_num from hsp_bed_inf b where b.bedid =t2.SQL_DEP_COD)) as emgBed,
+		(select usrname from dstuser where usrno = t2.SQL_DCT_NBR) as sqlDctNam,
+		t1.pre_usr_nam preUsrNam,t2.sql_dep_cod,(select a.COMCNAME from DSTCOMPCTL a where a.comno=t2.SQL_DEP_COD) SqlDepName,
+        to_char(t2.sql_dat,'yyyy/mm/dd hh24:mi:ss') sqlDat 
+        from hsp_emg_inf t1,hsp_sql_inf t2
+		where t1.sql_seq = t2.sql_seq(+)
+		and t2.sql_sta_cod = '6'
+		and sql_dat >= sysdate - 10 
+		and sql_dat < sysdate
+		and SQL_NUR_NBR != 'AUTO'
+		]]>
+		)temp 
+		order by ${sort} ${order}
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	<!--门药门球时间录入 -->
+	<update id="updateMysjAndMqsj" parameterType="activetech.hospital.pojo.dto.HspemginfCustom">
+	    update HSP_EMG_INF
+	    set MYSJ = #{mysj,jdbcType=TIMESTAMP},
+	      MQSJ = #{mqsj,jdbcType=TIMESTAMP}
+	    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="findQjspjzlsj"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+	resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		with rqchart as
+		 (select emg_seq, sql_seq, emg_dat
+		    from hsp_emg_inf emginf
+		   where CST_DSP_COD in ('6')
+		   <if test="querytype == 'year'">
+           	 and to_char(emg_dat, 'yyyy')=to_char(#{startdate},'yyyy') 
+           </if>
+           <if test="querytype == 'month'">
+           	 and to_char(emg_dat, 'yyyy/mm')=to_char(#{startdate},'yyyy/mm') 
+           </if>
+           <if test="querytype == 'day'">
+             and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[=]]> to_char(#{startdate},'yyyy/mm/dd')
+           </if>
+           <if test="querytype == 'range'">
+             and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[>=]]> to_char(#{startdate},'yyyy/mm/dd')
+		     and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[<=]]> to_char(#{enddate},'yyyy/mm/dd')
+           </if>
+		  )
+		select to_char(temp2.pjzlhours,'fm999990.09') pjzlhours from 
+		(select count(temp.emg_seq) counts,
+		       case when count(temp.emg_seq)=0
+		        then 0
+		        else
+		        round(sum(temp.hours) / count(temp.emg_seq), 2)
+                end pjzlhours
+          from (select emg_seq,(trunc((select sysdate from dual),'mi') - trunc(rqchart.emg_dat,'mi'))*24 hours
+                  from rqchart
+                 where (select count(sql_seq)
+                          from hsp_sql_inf a
+                         where a.emg_seq = rqchart.emg_seq) = 1
+                union
+                select rqchart.emg_seq,(trunc(b.sql_dat,'mi') - trunc(rqchart.emg_dat,'mi'))*24 hours
+                  from rqchart, HSP_SQL_INF b
+                 where rqchart.sql_seq = b.sql_seq
+                   and (select count(sql_seq)
+                          from hsp_sql_inf a
+                         where a.emg_seq = rqchart.emg_seq) >= 2) temp
+                where 1=1
+                <if test="timetype!=null and timetype!=''">
+	             and hours <![CDATA[>=]]> #{timetype}
+	            </if>
+                )temp2
+	</select>
+	
+	<select id="findQjszll"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+	resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		with rqchart as
+		 (select emg_seq, sql_seq, emg_dat
+		    from hsp_emg_inf emginf
+		   where CST_DSP_COD in ('6')
+		   <if test="querytype == 'year'">
+           	 and to_char(emg_dat, 'yyyy')=to_char(#{startdate},'yyyy') 
+           </if>
+           <if test="querytype == 'month'">
+           	 and to_char(emg_dat, 'yyyy/mm')=to_char(#{startdate},'yyyy/mm') 
+           </if>
+           <if test="querytype == 'day'">
+             and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[=]]> to_char(#{startdate},'yyyy/mm/dd')
+           </if>
+           <if test="querytype == 'range'">
+             and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[>=]]> to_char(#{startdate},'yyyy/mm/dd')
+		     and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[<=]]> to_char(#{enddate},'yyyy/mm/dd')
+           </if>
+		  )
+		 select  temp2.counts zlrs,
+		  		(select count(emg_seq) from rqchart)-temp2.counts fzlrs,
+		        case when (select count(emg_seq) from rqchart)=0
+		        then 0
+		        else
+		        round(temp2.counts / (select count(emg_seq) from rqchart) * 100, 2)
+		        end zllrate,
+		        case when (select count(emg_seq) from rqchart)=0
+		        then 1
+		        else
+		        round((1 - temp2.counts / (select count(emg_seq) from rqchart)) * 100,
+		              2) 
+		        end fzllrate
+		  from (select count(temp.emg_seq) counts
+		          from (select emg_seq,(trunc((select sysdate from dual),'mi') - trunc(rqchart.emg_dat,'mi'))*24 hours
+		                  from rqchart
+		                 where (select count(sql_seq)
+		                          from hsp_sql_inf a
+		                         where a.emg_seq = rqchart.emg_seq) = 1
+		                union
+		                select rqchart.emg_seq,(trunc(b.sql_dat,'mi') - trunc(rqchart.emg_dat,'mi'))*24 hours
+		                  from rqchart, HSP_SQL_INF b
+		                 where rqchart.sql_seq = b.sql_seq
+		                   and (select count(sql_seq)
+		                          from hsp_sql_inf a
+		                         where a.emg_seq = rqchart.emg_seq) >= 2) temp
+		         where 1=1
+                <if test="timetype!=null and timetype!=''">
+	             and hours <![CDATA[>=]]> #{timetype}
+	            </if>
+		         ) temp2
+	</select>
+	
+	<select id="findQjszlhzCount"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto" resultType="int">
+		with rqchart as
+		 (select emg_seq, sql_seq, emg_dat
+		    from hsp_emg_inf emginf
+		   where CST_DSP_COD in ('6')
+		   <if test="querytype == 'year'">
+           	 and to_char(emg_dat, 'yyyy')=to_char(#{startdate},'yyyy') 
+           </if>
+           <if test="querytype == 'month'">
+           	 and to_char(emg_dat, 'yyyy/mm')=to_char(#{startdate},'yyyy/mm') 
+           </if>
+           <if test="querytype == 'day'">
+             and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[=]]> to_char(#{startdate},'yyyy/mm/dd')
+           </if>
+           <if test="querytype == 'range'">
+             and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[>=]]> to_char(#{startdate},'yyyy/mm/dd')
+		     and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[<=]]> to_char(#{enddate},'yyyy/mm/dd')
+           </if>
+		  )
+		  select count(*)
+			  from hsp_emg_inf
+			 where emg_seq in (select emg_seq
+			                     from (select emg_seq,(trunc((select sysdate from dual),'mi') - trunc(rqchart.emg_dat,'mi'))*24 hours
+			                             from rqchart
+			                            where (select count(sql_seq)
+			                                     from hsp_sql_inf a
+			                                    where a.emg_seq = rqchart.emg_seq) = 1
+			                           union
+			                           select rqchart.emg_seq,(trunc(b.sql_dat,'mi') - trunc(rqchart.emg_dat,'mi'))*24 hours
+			                             from rqchart, HSP_SQL_INF b
+			                            where rqchart.sql_seq = b.sql_seq
+			                              and (select count(sql_seq)
+			                                     from hsp_sql_inf a
+			                                    where a.emg_seq = rqchart.emg_seq) >= 2) temp
+			                    where 1=1
+				                <if test="timetype!=null and timetype!=''">
+					             and hours <![CDATA[>=]]> #{timetype}
+					            </if>
+	            				)
+	</select>
+	
+	<select id="findQjszlhzList"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto" resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		with rqchart as
+		 (select emg_seq, sql_seq, emg_dat
+		    from hsp_emg_inf emginf
+		   where CST_DSP_COD in ('6')
+		   <if test="querytype == 'year'">
+           	 and to_char(emg_dat, 'yyyy')=to_char(#{startdate},'yyyy') 
+           </if>
+           <if test="querytype == 'month'">
+           	 and to_char(emg_dat, 'yyyy/mm')=to_char(#{startdate},'yyyy/mm') 
+           </if>
+           <if test="querytype == 'day'">
+             and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[=]]> to_char(#{startdate},'yyyy/mm/dd')
+           </if>
+           <if test="querytype == 'range'">
+             and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[>=]]> to_char(#{startdate},'yyyy/mm/dd')
+		     and to_char(emg_dat, 'yyyy/mm/dd') <![CDATA[<=]]> to_char(#{enddate},'yyyy/mm/dd')
+           </if>
+		  )
+		  select emg_seq emgSeq,
+			       emg_dat emgDat,
+             	   to_char(emg_dat,'yyyy-mm-dd hh24:mi') emgDatStr,
+             	   
+             	   case when a.firstsqlseq = a.sql_seq
+             	   then ''
+             	   else
+             	   to_char((select sql_dat from hsp_sql_inf where sql_seq = a.sql_seq),
+               		'yyyy-mm-dd hh24:mi')
+               		end sqlDatStr,
+			       vst_cad vstCad,
+			       cst_nam cstNam,
+			       (select info
+			          from dstdictinfo
+			         where typecode = 'CST_SEX_COD'
+			           and infocode = CST_SEX_COD) cstSexCod,
+			           mpi
+			  from hsp_emg_inf a
+			 where a.emg_seq in (select emg_seq
+			                     from (select emg_seq,(trunc((select sysdate from dual),'mi') - trunc(rqchart.emg_dat,'mi'))*24 hours
+			                             from rqchart
+			                            where (select count(sql_seq)
+			                                     from hsp_sql_inf a
+			                                    where a.emg_seq = rqchart.emg_seq) = 1
+			                           union
+			                           select rqchart.emg_seq,(trunc(b.sql_dat,'mi') - trunc(rqchart.emg_dat,'mi'))*24 hours
+			                             from rqchart, HSP_SQL_INF b
+			                            where rqchart.sql_seq = b.sql_seq
+			                              and (select count(sql_seq)
+			                                     from hsp_sql_inf a
+			                                    where a.emg_seq = rqchart.emg_seq) >= 2) temp
+			                    where 1=1
+				                <if test="timetype!=null and timetype!=''">
+					             and hours <![CDATA[>=]]> #{timetype}
+					            </if>
+					            )
+ 			order by emg_dat,vst_cad
+ 			<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	
+	<!-- 根据群体事件号获取最大的分组序号 -->
+	<select id="findMaxTriage" parameterType="string" resultType="Integer">
+		select max(to_number(TRIAGE_NUM)) from HSP_EMG_INF where QTSJ_SEQ = #{qtsjSeq} group by QTSJ_SEQ
+	</select>
+	
+	<select id="findJzkfrbrtjList"  parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+		resultType="activetech.hospital.pojo.dto.HspemginfCustom">	  
+		  select nvl(t1.frbrcount, 0) hzcount, comno emgFkCod, comcname emgFkName
+		    from dstcompctl,
+		         (select count(emg_seq) frbrcount, emg_fk_cod
+		            from (select a.emg_seq, a.emg_fk_cod
+		                    from hsp_emg_inf a, hsp_mews_inf b
+		                   where a.emg_seq = b.emg_seq
+		                     and to_date(to_char(a.emg_dat,'yyyy/mm/dd'),'yyyy/mm/dd') <![CDATA[>=]]> #{startdate}
+		                     and to_date(to_char(a.emg_dat,'yyyy/mm/dd'),'yyyy/mm/dd') <![CDATA[<=]]> #{enddate}		                     
+		                     and b.tmp_nbr <![CDATA[>=]]> 38
+		                     <if test="childFlag!=null and childFlag!=''">
+							 	and a.CST_AGE_COD = '0' and a.CST_AGE <![CDATA[>=]]> 14
+			 				 </if>)
+		           group by emg_fk_cod) t1
+		   where dstcompctl.is_jzks = '1'
+		     and dstcompctl.ISENABLE = '1'
+		     and dstcompctl.comno = t1.emg_fk_cod(+)
+		   order by showorder asc	 
+	</select>
+	
+	<select id="findemginfByfrCount" resultType="int" parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto">
+		<![CDATA[
+			select count(a.emg_seq) 
+			from hsp_emg_inf a,hsp_mews_inf b
+			where a.emg_seq = b.emg_seq
+			and to_date(to_char(a.emg_dat,'yyyy/mm/dd'),'yyyy/mm/dd') >=  #{startdate}
+			and to_date(to_char(a.emg_dat,'yyyy/mm/dd'),'yyyy/mm/dd') <=  #{enddate}
+			and b.tmp_nbr >=  38
+		]]>
+		<if test="hspemginfCustom!=null">
+			<if test="hspemginfCustom.emgFkCod!=null and hspemginfCustom.emgFkCod!=''">
+				and a.emg_fk_cod = #{hspemginfCustom.emgFkCod}
+			</if>	
+		</if>
+		<if test="childFlag!=null and childFlag!=''">
+	 		and a.CST_AGE_COD = '0' and a.CST_AGE <![CDATA[>=]]> 14
+		</if>
+	</select>
+	<select id="findemginfByfrList" resultType="activetech.hospital.pojo.dto.HspemginfCustom" 
+	parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		<![CDATA[
+			select t1.emg_seq emgSeq,
+			       t1.vst_cad vstCad,
+			       t1.cst_nam cstNam,
+			       t1.emg_dat emgDat,
+			       to_char(t1.emg_dat,'yyyy-mm-dd hh24:mi:ss') as emgDatStr,
+			       t1.pre_dgn_cod preDgnCod,
+			       t1.CST_ADR cstAdr,
+             	   t1.PHE_NBR pheNbr,
+             	   t1.EMG_JOB emgJob,
+             	   t1.FR_DAT frDat,
+             	   to_char(t1.FR_DAT,'yyyy-mm-dd') as frDatStr,
+			       (select info
+			          from dstdictinfo
+			         where t1.CST_SEX_COD = dstdictinfo.infocode
+			           and typecode = 'CST_SEX_COD') cstSexCod,
+			       cst_age cstAge,
+			       (select info
+			          from dstdictinfo
+			         where t1.cst_age_cod = dstdictinfo.infocode
+			           and typecode = 'CST_AGE_COD') cstAgeCod,
+			       (select info
+			          from dstdictinfo a
+			         where a.typecode = 'CST_DSP_COD'
+			           and a.infocode = t1.CST_DSP_COD) as cstDspCod,
+			       (select COMCNAME from dstcompctl a where a.COMNO = t1.emg_fk_cod) as emgFkCod,
+			       (select info
+			          from dstdictinfo a
+			         where a.typecode = 'ISORNOT'
+			           and a.infocode = t1.grn_chl) as grnChl,
+			       (select info
+			          from dstdictinfo a
+			         where a.typecode = 'MOD_LVL_COD'
+			           and a.infocode = t1.emg_dep_cod) as emgDepCod,
+			       (select info
+			          from dstdictinfo a
+			         where a.typecode = 'ARV_CHL_COD'
+			           and a.infocode = t1.arv_chl_cod) as arvChlCod,
+			       (select usrname from dstuser where usrno = t1.SQL_DCT_NBR) as sqlDctNam,
+			       t1.pre_usr_nam preUsrNam,
+	               decode(instr(t1.FR_COD,'1'),0,'无',null,'无','有') wcdyFlag,
+	               decode(instr(t1.FR_COD,'2'),0,'无',null,'无','有') ttgjcxFlag,
+	               decode(instr(t1.FR_COD,'3'),0,'无',null,'无','有') hxdzzFlag,
+	               decode(instr(t1.FR_COD,'4'),0,'无',null,'无','有') yqyqFlag,
+	               decode(instr(t1.FR_COD,'5'),0,'无',null,'无','有') qljcFlag,
+	               t1.INFECTEDAREA_NAM infectedareaNam,
+				   t1.JBZD_DES jbzdDes,
+				   t1.NATIONALITY nationality,
+				   t2.tmp_nbr tmpNbr,
+				   (select sql_des from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=t1.SQL_SEQ ) as sqlDes,
+			       (select info from dstdictinfo a where a.typecode='CST_DSP_COD' and a.infocode= (select SQL_STA_COD from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=t1.SQL_SEQ )) as cstDspCodNameNew,
+		           (select comcname from dstcompctl a where a.comno= (select sql_dep_cod from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=t1.SQL_SEQ )) as cstDepCodNew,
+			  	   (select count(*) from hsp_sql_inf where hsp_sql_inf.emg_seq = t1.emg_seq) zgcount,
+			  	   (select SQL_STA_COD from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ=t1.SQL_SEQ ) as cstDspCodNew
+			  from hsp_emg_inf t1, hsp_mews_inf t2
+			 where t1.emg_seq = t2.emg_seq(+)
+			   and t2.tmp_nbr >= 38
+			   and to_date(to_char(t1.emg_dat,'yyyy/mm/dd'),'yyyy/mm/dd') >=#{startdate}
+		       and to_date(to_char(t1.emg_dat,'yyyy/mm/dd'),'yyyy/mm/dd') <=#{enddate}
+		]]>
+		<if test="hspemginfCustom!=null">
+			<if test="hspemginfCustom.emgFkCod!=null and hspemginfCustom.emgFkCod!=''">
+				and t1.emg_fk_cod = #{hspemginfCustom.emgFkCod}
+			</if>
+		</if>
+		<if test="childFlag!=null and childFlag!=''">
+		 		and t1.CST_AGE_COD = '0' and t1.CST_AGE <![CDATA[>=]]> 14
+		</if>
+		<![CDATA[
+			 order by ${sort} ${order}  
+		]]>
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	
+	<!-- 统计日发热人数 -->
+	<select id="findDayHeatCount" resultType="int" parameterType="activetech.base.pojo.dto.HighChartsDemoCustomDto">
+		select count(*) from hsp_emg_inf,HSP_MEWS_INF WHERE hsp_emg_inf.emg_seq = hsp_mews_inf.emg_seq and hsp_mews_inf.TMP_NBR <![CDATA[>=]]>37.5 and to_char(hsp_emg_inf.emg_dat,'yyyy/MM/dd') <![CDATA[=]]> to_char(#{startdate} ,'YYYY/MM/DD')
+	</select>
+	
+	<!-- 统计今日胸痛、卒中、创伤人数 -->
+	<select id="findXtAndCzAndCsCount" resultType="activetech.base.pojo.dto.HighChartsDemoCustom" parameterType="activetech.base.pojo.dto.HighChartsDemoCustomDto">
+		select (select count(*) from hsp_emg_inf WHERE XT_FLG = '1' and TO_CHAR(EMG_DAT,'yyyy/MM') <![CDATA[=]]> to_char(#{startdate} ,'YYYY/MM'))xtCount,
+			   (select count(*) from hsp_emg_inf WHERE hsp_emg_inf.emg_seq in(select emg_seq from hsp_fast_inf a where a.emg_seq=
+        		hsp_emg_inf.emg_seq and cz_Flag=1) and TO_CHAR(EMG_DAT,'yyyy/MM')<![CDATA[=]]> to_char(#{startdate} ,'YYYY/MM'))czCont,
+				(select count(*) from hsp_emg_inf where CSPG_FLG = '1' and TO_CHAR(EMG_DAT,'yyyy/MM') <![CDATA[=]]> to_char(#{startdate} ,'YYYY/MM'))csCount
+		from dual
+	</select>
+	
+	
+	<!-- 今日就诊年龄性别统计列表 -->
+	<select id="findAgeAndSexTjList" resultType="activetech.hospital.pojo.dto.HspemginfCustom" parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto">
+		with t as (select '0-6' nld, 0 n1, 6 n2 from dual
+					union all select '7-17', 7, 17 from dual
+					union all select '18-40', 18, 40 from dual
+					union all select '41-65', 41, 65 from dual
+					union all select '66+', 66, 1000 from dual
+				)						
+			select t.nld inter, 
+					count(case when CST_SEX_COD='0' then 1 end) zgcount,
+					count(case when CST_SEX_COD='1' then 1 end) hzcount
+			from hsp_emg_inf s join t on s.CST_AGE between t.n1 and t.n2
+			where CST_SEX_COD is not null and CST_AGE is not null
+			<if test="querytype == 'day'">
+				 and to_char(emg_dat,'yyyy/mm/dd') <![CDATA[=]]> to_char(#{startdate},'yyyy/mm/dd')
+			</if>
+			<if test="querytype == 'month'">
+				 and to_char(emg_dat,'yyyy/MM') <![CDATA[=]]> to_char(#{startdate},'yyyy/MM')
+			</if>
+			<if test="hspemginfCustom.emgDepCod != null and  hspemginfCustom.emgDepCod !=''">
+				and emg_dep_cod = #{hspemginfCustom.emgDepCod}
+			</if>
+			group by t.nld ORDER BY t.NLD
+	</select>
+	
+	<select id="findEmgByMpiJzxh"  parameterType="activetech.hospital.pojo.dto.HspemginfCustom"
+		resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		select *
+		  from hsp_emg_inf
+		 where mpi = #{mpi}
+		   and jzxh = #{jzxh}
+	</select>
+	
+	<select id="findRecentEmgByVstcad" parameterType="activetech.hospital.pojo.dto.HspemginfCustom"
+		resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		select *
+		  from (select *
+		          from hsp_emg_inf
+		         where vst_cad = #{vstCad}
+		           and emg_dat > sysdate - 1.5
+		         order by emg_dat desc)
+		 where rownum = '1'
+	</select>
+	
+	<select id="findEmgByCon" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*) from hsp_emg_inf
+		${con}
+	</select>
+	
+	<select id="findEmgByEmgSeq" parameterType="activetech.hospital.pojo.dto.HspemginfCustom"
+			resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+			select a.emg_seq,
+		       a.vst_cad,
+		       a.cst_nam,
+		       a.cst_sex_cod,
+		       a.cst_age,
+		       a.emg_dat,
+		       a.pre_dgn_cod,
+		       a.emg_dep_cod,
+		       a.arv_chl_cod,
+		       a.sql_seq,
+		       (select info from dstdictinfo where dstdictinfo.typecode = 'CST_DSP_COD'
+		       								   and dstdictinfo.infocode = (
+		       								   select sql_sta_cod from hsp_sql_inf
+		       								   where hsp_sql_inf.sql_seq = a.sql_seq
+		       								     and hsp_sql_inf.sql_seq <![CDATA[<>]]> a.firstsqlseq)) cstDspCodNameNew,
+		       (select comcname from dstcompctl where comno = (select sql_dep_cod from hsp_sql_inf
+							   where hsp_sql_inf.sql_seq = a.sql_seq
+							     and hsp_sql_inf.sql_seq <![CDATA[<>]]> a.firstsqlseq)) cstDepCodNew,
+		       (select fzjc_des from hsp_lqbl_inf where emg_seq = a.emg_seq) fzjcDes,
+		       (select lqbl_des from hsp_lqbl_inf where emg_seq = a.emg_seq) lqblDes,
+		       (select bed_num from hsp_bed_inf where bedid = a.emg_bed) emg_bed,
+		       (select comcname from dstcompctl where comno = a.emg_fk_cod) emg_fk_cod,
+		       a.oxy_nbr,
+		       a.sen_stu_cod ,
+		       a.xtlcflg,
+		       b.sen_rct_cod ,
+		       b.tmp_nbr,
+		       b.bre_nbr,
+		       b.hrt_rte,
+		       b.sbpup_nbr,
+		       b.sbpdown_nbr,
+		       a.mpi,
+		       a.jzxh,
+		       a.patid
+		  from hsp_emg_inf a, hsp_mews_inf b 
+		 where a.emg_seq = #{emgSeq,jdbcType=VARCHAR}
+		   and a.emg_seq = b.emg_seq
+	</select>
+	
+  </mapper>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.DstappoptionMapper" >
+  <resultMap id="BaseResultMap" type="activetech.base.pojo.domain.Dstappoption" >
+    <id column="OPTKEY" property="optkey" jdbcType="VARCHAR" />
+    <result column="OPTNAME" property="optname" jdbcType="VARCHAR" />
+    <result column="OPTTYPE" property="opttype" jdbcType="VARCHAR" />
+    <result column="OPTVALUE" property="optvalue" jdbcType="VARCHAR" />
+    <result column="VCHAR1" property="vchar1" jdbcType="VARCHAR" />
+    <result column="VCHAR2" property="vchar2" jdbcType="VARCHAR" />
+    <result column="VCHAR3" property="vchar3" jdbcType="VARCHAR" />
+    <result column="VCHAR4" property="vchar4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    OPTKEY, OPTNAME, OPTTYPE, OPTVALUE, VCHAR1, VCHAR2, VCHAR3, VCHAR4
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.base.pojo.domain.DstappoptionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DSTAPPOPTION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DSTAPPOPTION
+    where OPTKEY = #{optkey,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DSTAPPOPTION
+    where OPTKEY = #{optkey,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.DstappoptionExample" >
+    delete from DSTAPPOPTION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.base.pojo.domain.Dstappoption" >
+    insert into DSTAPPOPTION (OPTKEY, OPTNAME, OPTTYPE, 
+      OPTVALUE, VCHAR1, VCHAR2, 
+      VCHAR3, VCHAR4)
+    values (#{optkey,jdbcType=VARCHAR}, #{optname,jdbcType=VARCHAR}, #{opttype,jdbcType=VARCHAR}, 
+      #{optvalue,jdbcType=VARCHAR}, #{vchar1,jdbcType=VARCHAR}, #{vchar2,jdbcType=VARCHAR}, 
+      #{vchar3,jdbcType=VARCHAR}, #{vchar4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.base.pojo.domain.Dstappoption" >
+    insert into DSTAPPOPTION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="optkey != null" >
+        OPTKEY,
+      </if>
+      <if test="optname != null" >
+        OPTNAME,
+      </if>
+      <if test="opttype != null" >
+        OPTTYPE,
+      </if>
+      <if test="optvalue != null" >
+        OPTVALUE,
+      </if>
+      <if test="vchar1 != null" >
+        VCHAR1,
+      </if>
+      <if test="vchar2 != null" >
+        VCHAR2,
+      </if>
+      <if test="vchar3 != null" >
+        VCHAR3,
+      </if>
+      <if test="vchar4 != null" >
+        VCHAR4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="optkey != null" >
+        #{optkey,jdbcType=VARCHAR},
+      </if>
+      <if test="optname != null" >
+        #{optname,jdbcType=VARCHAR},
+      </if>
+      <if test="opttype != null" >
+        #{opttype,jdbcType=VARCHAR},
+      </if>
+      <if test="optvalue != null" >
+        #{optvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar1 != null" >
+        #{vchar1,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar2 != null" >
+        #{vchar2,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar3 != null" >
+        #{vchar3,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar4 != null" >
+        #{vchar4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.base.pojo.domain.DstappoptionExample" resultType="java.lang.Integer" >
+    select count(*) from DSTAPPOPTION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DSTAPPOPTION
+    <set >
+      <if test="record.optkey != null" >
+        OPTKEY = #{record.optkey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optname != null" >
+        OPTNAME = #{record.optname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opttype != null" >
+        OPTTYPE = #{record.opttype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optvalue != null" >
+        OPTVALUE = #{record.optvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar1 != null" >
+        VCHAR1 = #{record.vchar1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar2 != null" >
+        VCHAR2 = #{record.vchar2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar3 != null" >
+        VCHAR3 = #{record.vchar3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar4 != null" >
+        VCHAR4 = #{record.vchar4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DSTAPPOPTION
+    set OPTKEY = #{record.optkey,jdbcType=VARCHAR},
+      OPTNAME = #{record.optname,jdbcType=VARCHAR},
+      OPTTYPE = #{record.opttype,jdbcType=VARCHAR},
+      OPTVALUE = #{record.optvalue,jdbcType=VARCHAR},
+      VCHAR1 = #{record.vchar1,jdbcType=VARCHAR},
+      VCHAR2 = #{record.vchar2,jdbcType=VARCHAR},
+      VCHAR3 = #{record.vchar3,jdbcType=VARCHAR},
+      VCHAR4 = #{record.vchar4,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.Dstappoption" >
+    update DSTAPPOPTION
+    <set >
+      <if test="optname != null" >
+        OPTNAME = #{optname,jdbcType=VARCHAR},
+      </if>
+      <if test="opttype != null" >
+        OPTTYPE = #{opttype,jdbcType=VARCHAR},
+      </if>
+      <if test="optvalue != null" >
+        OPTVALUE = #{optvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar1 != null" >
+        VCHAR1 = #{vchar1,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar2 != null" >
+        VCHAR2 = #{vchar2,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar3 != null" >
+        VCHAR3 = #{vchar3,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar4 != null" >
+        VCHAR4 = #{vchar4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OPTKEY = #{optkey,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.Dstappoption" >
+    update DSTAPPOPTION
+    set OPTNAME = #{optname,jdbcType=VARCHAR},
+      OPTTYPE = #{opttype,jdbcType=VARCHAR},
+      OPTVALUE = #{optvalue,jdbcType=VARCHAR},
+      VCHAR1 = #{vchar1,jdbcType=VARCHAR},
+      VCHAR2 = #{vchar2,jdbcType=VARCHAR},
+      VCHAR3 = #{vchar3,jdbcType=VARCHAR},
+      VCHAR4 = #{vchar4,jdbcType=VARCHAR}
+    where OPTKEY = #{optkey,jdbcType=VARCHAR}
+  </update>
+</mapper>

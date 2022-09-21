@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspSqlInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspSqlInf" >
+    <id column="SQL_SEQ" property="sqlSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="REG_DAT" property="regDat" jdbcType="TIMESTAMP" />
+    <result column="SQL_DAT" property="sqlDat" jdbcType="TIMESTAMP" />
+    <result column="SQL_STA_COD" property="sqlStaCod" jdbcType="VARCHAR" />
+    <result column="SQL_DEP_COD" property="sqlDepCod" jdbcType="VARCHAR" />
+    <result column="SQL_DCT_NBR" property="sqlDctNbr" jdbcType="VARCHAR" />
+    <result column="SQL_DCT_NAM" property="sqlDctNam" jdbcType="VARCHAR" />
+    <result column="SQL_NUR_NBR" property="sqlNurNbr" jdbcType="VARCHAR" />
+    <result column="SQL_NUR_NAM" property="sqlNurNam" jdbcType="VARCHAR" />
+    <result column="SQL_DES" property="sqlDes" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SQL_SEQ, EMG_SEQ, REG_DAT, SQL_DAT, SQL_STA_COD, SQL_DEP_COD, SQL_DCT_NBR, SQL_DCT_NAM, 
+    SQL_NUR_NBR, SQL_NUR_NAM, SQL_DES
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.domain.HspSqlInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_SQL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_SQL_INF
+    where SQL_SEQ = #{sqlSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_SQL_INF
+    where SQL_SEQ = #{sqlSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.hospital.pojo.domain.HspSqlInfExample" >
+    delete from HSP_SQL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.hospital.pojo.domain.HspSqlInf" >
+    insert into HSP_SQL_INF (SQL_SEQ, EMG_SEQ, REG_DAT, 
+      SQL_DAT, SQL_STA_COD, SQL_DEP_COD, 
+      SQL_DCT_NBR, SQL_DCT_NAM, SQL_NUR_NBR, 
+      SQL_NUR_NAM, SQL_DES)
+    values (#{sqlSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{regDat,jdbcType=TIMESTAMP}, 
+      #{sqlDat,jdbcType=TIMESTAMP}, #{sqlStaCod,jdbcType=VARCHAR}, #{sqlDepCod,jdbcType=VARCHAR}, 
+      #{sqlDctNbr,jdbcType=VARCHAR}, #{sqlDctNam,jdbcType=VARCHAR}, #{sqlNurNbr,jdbcType=VARCHAR}, 
+      #{sqlNurNam,jdbcType=VARCHAR}, #{sqlDes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.hospital.pojo.domain.HspSqlInf" >
+    insert into HSP_SQL_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sqlSeq != null" >
+        SQL_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="regDat != null" >
+        REG_DAT,
+      </if>
+      <if test="sqlDat != null" >
+        SQL_DAT,
+      </if>
+      <if test="sqlStaCod != null" >
+        SQL_STA_COD,
+      </if>
+      <if test="sqlDepCod != null" >
+        SQL_DEP_COD,
+      </if>
+      <if test="sqlDctNbr != null" >
+        SQL_DCT_NBR,
+      </if>
+      <if test="sqlDctNam != null" >
+        SQL_DCT_NAM,
+      </if>
+      <if test="sqlNurNbr != null" >
+        SQL_NUR_NBR,
+      </if>
+      <if test="sqlNurNam != null" >
+        SQL_NUR_NAM,
+      </if>
+      <if test="sqlDes != null" >
+        SQL_DES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sqlSeq != null" >
+        #{sqlSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="regDat != null" >
+        #{regDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sqlDat != null" >
+        #{sqlDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sqlStaCod != null" >
+        #{sqlStaCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlDepCod != null" >
+        #{sqlDepCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlDctNbr != null" >
+        #{sqlDctNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlDctNam != null" >
+        #{sqlDctNam,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlNurNbr != null" >
+        #{sqlNurNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlNurNam != null" >
+        #{sqlNurNam,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlDes != null" >
+        #{sqlDes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.hospital.pojo.domain.HspSqlInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_SQL_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_SQL_INF
+    <set >
+      <if test="record.sqlSeq != null" >
+        SQL_SEQ = #{record.sqlSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regDat != null" >
+        REG_DAT = #{record.regDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sqlDat != null" >
+        SQL_DAT = #{record.sqlDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sqlStaCod != null" >
+        SQL_STA_COD = #{record.sqlStaCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqlDepCod != null" >
+        SQL_DEP_COD = #{record.sqlDepCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqlDctNbr != null" >
+        SQL_DCT_NBR = #{record.sqlDctNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqlDctNam != null" >
+        SQL_DCT_NAM = #{record.sqlDctNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqlNurNbr != null" >
+        SQL_NUR_NBR = #{record.sqlNurNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqlNurNam != null" >
+        SQL_NUR_NAM = #{record.sqlNurNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqlDes != null" >
+        SQL_DES = #{record.sqlDes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_SQL_INF
+    set SQL_SEQ = #{record.sqlSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      REG_DAT = #{record.regDat,jdbcType=TIMESTAMP},
+      SQL_DAT = #{record.sqlDat,jdbcType=TIMESTAMP},
+      SQL_STA_COD = #{record.sqlStaCod,jdbcType=VARCHAR},
+      SQL_DEP_COD = #{record.sqlDepCod,jdbcType=VARCHAR},
+      SQL_DCT_NBR = #{record.sqlDctNbr,jdbcType=VARCHAR},
+      SQL_DCT_NAM = #{record.sqlDctNam,jdbcType=VARCHAR},
+      SQL_NUR_NBR = #{record.sqlNurNbr,jdbcType=VARCHAR},
+      SQL_NUR_NAM = #{record.sqlNurNam,jdbcType=VARCHAR},
+      SQL_DES = #{record.sqlDes,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.hospital.pojo.domain.HspSqlInf" >
+    update HSP_SQL_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="regDat != null" >
+        REG_DAT = #{regDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sqlDat != null" >
+        SQL_DAT = #{sqlDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sqlStaCod != null" >
+        SQL_STA_COD = #{sqlStaCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlDepCod != null" >
+        SQL_DEP_COD = #{sqlDepCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlDctNbr != null" >
+        SQL_DCT_NBR = #{sqlDctNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlDctNam != null" >
+        SQL_DCT_NAM = #{sqlDctNam,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlNurNbr != null" >
+        SQL_NUR_NBR = #{sqlNurNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlNurNam != null" >
+        SQL_NUR_NAM = #{sqlNurNam,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlDes != null" >
+        SQL_DES = #{sqlDes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SQL_SEQ = #{sqlSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.hospital.pojo.domain.HspSqlInf" >
+    update HSP_SQL_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      REG_DAT = #{regDat,jdbcType=TIMESTAMP},
+      SQL_DAT = #{sqlDat,jdbcType=TIMESTAMP},
+      SQL_STA_COD = #{sqlStaCod,jdbcType=VARCHAR},
+      SQL_DEP_COD = #{sqlDepCod,jdbcType=VARCHAR},
+      SQL_DCT_NBR = #{sqlDctNbr,jdbcType=VARCHAR},
+      SQL_DCT_NAM = #{sqlDctNam,jdbcType=VARCHAR},
+      SQL_NUR_NBR = #{sqlNurNbr,jdbcType=VARCHAR},
+      SQL_NUR_NAM = #{sqlNurNam,jdbcType=VARCHAR},
+      SQL_DES = #{sqlDes,jdbcType=VARCHAR}
+    where SQL_SEQ = #{sqlSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

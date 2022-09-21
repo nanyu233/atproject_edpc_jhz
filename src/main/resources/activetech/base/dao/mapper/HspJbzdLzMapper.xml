@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.HspJbzdLzMapper" >
+  <resultMap id="BaseResultMap" type="activetech.base.pojo.domain.HspJbzdLz" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="JBBC" property="jbbc" jdbcType="VARCHAR" />
+    <result column="ICD10" property="icd10" jdbcType="VARCHAR" />
+    <result column="PYSM" property="pysm" jdbcType="VARCHAR" />
+    <result column="SRM2" property="srm2" jdbcType="VARCHAR" />
+    <result column="SRM3" property="srm3" jdbcType="VARCHAR" />
+    <result column="JIBINGTYPE" property="jibingtype" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, JBBC, ICD10, PYSM, SRM2, SRM3, JIBINGTYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.base.pojo.domain.HspJbzdLzExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_JBZD_LZ
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_JBZD_LZ
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_JBZD_LZ
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.HspJbzdLzExample" >
+    delete from HSP_JBZD_LZ
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.base.pojo.domain.HspJbzdLz" >
+    insert into HSP_JBZD_LZ (ID, JBBC, ICD10, 
+      PYSM, SRM2, SRM3, JIBINGTYPE
+      )
+    values (#{id,jdbcType=VARCHAR}, #{jbbc,jdbcType=VARCHAR}, #{icd10,jdbcType=VARCHAR}, 
+      #{pysm,jdbcType=VARCHAR}, #{srm2,jdbcType=VARCHAR}, #{srm3,jdbcType=VARCHAR}, #{jibingtype,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.base.pojo.domain.HspJbzdLz" >
+    insert into HSP_JBZD_LZ
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="jbbc != null" >
+        JBBC,
+      </if>
+      <if test="icd10 != null" >
+        ICD10,
+      </if>
+      <if test="pysm != null" >
+        PYSM,
+      </if>
+      <if test="srm2 != null" >
+        SRM2,
+      </if>
+      <if test="srm3 != null" >
+        SRM3,
+      </if>
+      <if test="jibingtype != null" >
+        JIBINGTYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="jbbc != null" >
+        #{jbbc,jdbcType=VARCHAR},
+      </if>
+      <if test="icd10 != null" >
+        #{icd10,jdbcType=VARCHAR},
+      </if>
+      <if test="pysm != null" >
+        #{pysm,jdbcType=VARCHAR},
+      </if>
+      <if test="srm2 != null" >
+        #{srm2,jdbcType=VARCHAR},
+      </if>
+      <if test="srm3 != null" >
+        #{srm3,jdbcType=VARCHAR},
+      </if>
+      <if test="jibingtype != null" >
+        #{jibingtype,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.base.pojo.domain.HspJbzdLzExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_JBZD_LZ
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_JBZD_LZ
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jbbc != null" >
+        JBBC = #{record.jbbc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icd10 != null" >
+        ICD10 = #{record.icd10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pysm != null" >
+        PYSM = #{record.pysm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srm2 != null" >
+        SRM2 = #{record.srm2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srm3 != null" >
+        SRM3 = #{record.srm3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jibingtype != null" >
+        JIBINGTYPE = #{record.jibingtype,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_JBZD_LZ
+    set ID = #{record.id,jdbcType=VARCHAR},
+      JBBC = #{record.jbbc,jdbcType=VARCHAR},
+      ICD10 = #{record.icd10,jdbcType=VARCHAR},
+      PYSM = #{record.pysm,jdbcType=VARCHAR},
+      SRM2 = #{record.srm2,jdbcType=VARCHAR},
+      SRM3 = #{record.srm3,jdbcType=VARCHAR},
+      JIBINGTYPE = #{record.jibingtype,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.HspJbzdLz" >
+    update HSP_JBZD_LZ
+    <set >
+      <if test="jbbc != null" >
+        JBBC = #{jbbc,jdbcType=VARCHAR},
+      </if>
+      <if test="icd10 != null" >
+        ICD10 = #{icd10,jdbcType=VARCHAR},
+      </if>
+      <if test="pysm != null" >
+        PYSM = #{pysm,jdbcType=VARCHAR},
+      </if>
+      <if test="srm2 != null" >
+        SRM2 = #{srm2,jdbcType=VARCHAR},
+      </if>
+      <if test="srm3 != null" >
+        SRM3 = #{srm3,jdbcType=VARCHAR},
+      </if>
+      <if test="jibingtype != null" >
+        JIBINGTYPE = #{jibingtype,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.HspJbzdLz" >
+    update HSP_JBZD_LZ
+    set JBBC = #{jbbc,jdbcType=VARCHAR},
+      ICD10 = #{icd10,jdbcType=VARCHAR},
+      PYSM = #{pysm,jdbcType=VARCHAR},
+      SRM2 = #{srm2,jdbcType=VARCHAR},
+      SRM3 = #{srm3,jdbcType=VARCHAR},
+      JIBINGTYPE = #{jibingtype,jdbcType=CHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

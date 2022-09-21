@@ -1,0 +1,128 @@
+.tbody{width:800px; margin:0px auto}
+.title {line-height:30px; font-size:16px; text-align:center;}
+.title1 {line-height:30px; font-size:20px; text-align:center;font-weight:bold;}
+.messages{line-height:26px;}
+.m_t10{margin-top:10px;}
+/* .input_txt[type='text']{outline:none; width:260px; border:none; background-color:transparent;   border-bottom:1px solid #999; color:#000;} */
+.input_txt{
+    width:260px;
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+}
+.labtitle{color:#000;font-weight:bold;font-size:12px;}
+.checkStyle{margin:0px; padding:0px; border:1px solid #999; width:14px; height:14px; margin-right:3px; outline:none; vertical-align:top; margin-top:6px;}
+.checkStyle1{margin:0px; padding:0px; border:1px solid #999; width:14px; height:14px; margin-right:4px; outline:none; vertical-align:middle;margin-top:-2px;}
+.radioStyle{margin:0px; padding:0px; border:1px solid #999; width:14px; height:13px; margin-right:4px; outline:none; vertical-align:middle;margin-top:-2px;}
+.indent_2em{text-indent: 2em;}
+html {
+    height: 100%;
+}
+
+body {
+    position: relative;
+
+    height: 100%;
+    padding: 0 0 0 10px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 40px;
+
+    height: 40px;
+
+    text-align: center;
+}
+.at-form {
+    width: 860px;
+    margin: 0 auto;
+}
+
+.at-form-item {
+    margin: 10px 0;
+}
+
+.at-form-item__label {
+    font-weight: bold;
+    line-height: 26px;
+
+    width: 8em;
+    height: 26px;
+
+    text-align: right;
+}
+
+.at-form-item__content {
+    margin-left: 8em;
+}
+
+.tools-container {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px 0 7px 0;
+    background: #FFFFFF;
+}
+
+.at-tools {
+    padding-top: 8px;
+
+    border-top: solid 1px #ddd;
+}
+
+.at-tools2 {
+    padding-top: 8px;
+
+    border-top: solid 0px #ddd;
+}
+
+.at-tools .commonbtn {
+    float: right;
+
+    margin-right: 10px;
+}
+
+.at-tools2 .commonbtn {
+    float: right;
+
+    margin-right: 10px;
+}
+.table-container{
+    padding-top: 10px;
+    padding-bottom: 60px;
+     overflow-y:auto;
+}
+.hugeArea{
+    width:100%;
+    height: 200px;
+    text-indent: 2em;
+    resize:none;
+    line-height: 20px;
+}
+.tableIn{
+    width:800px;
+    border: 1px solid #000;
+}
+.tableIn td{
+    width:25%;
+    border: 1px solid #000;
+    height: 26px;
+    line-height: 26px;
+    padding-left:5px;
+}
+.checklabel{
+    color: #2a00ff;
+}
+.input_tb{
+    width:150px;
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+}
+#dzqm img{
+    vertical-align: middle;
+    width: 40px;
+    height: auto
+}

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspScoMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspSco" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SCO_NAME" property="scoName" jdbcType="VARCHAR" />
+    <result column="SCO_PYSM" property="scoPysm" jdbcType="VARCHAR" />
+    <result column="IS_TJ" property="isTj" jdbcType="VARCHAR" />
+    <result column="IS_YX" property="isYx" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, SCO_NAME, SCO_PYSM, IS_TJ, IS_YX
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.domain.HspScoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_SCO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_SCO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_SCO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.hospital.pojo.domain.HspScoExample" >
+    delete from HSP_SCO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.hospital.pojo.domain.HspSco" >
+    insert into HSP_SCO (ID, SCO_NAME, SCO_PYSM, 
+      IS_TJ, IS_YX)
+    values (#{id,jdbcType=VARCHAR}, #{scoName,jdbcType=VARCHAR}, #{scoPysm,jdbcType=VARCHAR}, 
+      #{isTj,jdbcType=VARCHAR}, #{isYx,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.hospital.pojo.domain.HspSco" >
+    insert into HSP_SCO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="scoName != null" >
+        SCO_NAME,
+      </if>
+      <if test="scoPysm != null" >
+        SCO_PYSM,
+      </if>
+      <if test="isTj != null" >
+        IS_TJ,
+      </if>
+      <if test="isYx != null" >
+        IS_YX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="scoName != null" >
+        #{scoName,jdbcType=VARCHAR},
+      </if>
+      <if test="scoPysm != null" >
+        #{scoPysm,jdbcType=VARCHAR},
+      </if>
+      <if test="isTj != null" >
+        #{isTj,jdbcType=VARCHAR},
+      </if>
+      <if test="isYx != null" >
+        #{isYx,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.hospital.pojo.domain.HspScoExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_SCO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_SCO
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scoName != null" >
+        SCO_NAME = #{record.scoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scoPysm != null" >
+        SCO_PYSM = #{record.scoPysm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isTj != null" >
+        IS_TJ = #{record.isTj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isYx != null" >
+        IS_YX = #{record.isYx,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_SCO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      SCO_NAME = #{record.scoName,jdbcType=VARCHAR},
+      SCO_PYSM = #{record.scoPysm,jdbcType=VARCHAR},
+      IS_TJ = #{record.isTj,jdbcType=VARCHAR},
+      IS_YX = #{record.isYx,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.hospital.pojo.domain.HspSco" >
+    update HSP_SCO
+    <set >
+      <if test="scoName != null" >
+        SCO_NAME = #{scoName,jdbcType=VARCHAR},
+      </if>
+      <if test="scoPysm != null" >
+        SCO_PYSM = #{scoPysm,jdbcType=VARCHAR},
+      </if>
+      <if test="isTj != null" >
+        IS_TJ = #{isTj,jdbcType=VARCHAR},
+      </if>
+      <if test="isYx != null" >
+        IS_YX = #{isYx,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.hospital.pojo.domain.HspSco" >
+    update HSP_SCO
+    set SCO_NAME = #{scoName,jdbcType=VARCHAR},
+      SCO_PYSM = #{scoPysm,jdbcType=VARCHAR},
+      IS_TJ = #{isTj,jdbcType=VARCHAR},
+      IS_YX = #{isYx,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

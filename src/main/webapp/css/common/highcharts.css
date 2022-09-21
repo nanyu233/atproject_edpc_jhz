@@ -1,0 +1,126 @@
+@charset "utf-8";
+/**
+*  所有报表页面通用的css
+*/
+body{
+    float: left;
+    width: 100%;
+}
+.form_hc {
+    width: 100%;
+    height: 65px;
+    background-image: url(../../images/common/highchart_bg.jpg);
+    padding-top: 5px;
+    margin-top: 10px;
+    margin-left: 0px;
+}
+.chart_grp{
+    margin-bottom: 2%;
+    width: 100%; 
+}
+.chartbox {
+    margin-top: -22px;
+}
+.form_cat {
+    float: left;
+    width: 64.5%;
+    border: 1px solid #b0c9e4;
+    background: #e4efff;
+    margin-left: 2%;
+    min-height: 300px !important;
+    margin-bottom: 2%;
+}
+.form_wholepage{
+    width: 96%;
+}
+.list_table {
+    width: 29%;
+    float: left;
+    margin-left: 2%;
+    margin-bottom: 2%;
+    border-radius: 10px;
+    border: 1px solid #95B8E7;
+    overflow: hidden; 
+    min-height: 300px !important;
+}
+.form_cat .chart_div{
+    width: 99.9%;
+    background: #e4efff;
+    height: 400px;
+    padding-top: 15px;
+    margin-bottom: 10px;
+    float: left;
+    margin-top: 0px;
+    border-top: 1px solid #b0c9e4;
+}
+.form_cat .chart_title {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: left;
+    text-indent: 1em;
+    color: #666666;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    font-family: '微软雅黑';
+    background: url(../../images/hems/index/button_bg.png);
+}
+.highcharts-background {
+    fill: #e4efff;
+}
+.datagrid-body{
+    overflow-x:hidden;
+}
+.panel-header, .panel-body{
+    border: none;
+}
+.panel-header{
+    border-bottom: 1px solid #95B8E7;
+}
+
+/**
+*  datagrid 表格伸缩(不是布满屏幕的)
+*/
+.list_table .datagrid-view,
+.list_table .datagrid-body,
+.list_table .datagrid-header-inner table,
+.list_table .datagrid-cell div  {
+    width: 100% !important;
+}
+
+.list_table .panel-header{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.list_table .panel-header .panel-title{
+    margin-left: 5px;
+}
+
+.list_table .panel-header,
+.list_table .datagrid-wrap.panel-body,
+.list_table .easyui-panel.panel-body,
+.list_table .datagrid-header{
+    width: 100% !important;
+}
+
+.nonumlist_table .datagrid-view2 {
+    left: 0px;
+    width: 100% !important;
+}
+/* 生命体征趋势图 */
+.no_background .chart_title {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    text-indent: 1em;
+    color: #666666;
+    font-family: '微软雅黑';
+}
+
+.no_background .highcharts-background {
+    fill: #fff;
+}

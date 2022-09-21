@@ -1,0 +1,124 @@
+/*
+* @Author: wdy
+* @Date:   2018-02-06 10:50:11
+* @Last Modified by:   wdy
+* @Last Modified time: 2018-02-26 13:26:05
+*/
+@charset "utf-8";
+html {
+    height: 100%;
+}
+
+body {
+    position: relative;
+
+    height: 100%;
+    padding: 0 10px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 40px;
+
+    height: 40px;
+
+    text-align: center;
+}
+
+.at-form {
+    width: 860px;
+    margin: 0 auto;
+}
+
+.at-form-item {
+    margin: 10px 0;
+}
+
+.at-form-item__label {
+    font-weight: bold;
+    line-height: 26px;
+
+    width: 8em;
+    height: 26px;
+
+    text-align: right;
+}
+
+.at-form-item__content {
+    margin-left: 8em;
+}
+
+.tools-container {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px 0 7px 0;
+}
+
+.at-tools {
+    padding-top: 8px;
+
+    border-top: solid 1px #ddd;
+}
+
+.at-tools .commonbtn {
+    float: right;
+
+    margin-right: 10px;
+}
+/**
+* common
+**/
+.titlebody .bascilab{margin-right:10px;}
+.titlebody input.basicInput[readonly]{width:80px;border-top:none;border-right:none;border-left:none;background-color:#fff;color:#666;}
+.titlebody input.basicInput[readonly]:hover{border:none;border-bottom:solid 1px #ddd;box-shadow:none;}
+.titlebody .showinputLine{width:80px;border:1px solid #fff;border-bottom:#DDD 1px solid;}
+.titlebody input.longbasicInput[readonly]{width:86px;}
+.titlebody .at-form-item .at-form-item__label{width:62px;text-align:left;}
+.titlebody .at-form-item .at-form-item__content{margin-left:62px;}
+
+.cfysname{
+    border: none !important;
+    border-bottom: solid 1px #ddd !important;
+    box-shadow: none !important;
+    font-weight: bold;
+    text-align: right;
+    width: 83px;
+    padding-left: 5px;
+}
+.cfysname2{
+    width:180px;
+}
+.longTextArea {
+    width: 100%;
+    height: 185px;
+    resize: none;
+    box-sizing: border-box;
+    padding: 5px
+}
+.saveRecord .at-form-item .at-form-item__label{width:88px;text-align:left;}
+.saveRecord .at-form-item .at-form-item__content{margin-left: 88px;}
+.tem-div {
+    border: 1px solid #e0e2e5;
+    height: 32px;
+    margin: 5px;
+    padding: 5px;
+    margin-left: 62px;
+}
+.left-tem-div {
+    margin-left: 88px;
+}
+.closeImg {
+    float: right;
+    margin: 8px;
+    cursor: pointer;
+}
+#dzqm img{
+    width: 45px;
+    vertical-align: middle;
+    height: auto
+}

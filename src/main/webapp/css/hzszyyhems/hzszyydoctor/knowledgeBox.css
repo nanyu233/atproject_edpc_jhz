@@ -1,0 +1,279 @@
+  /* 医生端知识库 */
+  .knowledgeContent {
+    /* position: absolute;
+    right: 0px;
+    z-index: 9999; */
+    float: left;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+  }
+  .knowledgeContent .title {
+    text-align: center;
+    font-size: 15px;
+    border-bottom: 1px solid #ccc;
+    padding: 2px 0;
+  }
+  .knowledgeContent .title .right-icon {
+    float: right;
+    font-size: 16px;
+    padding: 2px 5px;
+  }
+  .boxWrap {
+    float: left;
+    width: 98%;
+    margin: 6px 0;
+    margin-left: 1%;
+  }
+  .tempWrap {
+    margin-top: 4px;
+  }
+  .tempType, .queryContent {
+    float: left;
+    width: 100%;
+    font-size: 13px;
+  }
+  .tempType .btnSpan {
+    width: auto;
+    display: inline-block;
+    padding: 3px 6px;
+    margin-bottom: 4px;
+    margin-right: 7px;
+    border-radius: 4px; 
+    border: 1px solid #2d66b1;
+    font-size: 12px;
+    color: #2d66b1;
+    cursor: pointer;
+  }
+  .tempType .btnSpan.active {
+    border: 1px solid #2d66b1;
+    background: #2d66b1;
+    color: #fff;
+  }
+
+  .queryText {
+    width: 350px;
+    margin-right: 7px;
+  }
+  .tabCard {
+    float: left;
+    width: 100%;
+    margin-top: 4px;
+    border-bottom: solid 1px #0152bd;
+  }
+  .tabCard li {
+    float: left;
+    margin-right: 2px;
+    margin-bottom: -1px;
+    width: 95px;
+    padding: 2px 0;
+    border: 1px solid #0152bd;
+    border-bottom: 1px solid #fff;
+    background-color: #fff;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .tabCard li.active {
+    background-image: url(../../../images/hems/hzxq/min-tab-btn-active.png);
+    color: #0152bd;
+    font-weight: bold;
+  }
+  .leftTab {
+    float: left;
+    width: 30%;
+    height: 420px;
+    margin-top: 6px;
+    border: 1px solid #ddd;
+  }
+  .rightContent {
+    float: right;
+    width: 68%;
+    height: 420px;
+    margin-top: 6px;
+    margin-right: 5px;
+  }
+  .historyTab, .ownTemplateTab {
+    float: left;
+    width: 23%;
+    height: 401px;
+    margin-top: 6px;
+    border: 1px solid #ddd;
+  }
+  .historyTab, .historyContent {
+    display: none;
+  }
+  .ownTemplateTab {
+    width: 26%;
+    height: 455px;
+    overflow-y: hidden !important;
+  }
+  .historyContent, .ownTemplateMsg {
+    float: right;
+    width: 75%;
+    height: 396px;
+    padding-bottom: 5px;
+    margin-top: 6px;
+    margin-right: 5px;
+    border: 1px solid #ddd;
+  }
+  .ownTemplateMsg {
+    height: 447px;
+    width: 72%;
+  }
+  .rightContent .textDiv {
+    resize: none;
+    width: 100%;
+    height: 100%;
+  }
+  .addPanelDiv {
+    float: left;
+    width: 100%;
+    height: 100%;
+  }
+  .addAboveNode {
+    display: none;
+  }
+  .btnDiv {
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+  }
+  .addNewPanelBtn {
+    float: left;
+    margin-left: 140px;
+    margin-top: -25px;
+  }
+  .addNewBtn {
+    margin-right: 10px;
+  }
+  .addPanelDiv table .textInput, .addPanelDiv table textarea{
+    width: 95%;
+    resize: none;
+  }
+  .addPanelDiv table textarea {
+    height: 340px;
+  }
+  .autoBtn, .checkBtn {
+    display: none;
+  }
+  .knowledgeContent .rightContent .typeSel {
+    width: auto;
+  }
+  #content[readonly]  {
+    border: 1px solid #dcdcdc;
+    background-color: #ececec;
+  }
+  .checkWrap {
+    float: left;
+    width: 100%;
+    margin-top: 6px;
+    height: 540px;
+  }
+  .grp_btn {
+    display: none;
+  }
+  .historyContent ul li, .ownTemplateMsg ul li{
+    height: 26px;
+    line-height: 26px;
+  }
+  .historyContent .smalltitle, .ownTemplateMsg .smalltitle {
+    width: 72px;
+    text-align: right;
+    float: left;
+    font-weight: bold;
+    padding-right: 10px;
+  }
+  .historyContent .threeLi, .ownTemplateMsg .threeLi{
+    width: 33%;
+    float: left
+  }
+  .historyContent .oneLi, .ownTemplateMsg .oneLi {
+    width: 99%;
+    float: left;
+  }
+  .ownTemplateMsg .oneLi {
+      margin: 3px 0;
+  }
+  .historyContent .twoLi, .ownTemplateMsg .twoLi{
+    width: 49%;
+    float: left
+  }
+  .historyContent .underLine, .ownTemplateMsg .underLine {
+    border:none;
+    border-bottom: 1px solid #ddd;
+    width:80%;
+    background: none
+  }
+  .historyContent .underLine:hover, .ownTemplateMsg .underLine:hover {
+    border: none;
+    box-shadow: none;
+    border-bottom:#DDD 1px solid;
+  }
+  .outLineIpt {
+    border: 1px solid #ddd;
+    width:80%;
+    background: none;
+  }
+  .outLineIpt:hover {
+    border: 1px solid #cfd7e6;
+    box-shadow: 0px 0px 8px rgb(229, 241, 250);
+    transition: 0.5s;
+  }
+  .historyContent .shortLine, .ownTemplateMsg .shortLine {
+    width:80px;
+  }
+  .historyContent .longSpan, .ownTemplateMsg .longSpan {
+    width:180px;
+  }
+  .historyContent .middleLine, .ownTemplateMsg .middleLine {
+    width:345px;
+  }
+  .historyDiv, .ownTemplateMsg {
+    overflow: auto;
+  }
+  .ownTemplate {
+    height: 450px;;
+  }
+  #IfobsHis{
+    display: none
+  }
+  .hisWthTab {
+    width: 30%;
+  }
+  .hisWthContent {
+    width: 68%;
+  }
+  .hisRecord .shortLine {
+    width: 60%;
+  }
+  .hisRecord .autoLi, .ownTemplateMsg .autoLi {
+    height: auto;
+  }
+  .hisRecord textarea, .ownTemplateMsg textarea {
+    resize: none;
+    height: 72px;
+    overflow: auto;
+    padding-left: 5px;
+    line-height: 16px;
+    display: block;
+  }
+  .ownTemplateMsg textarea.long-area {
+    height: 92px;
+  }
+  .hisRecord .div-wrap {
+    float: left;
+    min-height: 26px;
+    /* max-height: 60px;
+    overflow-y: auto; */
+  }
+  .hisRecord .datagrid-body, .knowledgeContent .datagrid-body {
+    overflow-x: hidden;
+  }
+  .knowledgeContent .datagrid-header-row {
+    text-align: center;
+  }
+  .knBox textarea[readonly], .knBox input[readonly] {
+    border: 1px solid #dcdcdc;
+    background-color: #fff;
+  }

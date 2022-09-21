@@ -1,0 +1,127 @@
+body{
+  padding: 0;
+  margin: 0;
+}
+.print-content {
+  width: 60mm;
+  float: left;
+  padding: 0;
+  font-size: 0.33cm;
+  font-weight: bolder;
+}
+.print-content .full-div {
+  float: left;
+  width: 100%;
+}
+.list-content {
+  margin: 0 auto;
+}
+.border-line {
+  border-bottom: 1px solid #000;
+}
+.right-time {
+  float: right;
+  display: inline-block;
+}
+.small-title {
+  float: right;
+  display: inline-block;
+  width: 15%;
+}
+.right-gap {
+  margin-right: 0.3mm;
+}
+.right-gap-small {
+  margin-right: 0mm;
+}
+/* .small-time-fs {
+  font-size: 0.cm;
+} */
+.main-wrap {
+  width: 100%;
+  float: left;
+  height: 19mm;
+}
+.drug-wrap {
+  width: 100%;
+  float: left;
+  height: 4mm;
+}
+ul {
+  float: left;
+  list-style: none;
+  width: 100%;
+  padding: 1mm 0 0 0;
+  margin: 0;
+}
+ul li {
+  text-align: left;
+}
+ul li.eightLi {
+  float: left;
+  width: 80%;
+}
+ul li.twoLi {
+  float: left;
+  width: 20%;
+}
+.bottom-line {
+  float: left;
+  width: 100%;
+  padding-top: 0.2mm;
+  margin: 0;
+  border-top: 1px solid #000;
+}
+.bottom-line .heavy-font {
+  font-weight: bolder;
+  line-height: 12mm;
+  height: 12mm;
+  font-size: 0.36cm;
+}
+.bottom-line .small-font {
+  font-weight: bolder;
+  font-size: 0.36cm;
+  line-height: 6mm;
+}
+.bottom-line span {
+  float: left;
+  display: inline-block;
+  width: 30%;
+  text-align: center;
+}
+.bottom-line span.long-span {
+  width: 43%;
+}
+.bottom-line span.qrCode {
+  display: none;
+  width: 27% !important;
+  float: right !important;
+}
+/* .bottom-line .qrCodeSpan, .bottom-line .qrCodeSpan img, .bottom-line .qrCodeSpan canvas {
+  height: 100%;
+  width: 100%;
+} */
+.time-span {
+  min-width: 60%;
+  display: inline-block;
+}
+.riskFlg {
+  font-style: italic;
+  font-weight: bold;
+}
+.innerText {
+  display: none;
+}
+.big-size {
+  font-size: 0.36cm;
+}
+/* 条形码 */
+/* .bottom-line span {
+  width: 16%;
+}
+.bottom-line span.long-span {
+  width: 37%;
+}
+.bottom-line .qrCode {
+  width: 47% !important;
+} */

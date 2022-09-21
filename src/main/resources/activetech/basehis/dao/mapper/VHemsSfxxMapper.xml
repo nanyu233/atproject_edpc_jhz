@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.basehis.dao.mapper.VHemsSfxxMapper" >
+<resultMap id="VHemsSfxxCumstomMap" type="activetech.basehis.pojo.dto.VHemsSfxxCustom">
+  	<result property="zyh" column="zyh"/>
+  	<result property="rq" column="rq" jdbcType="TIMESTAMP" />
+  	<result property="sfrq" column="sfrq" jdbcType="TIMESTAMP"/>
+  	<result property="mc" column="mc"/>
+  	<result property="je" column="je"/>
+  	<result property="dxm" column="dxm"/>
+  	<result property="xmm" column="xmm"/>
+  	<result property="ysm" column="ysm"/>
+  	<result property="bmh" column="bmh"/>
+</resultMap>
+  <!-- 区域是查询条件 通常情况，为了提高 sql片段可重用性，按单表创建sql片段 -->
+	<sql id="query_yjmxk_where">
+		<if test="vHemsSfxxCustom!=null">
+			<if test="vHemsSfxxCustom.zyh!=null and vHemsSfxxCustom.zyh!=''">
+				and  zyh= #{vHemsSfxxCustom.zyh}
+			</if>
+			<if test="vHemsSfxxCustom.startDate!=null">
+					and rq <![CDATA[>=]]> #{vHemsSfxxCustom.startDate,jdbcType=DATE}
+			</if>
+			<if test="vHemsSfxxCustom.startDate!=null">
+					and rq <![CDATA[<]]> #{vHemsSfxxCustom.endDate,jdbcType=DATE}
+			</if>
+
+		</if>
+	</sql>
+	
+	<select id="getVHemsSfxxList" parameterType="activetech.basehis.pojo.dto.VHemsSfxxCustom"
+		resultType="activetech.basehis.pojo.dto.VHemsSfxxCustom">
+		select * from v_hems_sfxx
+			<where>
+				<include refid="query_yjmxk_where" />
+			</where>
+	</select>
+</mapper>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspMnszxtpgInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspMnszxtpgInf" >
+    <id column="XTPG_SEQ" property="xtpgSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="MNSZXTPG_PN_COD" property="mnszxtpgPnCod" jdbcType="VARCHAR" />
+    <result column="MNSZXTPG_NYXZ_COD" property="mnszxtpgNyxzCod" jdbcType="VARCHAR" />
+    <result column="MNSZXTPG_PGCX_FLG" property="mnszxtpgPgcxFlg" jdbcType="CHAR" />
+    <result column="MNSZXTPG_TX_COD" property="mnszxtpgTxCod" jdbcType="VARCHAR" />
+    <result column="MNSZXTPG_DJMW_COD" property="mnszxtpgDjmwCod" jdbcType="VARCHAR" />
+    <result column="MNSZXTPG_RSZT_COD" property="mnszxtpgRsztCod" jdbcType="VARCHAR" />
+    <result column="MNSZXTPG_YJ_COD" property="mnszxtpgYjCod" jdbcType="VARCHAR" />
+    <result column="MNSZXTPG_BD_COD" property="mnszxtpgBdCod" jdbcType="VARCHAR" />
+    <result column="MNSZXTPG_BD_QT" property="mnszxtpgBdQt" jdbcType="VARCHAR" />
+    <result column="MNSZXTPG_MENO" property="mnszxtpgMeno" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    XTPG_SEQ, EMG_SEQ, MNSZXTPG_PN_COD, MNSZXTPG_NYXZ_COD, MNSZXTPG_PGCX_FLG, MNSZXTPG_TX_COD, 
+    MNSZXTPG_DJMW_COD, MNSZXTPG_RSZT_COD, MNSZXTPG_YJ_COD, MNSZXTPG_BD_COD, MNSZXTPG_BD_QT, 
+    MNSZXTPG_MENO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspMnszxtpgInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_MNSZXTPG_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_MNSZXTPG_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_MNSZXTPG_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspMnszxtpgInfExample" >
+    delete from HSP_MNSZXTPG_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspMnszxtpgInf" >
+    insert into HSP_MNSZXTPG_INF (XTPG_SEQ, EMG_SEQ, MNSZXTPG_PN_COD, 
+      MNSZXTPG_NYXZ_COD, MNSZXTPG_PGCX_FLG, MNSZXTPG_TX_COD, 
+      MNSZXTPG_DJMW_COD, MNSZXTPG_RSZT_COD, MNSZXTPG_YJ_COD, 
+      MNSZXTPG_BD_COD, MNSZXTPG_BD_QT, MNSZXTPG_MENO
+      )
+    values (#{xtpgSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{mnszxtpgPnCod,jdbcType=VARCHAR}, 
+      #{mnszxtpgNyxzCod,jdbcType=VARCHAR}, #{mnszxtpgPgcxFlg,jdbcType=CHAR}, #{mnszxtpgTxCod,jdbcType=VARCHAR}, 
+      #{mnszxtpgDjmwCod,jdbcType=VARCHAR}, #{mnszxtpgRsztCod,jdbcType=VARCHAR}, #{mnszxtpgYjCod,jdbcType=VARCHAR}, 
+      #{mnszxtpgBdCod,jdbcType=VARCHAR}, #{mnszxtpgBdQt,jdbcType=VARCHAR}, #{mnszxtpgMeno,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspMnszxtpgInf" >
+    insert into HSP_MNSZXTPG_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xtpgSeq != null" >
+        XTPG_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="mnszxtpgPnCod != null" >
+        MNSZXTPG_PN_COD,
+      </if>
+      <if test="mnszxtpgNyxzCod != null" >
+        MNSZXTPG_NYXZ_COD,
+      </if>
+      <if test="mnszxtpgPgcxFlg != null" >
+        MNSZXTPG_PGCX_FLG,
+      </if>
+      <if test="mnszxtpgTxCod != null" >
+        MNSZXTPG_TX_COD,
+      </if>
+      <if test="mnszxtpgDjmwCod != null" >
+        MNSZXTPG_DJMW_COD,
+      </if>
+      <if test="mnszxtpgRsztCod != null" >
+        MNSZXTPG_RSZT_COD,
+      </if>
+      <if test="mnszxtpgYjCod != null" >
+        MNSZXTPG_YJ_COD,
+      </if>
+      <if test="mnszxtpgBdCod != null" >
+        MNSZXTPG_BD_COD,
+      </if>
+      <if test="mnszxtpgBdQt != null" >
+        MNSZXTPG_BD_QT,
+      </if>
+      <if test="mnszxtpgMeno != null" >
+        MNSZXTPG_MENO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xtpgSeq != null" >
+        #{xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgPnCod != null" >
+        #{mnszxtpgPnCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgNyxzCod != null" >
+        #{mnszxtpgNyxzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgPgcxFlg != null" >
+        #{mnszxtpgPgcxFlg,jdbcType=CHAR},
+      </if>
+      <if test="mnszxtpgTxCod != null" >
+        #{mnszxtpgTxCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgDjmwCod != null" >
+        #{mnszxtpgDjmwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgRsztCod != null" >
+        #{mnszxtpgRsztCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgYjCod != null" >
+        #{mnszxtpgYjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgBdCod != null" >
+        #{mnszxtpgBdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgBdQt != null" >
+        #{mnszxtpgBdQt,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgMeno != null" >
+        #{mnszxtpgMeno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspMnszxtpgInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_MNSZXTPG_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_MNSZXTPG_INF
+    <set >
+      <if test="record.xtpgSeq != null" >
+        XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mnszxtpgPnCod != null" >
+        MNSZXTPG_PN_COD = #{record.mnszxtpgPnCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mnszxtpgNyxzCod != null" >
+        MNSZXTPG_NYXZ_COD = #{record.mnszxtpgNyxzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mnszxtpgPgcxFlg != null" >
+        MNSZXTPG_PGCX_FLG = #{record.mnszxtpgPgcxFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.mnszxtpgTxCod != null" >
+        MNSZXTPG_TX_COD = #{record.mnszxtpgTxCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mnszxtpgDjmwCod != null" >
+        MNSZXTPG_DJMW_COD = #{record.mnszxtpgDjmwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mnszxtpgRsztCod != null" >
+        MNSZXTPG_RSZT_COD = #{record.mnszxtpgRsztCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mnszxtpgYjCod != null" >
+        MNSZXTPG_YJ_COD = #{record.mnszxtpgYjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mnszxtpgBdCod != null" >
+        MNSZXTPG_BD_COD = #{record.mnszxtpgBdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mnszxtpgBdQt != null" >
+        MNSZXTPG_BD_QT = #{record.mnszxtpgBdQt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mnszxtpgMeno != null" >
+        MNSZXTPG_MENO = #{record.mnszxtpgMeno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_MNSZXTPG_INF
+    set XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      MNSZXTPG_PN_COD = #{record.mnszxtpgPnCod,jdbcType=VARCHAR},
+      MNSZXTPG_NYXZ_COD = #{record.mnszxtpgNyxzCod,jdbcType=VARCHAR},
+      MNSZXTPG_PGCX_FLG = #{record.mnszxtpgPgcxFlg,jdbcType=CHAR},
+      MNSZXTPG_TX_COD = #{record.mnszxtpgTxCod,jdbcType=VARCHAR},
+      MNSZXTPG_DJMW_COD = #{record.mnszxtpgDjmwCod,jdbcType=VARCHAR},
+      MNSZXTPG_RSZT_COD = #{record.mnszxtpgRsztCod,jdbcType=VARCHAR},
+      MNSZXTPG_YJ_COD = #{record.mnszxtpgYjCod,jdbcType=VARCHAR},
+      MNSZXTPG_BD_COD = #{record.mnszxtpgBdCod,jdbcType=VARCHAR},
+      MNSZXTPG_BD_QT = #{record.mnszxtpgBdQt,jdbcType=VARCHAR},
+      MNSZXTPG_MENO = #{record.mnszxtpgMeno,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspMnszxtpgInf" >
+    update HSP_MNSZXTPG_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgPnCod != null" >
+        MNSZXTPG_PN_COD = #{mnszxtpgPnCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgNyxzCod != null" >
+        MNSZXTPG_NYXZ_COD = #{mnszxtpgNyxzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgPgcxFlg != null" >
+        MNSZXTPG_PGCX_FLG = #{mnszxtpgPgcxFlg,jdbcType=CHAR},
+      </if>
+      <if test="mnszxtpgTxCod != null" >
+        MNSZXTPG_TX_COD = #{mnszxtpgTxCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgDjmwCod != null" >
+        MNSZXTPG_DJMW_COD = #{mnszxtpgDjmwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgRsztCod != null" >
+        MNSZXTPG_RSZT_COD = #{mnszxtpgRsztCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgYjCod != null" >
+        MNSZXTPG_YJ_COD = #{mnszxtpgYjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgBdCod != null" >
+        MNSZXTPG_BD_COD = #{mnszxtpgBdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgBdQt != null" >
+        MNSZXTPG_BD_QT = #{mnszxtpgBdQt,jdbcType=VARCHAR},
+      </if>
+      <if test="mnszxtpgMeno != null" >
+        MNSZXTPG_MENO = #{mnszxtpgMeno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspMnszxtpgInf" >
+    update HSP_MNSZXTPG_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      MNSZXTPG_PN_COD = #{mnszxtpgPnCod,jdbcType=VARCHAR},
+      MNSZXTPG_NYXZ_COD = #{mnszxtpgNyxzCod,jdbcType=VARCHAR},
+      MNSZXTPG_PGCX_FLG = #{mnszxtpgPgcxFlg,jdbcType=CHAR},
+      MNSZXTPG_TX_COD = #{mnszxtpgTxCod,jdbcType=VARCHAR},
+      MNSZXTPG_DJMW_COD = #{mnszxtpgDjmwCod,jdbcType=VARCHAR},
+      MNSZXTPG_RSZT_COD = #{mnszxtpgRsztCod,jdbcType=VARCHAR},
+      MNSZXTPG_YJ_COD = #{mnszxtpgYjCod,jdbcType=VARCHAR},
+      MNSZXTPG_BD_COD = #{mnszxtpgBdCod,jdbcType=VARCHAR},
+      MNSZXTPG_BD_QT = #{mnszxtpgBdQt,jdbcType=VARCHAR},
+      MNSZXTPG_MENO = #{mnszxtpgMeno,jdbcType=VARCHAR}
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspBedInfCustomMapper" >
+  <sql id="Base_Column_Map">
+      BEDID bedid, EMG_SEQ emgSeq, BED_PLACE bedPlace, BED_NUM bedNum, CRT_DAT crtDat, 
+      CRT_NBR crtNbr, CRT_NAM crtNam, UPD_DAT updDat, UPD_NBR updNbr, UPD_NAM updNam, BED_STATUS bedStatus
+  </sql>
+  <select id="findBedList" resultType="activetech.zyyhospital.pojo.dto.HspBedInfCustom" 
+      parameterType="activetech.zyyhospital.pojo.dto.HspBedInfCustomDto" >
+      <!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+      select  
+      BEDID bedid, EMG_SEQ emgSeq, 
+      BED_PLACE bedPlace, 
+      (select info from dstdictinfo where dstdictinfo.infocode=hsp_bed_inf.bed_place and typecode='BED_PLACE_COD') bedPlcNam,
+      BED_NUM bedNum, CRT_DAT crtDat, 
+      CRT_NBR crtNbr, CRT_NAM crtNam, 
+      UPD_DAT updDat, UPD_NBR updNbr, 
+      UPD_NAM updNam, BED_STATUS bedStatus,
+      SHOWORDER showorder,
+      (select cst_nam from hsp_emg_inf where hsp_emg_inf.emg_seq=hsp_bed_inf.emg_seq) emgNam
+      from hsp_bed_inf where BED_STATUS='1' 
+      <if test="hspBedInfCustom!=null">
+          <if test="hspBedInfCustom.bedPlace!=null and hspBedInfCustom.bedPlace!=''">
+	           and bed_place=#{hspBedInfCustom.bedPlace}
+	      </if>
+	      <if test="hspBedInfCustom.bedRemark==0">
+	          and emg_seq is null
+	      </if>
+	      <if test="hspBedInfCustom.bedRemark==1">
+	          and emg_seq is not null
+	      </if>
+          <if test="hspBedInfCustom.bedNum!=null and hspBedInfCustom.bedNum!=''">
+              and bed_num=#{hspBedInfCustom.bedNum}
+          </if>
+      </if>
+      order by to_number(showorder) asc
+      <!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  
+  <select id="findBedListCount" resultType="int" 
+      parameterType="activetech.zyyhospital.pojo.dto.HspBedInfCustomDto" >
+      select  
+      count(*)
+      from hsp_bed_inf where BED_STATUS='1'
+      <if test="hspBedInfCustom!=null">
+          <if test="hspBedInfCustom.bedPlace!=null and hspBedInfCustom.bedPlace!=''">
+	           and bed_place=#{hspBedInfCustom.bedPlace}
+	      </if>
+	      <if test="hspBedInfCustom.bedRemark==0">
+	          and emg_seq is null
+	      </if>
+	      <if test="hspBedInfCustom.bedRemark==1">
+	          and emg_seq is not null
+	      </if>
+          <if test="hspBedInfCustom.bedNum!=null and hspBedInfCustom.bedNum!=''">
+              and bed_num=#{hspBedInfCustom.bedNum}
+          </if>
+      </if>
+  </select>
+  
+  <select id="findBedByNumAndPlc" resultType="activetech.zyyhospital.pojo.dto.HspBedInfCustom" 
+      parameterType="activetech.zyyhospital.pojo.dto.HspBedInfCustom" >
+      select  
+      <include refid="Base_Column_Map" />
+      ,(select info from dstdictinfo where dstdictinfo.infocode=hsp_bed_inf.bed_place and typecode='BED_PLACE_COD') bedPlcNam
+      from hsp_bed_inf where bed_num=#{bedNum} and bed_place=#{bedPlace}
+  </select>
+  <!-- 获取入抢登记页面空余床位值 位置+床号-->
+  <select id="findBedPlaceAndNum" resultType="activetech.zyyhospital.pojo.dto.HspBedInfCustom"  parameterType="String">
+		  select bedid,
+		(bedNam||'-'||bed_num)bedPlcNam,bedPlace
+		from (select bedid ,
+		(select info from dstdictinfo where typecode='BED_PLACE_COD' and dstdictinfo.infocode=hsp_bed_inf.bed_place ) 
+		bedNam,bed_place bedPlace,bed_num
+		from hsp_bed_inf where bed_status='1' and emg_seq is null 
+		or emg_seq=#{emgSeq} 
+		or bedid=#{bedid}
+		order by bedPlace,to_number(showorder))
+  </select>
+  
+  <select id="findBedByEmgSeq" resultType="activetech.zyyhospital.pojo.dto.HspBedInfCustom" 
+      parameterType="String">
+      select 
+      <include refid="Base_Column_Map"/>
+      from hsp_bed_inf where emg_seq=#{emgSeq}    
+  </select>
+  
+  <!-- 获取所有床位，包含患者部分信息-->
+  <select id="findALLBedPlace" resultType="activetech.zyyhospital.pojo.dto.HspBedInfCustom"  parameterType="activetech.zyyhospital.pojo.dto.HspBedInfCustomDto">
+	select b.BEDID bedid,
+		b.emg_seq emgSeq,
+		b.bed_num bedNum,
+		((select info from dstdictinfo a where a.typecode='BED_PLACE_COD' and a.infocode=B.BED_PLACE)||'-'||b.bed_num)bedPlcNam,
+     	b.BED_STATUS ,
+		e.CST_NAM cstNam,
+		e.emg_dep_cod emgDepCod,
+		e.MPI mpi,
+    	e. CST_AGE cstAge,
+		e.OBSERVATION_CODE observationCode,
+      (select info from dstdictinfo a where a.typecode='CST_SEX_COD' and a.infocode=e.CST_SEX_COD) cstSexCod,
+      (select info from dstdictinfo a where a.typecode='CST_AGE_COD' and a.infocode=e.CST_AGE_COD) cstAgeCod,
+    	e.EMG_DAT emgDat,
+      e.PHE_NBR pheNbr,
+      e.PRE_DGN_COD preDgnCod,
+      (select comcname from DSTCOMPCTL a where a.comno=e.EMG_FK_COD) emgFkCod,  
+      e.PRE_USR_NAM preUsrNam,
+      e.vst_cad vstCad,
+      e.JBZD_DES jbzdDes,
+    	(select count(*) from hsp_sql_inf t1 where t1.emg_seq = e.emg_seq) zgcount,
+       (select TOT_SCO from hsp_mews_inf where emg_seq=b.emg_seq) mewsTotSco,
+       (select m.nrs_sco
+          from hsp_nrs_inf m
+          join (select min(nrs_dat) nrs_dat, emg_seq
+                 from hsp_nrs_inf
+                group by emg_seq) n
+            on m.emg_seq = n.emg_seq
+           and m.nrs_dat = n.nrs_dat
+         where m.emg_seq = b.emg_seq) nrsSco,
+        (SELECT TOT_SCO
+          FROM HSP_GCS_INF G
+          JOIN (SELECT MAX(NVL(CRAT_DAT,to_date('1970-01-01 00:00:00','yyyy-mm-dd hh24:mi:ss'))) CRAT_DAT, GCS_SEQ
+                 FROM HSP_GCS_INF
+                GROUP BY GCS_SEQ) K
+            ON G.GCS_SEQ = K.GCS_SEQ
+           AND NVL(G.CRAT_DAT,to_date('1970-01-01 00:00:00','yyyy-mm-dd hh24:mi:ss')) = K.CRAT_DAT
+         WHERE G.GCS_SEQ = B.EMG_SEQ) gcsTotSco,
+         b.bed_place bedPlace,
+        trim((select decode(jcgl,1,'接触隔离','') ||' '|| decode(kqgl,1,'空气隔离','') 
+         || ' '|| decode(fmgl,1,'飞沫隔离','') || ' '||decode(bhxgl,1,'保护性隔离','') from hsp_glcs where emg_seq=e.emg_seq))glcs,
+		 getQjsDate(e.emg_seq,'6')rqDate,
+		 getQjsDate(e.emg_seq,'11')rgDate,
+		 e.emg_dat emgDat,
+		 (select SQL_STA_COD  from hsp_sql_inf t1 where t1.sql_seq = e.sql_seq)cstDspCodNew,
+		 e.GRN_CHL grnChl,
+		 CHECK_NUR_STATUS checkNurStatus,
+		 e.LABEL_PRINT_FLG labelPrintFlg,
+		 e.jzxh
+		from HSP_BED_INF b LEFT JOIN HSP_EMG_INF e on b.emg_seq = e.emg_seq(+) where b.BED_STATUS ='1'
+
+	   <if test="hspBedInfCustom!=null">
+          <if test="hspBedInfCustom.islgbed==0">
+			and bed_place= '291' or   bed_place= '2911'
+          </if>
+        </if>       
+		 order by to_number(showorder) asc
+  </select>
+  
+</mapper>

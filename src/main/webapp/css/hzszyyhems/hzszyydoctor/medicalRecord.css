@@ -1,0 +1,215 @@
+html {
+    overflow-y: scroll;
+}
+input[type=text] {
+    width: 93px;
+    height: 26px;
+    border: #ddd 1px solid;
+    text-indent: .5em;
+    font-size: 12px;
+    line-height: 26px;
+}
+input[type=text].form-control {
+    display: block;
+    width: 100%;
+    height: 28px;
+    min-width: 93px;
+    font-size: 12px;
+    line-height: 28px;
+}
+select {
+    width: 100px;
+    height: 28px;
+    border: #ddd 1px solid;
+    text-indent: .5em;
+    font-size: 12px;
+    line-height: 28px;
+}
+.medicalRecord .btnPos {
+    position: absolute;
+    right: 10px;
+    bottom: 7.5px;
+}
+.medicalRecord .leftBtn {
+  margin-left: 10px;
+}
+.medicalRecord .mainbody {
+    margin: 0 auto;
+    overflow: auto;
+    border-bottom: 1px solid #ddd;
+}
+.medicalRecord .subheadtitle {
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    padding: 10px 0;
+}
+.patient-msg-add .table th {
+    min-width: 70px;
+    color: #000;
+    vertical-align: top;
+    text-align: right;
+    font-size: 12px;
+    font-weight: bold;
+}
+.medicalRecord .smallSelWth, .medicalRecord .smallInputWth {
+    width: 46px;
+}
+.medicalRecord .long-control {
+    width: 500px;
+}
+.medicalRecord .table td,.medicalRecord .table th{
+    padding: 2px 1px;
+    line-height: 28px;
+}
+.medicalRecord .patient-msg-add .table th {
+    width: 70px;
+    padding: 2px 1px;
+}
+.tableScroll table {
+  width: 100%;
+}
+.tableScroll table th,
+.tableScroll table td {
+  border: 1px solid #ddd;
+}
+.tableScroll .tableHeader th, .medicalRecord table.innerTable th {
+  background: cornflowerblue;
+  color: #fff;
+  font-weight: normal;
+  font-size: 12px;
+  text-align: center;
+}
+.tableScroll .scrollBox {
+  overflow-y: auto;
+  max-height: 200px;
+  border-bottom: 1px solid #ddd;
+}
+.tableScroll .tableBody {
+  margin-top: -1px;
+}
+.tableScroll .tableBody td, .medicalRecord table.innerTable td {
+  color: #333;
+  padding: 0 5px;
+  font-size: 12px;
+  text-align: left;
+}
+.medicalRecord table.innerTable, .medicalRecord table.innerTable th, .medicalRecord table.innerTable td {
+    border: 1px solid #ddd;
+    padding: 0 5px;
+}
+.medicalRecord table.innerTable th, .medicalRecord table.innerTable td {
+    width: 200px;
+}
+.medicalRecord table.innerTable tbody tr, .tableScroll .tableBody tr {
+    cursor: pointer;
+    height: 28px;
+}
+.medicalRecord table.innerTable tbody tr:hover, .tableScroll .tableBody tr:hover {
+    background: #f0f0f1;
+}
+.medicalRecord table.innerTable th {
+    text-align: center;
+}
+.medicalRecord table.innerTable {
+    width: 100%;
+    display: table;
+    border-width: 0 0 1px 0;
+    table-layout: fixed;
+}
+.medicalRecord table.innerTable tr {
+    display: table;
+    width: 100%;
+    box-sizing: border-box;
+	table-layout: fixed;
+}
+.medicalRecord table.innerTable tbody { 
+    display: block;
+	max-height: 350px;
+	overflow-y: auto;
+}
+.medicalRecord table.innerTable tbody td {
+    border-top: none;
+}
+.medicalRecord  a.colorA {
+    color: #2a00ff;
+    cursor: pointer;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.medicalRecord  a.colorA:hover {
+    text-decoration: underline;
+}
+.medicalRecord .patient-msg-add {
+    width: 990px;
+    margin: 0 auto;
+}
+.medicalRecord .patient-msg-add .tableHeader th, .medicalRecord .patient-msg-add .tableBody td {
+    padding: 0 5px;
+    min-width: 10px;
+    width: auto;
+}
+.medicalRecord .firstTd, .medicalRecord .thirdTd {
+    width: 290px !important;
+}
+.medicalRecord .secondTd {
+    width: 150px !important;
+}
+.medicalRecord .fourTd {
+    width: 100px !important;
+}
+.medicalRecord div.form-control{
+    display: block;
+    width: 100%;
+    height: 28px;
+    font-size: 12px;
+    line-height: 28px;
+}
+.medicalRecord input[type=text] {
+    text-indent: .1em;
+    padding-left: 0px;
+}
+.medicalRecord input[type=text].min-wth {
+    min-width: 120px;
+}
+.medicalRecord .table th.specialTh {
+    text-align: left;
+    text-indent: 10px;
+}
+.medicalRecord .table th.specialTh label {
+    font-weight: normal;
+    color: #2a00ff;
+}
+.medicalRecord .specialLeft {
+    margin-left: 10%;
+}
+.medicalRecord .extraInput {
+    width: 200px
+}
+.medicalRecord .input.readonly {
+    height: auto !important; 
+}
+.boldFont {
+    font-weight: bold;
+}
+.medicalRecord .patient-msg-add .table {
+    margin-bottom: 15px;
+}
+.medicalRecord #dzqm img{
+    width: 45px;
+    vertical-align: middle;
+    height: auto
+}
+.check-label {
+    line-height: 30px;
+}
+.medicalRecord .signInput{
+    width: 130px;
+}
+.medicalRecord .lqfyInput{
+    width: 120px
+}

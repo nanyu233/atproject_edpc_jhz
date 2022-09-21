@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspObsvtfstInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspObsvtfstInfCustom" >
+    <result column="OBSVTFST_SEQ" property="obsvtfstSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="ADMT_DAT" property="admtDat" jdbcType="TIMESTAMP" />
+    <result column="DSCG_DAT" property="dscgDat" jdbcType="TIMESTAMP" />
+    <result column="OBSVT_LEN" property="obsvtLen" jdbcType="DECIMAL" />
+    <result column="CRAT_DAT" property="cratDat" jdbcType="TIMESTAMP" />
+    <result column="CRAT_NBR" property="cratNbr" jdbcType="VARCHAR" />
+    <result column="CRAT_NAM" property="cratNam" jdbcType="VARCHAR" />
+    <result column="UPDT_DAT" property="updtDat" jdbcType="TIMESTAMP" />
+    <result column="UPDT_NBR" property="updtNbr" jdbcType="VARCHAR" />
+    <result column="UPDT_NAM" property="updtNam" jdbcType="VARCHAR" />
+    <result column="UPDT_DAT2" property="updtDat2" jdbcType="TIMESTAMP" />
+    <result column="UPDT_NBR2" property="updtNbr2" jdbcType="VARCHAR" />
+    <result column="UPDT_NAM2" property="updtNam2" jdbcType="VARCHAR" />
+    <result column="UPDT_DAT3" property="updtDat3" jdbcType="TIMESTAMP" />
+    <result column="UPDT_NBR3" property="updtNbr3" jdbcType="VARCHAR" />
+    <result column="UPDT_NAM3" property="updtNam3" jdbcType="VARCHAR" />
+    <result column="OPRT_DAT" property="oprtDat" jdbcType="TIMESTAMP" />
+    <result column="admtDatStr" property="admtDatStr" jdbcType="VARCHAR" />
+    <result column="dscgDatStr" property="dscgDatStr" jdbcType="VARCHAR" />
+    <result column="oprtDatStr" property="oprtDatStr" jdbcType="VARCHAR" />
+    <result column="OBSVT_ZG" property="obsvtZg" jdbcType="VARCHAR" />
+    <result column="OBSVT_TYPE" property="obsvtType" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    OBSVTFST_SEQ, EMG_SEQ, ADMT_DAT, DSCG_DAT, OBSVT_LEN, CRAT_DAT, CRAT_NBR, CRAT_NAM, 
+    UPDT_DAT, UPDT_NBR, UPDT_NAM, UPDT_DAT2, UPDT_NBR2, UPDT_NAM2, UPDT_DAT3, UPDT_NBR3, 
+    UPDT_NAM3, OPRT_DAT,OBSVT_ZG,OBSVT_TYPE
+  </sql>
+  <select id="findObsvtfstByEmgSeq" resultMap="BaseResultMap" parameterType="String" >
+    select
+    <include refid="Base_Column_List" />,
+    to_char(ADMT_DAT,'yyyy/mm/dd hh24:mi:ss')admtDatStr,
+    to_char(DSCG_DAT,'yyyy/mm/dd hh24:mi:ss')dscgDatStr,
+    to_char(OPRT_DAT,'yyyy/mm/dd hh24:mi:ss')oprtDatStr
+    from HSP_OBSVTFST_INF
+    where emg_seq=#{emgSeq}
+  </select>
+</mapper>

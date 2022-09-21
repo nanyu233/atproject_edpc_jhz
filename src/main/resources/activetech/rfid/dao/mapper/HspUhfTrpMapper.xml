@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.rfid.dao.mapper.HspUhfTrpMapper">
+  <resultMap id="BaseResultMap" type="activetech.rfid.pojo.domain.HspUhfTrp">
+    <id column="TRP_SEQ" jdbcType="VARCHAR" property="trpSeq" />
+    <result column="TRP_ID" jdbcType="VARCHAR" property="trpId" />
+    <result column="TRP_NAM" jdbcType="VARCHAR" property="trpNam" />
+    <result column="TRP_TYP" jdbcType="CHAR" property="trpTyp" />
+    <result column="TRP_CLS" jdbcType="CHAR" property="trpCls" />
+    <result column="TYP_PIC" jdbcType="VARCHAR" property="typPic" />
+    <result column="TRP_STA" jdbcType="CHAR" property="trpSta" />
+    <result column="BID_FLG" jdbcType="CHAR" property="bidFlg" />
+    <result column="BID_MAN" jdbcType="VARCHAR" property="bidMan" />
+    <result column="BID_TIM" jdbcType="TIMESTAMP" property="bidTim" />
+    <result column="BID_PAT" jdbcType="VARCHAR" property="bidPat" />
+    <result column="PAT_NAM" jdbcType="VARCHAR" property="patNam" />
+    <result column="UNB_MAN" jdbcType="VARCHAR" property="unbMan" />
+    <result column="UNB_TIM" jdbcType="TIMESTAMP" property="unbTim" />
+    <result column="CRT_USR_NO" jdbcType="VARCHAR" property="crtUsrNo" />
+    <result column="CRT_USR_NAM" jdbcType="VARCHAR" property="crtUsrNam" />
+    <result column="CRT_TIM" jdbcType="TIMESTAMP" property="crtTim" />
+    <result column="MOD_USR_NO" jdbcType="VARCHAR" property="modUsrNo" />
+    <result column="MOD_USR_NAM" jdbcType="VARCHAR" property="modUsrNam" />
+    <result column="MOD_TIM" jdbcType="TIMESTAMP" property="modTim" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+      TRP_SEQ, TRP_ID, TRP_NAM, TRP_TYP, TRP_CLS, TYP_PIC, TRP_STA, BID_FLG, BID_MAN, BID_TIM, BID_PAT, PAT_NAM, UNB_MAN, UNB_TIM, CRT_USR_NO, CRT_USR_NAM, CRT_TIM, MOD_USR_NO, MOD_USR_NAM, MOD_TIM
+  </sql>
+  <select id="selectByExample" parameterType="activetech.rfid.pojo.domain.HspUhfTrpExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_UHF_TRP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+        t1.TRP_SEQ,
+        t1.TRP_ID,
+        t1.TRP_NAM,
+        t1.TRP_TYP,
+        t1.TRP_CLS,
+        t1.TYP_PIC,
+        t1.TRP_STA,
+        t1.BID_FLG,
+        t1.BID_MAN,
+        t1.BID_TIM,
+        t1.BID_PAT,
+        t1.PAT_NAM,
+        t1.UNB_MAN,
+        t1.UNB_TIM,
+        t1.CRT_USR_NO,
+        t1.CRT_USR_NAM,
+        t1.CRT_TIM,
+        t1.MOD_USR_NO,
+        t1.MOD_USR_NAM,
+        t1.MOD_TIM
+    from
+        HSP_UHF_TRP t1
+    where TRP_SEQ = #{trpSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_UHF_TRP
+    where TRP_SEQ = #{trpSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.rfid.pojo.domain.HspUhfTrpExample">
+    delete from HSP_UHF_TRP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.rfid.pojo.domain.HspUhfTrp">
+    insert into HSP_UHF_TRP (
+        TRP_SEQ,
+        TRP_ID,
+        TRP_NAM,
+        TRP_TYP,
+        TRP_CLS,
+        TYP_PIC,
+        TRP_STA,
+        BID_FLG,
+        BID_MAN,
+        BID_TIM,
+        BID_PAT,
+        PAT_NAM,
+        UNB_MAN,
+        UNB_TIM,
+        CRT_USR_NO,
+        CRT_USR_NAM,
+        CRT_TIM,
+        MOD_USR_NO,
+        MOD_USR_NAM,
+        MOD_TIM
+    ) values (
+        #{trpSeq,jdbcType=VARCHAR},
+        #{trpId,jdbcType=VARCHAR},
+        #{trpNam,jdbcType=VARCHAR},
+        #{trpTyp,jdbcType=CHAR},
+        #{trpCls,jdbcType=VARCHAR},
+        #{typPic,jdbcType=VARCHAR},
+        #{trpSta,jdbcType=VARCHAR},
+        #{bidFlg,jdbcType=CHAR},
+        #{bidMan,jdbcType=VARCHAR},
+        #{bidTim,jdbcType=TIMESTAMP},
+        #{bidPat,jdbcType=VARCHAR},
+        #{patNam,jdbcType=VARCHAR},
+        #{unbMan,jdbcType=VARCHAR},
+        #{unbTim,jdbcType=TIMESTAMP},
+        #{crtUsrNo,jdbcType=VARCHAR},
+        #{crtUsrNam,jdbcType=VARCHAR},
+        #{crtTim,jdbcType=TIMESTAMP},
+        #{modUsrNo,jdbcType=VARCHAR},
+        #{modUsrNam,jdbcType=VARCHAR},
+        #{modTim,jdbcType=TIMESTAMP}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.rfid.pojo.domain.HspUhfTrp">
+    <selectKey keyProperty="trpSeq" order="AFTER" resultType="java.lang.String">
+      Oracle
+    </selectKey>
+    insert into HSP_UHF_TRP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="trpSeq != null">
+          TRP_SEQ,
+      </if>
+      <if test="trpId != null">
+          TRP_ID,
+      </if>
+      <if test="trpNam != null">
+          TRP_NAM,
+      </if>
+      <if test="trpTyp != null">
+          TRP_TYP,
+      </if>
+      <if test="trpCls != null">
+          TRP_CLS,
+      </if>
+      <if test="typPic != null">
+          TYP_PIC,
+      </if>
+      <if test="trpSta != null">
+          TRP_STA,
+      </if>
+      <if test="bidFlg != null">
+          BID_FLG,
+      </if>
+      <if test="bidMan != null">
+          BID_MAN,
+      </if>
+      <if test="bidTim != null">
+          BID_TIM,
+      </if>
+      <if test="bidPat != null">
+          BID_PAT,
+      </if>
+      <if test="patNam != null">
+          PAT_NAM,
+      </if>
+      <if test="unbMan != null">
+          UNB_MAN,
+      </if>
+      <if test="unbTim != null">
+          UNB_TIM,
+      </if>
+      <if test="crtUsrNo != null">
+        CRT_USR_NO,
+      </if>
+      <if test="crtUsrNam != null">
+        CRT_USR_NAM,
+      </if>
+      <if test="crtTim != null">
+        CRT_TIM,
+      </if>
+      <if test="modUsrNo != null">
+        MOD_USR_NO,
+      </if>
+      <if test="modUsrNam != null">
+        MOD_USR_NAM,
+      </if>
+      <if test="modTim != null">
+        MOD_TIM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="trpSeq != null">
+        #{trpSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="trpId != null">
+        #{trpId,jdbcType=VARCHAR},
+      </if>
+      <if test="trpNam != null">
+        #{trpNam,jdbcType=VARCHAR},
+      </if>
+      <if test="trpTyp != null">
+        #{trpTyp,jdbcType=CHAR},
+      </if>
+      <if test="trpCls != null">
+        #{trpCls,jdbcType=VARCHAR},
+      </if>
+      <if test="typPic != null">
+        #{typPic,jdbcType=VARCHAR},
+      </if>
+      <if test="trpSta != null">
+        #{trpSta,jdbcType=VARCHAR},
+      </if>
+      <if test="bidFlg != null">
+        #{bidFlg,jdbcType=CHAR},
+      </if>
+      <if test="bidMan != null">
+        #{bidMan,jdbcType=VARCHAR},
+      </if>
+      <if test="bidTim != null">
+        #{bidTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bidPat != null">
+        #{bidPat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patNam != null">
+        #{patNam,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unbMan != null">
+        #{unbMan,jdbcType=VARCHAR},
+      </if>
+      <if test="unbTim != null">
+        #{unbTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrNo != null">
+        #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNam != null">
+        #{crtUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null">
+        #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUsrNo != null">
+        #{modUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="modUsrNam != null">
+        #{modUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null">
+        #{modTim,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.rfid.pojo.domain.HspUhfTrpExample" resultType="java.lang.Long">
+    select count(*) from HSP_UHF_TRP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+  <!-- 查询列表的总记录数 -->
+  <select id="findHspUhfTrpCount" parameterType="activetech.rfid.pojo.dto.HspUhfTrpQueryDto" resultType="int">
+    select count(*) from HSP_UHF_TRP
+    <where>
+      <include refid="query_hspUhfTrp_where" />
+    </where>
+  </select>
+
+  <sql id="query_hspUhfTrp_where">
+    <if test="hspUhfTrpCustom!=null">
+      <if test="hspUhfTrpCustom.trpNam!=null and hspUhfTrpCustom.trpNam!=''">
+        and TRP_NAM like  '%'|| #{hspUhfTrpCustom.trpNam}||'%'
+      </if>
+    </if>
+  </sql>
+
+  <select id="findHspUhfTrpList" parameterType="activetech.rfid.pojo.dto.HspUhfTrpQueryDto" resultMap="BaseResultMap">
+    select
+      t1.TRP_SEQ,
+      t1.TRP_ID,
+      t1.TRP_NAM,
+      t1.TRP_TYP,
+      t1.TRP_CLS,
+      t1.TYP_PIC,
+      t1.TRP_STA,
+      t1.BID_FLG,
+      t1.BID_MAN,
+      t1.BID_TIM,
+      t1.BID_PAT,
+      t1.PAT_NAM,
+      t1.UNB_MAN,
+      t1.UNB_TIM,
+      t1.CRT_USR_NO,
+      t1.CRT_USR_NAM,
+      t1.CRT_TIM,
+      t1.MOD_USR_NO,
+      t1.MOD_USR_NAM,
+      t1.MOD_TIM
+    from
+        HSP_UHF_TRP t1
+    <where>
+      <include refid="query_hspUhfTrp_where" />
+    </where>
+    order by CRT_TIM desc
+  </select>
+
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_UHF_TRP
+    <set>
+      <if test="record.trpSeq != null">
+          TRP_SEQ = #{record.trpSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trpId != null">
+          TRP_ID = #{record.trpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trpNam != null">
+          TRP_NAM = #{record.trpNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trpTyp != null">
+          TRP_TYP = #{record.trpTyp,jdbcType=CHAR},
+      </if>
+      <if test="record.trpCls != null">
+          TRP_CLS = #{record.trpCls,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typPic != null">
+          TYP_PIC = #{record.typPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trpSta != null">
+          TRP_STA = #{record.trpSta,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bidFlg != null">
+          BID_FLG = #{record.bidFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.bidMan != null">
+          BID_MAN = #{record.bidMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bidTim != null">
+          BID_TIM = #{record.bidTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bidPat != null">
+          BID_PAT = #{record.bidPat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.patNam != null">
+          PAT_NAM = #{record.patNam,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.unbMan != null">
+          UNB_MAN = #{record.unbMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unbTim != null">
+          UNB_TIM = #{record.unbTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUsrNo != null">
+          CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUsrNam != null">
+          CRT_USR_NAM = #{record.crtUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTim != null">
+          CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUsrNo != null">
+          MOD_USR_NO = #{record.modUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modUsrNam != null">
+          MOD_USR_NAM = #{record.modUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTim != null">
+          MOD_TIM = #{record.modTim,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_UHF_TRP
+    set TRP_SEQ = #{record.trpSeq,jdbcType=VARCHAR},
+      TRP_ID = #{record.trpId,jdbcType=VARCHAR},
+      TRP_NAM = #{record.trpNam,jdbcType=VARCHAR},
+      TRP_TYP = #{record.trpTyp,jdbcType=CHAR},
+      TRP_CLS = #{record.trpCls,jdbcType=VARCHAR},
+      TYP_PIC = #{record.typPic,jdbcType=VARCHAR},
+      TRP_STA = #{record.trpSta,jdbcType=VARCHAR},
+      BID_FLG = #{record.bidFlg,jdbcType=CHAR},
+      BID_MAN = #{record.bidMan,jdbcType=VARCHAR},
+      BID_TIM = #{record.bidTim,jdbcType=TIMESTAMP},
+      BID_PAT = #{record.bidPat,jdbcType=TIMESTAMP},
+      PAT_NAM = #{record.patNam,jdbcType=TIMESTAMP},
+      UNB_MAN = #{record.unbMan,jdbcType=VARCHAR},
+      UNB_TIM = #{record.unbTim,jdbcType=TIMESTAMP},
+      CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NAM = #{record.crtUsrNam,jdbcType=VARCHAR},
+      CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      MOD_USR_NO = #{record.modUsrNo,jdbcType=VARCHAR},
+      MOD_USR_NAM = #{record.modUsrNam,jdbcType=VARCHAR},
+      MOD_TIM = #{record.modTim,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.rfid.pojo.domain.HspUhfTrp">
+    update HSP_UHF_TRP
+    <set>
+      <if test="trpId != null">
+          TRP_ID = #{trpId,jdbcType=VARCHAR},
+      </if>
+      <if test="trpNam != null">
+          TRP_NAM = #{trpNam,jdbcType=VARCHAR},
+      </if>
+      <if test="trpTyp != null">
+          TRP_TYP = #{trpTyp,jdbcType=CHAR},
+      </if>
+      <if test="trpCls != null">
+          TRP_CLS = #{trpCls,jdbcType=VARCHAR},
+      </if>
+      <if test="typPic != null">
+          TYP_PIC = #{typPic,jdbcType=VARCHAR},
+      </if>
+      <if test="trpSta != null">
+          TRP_STA = #{trpSta,jdbcType=VARCHAR},
+      </if>
+      <if test="bidFlg != null">
+          BID_FLG = #{bidFlg,jdbcType=CHAR},
+      </if>
+      <if test="bidMan != null">
+          BID_MAN = #{bidMan,jdbcType=VARCHAR},
+      </if>
+      <if test="bidTim != null">
+          BID_TIM = #{bidTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bidPat != null">
+          BID_PAT = #{bidPat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="patNam != null">
+          PAT_NAM = #{patNam,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unbMan != null">
+          UNB_MAN = #{unbMan,jdbcType=VARCHAR},
+      </if>
+      <if test="unbTim != null">
+          UNB_TIM = #{unbTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrNo != null">
+        CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNam != null">
+        CRT_USR_NAM = #{crtUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null">
+        CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUsrNo != null">
+        MOD_USR_NO = #{modUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="modUsrNam != null">
+        MOD_USR_NAM = #{modUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null">
+        MOD_TIM = #{modTim,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TRP_SEQ = #{trpSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.rfid.pojo.domain.HspUhfTrp">
+    update HSP_UHF_TRP
+    set TRP_ID = #{trpId,jdbcType=VARCHAR},
+        TRP_NAM = #{trpNam,jdbcType=CHAR},
+        TRP_TYP = #{trpTyp,jdbcType=VARCHAR},
+        TRP_CLS = #{trpCls,jdbcType=VARCHAR},
+        TYP_PIC = #{typPic,jdbcType=VARCHAR},
+        TRP_STA = #{trpSta,jdbcType=CHAR},
+        BID_FLG = #{bidFlg,jdbcType=VARCHAR},
+        BID_MAN = #{bidMan,jdbcType=VARCHAR},
+        BID_TIM = #{bidTim,jdbcType=TIMESTAMP},
+        BID_PAT = #{bidPat,jdbcType=VARCHAR},
+        PAT_NAM = #{patNam,jdbcType=VARCHAR},
+        UNB_MAN = #{unbMan,jdbcType=VARCHAR},
+        UNB_TIM = #{unbTim,jdbcType=TIMESTAMP},
+        CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+        CRT_USR_NAM = #{crtUsrNam,jdbcType=VARCHAR},
+        CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+        MOD_USR_NO = #{modUsrNo,jdbcType=VARCHAR},
+        MOD_USR_NAM = #{modUsrNam,jdbcType=VARCHAR},
+        MOD_TIM = #{modTim,jdbcType=TIMESTAMP}
+    where TRP_SEQ = #{trpSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

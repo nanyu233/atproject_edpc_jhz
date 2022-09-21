@@ -1,0 +1,606 @@
+@charset "utf-8";
+
+/*from表单提交部分*/
+
+.form {
+    margin: 5px;
+}
+
+.form .form-text,
+.form input[type="text"],
+.form select,
+.form a.easyui-linkbutton {
+    display: block;
+    float: left;
+    margin: 0 3px 0 0;
+}
+
+.form .form-text {
+    width: auto;
+    line-height: 24px;
+}
+
+.form input.Wdate {
+    border: #DDD 1px solid;
+}
+
+hr {
+    box-shadow: 2px 0px 0px 0px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+div.li-input-s {
+    float: left;
+    width: 140px;
+    position: relative;
+}
+
+input.li-input-s {
+    float: left;
+    width: 140px;
+}
+
+select.li-input-s {
+    float: left;
+    width: 140px;
+}
+
+.c {
+    clear: both;
+}
+
+::-webkit-input-placeholder {
+    color: #999;
+}
+
+:-moz-placeholder {
+    color: #999;
+}
+
+::-moz-placeholder {
+    color: #999;
+}
+
+:-ms-input-placeholder {
+    color: #999;
+}
+
+.f-left {
+    float: left;
+}
+.m-l2 {
+    margin-left: 2px;
+}
+.m-l5 {
+    margin-left: 5px;
+}
+.m-l10 {
+    margin-left: 10px;
+}
+.m-t10 {
+    margin-top: 10px;
+}
+.m-t5 {
+    margin-top: 5px;
+}
+.m-t2 {
+    margin-top: 2px;
+}
+.m-b5 {
+    margin-bottom: 5px;
+}
+.textl {
+    text-align: left;
+}
+.text-r {
+    text-align: right;
+}
+.p-l5 {
+    padding-left: 5px;
+}
+.m-r5{
+    margin-right: 5px;
+}
+
+.txt {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid #d2d9dc;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    box-shadow: 1px 2px 3px #f0f0f0 inset;
+}
+
+input[type="text"]:hover,
+input[type="password"]:hover {
+    border: 1px solid #cfd7e6;
+    -webkit-box-shadow: 0px 0px 8px rgb(229, 241, 250);
+    -moz-box-shadow: 0px 0px 8px rgb(229, 241, 250);
+    box-shadow: 0px 0px 8px rgb(229, 241, 250);
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+}
+
+input[readonly] {
+    border: 1px solid #dcdcdc;
+    background-color: #ececec;
+}
+
+.btn {
+    line-height: 34px;
+    height: 34px;
+    padding-left: 28px;
+    padding-right: 28px;
+    text-align: center;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
+    font: 14px/normal "Microsoft YaHei", arial, helvetica, sans-serif;
+}
+
+input[type="submit"]:hover {
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#9bd1ed), to(#67b0ce));
+    background: -moz-linear-gradient(top, #9bd1ed, #67b0ce);
+    background: -ms-linear-gradient(top, #9bd1ed, #67b0ce);
+    background: -o-linear-gradient(top, #9bd1ed, #67b0ce);
+    background-color: #77c6e7;
+    color: #fff;
+    border: 1px solid #619eb8;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    outline: none;
+}
+
+.form-body {
+    width: 100%;
+    font: 12px/normal "Microsoft YaHei", arial, helvetica, sans-serif;
+    background-color: #fff;
+    height: 99%;
+}
+
+.input-base {
+    outline: none;
+    border: 1px solid #d2d9dc;
+    -webkit-appearance: none;
+    line-height: 20px;
+    height: 20px;
+}
+
+.input-base:hover {
+    border: 1px solid #bed5f3;
+}
+
+.h30 {
+    line-height: 30px;
+    height: 30px;
+}
+
+.h28 {
+    line-height: 28px;
+    height: 28px;
+}
+
+.h22 {
+    line-height: 22px;
+    height: 22px;
+}
+
+.form-group {
+    background-color: #ebecee;
+    line-height: 30px;
+    border-collapse: collapse;
+}
+
+.form-group td {
+    padding: 2px 0px 2px 0px;
+    background-color: #fff;
+    border: 1px solid #ebecee;
+}
+
+.form-group th {
+    padding: 2px 0px 2px 0px;
+    background-color: #f9f9fa;
+    border: 1px solid #ebecee;
+    text-align: right;
+    font-weight: normal;
+}
+
+.th-bg {
+    /*background-color: #dee8f5;*/
+    background-color: #f2f7fd;
+}
+
+.line-right {
+    margin-left: 4px;
+    width: 800px;
+    border: 1px solid #d2d9dc;
+    height: 19px;
+    text-align: left;
+}
+
+
+/**
+* input
+*/
+
+.total-right {
+    margin-left: 4px;
+    width: 140px;
+    height: 19px;
+    line-height: 19px;
+    border: 1px solid #d2d9dc;
+    text-align: left;
+}
+
+.url-link a:link,
+.url-link a:active,
+.url-link a:visited,
+.url-titlelink a:link {
+    text-decoration: none;
+    color: #0476be;
+}
+
+.url-link a:hover, .url-titlelink a:hover {
+    color: #0476be;
+}
+
+.url-titlelink a:link {
+    display: block;
+    width: 190px;
+}
+
+.short-right {
+    margin-left: 4px;
+    width: 80px;
+    border: 1px solid #d2d9dc;
+    line-height: 19px;
+    height: 19px;
+    text-align: left;
+}
+.input-textarea {
+    width: 800px;
+    border: 1px solid #d2d9dc;
+    height: 100px;
+    text-align: left;
+    margin: 7px 0px 7px 2px;
+    resize: none;
+}
+
+.div-textarea {
+    width: 320px;
+    border: 1px solid #d2d9dc;
+    height: 100px;
+    text-align: left;
+    resize: none;
+    float: left;
+    padding-left: 5px;
+    padding-top: 2px;
+}
+/**
+* 表单文本输入域
+*/
+
+.li-textarea {
+    height: 100px;
+    margin: 10px 0 10px 0;
+}
+
+
+/**
+* 表单select
+*/
+
+.li-input-s {
+    float: left;
+    width: 152px;
+}
+
+/**
+* 表单input
+*/
+
+.li-input-l {
+    float: left;
+    width: 320px;
+}
+
+.li-input-l2 {
+    float: left;
+    width: 541px;
+}
+
+
+/**
+* 之前版本的表单验证提示框
+*/
+
+.checkform {
+    float: left;
+    width: 180px;
+    text-align: left;
+}
+
+/**
+* 表单中最下面一个  一般放在center中
+*/
+
+.li-bottom {
+    height: 20px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+
+/**
+* 表单中 ul统一样式(报表)
+*/
+
+.querylist-ul {
+    overflow: hidden;
+    margin-left: 10px;
+}
+
+.querylist-ul li {
+    float: left;
+}
+
+/**
+* 折叠树样式
+*/
+
+.tree-head {
+    height: 20px;
+    width: 99%;
+    border: 1px solid #f5f5f5;
+    font-size: 12px;
+    background: #f9f9fa;
+}
+
+.tree-btn {
+    width: 33%;
+    float: left;
+    text-align: center;
+}
+
+.tree-btn2 {
+    width: 20%;
+    float: left;
+    text-align: center;
+}
+
+.tree-icons {
+    height: 12px;
+    align: absmiddle;
+    padding-right: 1px;
+    padding-top: 3px;
+}
+
+.tree-a {
+    text-decoration: none;
+    color: black;
+}
+
+.tree-bottom {
+    height: 40px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/**
+* div 用户授权
+*/
+
+.hov {
+    background: #fff;
+    color: black;
+    cursor: pointer;
+}
+
+.hov:hover {
+    background: #d1e5f5;
+    color: black;
+    cursor: pointer;
+}
+
+
+/**
+* 接收病人相关页面
+*/
+
+.width-auto {
+    width: auto;
+}
+
+.hidden {
+    display: none !important;
+    padding: 0;
+    margin: 0;
+}
+
+select.width-auto {
+    width: 140px;
+}
+
+select.width-long {
+    width: auto;
+}
+
+i.red {
+    color: red;
+}
+
+.relative {
+    position: relative;
+}
+
+.border-radius {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0 0 5px 5px #b0c9e4;
+    -moz-box-shadow: 0 0 5px 5px #b0c9e4;
+    box-shadow: 0 0 5px 5px #b0c9e4;
+}
+
+.center {
+    text-align: center !important;
+}
+
+.input.readonly {
+    display: block;
+    width: 98%;
+    min-height: 28px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #dcdcdc;
+    background-color: #ececec;
+    text-indent: 5px;
+    vertical-align: middle;
+}
+
+a.my-linkbutton {
+    color: #2a00ff;
+    cursor: pointer;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: solid #fff 1px;
+    display: inline-block;
+    font-weight: bold !important;
+}
+
+a.my-linkbutton:hover {
+    color: #2a00ff;
+    background-color: #eaf2ff;
+    -webkit-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #b7d2ff;
+    text-decoration: none;
+}
+/**
+* 日期输入框长度控制
+*/
+.small-date{
+	width: 85px;
+}
+.qjssmall-date{
+	width: 90px;
+}
+.input-date{
+    width: 100px;
+}
+.input-min-date {
+    width: 126px;
+}
+.input-sdate{
+    width: 156px;
+}
+.m-b5 .Wdate{
+    border: 1px solid #DDD;
+}
+/**
+* 验证错误提示
+*/
+label.error {
+    margin-left: 4px;
+    padding-left: 20px;
+    height: 24px;
+    background: url(../../../images/common/onError.gif) left center no-repeat;
+    color: red;
+    line-height: 24px;
+}
+/**
+* 公用btn
+*/
+.commonbtn{
+    display: inline-block;
+    float: left;
+    width: 78px;
+    height: 28px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-image: url(../../../images/hems/jsbrqjs/btn-cyan.png);
+    border: #adcde2 1px solid;
+    color: #000000;
+    text-align: center;
+    line-height: 28px;
+    cursor: pointer;
+}
+/**
+* 公用弹出框页面按钮置于右下角位置
+*/
+.common_btnGrp{
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+}
+
+.fontNormal13 table input, .fontNormal13 table textarea {
+    font-size: 13px !important;
+}
+/* 模拟下拉css */
+.spanRelative {
+    display: inline-block;
+    position: relative;
+}
+.userList {
+    position: absolute;
+    top: 25px;
+    right: 0px;
+    z-index: 3;
+    width: 100%;
+    box-sizing: border-box;
+    max-height: 130px;
+    display: none;
+    background: rgb(30, 144, 255);
+    border: 1px solid #ddd;
+    cursor: default;
+    overflow-y: scroll;
+}
+.userList li:hover {
+    background: rgb(30, 144, 255);
+    text-decoration: none;
+    color: #fff;
+    cursor: default
+}
+.userList li{
+    display: inline-block;
+    width: 100%;
+    height: 24px !important;
+    line-height: 24px !important;
+    background: #fff;
+    color: #000;
+    font-size: 12px;
+    text-indent: 0.5em;
+    text-align: left;
+    margin: 0 !important;
+}
+.cursor-type {
+    cursor: pointer;
+}
+.complexHeaderTab .datagrid-header-row .datagrid-cell span {
+    white-space: normal !important;
+    word-wrap: normal !important;
+}
+.complexHeaderTab .datagrid-cell {
+    height: auto
+}
+.small-select-wth {
+    width: 80px;
+}

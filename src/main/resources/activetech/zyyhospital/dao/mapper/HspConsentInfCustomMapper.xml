@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspConsentInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspConsentInf" >
+    <id column="SEQNO" property="seqno" jdbcType="VARCHAR" />
+    <result column="REFSEQNO" property="refseqno" jdbcType="VARCHAR" />
+    <result column="TEMPNO" property="tempno" jdbcType="VARCHAR" />
+    <result column="TEMPNAME" property="tempname" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="CRTUSRNO" property="crtusrno" jdbcType="VARCHAR" />
+    <result column="CRTUSRNAME" property="crtusrname" jdbcType="VARCHAR" />
+    <result column="CRTDATE" property="crtdate" jdbcType="TIMESTAMP" />
+    <result column="UPDUSRNO" property="updusrno" jdbcType="VARCHAR" />
+    <result column="UPDUSRNAME" property="updusrname" jdbcType="VARCHAR" />
+    <result column="UPDDATE" property="upddate" jdbcType="TIMESTAMP" />
+    <result column="QM_HASH" property="qmHash" jdbcType="VARCHAR" />
+    <result column="QM_TAG" property="qmTag" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="activetech.zyyhospital.pojo.domain.HspConsentInfWithBLOBs" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="CLOB" />
+    <result column="TEXTHTML" property="texthtml" jdbcType="CLOB" />
+  </resultMap>
+  
+   <!-- 区域是查询条件 通常情况，为了提高 sql片段可重用性，按单表创建sql片段 -->
+	<sql id="query_HspConsentInfCustom_where">
+		<if test="hspConsentInfCustom!=null">
+			<if test="hspConsentInfCustom.Refseqno!=null">
+					and REFSEQNO = #{hspConsentInfCustom.refseqno}
+			</if>
+			<if test="hspConsentInfCustom.startdate!=null and hspConsentInfCustom.startdate!=''">
+				and hsp_consent_inf.crtdate<![CDATA[>=]]> #{hspConsentInfCustom.startdate}
+			</if>
+			<if test="hspConsentInfCustom.enddate!=null and hspConsentInfCustom.enddate!=''">
+				and hsp_consent_inf.crtdate <![CDATA[<=]]>  #{hspConsentInfCustom.enddate}
+			</if>
+		</if>
+	</sql>
+  
+  
+  <select id="findHspConsentInfByRefseqno" parameterType="activetech.zyyhospital.pojo.dto.HspConsentInfCustomDto"
+		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		 select seqno,
+		 refseqno,tempno,tempname,memo,crtusrno,crtusrname,
+		 crtdate,
+		 updusrno,updusrname,
+		 upddate 
+		 from hsp_consent_inf
+		<where>
+				<include refid="query_HspConsentInfCustom_where" />
+		</where>
+		order by crtdate desc
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	
+	<select id="findHspConsentInfByRefseqnoCount" parameterType="activetech.zyyhospital.pojo.dto.HspConsentInfCustomDto"
+					 resultType="int">
+		select count(*) from hsp_consent_inf
+		<where>
+				<include refid="query_HspConsentInfCustom_where" />
+		</where>
+	</select>
+  
+  </mapper>

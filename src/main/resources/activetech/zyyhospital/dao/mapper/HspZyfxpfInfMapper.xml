@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspZyfxpfInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspZyfxpfInf" >
+    <id column="ZYFXPF_SEQ" property="zyfxpfSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="SMTZ" property="smtz" jdbcType="VARCHAR" />
+    <result column="SZ" property="sz" jdbcType="VARCHAR" />
+    <result column="TK" property="tk" jdbcType="VARCHAR" />
+    <result column="JMTD" property="jmtd" jdbcType="VARCHAR" />
+    <result column="GLDG" property="gldg" jdbcType="VARCHAR" />
+    <result column="HXZC" property="hxzc" jdbcType="VARCHAR" />
+    <result column="CXBWGD" property="cxbwgd" jdbcType="VARCHAR" />
+    <result column="WW" property="ww" jdbcType="VARCHAR" />
+    <result column="TBJZZTBH" property="tbjzztbh" jdbcType="VARCHAR" />
+    <result column="YDBRFS" property="ydbrfs" jdbcType="VARCHAR" />
+    <result column="BRAQ" property="braq" jdbcType="VARCHAR" />
+    <result column="HXJ" property="hxj" jdbcType="VARCHAR" />
+    <result column="JHY" property="jhy" jdbcType="VARCHAR" />
+    <result column="ZYFXPF_SCO" property="zyfxpfSco" jdbcType="DECIMAL" />
+    <result column="XDYQJYW" property="xdyqjyw" jdbcType="VARCHAR" />
+    <result column="XDYQJYWQT" property="xdyqjywqt" jdbcType="VARCHAR" />
+    <result column="CRTUSRNO" property="crtusrno" jdbcType="VARCHAR" />
+    <result column="CRTUSRNME" property="crtusrnme" jdbcType="VARCHAR" />
+    <result column="CRTTIME" property="crttime" jdbcType="TIMESTAMP" />
+    <result column="UPDUSRNO" property="updusrno" jdbcType="VARCHAR" />
+    <result column="UPDUSRNME" property="updusrnme" jdbcType="VARCHAR" />
+    <result column="UPDTIME" property="updtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ZYFXPF_SEQ, EMG_SEQ, SMTZ, SZ, TK, JMTD, GLDG, HXZC, CXBWGD, WW, TBJZZTBH, YDBRFS, 
+    BRAQ, HXJ, JHY, ZYFXPF_SCO, XDYQJYW, XDYQJYWQT, CRTUSRNO, CRTUSRNME, CRTTIME, UPDUSRNO, 
+    UPDUSRNME, UPDTIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspZyfxpfInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_ZYFXPF_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_ZYFXPF_INF
+    where ZYFXPF_SEQ = #{zyfxpfSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_ZYFXPF_INF
+    where ZYFXPF_SEQ = #{zyfxpfSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspZyfxpfInfExample" >
+    delete from HSP_ZYFXPF_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspZyfxpfInf" >
+    insert into HSP_ZYFXPF_INF (ZYFXPF_SEQ, EMG_SEQ, SMTZ, 
+      SZ, TK, JMTD, GLDG, 
+      HXZC, CXBWGD, WW, TBJZZTBH, 
+      YDBRFS, BRAQ, HXJ, 
+      JHY, ZYFXPF_SCO, XDYQJYW, 
+      XDYQJYWQT, CRTUSRNO, CRTUSRNME, 
+      CRTTIME, UPDUSRNO, UPDUSRNME, 
+      UPDTIME)
+    values (#{zyfxpfSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{smtz,jdbcType=VARCHAR}, 
+      #{sz,jdbcType=VARCHAR}, #{tk,jdbcType=VARCHAR}, #{jmtd,jdbcType=VARCHAR}, #{gldg,jdbcType=VARCHAR}, 
+      #{hxzc,jdbcType=VARCHAR}, #{cxbwgd,jdbcType=VARCHAR}, #{ww,jdbcType=VARCHAR}, #{tbjzztbh,jdbcType=VARCHAR}, 
+      #{ydbrfs,jdbcType=VARCHAR}, #{braq,jdbcType=VARCHAR}, #{hxj,jdbcType=VARCHAR}, 
+      #{jhy,jdbcType=VARCHAR}, #{zyfxpfSco,jdbcType=DECIMAL}, #{xdyqjyw,jdbcType=VARCHAR}, 
+      #{xdyqjywqt,jdbcType=VARCHAR}, #{crtusrno,jdbcType=VARCHAR}, #{crtusrnme,jdbcType=VARCHAR}, 
+      #{crttime,jdbcType=TIMESTAMP}, #{updusrno,jdbcType=VARCHAR}, #{updusrnme,jdbcType=VARCHAR}, 
+      #{updtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspZyfxpfInf" >
+    insert into HSP_ZYFXPF_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="zyfxpfSeq != null" >
+        ZYFXPF_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="smtz != null" >
+        SMTZ,
+      </if>
+      <if test="sz != null" >
+        SZ,
+      </if>
+      <if test="tk != null" >
+        TK,
+      </if>
+      <if test="jmtd != null" >
+        JMTD,
+      </if>
+      <if test="gldg != null" >
+        GLDG,
+      </if>
+      <if test="hxzc != null" >
+        HXZC,
+      </if>
+      <if test="cxbwgd != null" >
+        CXBWGD,
+      </if>
+      <if test="ww != null" >
+        WW,
+      </if>
+      <if test="tbjzztbh != null" >
+        TBJZZTBH,
+      </if>
+      <if test="ydbrfs != null" >
+        YDBRFS,
+      </if>
+      <if test="braq != null" >
+        BRAQ,
+      </if>
+      <if test="hxj != null" >
+        HXJ,
+      </if>
+      <if test="jhy != null" >
+        JHY,
+      </if>
+      <if test="zyfxpfSco != null" >
+        ZYFXPF_SCO,
+      </if>
+      <if test="xdyqjyw != null" >
+        XDYQJYW,
+      </if>
+      <if test="xdyqjywqt != null" >
+        XDYQJYWQT,
+      </if>
+      <if test="crtusrno != null" >
+        CRTUSRNO,
+      </if>
+      <if test="crtusrnme != null" >
+        CRTUSRNME,
+      </if>
+      <if test="crttime != null" >
+        CRTTIME,
+      </if>
+      <if test="updusrno != null" >
+        UPDUSRNO,
+      </if>
+      <if test="updusrnme != null" >
+        UPDUSRNME,
+      </if>
+      <if test="updtime != null" >
+        UPDTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="zyfxpfSeq != null" >
+        #{zyfxpfSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="smtz != null" >
+        #{smtz,jdbcType=VARCHAR},
+      </if>
+      <if test="sz != null" >
+        #{sz,jdbcType=VARCHAR},
+      </if>
+      <if test="tk != null" >
+        #{tk,jdbcType=VARCHAR},
+      </if>
+      <if test="jmtd != null" >
+        #{jmtd,jdbcType=VARCHAR},
+      </if>
+      <if test="gldg != null" >
+        #{gldg,jdbcType=VARCHAR},
+      </if>
+      <if test="hxzc != null" >
+        #{hxzc,jdbcType=VARCHAR},
+      </if>
+      <if test="cxbwgd != null" >
+        #{cxbwgd,jdbcType=VARCHAR},
+      </if>
+      <if test="ww != null" >
+        #{ww,jdbcType=VARCHAR},
+      </if>
+      <if test="tbjzztbh != null" >
+        #{tbjzztbh,jdbcType=VARCHAR},
+      </if>
+      <if test="ydbrfs != null" >
+        #{ydbrfs,jdbcType=VARCHAR},
+      </if>
+      <if test="braq != null" >
+        #{braq,jdbcType=VARCHAR},
+      </if>
+      <if test="hxj != null" >
+        #{hxj,jdbcType=VARCHAR},
+      </if>
+      <if test="jhy != null" >
+        #{jhy,jdbcType=VARCHAR},
+      </if>
+      <if test="zyfxpfSco != null" >
+        #{zyfxpfSco,jdbcType=DECIMAL},
+      </if>
+      <if test="xdyqjyw != null" >
+        #{xdyqjyw,jdbcType=VARCHAR},
+      </if>
+      <if test="xdyqjywqt != null" >
+        #{xdyqjywqt,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrno != null" >
+        #{crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrnme != null" >
+        #{crtusrnme,jdbcType=VARCHAR},
+      </if>
+      <if test="crttime != null" >
+        #{crttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updusrno != null" >
+        #{updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="updusrnme != null" >
+        #{updusrnme,jdbcType=VARCHAR},
+      </if>
+      <if test="updtime != null" >
+        #{updtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspZyfxpfInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_ZYFXPF_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_ZYFXPF_INF
+    <set >
+      <if test="record.zyfxpfSeq != null" >
+        ZYFXPF_SEQ = #{record.zyfxpfSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smtz != null" >
+        SMTZ = #{record.smtz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sz != null" >
+        SZ = #{record.sz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tk != null" >
+        TK = #{record.tk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jmtd != null" >
+        JMTD = #{record.jmtd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gldg != null" >
+        GLDG = #{record.gldg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hxzc != null" >
+        HXZC = #{record.hxzc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cxbwgd != null" >
+        CXBWGD = #{record.cxbwgd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ww != null" >
+        WW = #{record.ww,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbjzztbh != null" >
+        TBJZZTBH = #{record.tbjzztbh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ydbrfs != null" >
+        YDBRFS = #{record.ydbrfs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.braq != null" >
+        BRAQ = #{record.braq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hxj != null" >
+        HXJ = #{record.hxj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jhy != null" >
+        JHY = #{record.jhy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zyfxpfSco != null" >
+        ZYFXPF_SCO = #{record.zyfxpfSco,jdbcType=DECIMAL},
+      </if>
+      <if test="record.xdyqjyw != null" >
+        XDYQJYW = #{record.xdyqjyw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xdyqjywqt != null" >
+        XDYQJYWQT = #{record.xdyqjywqt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtusrno != null" >
+        CRTUSRNO = #{record.crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtusrnme != null" >
+        CRTUSRNME = #{record.crtusrnme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crttime != null" >
+        CRTTIME = #{record.crttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updusrno != null" >
+        UPDUSRNO = #{record.updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updusrnme != null" >
+        UPDUSRNME = #{record.updusrnme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updtime != null" >
+        UPDTIME = #{record.updtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_ZYFXPF_INF
+    set ZYFXPF_SEQ = #{record.zyfxpfSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      SMTZ = #{record.smtz,jdbcType=VARCHAR},
+      SZ = #{record.sz,jdbcType=VARCHAR},
+      TK = #{record.tk,jdbcType=VARCHAR},
+      JMTD = #{record.jmtd,jdbcType=VARCHAR},
+      GLDG = #{record.gldg,jdbcType=VARCHAR},
+      HXZC = #{record.hxzc,jdbcType=VARCHAR},
+      CXBWGD = #{record.cxbwgd,jdbcType=VARCHAR},
+      WW = #{record.ww,jdbcType=VARCHAR},
+      TBJZZTBH = #{record.tbjzztbh,jdbcType=VARCHAR},
+      YDBRFS = #{record.ydbrfs,jdbcType=VARCHAR},
+      BRAQ = #{record.braq,jdbcType=VARCHAR},
+      HXJ = #{record.hxj,jdbcType=VARCHAR},
+      JHY = #{record.jhy,jdbcType=VARCHAR},
+      ZYFXPF_SCO = #{record.zyfxpfSco,jdbcType=DECIMAL},
+      XDYQJYW = #{record.xdyqjyw,jdbcType=VARCHAR},
+      XDYQJYWQT = #{record.xdyqjywqt,jdbcType=VARCHAR},
+      CRTUSRNO = #{record.crtusrno,jdbcType=VARCHAR},
+      CRTUSRNME = #{record.crtusrnme,jdbcType=VARCHAR},
+      CRTTIME = #{record.crttime,jdbcType=TIMESTAMP},
+      UPDUSRNO = #{record.updusrno,jdbcType=VARCHAR},
+      UPDUSRNME = #{record.updusrnme,jdbcType=VARCHAR},
+      UPDTIME = #{record.updtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspZyfxpfInf" >
+    update HSP_ZYFXPF_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="smtz != null" >
+        SMTZ = #{smtz,jdbcType=VARCHAR},
+      </if>
+      <if test="sz != null" >
+        SZ = #{sz,jdbcType=VARCHAR},
+      </if>
+      <if test="tk != null" >
+        TK = #{tk,jdbcType=VARCHAR},
+      </if>
+      <if test="jmtd != null" >
+        JMTD = #{jmtd,jdbcType=VARCHAR},
+      </if>
+      <if test="gldg != null" >
+        GLDG = #{gldg,jdbcType=VARCHAR},
+      </if>
+      <if test="hxzc != null" >
+        HXZC = #{hxzc,jdbcType=VARCHAR},
+      </if>
+      <if test="cxbwgd != null" >
+        CXBWGD = #{cxbwgd,jdbcType=VARCHAR},
+      </if>
+      <if test="ww != null" >
+        WW = #{ww,jdbcType=VARCHAR},
+      </if>
+      <if test="tbjzztbh != null" >
+        TBJZZTBH = #{tbjzztbh,jdbcType=VARCHAR},
+      </if>
+      <if test="ydbrfs != null" >
+        YDBRFS = #{ydbrfs,jdbcType=VARCHAR},
+      </if>
+      <if test="braq != null" >
+        BRAQ = #{braq,jdbcType=VARCHAR},
+      </if>
+      <if test="hxj != null" >
+        HXJ = #{hxj,jdbcType=VARCHAR},
+      </if>
+      <if test="jhy != null" >
+        JHY = #{jhy,jdbcType=VARCHAR},
+      </if>
+      <if test="zyfxpfSco != null" >
+        ZYFXPF_SCO = #{zyfxpfSco,jdbcType=DECIMAL},
+      </if>
+      <if test="xdyqjyw != null" >
+        XDYQJYW = #{xdyqjyw,jdbcType=VARCHAR},
+      </if>
+      <if test="xdyqjywqt != null" >
+        XDYQJYWQT = #{xdyqjywqt,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrno != null" >
+        CRTUSRNO = #{crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrnme != null" >
+        CRTUSRNME = #{crtusrnme,jdbcType=VARCHAR},
+      </if>
+      <if test="crttime != null" >
+        CRTTIME = #{crttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updusrno != null" >
+        UPDUSRNO = #{updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="updusrnme != null" >
+        UPDUSRNME = #{updusrnme,jdbcType=VARCHAR},
+      </if>
+      <if test="updtime != null" >
+        UPDTIME = #{updtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ZYFXPF_SEQ = #{zyfxpfSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspZyfxpfInf" >
+    update HSP_ZYFXPF_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      SMTZ = #{smtz,jdbcType=VARCHAR},
+      SZ = #{sz,jdbcType=VARCHAR},
+      TK = #{tk,jdbcType=VARCHAR},
+      JMTD = #{jmtd,jdbcType=VARCHAR},
+      GLDG = #{gldg,jdbcType=VARCHAR},
+      HXZC = #{hxzc,jdbcType=VARCHAR},
+      CXBWGD = #{cxbwgd,jdbcType=VARCHAR},
+      WW = #{ww,jdbcType=VARCHAR},
+      TBJZZTBH = #{tbjzztbh,jdbcType=VARCHAR},
+      YDBRFS = #{ydbrfs,jdbcType=VARCHAR},
+      BRAQ = #{braq,jdbcType=VARCHAR},
+      HXJ = #{hxj,jdbcType=VARCHAR},
+      JHY = #{jhy,jdbcType=VARCHAR},
+      ZYFXPF_SCO = #{zyfxpfSco,jdbcType=DECIMAL},
+      XDYQJYW = #{xdyqjyw,jdbcType=VARCHAR},
+      XDYQJYWQT = #{xdyqjywqt,jdbcType=VARCHAR},
+      CRTUSRNO = #{crtusrno,jdbcType=VARCHAR},
+      CRTUSRNME = #{crtusrnme,jdbcType=VARCHAR},
+      CRTTIME = #{crttime,jdbcType=TIMESTAMP},
+      UPDUSRNO = #{updusrno,jdbcType=VARCHAR},
+      UPDUSRNME = #{updusrnme,jdbcType=VARCHAR},
+      UPDTIME = #{updtime,jdbcType=TIMESTAMP}
+    where ZYFXPF_SEQ = #{zyfxpfSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

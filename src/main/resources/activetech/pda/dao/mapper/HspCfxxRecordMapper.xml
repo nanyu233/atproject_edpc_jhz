@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.pda.dao.mapper.HspCfxxRecordMapper">
+  <resultMap id="BaseResultMap" type="activetech.pda.pojo.domain.HspCfxxRecord">
+    <id column="RECORD_SEQ" jdbcType="VARCHAR" property="recordSeq" />
+    <result column="DISPOSAL_SEQ" jdbcType="VARCHAR" property="disposalSeq" />
+    <result column="MPI" jdbcType="VARCHAR" property="mpi" />
+    <result column="SITUATION" jdbcType="VARCHAR" property="situation" />
+    <result column="DRUG_TYPE" jdbcType="VARCHAR" property="drugType" />
+    <result column="DRIP_RATE" jdbcType="VARCHAR" property="dripRate" />
+    <result column="DRIP_RATE_DROP" jdbcType="VARCHAR" property="dripRateDrop" />
+    <result column="MARGIN" jdbcType="VARCHAR" property="margin" />
+    <result column="MARGIN_DROP" jdbcType="VARCHAR" property="marginDrop" />
+    <result column="DISPOSE_WAY" jdbcType="VARCHAR" property="disposeWay" />
+    <result column="DISPOSE_RESULT" jdbcType="VARCHAR" property="disposeResult" />
+    <result column="RECORD_DATE" jdbcType="TIMESTAMP" property="recordDate" />
+    <result column="RECORD_USRNO" jdbcType="VARCHAR" property="recordUsrno" />
+    <result column="RECORD_USRNAM" jdbcType="VARCHAR" property="recordUsrnam" />
+    <result column="RECORD_STATUS" jdbcType="VARCHAR" property="recordStatus" />
+    <result column="REMAKER" jdbcType="VARCHAR" property="remaker" />
+    <result column="REMAKER1" jdbcType="VARCHAR" property="remaker1" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    RECORD_SEQ, DISPOSAL_SEQ, MPI, SITUATION, DRUG_TYPE, DRIP_RATE, DRIP_RATE_DROP, MARGIN, 
+    MARGIN_DROP, DISPOSE_WAY, DISPOSE_RESULT, RECORD_DATE, RECORD_USRNO, RECORD_USRNAM, 
+    RECORD_STATUS, REMAKER, REMAKER1
+  </sql>
+  <select id="selectByExample" parameterType="activetech.pda.pojo.domain.HspCfxxRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CFXX_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CFXX_RECORD
+    where RECORD_SEQ = #{recordSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_CFXX_RECORD
+    where RECORD_SEQ = #{recordSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.pda.pojo.domain.HspCfxxRecordExample">
+    delete from HSP_CFXX_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.pda.pojo.domain.HspCfxxRecord">
+    insert into HSP_CFXX_RECORD (RECORD_SEQ, DISPOSAL_SEQ, MPI, 
+      SITUATION, DRUG_TYPE, DRIP_RATE, 
+      DRIP_RATE_DROP, MARGIN, MARGIN_DROP, 
+      DISPOSE_WAY, DISPOSE_RESULT, RECORD_DATE, 
+      RECORD_USRNO, RECORD_USRNAM, RECORD_STATUS, 
+      REMAKER, REMAKER1)
+    values (#{recordSeq,jdbcType=VARCHAR}, #{disposalSeq,jdbcType=VARCHAR}, #{mpi,jdbcType=VARCHAR}, 
+      #{situation,jdbcType=VARCHAR}, #{drugType,jdbcType=VARCHAR}, #{dripRate,jdbcType=VARCHAR}, 
+      #{dripRateDrop,jdbcType=VARCHAR}, #{margin,jdbcType=VARCHAR}, #{marginDrop,jdbcType=VARCHAR}, 
+      #{disposeWay,jdbcType=VARCHAR}, #{disposeResult,jdbcType=VARCHAR}, #{recordDate,jdbcType=TIMESTAMP}, 
+      #{recordUsrno,jdbcType=VARCHAR}, #{recordUsrnam,jdbcType=VARCHAR}, #{recordStatus,jdbcType=VARCHAR}, 
+      #{remaker,jdbcType=VARCHAR}, #{remaker1,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.pda.pojo.domain.HspCfxxRecord">
+    insert into HSP_CFXX_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordSeq != null">
+        RECORD_SEQ,
+      </if>
+      <if test="disposalSeq != null">
+        DISPOSAL_SEQ,
+      </if>
+      <if test="mpi != null">
+        MPI,
+      </if>
+      <if test="situation != null">
+        SITUATION,
+      </if>
+      <if test="drugType != null">
+        DRUG_TYPE,
+      </if>
+      <if test="dripRate != null">
+        DRIP_RATE,
+      </if>
+      <if test="dripRateDrop != null">
+        DRIP_RATE_DROP,
+      </if>
+      <if test="margin != null">
+        MARGIN,
+      </if>
+      <if test="marginDrop != null">
+        MARGIN_DROP,
+      </if>
+      <if test="disposeWay != null">
+        DISPOSE_WAY,
+      </if>
+      <if test="disposeResult != null">
+        DISPOSE_RESULT,
+      </if>
+      <if test="recordDate != null">
+        RECORD_DATE,
+      </if>
+      <if test="recordUsrno != null">
+        RECORD_USRNO,
+      </if>
+      <if test="recordUsrnam != null">
+        RECORD_USRNAM,
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS,
+      </if>
+      <if test="remaker != null">
+        REMAKER,
+      </if>
+      <if test="remaker1 != null">
+        REMAKER1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordSeq != null">
+        #{recordSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="disposalSeq != null">
+        #{disposalSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="mpi != null">
+        #{mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="situation != null">
+        #{situation,jdbcType=VARCHAR},
+      </if>
+      <if test="drugType != null">
+        #{drugType,jdbcType=VARCHAR},
+      </if>
+      <if test="dripRate != null">
+        #{dripRate,jdbcType=VARCHAR},
+      </if>
+      <if test="dripRateDrop != null">
+        #{dripRateDrop,jdbcType=VARCHAR},
+      </if>
+      <if test="margin != null">
+        #{margin,jdbcType=VARCHAR},
+      </if>
+      <if test="marginDrop != null">
+        #{marginDrop,jdbcType=VARCHAR},
+      </if>
+      <if test="disposeWay != null">
+        #{disposeWay,jdbcType=VARCHAR},
+      </if>
+      <if test="disposeResult != null">
+        #{disposeResult,jdbcType=VARCHAR},
+      </if>
+      <if test="recordDate != null">
+        #{recordDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordUsrno != null">
+        #{recordUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="recordUsrnam != null">
+        #{recordUsrnam,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remaker != null">
+        #{remaker,jdbcType=VARCHAR},
+      </if>
+      <if test="remaker1 != null">
+        #{remaker1,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.pda.pojo.domain.HspCfxxRecordExample" resultType="java.lang.Long">
+    select count(*) from HSP_CFXX_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_CFXX_RECORD
+    <set>
+      <if test="record.recordSeq != null">
+        RECORD_SEQ = #{record.recordSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disposalSeq != null">
+        DISPOSAL_SEQ = #{record.disposalSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mpi != null">
+        MPI = #{record.mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.situation != null">
+        SITUATION = #{record.situation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drugType != null">
+        DRUG_TYPE = #{record.drugType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dripRate != null">
+        DRIP_RATE = #{record.dripRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dripRateDrop != null">
+        DRIP_RATE_DROP = #{record.dripRateDrop,jdbcType=VARCHAR},
+      </if>
+      <if test="record.margin != null">
+        MARGIN = #{record.margin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marginDrop != null">
+        MARGIN_DROP = #{record.marginDrop,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disposeWay != null">
+        DISPOSE_WAY = #{record.disposeWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disposeResult != null">
+        DISPOSE_RESULT = #{record.disposeResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordDate != null">
+        RECORD_DATE = #{record.recordDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recordUsrno != null">
+        RECORD_USRNO = #{record.recordUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordUsrnam != null">
+        RECORD_USRNAM = #{record.recordUsrnam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordStatus != null">
+        RECORD_STATUS = #{record.recordStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remaker != null">
+        REMAKER = #{record.remaker,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remaker1 != null">
+        REMAKER1 = #{record.remaker1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_CFXX_RECORD
+    set RECORD_SEQ = #{record.recordSeq,jdbcType=VARCHAR},
+      DISPOSAL_SEQ = #{record.disposalSeq,jdbcType=VARCHAR},
+      MPI = #{record.mpi,jdbcType=VARCHAR},
+      SITUATION = #{record.situation,jdbcType=VARCHAR},
+      DRUG_TYPE = #{record.drugType,jdbcType=VARCHAR},
+      DRIP_RATE = #{record.dripRate,jdbcType=VARCHAR},
+      DRIP_RATE_DROP = #{record.dripRateDrop,jdbcType=VARCHAR},
+      MARGIN = #{record.margin,jdbcType=VARCHAR},
+      MARGIN_DROP = #{record.marginDrop,jdbcType=VARCHAR},
+      DISPOSE_WAY = #{record.disposeWay,jdbcType=VARCHAR},
+      DISPOSE_RESULT = #{record.disposeResult,jdbcType=VARCHAR},
+      RECORD_DATE = #{record.recordDate,jdbcType=TIMESTAMP},
+      RECORD_USRNO = #{record.recordUsrno,jdbcType=VARCHAR},
+      RECORD_USRNAM = #{record.recordUsrnam,jdbcType=VARCHAR},
+      RECORD_STATUS = #{record.recordStatus,jdbcType=VARCHAR},
+      REMAKER = #{record.remaker,jdbcType=VARCHAR},
+      REMAKER1 = #{record.remaker1,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.pda.pojo.domain.HspCfxxRecord">
+    update HSP_CFXX_RECORD
+    <set>
+      <if test="disposalSeq != null">
+        DISPOSAL_SEQ = #{disposalSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="mpi != null">
+        MPI = #{mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="situation != null">
+        SITUATION = #{situation,jdbcType=VARCHAR},
+      </if>
+      <if test="drugType != null">
+        DRUG_TYPE = #{drugType,jdbcType=VARCHAR},
+      </if>
+      <if test="dripRate != null">
+        DRIP_RATE = #{dripRate,jdbcType=VARCHAR},
+      </if>
+      <if test="dripRateDrop != null">
+        DRIP_RATE_DROP = #{dripRateDrop,jdbcType=VARCHAR},
+      </if>
+      <if test="margin != null">
+        MARGIN = #{margin,jdbcType=VARCHAR},
+      </if>
+      <if test="marginDrop != null">
+        MARGIN_DROP = #{marginDrop,jdbcType=VARCHAR},
+      </if>
+      <if test="disposeWay != null">
+        DISPOSE_WAY = #{disposeWay,jdbcType=VARCHAR},
+      </if>
+      <if test="disposeResult != null">
+        DISPOSE_RESULT = #{disposeResult,jdbcType=VARCHAR},
+      </if>
+      <if test="recordDate != null">
+        RECORD_DATE = #{recordDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordUsrno != null">
+        RECORD_USRNO = #{recordUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="recordUsrnam != null">
+        RECORD_USRNAM = #{recordUsrnam,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS = #{recordStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remaker != null">
+        REMAKER = #{remaker,jdbcType=VARCHAR},
+      </if>
+      <if test="remaker1 != null">
+        REMAKER1 = #{remaker1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RECORD_SEQ = #{recordSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.pda.pojo.domain.HspCfxxRecord">
+    update HSP_CFXX_RECORD
+    set DISPOSAL_SEQ = #{disposalSeq,jdbcType=VARCHAR},
+      MPI = #{mpi,jdbcType=VARCHAR},
+      SITUATION = #{situation,jdbcType=VARCHAR},
+      DRUG_TYPE = #{drugType,jdbcType=VARCHAR},
+      DRIP_RATE = #{dripRate,jdbcType=VARCHAR},
+      DRIP_RATE_DROP = #{dripRateDrop,jdbcType=VARCHAR},
+      MARGIN = #{margin,jdbcType=VARCHAR},
+      MARGIN_DROP = #{marginDrop,jdbcType=VARCHAR},
+      DISPOSE_WAY = #{disposeWay,jdbcType=VARCHAR},
+      DISPOSE_RESULT = #{disposeResult,jdbcType=VARCHAR},
+      RECORD_DATE = #{recordDate,jdbcType=TIMESTAMP},
+      RECORD_USRNO = #{recordUsrno,jdbcType=VARCHAR},
+      RECORD_USRNAM = #{recordUsrnam,jdbcType=VARCHAR},
+      RECORD_STATUS = #{recordStatus,jdbcType=VARCHAR},
+      REMAKER = #{remaker,jdbcType=VARCHAR},
+      REMAKER1 = #{remaker1,jdbcType=VARCHAR}
+    where RECORD_SEQ = #{recordSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,309 @@
+@charset "utf-8";
+
+
+/**
+*  病情护理记录单单独css
+*/
+
+body {
+    min-width: 1180px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+.nursenote {
+    max-width:1240px;
+    /* border:1px solid #9abce9; */
+    float:left;
+    width:100%;
+    /* margin-left:2%; */
+    margin-top:10px;
+    /* padding-bottom:14px; */
+    height:auto;
+}
+
+.nursenote .cutoff{
+    width:99%;
+    float:left;
+    /* margin-top: 15px; */
+    border-bottom:1px solid #444;
+}
+
+.nursenote .content-wrapper{
+    margin:0 auto;
+    width:98%;
+    /* min-width:1160px; */
+}
+.nursenote .subtitle{
+    width:99%;
+    margin-right: 5px;
+    height: 40px;
+}
+
+.nursenote  .checklabel{
+    float:left;
+    margin-right:8px;
+    height: 26px;
+    color: #2a00ff;
+    line-height: 26px;
+}
+.nursenote  .checklabel input[type=checkbox]{
+    vertical-align: middle
+}
+.nursenote .ckLabel{
+    height: 52px;
+    line-height: 26px;
+}
+.div-qt{
+    padding-top: 15px;
+    width: 700px;
+    height: 40px;
+    line-height: 40px;
+    color: #3b3836;
+}
+
+.nursenote .span-right{
+    float: right;
+    padding-right: 5px;
+}
+
+.nursenote .span-left{
+    float: left;
+    margin-top: 5px;
+    padding-left: 5px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.basicli{
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.nursenote .Signinput{
+    width:93px;
+    height: 22px !important;
+}
+.nursenote .xtInput{
+    width: 54px;
+}
+.nursenote .SignSelect{
+    width:100px;
+    margin-left: -3px;
+    padding-left: 0 !important
+}
+.content-ul{
+    width:99%;
+    margin-top: 10px;
+    /* background-color: #f9f9f9; */
+}
+.labtitle{
+    float:left;
+    display:inline-block;
+    width:7em;
+    color:#000;
+    vertical-align:top;
+    text-align:right;
+    font-size:12px;
+    line-height:23px;
+    padding-left: 15px;
+}
+.span-wrapper{
+    width: 94%;
+    padding-bottom: 10px;
+}
+.rlcltb{
+    width: auto;
+    float: left;
+    margin-left: 5px;
+}
+.rlcltb tr {
+    width: 99%;
+}
+.rlcltb tr td {
+    width: 210px;
+}
+.rlcltb tr td:first-child {
+    width: 180px;
+}
+.rlcltb tr td .smallInput {
+    width: 50px;
+}
+.Signsel{
+    width:100px;
+}
+.notearea{
+    width: 880px;
+    height: 100px;
+    margin-left: 5px;
+    padding: 5px;
+}
+.fullli{
+    padding-bottom: 10px;
+    float: left;
+    width: 100%;
+    /* background-color: #f9f9f9; */
+}
+.centerdiv{
+    float:left;
+    padding:8px 0px 0px 0px;
+    margin-left:25%;
+    width:50%;
+    text-align:center;
+}
+.SignQt{
+    width: 438px;
+}
+img{
+    cursor:pointer;
+    margin-top: 5px;
+}
+
+.printbutton{
+    background: url("../../images/hzszyyhems/note/1_03.png") repeat;
+    height: 30px;
+    border: 1px solid #abb6d4;
+    color: #4d72a6;
+    border-radius: 3px;
+    padding: 0 5px;
+    margin: 0 10px;
+    cursor:pointer;
+    line-height: 30px;
+}
+.sti{
+    font-size: 15px;
+    font-weight: 700;
+    color: black;
+    margin-left: 10px;
+}
+.fulltital{
+    padding-bottom: 10px;
+    float: left;
+    width: 100%;
+    background-color: #f9f9f9;
+    margin-top: 15px;
+}
+.nursenote .Wdate{
+    border: 1px solid #DDD;
+    width: 140px;
+}
+.nursenote .userList {
+    display: none;
+    position: absolute;
+    top: 19px;
+    left: 0px;
+    z-index: 3;
+    width: 100%;
+    max-height: 130px;
+    background: rgb(30, 144, 255);
+    border: 1px solid #ddd;
+    cursor: default;
+    overflow-y: scroll;
+}
+.nursenote .userList li:hover{
+    background: rgb(30, 144, 255);
+    text-decoration: none;
+    color: #fff;
+    cursor: default
+}
+.nursenote .userList li{
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    text-indent: 0.5em;
+}
+.nursenote .sxList{
+    display: block;
+    width: 100px;
+    top: 416px;
+    /* left: 404px; */
+    left: 558px;
+}
+.nursenote .sxList li{
+    font-size: 12px;
+}
+.nursenote .tempBtn label{
+    float: left;
+    line-height: 68px;
+    text-indent: 4px;
+}
+.nursenote .tempBtn{
+    display: none;
+    float: left;
+    position: relative;
+    margin-left: 104px;
+    width: 890px;
+    background: #fff;
+    border: 1px solid #d1d1d1;
+}
+.nursenote .commonbtn{
+    width: 88px;
+    padding: 0px 2px;
+    margin: 4px 5px;
+}
+.commonbtn2{
+    margin-left: 45% !important;
+}
+.nursenote .closeImg{
+    position: absolute;
+    right: 4px;
+    margin-top: 30px;
+}
+.normal-labtitle{
+    float:left;
+    display:inline-block;
+    width:6em;
+    color:#000;
+    vertical-align:top;
+    text-align:right;
+    font-size:12px;
+    line-height:23px;
+    padding-left: 15px;
+}
+.checklabel2{
+    color: #2a00ff;
+}
+.formTitle {
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    padding: 10px 0;
+}
+@media screen and (min-device-width: 960px) and (max-device-width: 1280px) {
+    body {
+        min-width: 1100px;
+    }
+    .normal-labtitle {
+        width: 3em;
+    }
+    .nursenote .Signinput {
+        width: 83px;
+    }
+    .nursenote .SignSelect {
+        width: 90px;
+        margin-left: -3px;
+        padding-left: 0 !important
+    }
+    .Signsel{
+        width: 90px;
+    }
+}
+
+.nursenote .readInput {cursor: pointer; width: 60px}
+.nursenote .scoDiv {
+    float: left;
+    margin-right: 2%;
+}
+.right-li {
+    float: right;
+    margin-right: 208px;
+    /* font-size: 14px; */
+}
+.margin-gap {
+    margin-left: 18px;
+}

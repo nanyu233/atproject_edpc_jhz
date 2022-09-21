@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.rfid.dao.mapper.HspUhfTrpCustomMapper">
+
+    <update id="updateByPrimaryKey" parameterType="activetech.rfid.pojo.domain.HspUhfTrp">
+        update HSP_UHF_TRP
+        set TRP_ID      = #{trpId,jdbcType=VARCHAR},
+            TRP_NAM     = #{trpNam,jdbcType=CHAR},
+            TRP_TYP     = #{trpTyp,jdbcType=VARCHAR},
+            TRP_CLS     = #{trpCls,jdbcType=VARCHAR},
+            TYP_PIC     = #{typPic,jdbcType=VARCHAR},
+            TRP_STA     = #{trpSta,jdbcType=CHAR},
+            MOD_USR_NO  = #{modUsrNo,jdbcType=VARCHAR},
+            MOD_USR_NAM = #{modUsrNam,jdbcType=VARCHAR},
+            MOD_TIM     = #{modTim,jdbcType=TIMESTAMP}
+        where TRP_SEQ = #{trpSeq,jdbcType=VARCHAR}
+    </update>
+
+    <insert id="insert" parameterType="activetech.rfid.pojo.domain.HspUhfTrp"
+            useGeneratedKeys="true" keyColumn="trpSeq">
+        <selectKey resultType="java.lang.String" keyProperty="trpSeq" order="BEFORE">
+            select HSP_UHF_TRP_TRP_SEQ.nextval from dual
+        </selectKey>
+        insert into HSP_UHF_TRP (TRP_SEQ,
+                                 TRP_ID,
+                                 TRP_NAM,
+                                 TRP_TYP,
+                                 TRP_CLS,
+                                 TYP_PIC,
+                                 TRP_STA,
+                                 BID_FLG,
+                                 CRT_USR_NO,
+                                 CRT_USR_NAM,
+                                 CRT_TIM)
+        values (#{trpSeq,jdbcType=VARCHAR},
+                #{trpId,jdbcType=VARCHAR},
+                #{trpNam,jdbcType=VARCHAR},
+                #{trpTyp,jdbcType=CHAR},
+                #{trpCls,jdbcType=VARCHAR},
+                #{typPic,jdbcType=VARCHAR},
+                #{trpSta,jdbcType=VARCHAR},
+                #{bidFlg,jdbcType=CHAR},
+                #{crtUsrNo,jdbcType=VARCHAR},
+                #{crtUsrNam,jdbcType=VARCHAR},
+                #{crtTim,jdbcType=TIMESTAMP}
+                )
+    </insert>
+</mapper>

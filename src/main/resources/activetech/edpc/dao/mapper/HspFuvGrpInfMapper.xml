@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspFuvGrpInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspFuvGrpInf" >
+    <id column="FGI_SEQ" property="fgiSeq" jdbcType="VARCHAR" />
+    <result column="FUV_GRP_COD" property="fuvGrpCod" jdbcType="VARCHAR" />
+    <result column="FUV_GRP_NAM" property="fuvGrpNam" jdbcType="VARCHAR" />
+    <result column="FUV_GRP_FST_COD" property="fuvGrpFstCod" jdbcType="VARCHAR" />
+    <result column="CUR_STA" property="curSta" jdbcType="CHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FGI_SEQ, FUV_GRP_COD, FUV_GRP_NAM, FUV_GRP_FST_COD, CUR_STA, MEMO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspFuvGrpInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_FUV_GRP_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_FUV_GRP_INF
+    where FGI_SEQ = #{fgiSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_FUV_GRP_INF
+    where FGI_SEQ = #{fgiSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspFuvGrpInfExample" >
+    delete from HSP_FUV_GRP_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspFuvGrpInf" >
+    insert into HSP_FUV_GRP_INF (FGI_SEQ, FUV_GRP_COD, FUV_GRP_NAM, 
+      FUV_GRP_FST_COD, CUR_STA, MEMO
+      )
+    values (#{fgiSeq,jdbcType=VARCHAR}, #{fuvGrpCod,jdbcType=VARCHAR}, #{fuvGrpNam,jdbcType=VARCHAR}, 
+      #{fuvGrpFstCod,jdbcType=VARCHAR}, #{curSta,jdbcType=CHAR}, #{memo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspFuvGrpInf" >
+    insert into HSP_FUV_GRP_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fgiSeq != null" >
+        FGI_SEQ,
+      </if>
+      <if test="fuvGrpCod != null" >
+        FUV_GRP_COD,
+      </if>
+      <if test="fuvGrpNam != null" >
+        FUV_GRP_NAM,
+      </if>
+      <if test="fuvGrpFstCod != null" >
+        FUV_GRP_FST_COD,
+      </if>
+      <if test="curSta != null" >
+        CUR_STA,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fgiSeq != null" >
+        #{fgiSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvGrpCod != null" >
+        #{fuvGrpCod,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvGrpNam != null" >
+        #{fuvGrpNam,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvGrpFstCod != null" >
+        #{fuvGrpFstCod,jdbcType=VARCHAR},
+      </if>
+      <if test="curSta != null" >
+        #{curSta,jdbcType=CHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspFuvGrpInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_FUV_GRP_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_FUV_GRP_INF
+    <set >
+      <if test="record.fgiSeq != null" >
+        FGI_SEQ = #{record.fgiSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuvGrpCod != null" >
+        FUV_GRP_COD = #{record.fuvGrpCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuvGrpNam != null" >
+        FUV_GRP_NAM = #{record.fuvGrpNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuvGrpFstCod != null" >
+        FUV_GRP_FST_COD = #{record.fuvGrpFstCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.curSta != null" >
+        CUR_STA = #{record.curSta,jdbcType=CHAR},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_FUV_GRP_INF
+    set FGI_SEQ = #{record.fgiSeq,jdbcType=VARCHAR},
+      FUV_GRP_COD = #{record.fuvGrpCod,jdbcType=VARCHAR},
+      FUV_GRP_NAM = #{record.fuvGrpNam,jdbcType=VARCHAR},
+      FUV_GRP_FST_COD = #{record.fuvGrpFstCod,jdbcType=VARCHAR},
+      CUR_STA = #{record.curSta,jdbcType=CHAR},
+      MEMO = #{record.memo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspFuvGrpInf" >
+    update HSP_FUV_GRP_INF
+    <set >
+      <if test="fuvGrpCod != null" >
+        FUV_GRP_COD = #{fuvGrpCod,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvGrpNam != null" >
+        FUV_GRP_NAM = #{fuvGrpNam,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvGrpFstCod != null" >
+        FUV_GRP_FST_COD = #{fuvGrpFstCod,jdbcType=VARCHAR},
+      </if>
+      <if test="curSta != null" >
+        CUR_STA = #{curSta,jdbcType=CHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FGI_SEQ = #{fgiSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspFuvGrpInf" >
+    update HSP_FUV_GRP_INF
+    set FUV_GRP_COD = #{fuvGrpCod,jdbcType=VARCHAR},
+      FUV_GRP_NAM = #{fuvGrpNam,jdbcType=VARCHAR},
+      FUV_GRP_FST_COD = #{fuvGrpFstCod,jdbcType=VARCHAR},
+      CUR_STA = #{curSta,jdbcType=CHAR},
+      MEMO = #{memo,jdbcType=VARCHAR}
+    where FGI_SEQ = #{fgiSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

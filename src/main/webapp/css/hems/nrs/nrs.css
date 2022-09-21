@@ -1,0 +1,132 @@
+.face {
+  margin-right: 20px;
+}
+.slide-wrapper {
+  float: left;
+  width: 500px;
+  margin: 10px 40px;
+}
+.scroll-bar{
+  height: 36px;
+  position: relative;
+  margin-top: 10px;
+}
+.entire-bar{
+  width:100%;
+  height: 4px;
+  top: 12px;
+  left: 0;
+  position: absolute;
+  background: #dedede;
+  z-index: 1;
+}
+.action-bar{
+  top: 12px;
+  height: 4px;
+  position: absolute;
+  background: #0152bd;
+  z-index: 3;
+}
+.action-block{
+  top: 4px;
+  width: 8px;
+  height: 16px;
+  cursor: pointer;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 10px;
+  z-index: 3;
+}
+.leftText {
+  float: left;
+  margin-left: -30px;
+  margin-top: 5px;
+}
+.rightText {
+  float: left;
+  margin-left: 524px;
+  margin-top: -33px;
+  width: 40px;
+}
+.lineScale {
+  width: 2px;
+  height: 14px;
+  position: absolute;
+  background: #AFAFAF;
+  z-index: 0;
+}
+.lineText {
+  position: absolute;
+  top: 18px;
+  height: 16px;
+  cursor: pointer;
+}
+.num-ul, .lan-ul {
+  float: left;
+  margin: 10px 0;
+}
+.num-ul li, .lan-ul li {
+  float: left;
+  width: 20px;
+  padding: 0 10px;
+  margin: 0 6px;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.lan-ul li {
+  width: auto;
+}
+.num-ul li.active, .lan-ul li.active, .num-ul li:hover, .lan-ul li:hover {
+  background: #0152bd;
+  color: #fff;
+}
+.lab-title {
+  float: left;
+  padding: 6px 0;
+  width: 100%;
+  display: inline-block;
+  color: #2a00ff;
+  font-size: 14px;
+}
+.lab-title input[type="radio"] {
+  margin-left: 10px;
+}
+.marginGap {
+  float: left;
+  margin: 10px 0;
+}
+.div.left-score  {
+  float: left;
+  width: 80px;
+  height: 31px;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+div.left-score .score-div {
+  position: absolute;
+  left: 20px;
+  bottom: 10px;
+}
+div.left-score .score-div span {
+  text-align: left;
+  font-size: 18px;
+  color: #000;
+}
+
+div.left-score .score-div i {
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  color: #f0791b;
+}
+.thinTab .paneltab .inputSpan, .thinTab .panelGde table tr {
+  height: 23px !important;
+  line-height: 23px !important;
+}
+.thinTab .panelGde table tr label {
+  cursor: pointer;
+}

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspCspfDefMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspCspfDef" >
+    <id column="PRT_ITEM" property="prtItem" jdbcType="CHAR" />
+    <id column="SUB_ITEM" property="subItem" jdbcType="CHAR" />
+    <id column="OPT_CODE" property="optCode" jdbcType="CHAR" />
+    <result column="SUB_NAME" property="subName" jdbcType="VARCHAR" />
+    <result column="OPT_NAME" property="optName" jdbcType="VARCHAR" />
+    <result column="OPT_SCOE" property="optScoe" jdbcType="DECIMAL" />
+    <result column="PRT_NAME" property="prtName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PRT_ITEM, SUB_ITEM, OPT_CODE, SUB_NAME, OPT_NAME, OPT_SCOE, PRT_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspCspfDefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CSPF_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspCspfDefKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CSPF_DEF
+    where PRT_ITEM = #{prtItem,jdbcType=CHAR}
+      and SUB_ITEM = #{subItem,jdbcType=CHAR}
+      and OPT_CODE = #{optCode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspCspfDefKey" >
+    delete from HSP_CSPF_DEF
+    where PRT_ITEM = #{prtItem,jdbcType=CHAR}
+      and SUB_ITEM = #{subItem,jdbcType=CHAR}
+      and OPT_CODE = #{optCode,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspCspfDefExample" >
+    delete from HSP_CSPF_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspCspfDef" >
+    insert into HSP_CSPF_DEF (PRT_ITEM, SUB_ITEM, OPT_CODE, 
+      SUB_NAME, OPT_NAME, OPT_SCOE, 
+      PRT_NAME)
+    values (#{prtItem,jdbcType=CHAR}, #{subItem,jdbcType=CHAR}, #{optCode,jdbcType=CHAR}, 
+      #{subName,jdbcType=VARCHAR}, #{optName,jdbcType=VARCHAR}, #{optScoe,jdbcType=DECIMAL}, 
+      #{prtName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspCspfDef" >
+    insert into HSP_CSPF_DEF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prtItem != null" >
+        PRT_ITEM,
+      </if>
+      <if test="subItem != null" >
+        SUB_ITEM,
+      </if>
+      <if test="optCode != null" >
+        OPT_CODE,
+      </if>
+      <if test="subName != null" >
+        SUB_NAME,
+      </if>
+      <if test="optName != null" >
+        OPT_NAME,
+      </if>
+      <if test="optScoe != null" >
+        OPT_SCOE,
+      </if>
+      <if test="prtName != null" >
+        PRT_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prtItem != null" >
+        #{prtItem,jdbcType=CHAR},
+      </if>
+      <if test="subItem != null" >
+        #{subItem,jdbcType=CHAR},
+      </if>
+      <if test="optCode != null" >
+        #{optCode,jdbcType=CHAR},
+      </if>
+      <if test="subName != null" >
+        #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="optName != null" >
+        #{optName,jdbcType=VARCHAR},
+      </if>
+      <if test="optScoe != null" >
+        #{optScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="prtName != null" >
+        #{prtName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspCspfDefExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_CSPF_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_CSPF_DEF
+    <set >
+      <if test="record.prtItem != null" >
+        PRT_ITEM = #{record.prtItem,jdbcType=CHAR},
+      </if>
+      <if test="record.subItem != null" >
+        SUB_ITEM = #{record.subItem,jdbcType=CHAR},
+      </if>
+      <if test="record.optCode != null" >
+        OPT_CODE = #{record.optCode,jdbcType=CHAR},
+      </if>
+      <if test="record.subName != null" >
+        SUB_NAME = #{record.subName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optName != null" >
+        OPT_NAME = #{record.optName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optScoe != null" >
+        OPT_SCOE = #{record.optScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="record.prtName != null" >
+        PRT_NAME = #{record.prtName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_CSPF_DEF
+    set PRT_ITEM = #{record.prtItem,jdbcType=CHAR},
+      SUB_ITEM = #{record.subItem,jdbcType=CHAR},
+      OPT_CODE = #{record.optCode,jdbcType=CHAR},
+      SUB_NAME = #{record.subName,jdbcType=VARCHAR},
+      OPT_NAME = #{record.optName,jdbcType=VARCHAR},
+      OPT_SCOE = #{record.optScoe,jdbcType=DECIMAL},
+      PRT_NAME = #{record.prtName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspCspfDef" >
+    update HSP_CSPF_DEF
+    <set >
+      <if test="subName != null" >
+        SUB_NAME = #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="optName != null" >
+        OPT_NAME = #{optName,jdbcType=VARCHAR},
+      </if>
+      <if test="optScoe != null" >
+        OPT_SCOE = #{optScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="prtName != null" >
+        PRT_NAME = #{prtName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PRT_ITEM = #{prtItem,jdbcType=CHAR}
+      and SUB_ITEM = #{subItem,jdbcType=CHAR}
+      and OPT_CODE = #{optCode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspCspfDef" >
+    update HSP_CSPF_DEF
+    set SUB_NAME = #{subName,jdbcType=VARCHAR},
+      OPT_NAME = #{optName,jdbcType=VARCHAR},
+      OPT_SCOE = #{optScoe,jdbcType=DECIMAL},
+      PRT_NAME = #{prtName,jdbcType=VARCHAR}
+    where PRT_ITEM = #{prtItem,jdbcType=CHAR}
+      and SUB_ITEM = #{subItem,jdbcType=CHAR}
+      and OPT_CODE = #{optCode,jdbcType=CHAR}
+  </update>
+</mapper>

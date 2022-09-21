@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.external.dao.mapper.HspJcrwMapper" >
+  <resultMap id="BaseResultMap" type="activetech.external.pojo.domain.HspJcrw" >
+    <id column="LSH" property="lsh" jdbcType="VARCHAR" />
+    <result column="JZKH" property="jzkh" jdbcType="VARCHAR" />
+    <result column="SHRQ" property="shrq" jdbcType="TIMESTAMP" />
+    <result column="YLMC" property="ylmc" jdbcType="VARCHAR" />
+    <result column="BGYSXM" property="bgysxm" jdbcType="VARCHAR" />
+    <result column="SEE" property="see" jdbcType="VARCHAR" />
+    <result column="JCJG" property="jcjg" jdbcType="VARCHAR" />
+    <result column="SHYSXM" property="shysxm" jdbcType="VARCHAR" />
+    <result column="JCYSXM" property="jcysxm" jdbcType="VARCHAR" />
+    <result column="JCSJ" property="jcsj" jdbcType="TIMESTAMP" />
+    <result column="KDYSXM" property="kdysxm" jdbcType="VARCHAR" />
+    <result column="KDSJ" property="kdsj" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    LSH, JZKH, SHRQ, YLMC, BGYSXM, SEE, JCJG, SHYSXM, JCYSXM, JCSJ, KDYSXM, KDSJ
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.external.pojo.domain.HspJcrwExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_JCRW
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_JCRW
+    where LSH = #{lsh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_JCRW
+    where LSH = #{lsh,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.external.pojo.domain.HspJcrwExample" >
+    delete from HSP_JCRW
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.external.pojo.domain.HspJcrw" >
+    insert into HSP_JCRW (LSH, JZKH, SHRQ, 
+      YLMC, BGYSXM, SEE, 
+      JCJG, SHYSXM, JCYSXM, 
+      JCSJ, KDYSXM, KDSJ
+      )
+    values (#{lsh,jdbcType=VARCHAR}, #{jzkh,jdbcType=VARCHAR}, #{shrq,jdbcType=TIMESTAMP}, 
+      #{ylmc,jdbcType=VARCHAR}, #{bgysxm,jdbcType=VARCHAR}, #{see,jdbcType=VARCHAR}, 
+      #{jcjg,jdbcType=VARCHAR}, #{shysxm,jdbcType=VARCHAR}, #{jcysxm,jdbcType=VARCHAR}, 
+      #{jcsj,jdbcType=TIMESTAMP}, #{kdysxm,jdbcType=VARCHAR}, #{kdsj,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.external.pojo.domain.HspJcrw" >
+    insert into HSP_JCRW
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        LSH,
+      </if>
+      <if test="jzkh != null" >
+        JZKH,
+      </if>
+      <if test="shrq != null" >
+        SHRQ,
+      </if>
+      <if test="ylmc != null" >
+        YLMC,
+      </if>
+      <if test="bgysxm != null" >
+        BGYSXM,
+      </if>
+      <if test="see != null" >
+        SEE,
+      </if>
+      <if test="jcjg != null" >
+        JCJG,
+      </if>
+      <if test="shysxm != null" >
+        SHYSXM,
+      </if>
+      <if test="jcysxm != null" >
+        JCYSXM,
+      </if>
+      <if test="jcsj != null" >
+        JCSJ,
+      </if>
+      <if test="kdysxm != null" >
+        KDYSXM,
+      </if>
+      <if test="kdsj != null" >
+        KDSJ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lsh != null" >
+        #{lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="jzkh != null" >
+        #{jzkh,jdbcType=VARCHAR},
+      </if>
+      <if test="shrq != null" >
+        #{shrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ylmc != null" >
+        #{ylmc,jdbcType=VARCHAR},
+      </if>
+      <if test="bgysxm != null" >
+        #{bgysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="see != null" >
+        #{see,jdbcType=VARCHAR},
+      </if>
+      <if test="jcjg != null" >
+        #{jcjg,jdbcType=VARCHAR},
+      </if>
+      <if test="shysxm != null" >
+        #{shysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="jcysxm != null" >
+        #{jcysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="jcsj != null" >
+        #{jcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kdysxm != null" >
+        #{kdysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="kdsj != null" >
+        #{kdsj,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.external.pojo.domain.HspJcrwExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_JCRW
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_JCRW
+    <set >
+      <if test="record.lsh != null" >
+        LSH = #{record.lsh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jzkh != null" >
+        JZKH = #{record.jzkh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shrq != null" >
+        SHRQ = #{record.shrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ylmc != null" >
+        YLMC = #{record.ylmc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bgysxm != null" >
+        BGYSXM = #{record.bgysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.see != null" >
+        SEE = #{record.see,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jcjg != null" >
+        JCJG = #{record.jcjg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shysxm != null" >
+        SHYSXM = #{record.shysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jcysxm != null" >
+        JCYSXM = #{record.jcysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jcsj != null" >
+        JCSJ = #{record.jcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.kdysxm != null" >
+        KDYSXM = #{record.kdysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kdsj != null" >
+        KDSJ = #{record.kdsj,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_JCRW
+    set LSH = #{record.lsh,jdbcType=VARCHAR},
+      JZKH = #{record.jzkh,jdbcType=VARCHAR},
+      SHRQ = #{record.shrq,jdbcType=TIMESTAMP},
+      YLMC = #{record.ylmc,jdbcType=VARCHAR},
+      BGYSXM = #{record.bgysxm,jdbcType=VARCHAR},
+      SEE = #{record.see,jdbcType=VARCHAR},
+      JCJG = #{record.jcjg,jdbcType=VARCHAR},
+      SHYSXM = #{record.shysxm,jdbcType=VARCHAR},
+      JCYSXM = #{record.jcysxm,jdbcType=VARCHAR},
+      JCSJ = #{record.jcsj,jdbcType=TIMESTAMP},
+      KDYSXM = #{record.kdysxm,jdbcType=VARCHAR},
+      KDSJ = #{record.kdsj,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.external.pojo.domain.HspJcrw" >
+    update HSP_JCRW
+    <set >
+      <if test="jzkh != null" >
+        JZKH = #{jzkh,jdbcType=VARCHAR},
+      </if>
+      <if test="shrq != null" >
+        SHRQ = #{shrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ylmc != null" >
+        YLMC = #{ylmc,jdbcType=VARCHAR},
+      </if>
+      <if test="bgysxm != null" >
+        BGYSXM = #{bgysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="see != null" >
+        SEE = #{see,jdbcType=VARCHAR},
+      </if>
+      <if test="jcjg != null" >
+        JCJG = #{jcjg,jdbcType=VARCHAR},
+      </if>
+      <if test="shysxm != null" >
+        SHYSXM = #{shysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="jcysxm != null" >
+        JCYSXM = #{jcysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="jcsj != null" >
+        JCSJ = #{jcsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kdysxm != null" >
+        KDYSXM = #{kdysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="kdsj != null" >
+        KDSJ = #{kdsj,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where LSH = #{lsh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.external.pojo.domain.HspJcrw" >
+    update HSP_JCRW
+    set JZKH = #{jzkh,jdbcType=VARCHAR},
+      SHRQ = #{shrq,jdbcType=TIMESTAMP},
+      YLMC = #{ylmc,jdbcType=VARCHAR},
+      BGYSXM = #{bgysxm,jdbcType=VARCHAR},
+      SEE = #{see,jdbcType=VARCHAR},
+      JCJG = #{jcjg,jdbcType=VARCHAR},
+      SHYSXM = #{shysxm,jdbcType=VARCHAR},
+      JCYSXM = #{jcysxm,jdbcType=VARCHAR},
+      JCSJ = #{jcsj,jdbcType=TIMESTAMP},
+      KDYSXM = #{kdysxm,jdbcType=VARCHAR},
+      KDSJ = #{kdsj,jdbcType=TIMESTAMP}
+    where LSH = #{lsh,jdbcType=VARCHAR}
+  </update>
+</mapper>

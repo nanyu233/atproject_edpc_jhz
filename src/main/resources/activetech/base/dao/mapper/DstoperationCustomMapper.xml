@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.base.dao.mapper.DstoperationCustomMapper">
+ <!-- 操作查询条件 通常情况，为了提高 sql片段可重用性，按单表创建sql片段 -->
+	<!-- 查询列表的总记录数 -->
+	<select id="findOperationCount"  resultType="int">
+		select count(*) from dstoperation where moduleid =#{moduleid}
+	</select>
+	
+	<!-- 查询用户列表 -->
+	<select id="findOperationList"  parameterType="activetech.base.pojo.dto.DstoperationQueryDto"
+		resultType="activetech.base.pojo.dto.DstoperationCustom">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		
+		select 
+		       operateid,
+		       operatename,
+		       url,
+		       moduleid,
+		       icon,
+		       showorder,
+		       (select info from dstdictinfo a where a.typecode='OPERATION_TYPE' and a.infocode=dstoperation.opertype) as opertype,
+		       (select modulename from dstmodule a where a.moduleid=dstoperation.moduleid) as modulename,
+               vchar1,
+               vchar2,
+               vchar3,
+               vchar4
+          from dstoperation where moduleid =#{dstoperationCustom.moduleid}
+          order by dstoperation.opertype asc, showorder asc
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+		</select>
+		
+		<select id="getButtonOperationList"  parameterType="java.lang.String"
+			 resultType="activetech.base.pojo.dto.DstoperationCustom">
+			select * from DSTOPERATION WHERE OPERTYPE=#{opertype}
+		</select>
+  
+</mapper>

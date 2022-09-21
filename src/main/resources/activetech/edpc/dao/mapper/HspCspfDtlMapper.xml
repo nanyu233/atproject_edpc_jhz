@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspCspfDtlMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspCspfDtl" >
+    <id column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <id column="PRT_ITEM" property="prtItem" jdbcType="CHAR" />
+    <id column="SUB_ITEM" property="subItem" jdbcType="CHAR" />
+    <id column="OPT_CODE" property="optCode" jdbcType="CHAR" />
+    <result column="OPT_SCOE" property="optScoe" jdbcType="DECIMAL" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="DATE" />
+    <result column="USR_NO" property="usrNo" jdbcType="VARCHAR" />
+    <result column="USR_NAME" property="usrName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMG_SEQ, PRT_ITEM, SUB_ITEM, OPT_CODE, OPT_SCOE, CRT_TIME, USR_NO, USR_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspCspfDtlExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CSPF_DTL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspCspfDtlKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CSPF_DTL
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+      and PRT_ITEM = #{prtItem,jdbcType=CHAR}
+      and SUB_ITEM = #{subItem,jdbcType=CHAR}
+      and OPT_CODE = #{optCode,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspCspfDtlKey" >
+    delete from HSP_CSPF_DTL
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+      and PRT_ITEM = #{prtItem,jdbcType=CHAR}
+      and SUB_ITEM = #{subItem,jdbcType=CHAR}
+      and OPT_CODE = #{optCode,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspCspfDtlExample" >
+    delete from HSP_CSPF_DTL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspCspfDtl" >
+    insert into HSP_CSPF_DTL (EMG_SEQ, PRT_ITEM, SUB_ITEM, 
+      OPT_CODE, OPT_SCOE, CRT_TIME, 
+      USR_NO, USR_NAME)
+    values (#{emgSeq,jdbcType=VARCHAR}, #{prtItem,jdbcType=CHAR}, #{subItem,jdbcType=CHAR}, 
+      #{optCode,jdbcType=CHAR}, #{optScoe,jdbcType=DECIMAL}, #{crtTime,jdbcType=DATE}, 
+      #{usrNo,jdbcType=VARCHAR}, #{usrName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspCspfDtl" >
+    insert into HSP_CSPF_DTL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="prtItem != null" >
+        PRT_ITEM,
+      </if>
+      <if test="subItem != null" >
+        SUB_ITEM,
+      </if>
+      <if test="optCode != null" >
+        OPT_CODE,
+      </if>
+      <if test="optScoe != null" >
+        OPT_SCOE,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+      <if test="usrNo != null" >
+        USR_NO,
+      </if>
+      <if test="usrName != null" >
+        USR_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="prtItem != null" >
+        #{prtItem,jdbcType=CHAR},
+      </if>
+      <if test="subItem != null" >
+        #{subItem,jdbcType=CHAR},
+      </if>
+      <if test="optCode != null" >
+        #{optCode,jdbcType=CHAR},
+      </if>
+      <if test="optScoe != null" >
+        #{optScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=DATE},
+      </if>
+      <if test="usrNo != null" >
+        #{usrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="usrName != null" >
+        #{usrName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspCspfDtlExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_CSPF_DTL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_CSPF_DTL
+    <set >
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prtItem != null" >
+        PRT_ITEM = #{record.prtItem,jdbcType=CHAR},
+      </if>
+      <if test="record.subItem != null" >
+        SUB_ITEM = #{record.subItem,jdbcType=CHAR},
+      </if>
+      <if test="record.optCode != null" >
+        OPT_CODE = #{record.optCode,jdbcType=CHAR},
+      </if>
+      <if test="record.optScoe != null" >
+        OPT_SCOE = #{record.optScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="record.crtTime != null" >
+        CRT_TIME = #{record.crtTime,jdbcType=DATE},
+      </if>
+      <if test="record.usrNo != null" >
+        USR_NO = #{record.usrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrName != null" >
+        USR_NAME = #{record.usrName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_CSPF_DTL
+    set EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      PRT_ITEM = #{record.prtItem,jdbcType=CHAR},
+      SUB_ITEM = #{record.subItem,jdbcType=CHAR},
+      OPT_CODE = #{record.optCode,jdbcType=CHAR},
+      OPT_SCOE = #{record.optScoe,jdbcType=DECIMAL},
+      CRT_TIME = #{record.crtTime,jdbcType=DATE},
+      USR_NO = #{record.usrNo,jdbcType=VARCHAR},
+      USR_NAME = #{record.usrName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspCspfDtl" >
+    update HSP_CSPF_DTL
+    <set >
+      <if test="optScoe != null" >
+        OPT_SCOE = #{optScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME = #{crtTime,jdbcType=DATE},
+      </if>
+      <if test="usrNo != null" >
+        USR_NO = #{usrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="usrName != null" >
+        USR_NAME = #{usrName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+      and PRT_ITEM = #{prtItem,jdbcType=CHAR}
+      and SUB_ITEM = #{subItem,jdbcType=CHAR}
+      and OPT_CODE = #{optCode,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspCspfDtl" >
+    update HSP_CSPF_DTL
+    set OPT_SCOE = #{optScoe,jdbcType=DECIMAL},
+      CRT_TIME = #{crtTime,jdbcType=DATE},
+      USR_NO = #{usrNo,jdbcType=VARCHAR},
+      USR_NAME = #{usrName,jdbcType=VARCHAR}
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+      and PRT_ITEM = #{prtItem,jdbcType=CHAR}
+      and SUB_ITEM = #{subItem,jdbcType=CHAR}
+      and OPT_CODE = #{optCode,jdbcType=CHAR}
+  </update>
+</mapper>

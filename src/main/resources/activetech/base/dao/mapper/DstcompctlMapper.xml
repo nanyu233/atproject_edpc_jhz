@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.DstcompctlMapper" >
+  <resultMap id="BaseResultMap" type="activetech.base.pojo.domain.Dstcompctl" >
+    <id column="COMNO" property="comno" jdbcType="VARCHAR" />
+    <result column="COMCNAME" property="comcname" jdbcType="VARCHAR" />
+    <result column="COMMAN" property="comman" jdbcType="VARCHAR" />
+    <result column="AREAID" property="areaid" jdbcType="VARCHAR" />
+    <result column="ISENABLE" property="isenable" jdbcType="CHAR" />
+    <result column="ADDR" property="addr" jdbcType="VARCHAR" />
+    <result column="POST" property="post" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="VCHAR1" property="vchar1" jdbcType="VARCHAR" />
+    <result column="VCHAR2" property="vchar2" jdbcType="VARCHAR" />
+    <result column="VCHAR3" property="vchar3" jdbcType="VARCHAR" />
+    <result column="VCHAR4" property="vchar4" jdbcType="VARCHAR" />
+    <result column="PYBM" property="pybm" jdbcType="VARCHAR" />
+    <result column="SHOWORDER" property="showorder" jdbcType="DECIMAL" />
+    <result column="IS_JZKS" property="isJzks" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    COMNO, COMCNAME, COMMAN, AREAID, ISENABLE, ADDR, POST, FAX, PHONE, VCHAR1, VCHAR2, 
+    VCHAR3, VCHAR4, PYBM, SHOWORDER, IS_JZKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.base.pojo.domain.DstcompctlExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DSTCOMPCTL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DSTCOMPCTL
+    where COMNO = #{comno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DSTCOMPCTL
+    where COMNO = #{comno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.DstcompctlExample" >
+    delete from DSTCOMPCTL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.base.pojo.domain.Dstcompctl" >
+    insert into DSTCOMPCTL (COMNO, COMCNAME, COMMAN, 
+      AREAID, ISENABLE, ADDR, 
+      POST, FAX, PHONE, VCHAR1, 
+      VCHAR2, VCHAR3, VCHAR4, 
+      PYBM, SHOWORDER, IS_JZKS
+      )
+    values (#{comno,jdbcType=VARCHAR}, #{comcname,jdbcType=VARCHAR}, #{comman,jdbcType=VARCHAR}, 
+      #{areaid,jdbcType=VARCHAR}, #{isenable,jdbcType=CHAR}, #{addr,jdbcType=VARCHAR}, 
+      #{post,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{vchar1,jdbcType=VARCHAR}, 
+      #{vchar2,jdbcType=VARCHAR}, #{vchar3,jdbcType=VARCHAR}, #{vchar4,jdbcType=VARCHAR}, 
+      #{pybm,jdbcType=VARCHAR}, #{showorder,jdbcType=DECIMAL}, #{isJzks,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.base.pojo.domain.Dstcompctl" >
+    insert into DSTCOMPCTL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="comno != null" >
+        COMNO,
+      </if>
+      <if test="comcname != null" >
+        COMCNAME,
+      </if>
+      <if test="comman != null" >
+        COMMAN,
+      </if>
+      <if test="areaid != null" >
+        AREAID,
+      </if>
+      <if test="isenable != null" >
+        ISENABLE,
+      </if>
+      <if test="addr != null" >
+        ADDR,
+      </if>
+      <if test="post != null" >
+        POST,
+      </if>
+      <if test="fax != null" >
+        FAX,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="vchar1 != null" >
+        VCHAR1,
+      </if>
+      <if test="vchar2 != null" >
+        VCHAR2,
+      </if>
+      <if test="vchar3 != null" >
+        VCHAR3,
+      </if>
+      <if test="vchar4 != null" >
+        VCHAR4,
+      </if>
+      <if test="pybm != null" >
+        PYBM,
+      </if>
+      <if test="showorder != null" >
+        SHOWORDER,
+      </if>
+      <if test="isJzks != null" >
+        IS_JZKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="comno != null" >
+        #{comno,jdbcType=VARCHAR},
+      </if>
+      <if test="comcname != null" >
+        #{comcname,jdbcType=VARCHAR},
+      </if>
+      <if test="comman != null" >
+        #{comman,jdbcType=VARCHAR},
+      </if>
+      <if test="areaid != null" >
+        #{areaid,jdbcType=VARCHAR},
+      </if>
+      <if test="isenable != null" >
+        #{isenable,jdbcType=CHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar1 != null" >
+        #{vchar1,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar2 != null" >
+        #{vchar2,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar3 != null" >
+        #{vchar3,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar4 != null" >
+        #{vchar4,jdbcType=VARCHAR},
+      </if>
+      <if test="pybm != null" >
+        #{pybm,jdbcType=VARCHAR},
+      </if>
+      <if test="showorder != null" >
+        #{showorder,jdbcType=DECIMAL},
+      </if>
+      <if test="isJzks != null" >
+        #{isJzks,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.base.pojo.domain.DstcompctlExample" resultType="java.lang.Integer" >
+    select count(*) from DSTCOMPCTL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DSTCOMPCTL
+    <set >
+      <if test="record.comno != null" >
+        COMNO = #{record.comno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comcname != null" >
+        COMCNAME = #{record.comcname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comman != null" >
+        COMMAN = #{record.comman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaid != null" >
+        AREAID = #{record.areaid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isenable != null" >
+        ISENABLE = #{record.isenable,jdbcType=CHAR},
+      </if>
+      <if test="record.addr != null" >
+        ADDR = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.post != null" >
+        POST = #{record.post,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        FAX = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        PHONE = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar1 != null" >
+        VCHAR1 = #{record.vchar1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar2 != null" >
+        VCHAR2 = #{record.vchar2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar3 != null" >
+        VCHAR3 = #{record.vchar3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar4 != null" >
+        VCHAR4 = #{record.vchar4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pybm != null" >
+        PYBM = #{record.pybm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showorder != null" >
+        SHOWORDER = #{record.showorder,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isJzks != null" >
+        IS_JZKS = #{record.isJzks,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DSTCOMPCTL
+    set COMNO = #{record.comno,jdbcType=VARCHAR},
+      COMCNAME = #{record.comcname,jdbcType=VARCHAR},
+      COMMAN = #{record.comman,jdbcType=VARCHAR},
+      AREAID = #{record.areaid,jdbcType=VARCHAR},
+      ISENABLE = #{record.isenable,jdbcType=CHAR},
+      ADDR = #{record.addr,jdbcType=VARCHAR},
+      POST = #{record.post,jdbcType=VARCHAR},
+      FAX = #{record.fax,jdbcType=VARCHAR},
+      PHONE = #{record.phone,jdbcType=VARCHAR},
+      VCHAR1 = #{record.vchar1,jdbcType=VARCHAR},
+      VCHAR2 = #{record.vchar2,jdbcType=VARCHAR},
+      VCHAR3 = #{record.vchar3,jdbcType=VARCHAR},
+      VCHAR4 = #{record.vchar4,jdbcType=VARCHAR},
+      PYBM = #{record.pybm,jdbcType=VARCHAR},
+      SHOWORDER = #{record.showorder,jdbcType=DECIMAL},
+      IS_JZKS = #{record.isJzks,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.Dstcompctl" >
+    update DSTCOMPCTL
+    <set >
+      <if test="comcname != null" >
+        COMCNAME = #{comcname,jdbcType=VARCHAR},
+      </if>
+      <if test="comman != null" >
+        COMMAN = #{comman,jdbcType=VARCHAR},
+      </if>
+      <if test="areaid != null" >
+        AREAID = #{areaid,jdbcType=VARCHAR},
+      </if>
+      <if test="isenable != null" >
+        ISENABLE = #{isenable,jdbcType=CHAR},
+      </if>
+      <if test="addr != null" >
+        ADDR = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        POST = #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        FAX = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar1 != null" >
+        VCHAR1 = #{vchar1,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar2 != null" >
+        VCHAR2 = #{vchar2,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar3 != null" >
+        VCHAR3 = #{vchar3,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar4 != null" >
+        VCHAR4 = #{vchar4,jdbcType=VARCHAR},
+      </if>
+      <if test="pybm != null" >
+        PYBM = #{pybm,jdbcType=VARCHAR},
+      </if>
+      <if test="showorder != null" >
+        SHOWORDER = #{showorder,jdbcType=DECIMAL},
+      </if>
+      <if test="isJzks != null" >
+        IS_JZKS = #{isJzks,jdbcType=CHAR},
+      </if>
+    </set>
+    where COMNO = #{comno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.Dstcompctl" >
+    update DSTCOMPCTL
+    set COMCNAME = #{comcname,jdbcType=VARCHAR},
+      COMMAN = #{comman,jdbcType=VARCHAR},
+      AREAID = #{areaid,jdbcType=VARCHAR},
+      ISENABLE = #{isenable,jdbcType=CHAR},
+      ADDR = #{addr,jdbcType=VARCHAR},
+      POST = #{post,jdbcType=VARCHAR},
+      FAX = #{fax,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      VCHAR1 = #{vchar1,jdbcType=VARCHAR},
+      VCHAR2 = #{vchar2,jdbcType=VARCHAR},
+      VCHAR3 = #{vchar3,jdbcType=VARCHAR},
+      VCHAR4 = #{vchar4,jdbcType=VARCHAR},
+      PYBM = #{pybm,jdbcType=VARCHAR},
+      SHOWORDER = #{showorder,jdbcType=DECIMAL},
+      IS_JZKS = #{isJzks,jdbcType=CHAR}
+    where COMNO = #{comno,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.base.dao.mapper.DstroleCustomMapper">
+	<!-- 角色是查询条件 通常情况，为了提高 sql片段可重用性，按单表创建sql片段 -->
+	<sql id="query_role_where">
+		<if test="dstroleCustom!=null">
+			<if test="dstroleCustom.roleid!=null and dstroleCustom.roleid!=''">
+				and dstrole.roleid = #{dstroleCustom.roleid}
+			</if>
+			<if test="dstroleCustom.rolename!=null and dstroleCustom.rolename!=''">
+				and dstrole.rolename like  '%'|| #{dstroleCustom.rolename}||'%' 
+			</if>
+		</if>
+	</sql>
+	<!-- 查询列表的总记录数 -->
+	<select id="findRoleCount" parameterType="activetech.base.pojo.dto.DstroleQueryDto" resultType="int">
+		select count(*) from dstrole
+		<where>
+			<include refid="query_role_where" />
+		</where>
+	</select>
+	
+	<!-- 查询角色列表 -->
+	<select id="findRoleList" parameterType="activetech.base.pojo.dto.DstroleQueryDto"
+		resultType="activetech.base.pojo.dto.DstroleCustom">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		
+		select roleid,
+               rolename,
+               roledes,
+               indexurl,
+               indexname,
+               (select count(*)
+                  from dstrolemodule 
+                 where dstrolemodule.roleid = dstrole.roleid) qxcount
+          from dstrole 
+		<where>
+			<include refid="query_role_where" />
+		</where>
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+  	
+  	<select id="findRoleAllNoUsrno" parameterType="java.lang.String"
+		resultType="activetech.base.pojo.dto.DstroleCustom">
+		select roleid, rolename, roledes
+  		from dstrole
+        where roleid not in (select roleid from dstuserrole where usrno=#{usrno}) 
+	</select>
+	
+</mapper>

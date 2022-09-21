@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspXtAddMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspXtAdd" >
+    <id column="XT_SEQ" property="xtSeq" jdbcType="VARCHAR" />
+    <result column="WAY_TYP" property="wayTyp" jdbcType="CHAR" />
+    <result column="MPI_NO" property="mpiNo" jdbcType="VARCHAR" />
+    <result column="SAD_ID" property="sadId" jdbcType="VARCHAR" />
+    <result column="VST_CAD" property="vstCad" jdbcType="VARCHAR" />
+    <result column="ADM_NBR" property="admNbr" jdbcType="VARCHAR" />
+    <result column="ID_NBR" property="idNbr" jdbcType="VARCHAR" />
+    <result column="CST_NAM" property="cstNam" jdbcType="VARCHAR" />
+    <result column="CST_SEX_COD" property="cstSexCod" jdbcType="VARCHAR" />
+    <result column="BTH_DAT" property="bthDat" jdbcType="DATE" />
+    <result column="CST_AGE" property="cstAge" jdbcType="VARCHAR" />
+    <result column="CST_AGE_COD" property="cstAgeCod" jdbcType="VARCHAR" />
+    <result column="PHE_NBR" property="pheNbr" jdbcType="VARCHAR" />
+    <result column="CST_ADR" property="cstAdr" jdbcType="VARCHAR" />
+    <result column="SEN_RCT" property="senRct" jdbcType="VARCHAR" />
+    <result column="BRE_NBR" property="breNbr" jdbcType="DECIMAL" />
+    <result column="PUL_FQY" property="pulFqy" jdbcType="DECIMAL" />
+    <result column="HRT_RTE" property="hrtRte" jdbcType="DECIMAL" />
+    <result column="SBP_NBR" property="sbpNbr" jdbcType="DECIMAL" />
+    <result column="DBP_NBR" property="dbpNbr" jdbcType="DECIMAL" />
+    <result column="BLD_OXY" property="bldOxy" jdbcType="DECIMAL" />
+    <result column="TMP_NBR" property="tmpNbr" jdbcType="DECIMAL" />
+    <result column="REP_DOC" property="repDoc" jdbcType="VARCHAR" />
+    <result column="DOC_DIA" property="docDia" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="REG_TIM" property="regTim" jdbcType="TIMESTAMP" />
+    <result column="HSP_DEP" property="hspDep" jdbcType="VARCHAR" />
+    <result column="ILL_DEP" property="illDep" jdbcType="VARCHAR" />
+    <result column="ILL_TIM" property="illTim" jdbcType="TIMESTAMP" />
+    <result column="CBP_FLG" property="cbpFlg" jdbcType="CHAR" />
+    <result column="ILL_PRD" property="illPrd" jdbcType="VARCHAR" />
+    <result column="CON_ASS" property="conAss" jdbcType="VARCHAR" />
+    <result column="CON_ASS_DTL" property="conAssDtl" jdbcType="VARCHAR" />
+    <result column="FST_TIM" property="fstTim" jdbcType="TIMESTAMP" />
+    <result column="LVE_TIM" property="lveTim" jdbcType="TIMESTAMP" />
+    <result column="CRT_USR" property="crtUsr" jdbcType="VARCHAR" />
+    <result column="CRT_TIM" property="crtTim" jdbcType="TIMESTAMP" />
+    <result column="MOD_USR" property="modUsr" jdbcType="VARCHAR" />
+    <result column="MOD_TIM" property="modTim" jdbcType="TIMESTAMP" />
+    <result column="WAY_TYP_SUB" property="wayTypSub" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    XT_SEQ, WAY_TYP, MPI_NO, SAD_ID, VST_CAD, ADM_NBR, ID_NBR, CST_NAM, CST_SEX_COD, 
+    BTH_DAT, CST_AGE, CST_AGE_COD, PHE_NBR, CST_ADR, SEN_RCT, BRE_NBR, PUL_FQY, HRT_RTE, 
+    SBP_NBR, DBP_NBR, BLD_OXY, TMP_NBR, REP_DOC, DOC_DIA, STATUS, REG_TIM, HSP_DEP, ILL_DEP, 
+    ILL_TIM, CBP_FLG, ILL_PRD, CON_ASS, CON_ASS_DTL, FST_TIM, LVE_TIM, CRT_USR, CRT_TIM, 
+    MOD_USR, MOD_TIM, WAY_TYP_SUB
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspXtAddExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_XT_ADD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_XT_ADD
+    where XT_SEQ = #{xtSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_XT_ADD
+    where XT_SEQ = #{xtSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspXtAddExample" >
+    delete from HSP_XT_ADD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspXtAdd" >
+    insert into HSP_XT_ADD (XT_SEQ, WAY_TYP, MPI_NO, 
+      SAD_ID, VST_CAD, ADM_NBR, 
+      ID_NBR, CST_NAM, CST_SEX_COD, 
+      BTH_DAT, CST_AGE, CST_AGE_COD, 
+      PHE_NBR, CST_ADR, SEN_RCT, 
+      BRE_NBR, PUL_FQY, HRT_RTE, 
+      SBP_NBR, DBP_NBR, BLD_OXY, 
+      TMP_NBR, REP_DOC, DOC_DIA, 
+      STATUS, REG_TIM, HSP_DEP, ILL_DEP, 
+      ILL_TIM, CBP_FLG, ILL_PRD, CON_ASS, 
+      CON_ASS_DTL, FST_TIM, LVE_TIM, 
+      CRT_USR, CRT_TIM, MOD_USR, 
+      MOD_TIM, WAY_TYP_SUB)
+    values (#{xtSeq,jdbcType=VARCHAR}, #{wayTyp,jdbcType=CHAR}, #{mpiNo,jdbcType=VARCHAR}, 
+      #{sadId,jdbcType=VARCHAR}, #{vstCad,jdbcType=VARCHAR}, #{admNbr,jdbcType=VARCHAR}, 
+      #{idNbr,jdbcType=VARCHAR}, #{cstNam,jdbcType=VARCHAR}, #{cstSexCod,jdbcType=VARCHAR}, 
+      #{bthDat,jdbcType=DATE}, #{cstAge,jdbcType=VARCHAR}, #{cstAgeCod,jdbcType=VARCHAR}, 
+      #{pheNbr,jdbcType=VARCHAR}, #{cstAdr,jdbcType=VARCHAR}, #{senRct,jdbcType=VARCHAR}, 
+      #{breNbr,jdbcType=DECIMAL}, #{pulFqy,jdbcType=DECIMAL}, #{hrtRte,jdbcType=DECIMAL}, 
+      #{sbpNbr,jdbcType=DECIMAL}, #{dbpNbr,jdbcType=DECIMAL}, #{bldOxy,jdbcType=DECIMAL}, 
+      #{tmpNbr,jdbcType=DECIMAL}, #{repDoc,jdbcType=VARCHAR}, #{docDia,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{regTim,jdbcType=DATE}, #{hspDep,jdbcType=VARCHAR}, #{illDep,jdbcType=VARCHAR}, 
+      #{illTim,jdbcType=DATE}, #{cbpFlg,jdbcType=CHAR}, #{illPrd,jdbcType=VARCHAR}, #{conAss,jdbcType=VARCHAR}, 
+      #{conAssDtl,jdbcType=VARCHAR}, #{fstTim,jdbcType=DATE}, #{lveTim,jdbcType=DATE}, 
+      #{crtUsr,jdbcType=VARCHAR}, #{crtTim,jdbcType=DATE}, #{modUsr,jdbcType=VARCHAR}, 
+      #{modTim,jdbcType=DATE}, #{wayTypSub,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspXtAdd" >
+    insert into HSP_XT_ADD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xtSeq != null" >
+        XT_SEQ,
+      </if>
+      <if test="wayTyp != null" >
+        WAY_TYP,
+      </if>
+      <if test="mpiNo != null" >
+        MPI_NO,
+      </if>
+      <if test="sadId != null" >
+        SAD_ID,
+      </if>
+      <if test="vstCad != null" >
+        VST_CAD,
+      </if>
+      <if test="admNbr != null" >
+        ADM_NBR,
+      </if>
+      <if test="idNbr != null" >
+        ID_NBR,
+      </if>
+      <if test="cstNam != null" >
+        CST_NAM,
+      </if>
+      <if test="cstSexCod != null" >
+        CST_SEX_COD,
+      </if>
+      <if test="bthDat != null" >
+        BTH_DAT,
+      </if>
+      <if test="cstAge != null" >
+        CST_AGE,
+      </if>
+      <if test="cstAgeCod != null" >
+        CST_AGE_COD,
+      </if>
+      <if test="pheNbr != null" >
+        PHE_NBR,
+      </if>
+      <if test="cstAdr != null" >
+        CST_ADR,
+      </if>
+      <if test="senRct != null" >
+        SEN_RCT,
+      </if>
+      <if test="breNbr != null" >
+        BRE_NBR,
+      </if>
+      <if test="pulFqy != null" >
+        PUL_FQY,
+      </if>
+      <if test="hrtRte != null" >
+        HRT_RTE,
+      </if>
+      <if test="sbpNbr != null" >
+        SBP_NBR,
+      </if>
+      <if test="dbpNbr != null" >
+        DBP_NBR,
+      </if>
+      <if test="bldOxy != null" >
+        BLD_OXY,
+      </if>
+      <if test="tmpNbr != null" >
+        TMP_NBR,
+      </if>
+      <if test="repDoc != null" >
+        REP_DOC,
+      </if>
+      <if test="docDia != null" >
+        DOC_DIA,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="regTim != null" >
+        REG_TIM,
+      </if>
+      <if test="hspDep != null" >
+        HSP_DEP,
+      </if>
+      <if test="illDep != null" >
+        ILL_DEP,
+      </if>
+      <if test="illTim != null" >
+        ILL_TIM,
+      </if>
+      <if test="cbpFlg != null" >
+        CBP_FLG,
+      </if>
+      <if test="illPrd != null" >
+        ILL_PRD,
+      </if>
+      <if test="conAss != null" >
+        CON_ASS,
+      </if>
+      <if test="conAssDtl != null" >
+        CON_ASS_DTL,
+      </if>
+      <if test="fstTim != null" >
+        FST_TIM,
+      </if>
+      <if test="lveTim != null" >
+        LVE_TIM,
+      </if>
+      <if test="crtUsr != null" >
+        CRT_USR,
+      </if>
+      <if test="crtTim != null" >
+        CRT_TIM,
+      </if>
+      <if test="modUsr != null" >
+        MOD_USR,
+      </if>
+      <if test="modTim != null" >
+        MOD_TIM,
+      </if>
+      <if test="wayTypSub != null" >
+        WAY_TYP_SUB,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xtSeq != null" >
+        #{xtSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="wayTyp != null" >
+        #{wayTyp,jdbcType=CHAR},
+      </if>
+      <if test="mpiNo != null" >
+        #{mpiNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sadId != null" >
+        #{sadId,jdbcType=VARCHAR},
+      </if>
+      <if test="vstCad != null" >
+        #{vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="admNbr != null" >
+        #{admNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="idNbr != null" >
+        #{idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cstNam != null" >
+        #{cstNam,jdbcType=VARCHAR},
+      </if>
+      <if test="cstSexCod != null" >
+        #{cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bthDat != null" >
+        #{bthDat,jdbcType=DATE},
+      </if>
+      <if test="cstAge != null" >
+        #{cstAge,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAgeCod != null" >
+        #{cstAgeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="pheNbr != null" >
+        #{pheNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAdr != null" >
+        #{cstAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="senRct != null" >
+        #{senRct,jdbcType=VARCHAR},
+      </if>
+      <if test="breNbr != null" >
+        #{breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="pulFqy != null" >
+        #{pulFqy,jdbcType=DECIMAL},
+      </if>
+      <if test="hrtRte != null" >
+        #{hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpNbr != null" >
+        #{sbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="dbpNbr != null" >
+        #{dbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="bldOxy != null" >
+        #{bldOxy,jdbcType=DECIMAL},
+      </if>
+      <if test="tmpNbr != null" >
+        #{tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="repDoc != null" >
+        #{repDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="docDia != null" >
+        #{docDia,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="regTim != null" >
+        #{regTim,jdbcType=DATE},
+      </if>
+      <if test="hspDep != null" >
+        #{hspDep,jdbcType=VARCHAR},
+      </if>
+      <if test="illDep != null" >
+        #{illDep,jdbcType=VARCHAR},
+      </if>
+      <if test="illTim != null" >
+        #{illTim,jdbcType=DATE},
+      </if>
+      <if test="cbpFlg != null" >
+        #{cbpFlg,jdbcType=CHAR},
+      </if>
+      <if test="illPrd != null" >
+        #{illPrd,jdbcType=VARCHAR},
+      </if>
+      <if test="conAss != null" >
+        #{conAss,jdbcType=VARCHAR},
+      </if>
+      <if test="conAssDtl != null" >
+        #{conAssDtl,jdbcType=VARCHAR},
+      </if>
+      <if test="fstTim != null" >
+        #{fstTim,jdbcType=DATE},
+      </if>
+      <if test="lveTim != null" >
+        #{lveTim,jdbcType=DATE},
+      </if>
+      <if test="crtUsr != null" >
+        #{crtUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null" >
+        #{crtTim,jdbcType=DATE},
+      </if>
+      <if test="modUsr != null" >
+        #{modUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null" >
+        #{modTim,jdbcType=DATE},
+      </if>
+      <if test="wayTypSub != null" >
+        #{wayTypSub,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspXtAddExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_XT_ADD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_XT_ADD
+    <set >
+      <if test="record.xtSeq != null" >
+        XT_SEQ = #{record.xtSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wayTyp != null" >
+        WAY_TYP = #{record.wayTyp,jdbcType=CHAR},
+      </if>
+      <if test="record.mpiNo != null" >
+        MPI_NO = #{record.mpiNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sadId != null" >
+        SAD_ID = #{record.sadId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vstCad != null" >
+        VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="record.admNbr != null" >
+        ADM_NBR = #{record.admNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idNbr != null" >
+        ID_NBR = #{record.idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstNam != null" >
+        CST_NAM = #{record.cstNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstSexCod != null" >
+        CST_SEX_COD = #{record.cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bthDat != null" >
+        BTH_DAT = #{record.bthDat,jdbcType=DATE},
+      </if>
+      <if test="record.cstAge != null" >
+        CST_AGE = #{record.cstAge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstAgeCod != null" >
+        CST_AGE_COD = #{record.cstAgeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pheNbr != null" >
+        PHE_NBR = #{record.pheNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstAdr != null" >
+        CST_ADR = #{record.cstAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senRct != null" >
+        SEN_RCT = #{record.senRct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.breNbr != null" >
+        BRE_NBR = #{record.breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pulFqy != null" >
+        PUL_FQY = #{record.pulFqy,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hrtRte != null" >
+        HRT_RTE = #{record.hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sbpNbr != null" >
+        SBP_NBR = #{record.sbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dbpNbr != null" >
+        DBP_NBR = #{record.dbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bldOxy != null" >
+        BLD_OXY = #{record.bldOxy,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tmpNbr != null" >
+        TMP_NBR = #{record.tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repDoc != null" >
+        REP_DOC = #{record.repDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docDia != null" >
+        DOC_DIA = #{record.docDia,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.regTim != null" >
+        REG_TIM = #{record.regTim,jdbcType=DATE},
+      </if>
+      <if test="record.hspDep != null" >
+        HSP_DEP = #{record.hspDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.illDep != null" >
+        ILL_DEP = #{record.illDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.illTim != null" >
+        ILL_TIM = #{record.illTim,jdbcType=DATE},
+      </if>
+      <if test="record.cbpFlg != null" >
+        CBP_FLG = #{record.cbpFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.illPrd != null" >
+        ILL_PRD = #{record.illPrd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conAss != null" >
+        CON_ASS = #{record.conAss,jdbcType=VARCHAR},
+      </if>
+      <if test="record.conAssDtl != null" >
+        CON_ASS_DTL = #{record.conAssDtl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fstTim != null" >
+        FST_TIM = #{record.fstTim,jdbcType=DATE},
+      </if>
+      <if test="record.lveTim != null" >
+        LVE_TIM = #{record.lveTim,jdbcType=DATE},
+      </if>
+      <if test="record.crtUsr != null" >
+        CRT_USR = #{record.crtUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTim != null" >
+        CRT_TIM = #{record.crtTim,jdbcType=DATE},
+      </if>
+      <if test="record.modUsr != null" >
+        MOD_USR = #{record.modUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTim != null" >
+        MOD_TIM = #{record.modTim,jdbcType=DATE},
+      </if>
+      <if test="record.wayTypSub != null" >
+        WAY_TYP_SUB = #{record.wayTypSub,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_XT_ADD
+    set XT_SEQ = #{record.xtSeq,jdbcType=VARCHAR},
+      WAY_TYP = #{record.wayTyp,jdbcType=CHAR},
+      MPI_NO = #{record.mpiNo,jdbcType=VARCHAR},
+      SAD_ID = #{record.sadId,jdbcType=VARCHAR},
+      VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      ADM_NBR = #{record.admNbr,jdbcType=VARCHAR},
+      ID_NBR = #{record.idNbr,jdbcType=VARCHAR},
+      CST_NAM = #{record.cstNam,jdbcType=VARCHAR},
+      CST_SEX_COD = #{record.cstSexCod,jdbcType=VARCHAR},
+      BTH_DAT = #{record.bthDat,jdbcType=DATE},
+      CST_AGE = #{record.cstAge,jdbcType=VARCHAR},
+      CST_AGE_COD = #{record.cstAgeCod,jdbcType=VARCHAR},
+      PHE_NBR = #{record.pheNbr,jdbcType=VARCHAR},
+      CST_ADR = #{record.cstAdr,jdbcType=VARCHAR},
+      SEN_RCT = #{record.senRct,jdbcType=VARCHAR},
+      BRE_NBR = #{record.breNbr,jdbcType=DECIMAL},
+      PUL_FQY = #{record.pulFqy,jdbcType=DECIMAL},
+      HRT_RTE = #{record.hrtRte,jdbcType=DECIMAL},
+      SBP_NBR = #{record.sbpNbr,jdbcType=DECIMAL},
+      DBP_NBR = #{record.dbpNbr,jdbcType=DECIMAL},
+      BLD_OXY = #{record.bldOxy,jdbcType=DECIMAL},
+      TMP_NBR = #{record.tmpNbr,jdbcType=DECIMAL},
+      REP_DOC = #{record.repDoc,jdbcType=VARCHAR},
+      DOC_DIA = #{record.docDia,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=CHAR},
+      REG_TIM = #{record.regTim,jdbcType=DATE},
+      HSP_DEP = #{record.hspDep,jdbcType=VARCHAR},
+      ILL_DEP = #{record.illDep,jdbcType=VARCHAR},
+      ILL_TIM = #{record.illTim,jdbcType=DATE},
+      CBP_FLG = #{record.cbpFlg,jdbcType=CHAR},
+      ILL_PRD = #{record.illPrd,jdbcType=VARCHAR},
+      CON_ASS = #{record.conAss,jdbcType=VARCHAR},
+      CON_ASS_DTL = #{record.conAssDtl,jdbcType=VARCHAR},
+      FST_TIM = #{record.fstTim,jdbcType=DATE},
+      LVE_TIM = #{record.lveTim,jdbcType=DATE},
+      CRT_USR = #{record.crtUsr,jdbcType=VARCHAR},
+      CRT_TIM = #{record.crtTim,jdbcType=DATE},
+      MOD_USR = #{record.modUsr,jdbcType=VARCHAR},
+      MOD_TIM = #{record.modTim,jdbcType=DATE},
+      WAY_TYP_SUB = #{record.wayTypSub,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspXtAdd" >
+    update HSP_XT_ADD
+    <set >
+      <if test="wayTyp != null" >
+        WAY_TYP = #{wayTyp,jdbcType=CHAR},
+      </if>
+      <if test="mpiNo != null" >
+        MPI_NO = #{mpiNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sadId != null" >
+        SAD_ID = #{sadId,jdbcType=VARCHAR},
+      </if>
+      <if test="vstCad != null" >
+        VST_CAD = #{vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="admNbr != null" >
+        ADM_NBR = #{admNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="idNbr != null" >
+        ID_NBR = #{idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cstNam != null" >
+        CST_NAM = #{cstNam,jdbcType=VARCHAR},
+      </if>
+      <if test="cstSexCod != null" >
+        CST_SEX_COD = #{cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bthDat != null" >
+        BTH_DAT = #{bthDat,jdbcType=DATE},
+      </if>
+      <if test="cstAge != null" >
+        CST_AGE = #{cstAge,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAgeCod != null" >
+        CST_AGE_COD = #{cstAgeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="pheNbr != null" >
+        PHE_NBR = #{pheNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAdr != null" >
+        CST_ADR = #{cstAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="senRct != null" >
+        SEN_RCT = #{senRct,jdbcType=VARCHAR},
+      </if>
+      <if test="breNbr != null" >
+        BRE_NBR = #{breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="pulFqy != null" >
+        PUL_FQY = #{pulFqy,jdbcType=DECIMAL},
+      </if>
+      <if test="hrtRte != null" >
+        HRT_RTE = #{hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpNbr != null" >
+        SBP_NBR = #{sbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="dbpNbr != null" >
+        DBP_NBR = #{dbpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="bldOxy != null" >
+        BLD_OXY = #{bldOxy,jdbcType=DECIMAL},
+      </if>
+      <if test="tmpNbr != null" >
+        TMP_NBR = #{tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="repDoc != null" >
+        REP_DOC = #{repDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="docDia != null" >
+        DOC_DIA = #{docDia,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="regTim != null" >
+        REG_TIM = #{regTim,jdbcType=DATE},
+      </if>
+      <if test="hspDep != null" >
+        HSP_DEP = #{hspDep,jdbcType=VARCHAR},
+      </if>
+      <if test="illDep != null" >
+        ILL_DEP = #{illDep,jdbcType=VARCHAR},
+      </if>
+      <if test="illTim != null" >
+        ILL_TIM = #{illTim,jdbcType=DATE},
+      </if>
+      <if test="cbpFlg != null" >
+        CBP_FLG = #{cbpFlg,jdbcType=CHAR},
+      </if>
+      <if test="illPrd != null" >
+        ILL_PRD = #{illPrd,jdbcType=VARCHAR},
+      </if>
+      <if test="conAss != null" >
+        CON_ASS = #{conAss,jdbcType=VARCHAR},
+      </if>
+      <if test="conAssDtl != null" >
+        CON_ASS_DTL = #{conAssDtl,jdbcType=VARCHAR},
+      </if>
+      <if test="fstTim != null" >
+        FST_TIM = #{fstTim,jdbcType=DATE},
+      </if>
+      <if test="lveTim != null" >
+        LVE_TIM = #{lveTim,jdbcType=DATE},
+      </if>
+      <if test="crtUsr != null" >
+        CRT_USR = #{crtUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null" >
+        CRT_TIM = #{crtTim,jdbcType=DATE},
+      </if>
+      <if test="modUsr != null" >
+        MOD_USR = #{modUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null" >
+        MOD_TIM = #{modTim,jdbcType=DATE},
+      </if>
+      <if test="wayTypSub != null" >
+        WAY_TYP_SUB = #{wayTypSub,jdbcType=CHAR},
+      </if>
+    </set>
+    where XT_SEQ = #{xtSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspXtAdd" >
+    update HSP_XT_ADD
+    set WAY_TYP = #{wayTyp,jdbcType=CHAR},
+      MPI_NO = #{mpiNo,jdbcType=VARCHAR},
+      SAD_ID = #{sadId,jdbcType=VARCHAR},
+      VST_CAD = #{vstCad,jdbcType=VARCHAR},
+      ADM_NBR = #{admNbr,jdbcType=VARCHAR},
+      ID_NBR = #{idNbr,jdbcType=VARCHAR},
+      CST_NAM = #{cstNam,jdbcType=VARCHAR},
+      CST_SEX_COD = #{cstSexCod,jdbcType=VARCHAR},
+      BTH_DAT = #{bthDat,jdbcType=DATE},
+      CST_AGE = #{cstAge,jdbcType=VARCHAR},
+      CST_AGE_COD = #{cstAgeCod,jdbcType=VARCHAR},
+      PHE_NBR = #{pheNbr,jdbcType=VARCHAR},
+      CST_ADR = #{cstAdr,jdbcType=VARCHAR},
+      SEN_RCT = #{senRct,jdbcType=VARCHAR},
+      BRE_NBR = #{breNbr,jdbcType=DECIMAL},
+      PUL_FQY = #{pulFqy,jdbcType=DECIMAL},
+      HRT_RTE = #{hrtRte,jdbcType=DECIMAL},
+      SBP_NBR = #{sbpNbr,jdbcType=DECIMAL},
+      DBP_NBR = #{dbpNbr,jdbcType=DECIMAL},
+      BLD_OXY = #{bldOxy,jdbcType=DECIMAL},
+      TMP_NBR = #{tmpNbr,jdbcType=DECIMAL},
+      REP_DOC = #{repDoc,jdbcType=VARCHAR},
+      DOC_DIA = #{docDia,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      REG_TIM = #{regTim,jdbcType=DATE},
+      HSP_DEP = #{hspDep,jdbcType=VARCHAR},
+      ILL_DEP = #{illDep,jdbcType=VARCHAR},
+      ILL_TIM = #{illTim,jdbcType=DATE},
+      CBP_FLG = #{cbpFlg,jdbcType=CHAR},
+      ILL_PRD = #{illPrd,jdbcType=VARCHAR},
+      CON_ASS = #{conAss,jdbcType=VARCHAR},
+      CON_ASS_DTL = #{conAssDtl,jdbcType=VARCHAR},
+      FST_TIM = #{fstTim,jdbcType=DATE},
+      LVE_TIM = #{lveTim,jdbcType=DATE},
+      CRT_USR = #{crtUsr,jdbcType=VARCHAR},
+      CRT_TIM = #{crtTim,jdbcType=DATE},
+      MOD_USR = #{modUsr,jdbcType=VARCHAR},
+      MOD_TIM = #{modTim,jdbcType=DATE},
+      WAY_TYP_SUB = #{wayTypSub,jdbcType=CHAR}
+    where XT_SEQ = #{xtSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

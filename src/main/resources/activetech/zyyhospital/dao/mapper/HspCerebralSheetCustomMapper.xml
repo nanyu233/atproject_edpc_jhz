@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspCerebralSheetCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspCerebralSheetCustom" >
+    <id column="CEREBRAL_COURSE_SEQ" property="cerebralCourseSeq" jdbcType="VARCHAR" />
+    <id column="TIME_TYPE" property="timeType" jdbcType="DECIMAL" />
+    <result column="EMG_SEQ_DC" property="emgSeqDc" jdbcType="VARCHAR" />
+    <result column="CEREBRAL_DATE" property="cerebralDate" jdbcType="TIMESTAMP" />
+    <result column="HEART_RATE" property="heartRate" jdbcType="DECIMAL" />
+    <result column="PRESSURE_UP" property="pressureUp" jdbcType="DECIMAL" />
+    <result column="OXY_NBR" property="oxyNbr" jdbcType="DECIMAL" />
+    <result column="NIHSS_SCORE" property="nihssScore" jdbcType="DECIMAL" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_DOC" property="createDoc" jdbcType="VARCHAR" />
+    <result column="UPDATE_DOC" property="updateDoc" jdbcType="VARCHAR" />
+    <result column="PRESSURE_DOWN" property="pressureDown" jdbcType="DECIMAL" />
+    <result column="ASSESS_DOC" property="assessDoc" jdbcType="VARCHAR" />
+    <result column="ASSESS_DATE" property="assessDate" jdbcType="VARCHAR" />
+    <result column="RELATION_DOC" property="relationDoc" jdbcType="VARCHAR" />
+    <result column="sheetAssessDocNam" property="sheetAssessDocNam" jdbcType="VARCHAR" />
+    <result column="RELATION_DOCNAM" property="relationDocnam" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="findSheetBySeq" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.dto.HspCerebralSheetCustom" >
+	     select
+	     CEREBRAL_COURSE_SEQ, TIME_TYPE, EMG_SEQ_DC, CEREBRAL_DATE, HEART_RATE, PRESSURE_UP, 
+	     OXY_NBR, NIHSS_SCORE, CREATE_DATE, UPDATE_DATE, CREATE_DOC, UPDATE_DOC,PRESSURE_DOWN
+	     ,ASSESS_DOC,ASSESS_DATE,RELATION_DOC,
+	      (select usrname from dstuser where dstuser.usrno=HSP_CEREBRAL_SHEET.ASSESS_DOC)sheetAssessDocNam,
+	     RELATION_DOCNAM relationDocnam
+	     from HSP_CEREBRAL_SHEET where EMG_SEQ_DC=#{emgSeqDc} order by time_type
+  </select>
+</mapper>

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspLqblInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspLqblInfCustom" >
+    <id column="LQBL_SEQ" jdbcType="VARCHAR" property="lqblSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="MED_HIS_COD" jdbcType="CHAR" property="medHisCod" />
+    <result column="MED_HIS" jdbcType="VARCHAR" property="medHis" />
+    <result column="DRUG_HIS_COD" jdbcType="CHAR" property="drugHisCod" />
+    <result column="DRUG_HIS" jdbcType="VARCHAR" property="drugHis" />
+    <result column="OPRT_HIS_COD" jdbcType="CHAR" property="oprtHisCod" />
+    <result column="OPRT_HIS" jdbcType="VARCHAR" property="oprtHis" />
+    <result column="TRAM_HIS_COD" jdbcType="CHAR" property="tramHisCod" />
+    <result column="TRAM_HIS" jdbcType="VARCHAR" property="tramHis" />
+    <result column="CRB_HIS_COD" jdbcType="CHAR" property="crbHisCod" />
+    <result column="CRB_HIS" jdbcType="VARCHAR" property="crbHis" />
+    <result column="OBST_HIS" jdbcType="VARCHAR" property="obstHis" />
+    <result column="MCYJ_DAT" jdbcType="TIMESTAMP" property="mcyjDat" />
+    <result column="FAML_HIS" jdbcType="VARCHAR" property="famlHis" />
+    <result column="RSZT_COD" jdbcType="CHAR" property="rsztCod" />
+    <result column="TGJC_XY_FLG" jdbcType="CHAR" property="tgjcXyFlg" />
+    <result column="TGJC_XY_UP" jdbcType="VARCHAR" property="tgjcXyUp" />
+    <result column="TGJC_XY_DOWN" jdbcType="VARCHAR" property="tgjcXyDown" />
+    <result column="TGJC_TW_FLG" jdbcType="CHAR" property="tgjcTwFlg" />
+    <result column="TGJC_TW" jdbcType="VARCHAR" property="tgjcTw" />
+    <result column="TGJC_MB_FLG" jdbcType="CHAR" property="tgjcMbFlg" />
+    <result column="TGJC_MB" jdbcType="VARCHAR" property="tgjcMb" />
+    <result column="TGJC_HX_FLG" jdbcType="CHAR" property="tgjcHxFlg" />
+    <result column="TGJC_HX" jdbcType="VARCHAR" property="tgjcHx" />
+    <result column="TGJC_CBZY_FLG" jdbcType="VARCHAR" property="tgjcCbzyFlg" />
+    <result column="TGJC_CBZY" jdbcType="VARCHAR" property="tgjcCbzy" />
+    <result column="CTNR_DES" jdbcType="VARCHAR" property="ctnrDes" />
+    <result column="FZJC_DES" jdbcType="VARCHAR" property="fzjcDes" />
+    <result column="OPRT_DAT" jdbcType="TIMESTAMP" property="oprtDat" />
+    <result column="CRAT_DAT" jdbcType="TIMESTAMP" property="cratDat" />
+    <result column="CRAT_NBR" jdbcType="VARCHAR" property="cratNbr" />
+    <result column="CRAT_NAM" jdbcType="VARCHAR" property="cratNam" />
+    <result column="UPDT_DAT" jdbcType="TIMESTAMP" property="updtDat" />
+    <result column="UPDT_NBR" jdbcType="VARCHAR" property="updtNbr" />
+    <result column="UPDT_NAM" jdbcType="VARCHAR" property="updtNam" />
+    <result column="UPDT_DAT2" jdbcType="TIMESTAMP" property="updtDat2" />
+    <result column="UPDT_NBR2" jdbcType="VARCHAR" property="updtNbr2" />
+    <result column="UPDT_NAM2" jdbcType="VARCHAR" property="updtNam2" />
+    <result column="UPDT_DAT3" jdbcType="TIMESTAMP" property="updtDat3" />
+    <result column="UPDT_NBR3" jdbcType="VARCHAR" property="updtNbr3" />
+    <result column="UPDT_NAM3" jdbcType="VARCHAR" property="updtNam3" />
+    <result column="LQBL_DAT" jdbcType="TIMESTAMP" property="lqblDat" />
+    <result column="GMS_FLG" jdbcType="CHAR" property="gmsFlg" />
+    <result column="GMS_DES" jdbcType="VARCHAR" property="gmsDes" />
+    <result column="LQBL_DES" jdbcType="VARCHAR" property="lqblDes" />
+    <result column="LQBL_BRQX" jdbcType="VARCHAR" property="lqblBrqx" />
+    <result column="MENOPS_AGE" jdbcType="VARCHAR" property="menopsAge" />
+    <result column="MNS_SIT_COD" jdbcType="VARCHAR" property="mnsSitCod" />
+    <result column="CASE_HIS" jdbcType="VARCHAR" property="caseHis" />
+    <result column="TGJC_XT_FLG" jdbcType="VARCHAR" property="tgjcXtFlg" />
+    <result column="TGJC_XT" jdbcType="VARCHAR" property="tgjcXt" />
+    <result column="TGJC_PULSE" jdbcType="VARCHAR" property="tgjcPulse" />
+    <result column="BLTYPE" jdbcType="VARCHAR" property="bltype" />
+    <result column="ZLYJ" jdbcType="VARCHAR" property="zlyj" />
+    <result column="ZYSX" jdbcType="VARCHAR" property="zysx" />
+    <result column="TGJC_XT_TYPE" jdbcType="VARCHAR" property="tgjcXtType" />
+    <result column="NRS_SEQ" jdbcType="VARCHAR" property="nrsSeq" />
+    <result column="FALL_SEQ" jdbcType="VARCHAR" property="fallSeq" />
+    <result column="HEALTH_EDUCATION" jdbcType="VARCHAR" property="healthEducation" />
+    <result column="TGJC_PULSE_FLG" jdbcType="VARCHAR" property="tgjcPulseFlg" />
+    <result column="SPECIAL_ASSESS" jdbcType="VARCHAR" property="specialAssess" />
+    <result column="SPECIAL_SUGGEST" jdbcType="VARCHAR" property="specialSuggest" />
+    <result column="CST_ADR" jdbcType="VARCHAR" property="cstAdr" />
+    <result column="NOW_HIS" jdbcType="VARCHAR" property="nowHis" />
+    <result column="TREATMENT_PLAN" jdbcType="VARCHAR" property="treatmentPlan" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LQBL_SEQ, EMG_SEQ, MED_HIS_COD, MED_HIS, DRUG_HIS_COD, DRUG_HIS, OPRT_HIS_COD, OPRT_HIS, 
+    TRAM_HIS_COD, TRAM_HIS, CRB_HIS_COD, CRB_HIS, OBST_HIS, MCYJ_DAT, FAML_HIS, RSZT_COD, 
+    TGJC_XY_FLG, TGJC_XY_UP, TGJC_XY_DOWN, TGJC_TW_FLG, TGJC_TW, TGJC_MB_FLG, TGJC_MB, 
+    TGJC_HX_FLG, TGJC_HX, TGJC_CBZY_FLG, TGJC_CBZY, CTNR_DES, FZJC_DES, OPRT_DAT, CRAT_DAT, 
+    CRAT_NBR, CRAT_NAM, UPDT_DAT, UPDT_NBR, UPDT_NAM, UPDT_DAT2, UPDT_NBR2, UPDT_NAM2, 
+    UPDT_DAT3, UPDT_NBR3, UPDT_NAM3, LQBL_DAT, GMS_FLG, GMS_DES, LQBL_DES, LQBL_BRQX, 
+    MENOPS_AGE, MNS_SIT_COD, CASE_HIS, TGJC_XT_FLG, TGJC_XT, TGJC_PULSE, BLTYPE, ZLYJ, 
+    ZYSX, TGJC_XT_TYPE, NRS_SEQ, FALL_SEQ, HEALTH_EDUCATION, TGJC_PULSE_FLG, SPECIAL_ASSESS, 
+    SPECIAL_SUGGEST, CST_ADR, NOW_HIS, TREATMENT_PLAN
+  </sql>
+  
+  <!-- 留抢病历查询 -->
+  <select id="findLqblByEmgSeq" resultMap="BaseResultMap" parameterType="String" >
+    select
+    <include refid="Base_Column_List" />,
+    to_char(MCYJ_DAT,'yyyy/mm/dd')mcyjDatStr,
+    to_char(OPRT_DAT,'yyyy/mm/dd hh24:mi:ss')oprtDatStr,
+    to_char(LQBL_DAT,'yyyy/mm/dd hh24:mi:ss')lqblDatStr
+    from HSP_LQBL_INF
+    where emg_seq=#{emgSeq} and bltype = '0'
+  </select>
+  
+  <!-- 门急诊病历查询 -->
+  <select id="findMzblByEmgSeq" resultMap="BaseResultMap" parameterType="String" >
+    select
+    <include refid="Base_Column_List" />,
+    to_char(MCYJ_DAT,'yyyy/mm/dd')mcyjDatStr,
+    to_char(OPRT_DAT,'yyyy/mm/dd hh24:mi:ss')oprtDatStr,
+    to_char(LQBL_DAT,'yyyy/mm/dd hh24:mi:ss')lqblDatStr
+    from HSP_LQBL_INF
+    where emg_seq=#{emgSeq} and bltype = '1'
+  </select>
+  
+  <select id="findLqblForDisease" resultMap="BaseResultMap" parameterType="String" >
+  
+ 	   select
+		decode(lqbl.TGJC_XY_FLG,'2','测不出','3','拒测',null) xyFlgStr,
+		decode(lqbl.TGJC_XY_UP || '/' || lqbl.TGJC_XY_DOWN , '/' ,'',lqbl.TGJC_XY_UP || '/' || lqbl.TGJC_XY_DOWN) sbpVal,
+		decode(lqbl.TGJC_TW_FLG,'1','耳温','2','不升','3','拒测') twFlgStr,
+		lqbl.TGJC_TW_FLG,
+		lqbl.TGJC_TW,
+    decode(lqbl.TGJC_MB_FLG,'2','测不出','3','拒测',null) mbFlgStr,
+		lqbl.TGJC_MB, 
+		decode(lqbl.TGJC_HX_FLG,'2','机械通气','3','拒测',null) hxFlgStr,
+		lqbl.TGJC_HX,
+		lqbl.TGJC_XT,
+    decode(lqbl.TGJC_XT_FLG,'2','LO','3','HI',null) xTFlgStr,
+    (select info from  dstdictinfo where typecode ='XT_COD' and infocode =lqbl.TGJC_XT_TYPE) xtCodStr,
+		lqbl.TGJC_CBZY,
+		lqbl.LQBL_DES,
+		lqbl.FZJC_DES,
+		lqbl.CTNR_DES,
+		lqbl.LQBL_CONT,	
+    decode(lqbl.TGJC_PULSE_FLG,'2','测不出','3','拒测',null) pulseFlgStr,
+    lqbl.TGJC_PULSE,
+		lqbl.now_his nowHis
+	from HSP_LQBL_INF lqbl,hsp_emg_inf emg
+	where emg.emg_seq=#{emgSeq}
+	and lqbl.emg_seq(+) = emg.emg_seq
+	and lqbl.bltype = '0'
+  </select>
+  
+  
+   <select id="findAllLqblForDisease" resultMap="BaseResultMap" parameterType="String" >
+ 	   select
+		decode(lqbl.TGJC_XY_FLG,'2','测不出','3','拒测',null) xyFlgStr,
+		decode(lqbl.TGJC_XY_UP || '/' || lqbl.TGJC_XY_DOWN , '/' ,'',lqbl.TGJC_XY_UP || '/' || lqbl.TGJC_XY_DOWN) sbpVal,
+		decode(lqbl.TGJC_TW_FLG,'1','耳温','2','不升','3','拒测') twFlgStr,
+		lqbl.TGJC_TW_FLG,
+		lqbl.TGJC_TW,
+    decode(lqbl.TGJC_MB_FLG,'2','测不出','3','拒测',null) mbFlgStr,
+		lqbl.TGJC_MB, 
+		decode(lqbl.TGJC_HX_FLG,'2','机械通气','3','拒测',null) hxFlgStr,
+		lqbl.TGJC_HX,
+		lqbl.TGJC_XT,
+    decode(lqbl.TGJC_XT_FLG,'2','LO','3','HI',null) xTFlgStr,
+    (select info from  dstdictinfo where typecode ='XT_COD' and infocode =lqbl.TGJC_XT_TYPE) xtCodStr,
+		lqbl.TGJC_CBZY,
+		lqbl.LQBL_DES,
+		lqbl.FZJC_DES,
+		lqbl.CTNR_DES,
+		lqbl.LQBL_CONT,	
+    decode(lqbl.TGJC_PULSE_FLG,'2','测不出','3','拒测',null) pulseFlgStr,
+    lqbl.TGJC_PULSE,
+		emg.now_his nowHis
+	from HSP_LQBL_INF lqbl,hsp_emg_inf emg
+	where lqbl.lqbl_seq=#{lqblSeq}
+	and lqbl.emg_seq(+) = emg.emg_seq
+  </select>
+  
+  <select id="findRecentblByVstCad" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.dto.HspLqblInfCustom" >
+    select
+    <include refid="Base_Column_List" />
+	    from (select b.*
+	          from hsp_emg_inf a, HSP_LQBL_INF b
+	         where a.vst_cad = #{vstCad}
+	           and a.emg_seq = b.emg_seq
+	           <if test="lqblSeq!=null and lqblSeq!=''">
+	           		and b.LQBL_SEQ != #{lqblSeq}
+	           </if>
+	         order by b.OPRT_DAT desc)
+	 where rownum = 1
+  </select>
+  
+  <select id="getLslqblList" resultMap="BaseResultMap" parameterType="String" >
+	  	select temp.*,
+	       d.zgys_nam zgysNam,
+	       d.jgys_nam jgysNam,
+	       d.zrhs_nam zrhsNam,
+	       nvl(d.lqsc, '0') || case
+	         when d.lqsc_type = 0 then
+	          '时'
+	         when d.lqsc_type = 1 then
+	          '天'
+	         else
+	          ''
+	       end lqscStr,
+	       GETJBZDDATA('4', temp.emg_seq) lqzdStr
+	  from (select a.emg_seq,
+	               to_char(a.emg_dat, 'yyyy/mm/dd hh24:mi') emgDatStr,
+	               a.jbzd_des jbzdDes,
+	               b.LQBL_DES lqblDes,
+	               a.now_his nowHis,
+	               b.med_his medHis,
+	               b.drug_his drugHis,
+	               b.gms_des gmsDes,
+	               b.oprt_his oprtHis,
+	               b.tram_his tramHis,
+	               b.crb_his crbHis,
+	               b.obst_his obstHis,
+	               (select info
+	                  from dstdictinfo
+	                 where typecode = 'MNS_SIT_COD'
+	                   and infocode = b.mns_sit_cod) || case
+	                 when b.mns_sit_cod = '1' or b.mns_sit_cod = '2' then
+	                  '第' || nvl(b.case_his, '0') || '周'
+	                 else
+	                  ''
+	               end mnsSitCod,
+	               b.faml_his famlHis,
+	               b.ctnr_des ctnrDes,
+	               b.fzjc_des fzjcDes,
+	               (select info
+	                  from dstdictinfo
+	                 where typecode = 'CST_DSP_COD'
+	                   and infocode = b.lqbl_brqx) lqblBrqx
+	          from hsp_emg_inf a, HSP_LQBL_INF b, hsp_sql_inf c
+	         where a.vst_cad = #{vstCad}
+	           and a.emg_seq = b.emg_seq
+	           and a.sql_seq = c.sql_seq) temp
+	  left join HSP_BASY_INF d
+	    on temp.emg_seq = d.emg_seq
+	    order by temp.emgDatStr desc
+  </select>
+  
+  <!-- 获取医嘱数据 -->
+  <select id="getAdviceByMpi" parameterType="activetech.pda.pojo.dto.HspCfxxInfoQueryDto" resultType="activetech.pda.pojo.dto.HspCfxxInfoCustom">
+  		select distinct
+                ORDER_NO,order_class_name daType,
+                listagg(SUPPLY_NAME, '|br') within GROUP (order by GROUP_NO desc) over ( partition by order_no)  daWayStr,
+                listagg(ORDER_STATUS, '|br') within GROUP (order by GROUP_NO desc) over ( partition by order_no)  orderStatus,
+                listagg(FREQUENCY_CODE,'|br') within group ( order by GROUP_NO desc) over ( partition by order_no) da_freq,
+                listagg(GROUP_NO,'|br') within group ( order by GROUP_NO desc) over ( partition by order_no) daSeq,
+                listagg(ORDER_NAME,'|br') within group ( order by GROUP_NO desc) over ( partition by order_no) daInfo,
+                listagg(DOSAGE || DOSAGE_UNIT,'|br') within group ( order by GROUP_NO desc) over ( partition by order_no) daDoseUnit,
+                listagg(QTY_SUM, '|br') within group ( order by GROUP_NO desc) over ( partition by order_no) num,
+                listagg(QTY_UNIT, '|br') within group ( order by GROUP_NO desc) over ( partition by order_no) YFDW,
+                listagg(HIGH_RISK, '|br') within GROUP (order by GROUP_NO desc) over ( partition by order_no) highRisk,
+                listagg(DRUG_SPEC, '|br') within GROUP (order by GROUP_NO desc) over ( partition by order_no) drugSpec,
+                enter_time enterTime,
+                DOCTOR_NAME startDoct
+		from  ATYZST_AT@HIS    <!-- yz   -->
+		where PATIENT_ID = #{hspCfxxInfoCustom.mpi}
+		and DEPT_CODE = '101030102'
+		<if test="startdate != null and startdate != '' ">
+			and to_char(START_TIME,'yyyy/mm/dd HH24:mi') <![CDATA[>=]]> to_char(#{startdate},'yyyy/mm/dd HH24:mi')
+		</if>
+		<if test="enddate != null and enddate != '' ">
+			and to_char(START_TIME,'yyyy/mm/dd HH24:mi') <![CDATA[<=]]> to_char(#{enddate},'yyyy/mm/dd HH24:mi')
+		</if>
+		<!-- 病情护理记录单 只查询药疗 -->
+		<if test="queryType != null and queryType == 'nursing' ">
+			and ORDER_CLASS_NAME = '药疗' 
+		</if>
+		<!-- 门诊病历治疗意见 检验检查数据 通过就诊次数查询-->
+		<if test="queryType != null and queryType == 'inspection' ">
+			and (ORDER_CLASS_NAME = '检验' or ORDER_CLASS_NAME = '检查') and SERIES = #{hspCfxxInfoCustom.series}
+		</if>
+		<!-- 门诊病历治疗意见 医嘱数据 通过就诊次数查询-->
+		<if test="queryType != null and queryType == 'advice' ">
+			and ORDER_CLASS_NAME != '检验' and ORDER_CLASS_NAME != '检查' and SERIES = #{hspCfxxInfoCustom.series}
+		</if>
+		<!-- 去除作废 -->
+		and order_status != '作废' 
+		order by daSeq 
+  </select>
+  
+  
+  <parameterMap type="activetech.zyyhospital.pojo.domain.THemsPaperwork" id="vHemsBclCustom">
+       <parameter property="emgSeq" mode="IN" jdbcType="VARCHAR"/>
+  </parameterMap>
+  <!-- 病程录 -->
+  <select id="proc_paperworkdata"  parameterMap="vHemsBclCustom" statementType="CALLABLE">
+          CALL proc_paperworkdata(?,'1')
+   </select>
+   
+   	<!-- 患者时间轴列表  -->
+	<select id="getBclbByEmgSeq" parameterType="string" 
+		resultType="activetech.zyyhospital.pojo.domain.THemsPaperwork">
+			SELECT emg_seq emgSeq,
+				   PAPERWORK_DATE paperworkDate,
+				   PAPERWORK_NAME paperworkName,
+				   DOCTOR_NAME doctorName,
+				   RELEVANCE_MODULE relevanceModule,
+				   PRIMARY_KEY primaryKey,
+				   DOCTOR_NBR doctorNbr
+			  FROM T_HEMS_PAPERWORK 
+			ORDER BY PAPERWORK_DATE desc
+	</select>
+  
+  
+  <!-- 门急诊病历通过主键查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="String" >
+    select
+    <include refid="Base_Column_List" />
+    from HSP_LQBL_INF
+    where LQBL_SEQ = #{lqblSeq}
+  </select>
+  
+</mapper>

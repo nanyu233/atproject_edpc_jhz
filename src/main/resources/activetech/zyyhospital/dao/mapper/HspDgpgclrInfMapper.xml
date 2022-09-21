@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspDgpgclrInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspDgpgclrInf">
+    <result column="XTPG_SEQ" jdbcType="VARCHAR" property="xtpgSeq" />
+    <result column="YLG_DGMC_COD" jdbcType="VARCHAR" property="ylgDgmcCod" />
+    <result column="DGPGCLR_DGSD" jdbcType="VARCHAR" property="dgpgclrDgsd" />
+    <result column="DGPGCLR_TC" jdbcType="VARCHAR" property="dgpgclrTc" />
+    <result column="DGPGCLR_YLYYS" jdbcType="VARCHAR" property="dgpgclrYlyys" />
+    <result column="DGPGCLR_TYPE" jdbcType="VARCHAR" property="dgpgclrType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    XTPG_SEQ, YLG_DGMC_COD, DGPGCLR_DGSD, DGPGCLR_TC, DGPGCLR_YLYYS, DGPGCLR_TYPE
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgclrInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_DGPGCLR_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgclrInfExample">
+    delete from HSP_DGPGCLR_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgclrInf">
+    insert into HSP_DGPGCLR_INF (XTPG_SEQ, YLG_DGMC_COD, DGPGCLR_DGSD, 
+      DGPGCLR_TC, DGPGCLR_YLYYS, DGPGCLR_TYPE
+      )
+    values (#{xtpgSeq,jdbcType=VARCHAR}, #{ylgDgmcCod,jdbcType=VARCHAR}, #{dgpgclrDgsd,jdbcType=VARCHAR}, 
+      #{dgpgclrTc,jdbcType=VARCHAR}, #{dgpgclrYlyys,jdbcType=VARCHAR}, #{dgpgclrType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgclrInf">
+    insert into HSP_DGPGCLR_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="xtpgSeq != null">
+        XTPG_SEQ,
+      </if>
+      <if test="ylgDgmcCod != null">
+        YLG_DGMC_COD,
+      </if>
+      <if test="dgpgclrDgsd != null">
+        DGPGCLR_DGSD,
+      </if>
+      <if test="dgpgclrTc != null">
+        DGPGCLR_TC,
+      </if>
+      <if test="dgpgclrYlyys != null">
+        DGPGCLR_YLYYS,
+      </if>
+      <if test="dgpgclrType != null">
+        DGPGCLR_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="xtpgSeq != null">
+        #{xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="ylgDgmcCod != null">
+        #{ylgDgmcCod,jdbcType=VARCHAR},
+      </if>
+      <if test="dgpgclrDgsd != null">
+        #{dgpgclrDgsd,jdbcType=VARCHAR},
+      </if>
+      <if test="dgpgclrTc != null">
+        #{dgpgclrTc,jdbcType=VARCHAR},
+      </if>
+      <if test="dgpgclrYlyys != null">
+        #{dgpgclrYlyys,jdbcType=VARCHAR},
+      </if>
+      <if test="dgpgclrType != null">
+        #{dgpgclrType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDgpgclrInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_DGPGCLR_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_DGPGCLR_INF
+    <set>
+      <if test="record.xtpgSeq != null">
+        XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ylgDgmcCod != null">
+        YLG_DGMC_COD = #{record.ylgDgmcCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgpgclrDgsd != null">
+        DGPGCLR_DGSD = #{record.dgpgclrDgsd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgpgclrTc != null">
+        DGPGCLR_TC = #{record.dgpgclrTc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgpgclrYlyys != null">
+        DGPGCLR_YLYYS = #{record.dgpgclrYlyys,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgpgclrType != null">
+        DGPGCLR_TYPE = #{record.dgpgclrType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_DGPGCLR_INF
+    set XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      YLG_DGMC_COD = #{record.ylgDgmcCod,jdbcType=VARCHAR},
+      DGPGCLR_DGSD = #{record.dgpgclrDgsd,jdbcType=VARCHAR},
+      DGPGCLR_TC = #{record.dgpgclrTc,jdbcType=VARCHAR},
+      DGPGCLR_YLYYS = #{record.dgpgclrYlyys,jdbcType=VARCHAR},
+      DGPGCLR_TYPE = #{record.dgpgclrType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

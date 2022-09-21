@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspFallriskInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspFallriskInf">
+    <id column="FALLRISK_SEQ" jdbcType="VARCHAR" property="fallriskSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="RISK_CLASS_COD" jdbcType="VARCHAR" property="riskClassCod" />
+    <result column="RISK_AGE_COD" jdbcType="CHAR" property="riskAgeCod" />
+    <result column="RISK_SEX_COD" jdbcType="CHAR" property="riskSexCod" />
+    <result column="RISK_HIS_COD" jdbcType="CHAR" property="riskHisCod" />
+    <result column="RISK_EXCRETE_COD" jdbcType="CHAR" property="riskExcreteCod" />
+    <result column="RISK_DRUG_COD" jdbcType="CHAR" property="riskDrugCod" />
+    <result column="RISK_MAC_COD" jdbcType="CHAR" property="riskMacCod" />
+    <result column="RISK_ACTION_COD" jdbcType="VARCHAR" property="riskActionCod" />
+    <result column="RISK_COGNIZE_COD" jdbcType="VARCHAR" property="riskCognizeCod" />
+    <result column="RISK_DIAGNOSE_COD" jdbcType="CHAR" property="riskDiagnoseCod" />
+    <result column="RISK_HJYS_COD" jdbcType="CHAR" property="riskHjysCod" />
+    <result column="RISK_ZJMZH_COD" jdbcType="CHAR" property="riskZjmzhCod" />
+    <result column="RISK_DRUGUSE_COD" jdbcType="CHAR" property="riskDruguseCod" />
+    <result column="RISK_OTHER_COD" jdbcType="CHAR" property="riskOtherCod" />
+    <result column="RISK_SPARE_1" jdbcType="VARCHAR" property="riskSpare1" />
+    <result column="RISK_SPARE_2" jdbcType="VARCHAR" property="riskSpare2" />
+    <result column="RISK_SCO" jdbcType="VARCHAR" property="riskSco" />
+    <result column="CRET_DAT" jdbcType="TIMESTAMP" property="cretDat" />
+    <result column="DANX_SCO" jdbcType="VARCHAR" property="danxSco" />
+    <result column="DUOX_SCO" jdbcType="VARCHAR" property="duoxSco" />
+    <result column="CRT_USR_NO" jdbcType="VARCHAR" property="crtUsrNo" />
+    <result column="CRT_USR_NME" jdbcType="VARCHAR" property="crtUsrNme" />
+    <result column="UPD_USR_NO" jdbcType="VARCHAR" property="updUsrNo" />
+    <result column="UPD_USR_NME" jdbcType="VARCHAR" property="updUsrNme" />
+    <result column="UPD_TIME" jdbcType="TIMESTAMP" property="updTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    FALLRISK_SEQ, EMG_SEQ, RISK_CLASS_COD, RISK_AGE_COD, RISK_SEX_COD, RISK_HIS_COD, 
+    RISK_EXCRETE_COD, RISK_DRUG_COD, RISK_MAC_COD, RISK_ACTION_COD, RISK_COGNIZE_COD, 
+    RISK_DIAGNOSE_COD, RISK_HJYS_COD, RISK_ZJMZH_COD, RISK_DRUGUSE_COD, RISK_OTHER_COD, 
+    RISK_SPARE_1, RISK_SPARE_2, RISK_SCO, CRET_DAT, DANX_SCO, DUOX_SCO, CRT_USR_NO, CRT_USR_NME, 
+    UPD_USR_NO, UPD_USR_NME, UPD_TIME
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspFallriskInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_FALLRISK_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_FALLRISK_INF
+    where FALLRISK_SEQ = #{fallriskSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_FALLRISK_INF
+    where FALLRISK_SEQ = #{fallriskSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspFallriskInfExample">
+    delete from HSP_FALLRISK_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspFallriskInf">
+    insert into HSP_FALLRISK_INF (FALLRISK_SEQ, EMG_SEQ, RISK_CLASS_COD, 
+      RISK_AGE_COD, RISK_SEX_COD, RISK_HIS_COD, 
+      RISK_EXCRETE_COD, RISK_DRUG_COD, RISK_MAC_COD, 
+      RISK_ACTION_COD, RISK_COGNIZE_COD, RISK_DIAGNOSE_COD, 
+      RISK_HJYS_COD, RISK_ZJMZH_COD, RISK_DRUGUSE_COD, 
+      RISK_OTHER_COD, RISK_SPARE_1, RISK_SPARE_2, 
+      RISK_SCO, CRET_DAT, DANX_SCO, 
+      DUOX_SCO, CRT_USR_NO, CRT_USR_NME, 
+      UPD_USR_NO, UPD_USR_NME, UPD_TIME
+      )
+    values (#{fallriskSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{riskClassCod,jdbcType=VARCHAR}, 
+      #{riskAgeCod,jdbcType=CHAR}, #{riskSexCod,jdbcType=CHAR}, #{riskHisCod,jdbcType=CHAR}, 
+      #{riskExcreteCod,jdbcType=CHAR}, #{riskDrugCod,jdbcType=CHAR}, #{riskMacCod,jdbcType=CHAR}, 
+      #{riskActionCod,jdbcType=VARCHAR}, #{riskCognizeCod,jdbcType=VARCHAR}, #{riskDiagnoseCod,jdbcType=CHAR}, 
+      #{riskHjysCod,jdbcType=CHAR}, #{riskZjmzhCod,jdbcType=CHAR}, #{riskDruguseCod,jdbcType=CHAR}, 
+      #{riskOtherCod,jdbcType=CHAR}, #{riskSpare1,jdbcType=VARCHAR}, #{riskSpare2,jdbcType=VARCHAR}, 
+      #{riskSco,jdbcType=VARCHAR}, #{cretDat,jdbcType=TIMESTAMP}, #{danxSco,jdbcType=VARCHAR}, 
+      #{duoxSco,jdbcType=VARCHAR}, #{crtUsrNo,jdbcType=VARCHAR}, #{crtUsrNme,jdbcType=VARCHAR}, 
+      #{updUsrNo,jdbcType=VARCHAR}, #{updUsrNme,jdbcType=VARCHAR}, #{updTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspFallriskInf">
+    insert into HSP_FALLRISK_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fallriskSeq != null">
+        FALLRISK_SEQ,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="riskClassCod != null">
+        RISK_CLASS_COD,
+      </if>
+      <if test="riskAgeCod != null">
+        RISK_AGE_COD,
+      </if>
+      <if test="riskSexCod != null">
+        RISK_SEX_COD,
+      </if>
+      <if test="riskHisCod != null">
+        RISK_HIS_COD,
+      </if>
+      <if test="riskExcreteCod != null">
+        RISK_EXCRETE_COD,
+      </if>
+      <if test="riskDrugCod != null">
+        RISK_DRUG_COD,
+      </if>
+      <if test="riskMacCod != null">
+        RISK_MAC_COD,
+      </if>
+      <if test="riskActionCod != null">
+        RISK_ACTION_COD,
+      </if>
+      <if test="riskCognizeCod != null">
+        RISK_COGNIZE_COD,
+      </if>
+      <if test="riskDiagnoseCod != null">
+        RISK_DIAGNOSE_COD,
+      </if>
+      <if test="riskHjysCod != null">
+        RISK_HJYS_COD,
+      </if>
+      <if test="riskZjmzhCod != null">
+        RISK_ZJMZH_COD,
+      </if>
+      <if test="riskDruguseCod != null">
+        RISK_DRUGUSE_COD,
+      </if>
+      <if test="riskOtherCod != null">
+        RISK_OTHER_COD,
+      </if>
+      <if test="riskSpare1 != null">
+        RISK_SPARE_1,
+      </if>
+      <if test="riskSpare2 != null">
+        RISK_SPARE_2,
+      </if>
+      <if test="riskSco != null">
+        RISK_SCO,
+      </if>
+      <if test="cretDat != null">
+        CRET_DAT,
+      </if>
+      <if test="danxSco != null">
+        DANX_SCO,
+      </if>
+      <if test="duoxSco != null">
+        DUOX_SCO,
+      </if>
+      <if test="crtUsrNo != null">
+        CRT_USR_NO,
+      </if>
+      <if test="crtUsrNme != null">
+        CRT_USR_NME,
+      </if>
+      <if test="updUsrNo != null">
+        UPD_USR_NO,
+      </if>
+      <if test="updUsrNme != null">
+        UPD_USR_NME,
+      </if>
+      <if test="updTime != null">
+        UPD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fallriskSeq != null">
+        #{fallriskSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="riskClassCod != null">
+        #{riskClassCod,jdbcType=VARCHAR},
+      </if>
+      <if test="riskAgeCod != null">
+        #{riskAgeCod,jdbcType=CHAR},
+      </if>
+      <if test="riskSexCod != null">
+        #{riskSexCod,jdbcType=CHAR},
+      </if>
+      <if test="riskHisCod != null">
+        #{riskHisCod,jdbcType=CHAR},
+      </if>
+      <if test="riskExcreteCod != null">
+        #{riskExcreteCod,jdbcType=CHAR},
+      </if>
+      <if test="riskDrugCod != null">
+        #{riskDrugCod,jdbcType=CHAR},
+      </if>
+      <if test="riskMacCod != null">
+        #{riskMacCod,jdbcType=CHAR},
+      </if>
+      <if test="riskActionCod != null">
+        #{riskActionCod,jdbcType=VARCHAR},
+      </if>
+      <if test="riskCognizeCod != null">
+        #{riskCognizeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="riskDiagnoseCod != null">
+        #{riskDiagnoseCod,jdbcType=CHAR},
+      </if>
+      <if test="riskHjysCod != null">
+        #{riskHjysCod,jdbcType=CHAR},
+      </if>
+      <if test="riskZjmzhCod != null">
+        #{riskZjmzhCod,jdbcType=CHAR},
+      </if>
+      <if test="riskDruguseCod != null">
+        #{riskDruguseCod,jdbcType=CHAR},
+      </if>
+      <if test="riskOtherCod != null">
+        #{riskOtherCod,jdbcType=CHAR},
+      </if>
+      <if test="riskSpare1 != null">
+        #{riskSpare1,jdbcType=VARCHAR},
+      </if>
+      <if test="riskSpare2 != null">
+        #{riskSpare2,jdbcType=VARCHAR},
+      </if>
+      <if test="riskSco != null">
+        #{riskSco,jdbcType=VARCHAR},
+      </if>
+      <if test="cretDat != null">
+        #{cretDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="danxSco != null">
+        #{danxSco,jdbcType=VARCHAR},
+      </if>
+      <if test="duoxSco != null">
+        #{duoxSco,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNo != null">
+        #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNme != null">
+        #{crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNo != null">
+        #{updUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNme != null">
+        #{updUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updTime != null">
+        #{updTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspFallriskInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_FALLRISK_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_FALLRISK_INF
+    <set>
+      <if test="record.fallriskSeq != null">
+        FALLRISK_SEQ = #{record.fallriskSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskClassCod != null">
+        RISK_CLASS_COD = #{record.riskClassCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskAgeCod != null">
+        RISK_AGE_COD = #{record.riskAgeCod,jdbcType=CHAR},
+      </if>
+      <if test="record.riskSexCod != null">
+        RISK_SEX_COD = #{record.riskSexCod,jdbcType=CHAR},
+      </if>
+      <if test="record.riskHisCod != null">
+        RISK_HIS_COD = #{record.riskHisCod,jdbcType=CHAR},
+      </if>
+      <if test="record.riskExcreteCod != null">
+        RISK_EXCRETE_COD = #{record.riskExcreteCod,jdbcType=CHAR},
+      </if>
+      <if test="record.riskDrugCod != null">
+        RISK_DRUG_COD = #{record.riskDrugCod,jdbcType=CHAR},
+      </if>
+      <if test="record.riskMacCod != null">
+        RISK_MAC_COD = #{record.riskMacCod,jdbcType=CHAR},
+      </if>
+      <if test="record.riskActionCod != null">
+        RISK_ACTION_COD = #{record.riskActionCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskCognizeCod != null">
+        RISK_COGNIZE_COD = #{record.riskCognizeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskDiagnoseCod != null">
+        RISK_DIAGNOSE_COD = #{record.riskDiagnoseCod,jdbcType=CHAR},
+      </if>
+      <if test="record.riskHjysCod != null">
+        RISK_HJYS_COD = #{record.riskHjysCod,jdbcType=CHAR},
+      </if>
+      <if test="record.riskZjmzhCod != null">
+        RISK_ZJMZH_COD = #{record.riskZjmzhCod,jdbcType=CHAR},
+      </if>
+      <if test="record.riskDruguseCod != null">
+        RISK_DRUGUSE_COD = #{record.riskDruguseCod,jdbcType=CHAR},
+      </if>
+      <if test="record.riskOtherCod != null">
+        RISK_OTHER_COD = #{record.riskOtherCod,jdbcType=CHAR},
+      </if>
+      <if test="record.riskSpare1 != null">
+        RISK_SPARE_1 = #{record.riskSpare1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskSpare2 != null">
+        RISK_SPARE_2 = #{record.riskSpare2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskSco != null">
+        RISK_SCO = #{record.riskSco,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cretDat != null">
+        CRET_DAT = #{record.cretDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.danxSco != null">
+        DANX_SCO = #{record.danxSco,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duoxSco != null">
+        DUOX_SCO = #{record.duoxSco,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUsrNo != null">
+        CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUsrNme != null">
+        CRT_USR_NME = #{record.crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updUsrNo != null">
+        UPD_USR_NO = #{record.updUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updUsrNme != null">
+        UPD_USR_NME = #{record.updUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updTime != null">
+        UPD_TIME = #{record.updTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_FALLRISK_INF
+    set FALLRISK_SEQ = #{record.fallriskSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      RISK_CLASS_COD = #{record.riskClassCod,jdbcType=VARCHAR},
+      RISK_AGE_COD = #{record.riskAgeCod,jdbcType=CHAR},
+      RISK_SEX_COD = #{record.riskSexCod,jdbcType=CHAR},
+      RISK_HIS_COD = #{record.riskHisCod,jdbcType=CHAR},
+      RISK_EXCRETE_COD = #{record.riskExcreteCod,jdbcType=CHAR},
+      RISK_DRUG_COD = #{record.riskDrugCod,jdbcType=CHAR},
+      RISK_MAC_COD = #{record.riskMacCod,jdbcType=CHAR},
+      RISK_ACTION_COD = #{record.riskActionCod,jdbcType=VARCHAR},
+      RISK_COGNIZE_COD = #{record.riskCognizeCod,jdbcType=VARCHAR},
+      RISK_DIAGNOSE_COD = #{record.riskDiagnoseCod,jdbcType=CHAR},
+      RISK_HJYS_COD = #{record.riskHjysCod,jdbcType=CHAR},
+      RISK_ZJMZH_COD = #{record.riskZjmzhCod,jdbcType=CHAR},
+      RISK_DRUGUSE_COD = #{record.riskDruguseCod,jdbcType=CHAR},
+      RISK_OTHER_COD = #{record.riskOtherCod,jdbcType=CHAR},
+      RISK_SPARE_1 = #{record.riskSpare1,jdbcType=VARCHAR},
+      RISK_SPARE_2 = #{record.riskSpare2,jdbcType=VARCHAR},
+      RISK_SCO = #{record.riskSco,jdbcType=VARCHAR},
+      CRET_DAT = #{record.cretDat,jdbcType=TIMESTAMP},
+      DANX_SCO = #{record.danxSco,jdbcType=VARCHAR},
+      DUOX_SCO = #{record.duoxSco,jdbcType=VARCHAR},
+      CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NME = #{record.crtUsrNme,jdbcType=VARCHAR},
+      UPD_USR_NO = #{record.updUsrNo,jdbcType=VARCHAR},
+      UPD_USR_NME = #{record.updUsrNme,jdbcType=VARCHAR},
+      UPD_TIME = #{record.updTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspFallriskInf">
+    update HSP_FALLRISK_INF
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="riskClassCod != null">
+        RISK_CLASS_COD = #{riskClassCod,jdbcType=VARCHAR},
+      </if>
+      <if test="riskAgeCod != null">
+        RISK_AGE_COD = #{riskAgeCod,jdbcType=CHAR},
+      </if>
+      <if test="riskSexCod != null">
+        RISK_SEX_COD = #{riskSexCod,jdbcType=CHAR},
+      </if>
+      <if test="riskHisCod != null">
+        RISK_HIS_COD = #{riskHisCod,jdbcType=CHAR},
+      </if>
+      <if test="riskExcreteCod != null">
+        RISK_EXCRETE_COD = #{riskExcreteCod,jdbcType=CHAR},
+      </if>
+      <if test="riskDrugCod != null">
+        RISK_DRUG_COD = #{riskDrugCod,jdbcType=CHAR},
+      </if>
+      <if test="riskMacCod != null">
+        RISK_MAC_COD = #{riskMacCod,jdbcType=CHAR},
+      </if>
+      <if test="riskActionCod != null">
+        RISK_ACTION_COD = #{riskActionCod,jdbcType=VARCHAR},
+      </if>
+      <if test="riskCognizeCod != null">
+        RISK_COGNIZE_COD = #{riskCognizeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="riskDiagnoseCod != null">
+        RISK_DIAGNOSE_COD = #{riskDiagnoseCod,jdbcType=CHAR},
+      </if>
+      <if test="riskHjysCod != null">
+        RISK_HJYS_COD = #{riskHjysCod,jdbcType=CHAR},
+      </if>
+      <if test="riskZjmzhCod != null">
+        RISK_ZJMZH_COD = #{riskZjmzhCod,jdbcType=CHAR},
+      </if>
+      <if test="riskDruguseCod != null">
+        RISK_DRUGUSE_COD = #{riskDruguseCod,jdbcType=CHAR},
+      </if>
+      <if test="riskOtherCod != null">
+        RISK_OTHER_COD = #{riskOtherCod,jdbcType=CHAR},
+      </if>
+      <if test="riskSpare1 != null">
+        RISK_SPARE_1 = #{riskSpare1,jdbcType=VARCHAR},
+      </if>
+      <if test="riskSpare2 != null">
+        RISK_SPARE_2 = #{riskSpare2,jdbcType=VARCHAR},
+      </if>
+      <if test="riskSco != null">
+        RISK_SCO = #{riskSco,jdbcType=VARCHAR},
+      </if>
+      <if test="cretDat != null">
+        CRET_DAT = #{cretDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="danxSco != null">
+        DANX_SCO = #{danxSco,jdbcType=VARCHAR},
+      </if>
+      <if test="duoxSco != null">
+        DUOX_SCO = #{duoxSco,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNo != null">
+        CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNme != null">
+        CRT_USR_NME = #{crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNo != null">
+        UPD_USR_NO = #{updUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNme != null">
+        UPD_USR_NME = #{updUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updTime != null">
+        UPD_TIME = #{updTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FALLRISK_SEQ = #{fallriskSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspFallriskInf">
+    update HSP_FALLRISK_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      RISK_CLASS_COD = #{riskClassCod,jdbcType=VARCHAR},
+      RISK_AGE_COD = #{riskAgeCod,jdbcType=CHAR},
+      RISK_SEX_COD = #{riskSexCod,jdbcType=CHAR},
+      RISK_HIS_COD = #{riskHisCod,jdbcType=CHAR},
+      RISK_EXCRETE_COD = #{riskExcreteCod,jdbcType=CHAR},
+      RISK_DRUG_COD = #{riskDrugCod,jdbcType=CHAR},
+      RISK_MAC_COD = #{riskMacCod,jdbcType=CHAR},
+      RISK_ACTION_COD = #{riskActionCod,jdbcType=VARCHAR},
+      RISK_COGNIZE_COD = #{riskCognizeCod,jdbcType=VARCHAR},
+      RISK_DIAGNOSE_COD = #{riskDiagnoseCod,jdbcType=CHAR},
+      RISK_HJYS_COD = #{riskHjysCod,jdbcType=CHAR},
+      RISK_ZJMZH_COD = #{riskZjmzhCod,jdbcType=CHAR},
+      RISK_DRUGUSE_COD = #{riskDruguseCod,jdbcType=CHAR},
+      RISK_OTHER_COD = #{riskOtherCod,jdbcType=CHAR},
+      RISK_SPARE_1 = #{riskSpare1,jdbcType=VARCHAR},
+      RISK_SPARE_2 = #{riskSpare2,jdbcType=VARCHAR},
+      RISK_SCO = #{riskSco,jdbcType=VARCHAR},
+      CRET_DAT = #{cretDat,jdbcType=TIMESTAMP},
+      DANX_SCO = #{danxSco,jdbcType=VARCHAR},
+      DUOX_SCO = #{duoxSco,jdbcType=VARCHAR},
+      CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NME = #{crtUsrNme,jdbcType=VARCHAR},
+      UPD_USR_NO = #{updUsrNo,jdbcType=VARCHAR},
+      UPD_USR_NME = #{updUsrNme,jdbcType=VARCHAR},
+      UPD_TIME = #{updTime,jdbcType=TIMESTAMP}
+    where FALLRISK_SEQ = #{fallriskSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

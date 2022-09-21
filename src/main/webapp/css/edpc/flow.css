@@ -1,0 +1,833 @@
+.flowChart {
+    overflow-y: hidden;
+    margin: 0;
+    position: relative;
+}
+
+.listTrigger{
+    font-size: 19px;
+    font-weight: bold;
+    margin: 0 5px;
+    cursor: pointer;
+    color: #3876ba;
+}
+
+.flow,
+.list {
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.list {
+    right: 0;
+    width: 20%;
+    border-left: 1px solid #95b8e7;
+}
+
+.list .killip_1{
+    color: #008000;
+}
+.list .killip_2{
+    color: #F1CE41;
+}
+.list .killip_3{
+    color: #ff9900;
+}
+.list .killip_4{
+    color: #fd2a2a;
+}
+
+.list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 42px;
+}
+
+.list ul li {
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    line-height: 24px;
+    padding: 5px 0 5px 5px;
+    position: relative
+}
+
+.selected {
+    background: #eeeeee;
+}
+
+.show{
+    display: inline-block !important;
+}
+.showBlock{
+    display: block !important;
+}
+.list ul li:hover {
+    background: #eee;
+}
+
+.list ul li .info_item .title {
+    color: #3876ba;
+    width: 65px;
+    display: inline-block;
+}
+.list ul li .bedNo{
+    position: absolute;
+    right: 3px;
+    top: 3px;
+
+    display: inline-block;
+    vertical-align: middle;
+    width: 40px;
+    text-align: center;
+    height: 33px;
+    line-height: 33px;
+    border-radius: 50%;
+    background: #3876ba;
+    color: #ffffff;
+}
+.bedNo .num{
+     font-weight: bold;
+     font-size: 16px
+ }
+.bedNo .bed{
+    font-size: 13px
+}
+.list .no-patient{
+    text-align: center;
+    color: #888888;
+}
+.list .searchBar{
+    border: 1px solid #CCCCCC;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    background: #fff;
+    height: 40px;
+}
+.list .searchBar .toggleBtn{
+    color: #666666;
+}
+.list .searchBar .activeBtn{
+    color: #3d85d0 !important;
+}
+.list .searchBar .searchInput{
+    height: 30px;
+    width: 115px;
+    border-radius: 10px;
+    border: 1px solid #3d85d0;
+    margin: 5px 0;
+    padding-left: 5px;
+    font-size: 14px;
+    outline:none
+}
+.list ul li .return{
+    position: absolute;
+    right: 3px;
+    top: 3px;
+
+    display: inline-block;
+    vertical-align: middle;
+    width: 43px;
+    text-align: center;
+    color: #fff;
+    background: #9DC3FC;
+    font-size: 12px;
+}
+.list ul li .info_item .name{
+    font-weight: bold;
+    font-size: 16px;
+}
+.list ul li .info_item .male{
+    color:#0051cc;
+}
+.list ul li .info_item .female {
+    color:#ff00a9;
+}
+
+.flow {
+    width: 80%;
+    left: 0;
+}
+
+.flow .window_outer {
+    position: relative;
+}
+
+.flow .window_outer .icon-click{
+    font-weight: bold;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.flow .windowInfo {
+    position: absolute;
+    display: none;
+    border-style: solid;
+    white-space: nowrap;
+    z-index: 9999999;
+    transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+    background-color: rgba(50, 50, 50, .8);
+    border-width: 0px;
+    border-color: rgb(51, 51, 51);
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
+    font: 14px/21px sans-serif;
+    padding: 5px;
+    left: 20px;
+    /*top: 245px;*/
+    text-align: left;
+    /*min-width: 120px;*/
+    pointer-events: none;
+}
+
+.flow .windowInfo .window_item>div{
+    display: inline-block;
+}
+.flow .windowInfo .window_item .title{
+    text-align: right;
+}
+.flow .windowInfo .window_item .w_170{
+    width: 170px;
+}
+.flow .windowInfo .window_item .w_142{
+    width: 142px;
+}
+.flow .windowInfo .window_item .w_110{
+    width: 110px;
+}
+.flow .windowInfo .window_item .w_126{
+    width: 126px;
+}
+.flow .windowInfo .window_item .w_74{
+    width: 74px;
+}
+.flow .red {
+    background: red !important;
+    color: #FFFFFF;
+}
+
+.flow .green {
+    background: #44b548 !important;
+    color: #FFFFFF;
+}
+
+.flow .lightGreen{
+    background: #9BDBA8 !important;
+    color: #FFFFFF;
+}
+
+.flow .infoBar {
+    /*width: 1162px;*/
+    width: auto;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    /*border-bottom: 1px solid #95B8E7;*/
+}
+
+.flow .infoBar div {
+    display: inline-block;
+    padding: 0 10px;
+}
+.flow .infoBar .rightBtn{
+    font-size: 15px;
+    float: right;
+    cursor: pointer;
+}
+.flow .infoBar .rightBtn:hover{
+    color: #3876ba;
+}
+.flow .infoBar .rightBtn>span{
+    vertical-align: middle;
+}
+
+.flow .infoBar .printBtn{
+    background: #3876ba;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.flow .arterial {
+    position: relative;
+}
+
+.flow .consent{
+    position: absolute;
+    right: 10px;
+    top: 0;
+    font-size: 16px;
+}
+.flow .consent:hover{
+    cursor: pointer;
+}
+.flow .fileTable{
+    position: absolute;
+    right: 0px;
+    top: 30px;
+    display: none;
+}
+.flow .countDown {
+    border: 1px solid #ccc;
+    line-height: 24px;
+    position: absolute;
+    left: 8px;
+    padding-bottom: 5px;
+    box-shadow: 2px 2px 6px #95B8E7;
+}
+
+.flow .countDown .btnWrapper {
+    text-align: center;
+    color: #3876ba;
+    border-bottom: 1px solid #ccc;
+}
+.flow .countDown .btnWrapper span{
+    display: inline-block;
+    border: 1px solid #95b8e7;
+    border-radius: 5px;
+    margin: 5px;
+    font-size: 13px;
+    height: 20px;
+    line-height: 20px;
+    width: 75px;
+}
+.flow .countDown .btnWrapper span:hover{
+    cursor: pointer;
+}
+
+.flow .countDown .title {
+    text-align: center;
+    font-weight: bold;
+    padding: 2px 0;
+    color: #3876ba;
+    font-size: 18px;
+    border-bottom: 1px solid #ccc;
+}
+
+.flow .countDown .hide {
+    display: none;
+}
+.flow .countDown .item {
+    padding-right: 5px;
+}
+
+.flow .countDown .item .name {
+    color: #3876ba;
+    width: 118px;
+    text-align: right;
+}
+.flow .countDown .item .time {
+    min-width: 40px;
+}
+.flow .countDown .item .child {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.flow .countDown .item .child .bar {
+    width: 115px;
+    height: 13px;
+    font-size: 10px;
+}
+
+.flow .arterial .art_inner {
+    text-align: center;
+    width: 568px;
+    margin-left: 334px;
+}
+
+.flow .arterial .art_inner .art_branch {
+    display: inline-block;
+    position: relative
+}
+
+.flow .arterial .art_branch .line_no_arrow {
+    position: absolute;
+    left: 33px;
+    bottom: -34px;
+}
+
+.flow .arterial .art_branch .line_arrow {
+    position: absolute;
+    right: 27px;
+    bottom: -34px;
+}
+
+#art_branch_main {
+    display: none;
+}
+
+#non_acs_process, #acs_process {
+    display: none;
+}
+
+/*绔栫嚎*/
+.flow .line_v {
+    display: inline-block;
+    height: 25px;
+    width: 0;
+    border-left: 1px solid black;
+}
+
+/*妯嚎*/
+.flow .line_h {
+    display: inline-block;
+    height: 0;
+    vertical-align: middle;
+    border-top: 1px solid black;
+}
+
+/*鏈濅笂绠ご*/
+.flow .triangle_up {
+    display: inline-block;
+    width: 0;
+    height: 0;
+
+    overflow: hidden;
+    border-width: 6px;
+    border-color: transparent transparent black transparent;
+    border-style: dashed dashed solid dashed;
+    border-top: none;
+}
+
+/*鏈濅笅绠ご*/
+.flow .triangle_down {
+    display: inline-block;
+    width: 0;
+    height: 0;
+
+    overflow: hidden;
+    /* 绠ご灏哄 */
+    border-width: 6px;
+    /* 缁欑澶寸潃鑹诧紝鍥涗釜鍊煎垎鍒槸杈规鐨勫洓涓柟鍚戯紝绠ご鐨勬柟鍚戞濂界浉鍙� */
+    border-color: black transparent transparent transparent;
+    /* 涓轰簡鍏煎鎬э紝鏈�濂芥妸鍥涗釜鍊奸兘琛ヤ笂锛岄渶瑕佺殑鏂瑰悜璁惧疄绾匡紝鍏朵粬鏂瑰悜铏氱嚎 */
+    border-style: solid dashed dashed dashed;
+    border-bottom: none;
+}
+
+/*鏈濆乏绠ご*/
+.flow .triangle_left {
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border-width: 6px;
+    border-color: transparent black transparent transparent;
+    border-style: dashed solid dashed dashed;
+    border-left: none;
+}
+
+/*鏈濆彸绠ご*/
+.flow .triangle_right {
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border-width: 6px;
+    border-color: transparent transparent transparent black;
+    border-style: dashed dashed dashed solid;
+    border-right: none;
+}
+
+/*鍦嗚绔偣*/
+.flow .filletRect {
+    display: inline-block;
+    text-align: center;
+    border: 1px solid black;
+    width: 65px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 10px;
+}
+
+/*鍒ゆ柇妗�*/
+.flow .judge {
+    display: inline-block;
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    transform: rotate(45deg);
+    margin: 12px 7px;
+}
+
+.flow .judge .inner {
+    transform: rotate(-45deg);
+}
+
+.flow .judge:hover {
+    cursor: pointer;
+}
+
+/*娴佺▼妗�*/
+.flow .process {
+    border: 1px solid black;
+    display: inline-block;
+    width: 65px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    z-index: 0;
+}
+
+.flow .process:hover {
+    cursor: pointer;
+}
+
+.flow .multi_col {
+    position: relative;
+    display: inline-block;
+    /*width: 420px;*/
+    height: 60px;
+    border: 1px solid black;
+}
+
+.flow .multi_col .middle_line {
+    position: absolute;
+    left: 50%;
+    height: 100%;
+    border-right: 1px solid black;
+}
+
+.flow .multi_col .floatBlock {
+    background: white;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/*鐥呮儏璇勪及鑺傜偣*/
+.flow .multi_col .bq_pg {
+    left: -32px;
+}
+
+/*EGC鑺傜偣*/
+.flow .multi_col .egc {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110px;
+}
+
+/*琛�鍖栭獙鑺傜偣*/
+.flow .multi_col .xhy {
+    right: -32px;
+}
+
+/*涓诲姩鑴塁TA鑺傜偣*/
+.flow .multi_col .zdm_cta {
+    width: 75px;
+    left: -37px;
+}
+
+/*蹇冭剰瓒呭０妫�鏌ヨ妭鐐�*/
+.flow .multi_col .xz_jc {
+    width: 85px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*MRI妫�鏌�*/
+.flow .multi_col .mri {
+    right: -32px;
+}
+
+/*鑲哄姩鑴塁TA鑺傜偣*/
+.flow .multi_col .fdm_cta {
+    width: 75px;
+    left: -37px;
+}
+
+/*蹇冭剰瓒呭０绛涙煡鑺傜偣*/
+.flow .multi_col .xz_sc {
+    width: 85px;
+    right: -42px;
+}
+
+.flow .multi_col .pos {
+    position: absolute;
+    top: 18%;
+    transform: translateY(-50%);
+}
+
+.flow .multi_col .pos_l {
+    left: -6px;
+}
+
+.flow .multi_col .pos_m {
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.flow .multi_col .pos_r {
+    right: -6px;
+}
+
+.flow .lineWrapper {
+    width: 100%;
+    position: relative;
+    /*width: 425px;*/
+    display: inline-block
+}
+
+.flow .lineWrapper .left {
+    position: absolute;
+    top: -28px;
+    left: 42px;
+    width: 12px;
+    display: inline-block;
+}
+
+.flow .lineWrapper .right {
+    position: absolute;
+    top: -28px;
+    right: 42px;
+    width: 12px;
+    display: inline-block;
+}
+
+
+.flow .branch_outer {
+    width: 1156px;
+    margin-top: 6px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+    overflow-x: auto;
+}
+
+.flow .branch {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.flow #non_acs {
+    width: 709px;
+    position: relative;
+}
+
+.flow #non_acs .branch_observe {
+    width: 65px;
+    text-align: center;
+    position: absolute;
+    top: 65px;
+}
+
+.flow #non_acs .col_group {
+    width: 100%;
+}
+
+.flow #non_acs .col_group .col {
+    /*display: inline-block;*/
+    /*width: 140px;*/
+    text-align: center;
+    vertical-align: top;
+    position: relative;
+    float: left;
+}
+
+.flow #non_acs .col_group .multi_cols {
+    display: inline-block;
+    position: relative;
+    height: 60px;
+    border: 1px solid black;
+}
+
+.col_group .two {
+    width: 120px;
+}
+
+.flow #non_acs .col_group .col_1 {
+    width: 254px;
+}
+
+.flow #non_acs .col_group .col_1 .line_turn_right {
+    position: absolute;
+    width: 358px;
+    height: 85px;
+    border: 1px solid black;
+    left: 126px;
+    border-top: none;
+    border-right: none;
+}
+
+.flow #non_acs .col_group .col_2 {
+    width: 178px;
+}
+
+.flow #non_acs .col_group .col_2 .straight {
+    position: absolute;
+    bottom: 15px;
+    left: 122px;
+    width: 70px;
+}
+
+.flow #non_acs .col_group .col_3 {
+    width: 105px;
+}
+
+.flow #non_acs .col_group .col_4 {
+    width: 90px;
+}
+
+.flow #non_acs .col_group .col_4 .toEnd {
+    position: absolute;
+    height: 48px;
+}
+
+.flow #non_acs .col_group .col_5 {
+    width: 82px;
+}
+
+.flow #non_acs .col_group .col_5 .line_turn_left {
+    position: absolute;
+    width: 144px;
+    height: 47px;
+    border: 1px solid;
+    right: 40px;
+    border-left: none;
+    border-top: none;
+}
+
+.flow #acs {
+    width: 442px;
+}
+
+.flow .UA {
+    width: 65px;
+    height: 40px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+.flow #acs .col {
+    display: inline-block;
+    width: 110px;
+    text-align: center;
+    /*border: 1px solid red;*/
+    vertical-align: top;
+    position: relative;
+}
+
+.flow #acs .col .line_two_turn {
+    position: absolute;
+    width: 10px;
+    height: 217px;
+    left: 1px;
+    bottom: 72px;
+    border: 1px solid black;
+    border-right: none;
+    border-bottom: none;
+}
+
+.flow #acs .col .line_left_small {
+    position: absolute;
+    left: -7px;
+    bottom: 15px;
+    width: 23px;
+}
+
+.flow #acs .col .pos_left {
+    position: absolute;
+    left: 16px;
+}
+
+.flow #acs .col1 {
+    margin-left: 96px;
+}
+
+.flow #acs .col1 .lineToZg_l{
+    position: absolute;
+    right: -23px;
+    height: 80px;
+    width: 77px;
+    border: 1px solid black;
+    border-top: none;
+    border-right: none;
+}
+
+.flow #acs .col1 .line_turn {
+    position: absolute;
+    width: 118px;
+    height: 217px;
+    left: -64px;
+    top: -23px;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+
+.flow #acs .col2 {
+    margin-left: 3px;
+}
+
+.flow #acs .col2 .float_arrow {
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translate(-50%, 0)
+}
+
+.flow #acs .col2 .r_line_to_end {
+    position: absolute;
+    right: -30px;
+    bottom: 10px;
+}
+.flow #acs .col2 .line_to_STEMI{
+    position: absolute;
+    transform: rotate(-61deg);
+    left: -60px;
+    top: 70px;
+}
+
+.flow #acs .col3 {
+    margin-left: 3px;
+}
+
+.flow #acs .col3 .line_pos_left {
+    width: 38px;
+    position: absolute;
+    top: 106px;
+    left: -21px;
+}
+
+.flow #acs .col3 .lineToZg_r{
+    position: absolute;
+    left: -23px;
+    height: 110px;
+    width: 79px;
+    border: 1px solid black;
+    border-top: none;
+    border-left: none;
+}
+
+.flow #acs .col3 .triangle_pos_left {
+    position: absolute;
+    left: 16px;
+    top: 100px;
+}
+.redFont{
+    color:red;
+}
+#dd{
+    display: none;
+}
+#dd .row{
+    border: 1px solid #CCCCCC;
+}
+#dd .row .col{
+    display: inline-block;
+    padding: 10px 0;
+    text-align: center;
+}
+
+

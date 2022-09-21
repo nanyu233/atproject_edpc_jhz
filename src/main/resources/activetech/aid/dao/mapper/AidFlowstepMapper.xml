@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.aid.dao.mapper.AidFlowstepMapper" >
+  <resultMap id="BaseResultMap" type="activetech.aid.pojo.domain.AidFlowstep" >
+    <id column="FLOWSEQ" property="flowseq" jdbcType="VARCHAR" />
+    <result column="FLOWENTRY" property="flowentry" jdbcType="VARCHAR" />
+    <result column="PATID" property="patid" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="STEPTYPE" property="steptype" jdbcType="VARCHAR" />
+    <result column="STEPSEQ" property="stepseq" jdbcType="VARCHAR" />
+    <result column="MODFLAG" property="modflag" jdbcType="VARCHAR" />
+    <result column="FLOWTIME" property="flowtime" jdbcType="TIMESTAMP" />
+    <result column="FLOWMEMO" property="flowmemo" jdbcType="VARCHAR" />
+    <result column="CRTUSERID" property="crtuserid" jdbcType="VARCHAR" />
+    <result column="CRTTIME" property="crttime" jdbcType="TIMESTAMP" />
+    <result column="MODTIME" property="modtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FLOWSEQ, FLOWENTRY, PATID, EMG_SEQ, STEPTYPE, STEPSEQ, MODFLAG, FLOWTIME, FLOWMEMO, 
+    CRTUSERID, CRTTIME, MODTIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.aid.pojo.domain.AidFlowstepExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from AID_FLOWSTEP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from AID_FLOWSTEP
+    where FLOWSEQ = #{flowseq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from AID_FLOWSTEP
+    where FLOWSEQ = #{flowseq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.aid.pojo.domain.AidFlowstepExample" >
+    delete from AID_FLOWSTEP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.aid.pojo.domain.AidFlowstep" >
+    insert into AID_FLOWSTEP (FLOWSEQ, FLOWENTRY, PATID, 
+      EMG_SEQ, STEPTYPE, STEPSEQ, 
+      MODFLAG, FLOWTIME, FLOWMEMO, 
+      CRTUSERID, CRTTIME, MODTIME
+      )
+    values (#{flowseq,jdbcType=VARCHAR}, #{flowentry,jdbcType=VARCHAR}, #{patid,jdbcType=VARCHAR}, 
+      #{emgSeq,jdbcType=VARCHAR}, #{steptype,jdbcType=VARCHAR}, #{stepseq,jdbcType=VARCHAR}, 
+      #{modflag,jdbcType=VARCHAR}, #{flowtime,jdbcType=TIMESTAMP}, #{flowmemo,jdbcType=VARCHAR}, 
+      #{crtuserid,jdbcType=VARCHAR}, #{crttime,jdbcType=TIMESTAMP}, #{modtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.aid.pojo.domain.AidFlowstep" >
+    insert into AID_FLOWSTEP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flowseq != null" >
+        FLOWSEQ,
+      </if>
+      <if test="flowentry != null" >
+        FLOWENTRY,
+      </if>
+      <if test="patid != null" >
+        PATID,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="steptype != null" >
+        STEPTYPE,
+      </if>
+      <if test="stepseq != null" >
+        STEPSEQ,
+      </if>
+      <if test="modflag != null" >
+        MODFLAG,
+      </if>
+      <if test="flowtime != null" >
+        FLOWTIME,
+      </if>
+      <if test="flowmemo != null" >
+        FLOWMEMO,
+      </if>
+      <if test="crtuserid != null" >
+        CRTUSERID,
+      </if>
+      <if test="crttime != null" >
+        CRTTIME,
+      </if>
+      <if test="modtime != null" >
+        MODTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flowseq != null" >
+        #{flowseq,jdbcType=VARCHAR},
+      </if>
+      <if test="flowentry != null" >
+        #{flowentry,jdbcType=VARCHAR},
+      </if>
+      <if test="patid != null" >
+        #{patid,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="steptype != null" >
+        #{steptype,jdbcType=VARCHAR},
+      </if>
+      <if test="stepseq != null" >
+        #{stepseq,jdbcType=VARCHAR},
+      </if>
+      <if test="modflag != null" >
+        #{modflag,jdbcType=VARCHAR},
+      </if>
+      <if test="flowtime != null" >
+        #{flowtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flowmemo != null" >
+        #{flowmemo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtuserid != null" >
+        #{crtuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="crttime != null" >
+        #{crttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modtime != null" >
+        #{modtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.aid.pojo.domain.AidFlowstepExample" resultType="java.lang.Integer" >
+    select count(*) from AID_FLOWSTEP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update AID_FLOWSTEP
+    <set >
+      <if test="record.flowseq != null" >
+        FLOWSEQ = #{record.flowseq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flowentry != null" >
+        FLOWENTRY = #{record.flowentry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patid != null" >
+        PATID = #{record.patid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.steptype != null" >
+        STEPTYPE = #{record.steptype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stepseq != null" >
+        STEPSEQ = #{record.stepseq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modflag != null" >
+        MODFLAG = #{record.modflag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flowtime != null" >
+        FLOWTIME = #{record.flowtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flowmemo != null" >
+        FLOWMEMO = #{record.flowmemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtuserid != null" >
+        CRTUSERID = #{record.crtuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crttime != null" >
+        CRTTIME = #{record.crttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modtime != null" >
+        MODTIME = #{record.modtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update AID_FLOWSTEP
+    set FLOWSEQ = #{record.flowseq,jdbcType=VARCHAR},
+      FLOWENTRY = #{record.flowentry,jdbcType=VARCHAR},
+      PATID = #{record.patid,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      STEPTYPE = #{record.steptype,jdbcType=VARCHAR},
+      STEPSEQ = #{record.stepseq,jdbcType=VARCHAR},
+      MODFLAG = #{record.modflag,jdbcType=VARCHAR},
+      FLOWTIME = #{record.flowtime,jdbcType=TIMESTAMP},
+      FLOWMEMO = #{record.flowmemo,jdbcType=VARCHAR},
+      CRTUSERID = #{record.crtuserid,jdbcType=VARCHAR},
+      CRTTIME = #{record.crttime,jdbcType=TIMESTAMP},
+      MODTIME = #{record.modtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.aid.pojo.domain.AidFlowstep" >
+    update AID_FLOWSTEP
+    <set >
+      <if test="flowentry != null" >
+        FLOWENTRY = #{flowentry,jdbcType=VARCHAR},
+      </if>
+      <if test="patid != null" >
+        PATID = #{patid,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="steptype != null" >
+        STEPTYPE = #{steptype,jdbcType=VARCHAR},
+      </if>
+      <if test="stepseq != null" >
+        STEPSEQ = #{stepseq,jdbcType=VARCHAR},
+      </if>
+      <if test="modflag != null" >
+        MODFLAG = #{modflag,jdbcType=VARCHAR},
+      </if>
+      <if test="flowtime != null" >
+        FLOWTIME = #{flowtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flowmemo != null" >
+        FLOWMEMO = #{flowmemo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtuserid != null" >
+        CRTUSERID = #{crtuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="crttime != null" >
+        CRTTIME = #{crttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modtime != null" >
+        MODTIME = #{modtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FLOWSEQ = #{flowseq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.aid.pojo.domain.AidFlowstep" >
+    update AID_FLOWSTEP
+    set FLOWENTRY = #{flowentry,jdbcType=VARCHAR},
+      PATID = #{patid,jdbcType=VARCHAR},
+      EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      STEPTYPE = #{steptype,jdbcType=VARCHAR},
+      STEPSEQ = #{stepseq,jdbcType=VARCHAR},
+      MODFLAG = #{modflag,jdbcType=VARCHAR},
+      FLOWTIME = #{flowtime,jdbcType=TIMESTAMP},
+      FLOWMEMO = #{flowmemo,jdbcType=VARCHAR},
+      CRTUSERID = #{crtuserid,jdbcType=VARCHAR},
+      CRTTIME = #{crttime,jdbcType=TIMESTAMP},
+      MODTIME = #{modtime,jdbcType=TIMESTAMP}
+    where FLOWSEQ = #{flowseq,jdbcType=VARCHAR}
+  </update>
+</mapper>

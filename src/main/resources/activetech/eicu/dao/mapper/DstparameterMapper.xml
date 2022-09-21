@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.eicu.dao.mapper.DstparameterMapper" >
+  <resultMap id="BaseResultMap" type="activetech.eicu.pojo.domain.Dstparameter" >
+    <id column="PARTYPE" property="partype" jdbcType="VARCHAR" />
+    <id column="PARCODE" property="parcode" jdbcType="VARCHAR" />
+    <id column="PARVALUE1" property="parvalue1" jdbcType="VARCHAR" />
+    <result column="PARNAME" property="parname" jdbcType="VARCHAR" />
+    <result column="PARMEMO" property="parmemo" jdbcType="VARCHAR" />
+    <result column="PARVALUE2" property="parvalue2" jdbcType="VARCHAR" />
+    <result column="PARVALUE3" property="parvalue3" jdbcType="VARCHAR" />
+    <result column="PARVALUE4" property="parvalue4" jdbcType="VARCHAR" />
+    <result column="PARVALUE5" property="parvalue5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PARTYPE, PARCODE, PARVALUE1, PARNAME, PARMEMO, PARVALUE2, PARVALUE3, PARVALUE4, PARVALUE5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.eicu.pojo.domain.DstparameterExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DSTPARAMETER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="activetech.eicu.pojo.domain.DstparameterKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from DSTPARAMETER
+    where PARTYPE = #{partype,jdbcType=VARCHAR}
+      and PARCODE = #{parcode,jdbcType=VARCHAR}
+      and PARVALUE1 = #{parvalue1,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="activetech.eicu.pojo.domain.DstparameterKey" >
+    delete from DSTPARAMETER
+    where PARTYPE = #{partype,jdbcType=VARCHAR}
+      and PARCODE = #{parcode,jdbcType=VARCHAR}
+      and PARVALUE1 = #{parvalue1,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.eicu.pojo.domain.DstparameterExample" >
+    delete from DSTPARAMETER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.eicu.pojo.domain.Dstparameter" >
+    insert into DSTPARAMETER (PARTYPE, PARCODE, PARVALUE1, 
+      PARNAME, PARMEMO, PARVALUE2, 
+      PARVALUE3, PARVALUE4, PARVALUE5
+      )
+    values (#{partype,jdbcType=VARCHAR}, #{parcode,jdbcType=VARCHAR}, #{parvalue1,jdbcType=VARCHAR}, 
+      #{parname,jdbcType=VARCHAR}, #{parmemo,jdbcType=VARCHAR}, #{parvalue2,jdbcType=VARCHAR}, 
+      #{parvalue3,jdbcType=VARCHAR}, #{parvalue4,jdbcType=VARCHAR}, #{parvalue5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.eicu.pojo.domain.Dstparameter" >
+    insert into DSTPARAMETER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="partype != null" >
+        PARTYPE,
+      </if>
+      <if test="parcode != null" >
+        PARCODE,
+      </if>
+      <if test="parvalue1 != null" >
+        PARVALUE1,
+      </if>
+      <if test="parname != null" >
+        PARNAME,
+      </if>
+      <if test="parmemo != null" >
+        PARMEMO,
+      </if>
+      <if test="parvalue2 != null" >
+        PARVALUE2,
+      </if>
+      <if test="parvalue3 != null" >
+        PARVALUE3,
+      </if>
+      <if test="parvalue4 != null" >
+        PARVALUE4,
+      </if>
+      <if test="parvalue5 != null" >
+        PARVALUE5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="partype != null" >
+        #{partype,jdbcType=VARCHAR},
+      </if>
+      <if test="parcode != null" >
+        #{parcode,jdbcType=VARCHAR},
+      </if>
+      <if test="parvalue1 != null" >
+        #{parvalue1,jdbcType=VARCHAR},
+      </if>
+      <if test="parname != null" >
+        #{parname,jdbcType=VARCHAR},
+      </if>
+      <if test="parmemo != null" >
+        #{parmemo,jdbcType=VARCHAR},
+      </if>
+      <if test="parvalue2 != null" >
+        #{parvalue2,jdbcType=VARCHAR},
+      </if>
+      <if test="parvalue3 != null" >
+        #{parvalue3,jdbcType=VARCHAR},
+      </if>
+      <if test="parvalue4 != null" >
+        #{parvalue4,jdbcType=VARCHAR},
+      </if>
+      <if test="parvalue5 != null" >
+        #{parvalue5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.eicu.pojo.domain.DstparameterExample" resultType="java.lang.Integer" >
+    select count(*) from DSTPARAMETER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DSTPARAMETER
+    <set >
+      <if test="record.partype != null" >
+        PARTYPE = #{record.partype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parcode != null" >
+        PARCODE = #{record.parcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parvalue1 != null" >
+        PARVALUE1 = #{record.parvalue1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parname != null" >
+        PARNAME = #{record.parname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parmemo != null" >
+        PARMEMO = #{record.parmemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parvalue2 != null" >
+        PARVALUE2 = #{record.parvalue2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parvalue3 != null" >
+        PARVALUE3 = #{record.parvalue3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parvalue4 != null" >
+        PARVALUE4 = #{record.parvalue4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parvalue5 != null" >
+        PARVALUE5 = #{record.parvalue5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DSTPARAMETER
+    set PARTYPE = #{record.partype,jdbcType=VARCHAR},
+      PARCODE = #{record.parcode,jdbcType=VARCHAR},
+      PARVALUE1 = #{record.parvalue1,jdbcType=VARCHAR},
+      PARNAME = #{record.parname,jdbcType=VARCHAR},
+      PARMEMO = #{record.parmemo,jdbcType=VARCHAR},
+      PARVALUE2 = #{record.parvalue2,jdbcType=VARCHAR},
+      PARVALUE3 = #{record.parvalue3,jdbcType=VARCHAR},
+      PARVALUE4 = #{record.parvalue4,jdbcType=VARCHAR},
+      PARVALUE5 = #{record.parvalue5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.eicu.pojo.domain.Dstparameter" >
+    update DSTPARAMETER
+    <set >
+      <if test="parname != null" >
+        PARNAME = #{parname,jdbcType=VARCHAR},
+      </if>
+      <if test="parmemo != null" >
+        PARMEMO = #{parmemo,jdbcType=VARCHAR},
+      </if>
+      <if test="parvalue2 != null" >
+        PARVALUE2 = #{parvalue2,jdbcType=VARCHAR},
+      </if>
+      <if test="parvalue3 != null" >
+        PARVALUE3 = #{parvalue3,jdbcType=VARCHAR},
+      </if>
+      <if test="parvalue4 != null" >
+        PARVALUE4 = #{parvalue4,jdbcType=VARCHAR},
+      </if>
+      <if test="parvalue5 != null" >
+        PARVALUE5 = #{parvalue5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PARTYPE = #{partype,jdbcType=VARCHAR}
+      and PARCODE = #{parcode,jdbcType=VARCHAR}
+      and PARVALUE1 = #{parvalue1,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.eicu.pojo.domain.Dstparameter" >
+    update DSTPARAMETER
+    set PARNAME = #{parname,jdbcType=VARCHAR},
+      PARMEMO = #{parmemo,jdbcType=VARCHAR},
+      PARVALUE2 = #{parvalue2,jdbcType=VARCHAR},
+      PARVALUE3 = #{parvalue3,jdbcType=VARCHAR},
+      PARVALUE4 = #{parvalue4,jdbcType=VARCHAR},
+      PARVALUE5 = #{parvalue5,jdbcType=VARCHAR}
+    where PARTYPE = #{partype,jdbcType=VARCHAR}
+      and PARCODE = #{parcode,jdbcType=VARCHAR}
+      and PARVALUE1 = #{parvalue1,jdbcType=VARCHAR}
+  </update>
+</mapper>

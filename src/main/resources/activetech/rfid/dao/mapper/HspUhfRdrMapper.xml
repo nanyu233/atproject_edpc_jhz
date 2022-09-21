@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.rfid.dao.mapper.HspUhfRdrMapper">
+  <resultMap id="BaseResultMap" type="activetech.rfid.pojo.domain.HspUhfRdr">
+    <id column="RDR_SEQ" jdbcType="VARCHAR" property="rdrSeq" />
+    <result column="RDR_ID" jdbcType="VARCHAR" property="rdrId" />
+    <result column="RDR_NAM" jdbcType="VARCHAR" property="rdrNam" />
+    <result column="RDR_TYP" jdbcType="CHAR" property="rdrTyp" />
+    <result column="MTR_TYP" jdbcType="VARCHAR" property="mtrTyp" />
+    <result column="MTR_COD" jdbcType="VARCHAR" property="mtrCod" />
+    <result column="RDR_LOC" jdbcType="VARCHAR" property="rdrLoc" />
+    <result column="RDR_STA" jdbcType="CHAR" property="rdrSta" />
+    <result column="RDR_PAR" jdbcType="VARCHAR" property="rdrPar" />
+    <result column="RDR_DEP" jdbcType="VARCHAR" property="rdrDep" />
+    <result column="RDR_DEP_NAM" jdbcType="VARCHAR" property="rdrDepNam" />
+    <result column="BUY_DAT" jdbcType="TIMESTAMP" property="buyDat" />
+    <result column="FIX_DAT" jdbcType="TIMESTAMP" property="fixDat" />
+    <result column="FIX_MAN" jdbcType="VARCHAR" property="fixMan" />
+    <result column="MNT_COM" jdbcType="VARCHAR" property="mntCom" />
+    <result column="MNT_MAN" jdbcType="VARCHAR" property="mntMan" />
+    <result column="MNT_TEL" jdbcType="VARCHAR" property="mntTel" />
+    <result column="TCP_FLG" jdbcType="CHAR" property="tcpFlg" />
+    <result column="WIF_FLG" jdbcType="CHAR" property="wifFlg" />
+    <result column="RDR_IP" jdbcType="VARCHAR" property="rdrIp" />
+    <result column="RDR_PORT" jdbcType="DECIMAL" property="rdrPort" />
+    <result column="CRT_USR_NO" jdbcType="VARCHAR" property="crtUsrNo" />
+    <result column="CRT_USR_NAM" jdbcType="VARCHAR" property="crtUsrNam" />
+    <result column="CRT_TIM" jdbcType="TIMESTAMP" property="crtTim" />
+    <result column="MOD_USR_NO" jdbcType="VARCHAR" property="modUsrNo" />
+    <result column="MOD_USR_NAM" jdbcType="VARCHAR" property="modUsrNam" />
+    <result column="MOD_TIM" jdbcType="TIMESTAMP" property="modTim" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    RDR_SEQ, RDR_ID, RDR_NAM, RDR_TYP, MTR_TYP, MTR_COD, RDR_LOC, RDR_STA, RDR_PAR, RDR_DEP, BUY_DAT, FIX_DAT,
+    FIX_MAN, MNT_COM, MNT_MAN, MNT_TEL, TCP_FLG, WIF_FLG, RDR_IP, RDR_PORT, CRT_USR_NO, 
+    CRT_USR_NAM, CRT_TIM, MOD_USR_NO, MOD_USR_NAM, MOD_TIM
+  </sql>
+  <select id="selectByExample" parameterType="activetech.rfid.pojo.domain.HspUhfRdrExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_UHF_RDR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+        t1.RDR_SEQ,
+        t1.RDR_ID,
+        t1.RDR_NAM,
+        t1.RDR_TYP,
+        t1.MTR_TYP,
+        t1.MTR_COD,
+        t1.RDR_LOC,
+        t1.RDR_STA,
+        t1.RDR_PAR,
+        t1.RDR_DEP,
+        t1.BUY_DAT,
+        t1.FIX_DAT,
+        t1.FIX_MAN,
+        t1.MNT_COM,
+        t1.MNT_MAN,
+        t1.MNT_TEL,
+        t1.TCP_FLG,
+        t1.WIF_FLG,
+        t1.RDR_IP,
+        t1.RDR_PORT,
+        t1.CRT_USR_NO,
+        t1.CRT_USR_NAM,
+        t1.CRT_TIM,
+        t1.MOD_USR_NO,
+        t1.MOD_USR_NAM,
+        t1.MOD_TIM,
+        t2.COMCNAME as rdrDepNam
+    from
+        HSP_UHF_RDR t1
+        left join DSTCOMPCTL t2 on t1.RDR_DEP = t2.COMNO
+    where RDR_SEQ = #{rdrSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_UHF_RDR
+    where RDR_SEQ = #{rdrSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.rfid.pojo.domain.HspUhfRdrExample">
+    delete from HSP_UHF_RDR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.rfid.pojo.domain.HspUhfRdr">
+    insert into HSP_UHF_RDR (
+        RDR_SEQ,
+        RDR_ID,
+        RDR_NAM,
+        RDR_TYP,
+        MTR_TYP,
+        MTR_COD,
+        RDR_LOC,
+        RDR_STA,
+        RDR_PAR,
+        RDR_DEP,
+        BUY_DAT,
+        FIX_DAT,
+        FIX_MAN,
+        MNT_COM,
+        MNT_MAN,
+        MNT_TEL,
+        TCP_FLG,
+        WIF_FLG,
+        RDR_IP,
+        RDR_PORT,
+        CRT_USR_NO,
+        CRT_USR_NAM,
+        CRT_TIM,
+        MOD_USR_NO,
+        MOD_USR_NAM,
+        MOD_TIM
+    ) values (
+        #{rdrSeq,jdbcType=VARCHAR},
+        #{rdrId,jdbcType=VARCHAR},
+        #{rdrNam,jdbcType=VARCHAR},
+        #{rdrTyp,jdbcType=CHAR},
+        #{mtrTyp,jdbcType=VARCHAR},
+        #{mtrCod,jdbcType=VARCHAR},
+        #{rdrLoc,jdbcType=VARCHAR},
+        #{rdrSta,jdbcType=CHAR},
+        #{rdrPar,jdbcType=VARCHAR},
+        #{rdrDep,jdbcType=VARCHAR},
+        #{buyDat,jdbcType=TIMESTAMP},
+        #{fixDat,jdbcType=TIMESTAMP},
+        #{fixMan,jdbcType=VARCHAR},
+        #{mntCom,jdbcType=VARCHAR},
+        #{mntMan,jdbcType=VARCHAR},
+        #{mntTel,jdbcType=VARCHAR},
+        #{tcpFlg,jdbcType=CHAR},
+        #{wifFlg,jdbcType=CHAR},
+        #{rdrIp,jdbcType=VARCHAR},
+        #{rdrPort,jdbcType=DECIMAL},
+        #{crtUsrNo,jdbcType=VARCHAR},
+        #{crtUsrNam,jdbcType=VARCHAR},
+        #{crtTim,jdbcType=TIMESTAMP},
+        #{modUsrNo,jdbcType=VARCHAR},
+        #{modUsrNam,jdbcType=VARCHAR},
+        #{modTim,jdbcType=TIMESTAMP}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.rfid.pojo.domain.HspUhfRdr">
+    <selectKey keyProperty="rdrSeq" order="AFTER" resultType="java.lang.String">
+      Oracle
+    </selectKey>
+    insert into HSP_UHF_RDR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rdrSeq != null">
+        RDR_SEQ,
+      </if>
+      <if test="rdrId != null">
+        RDR_ID,
+      </if>
+      <if test="rdrNam != null">
+        RDR_NAM,
+      </if>
+      <if test="rdrTyp != null">
+        RDR_TYP,
+      </if>
+      <if test="mtrTyp != null">
+        RDR_LOC,
+      </if>
+      <if test="mtrCod != null">
+        RDR_LOC,
+      </if>
+      <if test="rdrLoc != null">
+        RDR_LOC,
+      </if>
+      <if test="rdrSta != null">
+        RDR_STA,
+      </if>
+      <if test="rdrPar != null">
+        RDR_PAR,
+      </if>
+      <if test="rdrDep != null">
+        RDR_DEP,
+      </if>
+      <if test="buyDat != null">
+        BUY_DAT,
+      </if>
+      <if test="fixDat != null">
+        FIX_DAT,
+      </if>
+      <if test="fixMan != null">
+        FIX_MAN,
+      </if>
+      <if test="mntCom != null">
+        MNT_COM,
+      </if>
+      <if test="mntMan != null">
+        MNT_MAN,
+      </if>
+      <if test="mntTel != null">
+        MNT_TEL,
+      </if>
+      <if test="tcpFlg != null">
+        TCP_FLG,
+      </if>
+      <if test="wifFlg != null">
+        WIF_FLG,
+      </if>
+      <if test="rdrIp != null">
+        RDR_IP,
+      </if>
+      <if test="rdrPort != null">
+        RDR_PORT,
+      </if>
+      <if test="crtUsrNo != null">
+        CRT_USR_NO,
+      </if>
+      <if test="crtUsrNam != null">
+        CRT_USR_NAM,
+      </if>
+      <if test="crtTim != null">
+        CRT_TIM,
+      </if>
+      <if test="modUsrNo != null">
+        MOD_USR_NO,
+      </if>
+      <if test="modUsrNam != null">
+        MOD_USR_NAM,
+      </if>
+      <if test="modTim != null">
+        MOD_TIM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rdrSeq != null">
+        #{rdrSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrId != null">
+        #{rdrId,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrNam != null">
+        #{rdrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrTyp != null">
+        #{rdrTyp,jdbcType=CHAR},
+      </if>
+      <if test="mtrTyp != null">
+        #{mtrTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="mtrCod != null">
+        #{mtrCod,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrLoc != null">
+        #{rdrLoc,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrSta != null">
+        #{rdrSta,jdbcType=CHAR},
+      </if>
+      <if test="rdrPar != null">
+        #{rdrPar,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrDep != null">
+        #{rdrDep,jdbcType=VARCHAR},
+      </if>
+      <if test="buyDat != null">
+        #{buyDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fixDat != null">
+        #{fixDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fixMan != null">
+        #{fixMan,jdbcType=VARCHAR},
+      </if>
+      <if test="mntCom != null">
+        #{mntCom,jdbcType=VARCHAR},
+      </if>
+      <if test="mntMan != null">
+        #{mntMan,jdbcType=VARCHAR},
+      </if>
+      <if test="mntTel != null">
+        #{mntTel,jdbcType=VARCHAR},
+      </if>
+      <if test="tcpFlg != null">
+        #{tcpFlg,jdbcType=CHAR},
+      </if>
+      <if test="wifFlg != null">
+        #{wifFlg,jdbcType=CHAR},
+      </if>
+      <if test="rdrIp != null">
+        #{rdrIp,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrPort != null">
+        #{rdrPort,jdbcType=DECIMAL},
+      </if>
+      <if test="crtUsrNo != null">
+        #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNam != null">
+        #{crtUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null">
+        #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUsrNo != null">
+        #{modUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="modUsrNam != null">
+        #{modUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null">
+        #{modTim,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.rfid.pojo.domain.HspUhfRdrExample" resultType="java.lang.Long">
+    select count(*) from HSP_UHF_RDR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+  <!-- 查询列表的总记录数 -->
+  <select id="findHspUhfRdrCount" parameterType="activetech.rfid.pojo.dto.HspUhfRdrQueryDto" resultType="int">
+    select count(*) from HSP_UHF_RDR
+    <where>
+      <include refid="query_hspUhfRdr_where" />
+    </where>
+  </select>
+
+  <sql id="query_hspUhfRdr_where">
+    <if test="hspUhfRdrCustom!=null">
+      <if test="hspUhfRdrCustom.rdrNam!=null and hspUhfRdrCustom.rdrNam!=''">
+        and RDR_NAM like  '%'|| #{hspUhfRdrCustom.rdrNam}||'%'
+      </if>
+    </if>
+  </sql>
+
+  <select id="findHspUhfRdrList" parameterType="activetech.rfid.pojo.dto.HspUhfRdrQueryDto" resultMap="BaseResultMap">
+    select
+        t1.RDR_SEQ,
+        t1.RDR_ID,
+        t1.RDR_NAM,
+        t1.RDR_TYP,
+        t1.MTR_TYP,
+        t1.MTR_COD,
+        t1.RDR_LOC,
+        t1.RDR_STA,
+        t1.RDR_PAR,
+        t1.RDR_DEP,
+        t1.BUY_DAT,
+        t1.FIX_DAT,
+        t1.FIX_MAN,
+        t1.MNT_COM,
+        t1.MNT_MAN,
+        t1.MNT_TEL,
+        t1.TCP_FLG,
+        t1.WIF_FLG,
+        t1.RDR_IP,
+        t1.RDR_PORT,
+        t1.CRT_USR_NO,
+        t1.CRT_USR_NAM,
+        t1.CRT_TIM,
+        t1.MOD_USR_NO,
+        t1.MOD_USR_NAM,
+        t1.MOD_TIM,
+        t2.COMCNAME as rdrDepNam
+    from
+        HSP_UHF_RDR t1
+        left join DSTCOMPCTL t2 on t1.RDR_DEP = t2.COMNO
+    <where>
+      <include refid="query_hspUhfRdr_where" />
+    </where>
+    order by CRT_TIM desc
+  </select>
+
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_UHF_RDR
+    <set>
+      <if test="record.rdrSeq != null">
+        RDR_SEQ = #{record.rdrSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rdrId != null">
+        RDR_ID = #{record.rdrId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rdrNam != null">
+        RDR_NAM = #{record.rdrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rdrTyp != null">
+        RDR_TYP = #{record.rdrTyp,jdbcType=CHAR},
+      </if>
+      <if test="record.mtrTyp != null">
+        MTR_TYP = #{record.mtrTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mtrCod != null">
+        MTR_COD = #{record.mtrCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rdrLoc != null">
+        RDR_LOC = #{record.rdrLoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rdrSta != null">
+        RDR_STA = #{record.rdrSta,jdbcType=CHAR},
+      </if>
+      <if test="record.rdrPar != null">
+        RDR_PAR = #{record.rdrPar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rdrDep != null">
+        RDR_DEP = #{record.rdrDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyDat != null">
+        BUY_DAT = #{record.buyDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fixDat != null">
+        FIX_DAT = #{record.fixDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fixMan != null">
+        FIX_MAN = #{record.fixMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mntCom != null">
+        MNT_COM = #{record.mntCom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mntMan != null">
+        MNT_MAN = #{record.mntMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mntTel != null">
+        MNT_TEL = #{record.mntTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tcpFlg != null">
+        TCP_FLG = #{record.tcpFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.wifFlg != null">
+        WIF_FLG = #{record.wifFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.rdrIp != null">
+        RDR_IP = #{record.rdrIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rdrPort != null">
+        RDR_PORT = #{record.rdrPort,jdbcType=DECIMAL},
+      </if>
+      <if test="record.crtUsrNo != null">
+        CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUsrNam != null">
+        CRT_USR_NAM = #{record.crtUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTim != null">
+        CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUsrNo != null">
+        MOD_USR_NO = #{record.modUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modUsrNam != null">
+        MOD_USR_NAM = #{record.modUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTim != null">
+        MOD_TIM = #{record.modTim,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_UHF_RDR
+    set RDR_SEQ = #{record.rdrSeq,jdbcType=VARCHAR},
+      RDR_ID = #{record.rdrId,jdbcType=VARCHAR},
+      RDR_NAM = #{record.rdrNam,jdbcType=VARCHAR},
+      RDR_TYP = #{record.rdrTyp,jdbcType=CHAR},
+      MTR_TYP = #{record.mtrTyp,jdbcType=VARCHAR},
+      MTR_COD = #{record.mtrCod,jdbcType=VARCHAR},
+      RDR_LOC = #{record.rdrLoc,jdbcType=VARCHAR},
+      RDR_STA = #{record.rdrSta,jdbcType=CHAR},
+      RDR_PAR = #{record.rdrPar,jdbcType=VARCHAR},
+      RDR_DEP = #{record.rdrDep,jdbcType=VARCHAR},
+      BUY_DAT = #{record.buyDat,jdbcType=TIMESTAMP},
+      FIX_DAT = #{record.fixDat,jdbcType=TIMESTAMP},
+      FIX_MAN = #{record.fixMan,jdbcType=VARCHAR},
+      MNT_COM = #{record.mntCom,jdbcType=VARCHAR},
+      MNT_MAN = #{record.mntMan,jdbcType=VARCHAR},
+      MNT_TEL = #{record.mntTel,jdbcType=VARCHAR},
+      TCP_FLG = #{record.tcpFlg,jdbcType=CHAR},
+      WIF_FLG = #{record.wifFlg,jdbcType=CHAR},
+      RDR_IP = #{record.rdrIp,jdbcType=VARCHAR},
+      RDR_PORT = #{record.rdrPort,jdbcType=DECIMAL},
+      CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NAM = #{record.crtUsrNam,jdbcType=VARCHAR},
+      CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      MOD_USR_NO = #{record.modUsrNo,jdbcType=VARCHAR},
+      MOD_USR_NAM = #{record.modUsrNam,jdbcType=VARCHAR},
+      MOD_TIM = #{record.modTim,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.rfid.pojo.domain.HspUhfRdr">
+    update HSP_UHF_RDR
+    <set>
+      <if test="rdrId != null">
+        RDR_ID = #{rdrId,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrNam != null">
+        RDR_NAM = #{rdrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrTyp != null">
+        RDR_TYP = #{rdrTyp,jdbcType=CHAR},
+      </if>
+      <if test="mtrTyp != null">
+        MTR_TYP = #{mtrTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="mtrCod != null">
+        MTR_COD = #{mtrCod,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrLoc != null">
+        RDR_LOC = #{rdrLoc,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrSta != null">
+        RDR_STA = #{rdrSta,jdbcType=CHAR},
+      </if>
+      <if test="rdrPar != null">
+        RDR_PAR = #{rdrPar,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrDep != null">
+        RDR_DEP = #{rdrDep,jdbcType=VARCHAR},
+      </if>
+      <if test="buyDat != null">
+        BUY_DAT = #{buyDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fixDat != null">
+        FIX_DAT = #{fixDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fixMan != null">
+        FIX_MAN = #{fixMan,jdbcType=VARCHAR},
+      </if>
+      <if test="mntCom != null">
+        MNT_COM = #{mntCom,jdbcType=VARCHAR},
+      </if>
+      <if test="mntMan != null">
+        MNT_MAN = #{mntMan,jdbcType=VARCHAR},
+      </if>
+      <if test="mntTel != null">
+        MNT_TEL = #{mntTel,jdbcType=VARCHAR},
+      </if>
+      <if test="tcpFlg != null">
+        TCP_FLG = #{tcpFlg,jdbcType=CHAR},
+      </if>
+      <if test="wifFlg != null">
+        WIF_FLG = #{wifFlg,jdbcType=CHAR},
+      </if>
+      <if test="rdrIp != null">
+        RDR_IP = #{rdrIp,jdbcType=VARCHAR},
+      </if>
+      <if test="rdrPort != null">
+        RDR_PORT = #{rdrPort,jdbcType=DECIMAL},
+      </if>
+      <if test="crtUsrNo != null">
+        CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNam != null">
+        CRT_USR_NAM = #{crtUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null">
+        CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUsrNo != null">
+        MOD_USR_NO = #{modUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="modUsrNam != null">
+        MOD_USR_NAM = #{modUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null">
+        MOD_TIM = #{modTim,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RDR_SEQ = #{rdrSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.rfid.pojo.domain.HspUhfRdr">
+    update HSP_UHF_RDR
+    set RDR_ID = #{rdrId,jdbcType=VARCHAR},
+      RDR_NAM = #{rdrNam,jdbcType=VARCHAR},
+      RDR_TYP = #{rdrTyp,jdbcType=CHAR},
+      MTR_TYP = #{mtrTyp,jdbcType=VARCHAR},
+      MTR_COD = #{mtrCod,jdbcType=VARCHAR},
+      RDR_LOC = #{rdrLoc,jdbcType=VARCHAR},
+      RDR_STA = #{rdrSta,jdbcType=CHAR},
+      RDR_PAR = #{rdrPar,jdbcType=VARCHAR},
+      RDR_DEP = #{rdrDep,jdbcType=VARCHAR},
+      BUY_DAT = #{buyDat,jdbcType=TIMESTAMP},
+      FIX_DAT = #{fixDat,jdbcType=TIMESTAMP},
+      FIX_MAN = #{fixMan,jdbcType=VARCHAR},
+      MNT_COM = #{mntCom,jdbcType=VARCHAR},
+      MNT_MAN = #{mntMan,jdbcType=VARCHAR},
+      MNT_TEL = #{mntTel,jdbcType=VARCHAR},
+      TCP_FLG = #{tcpFlg,jdbcType=CHAR},
+      WIF_FLG = #{wifFlg,jdbcType=CHAR},
+      RDR_IP = #{rdrIp,jdbcType=VARCHAR},
+      RDR_PORT = #{rdrPort,jdbcType=DECIMAL},
+      CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NAM = #{crtUsrNam,jdbcType=VARCHAR},
+      CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      MOD_USR_NO = #{modUsrNo,jdbcType=VARCHAR},
+      MOD_USR_NAM = #{modUsrNam,jdbcType=VARCHAR},
+      MOD_TIM = #{modTim,jdbcType=TIMESTAMP}
+    where RDR_SEQ = #{rdrSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

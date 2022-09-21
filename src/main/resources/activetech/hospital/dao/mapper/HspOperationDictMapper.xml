@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspOperationDictMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspOperationDict" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="OPERATION_CODE" property="operationCode" jdbcType="VARCHAR" />
+    <result column="OPERATION_NAME" property="operationName" jdbcType="VARCHAR" />
+    <result column="OPERATION_GRADE" property="operationGrade" jdbcType="VARCHAR" />
+    <result column="OPERATION_TYPE" property="operationType" jdbcType="VARCHAR" />
+    <result column="PINYIN_CODE" property="pinyinCode" jdbcType="VARCHAR" />
+    <result column="WUBI_CODE" property="wubiCode" jdbcType="VARCHAR" />
+    <result column="DESCN" property="descn" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, OPERATION_CODE, OPERATION_NAME, OPERATION_GRADE, OPERATION_TYPE, PINYIN_CODE, 
+    WUBI_CODE, DESCN
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.domain.HspOperationDictExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_OPERATION_DICT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.hospital.pojo.domain.HspOperationDictExample" >
+    delete from HSP_OPERATION_DICT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.hospital.pojo.domain.HspOperationDict" >
+    insert into HSP_OPERATION_DICT (ID, OPERATION_CODE, OPERATION_NAME, 
+      OPERATION_GRADE, OPERATION_TYPE, PINYIN_CODE, 
+      WUBI_CODE, DESCN)
+    values (#{id,jdbcType=VARCHAR}, #{operationCode,jdbcType=VARCHAR}, #{operationName,jdbcType=VARCHAR}, 
+      #{operationGrade,jdbcType=VARCHAR}, #{operationType,jdbcType=VARCHAR}, #{pinyinCode,jdbcType=VARCHAR}, 
+      #{wubiCode,jdbcType=VARCHAR}, #{descn,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.hospital.pojo.domain.HspOperationDict" >
+    insert into HSP_OPERATION_DICT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="operationCode != null" >
+        OPERATION_CODE,
+      </if>
+      <if test="operationName != null" >
+        OPERATION_NAME,
+      </if>
+      <if test="operationGrade != null" >
+        OPERATION_GRADE,
+      </if>
+      <if test="operationType != null" >
+        OPERATION_TYPE,
+      </if>
+      <if test="pinyinCode != null" >
+        PINYIN_CODE,
+      </if>
+      <if test="wubiCode != null" >
+        WUBI_CODE,
+      </if>
+      <if test="descn != null" >
+        DESCN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="operationCode != null" >
+        #{operationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operationName != null" >
+        #{operationName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationGrade != null" >
+        #{operationGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null" >
+        #{operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyinCode != null" >
+        #{pinyinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="wubiCode != null" >
+        #{wubiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="descn != null" >
+        #{descn,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.hospital.pojo.domain.HspOperationDictExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_OPERATION_DICT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_OPERATION_DICT
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationCode != null" >
+        OPERATION_CODE = #{record.operationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationName != null" >
+        OPERATION_NAME = #{record.operationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationGrade != null" >
+        OPERATION_GRADE = #{record.operationGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationType != null" >
+        OPERATION_TYPE = #{record.operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pinyinCode != null" >
+        PINYIN_CODE = #{record.pinyinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wubiCode != null" >
+        WUBI_CODE = #{record.wubiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.descn != null" >
+        DESCN = #{record.descn,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_OPERATION_DICT
+    set ID = #{record.id,jdbcType=VARCHAR},
+      OPERATION_CODE = #{record.operationCode,jdbcType=VARCHAR},
+      OPERATION_NAME = #{record.operationName,jdbcType=VARCHAR},
+      OPERATION_GRADE = #{record.operationGrade,jdbcType=VARCHAR},
+      OPERATION_TYPE = #{record.operationType,jdbcType=VARCHAR},
+      PINYIN_CODE = #{record.pinyinCode,jdbcType=VARCHAR},
+      WUBI_CODE = #{record.wubiCode,jdbcType=VARCHAR},
+      DESCN = #{record.descn,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

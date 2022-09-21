@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.rfid.dao.mapper.HspUhfRdrCustomMapper">
+    <insert id="insert" parameterType="activetech.rfid.pojo.domain.HspUhfRdr"
+            useGeneratedKeys="true" keyColumn="rdrSeq">
+        <selectKey resultType="java.lang.String" keyProperty="rdrSeq" order="BEFORE">
+            select HSP_UHF_RDR_RDR_SEQ.nextval from dual
+        </selectKey>
+        insert into HSP_UHF_RDR (
+        RDR_SEQ,
+        RDR_ID,
+        RDR_NAM,
+        RDR_TYP,
+        MTR_TYP,
+        MTR_COD,
+        RDR_LOC,
+        RDR_STA,
+        RDR_PAR,
+        RDR_DEP,
+        BUY_DAT,
+        FIX_DAT,
+        FIX_MAN,
+        MNT_COM,
+        MNT_MAN,
+        MNT_TEL,
+        TCP_FLG,
+        WIF_FLG,
+        RDR_IP,
+        RDR_PORT,
+        CRT_USR_NO,
+        CRT_USR_NAM,
+        CRT_TIM,
+        MOD_USR_NO,
+        MOD_USR_NAM,
+        MOD_TIM
+        ) values (
+        #{rdrSeq,jdbcType=VARCHAR},
+        #{rdrId,jdbcType=VARCHAR},
+        #{rdrNam,jdbcType=VARCHAR},
+        #{rdrTyp,jdbcType=CHAR},
+        #{mtrTyp,jdbcType=VARCHAR},
+        #{mtrCod,jdbcType=VARCHAR},
+        #{rdrLoc,jdbcType=VARCHAR},
+        #{rdrSta,jdbcType=CHAR},
+        #{rdrPar,jdbcType=VARCHAR},
+        #{rdrDep,jdbcType=VARCHAR},
+        #{buyDat,jdbcType=TIMESTAMP},
+        #{fixDat,jdbcType=TIMESTAMP},
+        #{fixMan,jdbcType=VARCHAR},
+        #{mntCom,jdbcType=VARCHAR},
+        #{mntMan,jdbcType=VARCHAR},
+        #{mntTel,jdbcType=VARCHAR},
+        #{tcpFlg,jdbcType=CHAR},
+        #{wifFlg,jdbcType=CHAR},
+        #{rdrIp,jdbcType=VARCHAR},
+        #{rdrPort,jdbcType=DECIMAL},
+        #{crtUsrNo,jdbcType=VARCHAR},
+        #{crtUsrNam,jdbcType=VARCHAR},
+        #{crtTim,jdbcType=TIMESTAMP},
+        #{modUsrNo,jdbcType=VARCHAR},
+        #{modUsrNam,jdbcType=VARCHAR},
+        #{modTim,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="activetech.rfid.pojo.domain.HspUhfRdr">
+        update HSP_UHF_RDR
+        set RDR_ID      = #{rdrId,jdbcType=VARCHAR},
+            RDR_NAM     = #{rdrNam,jdbcType=VARCHAR},
+            RDR_TYP     = #{rdrTyp,jdbcType=CHAR},
+            MTR_TYP     = #{mtrTyp,jdbcType=VARCHAR},
+            MTR_COD     = #{mtrCod,jdbcType=VARCHAR},
+            RDR_LOC     = #{rdrLoc,jdbcType=VARCHAR},
+            RDR_STA     = #{rdrSta,jdbcType=CHAR},
+            RDR_PAR     = #{rdrPar,jdbcType=VARCHAR},
+            RDR_DEP     = #{rdrDep,jdbcType=VARCHAR},
+            BUY_DAT     = #{buyDat,jdbcType=TIMESTAMP},
+            FIX_DAT     = #{fixDat,jdbcType=TIMESTAMP},
+            FIX_MAN     = #{fixMan,jdbcType=VARCHAR},
+            MNT_COM     = #{mntCom,jdbcType=VARCHAR},
+            MNT_MAN     = #{mntMan,jdbcType=VARCHAR},
+            MNT_TEL     = #{mntTel,jdbcType=VARCHAR},
+            TCP_FLG     = #{tcpFlg,jdbcType=CHAR},
+            WIF_FLG     = #{wifFlg,jdbcType=CHAR},
+            RDR_IP      = #{rdrIp,jdbcType=VARCHAR},
+            RDR_PORT    = #{rdrPort,jdbcType=DECIMAL},
+            MOD_USR_NO  = #{modUsrNo,jdbcType=VARCHAR},
+            MOD_USR_NAM = #{modUsrNam,jdbcType=VARCHAR},
+            MOD_TIM     = #{modTim,jdbcType=TIMESTAMP}
+        where RDR_SEQ = #{rdrSeq,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspDeathRecordMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspDeathRecord">
+    <id column="DEATH_RECORD_SEQ" jdbcType="VARCHAR" property="deathRecordSeq" />
+    <result column="EMG_SEQ_DR" jdbcType="VARCHAR" property="emgSeqDr" />
+    <result column="COME_TIME" jdbcType="TIMESTAMP" property="comeTime" />
+    <result column="DEATH_TIME" jdbcType="TIMESTAMP" property="deathTime" />
+    <result column="CAUSE_DEATH" jdbcType="VARCHAR" property="causeDeath" />
+    <result column="COURSE_DATE" jdbcType="TIMESTAMP" property="courseDate" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_DOC" jdbcType="VARCHAR" property="createDoc" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_DOC" jdbcType="VARCHAR" property="updateDoc" />
+    <result column="CREATE_NAM" jdbcType="VARCHAR" property="createNam" />
+    <result column="UPDATE_NAM" jdbcType="VARCHAR" property="updateNam" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="activetech.zyyhospital.pojo.domain.HspDeathRecordWithBLOBs">
+    <result column="COME_SITUATION" jdbcType="CLOB" property="comeSituation" />
+    <result column="TREATMENT_PROCESS" jdbcType="CLOB" property="treatmentProcess" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DEATH_RECORD_SEQ, EMG_SEQ_DR, COME_TIME, DEATH_TIME, CAUSE_DEATH, COURSE_DATE, CREATE_TIME, 
+    CREATE_DOC, UPDATE_TIME, UPDATE_DOC, CREATE_NAM, UPDATE_NAM
+  </sql>
+  <sql id="Blob_Column_List">
+    COME_SITUATION, TREATMENT_PROCESS
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspDeathRecordExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_DEATH_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDeathRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_DEATH_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_DEATH_RECORD
+    where DEATH_RECORD_SEQ = #{deathRecordSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_DEATH_RECORD
+    where DEATH_RECORD_SEQ = #{deathRecordSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDeathRecordExample">
+    delete from HSP_DEATH_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspDeathRecordWithBLOBs">
+    insert into HSP_DEATH_RECORD (DEATH_RECORD_SEQ, EMG_SEQ_DR, COME_TIME, 
+      DEATH_TIME, CAUSE_DEATH, COURSE_DATE, 
+      CREATE_TIME, CREATE_DOC, UPDATE_TIME, 
+      UPDATE_DOC, CREATE_NAM, UPDATE_NAM, 
+      COME_SITUATION, TREATMENT_PROCESS)
+    values (#{deathRecordSeq,jdbcType=VARCHAR}, #{emgSeqDr,jdbcType=VARCHAR}, #{comeTime,jdbcType=TIMESTAMP}, 
+      #{deathTime,jdbcType=TIMESTAMP}, #{causeDeath,jdbcType=VARCHAR}, #{courseDate,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createDoc,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateDoc,jdbcType=VARCHAR}, #{createNam,jdbcType=VARCHAR}, #{updateNam,jdbcType=VARCHAR}, 
+      #{comeSituation,jdbcType=CLOB}, #{treatmentProcess,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspDeathRecordWithBLOBs">
+    insert into HSP_DEATH_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deathRecordSeq != null">
+        DEATH_RECORD_SEQ,
+      </if>
+      <if test="emgSeqDr != null">
+        EMG_SEQ_DR,
+      </if>
+      <if test="comeTime != null">
+        COME_TIME,
+      </if>
+      <if test="deathTime != null">
+        DEATH_TIME,
+      </if>
+      <if test="causeDeath != null">
+        CAUSE_DEATH,
+      </if>
+      <if test="courseDate != null">
+        COURSE_DATE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="createDoc != null">
+        CREATE_DOC,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="updateDoc != null">
+        UPDATE_DOC,
+      </if>
+      <if test="createNam != null">
+        CREATE_NAM,
+      </if>
+      <if test="updateNam != null">
+        UPDATE_NAM,
+      </if>
+      <if test="comeSituation != null">
+        COME_SITUATION,
+      </if>
+      <if test="treatmentProcess != null">
+        TREATMENT_PROCESS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deathRecordSeq != null">
+        #{deathRecordSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeqDr != null">
+        #{emgSeqDr,jdbcType=VARCHAR},
+      </if>
+      <if test="comeTime != null">
+        #{comeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deathTime != null">
+        #{deathTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="causeDeath != null">
+        #{causeDeath,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDate != null">
+        #{courseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDoc != null">
+        #{createDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDoc != null">
+        #{updateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="createNam != null">
+        #{createNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updateNam != null">
+        #{updateNam,jdbcType=VARCHAR},
+      </if>
+      <if test="comeSituation != null">
+        #{comeSituation,jdbcType=CLOB},
+      </if>
+      <if test="treatmentProcess != null">
+        #{treatmentProcess,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDeathRecordExample" resultType="java.lang.Long">
+    select count(*) from HSP_DEATH_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_DEATH_RECORD
+    <set>
+      <if test="record.deathRecordSeq != null">
+        DEATH_RECORD_SEQ = #{record.deathRecordSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeqDr != null">
+        EMG_SEQ_DR = #{record.emgSeqDr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comeTime != null">
+        COME_TIME = #{record.comeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deathTime != null">
+        DEATH_TIME = #{record.deathTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.causeDeath != null">
+        CAUSE_DEATH = #{record.causeDeath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseDate != null">
+        COURSE_DATE = #{record.courseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createDoc != null">
+        CREATE_DOC = #{record.createDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDoc != null">
+        UPDATE_DOC = #{record.updateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createNam != null">
+        CREATE_NAM = #{record.createNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateNam != null">
+        UPDATE_NAM = #{record.updateNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comeSituation != null">
+        COME_SITUATION = #{record.comeSituation,jdbcType=CLOB},
+      </if>
+      <if test="record.treatmentProcess != null">
+        TREATMENT_PROCESS = #{record.treatmentProcess,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update HSP_DEATH_RECORD
+    set DEATH_RECORD_SEQ = #{record.deathRecordSeq,jdbcType=VARCHAR},
+      EMG_SEQ_DR = #{record.emgSeqDr,jdbcType=VARCHAR},
+      COME_TIME = #{record.comeTime,jdbcType=TIMESTAMP},
+      DEATH_TIME = #{record.deathTime,jdbcType=TIMESTAMP},
+      CAUSE_DEATH = #{record.causeDeath,jdbcType=VARCHAR},
+      COURSE_DATE = #{record.courseDate,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CREATE_DOC = #{record.createDoc,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      UPDATE_DOC = #{record.updateDoc,jdbcType=VARCHAR},
+      CREATE_NAM = #{record.createNam,jdbcType=VARCHAR},
+      UPDATE_NAM = #{record.updateNam,jdbcType=VARCHAR},
+      COME_SITUATION = #{record.comeSituation,jdbcType=CLOB},
+      TREATMENT_PROCESS = #{record.treatmentProcess,jdbcType=CLOB}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_DEATH_RECORD
+    set DEATH_RECORD_SEQ = #{record.deathRecordSeq,jdbcType=VARCHAR},
+      EMG_SEQ_DR = #{record.emgSeqDr,jdbcType=VARCHAR},
+      COME_TIME = #{record.comeTime,jdbcType=TIMESTAMP},
+      DEATH_TIME = #{record.deathTime,jdbcType=TIMESTAMP},
+      CAUSE_DEATH = #{record.causeDeath,jdbcType=VARCHAR},
+      COURSE_DATE = #{record.courseDate,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CREATE_DOC = #{record.createDoc,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      UPDATE_DOC = #{record.updateDoc,jdbcType=VARCHAR},
+      CREATE_NAM = #{record.createNam,jdbcType=VARCHAR},
+      UPDATE_NAM = #{record.updateNam,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspDeathRecordWithBLOBs">
+    update HSP_DEATH_RECORD
+    <set>
+      <if test="emgSeqDr != null">
+        EMG_SEQ_DR = #{emgSeqDr,jdbcType=VARCHAR},
+      </if>
+      <if test="comeTime != null">
+        COME_TIME = #{comeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deathTime != null">
+        DEATH_TIME = #{deathTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="causeDeath != null">
+        CAUSE_DEATH = #{causeDeath,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDate != null">
+        COURSE_DATE = #{courseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDoc != null">
+        CREATE_DOC = #{createDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDoc != null">
+        UPDATE_DOC = #{updateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="createNam != null">
+        CREATE_NAM = #{createNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updateNam != null">
+        UPDATE_NAM = #{updateNam,jdbcType=VARCHAR},
+      </if>
+      <if test="comeSituation != null">
+        COME_SITUATION = #{comeSituation,jdbcType=CLOB},
+      </if>
+      <if test="treatmentProcess != null">
+        TREATMENT_PROCESS = #{treatmentProcess,jdbcType=CLOB},
+      </if>
+    </set>
+    where DEATH_RECORD_SEQ = #{deathRecordSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspDeathRecordWithBLOBs">
+    update HSP_DEATH_RECORD
+    set EMG_SEQ_DR = #{emgSeqDr,jdbcType=VARCHAR},
+      COME_TIME = #{comeTime,jdbcType=TIMESTAMP},
+      DEATH_TIME = #{deathTime,jdbcType=TIMESTAMP},
+      CAUSE_DEATH = #{causeDeath,jdbcType=VARCHAR},
+      COURSE_DATE = #{courseDate,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_DOC = #{createDoc,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_DOC = #{updateDoc,jdbcType=VARCHAR},
+      CREATE_NAM = #{createNam,jdbcType=VARCHAR},
+      UPDATE_NAM = #{updateNam,jdbcType=VARCHAR},
+      COME_SITUATION = #{comeSituation,jdbcType=CLOB},
+      TREATMENT_PROCESS = #{treatmentProcess,jdbcType=CLOB}
+    where DEATH_RECORD_SEQ = #{deathRecordSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspDeathRecord">
+    update HSP_DEATH_RECORD
+    set EMG_SEQ_DR = #{emgSeqDr,jdbcType=VARCHAR},
+      COME_TIME = #{comeTime,jdbcType=TIMESTAMP},
+      DEATH_TIME = #{deathTime,jdbcType=TIMESTAMP},
+      CAUSE_DEATH = #{causeDeath,jdbcType=VARCHAR},
+      COURSE_DATE = #{courseDate,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_DOC = #{createDoc,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_DOC = #{updateDoc,jdbcType=VARCHAR},
+      CREATE_NAM = #{createNam,jdbcType=VARCHAR},
+      UPDATE_NAM = #{updateNam,jdbcType=VARCHAR}
+    where DEATH_RECORD_SEQ = #{deathRecordSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

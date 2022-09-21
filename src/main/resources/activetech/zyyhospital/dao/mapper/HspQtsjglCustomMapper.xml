@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspQtsjglCustomMapper">
+	<resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspQtsjglCustom">
+		<id column="QTSJ_SEQ" property="qtsjSeq" jdbcType="VARCHAR" />
+	    <result column="QTSJ_NAM" property="qtsjNam" jdbcType="VARCHAR" />
+	    <result column="QTSJ_DAT" property="qtsjDat" jdbcType="TIMESTAMP" />
+	    <result column="QTSJ_TYPE" property="qtsjType" jdbcType="VARCHAR" />
+	    <result column="ADRR" property="adrr" jdbcType="VARCHAR" />
+	    <result column="JYJG" property="jyjg" jdbcType="VARCHAR" />
+	    <result column="QJGC" property="qjgc" jdbcType="VARCHAR" />
+	    <result column="QJXJ" property="qjxj" jdbcType="VARCHAR" />
+	    <result column="BGBM" property="bgbm" jdbcType="VARCHAR" />
+	    <result column="BGRNAM" property="bgrnam" jdbcType="VARCHAR" />
+	    <result column="DJDAT" property="djdat" jdbcType="TIMESTAMP" />
+	    <result column="DJRNAM" property="djrnam" jdbcType="VARCHAR" />
+	    <result column="GLKS" property="glks" jdbcType="VARCHAR" />
+	    <result column="YHRY" property="yhry" jdbcType="VARCHAR" />
+	    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+
+	</resultMap>
+	
+	<sql id="Query_Hspqtsj_where">
+		<if test="startdate!=null and startdate!=''">
+			and to_char(QTSJ_DAT,'YYYY/MM/DD') <![CDATA[>=]]> to_char(#{startdate},'YYYY/MM/DD')
+		</if>
+		<if test="enddate!=null and enddate!=''">
+			and to_char(QTSJ_DAT,'YYYY/MM/DD') <![CDATA[<=]]> to_char(#{enddate},'YYYY/MM/DD')
+		</if>
+		<if test="hspQtsjglCustom!=null">
+			<if test="hspQtsjglCustom.qtsjSeq!=null and hspQtsjglCustom.qtsjSeq!=''">
+				and QTSJ_SEQ = #{hspQtsjglCustom.qtsjSeq}
+			</if>
+		</if>
+	</sql>
+	
+	<select id="findHspQtsjglCount" parameterType="activetech.zyyhospital.pojo.dto.HspQtsjglQueryDto"
+		resultType="int">
+		select count(1) from hsp_qtsjgl
+		<where>
+			<include refid="Query_Hspqtsj_where" />
+		</where>
+	</select>
+	
+	<select id="findHspQtsjglList" parameterType="activetech.zyyhospital.pojo.dto.HspQtsjglQueryDto"
+		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select QTSJ_SEQ qtsjSeq,
+		QTSJ_NAM qtsjNam,
+		QTSJ_DAT qtsjDat,
+		QTSJ_TYPE qtsjTypeCod,
+		(select info from dstdictinfo where typecode='QTSJ_TYPE' and infocode=QTSJ_TYPE) qtsjType,
+		adrr,
+		jyjg,
+		qjgc,
+		qjxj,
+		bgbm,
+		bgrnam,
+		djdat,
+		djrnam,
+		glks,
+		yhry,
+		memo,
+		QTSJ_TYPE_OTHER qtsjTypeOther
+		from hsp_qtsjgl
+		<where>
+			<include refid="Query_Hspqtsj_where" />
+		</where>
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+</mapper>

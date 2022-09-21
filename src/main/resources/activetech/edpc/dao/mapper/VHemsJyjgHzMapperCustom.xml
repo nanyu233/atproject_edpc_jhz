@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.VHemsJyjgHzMapperCustom">
+	<resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.VHemsJyjgHz" >
+    <result column="MPI" property="mpi" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SAMPLENO" property="sampleno" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="RESULT_DATE_TIME" property="resultDateTime" jdbcType="TIMESTAMP" />
+    <result column="UPPER_LIMIT" property="upperLimit" jdbcType="VARCHAR" />
+    <result column="LOWER_LIMIT" property="lowerLimit" jdbcType="VARCHAR" />
+    <result column="REPORT_ITEM_NAME" property="reportItemName" jdbcType="VARCHAR" />
+    <result column="UNITS" property="units" jdbcType="VARCHAR" />
+    <result column="EXAMINAIM" property="examinaim" jdbcType="VARCHAR" />
+    <result column="REPORT_DOC" property="reportDoc" jdbcType="VARCHAR" />
+    <result column="REPORT_DOC_NAME" property="reportDocName" jdbcType="VARCHAR" />
+    <result column="EXAMINE_DOC_NAME" property="examineDocName" jdbcType="VARCHAR" />
+    <result column="PATIENT_DEPT" property="patientDept" jdbcType="VARCHAR" />
+    <result column="INPATIENT_AREA" property="inpatientArea" jdbcType="VARCHAR" />
+    <result column="BED_NO" property="bedNo" jdbcType="VARCHAR" />
+    <result column="NURSING_UNIT" property="nursingUnit" jdbcType="VARCHAR" />
+    <result column="ATTENDING_DOC" property="attendingDoc" jdbcType="VARCHAR" />
+    <result column="ATTENDING_DOC_NAME" property="attendingDocName" jdbcType="VARCHAR" />
+    <result column="SEEK_MEDICAL_TIMES" property="seekMedicalTimes" jdbcType="VARCHAR" />
+    <result column="SERVICE_ORGANIZATION" property="serviceOrganization" jdbcType="VARCHAR" />
+    <result column="BE_HOSPITALIZED" property="beHospitalized" jdbcType="TIMESTAMP" />
+    <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+    <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
+    <result column="EXAMINE_DEPT" property="examineDept" jdbcType="VARCHAR" />
+    <result column="EXAMINE_DEPT_CODE" property="examineDeptCode" jdbcType="VARCHAR" />
+    <result column="XH" property="xh" jdbcType="VARCHAR" />
+    <result column="APPLICATION_NO" property="applicationNo" jdbcType="VARCHAR" />
+    <result column="REPORT_NO" property="reportNo" jdbcType="VARCHAR" />
+    <result column="TREATMENT_CODE" property="treatmentCode" jdbcType="VARCHAR" />
+    <result column="RECEIVE_TIME" property="receiveTime" jdbcType="TIMESTAMP" />
+    <result column="SAMPLE_CODE" property="sampleCode" jdbcType="VARCHAR" />
+    <result column="SAMPLE_NAME" property="sampleName" jdbcType="VARCHAR" />
+    <result column="REPORT_STATUS" property="reportStatus" jdbcType="VARCHAR" />
+    <result column="REPORT_SHEET_NAME" property="reportSheetName" jdbcType="VARCHAR" />
+    <result column="ERROR_FLAG" property="errorFlag" jdbcType="VARCHAR" />
+    <result column="REPORT_TYPE" property="reportType" jdbcType="VARCHAR" />
+    <result column="EXAMINE_DOC" property="examineDoc" jdbcType="VARCHAR" />
+    <result column="JYJG_ID" property="jyjgId" jdbcType="VARCHAR" />
+    <result column="JYLX" property="jylx" jdbcType="VARCHAR" />
+    <result column="JYLXMC" property="jylxmc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="findvhemsjyjginfoListLxty" resultMap="BaseResultMap">
+		select vh.*
+		  from v_hems_jyjg vh,
+		       (select emg.*
+		          FROM (select *
+		                  from hsp_fast_inf fa
+		                  left join hsp_emg_inf e
+		                    on fa.emg_seq = e.emg_seq
+		                 where fa.cz_flag = '1'
+		                    or e.xtlcflg = '1') emg,
+		               hsp_sql_inf info
+		         where emg.sql_seq = info.sql_seq
+		           and (info.sql_sta_cod = '5' or info.sql_sta_cod = '6' or
+		               info.sql_sta_cod = '10' or info.sql_sta_cod = '11')) em
+		 where vh.mpi = em.mpi
+	</select>
+	
+	<select id="findVhemsJyjgByMpijzxh" parameterType="activetech.edpc.pojo.domain.VHemsJyjgHz" resultType="activetech.edpc.pojo.dto.VHemsJyjgHzCustom">
+		select a.emg_seq, a.mpi, a.jzxh, a.czlcflg czFlg, a.xtlcflg xtFlg, jyjg.*
+		  from hsp_emg_inf a, hsp_sql_inf b ,v_hems_jyjg jyjg
+		 where (a.xtlcflg = '1' or a.czlcflg = '1')
+		   and a.sql_seq = b.sql_seq
+		   and a.mpi = jyjg.mpi
+		   and a.jzxh = jyjg.seek_medical_times
+		   and a.emg_dat <![CDATA[>]]> sysdate - 1
+		   and a.mpi = #{mpi,jdbcType=VARCHAR}
+		   and a.jzxh = #{seekMedicalTimes,jdbcType=VARCHAR}
+		   and jyjg.sampleno = #{sampleno,jdbcType=VARCHAR}
+	</select>
+  
+</mapper>

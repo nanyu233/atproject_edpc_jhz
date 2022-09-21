@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspNrsInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspNrsInf" >
+    <id column="XTPG_SEQ" property="xtpgSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="NRS_TTBW" property="nrsTtbw" jdbcType="VARCHAR" />
+    <result column="NRS_TTBW_QT" property="nrsTtbwQt" jdbcType="VARCHAR" />
+    <result column="NRS_TTXZ" property="nrsTtxz" jdbcType="VARCHAR" />
+    <result column="NRS_TTXZ_QT" property="nrsTtxzQt" jdbcType="VARCHAR" />
+    <result column="NRS_TTSJ" property="nrsTtsj" jdbcType="VARCHAR" />
+    <result column="NRS_SCO" property="nrsSco" jdbcType="DECIMAL" />
+    <result column="NRS_MEMO" property="nrsMemo" jdbcType="VARCHAR" />
+    <result column="NRS_DAT" property="nrsDat" jdbcType="TIMESTAMP" />
+    <result column="NRS_STATUS" property="nrsStatus" jdbcType="CHAR" />
+    <result column="NRS_TTKZ" property="nrsTtkz" jdbcType="VARCHAR" />
+    <result column="CRT_USR_NO" property="crtUsrNo" jdbcType="VARCHAR" />
+    <result column="CRT_USR_NME" property="crtUsrNme" jdbcType="VARCHAR" />
+    <result column="UPD_USR_NO" property="updUsrNo" jdbcType="VARCHAR" />
+    <result column="UPD_USR_NME" property="updUsrNme" jdbcType="VARCHAR" />
+    <result column="UPD_TIME" property="updTime" jdbcType="TIMESTAMP" />
+    <result column="TTPF_TYPE_COD" property="ttpfTypeCod" jdbcType="CHAR" />
+    <result column="TTPF_NR" property="ttpfNr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    XTPG_SEQ, EMG_SEQ, NRS_TTBW, NRS_TTBW_QT, NRS_TTXZ, NRS_TTXZ_QT, NRS_TTSJ, NRS_SCO, 
+    NRS_MEMO, NRS_DAT, NRS_STATUS, NRS_TTKZ, CRT_USR_NO, CRT_USR_NME, UPD_USR_NO, UPD_USR_NME, 
+    UPD_TIME, TTPF_TYPE_COD, TTPF_NR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspNrsInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_NRS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_NRS_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_NRS_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspNrsInfExample" >
+    delete from HSP_NRS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspNrsInf" >
+    insert into HSP_NRS_INF (XTPG_SEQ, EMG_SEQ, NRS_TTBW, 
+      NRS_TTBW_QT, NRS_TTXZ, NRS_TTXZ_QT, 
+      NRS_TTSJ, NRS_SCO, NRS_MEMO, 
+      NRS_DAT, NRS_STATUS, NRS_TTKZ, 
+      CRT_USR_NO, CRT_USR_NME, UPD_USR_NO, 
+      UPD_USR_NME, UPD_TIME, TTPF_TYPE_COD, 
+      TTPF_NR)
+    values (#{xtpgSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{nrsTtbw,jdbcType=VARCHAR}, 
+      #{nrsTtbwQt,jdbcType=VARCHAR}, #{nrsTtxz,jdbcType=VARCHAR}, #{nrsTtxzQt,jdbcType=VARCHAR}, 
+      #{nrsTtsj,jdbcType=VARCHAR}, #{nrsSco,jdbcType=DECIMAL}, #{nrsMemo,jdbcType=VARCHAR}, 
+      #{nrsDat,jdbcType=TIMESTAMP}, #{nrsStatus,jdbcType=CHAR}, #{nrsTtkz,jdbcType=VARCHAR}, 
+      #{crtUsrNo,jdbcType=VARCHAR}, #{crtUsrNme,jdbcType=VARCHAR}, #{updUsrNo,jdbcType=VARCHAR}, 
+      #{updUsrNme,jdbcType=VARCHAR}, #{updTime,jdbcType=TIMESTAMP}, #{ttpfTypeCod,jdbcType=CHAR}, 
+      #{ttpfNr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspNrsInf" >
+    insert into HSP_NRS_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xtpgSeq != null" >
+        XTPG_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="nrsTtbw != null" >
+        NRS_TTBW,
+      </if>
+      <if test="nrsTtbwQt != null" >
+        NRS_TTBW_QT,
+      </if>
+      <if test="nrsTtxz != null" >
+        NRS_TTXZ,
+      </if>
+      <if test="nrsTtxzQt != null" >
+        NRS_TTXZ_QT,
+      </if>
+      <if test="nrsTtsj != null" >
+        NRS_TTSJ,
+      </if>
+      <if test="nrsSco != null" >
+        NRS_SCO,
+      </if>
+      <if test="nrsMemo != null" >
+        NRS_MEMO,
+      </if>
+      <if test="nrsDat != null" >
+        NRS_DAT,
+      </if>
+      <if test="nrsStatus != null" >
+        NRS_STATUS,
+      </if>
+      <if test="nrsTtkz != null" >
+        NRS_TTKZ,
+      </if>
+      <if test="crtUsrNo != null" >
+        CRT_USR_NO,
+      </if>
+      <if test="crtUsrNme != null" >
+        CRT_USR_NME,
+      </if>
+      <if test="updUsrNo != null" >
+        UPD_USR_NO,
+      </if>
+      <if test="updUsrNme != null" >
+        UPD_USR_NME,
+      </if>
+      <if test="updTime != null" >
+        UPD_TIME,
+      </if>
+      <if test="ttpfTypeCod != null" >
+        TTPF_TYPE_COD,
+      </if>
+      <if test="ttpfNr != null" >
+        TTPF_NR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xtpgSeq != null" >
+        #{xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsTtbw != null" >
+        #{nrsTtbw,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsTtbwQt != null" >
+        #{nrsTtbwQt,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsTtxz != null" >
+        #{nrsTtxz,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsTtxzQt != null" >
+        #{nrsTtxzQt,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsTtsj != null" >
+        #{nrsTtsj,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsSco != null" >
+        #{nrsSco,jdbcType=DECIMAL},
+      </if>
+      <if test="nrsMemo != null" >
+        #{nrsMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsDat != null" >
+        #{nrsDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nrsStatus != null" >
+        #{nrsStatus,jdbcType=CHAR},
+      </if>
+      <if test="nrsTtkz != null" >
+        #{nrsTtkz,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNo != null" >
+        #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNme != null" >
+        #{crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNo != null" >
+        #{updUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNme != null" >
+        #{updUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updTime != null" >
+        #{updTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ttpfTypeCod != null" >
+        #{ttpfTypeCod,jdbcType=CHAR},
+      </if>
+      <if test="ttpfNr != null" >
+        #{ttpfNr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspNrsInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_NRS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_NRS_INF
+    <set >
+      <if test="record.xtpgSeq != null" >
+        XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nrsTtbw != null" >
+        NRS_TTBW = #{record.nrsTtbw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nrsTtbwQt != null" >
+        NRS_TTBW_QT = #{record.nrsTtbwQt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nrsTtxz != null" >
+        NRS_TTXZ = #{record.nrsTtxz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nrsTtxzQt != null" >
+        NRS_TTXZ_QT = #{record.nrsTtxzQt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nrsTtsj != null" >
+        NRS_TTSJ = #{record.nrsTtsj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nrsSco != null" >
+        NRS_SCO = #{record.nrsSco,jdbcType=DECIMAL},
+      </if>
+      <if test="record.nrsMemo != null" >
+        NRS_MEMO = #{record.nrsMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nrsDat != null" >
+        NRS_DAT = #{record.nrsDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nrsStatus != null" >
+        NRS_STATUS = #{record.nrsStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.nrsTtkz != null" >
+        NRS_TTKZ = #{record.nrsTtkz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUsrNo != null" >
+        CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUsrNme != null" >
+        CRT_USR_NME = #{record.crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updUsrNo != null" >
+        UPD_USR_NO = #{record.updUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updUsrNme != null" >
+        UPD_USR_NME = #{record.updUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updTime != null" >
+        UPD_TIME = #{record.updTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ttpfTypeCod != null" >
+        TTPF_TYPE_COD = #{record.ttpfTypeCod,jdbcType=CHAR},
+      </if>
+      <if test="record.ttpfNr != null" >
+        TTPF_NR = #{record.ttpfNr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_NRS_INF
+    set XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      NRS_TTBW = #{record.nrsTtbw,jdbcType=VARCHAR},
+      NRS_TTBW_QT = #{record.nrsTtbwQt,jdbcType=VARCHAR},
+      NRS_TTXZ = #{record.nrsTtxz,jdbcType=VARCHAR},
+      NRS_TTXZ_QT = #{record.nrsTtxzQt,jdbcType=VARCHAR},
+      NRS_TTSJ = #{record.nrsTtsj,jdbcType=VARCHAR},
+      NRS_SCO = #{record.nrsSco,jdbcType=DECIMAL},
+      NRS_MEMO = #{record.nrsMemo,jdbcType=VARCHAR},
+      NRS_DAT = #{record.nrsDat,jdbcType=TIMESTAMP},
+      NRS_STATUS = #{record.nrsStatus,jdbcType=CHAR},
+      NRS_TTKZ = #{record.nrsTtkz,jdbcType=VARCHAR},
+      CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NME = #{record.crtUsrNme,jdbcType=VARCHAR},
+      UPD_USR_NO = #{record.updUsrNo,jdbcType=VARCHAR},
+      UPD_USR_NME = #{record.updUsrNme,jdbcType=VARCHAR},
+      UPD_TIME = #{record.updTime,jdbcType=TIMESTAMP},
+      TTPF_TYPE_COD = #{record.ttpfTypeCod,jdbcType=CHAR},
+      TTPF_NR = #{record.ttpfNr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspNrsInf" >
+    update HSP_NRS_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsTtbw != null" >
+        NRS_TTBW = #{nrsTtbw,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsTtbwQt != null" >
+        NRS_TTBW_QT = #{nrsTtbwQt,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsTtxz != null" >
+        NRS_TTXZ = #{nrsTtxz,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsTtxzQt != null" >
+        NRS_TTXZ_QT = #{nrsTtxzQt,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsTtsj != null" >
+        NRS_TTSJ = #{nrsTtsj,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsSco != null" >
+        NRS_SCO = #{nrsSco,jdbcType=DECIMAL},
+      </if>
+      <if test="nrsMemo != null" >
+        NRS_MEMO = #{nrsMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsDat != null" >
+        NRS_DAT = #{nrsDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nrsStatus != null" >
+        NRS_STATUS = #{nrsStatus,jdbcType=CHAR},
+      </if>
+      <if test="nrsTtkz != null" >
+        NRS_TTKZ = #{nrsTtkz,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNo != null" >
+        CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNme != null" >
+        CRT_USR_NME = #{crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNo != null" >
+        UPD_USR_NO = #{updUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNme != null" >
+        UPD_USR_NME = #{updUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updTime != null" >
+        UPD_TIME = #{updTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ttpfTypeCod != null" >
+        TTPF_TYPE_COD = #{ttpfTypeCod,jdbcType=CHAR},
+      </if>
+      <if test="ttpfNr != null" >
+        TTPF_NR = #{ttpfNr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspNrsInf" >
+    update HSP_NRS_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      NRS_TTBW = #{nrsTtbw,jdbcType=VARCHAR},
+      NRS_TTBW_QT = #{nrsTtbwQt,jdbcType=VARCHAR},
+      NRS_TTXZ = #{nrsTtxz,jdbcType=VARCHAR},
+      NRS_TTXZ_QT = #{nrsTtxzQt,jdbcType=VARCHAR},
+      NRS_TTSJ = #{nrsTtsj,jdbcType=VARCHAR},
+      NRS_SCO = #{nrsSco,jdbcType=DECIMAL},
+      NRS_MEMO = #{nrsMemo,jdbcType=VARCHAR},
+      NRS_DAT = #{nrsDat,jdbcType=TIMESTAMP},
+      NRS_STATUS = #{nrsStatus,jdbcType=CHAR},
+      NRS_TTKZ = #{nrsTtkz,jdbcType=VARCHAR},
+      CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NME = #{crtUsrNme,jdbcType=VARCHAR},
+      UPD_USR_NO = #{updUsrNo,jdbcType=VARCHAR},
+      UPD_USR_NME = #{updUsrNme,jdbcType=VARCHAR},
+      UPD_TIME = #{updTime,jdbcType=TIMESTAMP},
+      TTPF_TYPE_COD = #{ttpfTypeCod,jdbcType=CHAR},
+      TTPF_NR = #{ttpfNr,jdbcType=VARCHAR}
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

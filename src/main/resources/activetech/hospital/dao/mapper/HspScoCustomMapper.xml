@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspScoCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.dto.HspScoCustom" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="SCO_NAME" property="scoName" jdbcType="VARCHAR" />
+    <result column="SCO_PYSM" property="scoPysm" jdbcType="VARCHAR" />
+    <result column="IS_TJ" property="isTj" jdbcType="VARCHAR" />
+    <result column="IS_YX" property="isYx" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="query_sco_where">
+		<if test="hspScoCustom!=null">
+			<if test="hspScoCustom.scoName!=null and hspScoCustom.scoName!=''">
+				and hsp_sco.sco_name like  '%'|| #{hspScoCustom.scoName}||'%' 
+			</if>
+			<if test="hspScoCustom.scoPysm!=null and hspScoCustom.scoPysm!=''">
+				and hsp_sco.sco_pysm like  '%'|| #{hspScoCustom.scoPysm}||'%' 
+			</if>
+		</if>
+	</sql>
+  <!-- 查询疾病字典列表 -->
+ 	<select id="findScoPysm" parameterType="java.lang.String"
+ 		resultMap="BaseResultMap">
+ 		select id,
+ 				SCO_NAME,
+				SCO_PYSM,
+				IS_TJ,
+				 IS_YX 
+		from hsp_sco 
+		where  is_yx=&apos;1&apos;
+		<if test="pysm!=null and pysm!=''">
+			and SCO_PYSM like #{pysm}||'%'
+		</if>
+		order by SCO_NAME
+		
+ 	</select>
+ 	
+ 	<!-- 查询列表的总记录数 -->
+	<select id="findHspScoCount" parameterType="activetech.hospital.pojo.dto.HspScoCustomDto"
+					 resultType="int">
+		select count(*) from hsp_sco  
+		<where>
+			<include refid="query_sco_where" />
+		</where>
+	</select>
+	
+	<select id="findHspScoList" parameterType="activetech.hospital.pojo.dto.HspScoCustomDto"
+		resultMap="BaseResultMap" >
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select id,
+ 				SCO_NAME scoName,
+				SCO_PYSM scoPysm,
+			( select info from dstdictinfo a where a.typecode='ISORNOT' and a.infocode=IS_TJ)  	isTj,
+				( select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=IS_YX) isYx 
+		from hsp_sco 
+		<where>
+			<include refid="query_sco_where" />
+		</where>
+		order by  ${sort} ${order}
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+		</select>
+		
+		
+		<select id="selectScoByid" parameterType="activetech.hospital.pojo.dto.HspScoCustomDto"
+				resultMap="BaseResultMap">
+		select id,
+ 				SCO_NAME ,
+				SCO_PYSM ,
+			(select info from dstdictinfo a where a.typecode='ISORNOT' and a.infocode=IS_TJ)  	isTj,
+				(select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=IS_YX) isYx 
+		from hsp_sco  where id=#{id} 
+	
+		</select>
+		<select id="findBySco" parameterType="activetech.hospital.pojo.dto.HspScoCustomDto"
+				resultMap="BaseResultMap">
+				select id,
+ 				SCO_NAME ,
+				SCO_PYSM ,
+			(select info from dstdictinfo a where a.typecode='ISORNOT' and a.infocode=IS_TJ)  	isTj,
+				(select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=IS_YX) isYx 
+		from hsp_sco  where  SCO_NAME = #{scoName}
+		<if test="id!=null and id!=null">
+			and ID!=#{id}
+		</if>
+		</select>
+		
+</mapper>

@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.DstuserMapper" >
+  <resultMap id="BaseResultMap" type="activetech.base.pojo.domain.Dstuser" >
+    <id column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="USRNO" property="usrno" jdbcType="VARCHAR" />
+    <result column="USRNAME" property="usrname" jdbcType="VARCHAR" />
+    <result column="USRPASS" property="usrpass" jdbcType="VARCHAR" />
+    <result column="USERSTATE" property="userstate" jdbcType="CHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="MOVEPHONE" property="movephone" jdbcType="VARCHAR" />
+    <result column="ADDR" property="addr" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="GROUPID" property="groupid" jdbcType="CHAR" />
+    <result column="SYSID" property="sysid" jdbcType="VARCHAR" />
+    <result column="VCHAR1" property="vchar1" jdbcType="VARCHAR" />
+    <result column="VCHAR2" property="vchar2" jdbcType="VARCHAR" />
+    <result column="VCHAR3" property="vchar3" jdbcType="VARCHAR" />
+    <result column="VCHAR4" property="vchar4" jdbcType="VARCHAR" />
+    <result column="OUT_CALL" property="outCall" jdbcType="VARCHAR" />
+    <result column="EMGSYSID" property="emgsysid" jdbcType="VARCHAR" />
+    <result column="YSH" property="ysh" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    USERID, USRNO, USRNAME, USRPASS, USERSTATE, PHONE, MOVEPHONE, ADDR, EMAIL, FAX, GROUPID, 
+    SYSID, VCHAR1, VCHAR2, VCHAR3, VCHAR4, OUT_CALL, EMGSYSID, YSH
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.base.pojo.domain.DstuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DSTUSER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DSTUSER
+    where USERID = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DSTUSER
+    where USERID = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.DstuserExample" >
+    delete from DSTUSER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.base.pojo.domain.Dstuser" >
+    insert into DSTUSER (USERID, USRNO, USRNAME, 
+      USRPASS, USERSTATE, PHONE, 
+      MOVEPHONE, ADDR, EMAIL, 
+      FAX, GROUPID, SYSID, VCHAR1, 
+      VCHAR2, VCHAR3, VCHAR4, 
+      OUT_CALL, EMGSYSID, YSH
+      )
+    values (#{userid,jdbcType=VARCHAR}, #{usrno,jdbcType=VARCHAR}, #{usrname,jdbcType=VARCHAR}, 
+      #{usrpass,jdbcType=VARCHAR}, #{userstate,jdbcType=CHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{movephone,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{groupid,jdbcType=CHAR}, #{sysid,jdbcType=VARCHAR}, #{vchar1,jdbcType=VARCHAR}, 
+      #{vchar2,jdbcType=VARCHAR}, #{vchar3,jdbcType=VARCHAR}, #{vchar4,jdbcType=VARCHAR}, 
+      #{outCall,jdbcType=VARCHAR}, #{emgsysid,jdbcType=VARCHAR}, #{ysh,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.base.pojo.domain.Dstuser" >
+    insert into DSTUSER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="usrno != null" >
+        USRNO,
+      </if>
+      <if test="usrname != null" >
+        USRNAME,
+      </if>
+      <if test="usrpass != null" >
+        USRPASS,
+      </if>
+      <if test="userstate != null" >
+        USERSTATE,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="movephone != null" >
+        MOVEPHONE,
+      </if>
+      <if test="addr != null" >
+        ADDR,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="fax != null" >
+        FAX,
+      </if>
+      <if test="groupid != null" >
+        GROUPID,
+      </if>
+      <if test="sysid != null" >
+        SYSID,
+      </if>
+      <if test="vchar1 != null" >
+        VCHAR1,
+      </if>
+      <if test="vchar2 != null" >
+        VCHAR2,
+      </if>
+      <if test="vchar3 != null" >
+        VCHAR3,
+      </if>
+      <if test="vchar4 != null" >
+        VCHAR4,
+      </if>
+      <if test="outCall != null" >
+        OUT_CALL,
+      </if>
+      <if test="emgsysid != null" >
+        EMGSYSID,
+      </if>
+      <if test="ysh != null" >
+        YSH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="usrno != null" >
+        #{usrno,jdbcType=VARCHAR},
+      </if>
+      <if test="usrname != null" >
+        #{usrname,jdbcType=VARCHAR},
+      </if>
+      <if test="usrpass != null" >
+        #{usrpass,jdbcType=VARCHAR},
+      </if>
+      <if test="userstate != null" >
+        #{userstate,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="movephone != null" >
+        #{movephone,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=CHAR},
+      </if>
+      <if test="sysid != null" >
+        #{sysid,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar1 != null" >
+        #{vchar1,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar2 != null" >
+        #{vchar2,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar3 != null" >
+        #{vchar3,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar4 != null" >
+        #{vchar4,jdbcType=VARCHAR},
+      </if>
+      <if test="outCall != null" >
+        #{outCall,jdbcType=VARCHAR},
+      </if>
+      <if test="emgsysid != null" >
+        #{emgsysid,jdbcType=VARCHAR},
+      </if>
+      <if test="ysh != null" >
+        #{ysh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.base.pojo.domain.DstuserExample" resultType="java.lang.Integer" >
+    select count(*) from DSTUSER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DSTUSER
+    <set >
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrno != null" >
+        USRNO = #{record.usrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrname != null" >
+        USRNAME = #{record.usrname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrpass != null" >
+        USRPASS = #{record.usrpass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userstate != null" >
+        USERSTATE = #{record.userstate,jdbcType=CHAR},
+      </if>
+      <if test="record.phone != null" >
+        PHONE = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.movephone != null" >
+        MOVEPHONE = #{record.movephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addr != null" >
+        ADDR = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        FAX = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupid != null" >
+        GROUPID = #{record.groupid,jdbcType=CHAR},
+      </if>
+      <if test="record.sysid != null" >
+        SYSID = #{record.sysid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar1 != null" >
+        VCHAR1 = #{record.vchar1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar2 != null" >
+        VCHAR2 = #{record.vchar2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar3 != null" >
+        VCHAR3 = #{record.vchar3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vchar4 != null" >
+        VCHAR4 = #{record.vchar4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outCall != null" >
+        OUT_CALL = #{record.outCall,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgsysid != null" >
+        EMGSYSID = #{record.emgsysid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ysh != null" >
+        YSH = #{record.ysh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DSTUSER
+    set USERID = #{record.userid,jdbcType=VARCHAR},
+      USRNO = #{record.usrno,jdbcType=VARCHAR},
+      USRNAME = #{record.usrname,jdbcType=VARCHAR},
+      USRPASS = #{record.usrpass,jdbcType=VARCHAR},
+      USERSTATE = #{record.userstate,jdbcType=CHAR},
+      PHONE = #{record.phone,jdbcType=VARCHAR},
+      MOVEPHONE = #{record.movephone,jdbcType=VARCHAR},
+      ADDR = #{record.addr,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      FAX = #{record.fax,jdbcType=VARCHAR},
+      GROUPID = #{record.groupid,jdbcType=CHAR},
+      SYSID = #{record.sysid,jdbcType=VARCHAR},
+      VCHAR1 = #{record.vchar1,jdbcType=VARCHAR},
+      VCHAR2 = #{record.vchar2,jdbcType=VARCHAR},
+      VCHAR3 = #{record.vchar3,jdbcType=VARCHAR},
+      VCHAR4 = #{record.vchar4,jdbcType=VARCHAR},
+      OUT_CALL = #{record.outCall,jdbcType=VARCHAR},
+      EMGSYSID = #{record.emgsysid,jdbcType=VARCHAR},
+      YSH = #{record.ysh,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.Dstuser" >
+    update DSTUSER
+    <set >
+      <if test="usrno != null" >
+        USRNO = #{usrno,jdbcType=VARCHAR},
+      </if>
+      <if test="usrname != null" >
+        USRNAME = #{usrname,jdbcType=VARCHAR},
+      </if>
+      <if test="usrpass != null" >
+        USRPASS = #{usrpass,jdbcType=VARCHAR},
+      </if>
+      <if test="userstate != null" >
+        USERSTATE = #{userstate,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="movephone != null" >
+        MOVEPHONE = #{movephone,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        ADDR = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        FAX = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null" >
+        GROUPID = #{groupid,jdbcType=CHAR},
+      </if>
+      <if test="sysid != null" >
+        SYSID = #{sysid,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar1 != null" >
+        VCHAR1 = #{vchar1,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar2 != null" >
+        VCHAR2 = #{vchar2,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar3 != null" >
+        VCHAR3 = #{vchar3,jdbcType=VARCHAR},
+      </if>
+      <if test="vchar4 != null" >
+        VCHAR4 = #{vchar4,jdbcType=VARCHAR},
+      </if>
+      <if test="outCall != null" >
+        OUT_CALL = #{outCall,jdbcType=VARCHAR},
+      </if>
+      <if test="emgsysid != null" >
+        EMGSYSID = #{emgsysid,jdbcType=VARCHAR},
+      </if>
+      <if test="ysh != null" >
+        YSH = #{ysh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.Dstuser" >
+    update DSTUSER
+    set USRNO = #{usrno,jdbcType=VARCHAR},
+      USRNAME = #{usrname,jdbcType=VARCHAR},
+      USRPASS = #{usrpass,jdbcType=VARCHAR},
+      USERSTATE = #{userstate,jdbcType=CHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      MOVEPHONE = #{movephone,jdbcType=VARCHAR},
+      ADDR = #{addr,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      FAX = #{fax,jdbcType=VARCHAR},
+      GROUPID = #{groupid,jdbcType=CHAR},
+      SYSID = #{sysid,jdbcType=VARCHAR},
+      VCHAR1 = #{vchar1,jdbcType=VARCHAR},
+      VCHAR2 = #{vchar2,jdbcType=VARCHAR},
+      VCHAR3 = #{vchar3,jdbcType=VARCHAR},
+      VCHAR4 = #{vchar4,jdbcType=VARCHAR},
+      OUT_CALL = #{outCall,jdbcType=VARCHAR},
+      EMGSYSID = #{emgsysid,jdbcType=VARCHAR},
+      YSH = #{ysh,jdbcType=VARCHAR}
+    where USERID = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

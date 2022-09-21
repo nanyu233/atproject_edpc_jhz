@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.IcuErInfoMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.IcuErInfo" >
+    <id column="ER_SEQ" property="erSeq" jdbcType="VARCHAR" />
+    <result column="ER_STAT" property="erStat" jdbcType="VARCHAR" />
+    <result column="ER_TYPE" property="erType" jdbcType="VARCHAR" />
+    <result column="ER_NAME" property="erName" jdbcType="VARCHAR" />
+    <result column="ER_INFO" property="erInfo" jdbcType="VARCHAR" />
+    <result column="LIVE_NO" property="liveNo" jdbcType="VARCHAR" />
+    <result column="LINK_SEQ" property="linkSeq" jdbcType="VARCHAR" />
+    <result column="LINK_TIME" property="linkTime" jdbcType="TIMESTAMP" />
+    <result column="SKIP_URL" property="skipUrl" jdbcType="VARCHAR" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="TIMESTAMP" />
+    <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+    <result column="MOD_USER" property="modUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ER_SEQ, ER_STAT, ER_TYPE, ER_NAME, ER_INFO, LIVE_NO, LINK_SEQ, LINK_TIME, SKIP_URL, 
+    CRT_TIME, CRT_USER, MOD_TIME, MOD_USER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.IcuErInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ICU_ER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ICU_ER_INFO
+    where ER_SEQ = #{erSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ICU_ER_INFO
+    where ER_SEQ = #{erSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.IcuErInfoExample" >
+    delete from ICU_ER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.IcuErInfo" >
+    insert into ICU_ER_INFO (ER_SEQ, ER_STAT, ER_TYPE, 
+      ER_NAME, ER_INFO, LIVE_NO, 
+      LINK_SEQ, LINK_TIME, SKIP_URL, 
+      CRT_TIME, CRT_USER, MOD_TIME, 
+      MOD_USER)
+    values (#{erSeq,jdbcType=VARCHAR}, #{erStat,jdbcType=VARCHAR}, #{erType,jdbcType=VARCHAR}, 
+      #{erName,jdbcType=VARCHAR}, #{erInfo,jdbcType=VARCHAR}, #{liveNo,jdbcType=VARCHAR}, 
+      #{linkSeq,jdbcType=VARCHAR}, #{linkTime,jdbcType=TIMESTAMP}, #{skipUrl,jdbcType=VARCHAR}, 
+      #{crtTime,jdbcType=TIMESTAMP}, #{crtUser,jdbcType=VARCHAR}, #{modTime,jdbcType=TIMESTAMP}, 
+      #{modUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.IcuErInfo" >
+    insert into ICU_ER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="erSeq != null" >
+        ER_SEQ,
+      </if>
+      <if test="erStat != null" >
+        ER_STAT,
+      </if>
+      <if test="erType != null" >
+        ER_TYPE,
+      </if>
+      <if test="erName != null" >
+        ER_NAME,
+      </if>
+      <if test="erInfo != null" >
+        ER_INFO,
+      </if>
+      <if test="liveNo != null" >
+        LIVE_NO,
+      </if>
+      <if test="linkSeq != null" >
+        LINK_SEQ,
+      </if>
+      <if test="linkTime != null" >
+        LINK_TIME,
+      </if>
+      <if test="skipUrl != null" >
+        SKIP_URL,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="modUser != null" >
+        MOD_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="erSeq != null" >
+        #{erSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="erStat != null" >
+        #{erStat,jdbcType=VARCHAR},
+      </if>
+      <if test="erType != null" >
+        #{erType,jdbcType=VARCHAR},
+      </if>
+      <if test="erName != null" >
+        #{erName,jdbcType=VARCHAR},
+      </if>
+      <if test="erInfo != null" >
+        #{erInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="liveNo != null" >
+        #{liveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="linkSeq != null" >
+        #{linkSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="linkTime != null" >
+        #{linkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="skipUrl != null" >
+        #{skipUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null" >
+        #{modUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.IcuErInfoExample" resultType="java.lang.Integer" >
+    select count(*) from ICU_ER_INFO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ICU_ER_INFO
+    <set >
+      <if test="record.erSeq != null" >
+        ER_SEQ = #{record.erSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.erStat != null" >
+        ER_STAT = #{record.erStat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.erType != null" >
+        ER_TYPE = #{record.erType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.erName != null" >
+        ER_NAME = #{record.erName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.erInfo != null" >
+        ER_INFO = #{record.erInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liveNo != null" >
+        LIVE_NO = #{record.liveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkSeq != null" >
+        LINK_SEQ = #{record.linkSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkTime != null" >
+        LINK_TIME = #{record.linkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.skipUrl != null" >
+        SKIP_URL = #{record.skipUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTime != null" >
+        CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUser != null" >
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTime != null" >
+        MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUser != null" >
+        MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ICU_ER_INFO
+    set ER_SEQ = #{record.erSeq,jdbcType=VARCHAR},
+      ER_STAT = #{record.erStat,jdbcType=VARCHAR},
+      ER_TYPE = #{record.erType,jdbcType=VARCHAR},
+      ER_NAME = #{record.erName,jdbcType=VARCHAR},
+      ER_INFO = #{record.erInfo,jdbcType=VARCHAR},
+      LIVE_NO = #{record.liveNo,jdbcType=VARCHAR},
+      LINK_SEQ = #{record.linkSeq,jdbcType=VARCHAR},
+      LINK_TIME = #{record.linkTime,jdbcType=TIMESTAMP},
+      SKIP_URL = #{record.skipUrl,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.IcuErInfo" >
+    update ICU_ER_INFO
+    <set >
+      <if test="erStat != null" >
+        ER_STAT = #{erStat,jdbcType=VARCHAR},
+      </if>
+      <if test="erType != null" >
+        ER_TYPE = #{erType,jdbcType=VARCHAR},
+      </if>
+      <if test="erName != null" >
+        ER_NAME = #{erName,jdbcType=VARCHAR},
+      </if>
+      <if test="erInfo != null" >
+        ER_INFO = #{erInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="liveNo != null" >
+        LIVE_NO = #{liveNo,jdbcType=VARCHAR},
+      </if>
+      <if test="linkSeq != null" >
+        LINK_SEQ = #{linkSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="linkTime != null" >
+        LINK_TIME = #{linkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="skipUrl != null" >
+        SKIP_URL = #{skipUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null" >
+        MOD_USER = #{modUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ER_SEQ = #{erSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.IcuErInfo" >
+    update ICU_ER_INFO
+    set ER_STAT = #{erStat,jdbcType=VARCHAR},
+      ER_TYPE = #{erType,jdbcType=VARCHAR},
+      ER_NAME = #{erName,jdbcType=VARCHAR},
+      ER_INFO = #{erInfo,jdbcType=VARCHAR},
+      LIVE_NO = #{liveNo,jdbcType=VARCHAR},
+      LINK_SEQ = #{linkSeq,jdbcType=VARCHAR},
+      LINK_TIME = #{linkTime,jdbcType=TIMESTAMP},
+      SKIP_URL = #{skipUrl,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{modUser,jdbcType=VARCHAR}
+    where ER_SEQ = #{erSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

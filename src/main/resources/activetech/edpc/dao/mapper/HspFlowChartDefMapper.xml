@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspFlowChartDefMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspFlowChartDef" >
+    <id column="NODE_ID" property="nodeId" jdbcType="VARCHAR" />
+    <id column="FLOW_TYPE" property="flowType" jdbcType="VARCHAR" />
+    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    <result column="NODE_TYPE" property="nodeType" jdbcType="CHAR" />
+    <result column="NODE_TRIGGER_EVENT" property="nodeTriggerEvent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    NODE_ID, FLOW_TYPE, NODE_NAME, NODE_TYPE, NODE_TRIGGER_EVENT
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspFlowChartDefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_FLOW_CHART_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspFlowChartDefKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_FLOW_CHART_DEF
+    where NODE_ID = #{nodeId,jdbcType=VARCHAR}
+      and FLOW_TYPE = #{flowType,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspFlowChartDefKey" >
+    delete from HSP_FLOW_CHART_DEF
+    where NODE_ID = #{nodeId,jdbcType=VARCHAR}
+      and FLOW_TYPE = #{flowType,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspFlowChartDefExample" >
+    delete from HSP_FLOW_CHART_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspFlowChartDef" >
+    insert into HSP_FLOW_CHART_DEF (NODE_ID, FLOW_TYPE, NODE_NAME, 
+      NODE_TYPE, NODE_TRIGGER_EVENT)
+    values (#{nodeId,jdbcType=VARCHAR}, #{flowType,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, 
+      #{nodeType,jdbcType=CHAR}, #{nodeTriggerEvent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspFlowChartDef" >
+    insert into HSP_FLOW_CHART_DEF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nodeId != null" >
+        NODE_ID,
+      </if>
+      <if test="flowType != null" >
+        FLOW_TYPE,
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME,
+      </if>
+      <if test="nodeType != null" >
+        NODE_TYPE,
+      </if>
+      <if test="nodeTriggerEvent != null" >
+        NODE_TRIGGER_EVENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="flowType != null" >
+        #{flowType,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeType != null" >
+        #{nodeType,jdbcType=CHAR},
+      </if>
+      <if test="nodeTriggerEvent != null" >
+        #{nodeTriggerEvent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspFlowChartDefExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_FLOW_CHART_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_FLOW_CHART_DEF
+    <set >
+      <if test="record.nodeId != null" >
+        NODE_ID = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flowType != null" >
+        FLOW_TYPE = #{record.flowType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeName != null" >
+        NODE_NAME = #{record.nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeType != null" >
+        NODE_TYPE = #{record.nodeType,jdbcType=CHAR},
+      </if>
+      <if test="record.nodeTriggerEvent != null" >
+        NODE_TRIGGER_EVENT = #{record.nodeTriggerEvent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_FLOW_CHART_DEF
+    set NODE_ID = #{record.nodeId,jdbcType=VARCHAR},
+      FLOW_TYPE = #{record.flowType,jdbcType=VARCHAR},
+      NODE_NAME = #{record.nodeName,jdbcType=VARCHAR},
+      NODE_TYPE = #{record.nodeType,jdbcType=CHAR},
+      NODE_TRIGGER_EVENT = #{record.nodeTriggerEvent,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspFlowChartDef" >
+    update HSP_FLOW_CHART_DEF
+    <set >
+      <if test="nodeName != null" >
+        NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeType != null" >
+        NODE_TYPE = #{nodeType,jdbcType=CHAR},
+      </if>
+      <if test="nodeTriggerEvent != null" >
+        NODE_TRIGGER_EVENT = #{nodeTriggerEvent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NODE_ID = #{nodeId,jdbcType=VARCHAR}
+      and FLOW_TYPE = #{flowType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspFlowChartDef" >
+    update HSP_FLOW_CHART_DEF
+    set NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      NODE_TYPE = #{nodeType,jdbcType=CHAR},
+      NODE_TRIGGER_EVENT = #{nodeTriggerEvent,jdbcType=VARCHAR}
+    where NODE_ID = #{nodeId,jdbcType=VARCHAR}
+      and FLOW_TYPE = #{flowType,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.external.dao.mapper.HspJyjgCustomMapper">
+  <resultMap id="BaseResultMap" type="activetech.external.pojo.dto.HspJyjgCustom" >
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SAMPLENO" property="sampleno" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="RESULT_DATE_TIME" property="resultDateTime" jdbcType="TIMESTAMP" />
+    <result column="resultDateTimeStr" property="resultDateTimeStr" jdbcType="VARCHAR" />
+    <result column="UPPER_LIMIT" property="upperLimit" jdbcType="VARCHAR" />
+    <result column="LOWER_LIMIT" property="lowerLimit" jdbcType="VARCHAR" />
+    <result column="REPORT_ITEM_NAME" property="reportItemName" jdbcType="VARCHAR" />
+    <result column="UNITS" property="units" jdbcType="VARCHAR" />
+    <result column="EXAMINAIM" property="examinaim" jdbcType="VARCHAR" />
+    <result column="SJYS" property="sjys" jdbcType="VARCHAR" />
+    <result column="JYZ" property="jyz" jdbcType="VARCHAR" />
+    <result column="SHR" property="shr" jdbcType="VARCHAR" />
+  </resultMap>
+	<select id="inBedJyInfGet" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select a.PATIENT_ID PARENT_ID,
+		       a.NAME,
+		       a.SAMPLENO,
+		       a.RESULT,
+		       a.RESULT_DATE_TIME,
+		       to_char(a.RESULT_DATE_TIME,'yyyymmdd hh24miss') resultDateTimeStr,
+		       a.UPPER_LIMIT,
+		       a.LOWER_LIMIT,
+		       a.REPORT_ITEM_NAME,
+		       a.UNITS,
+		       a.EXAMINAIM,
+		       a.SJYS,
+		       a.JYZ,
+		       a.SHR,
+		       emginf.emg_seq,
+		       emginf.xtlcflg,
+		       emginf.czlcflg,
+		       emginf.cspg_flg
+		  from dsfjk.v_hems_jyjg a,
+		       (select emg.vst_cad,
+		       		   emg.emg_seq,
+		       		   emg.xtlcflg,
+		       		   emg.czlcflg,
+		       		   emg.cspg_flg,
+		       		   emg.emg_dat
+		          from hsp_emg_inf emg, hsp_bed_inf bed
+		         where bed.emg_seq = emg.emg_seq
+		           and bed.emg_seq is not null) emginf
+		 where a.PATIENT_ID = emginf.vst_cad
+		   and a.RESULT_DATE_TIME > emginf.emg_dat
+		    and not exists(select 1 from hsp_jyjg where hsp_jyjg.sampleno = a.SAMPLENO)
+	</select>
+	
+	<insert id="insert" parameterType="activetech.external.pojo.dto.HspJyjgCustom">
+		insert into HSP_JYJG (PARENT_ID, NAME, SAMPLENO, 
+	      RESULT, RESULT_DATE_TIME, UPPER_LIMIT, 
+	      LOWER_LIMIT, REPORT_ITEM_NAME, UNITS, 
+	      EXAMINAIM, SJYS, JYZ, 
+	      SHR, MARK)
+	    values (#{parentId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sampleno,jdbcType=VARCHAR}, 
+	      #{result,jdbcType=VARCHAR}, to_date(#{resultDateTimeStr,jdbcType=VARCHAR},'yyyymmdd hh24miss'), #{upperLimit,jdbcType=VARCHAR}, 
+	      #{lowerLimit,jdbcType=VARCHAR}, #{reportItemName,jdbcType=VARCHAR}, #{units,jdbcType=VARCHAR}, 
+	      #{examinaim,jdbcType=VARCHAR}, #{sjys,jdbcType=VARCHAR}, #{jyz,jdbcType=VARCHAR}, 
+	      #{shr,jdbcType=VARCHAR}, #{mark,jdbcType=VARCHAR})
+	</insert>
+
+</mapper>

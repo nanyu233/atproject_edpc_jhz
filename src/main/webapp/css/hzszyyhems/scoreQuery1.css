@@ -1,0 +1,397 @@
+@charset "utf-8";
+
+/**
+*  评分查询
+*/
+
+/* .face {
+    display: inline-block;
+    width: 76px;
+    height: 90px;
+    background-image: url(../../images/hems/nurse/Bigface.png);}
+
+  .face.face-00 {
+    background-position: 0 0; }
+
+  .face.face-01 {
+    background-position: -76px 0; }
+
+  .face.face-02 {
+    background-position: -152px 0; }
+
+  .face.face-03 {
+    background-position: -228px 0; }
+
+  .face.face-04 {
+    background-position: -304px 0; }
+
+  .face.face-05 {
+    background-position: -380px 0; }
+
+  .face.face-06 {
+    background-position: -456px 0; }
+
+  .face.face-07 {
+    background-position: -532px 0; }
+
+  .face.face-08 {
+    background-position: -608px 0; }
+
+  .face.face-09 {
+    background-position: -684px 0; }
+
+  .face.face-10 {
+    background-position: -760px 0; }
+
+  .face.face-00.active {
+    background-position: 0 -90px; }
+
+  .face.face-01.active {
+    background-position: -76px -90px; }
+
+  .face.face-02.active {
+    background-position: -152px -90px; }
+
+  .face.face-03.active {
+    background-position: -228px -90px; }
+
+  .face.face-04.active {
+    background-position: -304px -90px; }
+
+  .face.face-05.active {
+    background-position: -380px -90px; }
+
+  .face.face-06.active {
+    background-position: -456px -90px; }
+
+  .face.face-07.active {
+    background-position: -532px -90px; }
+
+  .face.face-08.active {
+    background-position: -608px -90px; }
+
+  .face.face-09.active {
+    background-position: -684px -90px; }
+
+  .face.face-10.active {
+    background-position: -760px -90px; } */
+
+
+.scoreQuery .headtitle{
+    width: 100%;
+    float: left;
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0px;
+}
+.scoreQuery .bascilab{
+    font-size: 12px;
+    margin-right: 15px;
+}
+.scoreQuery .basicDiv {
+    float: left;
+    width: 100%;
+    margin-bottom: 2px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+.scoreQuery .basicInput{
+    width:90px;
+    border: none;
+    border-bottom:#DDD 1px solid;
+}
+.scoreQuery .basicInput:hover{
+    border: none;
+    box-shadow: none;
+    border-bottom:#DDD 1px solid;
+}
+.scoreQuery input[readonly].basicInput{
+    background: none;
+    color: #666;
+}
+.panelGde .paneltab{
+    margin-top:14px;
+    width:96%;
+    margin-left:2%;
+    margin-right:2%;
+}
+.panelGde table{
+    font-size:14px;
+}
+.panelGde table td,.panelGde table th{
+    border:1px solid #f1f1f1;
+}
+.panelGde table th{
+    background:#bad0e3;
+}
+.panelGde table tr input{
+    text-indent:5%;
+}
+.scoreQuery .panelGde table .firsttr td{
+    background:#d6e5f2;
+    text-align:center;
+}
+.panelGde table .oddtr td{
+    background:#fff;
+}
+.panelGde table .eventr td{
+    background:#f2f4f6;
+}
+.panelGde table tr{
+    height:32px;
+}
+.scoreQuery .scoreDiv{
+    float:left;
+    width:96%;
+    margin-left:2%;
+    font-size:14px;
+    margin-top:10px;
+    margin-bottom:8px;
+}
+.scoreQuery .scoreDiv input{
+    width:94%;
+}
+.scoreQuery .paneltab .inputSpan{
+    display:inline-block;
+    width:50%;
+    margin-left:25%;
+    line-height:32px;
+    color: #2a00ff;
+}
+.scoreQuery .adltab .inputSpan{
+    width:30%;
+    margin-left:35%;
+    color: #2a00ff;
+}
+.scoreQuery .AdlContent .topDiv{
+    float:left;
+    width:96%;
+    margin:0px 2% 10px 2%;
+    padding-bottom:10px;
+}
+.scoreQuery .AdlContent .titleP,.scoreQuery .nrsWrapper .nrstitle{
+    color:#000;
+    font-size:14px;
+    font-weight:bold;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.scoreQuery .AdlContent .titleP{
+    margin-bottom:0px;
+}
+.scoreQuery .AdlContent .labWrapper{
+    color:#000;
+    display: inline-block;
+    float: left;
+    width: 100%;
+}
+.AdlContent .labWrapper span{
+    float:left;
+    margin-top:10px;
+    display:inline-block;
+}
+.AdlContent .labWrapper ul{
+    width:96%;
+    float:left;
+    margin-top:10px;
+}
+.scoreQuery .FalloutbedContent ul{
+    width:90%;
+    margin:0 5%;
+    color:#000;
+    padding-top:10px;
+}
+.scoreQuery .FalloutbedContent ul li{
+    margin-bottom:10px;
+}
+.scoreQuery .FalloutbedContent .last {
+    font-weight: bold;
+    color: #000;
+    font-size: 14px;
+    width: 90%;
+    margin: 0 5%;
+}
+.scoreQuery .panelGde .nrsDiv{
+    float:left;
+    width:88%;
+    margin-left:10%;
+    margin-right:2%;
+    margin-top:14px;
+}
+.scoreQuery .BreathContent .remarkInput{
+    width:80%;
+}
+.scoreQuery .XinxgContent .remarkInput{
+    width:60%;
+}
+.scoreQuery .NrsContent .remarkInput{
+    width:80%;
+}
+.scoreQuery .NrsContent .scoreDiv{
+    float:left;
+    width:88%;
+    margin-left:10%;
+    font-size:14px;
+    margin-top:10px;
+    margin-bottom:8px;
+}
+.scoreQuery .panelGde .panelBlock{
+    height:26px;
+    line-height:26px;
+    box-sizing:border-box;
+    border:1px solid #9abce9;
+    border-left:4px solid #9abce9;
+    border-right:4px solid #9abce9;
+}
+.scoreQuery .panelBlock .scoSpn{
+    float:right;
+    font-size:16px;
+    color:#259606;
+}
+.scoreQuery .topDiv .colorSpan,.scoreQuery .colorlab,.scoreQuery .labWrp{
+    color: #2a00ff;
+}
+.scoreQuery .labWrp{
+    margin-right: 4px;
+}
+.scoreQuery .NrsBlock{
+    float: left;
+    width: 90%;
+    margin: 0 5%;
+    min-width: 860px;
+}
+.nrsWrapper .content_div{
+    float: left;
+    width: 100%;
+}
+.scoreQuery .nrsWrapper .nrstitle{
+    margin: -4px 5px 0px 0px;
+    float: left;
+}
+.scoreQuery .nrsWrapper .spcTwotitle{
+    letter-spacing: 2em;
+    margin-right: -2em;
+}
+.scoreQuery .nrsinputDiv{
+    margin-left: 70px;
+    margin-bottom: 10px;
+}
+.scoreQuery .nrsWrapper .remarkinput{
+    margin-left: 10px;
+}
+.scoreQuery .highlineHeight{
+    line-height: 1;
+    line-height: 63px;
+}
+.scoreQuery .nrsDiv{
+    margin-bottom: 10px;
+}
+.scoreQuery .boldFont{
+    font-weight: bold;
+}
+.scoreQuery .panelContent {
+    display: block;
+    border: none;
+}
+.scoreQuery .DangerContent .partA {
+    width: 100%;
+    padding-left: 0%;
+    margin: 0;
+    background: #fff;
+}
+.scoreQuery .tableUl {
+    width: 100%;
+    margin: 0px;
+}
+.queryxtpg {
+    width: 96%;
+    min-width: 800px;
+    margin: 0 2%;
+}
+.DangerContent .thirdSpan, .DangerContent .fourthSpan {
+    color: #2a00ff;
+}
+.scoreQuery .DangerContent .title{
+    font-weight: bold;
+}
+.scoreQuery .fallOutGde{
+    margin-top: 0px;
+}
+.scoreQuery .gcs_container .act_p {
+    background: #bad0e3;
+    color: #000;
+    text-align: center;
+    text-indent: 0px;
+}
+.scoreQuery .gcs_container .act_label {
+    height: 21px;
+    line-height: 21px;
+}
+.scoreQuery .gcs_container .act_div .msg_div {
+    margin-top: 0px;
+}
+.scoreQuery .gcs_container .act_div,.scoreQuery .gcs_container .inspect_p {
+    border-bottom: 1px solid #f1f1f1;
+}
+.scoreQuery .gcs_container .act_labelAct {
+    background: #f2f4f6;
+}
+.scoreQuery .gcs_container .act_div .act_p, .scoreQuery .gcs_container .act_div {
+    height: 84px;
+    line-height: 84px;
+    border-right: 1px solid #f1f1f1;
+}
+.scoreQuery .gcs_container .act_div2 .act_p, .scoreQuery .gcs_container .act_div2 {
+    height: 105px;
+    line-height: 105px;
+}
+.scoreQuery .gcs_container .act_div3 .act_p, .scoreQuery .gcs_container .act_div3 {
+    height: 126px;
+    line-height: 126px;
+}
+.scoreQuery .gcs_container .act_label input {
+    margin-top: 4px;
+}
+.scoreQuery .gcs_container {
+    width: 90%;
+    float: left;
+    margin: 0 5%;
+}
+
+.nursingSco .scoreQuery .scoreDiv input {
+    width: 92%;
+}
+.nursingSco .scoreQuery .AdlContent .titleP, .nursingSco .AdlContent .labWrapper span, .nursingSco .AdlContent .labWrapper ul {
+    margin-top: 1px;
+}
+.nursingSco .AdlContent .labWrapper ul li {
+    line-height: 14px;
+}
+.nursingSco .panelGde table tr {
+    height: 23px;
+}
+.nursingSco .scoreQuery .paneltab .inputSpan {
+    width: 60%;
+    margin-left: 20%
+}
+.adlNusring .scoreQuery .paneltab .inputSpan {
+    width: 40%;
+    margin-left: 30%;
+    line-height:23px;
+}
+.nursingSco .panelGde .paneltab {
+    margin-top:2px;
+}
+.nursingSco .scoreQuery .AdlContent .topDiv {
+    padding-bottom:1px;
+    margin-bottom:2px;
+}
+.nursingSco .scoreQuery .boldFont {
+    font-weight: bold;
+    position: absolute;
+    bottom: 15px;
+    font-size: 16px;
+}
+.adlNusring .scoreQuery .headtitle{
+    margin: 3px 0px;
+}

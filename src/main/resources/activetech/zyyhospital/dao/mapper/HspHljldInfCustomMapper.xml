@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspHljldInfCustomMapper">
+	<resultMap id="BaseResultMap"
+		type="activetech.zyyhospital.pojo.dto.HspHljldInfCustom">
+		<id column="BQHI_SEQ" property="bqhiSeq" jdbcType="VARCHAR" />
+		<result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+		<result column="TMP_NBR" property="tmpNbr" jdbcType="DECIMAL" />
+		<result column="HRT_RTE" property="hrtRte" jdbcType="DECIMAL" />
+		<result column="SBP_UP_NBR" property="sbpUpNbr" jdbcType="DECIMAL" />
+		<result column="SBP_DOWN_NBR" property="sbpDownNbr" jdbcType="DECIMAL" />
+		<result column="BRE_NBR" property="breNbr" jdbcType="DECIMAL" />
+		<result column="XT" property="xt" jdbcType="DECIMAL" />
+		<result column="SEN_RCT_COD" property="senRctCod" jdbcType="VARCHAR" />
+		<result column="JCHL" property="jchl" jdbcType="VARCHAR" />
+		<result column="JCHL_QT" property="jchlQt" jdbcType="VARCHAR" />
+		<result column="BQGC" property="bqgc" jdbcType="VARCHAR" />
+		<result column="BQGC_HEX" property="bqgcHex" jdbcType="VARCHAR" />
+		<result column="HS_USRNO" property="hsUsrno" jdbcType="VARCHAR" />
+		<result column="HS_USRNAME" property="hsUsrname" jdbcType="VARCHAR" />
+		<result column="SJHS_USRNO" property="sjhsUsrno" jdbcType="VARCHAR" />
+		<result column="SJHS_USRNAME" property="sjhsUsrname" jdbcType="VARCHAR" />
+		<result column="CRT_DAT" property="crtDat" jdbcType="TIMESTAMP" />
+		<result column="CRT_NUR" property="crtNur" jdbcType="VARCHAR" />
+		<result column="CRT_NAME" property="crtName" jdbcType="VARCHAR" />
+		<result column="UP_DAT" property="upDat" jdbcType="TIMESTAMP" />
+		<result column="UP_NUR" property="upNur" jdbcType="VARCHAR" />
+		<result column="UP_NAME" property="upName" jdbcType="VARCHAR" />
+		<result column="XY" property="xy" jdbcType="DECIMAL" />
+		<result column="Rl" property="rl" jdbcType="VARCHAR" />
+		<result column="Cl" property="cl" jdbcType="VARCHAR" />
+		<result column="date2" property="date2" jdbcType="VARCHAR" />
+		<result column="SBP" property="sbp" jdbcType="VARCHAR" />
+		<result column="hsusrnames" property="hsusrnames" jdbcType="VARCHAR" />
+		<result column="typecrl" property="typecrl" jdbcType="VARCHAR" />
+		<result column="sumcrl" property="sumcrl" jdbcType="VARCHAR" />
+		<result column="TMP_NBR_FLG" property="tmpNbrFlg" jdbcType="VARCHAR" />
+		<result column="BRE_NBR_FLG" property="breNbrFlg" jdbcType="VARCHAR" />
+		<result column="SBP_NBR_FLG" property="sbpNbrFlg" jdbcType="VARCHAR" />
+		<result column="XY_FLG" property="xyFlg" jdbcType="VARCHAR" />
+		<result column="XT_FLG" property="xtFlg" jdbcType="VARCHAR" />
+		<result column="ADL_SEQ" property="adlSeq" jdbcType="VARCHAR" />
+	    <result column="ZYFXPF_SEQ" property="zyfxpfSeq" jdbcType="VARCHAR" />
+	    <result column="DDFXPGB_SEQ" property="ddfxpgbSeq" jdbcType="VARCHAR" />
+	    <result column="GCS_SEQ" property="gcsSeq" jdbcType="VARCHAR" />
+	    <result column="NRS_SEQ" property="nrsSeq" jdbcType="VARCHAR" />
+	    <result column="BRADEN_SEQ" property="bradenSeq" jdbcType="VARCHAR" />
+   		<result column="RSSJ" property="rssj" jdbcType="TIMESTAMP" />
+   		<result column="XT_COD" jdbcType="VARCHAR" property="xtCod" />
+   		<result column="xtName" jdbcType="VARCHAR" property="xtName" />
+   		
+   		<result column="bradenSco" property="bradenSco" jdbcType="VARCHAR" />
+   		<result column="zyfxpfSco" property="zyfxpfSco" jdbcType="VARCHAR" /> 
+   		<result column="adlSco" property="adlSco" jdbcType="VARCHAR" />
+   		<result column="gcsSco" jdbcType="VARCHAR" property="gcsSco" />
+   		<result column="nrsSco" jdbcType="VARCHAR" property="nrsSco" />
+   		<result column="morseSco" jdbcType="VARCHAR" property="morseSco" />
+   		
+   		<result column="TK_LEFT" jdbcType="VARCHAR" property="tkLeft" />
+   		<result column="TK_LEFT_COD" jdbcType="VARCHAR" property="tkLeftCod" />
+   		<result column="TK_RIGHT" jdbcType="VARCHAR" property="tkRight" />
+   		<result column="TK_RIGHT_COD" jdbcType="VARCHAR" property="tkRightCod" />
+   		<result column="TK_LEFT_OTHER" jdbcType="VARCHAR" property="tkLeftOther" />
+   		<result column="TK_RIGHT_OTHER" jdbcType="VARCHAR" property="tkRightOther" />
+   		<result column="PULSE" jdbcType="VARCHAR" property="pulse" />
+		<result column="CVP" jdbcType="DECIMAL" property="cvp" />
+		<result column="PULSE_FLG" jdbcType="VARCHAR" property="pulseFlg" />
+    	<result column="HRT_RTE_FLG" jdbcType="VARCHAR" property="hrtRteFlg" />
+	</resultMap>
+	<sql id="query_hljld_where">
+		<if test="startdate!=null and startdate!=''">
+			and a.crt_dat<![CDATA[>=]]>
+			#{startdate,jdbcType=DATE}
+		</if>
+		<if test="enddate!=null and enddate!=''">
+			and a.crt_dat<![CDATA[<=]]>
+			#{enddate,jdbcType=DATE}
+		</if>
+		<if test="hsphljldinfCustom!=null">
+
+			<if test="hsphljldinfCustom.emgSeq!=null and hsphljldinfCustom.emgSeq!=''">
+				and a.emg_seq= #{hsphljldinfCustom.emgSeq}
+			</if>
+		</if>
+	</sql>
+	<select id="getHljldListByemgseq" parameterType="activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto"
+		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+      <![CDATA[
+	        select * from(select bqhi_seq,emg_seq,tmp_nbr,hrt_rte,TMP_NBR_FLG,BRE_NBR_FLG,SBP_NBR_FLG ,XY_FLG,XT_FLG,PULSE_FLG,HRT_RTE_FLG,
+	         CVP,
+	         sbp_up_nbr,
+	         sbp_down_nbr,
+	         NRS_SEQ,
+             GCS_SEQ,
+             ADL_SEQ,
+             BRADEN_SEQ,
+             DDFXPGB_SEQ,
+             ZYFXPF_SEQ,
+             (select INFO from dstdictinfo where typecode = 'XT_COD' and INFOCODE = a.XT_COD) xtName,
+             (select braden_sco from hsp_braden_inf where xtpg_seq=a.BRADEN_SEQ) bradenSco,
+    		 (select NRS_Sco from hsp_nrs_inf where xtpg_seq=a.NRS_SEQ) as nrsSco,
+    		 (select TOT_SCO from HSP_GCS_INF where EMG_SEQ = a.GCS_SEQ) as gcsSco,
+    		 (select ADL_SCO from HSP_ADL_INF where XTPG_SEQ = a.ADL_SEQ) as adlSco,
+    		 (select ZYFXPF_SCO from HSP_ZYFXPF_INF where ZYFXPF_SEQ = a.ZYFXPF_SEQ) as zyfxpfSco,
+    		 (select ZF from HSP_DDFXPGB_INF where DDFXPGB_SEQ = a.DDFXPGB_SEQ) as morseSco,
+	         (case when sbp_up_nbr is null  then '' else sbp_up_nbr||'' end)||(case when sbp_up_nbr is null  and sbp_down_nbr is null  then '' else '/' end)|| (case when sbp_down_nbr is null  then '' else sbp_down_nbr||'' end) as sbp,
+	          bre_nbr,xt,
+	          spilt('SEN_STU_COD',sen_rct_cod) as sen_rct_cod,
+	          spilt('HSPHLJLD_JCHL_COD',jchl) || (case when JCHL_QT  is not null  and jchl is not null then ','||JCHL_QT 
+                                                    when JCHL_QT  is not null and  jchl is  null then JCHL_QT 
+                                                     else '' end) as jchl,
+	         jchl_qt,bqgc,bqgc_hex,hs_usrno,hs_usrname,
+	         hs_usrname as hsusrnames,
+	         sjhs_usrno,
+	         sjhs_usrname,TO_DATE(TO_CHAR(CRT_DAT,'YYYY/MM/DD HH24:MI'),'YYYY/MM/DD HH24:MI') CRT_DAT,
+	         to_char(crt_dat,'MM/dd hh24:mi') crtDateStr,
+	         to_char(crt_dat,'yy/MM/dd HH24:mm:ss') date2 ,
+	         crt_nur,crt_name,up_dat,up_nur,up_name,xy,rssj,xt_cod,
+	          getcrldata('0', a.bqhi_seq) as rl,
+              getcrldata('1', a.bqhi_seq) as cl,              
+              TK_LEFT,TK_LEFT_COD,TK_RIGHT,TK_RIGHT_COD,TK_LEFT_OTHER,TK_RIGHT_OTHER,PULSE
+             from hsp_hljld_inf a where a.emg_seq=#{hsphljldinfCustom.emgSeq}
+             ]]>
+             <!-- ||(case when up_name is not null and up_name<>hs_usrname then ','||up_name else '' end)||(case when up_name2 is not null and up_name2<>hs_usrname then ','||up_name2 else '' end)||(case when up_name3 is not null and up_name3<>hs_usrname then ','||up_name3 else '' end) -->
+             union all
+             select 
+             HLJLDCRLTJ_SEQ bqhi_seq ,
+            emg_seq emg_seq,
+             null tmp_nbr,
+             null NRS_SEQ,
+             null GCS_SEQ,
+             null ADL_SEQ,
+             null BRADEN_SEQ,
+             null DDFXPGB_SEQ,
+             null ZYFXPF_SEQ,
+             null xtName,
+             null bradenSco,
+             null  nrsSco,
+             null  gcsSco,
+             null  adlSco,
+             null  zyfxSco,
+             null  morseSco,
+             null hrt_rte,
+             null TMP_NBR_FLG,null BRE_NBR_FLG,null SBP_NBR_FLG ,null XY_FLG,null XT_FLG,null PULSE_FLG,null HRT_RTE_FLG,
+             null CVP,
+             null sbp_up_nbr,
+            null sbp_down_nbr,
+            null sbp,null bre_nbr,null xt,null sen_rct_cod,null jchl,null jchl_qt,null bqgc,null bqgc_hex,null hs_usrno,null hs_usrname,
+             tj_nam hsusrnames,null sjhs_usrno,null sjhs_usrname,TO_DATE(TO_CHAR(end_dat,'YYYY/MM/DD HH24:MI'),'YYYY/MM/DD HH24:MI') crt_dat,
+             (to_char(start_dat,'MM/dd hh24:mi')|| '-' ||to_char(end_dat,'MM/dd hh24:mi')) crtDateStr,
+             to_char(end_dat,'yy/MM/dd HH24:mm:ss') date2,null crt_nur,null crt_name,null up_dat,null up_nur,null up_name,null xy,null rssj,null xt_cod,
+            case when sum_rl is not null THEN ('总入量：'||sum_rl||'ml'||'('||sjc||')') ELSE NULL
+             end as rl,
+             case when sum_cl is not null and  SUM_PEE is not null THEN  ('总出量：' || sum_cl || 'ml'||'('||sjc||')；总尿量：'|| SUM_PEE || 'ml'||'('||sjc||')') 
+                  when sum_cl is null and  SUM_PEE is not null THEN ('总尿量：'||SUM_PEE || 'ml'||'('||sjc||')' )
+                   when sum_cl is not null and  SUM_PEE is  null THEN ('总出量：'||sum_cl || 'ml'||'('||sjc||')' )
+             end as cl,
+             null TK_LEFT,null TK_LEFT_COD,null TK_RIGHT,null TK_RIGHT_COD,null TK_LEFT_OTHER,null TK_RIGHT_OTHER,null PULSE
+             from  HSP_HLJLDCRLTJ_INF where emg_seq=#{hsphljldinfCustom.emgSeq}) 
+             where emg_seq=#{hsphljldinfCustom.emgSeq}
+            <if test="startdate!=null and startdate!=''">
+				and to_char(CRT_DAT,'yyyy/MM/dd') <![CDATA[>=]]> to_char(#{startdate},'yyyy/MM/dd') 
+			</if>
+			<if test="enddate!=null and enddate!=''">
+				and to_char(CRT_DAT,'yyyy/MM/dd')<![CDATA[<=]]> to_char(#{enddate},'yyyy/MM/dd')
+			</if>
+             order by CRT_DAT
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	<select id="getHljldListByemgseqall" parameterType="activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto"
+		resultMap="BaseResultMap">
+      <![CDATA[
+	        select page_2.* from (select page_1.*, rownum page_num from 
+	        (select * from(select bqhi_seq,emg_seq,tmp_nbr,hrt_rte,TMP_NBR_FLG,BRE_NBR_FLG,SBP_NBR_FLG ,XY_FLG,XT_FLG, 
+	         sbp_up_nbr,
+	         sbp_down_nbr,
+	         (case when sbp_up_nbr is null  then '' else sbp_up_nbr||'' end)||(case when sbp_up_nbr is null  and sbp_down_nbr is null  then '' else '/' end)|| (case when sbp_down_nbr is null  then '' else sbp_down_nbr||'' end) as sbp,
+	          bre_nbr,xt,
+	          spilt('SEN_STU_COD',sen_rct_cod) as sen_rct_cod,
+	          spilt('HSPHLJLD_JCHL_COD',jchl) || (case when JCHL_QT  is not null  and jchl is not null then ','||JCHL_QT 
+                                                    when JCHL_QT  is not null and  jchl is  null then JCHL_QT 
+                                                     else '' end) as jchl,
+	         jchl_qt,bqgc,bqgc_hex,hs_usrno,hs_usrname,
+	         hs_usrname||(case when up_name is not null and up_name<>hs_usrname then ','||up_name else '' end)||(case when up_name2 is not null and up_name2<>hs_usrname then ','||up_name2 else '' end)||(case when up_name3 is not null and up_name3<>hs_usrname then ','||up_name3 else '' end) as hsusrnames,
+	         sjhs_usrno,
+	         sjhs_usrname,TO_DATE(TO_CHAR(CRT_DAT,'YYYY/MM/DD HH24:MI'),'YYYY/MM/DD HH24:MI') CRT_DAT,
+	         to_char(crt_dat,'MM/dd hh24:mi') crtDateStr,
+	         to_char(crt_dat,'yy/MM/dd HH24:mm:ss') date2 ,
+	         crt_nur,crt_name,up_dat,up_nur,up_name,xy, 
+             (select wm_concat(rl) from ( select bqhi_seq ,crlname|| (case when crll is null  then '' else '-'|| crll||'ml' end) as  rl  from HSP_HLJLDCLR_INF where type='0')temp where temp.bqhi_seq=a.bqhi_seq) as rl,
+              (select wm_concat(cl) from ( select bqhi_seq ,crlname|| (case when crll is null  then '' else '-'|| crll||'ml' end)  as cl from HSP_HLJLDCLR_INF where type='1')temp where temp.bqhi_seq=a.bqhi_seq) as cl
+             from hsp_hljld_inf a where a.emg_seq=#{hsphljldinfCustom.emgSeq}
+             ]]><include refid="query_hljld_where" />)
+             order by CRT_DAT DESC) page_1
+         	 where rownum <![CDATA[<=]]> 25) page_2 where page_2.page_num > 0 order by CRT_DAT
+	</select>
+	<select id="findHljldCountandcrl" parameterType="activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto"
+		resultType="int">
+ 		  <![CDATA[
+ 		  select count(*) from(select bqhi_seq,emg_seq,tmp_nbr,hrt_rte,TMP_NBR_FLG,BRE_NBR_FLG,SBP_NBR_FLG ,XY_FLG,XT_FLG, 
+	         sbp_up_nbr,
+	         sbp_down_nbr,
+	         (case when sbp_up_nbr is null  then '' else sbp_up_nbr||'' end)||(case when sbp_up_nbr is null  and sbp_down_nbr is null  then '' else '/' end)|| (case when sbp_down_nbr is null  then '' else sbp_down_nbr||'' end) as sbp,
+	          bre_nbr,xt,
+	          spilt('SEN_STU_COD',sen_rct_cod) as sen_rct_cod,
+	          spilt('HSPHLJLD_JCHL_COD',jchl) || (case when JCHL_QT  is not null  and jchl is not null then ','||JCHL_QT 
+                                                    when JCHL_QT  is not null and  jchl is  null then JCHL_QT 
+                                                     else '' end) as jchl,
+	         jchl_qt,bqgc,bqgc_hex,hs_usrno,hs_usrname,
+	         hs_usrname||(case when up_name is not null and up_name<>hs_usrname then ','||up_name else '' end)||(case when up_name2 is not null and up_name2<>hs_usrname then ','||up_name2 else '' end)||(case when up_name3 is not null and up_name3<>hs_usrname then ','||up_name3 else '' end) as hsusrnames,
+	         sjhs_usrno,
+	         sjhs_usrname,crt_dat,
+	        to_char(crt_dat,'MM/dd hh24:mi') crtDateStr,
+	         to_char(crt_dat,'yy/MM/dd HH:mm:ss') date2 ,
+	         crt_nur,crt_name,up_dat,up_nur,up_name,xy, 
+             (select wm_concat(rl) from ( select bqhi_seq ,crlname|| (case when crll is null  then '' else '-'|| crll||'ml' end) as  rl  from HSP_HLJLDCLR_INF where type='0')temp where temp.bqhi_seq=a.bqhi_seq) as rl,
+              (select wm_concat(cl) from ( select bqhi_seq ,crlname|| (case when crll is null  then '' else '-'|| crll||'ml' end)  as cl from HSP_HLJLDCLR_INF where type='1')temp where temp.bqhi_seq=a.bqhi_seq) as cl
+             from hsp_hljld_inf a where a.emg_seq=#{hsphljldinfCustom.emgSeq}
+             union all
+             select 
+             HLJLDCRLTJ_SEQ bqhi_seq ,
+            emg_seq emg_seq,
+             null tmp_nbr,
+             null hrt_rte,
+             null TMP_NBR_FLG,null BRE_NBR_FLG,null SBP_NBR_FLG ,null XY_FLG,null XT_FLG,
+             null sbp_up_nbr,
+            null sbp_down_nbr,
+            null sbp,null bre_nbr,null xt,null sen_rct_cod,null jchl,null jchl_qt,null bqgc,null bqgc_hex,null hs_usrno,null hs_usrname,
+             null hsusrnames,null sjhs_usrno,null sjhs_usrname,end_dat crt_dat,
+             (to_char(start_dat,'MM/dd hh24:mi')|| '-' ||to_char(end_dat,'MM/dd hh24:mi')) crtDateStr,
+             null date2,null crt_nur,null crt_name,null up_dat,null up_nur,null up_name,null xy,
+            ('总入量：'||sum_rl||'ml') rl,('总出量：'||sum_cl||'ml') cl
+             from  HSP_HLJLDCRLTJ_INF where emg_seq=#{hsphljldinfCustom.emgSeq}) 
+               ]]>
+             where emg_seq=#{hsphljldinfCustom.emgSeq}
+             <if test="startdate!=null and startdate!=''">
+				and to_char(CRT_DAT,'yyyy/MM/dd') <![CDATA[>=]]> to_char(#{startdate},'yyyy/MM/dd') 
+			</if>
+			<if test="enddate!=null and enddate!=''">
+				and to_char(CRT_DAT,'yyyy/MM/dd')<![CDATA[<=]]> to_char(#{enddate},'yyyy/MM/dd')
+			</if>
+	</select>
+	<!-- 查询护理记录单总数 -->
+	<select id="findHljldCount" parameterType="activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto"
+		resultType="int">
+		select count(*) from hsp_hljld_inf a
+		<where>
+			<include refid="query_hljld_where" />
+		</where>
+	</select>
+
+	<select id="findemghljldByemgSeqanddate" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from(
+			select type typecrl,sum(CRLL) sumcrl from HSP_HLJLDCLR_INF
+			where BQHI_SEQ in (select BQHI_SEQ from HSP_HLJLD_INF where EMG_SEQ = #{emgSeq}
+			and TO_CHAR(CRT_DAT,'YY/MM/DD HH24:MI')  <![CDATA[<=]]> TO_CHAR(#{endDat},'YY/MM/DD HH24:MI')
+			and TO_CHAR(CRT_DAT,'YY/MM/DD HH24:MI')  <![CDATA[>=]]> TO_CHAR(#{startDat},'YY/MM/DD HH24:MI'))
+			group by type
+			union
+			select '2' typecrl,nvl(sum(CRLL),0) sumcrl from HSP_HLJLDCLR_INF
+			where BQHI_SEQ in (select BQHI_SEQ from HSP_HLJLD_INF where EMG_SEQ = #{emgSeq}
+			and TO_CHAR(CRT_DAT,'YY/MM/DD HH24:MI')  <![CDATA[<=]]> TO_CHAR(#{endDat},'YY/MM/DD HH24:MI')
+			and TO_CHAR(CRT_DAT,'YY/MM/DD HH24:MI')  <![CDATA[>=]]> TO_CHAR(#{startDat},'YY/MM/DD HH24:MI')
+			and (CRLNAME='尿液' or CRLNAME='导尿管'))
+		)
+	</select>
+
+
+	<select id="findemghljldByemgSeqanddateNl" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from(
+			select '2' typecrl,nvl(sum(CRLL),0) sumcrl from HSP_HLJLDCLR_INF
+			where BQHI_SEQ in (select BQHI_SEQ from HSP_HLJLD_INF where EMG_SEQ = #{emgSeq}
+			and TO_CHAR(CRT_DAT,'YY/MM/DD HH24:MI')  <![CDATA[<=]]> TO_CHAR(#{endDat},'YY/MM/DD HH24:MI')
+			and TO_CHAR(CRT_DAT,'YY/MM/DD HH24:MI')  <![CDATA[>=]]> TO_CHAR(#{startDat},'YY/MM/DD HH24:MI')
+			and (CRLNAME='尿液' or CRLNAME='导尿管'))
+		)
+	</select>
+
+
+	<select id="getHljldInfxtByemgseq" parameterType="activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto"
+		resultMap="BaseResultMap">
+		select
+		XT,XT_FLG,TMP_NBR,TMP_NBR_FLG,BRE_NBR_FLG,HRT_RTE,BRE_NBR,SBP_NBR_FLG,SBP_UP_NBR,SBP_DOWN_NBR,XY_FLG,XY
+		from ( select a.XT ,
+		a.XT_FLG,a.TMP_NBR,a.HRT_RTE,a.TMP_NBR_FLG,a.BRE_NBR_FLG,a.BRE_NBR,a.SBP_NBR_FLG,a.SBP_UP_NBR,a.SBP_DOWN_NBR,a.XY_FLG,a.XY
+		from hsp_hljld_inf a where 1=1
+		<include refid="query_hljld_where"></include>
+		order by a.crt_dat
+		) where rownum=1
+	</select>
+	<select id="getHljldinfListByemgseq" parameterType="activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto"
+		resultMap="BaseResultMap">
+      	<![CDATA[
+	        select BQHI_SEQ, EMG_SEQ, TMP_NBR, HRT_RTE, SBP_UP_NBR, SBP_DOWN_NBR, BRE_NBR, XT, SEN_RCT_COD, 
+				    JCHL, JCHL_QT, HS_USRNO, HS_USRNAME, SJHS_USRNO, SJHS_USRNAME, CRT_DAT, CRT_NUR, 
+				    CRT_NAME, UP_DAT, UP_NUR, UP_NAME, XY, UP_DAT2, UP_NUR2, UP_NAME2, UP_DAT3, UP_NUR3, 
+				    UP_NAME3, TMP_NBR_FLG, BRE_NBR_FLG, SBP_NBR_FLG, XY_FLG, XT_FLG,XT_COD,NRS_SEQ,PULSE
+             from  hsp_hljld_inf where emg_seq=#{hsphljldinfCustom.emgSeq} order by CRT_DAT
+             ]]>
+	</select>
+	
+	<!-- 获取病情护理记录单数据 -->
+	<select id="findHljldById" parameterType="java.lang.String" resultType="activetech.zyyhospital.pojo.dto.HspHljldInfCustom">
+		select 
+			BQHI_SEQ,
+			EMG_SEQ, 
+			TMP_NBR, 
+			HRT_RTE, 
+			SBP_UP_NBR, 
+			SBP_DOWN_NBR, 
+			BRE_NBR, 
+			XT, 
+			SEN_RCT_COD, 
+    		JCHL, 
+    		JCHL_QT,
+    		HS_USRNO, 
+    		HS_USRNAME, 
+    		SJHS_USRNO, 
+    		SJHS_USRNAME,
+    		CRT_DAT, 
+    		CRT_NUR, 
+    		CRT_NAME, 
+    		UP_DAT, 
+    		UP_NUR, 
+    		UP_NAME, 
+    		XY, 
+    		UP_DAT2, 
+    		UP_NUR2, 
+    		UP_NAME2, 
+    		UP_DAT3, 
+    		UP_NUR3, 
+    		UP_NAME3, 
+    		TMP_NBR_FLG, 
+    		BRE_NBR_FLG, 
+    		SBP_NBR_FLG, 
+    		XY_FLG, 
+    		XT_FLG, 
+    		BRADEN_SEQ, 
+    		ADL_SEQ, 
+    		ZYFXPF_SEQ,
+    		NRS_SEQ,
+    		GCS_SEQ,
+    		DDFXPGB_SEQ,
+    		BQGC,
+    		BQGC_HEX,
+    		RSSJ,
+    		XT_COD, 
+    		(select braden_sco from hsp_braden_inf where xtpg_seq=HSP_HLJLD_INF.BRADEN_SEQ) bradenSco,
+    		(select adl_sco from hsp_adl_inf where xtpg_seq=HSP_HLJLD_INF.ADL_SEQ) adlSco,
+    		(select zyfxpf_sco from hsp_zyfxpf_inf where zyfxpf_seq =HSP_HLJLD_INF.zyfxpf_seq)zyfxpfSco,
+    		(select nrs_sco from hsp_nrs_inf where xtpg_seq =HSP_HLJLD_INF.nrs_seq)nrsSco,
+    		(select TOT_SCO from HSP_GCS_INF where EMG_SEQ = HSP_HLJLD_INF.GCS_SEQ) gcsSco,
+   			(select ZF from HSP_DDFXPGB_INF where DDFXPGB_SEQ = HSP_HLJLD_INF.DDFXPGB_SEQ) morseSco,
+    		(select info from dstdictinfo where typecode='CST_AGE_COD' 
+    		and dstdictinfo.infocode=(select cst_age_cod from hsp_emg_inf where hsp_emg_inf.emg_seq = HSP_HLJLD_INF.emg_seq)) cstAgeCod,
+    		TK_LEFT,
+    		TK_LEFT_COD,
+    		TK_RIGHT,
+    		TK_RIGHT_COD,
+    		TK_LEFT_OTHER,
+    		TK_RIGHT_OTHER,
+    		PULSE,
+    		CVP,
+    		PULSE_FLG,
+    		HRT_RTE_FLG
+    	from  HSP_HLJLD_INF
+    	where BQHI_SEQ = #{bqhiSeq,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 获取出入量 -->
+   <select id="queryIntervalInfo" parameterType="activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto"
+   	resultType="activetech.zyyhospital.pojo.dto.HspHljldInfCustom">
+		with timeSplit as
+		 (
+		  <choose>
+		  	<when test="interval == 'day'.toString()">
+		  select trunc(#{startdate, jdbcType = TIMESTAMP } - 1 + level) as begTime,
+		         trunc(#{startdate, jdbcType = TIMESTAMP } + level) as endTime
+		    from dual
+		  connect by level <![CDATA[<=]]> trunc(#{enddate, jdbcType = TIMESTAMP }) -
+		             trunc(#{startdate, jdbcType = TIMESTAMP }) + 1
+		  	</when>
+		  	<otherwise>
+		  select trunc(#{startdate, jdbcType = TIMESTAMP }, 'hh24')
+		  		  + ((rownum - 1) * nvl(#{interval,jdbcType=VARCHAR}, 4)) / 24
+		  		  <if test="interval == '' or interval == null">
+             	  + 1 / 24
+             	  </if>
+		  		  as begTime,
+		         trunc(#{startdate, jdbcType = TIMESTAMP }, 'hh24')
+		          + rownum * nvl(#{interval,jdbcType=VARCHAR}, 4) / 24 
+		          <if test="interval == '' or interval == null">
+		          + 1 / 24
+		          </if>
+		          as endTime
+		    from dual
+		  connect by rownum <![CDATA[<=]]>
+		             (((trunc(#{enddate, jdbcType = TIMESTAMP }, 'hh24') -
+		             	trunc(#{startdate, jdbcType = TIMESTAMP }, 'hh24'))
+		             	 <if test="interval != '' and interval != null">
+		             	  + 1
+		             	 </if>
+		             	 ) * 24 / nvl(#{interval,jdbcType=VARCHAR}, 4))
+		  	</otherwise>
+		  </choose>
+		 )
+		
+		select b.begTime crt_dat,
+		  	   <choose>
+		  	   	<when test="interval == null or interval == ''">
+		  	   	to_char(b.begTime,'HH24') || '~' || to_char(b.endTime - 1/24,'HH24')
+		  	   	</when>
+		  	   	<when test="interval == '1'.toString()">
+		  	   	decode(to_char(b.begTime,'HH24'), '00', to_char(b.begTime,'MM/dd hh24'), to_char(b.begTime,'HH24'))
+		  	   	</when>
+		  	   	<when test="interval == 'day'.toString()">
+		  	   	to_char(b.begTime,'MM/dd')
+		  	   	</when>
+		  	   	<otherwise>
+		  	   	decode(to_char(b.begTime,'HH24'), '00', to_char(b.begTime,'MM/dd hh24'), to_char(b.begTime,'HH24')) || '~' ||
+		  	   	decode(to_char(b.endTime,'HH24') - 1/24, '00', to_char(b.endTime - 1/24,'MM/dd hh24'), to_char(b.endTime - 1/24,'HH24'))
+		  	   	</otherwise>
+		  	   </choose>
+		  	    as crtDateStr,
+		       sum(decode(type, '0', sumcrl, 0)) typecrl,
+		       sum(decode(type, '1', -sumcrl, 0)) sumcrl
+		  from (
+			   select hlclr.type,hl.crt_dat,sum(hlclr.crll) sumcrl from hsp_hljld_inf hl 
+			   left join hsp_hljldclr_inf hlclr 
+			   on hlclr.bqhi_seq = hl.bqhi_seq
+			   where hl.emg_seq=#{hsphljldinfCustom.emgSeq}
+			   group by hlclr.type,hl.crt_dat
+		  ) a
+		 right join timeSplit b
+		    on trunc(a.crt_dat,'mi') <![CDATA[>=]]> b.begTime
+		   and trunc(a.crt_dat,'mi') <![CDATA[<]]> b.endTime
+		 <choose>
+		 	<otherwise>
+		 	group by b.begTime, b.endTime
+		 	</otherwise>
+		 </choose>  
+		 order by b.begTime asc
+   </select>
+   
+   <!-- 查询护理记录单总数（存在生命体征或出入量） -->
+   <select id="findIcuHljldCount" parameterType="activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto"
+ 		resultType="int">
+ 		 select count(*) from hsp_hljld_inf a
+		<where>
+			<include refid="query_hljld_where" />
+		</where>
+ 	</select>
+ 	
+ 	<select id="getIcuHljldListByemgseq" parameterType="activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto" 
+     resultMap="BaseResultMap">
+     <!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+      <![CDATA[
+	        select * from(select bqhi_seq,emg_seq,tmp_nbr,hrt_rte,TMP_NBR_FLG,BRE_NBR_FLG,SBP_NBR_FLG ,XY_FLG,XT_FLG, 
+	         sbp_up_nbr,
+	         sbp_down_nbr,
+	         (case when sbp_up_nbr is null  then '' else sbp_up_nbr||'' end)||(case when sbp_up_nbr is null  and sbp_down_nbr is null  then '' else '/' end)|| (case when sbp_down_nbr is null  then '' else sbp_down_nbr||'' end) as sbp,
+	          bre_nbr,xt,
+	          spilt('SEN_STU_COD',sen_rct_cod) as sen_rct_cod,
+	          spilt('HSPHLJLD_JCHL_COD',jchl) || (case when JCHL_QT  is not null  and jchl is not null then ','||JCHL_QT 
+                                                    when JCHL_QT  is not null and  jchl is  null then JCHL_QT 
+                                                     else '' end) as jchl,
+	         jchl_qt,bqgc,bqgc_hex,hs_usrno,hs_usrname,
+	         hs_usrname||(case when up_name is not null and up_name<>hs_usrname then ','||up_name else '' end)||(case when up_name2 is not null and up_name2<>hs_usrname then ','||up_name2 else '' end)||(case when up_name3 is not null and up_name3<>hs_usrname then ','||up_name3 else '' end) as hsusrnames,
+	         sjhs_usrno,
+	         sjhs_usrname,TO_DATE(TO_CHAR(CRT_DAT,'YYYY/MM/DD HH24:MI'),'YYYY/MM/DD HH24:MI') CRT_DAT,
+	        to_char(crt_dat,'MM/dd hh24:mi') crtDateStr,
+	         to_char(crt_dat,'yy/MM/dd HH24:mm:ss') date2 ,
+	         crt_nur,crt_name,up_dat,up_nur,up_name,xy, 
+             (select to_char(wm_concat(rl)) from ( select bqhi_seq ,crlname || (CASE WHEN subname IS NULL THEN '' ELSE '(' || subname || ')' END) || (case when crll is null  then '' else '-'|| crll||
+             	(select info from dstdictinfo where typecode = 'HLJR_CRL_COD' and infocode = units) end) || (CASE WHEN memo IS NULL THEN '' ELSE '(' || memo || ')' END) as rl from HSP_HLJLDCLR_INF where type='0')temp where temp.bqhi_seq=a.bqhi_seq) as rl,
+             (select to_char(wm_concat(cl)) from ( select bqhi_seq ,crlname || (CASE WHEN subname IS NULL THEN '' ELSE '(' || subname || ')' END) || (case when crll is null  then '' else '-'|| crll||
+			 	(select info from dstdictinfo where typecode = 'HLJR_CRL_COD' and infocode = units) end) || (CASE WHEN memo IS NULL THEN '' ELSE '(' || memo || ')' END) as cl from HSP_HLJLDCLR_INF where type='1')temp where temp.bqhi_seq=a.bqhi_seq) as cl
+             from hsp_hljld_inf a]]> 
+			<where>
+				<include refid="query_hljld_where" />
+			</where>)
+              order by CRT_DAT             
+             <!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  <!-- 获取生命体征记录包含预检 -->
+ 	<select id="getHljldVitlListByemgseq" parameterType="activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto" 
+     resultMap="BaseResultMap">
+      select mew.emg_seq,
+      		 mew.tmp_nbr,
+      		 mew.hrt_rte,
+      		 mew.sbpup_nbr sbp_up_nbr,
+      		 mew.sbpdown_nbr sbp_down_nbr,
+      		 mew.bre_nbr,
+      		 emg.oxy_nbr xy,
+      		 emg.emg_dat crt_dat,
+      		 to_char(emg.emg_dat,'yy/mm/dd hh24:mi') crtDateStr
+      from hsp_mews_inf mew,hsp_emg_inf emg
+      where mew.emg_seq = emg.emg_seq
+      and mew.emg_seq = #{hsphljldinfCustom.emgSeq}
+      and emg.emg_dat<![CDATA[>=]]> #{startdate}  
+ 	  and emg.emg_dat<![CDATA[<=]]> #{enddate}
+      and (mew.tmp_nbr is not null 
+ 	  	   or mew.hrt_rte is not null 
+ 	  	   or mew.sbpup_nbr is not null 
+ 	  	   or mew.sbpdown_nbr is not null
+ 	  	   or mew.bre_nbr is not null 	  	   
+ 	  	   or emg.oxy_nbr is not null)
+        union all 
+      select hl.emg_seq,
+      		 hl.tmp_nbr,hl.hrt_rte,hl.sbp_up_nbr,hl.sbp_down_nbr,hl.bre_nbr,hl.xy,
+      		 hl.crt_dat,
+      		 to_char(hl.crt_dat,'yy/mm/dd hh24:mi') crtDateStr
+      from hsp_hljld_inf hl where emg_seq = #{hsphljldinfCustom.emgSeq}
+      and hl.crt_dat<![CDATA[>=]]> #{startdate}  
+ 	  and hl.crt_dat<![CDATA[<=]]> #{enddate}
+ 	  and (hl.tmp_nbr is not null 
+ 	  	   or hl.hrt_rte is not null 
+ 	  	   or hl.sbp_up_nbr is not null 
+ 	  	   or hl.sbp_down_nbr is not null
+ 	  	   or hl.bre_nbr is not null 	  	   
+ 	  	   or hl.xy is not null)
+  </select>   
+</mapper>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspCrivelInfMapperCustom" >
+
+  		<insert id="insertSelective"  parameterType="activetech.edpc.pojo.domain.HspCrivelInf"
+  				useGeneratedKeys="true" keyColumn ="velSeq">
+	  		 <selectKey keyProperty="velSeq" resultType="java.lang.String" order="BEFORE">
+	            select HSP_CRIVEL_INF_SEQ.nextval from dual
+	         </selectKey>
+  		 	insert into HSP_CRIVEL_INF
+		    <trim prefix="(" suffix=")" suffixOverrides="," >
+		        VEL_SEQ,
+		      <if test="emgSeq != null" >
+		        EMG_SEQ,
+		      </if>
+		      <if test="xzcd != null" >
+		        XZCD,
+		      </if>
+		      <if test="zystimixl != null" >
+		        ZYSTIMIXL,
+		      </if>
+		      <if test="zjnxs != null" >
+		        ZJNXS,
+		      </if>
+		      <if test="sffcbb != null" >
+		        SFFCBB,
+		      </if>
+		      <if test="sfcto != null" >
+		        SFCTO,
+		      </if>
+		      <if test="ghbb != null" >
+		        GHBB,
+		      </if>
+		      <if test="zfbb != null" >
+		        ZFBB,
+		      </if>
+		      <if test="pci != null" >
+		        PCI,
+		      </if>
+		      <if test="szcl != null" >
+		        SZCL,
+		      </if>
+		      <if test="dstgsj != null" >
+		        DSTGSJ,
+		      </if>
+		      <if test="shtimixl != null" >
+		        SHTIMIXL,
+		      </if>
+		      <if test="zrzjgs != null" >
+		        ZRZJGS,
+		      </if>
+		      <if test="zjzl != null" >
+		        ZJZL,
+		      </if>
+		    </trim>
+		    <trim prefix="values (" suffix=")" suffixOverrides="," >
+		        #{velSeq,jdbcType=VARCHAR},
+		      <if test="emgSeq != null" >
+		        #{emgSeq,jdbcType=VARCHAR},
+		      </if>
+		      <if test="xzcd != null" >
+		        #{xzcd,jdbcType=VARCHAR},
+		      </if>
+		      <if test="zystimixl != null" >
+		        #{zystimixl,jdbcType=VARCHAR},
+		      </if>
+		      <if test="zjnxs != null" >
+		        #{zjnxs,jdbcType=VARCHAR},
+		      </if>
+		      <if test="sffcbb != null" >
+		        #{sffcbb,jdbcType=VARCHAR},
+		      </if>
+		      <if test="sfcto != null" >
+		        #{sfcto,jdbcType=VARCHAR},
+		      </if>
+		      <if test="ghbb != null" >
+		        #{ghbb,jdbcType=VARCHAR},
+		      </if>
+		      <if test="zfbb != null" >
+		        #{zfbb,jdbcType=VARCHAR},
+		      </if>
+		      <if test="pci != null" >
+		        #{pci,jdbcType=VARCHAR},
+		      </if>
+		      <if test="szcl != null" >
+		        #{szcl,jdbcType=VARCHAR},
+		      </if>
+		      <if test="dstgsj != null" >
+		        #{dstgsj,jdbcType=TIMESTAMP},
+		      </if>
+		      <if test="shtimixl != null" >
+		        #{shtimixl,jdbcType=VARCHAR},
+		      </if>
+		      <if test="zrzjgs != null" >
+		        #{zrzjgs,jdbcType=VARCHAR},
+		      </if>
+		      <if test="zjzl != null" >
+		        #{zjzl,jdbcType=VARCHAR},
+		      </if>
+		    </trim>
+		  </insert>
+</mapper>

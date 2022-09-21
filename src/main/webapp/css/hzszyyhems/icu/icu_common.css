@@ -1,0 +1,101 @@
+		#total-container {
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .icu-card {
+            overflow: hidden;
+        }
+
+        .icu-card-body {
+            padding-top: 10px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .icu-card-body table {
+            table-layout: fixed;
+            width: 97%;
+        }
+
+        .icu-card-body table col {
+            width: 50px;
+        }
+
+        .icu-card-body table col.title {
+            width: 80px;
+            font-weight: bold;
+        }
+
+        .icu-card-body table tr th {
+            font-weight: bold
+        }
+
+        .icu-card-body table tr th,
+        .icu-card-body table tr td {
+            padding: 5px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .icu-card-body table tbody tr:hover {
+            background-color: #eaf2ff
+        }
+
+        .icu-card-body table tr td input.form-text {
+            margin-left: 15px;
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 50px;
+            transition: all 0.3s linear;
+            border: 1px solid #ddd;
+            text-align: center;
+            box-sizing: border-box;
+            border-radius: 5px;
+            line-height: 1;
+        }
+
+        .icu-card-body table tr td input.form-text.warn-input {
+            border: 1px solid rgb(243, 83, 83);
+        }
+
+        .ctrl-btn-group {
+            /* width: 50px; */
+            justify-content: center;
+        }
+
+		/*特殊图标样式*/
+		span.hover-icon-box {
+    		display: flex;
+    		width: 20px;
+   			height: 20px;
+    		transition: all 0.3s linear;
+    		cursor: pointer;
+		}
+		
+		.form .form-text {
+    		line-height: initial;
+		}
+		
+		.form label.form-text {
+    		margin-right: 3px;
+		}
+
+		.form span.form-text {
+		    height: 20px;
+		    line-height: 20px;
+		    margin: 0;
+		    cursor: default;
+		}
+		
+		.form p.form-text {
+		    line-height: 20px;
+		    height: 20px;
+		    cursor: default;
+		}
+		
+		.saveBtn{
+			width: 180px;
+			margin: 0 auto;
+		}

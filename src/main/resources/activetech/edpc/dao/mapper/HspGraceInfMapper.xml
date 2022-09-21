@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspGraceInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspGraceInf" >
+    <result column="GRACE_SEQ" property="graceSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="WXYS" property="wxys" jdbcType="VARCHAR" />
+    <result column="GRACEJGWTJ" property="gracejgwtj" jdbcType="VARCHAR" />
+    <result column="CST_AGE" property="cstAge" jdbcType="VARCHAR" />
+    <result column="JGDB" property="jgdb" jdbcType="VARCHAR" />
+    <result column="KILLIP" property="killip" jdbcType="VARCHAR" />
+    <result column="TOTAL" property="total" jdbcType="DECIMAL" />
+    <result column="CRT_DATE" property="crtDate" jdbcType="TIMESTAMP" />
+    <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+    <result column="GRACE_TYPE" property="graceType" jdbcType="VARCHAR" />
+    <result column="MPI" property="mpi" jdbcType="VARCHAR" />
+    <result column="JZXH" property="jzxh" jdbcType="DECIMAL" />
+    <result column="HRT_RTE" property="hrtRte" jdbcType="DECIMAL" />
+    <result column="SBPUP_NBR" property="sbpupNbr" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    GRACE_SEQ, EMG_SEQ, WXYS, GRACEJGWTJ, CST_AGE, JGDB, KILLIP, TOTAL, CRT_DATE, CRT_USER, 
+    GRACE_TYPE, MPI, JZXH, HRT_RTE, SBPUP_NBR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspGraceInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_GRACE_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspGraceInfExample" >
+    delete from HSP_GRACE_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspGraceInf" >
+    insert into HSP_GRACE_INF (GRACE_SEQ, EMG_SEQ, WXYS, 
+      GRACEJGWTJ, CST_AGE, JGDB, 
+      KILLIP, TOTAL, CRT_DATE, 
+      CRT_USER, GRACE_TYPE, MPI, 
+      JZXH, HRT_RTE, SBPUP_NBR
+      )
+    values (#{graceSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{wxys,jdbcType=VARCHAR}, 
+      #{gracejgwtj,jdbcType=VARCHAR}, #{cstAge,jdbcType=VARCHAR}, #{jgdb,jdbcType=VARCHAR}, 
+      #{killip,jdbcType=VARCHAR}, #{total,jdbcType=DECIMAL}, #{crtDate,jdbcType=TIMESTAMP}, 
+      #{crtUser,jdbcType=VARCHAR}, #{graceType,jdbcType=VARCHAR}, #{mpi,jdbcType=VARCHAR}, 
+      #{jzxh,jdbcType=DECIMAL}, #{hrtRte,jdbcType=DECIMAL}, #{sbpupNbr,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspGraceInf" >
+    insert into HSP_GRACE_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="graceSeq != null" >
+        GRACE_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="wxys != null" >
+        WXYS,
+      </if>
+      <if test="gracejgwtj != null" >
+        GRACEJGWTJ,
+      </if>
+      <if test="cstAge != null" >
+        CST_AGE,
+      </if>
+      <if test="jgdb != null" >
+        JGDB,
+      </if>
+      <if test="killip != null" >
+        KILLIP,
+      </if>
+      <if test="total != null" >
+        TOTAL,
+      </if>
+      <if test="crtDate != null" >
+        CRT_DATE,
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER,
+      </if>
+      <if test="graceType != null" >
+        GRACE_TYPE,
+      </if>
+      <if test="mpi != null" >
+        MPI,
+      </if>
+      <if test="jzxh != null" >
+        JZXH,
+      </if>
+      <if test="hrtRte != null" >
+        HRT_RTE,
+      </if>
+      <if test="sbpupNbr != null" >
+        SBPUP_NBR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="graceSeq != null" >
+        #{graceSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="wxys != null" >
+        #{wxys,jdbcType=VARCHAR},
+      </if>
+      <if test="gracejgwtj != null" >
+        #{gracejgwtj,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAge != null" >
+        #{cstAge,jdbcType=VARCHAR},
+      </if>
+      <if test="jgdb != null" >
+        #{jgdb,jdbcType=VARCHAR},
+      </if>
+      <if test="killip != null" >
+        #{killip,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="crtDate != null" >
+        #{crtDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="graceType != null" >
+        #{graceType,jdbcType=VARCHAR},
+      </if>
+      <if test="mpi != null" >
+        #{mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxh != null" >
+        #{jzxh,jdbcType=DECIMAL},
+      </if>
+      <if test="hrtRte != null" >
+        #{hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpupNbr != null" >
+        #{sbpupNbr,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspGraceInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_GRACE_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_GRACE_INF
+    <set >
+      <if test="record.graceSeq != null" >
+        GRACE_SEQ = #{record.graceSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxys != null" >
+        WXYS = #{record.wxys,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gracejgwtj != null" >
+        GRACEJGWTJ = #{record.gracejgwtj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstAge != null" >
+        CST_AGE = #{record.cstAge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jgdb != null" >
+        JGDB = #{record.jgdb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.killip != null" >
+        KILLIP = #{record.killip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.total != null" >
+        TOTAL = #{record.total,jdbcType=DECIMAL},
+      </if>
+      <if test="record.crtDate != null" >
+        CRT_DATE = #{record.crtDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUser != null" >
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graceType != null" >
+        GRACE_TYPE = #{record.graceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mpi != null" >
+        MPI = #{record.mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jzxh != null" >
+        JZXH = #{record.jzxh,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hrtRte != null" >
+        HRT_RTE = #{record.hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sbpupNbr != null" >
+        SBPUP_NBR = #{record.sbpupNbr,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_GRACE_INF
+    set GRACE_SEQ = #{record.graceSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      WXYS = #{record.wxys,jdbcType=VARCHAR},
+      GRACEJGWTJ = #{record.gracejgwtj,jdbcType=VARCHAR},
+      CST_AGE = #{record.cstAge,jdbcType=VARCHAR},
+      JGDB = #{record.jgdb,jdbcType=VARCHAR},
+      KILLIP = #{record.killip,jdbcType=VARCHAR},
+      TOTAL = #{record.total,jdbcType=DECIMAL},
+      CRT_DATE = #{record.crtDate,jdbcType=TIMESTAMP},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      GRACE_TYPE = #{record.graceType,jdbcType=VARCHAR},
+      MPI = #{record.mpi,jdbcType=VARCHAR},
+      JZXH = #{record.jzxh,jdbcType=DECIMAL},
+      HRT_RTE = #{record.hrtRte,jdbcType=DECIMAL},
+      SBPUP_NBR = #{record.sbpupNbr,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

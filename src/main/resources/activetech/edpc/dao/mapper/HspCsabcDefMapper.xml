@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspCsabcDefMapper">
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspCsabcDef">
+    <result column="ABC_PRT" jdbcType="CHAR" property="abcPrt" />
+    <result column="FLD_TYP" jdbcType="VARCHAR" property="fldTyp" />
+    <result column="FLD_COD" jdbcType="VARCHAR" property="fldCod" />
+    <result column="FLD_NME" jdbcType="VARCHAR" property="fldNme" />
+    <result column="LST_NME" jdbcType="VARCHAR" property="lstNme" />
+    <result column="VAR_NME" jdbcType="VARCHAR" property="varNme" />
+    <result column="MEM_COD" jdbcType="VARCHAR" property="memCod" />
+    <result column="AST_TYP" jdbcType="VARCHAR" property="astTyp" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ABC_PRT, FLD_TYP, FLD_COD, FLD_NME, LST_NME, VAR_NME, MEM_COD, AST_TYP
+  </sql>
+  <select id="selectByExample" parameterType="activetech.edpc.pojo.domain.HspCsabcDefExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CSABC_DEF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspCsabcDefExample">
+    delete from HSP_CSABC_DEF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspCsabcDef">
+    insert into HSP_CSABC_DEF (ABC_PRT, FLD_TYP, FLD_COD, 
+      FLD_NME, LST_NME, VAR_NME, 
+      MEM_COD, AST_TYP)
+    values (#{abcPrt,jdbcType=CHAR}, #{fldTyp,jdbcType=VARCHAR}, #{fldCod,jdbcType=VARCHAR}, 
+      #{fldNme,jdbcType=VARCHAR}, #{lstNme,jdbcType=VARCHAR}, #{varNme,jdbcType=VARCHAR}, 
+      #{memCod,jdbcType=VARCHAR}, #{astTyp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspCsabcDef">
+    insert into HSP_CSABC_DEF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="abcPrt != null">
+        ABC_PRT,
+      </if>
+      <if test="fldTyp != null">
+        FLD_TYP,
+      </if>
+      <if test="fldCod != null">
+        FLD_COD,
+      </if>
+      <if test="fldNme != null">
+        FLD_NME,
+      </if>
+      <if test="lstNme != null">
+        LST_NME,
+      </if>
+      <if test="varNme != null">
+        VAR_NME,
+      </if>
+      <if test="memCod != null">
+        MEM_COD,
+      </if>
+      <if test="astTyp != null">
+        AST_TYP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="abcPrt != null">
+        #{abcPrt,jdbcType=CHAR},
+      </if>
+      <if test="fldTyp != null">
+        #{fldTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="fldCod != null">
+        #{fldCod,jdbcType=VARCHAR},
+      </if>
+      <if test="fldNme != null">
+        #{fldNme,jdbcType=VARCHAR},
+      </if>
+      <if test="lstNme != null">
+        #{lstNme,jdbcType=VARCHAR},
+      </if>
+      <if test="varNme != null">
+        #{varNme,jdbcType=VARCHAR},
+      </if>
+      <if test="memCod != null">
+        #{memCod,jdbcType=VARCHAR},
+      </if>
+      <if test="astTyp != null">
+        #{astTyp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspCsabcDefExample" resultType="java.lang.Long">
+    select count(*) from HSP_CSABC_DEF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_CSABC_DEF
+    <set>
+      <if test="record.abcPrt != null">
+        ABC_PRT = #{record.abcPrt,jdbcType=CHAR},
+      </if>
+      <if test="record.fldTyp != null">
+        FLD_TYP = #{record.fldTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fldCod != null">
+        FLD_COD = #{record.fldCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fldNme != null">
+        FLD_NME = #{record.fldNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lstNme != null">
+        LST_NME = #{record.lstNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.varNme != null">
+        VAR_NME = #{record.varNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memCod != null">
+        MEM_COD = #{record.memCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.astTyp != null">
+        AST_TYP = #{record.astTyp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_CSABC_DEF
+    set ABC_PRT = #{record.abcPrt,jdbcType=CHAR},
+      FLD_TYP = #{record.fldTyp,jdbcType=VARCHAR},
+      FLD_COD = #{record.fldCod,jdbcType=VARCHAR},
+      FLD_NME = #{record.fldNme,jdbcType=VARCHAR},
+      LST_NME = #{record.lstNme,jdbcType=VARCHAR},
+      VAR_NME = #{record.varNme,jdbcType=VARCHAR},
+      MEM_COD = #{record.memCod,jdbcType=VARCHAR},
+      AST_TYP = #{record.astTyp,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

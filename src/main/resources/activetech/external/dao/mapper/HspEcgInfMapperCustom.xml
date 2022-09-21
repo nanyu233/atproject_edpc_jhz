@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.external.dao.mapper.HspEcgInfMapperCustom" >
+  
+  <insert id="insert" parameterType="activetech.external.pojo.domain.HspEcgInf" >
+    insert into HSP_ECG_INF (ECG_SEQ, REF_ID, ECG_TYPE, 
+      FILE_NAME, FILE_DATE, FILE_TRS_DATE, 
+      FILE_DIA_DATE, FILE_PATH, FILE_TYPE, 
+      APP_NO, MPI_NO, SAD_ID, 
+      CRT_DATE, CRT_USER, FILE_CON
+      )
+    values (HSPECGINF_SEQ.nextval, #{refId,jdbcType=VARCHAR}, #{ecgType,jdbcType=CHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{fileDate,jdbcType=TIMESTAMP}, #{fileTrsDate,jdbcType=TIMESTAMP}, 
+      #{fileDiaDate,jdbcType=TIMESTAMP}, #{filePath,jdbcType=VARCHAR}, #{fileType,jdbcType=CHAR}, 
+      #{appNo,jdbcType=VARCHAR}, #{mpiNo,jdbcType=VARCHAR}, #{sadId,jdbcType=DECIMAL}, 
+      sysdate, #{crtUser,jdbcType=VARCHAR}, #{fileCon,jdbcType=BLOB}
+      )
+  </insert>
+  
+</mapper>

@@ -1,0 +1,150 @@
+  /* leftWrap */
+  .leftWrap {
+    float: left;
+    width: 100%;
+    overflow: hidden;
+  }
+  .basic-msg {
+    float: left;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    border-top: 1px solid #ddd;
+    background: #e1ecfe; /* 一些不支持背景渐变的浏览器 */  
+    background: -webkit-linear-gradient(top,#f5fbfa 0%,#9ec3ee 100%);
+    background: -ms-linear-gradient(top,#f5fbfa 0%,#9ec3ee 100%);
+    background: -moz-linear-gradient(top,#f5fbfa 0%,#9ec3ee 100%);
+    background: -o-linear-gradient(top,#f5fbfa 0%,#9ec3ee 100%);
+    background: linear-gradient(top,#f5fbfa 0%,#9ec3ee 100%); 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+  .longLinkText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    max-width: 350px;
+    vertical-align: middle;
+  }
+  .level, .bgName {
+    font-weight: bold;
+  }
+  .level.level0 {
+    color: red; 
+  }
+  .level.level1 {
+    color: #f90; 
+  }
+  .level.level2 {
+    color: #f3d800; 
+  }
+  .level.level3 {
+    color: #44b548; 
+  }
+  .nameLeft {
+    display: inline-block;
+    line-height: 26px;
+    height: 26px;
+    padding-left: 6px;
+    border-left: 1px solid #709ca0;
+    vertical-align: middle;
+  }
+  .specialText {
+    margin-right: 2px;
+    background: #629bec;
+    padding: 2px 0 2px 6px;
+    border-radius: 4px;
+    color: #fff;
+  }
+  .spanBtn {
+    display: inline-block;
+    margin-left: 4px;
+    padding: 0 4px;
+    text-decoration: underline;
+    cursor: pointer;
+    height: 24px;
+    line-height: 24px;
+  }
+  .spanBtn.active {
+    /* color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    background: #a6c6eb;
+    text-shadow: 0 -1px 1px #6791c0;
+    -webkit-box-shadow: -1px 0 1px rgba(255,255,255,.4), 1px 1px 2px rgba(0,0,0,.2) inset;
+    -moz-box-shadow: -1px 0 1px rgba(255,255,255,.4),1px 1px 2px rgba(0,0,0,.2) inset;
+    box-shadow: -1px 0 1px rgba(255,255,255,.4), 1px 1px 2px rgba(0,0,0,.2) inset; */
+    display: inline-block !important;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    background: #a6c6eb;
+    -webkit-box-shadow: -1px 0 1px rgba(255,255,255,.4), 1px 1px 2px rgba(0,0,0,.2) inset;
+    -moz-box-shadow: -1px 0 1px rgba(255,255,255,.4),1px 1px 2px rgba(0,0,0,.2) inset;
+    box-shadow: -1px 0 1px rgba(255,255,255,.6), 1px 1px 2px rgba(0,0,0,.6) inset;
+  }
+  .outcomeTitle {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .leftMsg, .recordMsg {
+    display: none;
+    width: 179px;
+    float: left;
+  }
+  /* 医生宽屏 */
+  .hisRecordMsg {
+    width: 190px;
+  }
+  .diseaseMsg {
+    width: 260px;
+  }
+  .queryBox {
+    margin: 2px 0 2px 4px;
+  }
+  .input-wth, .historyRecordBtn, .mindClock{
+    display: none;
+  }
+  .leftQuerySelect {
+    margin-left: 2px;
+  }
+  input.small-date, input.input-wth  {
+    width: 66px;
+    padding-left: 0px;
+  }
+  .queryBtn {
+    width: auto;
+    padding: 0 3px;
+    height: 26px;
+    line-height: 26px;
+    float: none;
+  }
+  .tabList {
+    margin-top: 4px;
+  }
+  .leftGap {
+    margin-left: 6px;
+  }
+  .rightMainMsg {
+    float: right;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-bottom: 0px;
+    box-sizing: border-box;
+  }
+  .leftWrap .pagination-page-list, .pagination span {
+    display: none;
+  }
+  .mindClock img {
+    vertical-align: middle;
+  }
+  .redColor {
+    color: red;
+  }
+  .leftWrap .datagrid-body {
+    overflow-x: hidden;
+  }

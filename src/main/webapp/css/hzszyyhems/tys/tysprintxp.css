@@ -1,0 +1,632 @@
+@charset "utf-8";
+
+/**
+*  各种知情同意书
+*/
+.checklabel{
+    margin-right: 3px;
+}
+.hospitaltitle{
+    margin:0;
+    padding:1mm 0 0 0;
+    text-align:center;
+    font-size:.42cm;
+    line-height:1.5;
+    width:210mm;
+}
+.maintext{
+    width:190mm;
+    /* margin-left:5mm; */
+    font-size:.38cm;
+}
+.maintext2{
+    width:190mm;
+    margin-left:10mm;
+    font-size:12px;
+}
+.pointtext{
+    text-decoration:underline;
+    font-size:.42cm;
+    font-weight: bolder;
+    text-align: center;
+    /* width:150px; */
+}
+.sectiontitle{
+    font-size:.40cm;
+    font-weight: bolder;
+}
+.firstli{
+    margin-top:2mm;
+    width:190mm;
+}
+.printli{
+    margin-top:0 !important;
+}
+.maintext2 li{
+    line-height: 22px;
+}
+.maintext li{
+    line-height: 1.5;
+}
+.mainView{
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+.hdtable{
+    border: 1px solid #000;
+    width: 100%;
+    font-size:.40cm;
+    font-weight: bolder;
+    /* margin-bottom: 5mm; */
+}
+.hdtable-fy{
+    margin-top: 27mm;
+}
+.tabletitle{
+    text-align: center;
+}
+.titletr{
+    border-bottom: 1px solid #000;
+}
+.td-left{
+    border-right: 1px solid #000;
+    width: 50%;
+}
+.hdtable td{
+    padding-left:5px;
+}
+.hdtable tr{
+    height:35px;
+}
+.pretextarea{
+    display: block;
+    width: 180mm;
+    height: 86px;
+    border: none;
+    text-indent: .5em;
+    font-size: .38cm;
+    resize: none;
+}
+.prespan{
+    display: block;
+    width: 180mm;
+    border: none;
+    text-indent: .5em;
+    font-size: .38cm;
+    resize: none;
+}
+.qtmargin{
+    margin-left:24px;
+}
+.twoGrid{
+    float:left;
+}
+
+.maintext2 input[type=text]{
+    border:none;
+    border-bottom: 1px solid #ddd !important;
+    height:24px;
+}
+
+input[type=text]{
+    border:none;
+    border-bottom: 1px solid #ddd !important;
+    height:30px;
+    padding-left:1mm;
+}
+.longinput{
+    line-height:.40cm;
+    width:72mm !important;
+}
+.infoli input[type=text]{
+    line-height:.40cm;
+    width:23mm;
+}
+.intextinput{
+    width: 50px;
+}
+.intextinput2{
+    width: 80px;
+}
+.intextinputlong{
+    width: 110px !important;
+}
+.intextinputlong2{
+    width: 130px !important;
+}
+.infoli{
+    margin-top:2mm;
+}
+.bigfont{
+   font-size:.47cm !important; 
+}
+.bigfontmain{
+    font-size:.40cm !important; 
+ }
+.mainreport{
+    line-height: 2;
+}
+.shortone{
+    width:24.5mm !important;
+}
+.trunright{
+    float:left;
+    width:35%;
+    margin-left:65%;
+    text-align:left;
+    line-height:1.5;
+}
+.intextinputall{
+    width: 160mm;
+}
+.indenttwo{
+    text-indent:2em;
+}
+.indentthree{
+    text-indent:3em;
+}
+.indentfour{
+    text-indent:4em;
+}
+p{
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+}
+.managetable{
+    border: 1px solid #000;
+    margin-top:10px;
+    border-collapse:collapse;
+    font-size:12px;
+}
+/* .childtable{
+    width:160mm;
+    margin-left:20mm;
+    margin-top:10px;
+    border-collapse:collapse;
+} */
+.childtable{
+    width:190mm;
+    margin-left:10mm;
+    margin-top:10px;
+    border-collapse:collapse;
+}
+.titletd{
+    width:6mm;
+    border: 1px solid #000;
+    text-align: center;
+}
+.maintd{
+    width:184mm;
+    border: 1px solid #000;
+}
+.tableul{
+    margin:0 0.5%;
+    padding:0 0 0.5mm 0;
+    width:99%;
+    float:left;
+}
+.lithree{
+    width:33%;
+    float:left;
+}
+.lifour{
+    width:24%;
+    float:left;
+}
+.lithirdtwo{
+    width:67%;
+    float:left;
+}
+.titlespan{
+    font-weight: bolder;
+    font-size: 14px;
+}
+.f-left{
+    float:left;
+}
+.chbox{
+    float:left;
+    margin-left:2mm;
+}
+.chbox label{
+    margin-left:1mm;
+}
+.litwo{
+    width:49%;
+    float:left;
+}
+.intextmorelong{
+    width: 50%;
+}
+.assign{
+    line-height: 1.5;
+    width:80%;
+    margin-left:20%;
+    float:left;
+    font-weight: bolder;
+}
+.lione{
+    width:100%;
+    float:left;
+}
+.chtitletd{
+    width:55%;
+    border: 1px solid #000;
+}
+.chmaintd{
+    width:10%;
+    border: 1px solid #000;
+    text-align: center;
+}
+.chqxtd{
+    width:15%;
+    border: 1px solid #000;
+}
+.chmaintd input[type='checkbox']{
+    width:100%;
+}
+input[type='checkbox']{
+    vertical-align:middle;
+}
+.chqxtd label{
+    margin-left:2mm;
+}
+.titleinp{
+    font-size: 16px;
+    font-weight: bolder;
+    text-align: center;
+    margin:0 20mm;
+    width:160mm;
+    padding: 5px 0 0 0;
+}
+.tableinp {
+    font-size: 14px;
+    font-weight: bolder;
+    text-align: center;
+    margin: 0 10mm;
+    width: 160mm;
+}
+.chtitletd2{
+    width:40%;
+    border: 1px solid #000;
+}
+.chmaintd2{
+    width:60%;
+    border: 1px solid #000;
+    padding:5px 5px;
+}
+.pintable{
+    width:160mm;
+    padding-top:5mm;
+    text-align: center;
+    margin-left:20mm;
+    font-size:12px;
+}
+.childtable th{
+    font-weight: bolder;
+}
+.dftd{
+    width:5%;
+    border: 1px solid #000;
+}
+.gracetd{
+    width:10%;
+    border: 1px solid #000;
+}
+.gracetd2{
+    width:15%;
+    border: 1px solid #000;
+}
+.bolderfont{
+    font-weight: bolder;
+}
+.thindate{
+    height:22px;
+    width:110px !important;
+}
+/* .gracetable{
+    width:185mm;
+    margin-left:10mm;
+} */
+.gracetable{
+    width:190mm;
+    margin-left:10mm;
+}
+.gracetable td{
+    border:1px solid #000;
+    padding-left:5px;
+}
+.mainInputBox{
+    border: 1px solid #000;
+    margin:3mm auto;
+    width:190mm;
+    padding:1mm 2mm;
+    font-size:.38cm;
+    float:left;
+}
+li{
+    list-style-type:none !important;
+}
+.ulwrapper{
+    float:left;
+    width:100%;
+    padding:0;
+}
+.ulwrapper li{
+    float:left;
+    width:100%;
+    line-height: 1.5; 
+    padding:2mm 0;
+}
+.btna{
+    display: none;
+}
+#show_text{
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    width: 550px;
+    height: 26px;
+    line-height: 26px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    display: inline-block
+}
+.tys input[type=text]{
+    height:24px;
+    line-height: 24px;
+}
+.tys .functiontitle,.functype{
+    margin:0;
+    line-height: 1;
+    width:210mm;
+    padding:1mm 0 0 0;
+    text-align:center;
+    font-weight:bold;
+    font-size:0.52cm;
+}
+.tys .hospitalname{
+    margin:0;
+    padding:1mm 0 0 0;
+    width:210mm;
+    text-align:center;
+    font-size:.42cm;
+    line-height:1.5;
+}
+.tys .basicDiv {
+    margin-top:2mm;
+    float: left;
+    width: 100%;
+    font-size:.38cm;
+}
+.tys .basicDiv .spcWdate{
+    width:150px;
+}
+.tys .basicDiv label{
+    display: inline-block;
+    margin-right: 15px;
+    height:30px;
+    line-height:30px;
+}
+.tys .basicDiv label.firstlab{
+    margin-left: 33px;
+}
+.tys .basicDiv label.lastlab {
+    margin-right: 0px;
+}
+.tys .smalltitle {
+    display: inline-block;
+    float: left;
+    padding-right: 10px;
+    height:24px;
+    line-height: 24px;
+}
+.tys .twotitle{
+    letter-spacing:2em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+}
+.ptwotitle{
+    letter-spacing:2em;
+}
+.tys .threetitle{
+    letter-spacing:0.5em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.5em; /*同上*/
+}
+.tys .fifvtitle{
+    text-align: center;
+    width: 5em; /*这个值是看最长能显示几个文字，如x，则为x em*/
+}
+.tys .twofivetitle{
+    letter-spacing:3em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-3em; /*同上*/
+}
+.tys .seventitle {
+    letter-spacing:0.5em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.5em; /*同上*/
+}
+.tys .sixtitle{
+    letter-spacing:0.8em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.8em; /*同上*/
+}
+.tys .smallInput{
+    width: 50px;
+}
+.tys .mediumInput{
+    width: 220px;
+}
+.tys .spcInput{
+    width: 100px;
+}
+.qtname{
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+    width: 50px;
+}
+.qtnamelong{
+    width: 130px;
+}
+.tys .mainInputBox .fullinputa{
+    width: 450px;
+}
+.tys .middleDiv{
+    margin-bottom: 5px;
+}
+.tys .divwrapper{
+    float: left;
+}
+
+.infoli span{
+    margin-left:8px;
+}
+
+.showym{
+    display: none !important;
+}
+.showdy{
+    display: block;
+}
+.lthreefont{
+    padding-left:1.14cm;
+}
+.lonefont{
+    padding-left:.38cm;
+}
+.clockdate{
+    height:22px;
+    width:70px !important;
+}
+.intextinputshort{
+    width: 30px;
+}
+.hidden{
+    display: none;
+}
+
+#ws2001 {
+	width:190mm;
+	margin-left:4mm;
+    float:left;
+}
+
+/***
+**  危重患者外出转运单
+***/
+#ws2027,#ws2042{
+	width:200mm;
+	margin-right:-23px;
+	margin-left:8mm;
+	float:left;
+}
+.receTp {
+	width:100%;
+    margin-left:0mm;
+}
+.receTp .cleanAll {
+	clear:both;
+}
+.receTp .recpTable {
+	border:1px solid #000;
+	width: 100%;
+    margin-top: 0.5mm;
+}
+.receTp .recpTable td {
+    border: 1px solid #000;
+    /* height: 8mm; */
+    padding: 0.2mm 0;
+}
+.receTp .recpTable td.tleTd {
+    text-align: center;
+}
+.receTp .recpTable td.indentTd {
+    text-indent: 4px;
+}
+.receTp .ulwrapper {
+    padding: 0;
+    margin: 0;
+}
+.receTp .ulwrapper li,.receTp .recpTable .marginVal{
+    float:left;
+    width:100%;
+    padding:0.2mm 0;
+    list-style: none;
+}
+.receTp input.timeInput {
+    width: 33mm;
+}
+.receTp .wrapperDiv {
+	width:195mm;
+	margin:0 auto;
+}
+.receTp .zdDiv {
+    width: 100%;
+    float: left;
+    margin-top: 0px;
+}
+.receTp .basicDiv span.leftspan{
+    display: inline-block;
+}
+.receTp .basicDiv label.firstlab{
+    margin-left: 0mm;
+}
+.receTp .extraDiv {
+    float: left;
+    width:100%;
+    margin-left: 4px;
+	font-size: 0.38cm;
+}
+.receTp .userList {
+    display: none;
+}
+.receTp ul li {
+    list-style: none !important;
+}
+#currentTitle {
+    display: none
+}
+.titleTxt {
+    float: left;
+    font-weight: bold;
+    font-size: 0.4cm;
+    background: #ddd;
+}
+.titleTxtSmall {
+    float: left;
+    font-weight: bold;
+    font-size: 0.36cm;
+    background: #ddd;
+}
+.borderTable td{
+    padding: 0.5mm 0 0.5mm 1mm;
+    border: 1px solid #000;
+}
+.focusDiv {
+    float: left;
+    background: #ddd;
+}
+.focusDiv input[type=text] {
+    background: #ddd;
+    border-bottom: 1px solid #000 !important;
+}
+.longInputText {
+    width: 40mm !important;
+}
+.inputText {
+    width: 20mm !important;
+} 
+.smallSize {
+    font-size: 0.33cm !important;
+}
+.dateInput {
+    height: 8mm;
+    width: 20mm;
+}
+.print-title-div {
+    margin-left:10mm;
+	width: 195mm;
+    font-size: 0.38cm;
+}
+.onlyPrintBq {
+	display: block !important;
+}
+.noPrintBq {
+	display: none !important;
+}

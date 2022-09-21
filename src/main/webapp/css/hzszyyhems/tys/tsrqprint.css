@@ -1,0 +1,362 @@
+@charset "utf-8";
+/**
+*  特殊人群打印css
+*/
+.trsq .hospitalname {
+	font-size: 0.6cm;
+}
+
+.trsq .title {
+	font-size: 0.4cm;
+}
+.trsq .zdDiv {
+	margin-left: 8mm;
+	margin-bottom: 4mm;
+}
+.trsq .ulwrapper li.rightli {
+	float: right;
+	width: 190mm;
+}
+.trsq .ulwrapper li.marginRight {
+	margin-right: 3mm
+}
+.trsq .mainInputBox li.halfli {
+	width: 50% !important;
+	float: left;
+}
+.trsq input.smallInput{
+	width: 18mm;
+}
+.trsq input.specInput {
+	width: 22mm;
+}
+.trsq input.leftInput {
+	float: left;
+}
+.trsq .ulwrapper li.threeLi{
+	width: 28% !important;
+}
+.trsq .ulwrapper li.fourLi{
+	width: 40% !important;
+}
+.trsq input.minimumInput {
+	width: 14mm !important;
+}
+.trsq input.longInput {
+	width: 60% !important;
+}
+.trsq input.veryLongInput {
+	width: 80% !important;
+}
+.trsq input.middleInput{
+	width: 40%;
+}
+.trsq div.labMarinTop {
+	padding-top:2mm;
+	float: left;
+}
+.bascilab {
+    margin-right: 10px;
+}
+
+input.basicInput[readonly] {
+    width: 80px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    background-color: #fff;
+    color: #666;
+}
+
+input.basicInput[readonly]:hover {
+    border: none;
+    border-bottom: solid 1px #ddd;
+    box-shadow: none;
+}
+
+input.longbasicInput[readonly] {
+    width: 86px;
+}
+.trsq .logoDiv,.tys .logoDiv {
+	display: block;
+	float: left;
+	width: 50mm;
+	margin-left: 5mm;
+}
+.trsq .logoDiv img,.tys .logoDiv img {
+	vertical-align: middle;
+	width: 40mm;
+	text-align: center;
+}
+.trsq .hospitalname {
+	/* display: block !important; */
+	display: none;
+}
+.trsq .functiontitle {
+	margin-left: 0mm;
+	float: left;
+}
+.trsq  .titleDiv,.tys  .titleDiv{
+	float: left;
+	width: 100%;
+	margin: 0;
+	margin-left: -55mm;
+	margin-top: 2mm;
+}
+.trsq  .titleDiv .bigTitle,.tys  .titleDiv .bigTitle{
+	text-align: center;
+	font-size: 20pt;
+	line-height: 22pt;
+	height: 22pt;
+	font-weight: bold;
+	margin: 0;
+	padding:0.4mm 0;
+}
+.trsq  .titleDiv .lastTitle,.tys  .titleDiv .lastTitle{
+	margin-bottom: 2mm;
+}
+.trsq  .titleDiv .subtitle,.tys  .titleDiv .subtitle {
+	text-align:center;
+	font-size: 5mm;
+	width: 100%;
+	margin:0mm auto;
+	display: inline-block;
+}
+.trsq .titleDiv .thisMark {
+	text-align:center;
+	font-size: 5mm;
+	width: 34mm;
+	margin:0mm auto;
+	float: right;
+	margin-left:-44mm;
+	display: inline-block;
+}
+.trsq .wrapperDiv {
+	width:195mm;
+	margin: 0 auto;
+}
+
+.trsq input.tableInput , .trsq input.timeInput {
+	width: 60%;
+	border: none !important;
+    border-bottom: 1px solid #ddd !important;
+}
+.trsq input.tableInput2{
+	width: 30%;
+	border: none !important;
+    border-bottom: 1px solid #ddd !important;
+}
+.trsq input.timeInput {
+	width: 33mm;
+}
+.trsq input.smtimeInput {
+	width: 20%;
+	border: none !important;
+    border-bottom: 1px solid #ddd !important;
+}
+.trsq .recpTable {
+	margin: 0 auto;
+	border:1px solid #000;
+	width: 100%;
+}
+.trsq .recpTable td {
+	border: 1px solid #000;
+    padding: 0.5mm 0;
+}
+.trsq .recpTable td.tleTd {
+	text-align: center;
+}
+.trsq .recpTable td.indentTd {
+	text-indent: 4px;
+}
+.trsq .recpTable .labtitle {
+	display: inline-block;
+	text-indent: 4px;
+}
+.trsq input.veryLongInput {
+	width: 75%;
+}
+.trsq .ulwrapper li.sixLi{
+	width: 60%;
+}
+.trsq .recpTable .twoLineLab {
+	display: inline-block;
+	float: left;
+	height: 12mm;
+	width: 4em;
+}
+
+.trsq .recpTable .twoLineLabB {
+	display: inline-block;
+	float: left;
+	height: 12mm;
+	width: 6em;
+}
+.trsq .recpTable .twoLineLabC {
+	display: inline-block;
+	float: left;
+	height: 12mm;
+	width: 8em;
+}
+
+.trsq .recpTable .threeLineTab {
+	float: left;
+	height: 18mm;
+	width: 4em;
+}
+.trsq .recpTable .speLineTab {
+	width:11mm ;
+}
+.trsq .recpTable .margTopGap{
+	margin-top: 6px;
+}
+.trsq .recpTable .marginBotomGap{
+	margin-bottom: 3px;
+}
+.trsq input.smallTabInput {
+	width: 20%;
+}
+.trsq .recpTable .leftCheck {
+	margin-left: 4px;
+}
+.trsq .ulwrapper li.fifvfoldli{
+    height: 24mm;
+}
+.trsq .ulwrapper li.smfifvfoldli{
+    height: 40mm;
+}
+.trsq .ulwrapper li.smFourfoldLi{
+    height: 32mm;
+}
+.tys .ulwrapper li.halfli {
+		width: 50%;
+}
+
+.tys .ulwrapper li.halfliB {
+	width: 35%;
+}
+.tys .ulwrapper li.halfliC {
+	width: 65%;
+}
+
+.trsq ul input.middleTabInput {
+	width: 15mm;
+}
+.noPrint {
+	display: none;
+}
+.trsq .recpTable .smfifvLineTab {
+	float: left;
+	height: 40mm;
+	width: 4em;
+}
+.trsq .recpTable .fifvLineTab {
+	float: left;
+	height: 24mm;
+	width: 6em;
+}
+.trsq .recpTable td.centerId {
+	text-align: center;
+}
+.trsq ul li {
+	list-style: none !important;
+}
+.trsq .extraDiv {
+	font-size: 0.38cm;
+}
+.trsq .ulwrapper {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+.trsq .ulwrapper li,.trsq .recpTable .marginVal{
+    float:left;
+    width:100%;
+    line-height: none;
+    padding:0.3mm 0;
+}
+.trsq .speclUl li {
+	padding: 2mm 0;
+}
+.trsq .extraTitle {
+	margin-top: 0.3mm;
+	margin-bottom: 0.3mm;
+}
+.trsq .twoLineDIv {
+	float: left;
+	margin-top: -0.5mm;
+}
+li{
+	list-style-type:none !important;
+}
+.wsnew .mainInputBox{
+	border: 0px !important;
+	margin:0;
+}
+.wsnew input[type=text]{
+	font-size:0.30cm;
+}
+#docTB1{
+	margin-top:3mm;
+	margin-bottom: 60mm
+}
+
+#ws2025 .smallInput{
+	width:10mm;
+}
+
+.totalinput{
+	width:130mm;
+}
+#qxZyh{
+	width:70px;
+}
+.basicDiv input[type=text]{
+	font-size:0.30cm;
+}
+/**格式改动**/
+.opmedicineinput{
+	width:112mm !important;
+}
+.tstotalinput{
+	width:170mm;
+}
+.zxtotalinput{
+	width:145mm;
+}
+.wbInput{
+	width:75mm;
+}
+.qtmedicne{
+	width:70mm;
+}
+.mediumInput2{
+	width: 57mm;
+}
+.bqgcintext{
+	width:90%
+}
+.print-title-div {
+  margin-left:10mm;
+  width: 195mm;
+  font-size: 0.38cm;
+}
+.onlyPrintBq {
+	display: block !important;
+}
+.noPrintBq {
+	display: none !important;
+}
+.zdInput{
+    width: 65mm !important;
+}
+.tys .childTitle{
+    font-weight: bolder;
+		text-align: center;
+		line-height: 1.5
+}
+.tys .ulwrapper li.threeli{
+    width: 33% !important;
+}
+.tys .ulwrapper li.twothreeli{
+    width: 67% !important;
+}

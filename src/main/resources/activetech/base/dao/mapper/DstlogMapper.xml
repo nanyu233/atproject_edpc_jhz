@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.DstlogMapper" >
+  <resultMap id="BaseResultMap" type="activetech.base.pojo.domain.Dstlog" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USRNO" property="usrno" jdbcType="VARCHAR" />
+    <result column="USRNAME" property="usrname" jdbcType="VARCHAR" />
+    <result column="COMNO" property="comno" jdbcType="VARCHAR" />
+    <result column="USR_HOST" property="usrHost" jdbcType="VARCHAR" />
+    <result column="OPER_URL" property="operUrl" jdbcType="VARCHAR" />
+    <result column="EXCEPTION" property="exception" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="CREATEDATE" property="createdate" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, USRNO, USRNAME, COMNO, USR_HOST, OPER_URL, EXCEPTION, MEMO, CREATEDATE, CREATETIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.base.pojo.domain.DstlogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DSTLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DSTLOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DSTLOG
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.DstlogExample" >
+    delete from DSTLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.base.pojo.domain.Dstlog" >
+    insert into DSTLOG (ID, USRNO, USRNAME, 
+      COMNO, USR_HOST, OPER_URL, 
+      EXCEPTION, MEMO, CREATEDATE, 
+      CREATETIME)
+    values (#{id,jdbcType=VARCHAR}, #{usrno,jdbcType=VARCHAR}, #{usrname,jdbcType=VARCHAR}, 
+      #{comno,jdbcType=VARCHAR}, #{usrHost,jdbcType=VARCHAR}, #{operUrl,jdbcType=VARCHAR}, 
+      #{exception,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{createdate,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.base.pojo.domain.Dstlog" >
+    insert into DSTLOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="usrno != null" >
+        USRNO,
+      </if>
+      <if test="usrname != null" >
+        USRNAME,
+      </if>
+      <if test="comno != null" >
+        COMNO,
+      </if>
+      <if test="usrHost != null" >
+        USR_HOST,
+      </if>
+      <if test="operUrl != null" >
+        OPER_URL,
+      </if>
+      <if test="exception != null" >
+        EXCEPTION,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="usrno != null" >
+        #{usrno,jdbcType=VARCHAR},
+      </if>
+      <if test="usrname != null" >
+        #{usrname,jdbcType=VARCHAR},
+      </if>
+      <if test="comno != null" >
+        #{comno,jdbcType=VARCHAR},
+      </if>
+      <if test="usrHost != null" >
+        #{usrHost,jdbcType=VARCHAR},
+      </if>
+      <if test="operUrl != null" >
+        #{operUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="exception != null" >
+        #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.base.pojo.domain.DstlogExample" resultType="java.lang.Integer" >
+    select count(*) from DSTLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DSTLOG
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrno != null" >
+        USRNO = #{record.usrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrname != null" >
+        USRNAME = #{record.usrname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comno != null" >
+        COMNO = #{record.comno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrHost != null" >
+        USR_HOST = #{record.usrHost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operUrl != null" >
+        OPER_URL = #{record.operUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exception != null" >
+        EXCEPTION = #{record.exception,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        CREATEDATE = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        CREATETIME = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DSTLOG
+    set ID = #{record.id,jdbcType=VARCHAR},
+      USRNO = #{record.usrno,jdbcType=VARCHAR},
+      USRNAME = #{record.usrname,jdbcType=VARCHAR},
+      COMNO = #{record.comno,jdbcType=VARCHAR},
+      USR_HOST = #{record.usrHost,jdbcType=VARCHAR},
+      OPER_URL = #{record.operUrl,jdbcType=VARCHAR},
+      EXCEPTION = #{record.exception,jdbcType=VARCHAR},
+      MEMO = #{record.memo,jdbcType=VARCHAR},
+      CREATEDATE = #{record.createdate,jdbcType=VARCHAR},
+      CREATETIME = #{record.createtime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.Dstlog" >
+    update DSTLOG
+    <set >
+      <if test="usrno != null" >
+        USRNO = #{usrno,jdbcType=VARCHAR},
+      </if>
+      <if test="usrname != null" >
+        USRNAME = #{usrname,jdbcType=VARCHAR},
+      </if>
+      <if test="comno != null" >
+        COMNO = #{comno,jdbcType=VARCHAR},
+      </if>
+      <if test="usrHost != null" >
+        USR_HOST = #{usrHost,jdbcType=VARCHAR},
+      </if>
+      <if test="operUrl != null" >
+        OPER_URL = #{operUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="exception != null" >
+        EXCEPTION = #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.Dstlog" >
+    update DSTLOG
+    set USRNO = #{usrno,jdbcType=VARCHAR},
+      USRNAME = #{usrname,jdbcType=VARCHAR},
+      COMNO = #{comno,jdbcType=VARCHAR},
+      USR_HOST = #{usrHost,jdbcType=VARCHAR},
+      OPER_URL = #{operUrl,jdbcType=VARCHAR},
+      EXCEPTION = #{exception,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      CREATEDATE = #{createdate,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

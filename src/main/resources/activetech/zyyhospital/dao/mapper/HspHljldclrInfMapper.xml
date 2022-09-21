@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspHljldclrInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspHljldclrInf" >
+    <result column="BQHI_SEQ" property="bqhiSeq" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="CHAR" />
+    <result column="CRLNAME" property="crlname" jdbcType="VARCHAR" />
+    <result column="CRLL" property="crll" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="OTHER" property="other" jdbcType="VARCHAR" />
+    <result column="XZ" property="xz" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BQHI_SEQ, TYPE, CRLNAME, CRLL, CODE, OTHER, XZ
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspHljldclrInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_HLJLDCLR_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspHljldclrInfExample" >
+    delete from HSP_HLJLDCLR_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspHljldclrInf" >
+    insert into HSP_HLJLDCLR_INF (BQHI_SEQ, TYPE, CRLNAME, 
+      CRLL, CODE, OTHER, 
+      XZ)
+    values (#{bqhiSeq,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, #{crlname,jdbcType=VARCHAR}, 
+      #{crll,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, 
+      #{xz,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspHljldclrInf" >
+    insert into HSP_HLJLDCLR_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bqhiSeq != null" >
+        BQHI_SEQ,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="crlname != null" >
+        CRLNAME,
+      </if>
+      <if test="crll != null" >
+        CRLL,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="other != null" >
+        OTHER,
+      </if>
+      <if test="xz != null" >
+        XZ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bqhiSeq != null" >
+        #{bqhiSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="crlname != null" >
+        #{crlname,jdbcType=VARCHAR},
+      </if>
+      <if test="crll != null" >
+        #{crll,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="xz != null" >
+        #{xz,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspHljldclrInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_HLJLDCLR_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_HLJLDCLR_INF
+    <set >
+      <if test="record.bqhiSeq != null" >
+        BQHI_SEQ = #{record.bqhiSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.crlname != null" >
+        CRLNAME = #{record.crlname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crll != null" >
+        CRLL = #{record.crll,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.other != null" >
+        OTHER = #{record.other,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xz != null" >
+        XZ = #{record.xz,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_HLJLDCLR_INF
+    set BQHI_SEQ = #{record.bqhiSeq,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=CHAR},
+      CRLNAME = #{record.crlname,jdbcType=VARCHAR},
+      CRLL = #{record.crll,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      OTHER = #{record.other,jdbcType=VARCHAR},
+      XZ = #{record.xz,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

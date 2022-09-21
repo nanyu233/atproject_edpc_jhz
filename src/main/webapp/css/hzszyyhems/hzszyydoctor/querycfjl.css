@@ -1,0 +1,37 @@
+/*
+* @Author: wdy
+* @Date:   2018-02-01 14:11:27
+* @Last Modified by:   wdy
+* @Last Modified time: 2018-02-27 10:15:47
+*/
+
+body {
+    padding: 0 0 0 10px;
+}
+
+.at-tools .commonbtn {
+    float: right;
+    margin-left: 10px;
+}
+
+/**
+*  datagrid 表格强制宽度100%
+*/
+.datagrid-view2 {
+    left: 25px;
+    width: 98% !important;
+}
+
+.datagrid-view,
+.datagrid-body,
+.datagrid-header-inner table,
+.datagrid-cell div {
+    width: 100% !important;
+}
+.panel-header{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.panel-header .panel-title{
+    margin-left: 5px;
+}

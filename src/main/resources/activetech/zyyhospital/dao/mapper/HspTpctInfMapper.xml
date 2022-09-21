@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspTpctInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspTpctInf" >
+    <id column="TEMPERATURE_CHART_SEQ" property="temperatureChartSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="ENTERING_DAT" property="enteringDat" jdbcType="TIMESTAMP" />
+    <result column="TPCT_TW_COD" property="tpctTwCod" jdbcType="VARCHAR" />
+    <result column="TPCT_TW" property="tpctTw" jdbcType="VARCHAR" />
+    <result column="TPCT_JWH" property="tpctJwh" jdbcType="VARCHAR" />
+    <result column="TPCT_MB_COD" property="tpctMbCod" jdbcType="VARCHAR" />
+    <result column="TPCT_MB" property="tpctMb" jdbcType="VARCHAR" />
+    <result column="TPCT_HX_COD" property="tpctHxCod" jdbcType="VARCHAR" />
+    <result column="TPCT_HX" property="tpctHx" jdbcType="VARCHAR" />
+    <result column="TPCT_XL" property="tpctXl" jdbcType="VARCHAR" />
+    <result column="TPCT_XY_COD" property="tpctXyCod" jdbcType="VARCHAR" />
+    <result column="TPCT_XY_UP" property="tpctXyUp" jdbcType="VARCHAR" />
+    <result column="TPCT_XY_DOWN" property="tpctXyDown" jdbcType="VARCHAR" />
+    <result column="TPCT_TTPF" property="tpctTtpf" jdbcType="VARCHAR" />
+    <result column="TPCT_JTH" property="tpctJth" jdbcType="VARCHAR" />
+    <result column="TPCT_DB_COD" property="tpctDbCod" jdbcType="VARCHAR" />
+    <result column="TPCT_DB_PT" property="tpctDbPt" jdbcType="VARCHAR" />
+    <result column="TPCT_DB_GC" property="tpctDbGc" jdbcType="VARCHAR" />
+    <result column="TPCT_NL_COD" property="tpctNlCod" jdbcType="VARCHAR" />
+    <result column="TPCT_NL" property="tpctNl" jdbcType="VARCHAR" />
+    <result column="TPCT_RL" property="tpctRl" jdbcType="VARCHAR" />
+    <result column="TPCT_CL" property="tpctCl" jdbcType="VARCHAR" />
+    <result column="TPCT_TZ_COD" property="tpctTzCod" jdbcType="VARCHAR" />
+    <result column="TPCT_TZ" property="tpctTz" jdbcType="VARCHAR" />
+    <result column="TPCT_SG" property="tpctSg" jdbcType="VARCHAR" />
+    <result column="TPCT_GMYW" property="tpctGmyw" jdbcType="VARCHAR" />
+    <result column="CRAT_DAT" property="cratDat" jdbcType="TIMESTAMP" />
+    <result column="CRAT_NBR" property="cratNbr" jdbcType="VARCHAR" />
+    <result column="CRAT_NAM" property="cratNam" jdbcType="VARCHAR" />
+    <result column="UPDT_DAT" property="updtDat" jdbcType="TIMESTAMP" />
+    <result column="UPDT_NBR" property="updtNbr" jdbcType="VARCHAR" />
+    <result column="UPDT_NAM" property="updtNam" jdbcType="VARCHAR" />
+    <result column="TPCT_CATA" property="tpctCata" jdbcType="VARCHAR" />
+    <result column="TPCT_VALUE" property="tpctValue" jdbcType="VARCHAR" />
+    <result column="TPCT_TYPE" property="tpctType" jdbcType="VARCHAR" />
+    <result column="TPCT_JLR" property="tpctJlr" jdbcType="VARCHAR" />
+    <result column="TPCT_DATEFLG" property="tpctDateflg" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE1" property="tpctZdyType1" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE1" property="tpctZdyValue1" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE2" property="tpctZdyType2" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE2" property="tpctZdyValue2" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE3" property="tpctZdyType3" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE3" property="tpctZdyValue3" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE4" property="tpctZdyType4" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE4" property="tpctZdyValue4" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE5" property="tpctZdyType5" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE5" property="tpctZdyValue5" jdbcType="VARCHAR" />
+    <result column="TPCT_XT_COD" property="tpctXtCod" jdbcType="VARCHAR" />
+    <result column="TPCT_XT_FLG" property="tpctXtFlg" jdbcType="VARCHAR" />
+    <result column="TPCT_SJMC_COD" property="tpctSjmcCod" jdbcType="VARCHAR" />
+    <result column="TPCT_XT" property="tpctXt" jdbcType="DECIMAL" />
+    <result column="TPCT_NL_FLG" property="tpctNlFlg" jdbcType="VARCHAR" />
+    <result column="TPCT_RL_FLG" property="tpctRlFlg" jdbcType="VARCHAR" />
+    <result column="TPCT_CL_FLG" property="tpctClFlg" jdbcType="VARCHAR" />
+    <result column="TPCT_XL_COD" property="tpctXlCod" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_TYPE6" property="tpctZdyType6" jdbcType="VARCHAR" />
+    <result column="TPCT_ZDY_VALUE6" property="tpctZdyValue6" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TEMPERATURE_CHART_SEQ, EMG_SEQ, ENTERING_DAT, TPCT_TW_COD, TPCT_TW, TPCT_JWH, TPCT_MB_COD, 
+    TPCT_MB, TPCT_HX_COD, TPCT_HX, TPCT_XL, TPCT_XY_COD, TPCT_XY_UP, TPCT_XY_DOWN, TPCT_TTPF, 
+    TPCT_JTH, TPCT_DB_COD, TPCT_DB_PT, TPCT_DB_GC, TPCT_NL_COD, TPCT_NL, TPCT_RL, TPCT_CL, 
+    TPCT_TZ_COD, TPCT_TZ, TPCT_SG, TPCT_GMYW, CRAT_DAT, CRAT_NBR, CRAT_NAM, UPDT_DAT, 
+    UPDT_NBR, UPDT_NAM, TPCT_CATA, TPCT_VALUE, TPCT_TYPE, TPCT_JLR, TPCT_DATEFLG, TPCT_ZDY_TYPE1, 
+    TPCT_ZDY_VALUE1, TPCT_ZDY_TYPE2, TPCT_ZDY_VALUE2, TPCT_ZDY_TYPE3, TPCT_ZDY_VALUE3, 
+    TPCT_ZDY_TYPE4, TPCT_ZDY_VALUE4, TPCT_ZDY_TYPE5, TPCT_ZDY_VALUE5, TPCT_XT_COD, TPCT_XT_FLG, 
+    TPCT_SJMC_COD, TPCT_XT, TPCT_NL_FLG, TPCT_RL_FLG, TPCT_CL_FLG, TPCT_XL_COD, TPCT_ZDY_TYPE6, 
+    TPCT_ZDY_VALUE6
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspTpctInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_TPCT_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_TPCT_INF
+    where TEMPERATURE_CHART_SEQ = #{temperatureChartSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_TPCT_INF
+    where TEMPERATURE_CHART_SEQ = #{temperatureChartSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspTpctInfExample" >
+    delete from HSP_TPCT_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspTpctInf" >
+    insert into HSP_TPCT_INF (TEMPERATURE_CHART_SEQ, EMG_SEQ, ENTERING_DAT, 
+      TPCT_TW_COD, TPCT_TW, TPCT_JWH, 
+      TPCT_MB_COD, TPCT_MB, TPCT_HX_COD, 
+      TPCT_HX, TPCT_XL, TPCT_XY_COD, 
+      TPCT_XY_UP, TPCT_XY_DOWN, TPCT_TTPF, 
+      TPCT_JTH, TPCT_DB_COD, TPCT_DB_PT, 
+      TPCT_DB_GC, TPCT_NL_COD, TPCT_NL, 
+      TPCT_RL, TPCT_CL, TPCT_TZ_COD, 
+      TPCT_TZ, TPCT_SG, TPCT_GMYW, 
+      CRAT_DAT, CRAT_NBR, CRAT_NAM, 
+      UPDT_DAT, UPDT_NBR, UPDT_NAM, 
+      TPCT_CATA, TPCT_VALUE, TPCT_TYPE, 
+      TPCT_JLR, TPCT_DATEFLG, TPCT_ZDY_TYPE1, 
+      TPCT_ZDY_VALUE1, TPCT_ZDY_TYPE2, TPCT_ZDY_VALUE2, 
+      TPCT_ZDY_TYPE3, TPCT_ZDY_VALUE3, TPCT_ZDY_TYPE4, 
+      TPCT_ZDY_VALUE4, TPCT_ZDY_TYPE5, TPCT_ZDY_VALUE5, 
+      TPCT_XT_COD, TPCT_XT_FLG, TPCT_SJMC_COD, 
+      TPCT_XT, TPCT_NL_FLG, TPCT_RL_FLG, 
+      TPCT_CL_FLG, TPCT_XL_COD, TPCT_ZDY_TYPE6, 
+      TPCT_ZDY_VALUE6)
+    values (#{temperatureChartSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{enteringDat,jdbcType=TIMESTAMP}, 
+      #{tpctTwCod,jdbcType=VARCHAR}, #{tpctTw,jdbcType=VARCHAR}, #{tpctJwh,jdbcType=VARCHAR}, 
+      #{tpctMbCod,jdbcType=VARCHAR}, #{tpctMb,jdbcType=VARCHAR}, #{tpctHxCod,jdbcType=VARCHAR}, 
+      #{tpctHx,jdbcType=VARCHAR}, #{tpctXl,jdbcType=VARCHAR}, #{tpctXyCod,jdbcType=VARCHAR}, 
+      #{tpctXyUp,jdbcType=VARCHAR}, #{tpctXyDown,jdbcType=VARCHAR}, #{tpctTtpf,jdbcType=VARCHAR}, 
+      #{tpctJth,jdbcType=VARCHAR}, #{tpctDbCod,jdbcType=VARCHAR}, #{tpctDbPt,jdbcType=VARCHAR}, 
+      #{tpctDbGc,jdbcType=VARCHAR}, #{tpctNlCod,jdbcType=VARCHAR}, #{tpctNl,jdbcType=VARCHAR}, 
+      #{tpctRl,jdbcType=VARCHAR}, #{tpctCl,jdbcType=VARCHAR}, #{tpctTzCod,jdbcType=VARCHAR}, 
+      #{tpctTz,jdbcType=VARCHAR}, #{tpctSg,jdbcType=VARCHAR}, #{tpctGmyw,jdbcType=VARCHAR}, 
+      #{cratDat,jdbcType=TIMESTAMP}, #{cratNbr,jdbcType=VARCHAR}, #{cratNam,jdbcType=VARCHAR}, 
+      #{updtDat,jdbcType=TIMESTAMP}, #{updtNbr,jdbcType=VARCHAR}, #{updtNam,jdbcType=VARCHAR}, 
+      #{tpctCata,jdbcType=VARCHAR}, #{tpctValue,jdbcType=VARCHAR}, #{tpctType,jdbcType=VARCHAR}, 
+      #{tpctJlr,jdbcType=VARCHAR}, #{tpctDateflg,jdbcType=VARCHAR}, #{tpctZdyType1,jdbcType=VARCHAR}, 
+      #{tpctZdyValue1,jdbcType=VARCHAR}, #{tpctZdyType2,jdbcType=VARCHAR}, #{tpctZdyValue2,jdbcType=VARCHAR}, 
+      #{tpctZdyType3,jdbcType=VARCHAR}, #{tpctZdyValue3,jdbcType=VARCHAR}, #{tpctZdyType4,jdbcType=VARCHAR}, 
+      #{tpctZdyValue4,jdbcType=VARCHAR}, #{tpctZdyType5,jdbcType=VARCHAR}, #{tpctZdyValue5,jdbcType=VARCHAR}, 
+      #{tpctXtCod,jdbcType=VARCHAR}, #{tpctXtFlg,jdbcType=VARCHAR}, #{tpctSjmcCod,jdbcType=VARCHAR}, 
+      #{tpctXt,jdbcType=DECIMAL}, #{tpctNlFlg,jdbcType=VARCHAR}, #{tpctRlFlg,jdbcType=VARCHAR}, 
+      #{tpctClFlg,jdbcType=VARCHAR}, #{tpctXlCod,jdbcType=VARCHAR}, #{tpctZdyType6,jdbcType=VARCHAR}, 
+      #{tpctZdyValue6,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspTpctInf" >
+    insert into HSP_TPCT_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="temperatureChartSeq != null" >
+        TEMPERATURE_CHART_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="enteringDat != null" >
+        ENTERING_DAT,
+      </if>
+      <if test="tpctTwCod != null" >
+        TPCT_TW_COD,
+      </if>
+      <if test="tpctTw != null" >
+        TPCT_TW,
+      </if>
+      <if test="tpctJwh != null" >
+        TPCT_JWH,
+      </if>
+      <if test="tpctMbCod != null" >
+        TPCT_MB_COD,
+      </if>
+      <if test="tpctMb != null" >
+        TPCT_MB,
+      </if>
+      <if test="tpctHxCod != null" >
+        TPCT_HX_COD,
+      </if>
+      <if test="tpctHx != null" >
+        TPCT_HX,
+      </if>
+      <if test="tpctXl != null" >
+        TPCT_XL,
+      </if>
+      <if test="tpctXyCod != null" >
+        TPCT_XY_COD,
+      </if>
+      <if test="tpctXyUp != null" >
+        TPCT_XY_UP,
+      </if>
+      <if test="tpctXyDown != null" >
+        TPCT_XY_DOWN,
+      </if>
+      <if test="tpctTtpf != null" >
+        TPCT_TTPF,
+      </if>
+      <if test="tpctJth != null" >
+        TPCT_JTH,
+      </if>
+      <if test="tpctDbCod != null" >
+        TPCT_DB_COD,
+      </if>
+      <if test="tpctDbPt != null" >
+        TPCT_DB_PT,
+      </if>
+      <if test="tpctDbGc != null" >
+        TPCT_DB_GC,
+      </if>
+      <if test="tpctNlCod != null" >
+        TPCT_NL_COD,
+      </if>
+      <if test="tpctNl != null" >
+        TPCT_NL,
+      </if>
+      <if test="tpctRl != null" >
+        TPCT_RL,
+      </if>
+      <if test="tpctCl != null" >
+        TPCT_CL,
+      </if>
+      <if test="tpctTzCod != null" >
+        TPCT_TZ_COD,
+      </if>
+      <if test="tpctTz != null" >
+        TPCT_TZ,
+      </if>
+      <if test="tpctSg != null" >
+        TPCT_SG,
+      </if>
+      <if test="tpctGmyw != null" >
+        TPCT_GMYW,
+      </if>
+      <if test="cratDat != null" >
+        CRAT_DAT,
+      </if>
+      <if test="cratNbr != null" >
+        CRAT_NBR,
+      </if>
+      <if test="cratNam != null" >
+        CRAT_NAM,
+      </if>
+      <if test="updtDat != null" >
+        UPDT_DAT,
+      </if>
+      <if test="updtNbr != null" >
+        UPDT_NBR,
+      </if>
+      <if test="updtNam != null" >
+        UPDT_NAM,
+      </if>
+      <if test="tpctCata != null" >
+        TPCT_CATA,
+      </if>
+      <if test="tpctValue != null" >
+        TPCT_VALUE,
+      </if>
+      <if test="tpctType != null" >
+        TPCT_TYPE,
+      </if>
+      <if test="tpctJlr != null" >
+        TPCT_JLR,
+      </if>
+      <if test="tpctDateflg != null" >
+        TPCT_DATEFLG,
+      </if>
+      <if test="tpctZdyType1 != null" >
+        TPCT_ZDY_TYPE1,
+      </if>
+      <if test="tpctZdyValue1 != null" >
+        TPCT_ZDY_VALUE1,
+      </if>
+      <if test="tpctZdyType2 != null" >
+        TPCT_ZDY_TYPE2,
+      </if>
+      <if test="tpctZdyValue2 != null" >
+        TPCT_ZDY_VALUE2,
+      </if>
+      <if test="tpctZdyType3 != null" >
+        TPCT_ZDY_TYPE3,
+      </if>
+      <if test="tpctZdyValue3 != null" >
+        TPCT_ZDY_VALUE3,
+      </if>
+      <if test="tpctZdyType4 != null" >
+        TPCT_ZDY_TYPE4,
+      </if>
+      <if test="tpctZdyValue4 != null" >
+        TPCT_ZDY_VALUE4,
+      </if>
+      <if test="tpctZdyType5 != null" >
+        TPCT_ZDY_TYPE5,
+      </if>
+      <if test="tpctZdyValue5 != null" >
+        TPCT_ZDY_VALUE5,
+      </if>
+      <if test="tpctXtCod != null" >
+        TPCT_XT_COD,
+      </if>
+      <if test="tpctXtFlg != null" >
+        TPCT_XT_FLG,
+      </if>
+      <if test="tpctSjmcCod != null" >
+        TPCT_SJMC_COD,
+      </if>
+      <if test="tpctXt != null" >
+        TPCT_XT,
+      </if>
+      <if test="tpctNlFlg != null" >
+        TPCT_NL_FLG,
+      </if>
+      <if test="tpctRlFlg != null" >
+        TPCT_RL_FLG,
+      </if>
+      <if test="tpctClFlg != null" >
+        TPCT_CL_FLG,
+      </if>
+      <if test="tpctXlCod != null" >
+        TPCT_XL_COD,
+      </if>
+      <if test="tpctZdyType6 != null" >
+        TPCT_ZDY_TYPE6,
+      </if>
+      <if test="tpctZdyValue6 != null" >
+        TPCT_ZDY_VALUE6,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="temperatureChartSeq != null" >
+        #{temperatureChartSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="enteringDat != null" >
+        #{enteringDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tpctTwCod != null" >
+        #{tpctTwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctTw != null" >
+        #{tpctTw,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctJwh != null" >
+        #{tpctJwh,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctMbCod != null" >
+        #{tpctMbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctMb != null" >
+        #{tpctMb,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctHxCod != null" >
+        #{tpctHxCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctHx != null" >
+        #{tpctHx,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXl != null" >
+        #{tpctXl,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXyCod != null" >
+        #{tpctXyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXyUp != null" >
+        #{tpctXyUp,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXyDown != null" >
+        #{tpctXyDown,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctTtpf != null" >
+        #{tpctTtpf,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctJth != null" >
+        #{tpctJth,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctDbCod != null" >
+        #{tpctDbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctDbPt != null" >
+        #{tpctDbPt,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctDbGc != null" >
+        #{tpctDbGc,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctNlCod != null" >
+        #{tpctNlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctNl != null" >
+        #{tpctNl,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctRl != null" >
+        #{tpctRl,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctCl != null" >
+        #{tpctCl,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctTzCod != null" >
+        #{tpctTzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctTz != null" >
+        #{tpctTz,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctSg != null" >
+        #{tpctSg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctGmyw != null" >
+        #{tpctGmyw,jdbcType=VARCHAR},
+      </if>
+      <if test="cratDat != null" >
+        #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cratNbr != null" >
+        #{cratNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cratNam != null" >
+        #{cratNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updtDat != null" >
+        #{updtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtNbr != null" >
+        #{updtNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="updtNam != null" >
+        #{updtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctCata != null" >
+        #{tpctCata,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctValue != null" >
+        #{tpctValue,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctType != null" >
+        #{tpctType,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctJlr != null" >
+        #{tpctJlr,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctDateflg != null" >
+        #{tpctDateflg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType1 != null" >
+        #{tpctZdyType1,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue1 != null" >
+        #{tpctZdyValue1,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType2 != null" >
+        #{tpctZdyType2,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue2 != null" >
+        #{tpctZdyValue2,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType3 != null" >
+        #{tpctZdyType3,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue3 != null" >
+        #{tpctZdyValue3,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType4 != null" >
+        #{tpctZdyType4,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue4 != null" >
+        #{tpctZdyValue4,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType5 != null" >
+        #{tpctZdyType5,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue5 != null" >
+        #{tpctZdyValue5,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXtCod != null" >
+        #{tpctXtCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXtFlg != null" >
+        #{tpctXtFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctSjmcCod != null" >
+        #{tpctSjmcCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXt != null" >
+        #{tpctXt,jdbcType=DECIMAL},
+      </if>
+      <if test="tpctNlFlg != null" >
+        #{tpctNlFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctRlFlg != null" >
+        #{tpctRlFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctClFlg != null" >
+        #{tpctClFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXlCod != null" >
+        #{tpctXlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType6 != null" >
+        #{tpctZdyType6,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue6 != null" >
+        #{tpctZdyValue6,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspTpctInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_TPCT_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_TPCT_INF
+    <set >
+      <if test="record.temperatureChartSeq != null" >
+        TEMPERATURE_CHART_SEQ = #{record.temperatureChartSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enteringDat != null" >
+        ENTERING_DAT = #{record.enteringDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tpctTwCod != null" >
+        TPCT_TW_COD = #{record.tpctTwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctTw != null" >
+        TPCT_TW = #{record.tpctTw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctJwh != null" >
+        TPCT_JWH = #{record.tpctJwh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctMbCod != null" >
+        TPCT_MB_COD = #{record.tpctMbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctMb != null" >
+        TPCT_MB = #{record.tpctMb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctHxCod != null" >
+        TPCT_HX_COD = #{record.tpctHxCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctHx != null" >
+        TPCT_HX = #{record.tpctHx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctXl != null" >
+        TPCT_XL = #{record.tpctXl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctXyCod != null" >
+        TPCT_XY_COD = #{record.tpctXyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctXyUp != null" >
+        TPCT_XY_UP = #{record.tpctXyUp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctXyDown != null" >
+        TPCT_XY_DOWN = #{record.tpctXyDown,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctTtpf != null" >
+        TPCT_TTPF = #{record.tpctTtpf,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctJth != null" >
+        TPCT_JTH = #{record.tpctJth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctDbCod != null" >
+        TPCT_DB_COD = #{record.tpctDbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctDbPt != null" >
+        TPCT_DB_PT = #{record.tpctDbPt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctDbGc != null" >
+        TPCT_DB_GC = #{record.tpctDbGc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctNlCod != null" >
+        TPCT_NL_COD = #{record.tpctNlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctNl != null" >
+        TPCT_NL = #{record.tpctNl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctRl != null" >
+        TPCT_RL = #{record.tpctRl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctCl != null" >
+        TPCT_CL = #{record.tpctCl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctTzCod != null" >
+        TPCT_TZ_COD = #{record.tpctTzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctTz != null" >
+        TPCT_TZ = #{record.tpctTz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctSg != null" >
+        TPCT_SG = #{record.tpctSg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctGmyw != null" >
+        TPCT_GMYW = #{record.tpctGmyw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cratDat != null" >
+        CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cratNbr != null" >
+        CRAT_NBR = #{record.cratNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cratNam != null" >
+        CRAT_NAM = #{record.cratNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updtDat != null" >
+        UPDT_DAT = #{record.updtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updtNbr != null" >
+        UPDT_NBR = #{record.updtNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updtNam != null" >
+        UPDT_NAM = #{record.updtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctCata != null" >
+        TPCT_CATA = #{record.tpctCata,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctValue != null" >
+        TPCT_VALUE = #{record.tpctValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctType != null" >
+        TPCT_TYPE = #{record.tpctType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctJlr != null" >
+        TPCT_JLR = #{record.tpctJlr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctDateflg != null" >
+        TPCT_DATEFLG = #{record.tpctDateflg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyType1 != null" >
+        TPCT_ZDY_TYPE1 = #{record.tpctZdyType1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyValue1 != null" >
+        TPCT_ZDY_VALUE1 = #{record.tpctZdyValue1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyType2 != null" >
+        TPCT_ZDY_TYPE2 = #{record.tpctZdyType2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyValue2 != null" >
+        TPCT_ZDY_VALUE2 = #{record.tpctZdyValue2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyType3 != null" >
+        TPCT_ZDY_TYPE3 = #{record.tpctZdyType3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyValue3 != null" >
+        TPCT_ZDY_VALUE3 = #{record.tpctZdyValue3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyType4 != null" >
+        TPCT_ZDY_TYPE4 = #{record.tpctZdyType4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyValue4 != null" >
+        TPCT_ZDY_VALUE4 = #{record.tpctZdyValue4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyType5 != null" >
+        TPCT_ZDY_TYPE5 = #{record.tpctZdyType5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyValue5 != null" >
+        TPCT_ZDY_VALUE5 = #{record.tpctZdyValue5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctXtCod != null" >
+        TPCT_XT_COD = #{record.tpctXtCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctXtFlg != null" >
+        TPCT_XT_FLG = #{record.tpctXtFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctSjmcCod != null" >
+        TPCT_SJMC_COD = #{record.tpctSjmcCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctXt != null" >
+        TPCT_XT = #{record.tpctXt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tpctNlFlg != null" >
+        TPCT_NL_FLG = #{record.tpctNlFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctRlFlg != null" >
+        TPCT_RL_FLG = #{record.tpctRlFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctClFlg != null" >
+        TPCT_CL_FLG = #{record.tpctClFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctXlCod != null" >
+        TPCT_XL_COD = #{record.tpctXlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyType6 != null" >
+        TPCT_ZDY_TYPE6 = #{record.tpctZdyType6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tpctZdyValue6 != null" >
+        TPCT_ZDY_VALUE6 = #{record.tpctZdyValue6,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_TPCT_INF
+    set TEMPERATURE_CHART_SEQ = #{record.temperatureChartSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      ENTERING_DAT = #{record.enteringDat,jdbcType=TIMESTAMP},
+      TPCT_TW_COD = #{record.tpctTwCod,jdbcType=VARCHAR},
+      TPCT_TW = #{record.tpctTw,jdbcType=VARCHAR},
+      TPCT_JWH = #{record.tpctJwh,jdbcType=VARCHAR},
+      TPCT_MB_COD = #{record.tpctMbCod,jdbcType=VARCHAR},
+      TPCT_MB = #{record.tpctMb,jdbcType=VARCHAR},
+      TPCT_HX_COD = #{record.tpctHxCod,jdbcType=VARCHAR},
+      TPCT_HX = #{record.tpctHx,jdbcType=VARCHAR},
+      TPCT_XL = #{record.tpctXl,jdbcType=VARCHAR},
+      TPCT_XY_COD = #{record.tpctXyCod,jdbcType=VARCHAR},
+      TPCT_XY_UP = #{record.tpctXyUp,jdbcType=VARCHAR},
+      TPCT_XY_DOWN = #{record.tpctXyDown,jdbcType=VARCHAR},
+      TPCT_TTPF = #{record.tpctTtpf,jdbcType=VARCHAR},
+      TPCT_JTH = #{record.tpctJth,jdbcType=VARCHAR},
+      TPCT_DB_COD = #{record.tpctDbCod,jdbcType=VARCHAR},
+      TPCT_DB_PT = #{record.tpctDbPt,jdbcType=VARCHAR},
+      TPCT_DB_GC = #{record.tpctDbGc,jdbcType=VARCHAR},
+      TPCT_NL_COD = #{record.tpctNlCod,jdbcType=VARCHAR},
+      TPCT_NL = #{record.tpctNl,jdbcType=VARCHAR},
+      TPCT_RL = #{record.tpctRl,jdbcType=VARCHAR},
+      TPCT_CL = #{record.tpctCl,jdbcType=VARCHAR},
+      TPCT_TZ_COD = #{record.tpctTzCod,jdbcType=VARCHAR},
+      TPCT_TZ = #{record.tpctTz,jdbcType=VARCHAR},
+      TPCT_SG = #{record.tpctSg,jdbcType=VARCHAR},
+      TPCT_GMYW = #{record.tpctGmyw,jdbcType=VARCHAR},
+      CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP},
+      CRAT_NBR = #{record.cratNbr,jdbcType=VARCHAR},
+      CRAT_NAM = #{record.cratNam,jdbcType=VARCHAR},
+      UPDT_DAT = #{record.updtDat,jdbcType=TIMESTAMP},
+      UPDT_NBR = #{record.updtNbr,jdbcType=VARCHAR},
+      UPDT_NAM = #{record.updtNam,jdbcType=VARCHAR},
+      TPCT_CATA = #{record.tpctCata,jdbcType=VARCHAR},
+      TPCT_VALUE = #{record.tpctValue,jdbcType=VARCHAR},
+      TPCT_TYPE = #{record.tpctType,jdbcType=VARCHAR},
+      TPCT_JLR = #{record.tpctJlr,jdbcType=VARCHAR},
+      TPCT_DATEFLG = #{record.tpctDateflg,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE1 = #{record.tpctZdyType1,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE1 = #{record.tpctZdyValue1,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE2 = #{record.tpctZdyType2,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE2 = #{record.tpctZdyValue2,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE3 = #{record.tpctZdyType3,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE3 = #{record.tpctZdyValue3,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE4 = #{record.tpctZdyType4,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE4 = #{record.tpctZdyValue4,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE5 = #{record.tpctZdyType5,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE5 = #{record.tpctZdyValue5,jdbcType=VARCHAR},
+      TPCT_XT_COD = #{record.tpctXtCod,jdbcType=VARCHAR},
+      TPCT_XT_FLG = #{record.tpctXtFlg,jdbcType=VARCHAR},
+      TPCT_SJMC_COD = #{record.tpctSjmcCod,jdbcType=VARCHAR},
+      TPCT_XT = #{record.tpctXt,jdbcType=DECIMAL},
+      TPCT_NL_FLG = #{record.tpctNlFlg,jdbcType=VARCHAR},
+      TPCT_RL_FLG = #{record.tpctRlFlg,jdbcType=VARCHAR},
+      TPCT_CL_FLG = #{record.tpctClFlg,jdbcType=VARCHAR},
+      TPCT_XL_COD = #{record.tpctXlCod,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE6 = #{record.tpctZdyType6,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE6 = #{record.tpctZdyValue6,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspTpctInf" >
+    update HSP_TPCT_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="enteringDat != null" >
+        ENTERING_DAT = #{enteringDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tpctTwCod != null" >
+        TPCT_TW_COD = #{tpctTwCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctTw != null" >
+        TPCT_TW = #{tpctTw,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctJwh != null" >
+        TPCT_JWH = #{tpctJwh,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctMbCod != null" >
+        TPCT_MB_COD = #{tpctMbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctMb != null" >
+        TPCT_MB = #{tpctMb,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctHxCod != null" >
+        TPCT_HX_COD = #{tpctHxCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctHx != null" >
+        TPCT_HX = #{tpctHx,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXl != null" >
+        TPCT_XL = #{tpctXl,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXyCod != null" >
+        TPCT_XY_COD = #{tpctXyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXyUp != null" >
+        TPCT_XY_UP = #{tpctXyUp,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXyDown != null" >
+        TPCT_XY_DOWN = #{tpctXyDown,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctTtpf != null" >
+        TPCT_TTPF = #{tpctTtpf,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctJth != null" >
+        TPCT_JTH = #{tpctJth,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctDbCod != null" >
+        TPCT_DB_COD = #{tpctDbCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctDbPt != null" >
+        TPCT_DB_PT = #{tpctDbPt,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctDbGc != null" >
+        TPCT_DB_GC = #{tpctDbGc,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctNlCod != null" >
+        TPCT_NL_COD = #{tpctNlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctNl != null" >
+        TPCT_NL = #{tpctNl,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctRl != null" >
+        TPCT_RL = #{tpctRl,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctCl != null" >
+        TPCT_CL = #{tpctCl,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctTzCod != null" >
+        TPCT_TZ_COD = #{tpctTzCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctTz != null" >
+        TPCT_TZ = #{tpctTz,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctSg != null" >
+        TPCT_SG = #{tpctSg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctGmyw != null" >
+        TPCT_GMYW = #{tpctGmyw,jdbcType=VARCHAR},
+      </if>
+      <if test="cratDat != null" >
+        CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cratNbr != null" >
+        CRAT_NBR = #{cratNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cratNam != null" >
+        CRAT_NAM = #{cratNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updtDat != null" >
+        UPDT_DAT = #{updtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updtNbr != null" >
+        UPDT_NBR = #{updtNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="updtNam != null" >
+        UPDT_NAM = #{updtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctCata != null" >
+        TPCT_CATA = #{tpctCata,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctValue != null" >
+        TPCT_VALUE = #{tpctValue,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctType != null" >
+        TPCT_TYPE = #{tpctType,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctJlr != null" >
+        TPCT_JLR = #{tpctJlr,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctDateflg != null" >
+        TPCT_DATEFLG = #{tpctDateflg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType1 != null" >
+        TPCT_ZDY_TYPE1 = #{tpctZdyType1,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue1 != null" >
+        TPCT_ZDY_VALUE1 = #{tpctZdyValue1,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType2 != null" >
+        TPCT_ZDY_TYPE2 = #{tpctZdyType2,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue2 != null" >
+        TPCT_ZDY_VALUE2 = #{tpctZdyValue2,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType3 != null" >
+        TPCT_ZDY_TYPE3 = #{tpctZdyType3,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue3 != null" >
+        TPCT_ZDY_VALUE3 = #{tpctZdyValue3,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType4 != null" >
+        TPCT_ZDY_TYPE4 = #{tpctZdyType4,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue4 != null" >
+        TPCT_ZDY_VALUE4 = #{tpctZdyValue4,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType5 != null" >
+        TPCT_ZDY_TYPE5 = #{tpctZdyType5,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue5 != null" >
+        TPCT_ZDY_VALUE5 = #{tpctZdyValue5,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXtCod != null" >
+        TPCT_XT_COD = #{tpctXtCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXtFlg != null" >
+        TPCT_XT_FLG = #{tpctXtFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctSjmcCod != null" >
+        TPCT_SJMC_COD = #{tpctSjmcCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXt != null" >
+        TPCT_XT = #{tpctXt,jdbcType=DECIMAL},
+      </if>
+      <if test="tpctNlFlg != null" >
+        TPCT_NL_FLG = #{tpctNlFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctRlFlg != null" >
+        TPCT_RL_FLG = #{tpctRlFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctClFlg != null" >
+        TPCT_CL_FLG = #{tpctClFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctXlCod != null" >
+        TPCT_XL_COD = #{tpctXlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyType6 != null" >
+        TPCT_ZDY_TYPE6 = #{tpctZdyType6,jdbcType=VARCHAR},
+      </if>
+      <if test="tpctZdyValue6 != null" >
+        TPCT_ZDY_VALUE6 = #{tpctZdyValue6,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TEMPERATURE_CHART_SEQ = #{temperatureChartSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspTpctInf" >
+    update HSP_TPCT_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      ENTERING_DAT = #{enteringDat,jdbcType=TIMESTAMP},
+      TPCT_TW_COD = #{tpctTwCod,jdbcType=VARCHAR},
+      TPCT_TW = #{tpctTw,jdbcType=VARCHAR},
+      TPCT_JWH = #{tpctJwh,jdbcType=VARCHAR},
+      TPCT_MB_COD = #{tpctMbCod,jdbcType=VARCHAR},
+      TPCT_MB = #{tpctMb,jdbcType=VARCHAR},
+      TPCT_HX_COD = #{tpctHxCod,jdbcType=VARCHAR},
+      TPCT_HX = #{tpctHx,jdbcType=VARCHAR},
+      TPCT_XL = #{tpctXl,jdbcType=VARCHAR},
+      TPCT_XY_COD = #{tpctXyCod,jdbcType=VARCHAR},
+      TPCT_XY_UP = #{tpctXyUp,jdbcType=VARCHAR},
+      TPCT_XY_DOWN = #{tpctXyDown,jdbcType=VARCHAR},
+      TPCT_TTPF = #{tpctTtpf,jdbcType=VARCHAR},
+      TPCT_JTH = #{tpctJth,jdbcType=VARCHAR},
+      TPCT_DB_COD = #{tpctDbCod,jdbcType=VARCHAR},
+      TPCT_DB_PT = #{tpctDbPt,jdbcType=VARCHAR},
+      TPCT_DB_GC = #{tpctDbGc,jdbcType=VARCHAR},
+      TPCT_NL_COD = #{tpctNlCod,jdbcType=VARCHAR},
+      TPCT_NL = #{tpctNl,jdbcType=VARCHAR},
+      TPCT_RL = #{tpctRl,jdbcType=VARCHAR},
+      TPCT_CL = #{tpctCl,jdbcType=VARCHAR},
+      TPCT_TZ_COD = #{tpctTzCod,jdbcType=VARCHAR},
+      TPCT_TZ = #{tpctTz,jdbcType=VARCHAR},
+      TPCT_SG = #{tpctSg,jdbcType=VARCHAR},
+      TPCT_GMYW = #{tpctGmyw,jdbcType=VARCHAR},
+      CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP},
+      CRAT_NBR = #{cratNbr,jdbcType=VARCHAR},
+      CRAT_NAM = #{cratNam,jdbcType=VARCHAR},
+      UPDT_DAT = #{updtDat,jdbcType=TIMESTAMP},
+      UPDT_NBR = #{updtNbr,jdbcType=VARCHAR},
+      UPDT_NAM = #{updtNam,jdbcType=VARCHAR},
+      TPCT_CATA = #{tpctCata,jdbcType=VARCHAR},
+      TPCT_VALUE = #{tpctValue,jdbcType=VARCHAR},
+      TPCT_TYPE = #{tpctType,jdbcType=VARCHAR},
+      TPCT_JLR = #{tpctJlr,jdbcType=VARCHAR},
+      TPCT_DATEFLG = #{tpctDateflg,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE1 = #{tpctZdyType1,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE1 = #{tpctZdyValue1,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE2 = #{tpctZdyType2,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE2 = #{tpctZdyValue2,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE3 = #{tpctZdyType3,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE3 = #{tpctZdyValue3,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE4 = #{tpctZdyType4,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE4 = #{tpctZdyValue4,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE5 = #{tpctZdyType5,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE5 = #{tpctZdyValue5,jdbcType=VARCHAR},
+      TPCT_XT_COD = #{tpctXtCod,jdbcType=VARCHAR},
+      TPCT_XT_FLG = #{tpctXtFlg,jdbcType=VARCHAR},
+      TPCT_SJMC_COD = #{tpctSjmcCod,jdbcType=VARCHAR},
+      TPCT_XT = #{tpctXt,jdbcType=DECIMAL},
+      TPCT_NL_FLG = #{tpctNlFlg,jdbcType=VARCHAR},
+      TPCT_RL_FLG = #{tpctRlFlg,jdbcType=VARCHAR},
+      TPCT_CL_FLG = #{tpctClFlg,jdbcType=VARCHAR},
+      TPCT_XL_COD = #{tpctXlCod,jdbcType=VARCHAR},
+      TPCT_ZDY_TYPE6 = #{tpctZdyType6,jdbcType=VARCHAR},
+      TPCT_ZDY_VALUE6 = #{tpctZdyValue6,jdbcType=VARCHAR}
+    where TEMPERATURE_CHART_SEQ = #{temperatureChartSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

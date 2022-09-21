@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.external.dao.mapper.VHemsJyjgMapperCustom" >
+  	
+  	<resultMap id="VHemsJyjgCustomMap" type="activetech.external.pojo.dto.VHemsJyjgCustom">
+	<!--<id property="id" column="ID"/> -->
+	<result column="MPI" jdbcType="VARCHAR" property="mpi" />
+  	<result column="PATIENT_ID" property="patientId"/>
+  	<result column="NAME" property="name" />	
+  	<result column="SAMPLENO" property="sampleno"/>
+  	<result column="RESULT" property="result"/>
+  	<result column="RESULT_DATE_TIME" property="resultDateTime" jdbcType="TIMESTAMP" />
+  	<result column="UPPER_LIMIT" property="upperLimit"/>
+  	<result column="LOWER_LIMIT" property="lowerLimit"/>
+  	<result column="REPORT_ITEM_NAME" property="reportItemName"/>
+  	<result column="UNITS" property="units"/>
+  	<result column="EXAMINAIM" property="examinaim"/>
+  	<result column="ROWNUMS" property="rownums"/>
+  	<!-- <result column="sjys" property="sjys"/>
+  	<result column="jyz" property="jyz"/>
+  	<result column="shr" property="shr"/> -->
+  	<result column="PATIENT_DEPT" jdbcType="VARCHAR" property="patientDept" />
+    <result column="INPATIENT_AREA" jdbcType="VARCHAR" property="inpatientArea" />
+    <result column="BED_NO" jdbcType="VARCHAR" property="bedNo" />
+    <result column="NURSING_UNIT" jdbcType="VARCHAR" property="nursingUnit" />
+    <result column="ATTENDING_DOC" jdbcType="VARCHAR" property="attendingDoc" />
+    <result column="ATTENDING_DOC_NAME" jdbcType="VARCHAR" property="attendingDocName" />
+    <result column="SEEK_MEDICAL_TIMES" jdbcType="VARCHAR" property="seekMedicalTimes" />
+    <result column="SERVICE_ORGANIZATION" jdbcType="VARCHAR" property="serviceOrganization" />
+    <result column="BE_HOSPITALIZED" jdbcType="TIMESTAMP" property="beHospitalized" />
+    <result column="ORDER_CODE" jdbcType="VARCHAR" property="orderCode" />
+    <result column="ORDER_TYPE" jdbcType="VARCHAR" property="orderType" />
+    <result column="EXAMINE_DEPT" jdbcType="VARCHAR" property="examineDept" />
+    <result column="EXAMINE_DEPT_CODE" jdbcType="VARCHAR" property="examineDeptCode" />
+    <result column="XH" jdbcType="VARCHAR" property="xh" />
+    <result column="APPLICATION_NO" jdbcType="VARCHAR" property="applicationNo" />
+    <result column="REPORT_NO" jdbcType="VARCHAR" property="reportNo" />
+    <result column="TREATMENT_CODE" jdbcType="VARCHAR" property="treatmentCode" />
+    <result column="RECEIVE_TIME" jdbcType="TIMESTAMP" property="receiveTime" />
+    <result column="SAMPLE_CODE" jdbcType="VARCHAR" property="sampleCode" />
+    <result column="SAMPLE_NAME" jdbcType="VARCHAR" property="sampleName" />
+    <result column="REPORT_STATUS" jdbcType="VARCHAR" property="reportStatus" />
+    <result column="REPORT_SHEET_NAME" jdbcType="VARCHAR" property="reportSheetName" />
+    <result column="ERROR_FLAG" jdbcType="VARCHAR" property="errorFlag" />
+    <result column="REPORT_TYPE" jdbcType="VARCHAR" property="reportType" />
+    <result column="EXAMINE_DOC" jdbcType="VARCHAR" property="examineDoc" />
+    <result column="JYJG_ID" jdbcType="VARCHAR" property="jyjgId" />
+    <result column="JYLX" property="jylx" jdbcType="VARCHAR" />
+    <result column="JYLXMC" property="jylxmc" jdbcType="VARCHAR" />
+</resultMap>
+  
+  
+  <!-- 区域是查询条件 通常情况，为了提高 sql片段可重用性，按单表创建sql片段 -->
+	<sql id="query_VHemsJyjg_where">
+		<if test="vHemsJyjgCustom!=null">
+			<if test="vHemsJyjgCustom.startdate!=null">
+					and RESULT_DATE_TIME <![CDATA[>=]]> #{vHemsJyjgCustom.startdate,jdbcType=DATE}
+			</if>
+			<if test="vHemsJyjgCustom.enddate!=null">
+					and RESULT_DATE_TIME <![CDATA[<]]> #{vHemsJyjgCustom.enddate,jdbcType=DATE}
+			</if>
+			<if test="vHemsJyjgCustom.patientId!=null and vHemsJyjgCustom.patientId!=''">
+				and  MPI = #{vHemsJyjgCustom.patientId}
+			</if>
+			<if test="vHemsJyjgCustom.name!=null and vHemsJyjgCustom.name!=''">
+				and  NAME= #{vHemsJyjgCustom.name}
+			</if>
+			<if test="vHemsJyjgCustom.sampleno!=null and vHemsJyjgCustom.sampleno!=''">
+				and   SAMPLENO= #{vHemsJyjgCustom.sampleno}
+			</if>
+			<if test="vHemsJyjgCustom.reportItemName!=null and vHemsJyjgCustom.reportItemName!=''">
+				and   REPORT_ITEM_NAME= #{vHemsJyjgCustom.reportItemName}
+			</if>
+			<if test="vHemsJyjgCustom.upperLimit!=null and vHemsJyjgCustom.upperLimit!=''">
+				and   UPPER_LIMIT= #{vHemsJyjgCustom.upperLimit}
+			</if>
+			<if test="vHemsJyjgCustom.lowerLimit!=null and vHemsJyjgCustom.lowerLimit!=''">
+				and   LOWER_LIMIT= #{vHemsJyjgCustom.lowerLimit}
+			</if>
+			<if test="vHemsJyjgCustom.examinaim!=null and vHemsJyjgCustom.examinaim!=''">
+				and   EXAMINAIM= #{vHemsJyjgCustom.examinaim}
+			</if>
+		</if>
+	</sql>
+	
+	<select id="findvhemsjyjgList" parameterType="activetech.external.pojo.dto.VHemsJyjgQueryDto"
+		resultMap="VHemsJyjgCustomMap">
+		 select MPI patientId,
+		  EXAMINAIM examinaim,
+		 RESULT_DATE_TIME resultDateTime,
+		 JYLX,
+		 JYLXMC,
+		 SAMPLENO sampleno<!-- ,sjys,jyz,shr  -->
+		 from zjyy_sd.V_HEMS_JYJG
+			<where>
+				<include refid="query_VHemsJyjg_where" />
+			</where>
+			group by EXAMINAIM,SAMPLENO,RESULT_DATE_TIME,MPI,JYLX,JYLXMC<!-- ,sjys,jyz,shr -->  order by ${sort} ${order}
+	</select>
+	<!-- 查询列表的总记录数 -->
+	<select id="findvhemsjyjgcount" parameterType="activetech.external.pojo.dto.VHemsJyjgQueryDto"
+					 resultType="int">
+		select count(*) from (select count(*) from zjyy_sd.V_HEMS_JYJG
+		<where>
+			REPORT_ITEM_NAME is not null
+				<include refid="query_VHemsJyjg_where" />
+			</where>
+			group by SAMPLENO,RESULT_DATE_TIME,MPI)
+	</select>
+	
+	
+	<select id="findvhemsjyjginfoList" parameterType="activetech.external.pojo.dto.VHemsJyjgQueryDto"
+		resultMap="VHemsJyjgCustomMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		 select MPI patientId,
+		 NAME name,
+		 SAMPLENO sampleno,REPORT_ITEM_NAME reportItemName,
+		 RESULT_DATE_TIME resultDateTime,UPPER_LIMIT upperLimit,LOWER_LIMIT lowerLimit,
+		 EXAMINAIM examinaim ,UNITS units,RESULT result, sampleno||rownum  rownums
+		 from zjyy_sd.V_HEMS_JYJG
+			<where>
+				REPORT_ITEM_NAME is not null
+				<include refid="query_VHemsJyjg_where" />
+			</where>
+			<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	
+	<select id="findvhemsjyjginfocount" parameterType="activetech.external.pojo.dto.VHemsJyjgQueryDto"
+					 resultType="int">
+		select count(*) from zjyy_sd.V_HEMS_JYJG
+		<where>
+			REPORT_ITEM_NAME is not null
+			<include refid="query_VHemsJyjg_where" />
+		</where>
+	</select>
+	
+	<select id="findvhemsjyjginfoListqfy" parameterType="activetech.external.pojo.dto.VHemsJyjgQueryDto"
+		resultMap="VHemsJyjgCustomMap">
+		 select MPI patientId,
+		 NAME name,
+		 SAMPLENO sampleno,REPORT_ITEM_NAME reportItemName,
+		 RESULT_DATE_TIME resultDateTime,UPPER_LIMIT upperLimit,LOWER_LIMIT lowerLimit,
+		 EXAMINAIM examinaim ,UNITS units,RESULT result , sampleno||rownum  rownums <!-- ,sjys,jyz,shr --> 
+		 from zjyy_sd.V_HEMS_JYJG
+			<where>
+				REPORT_ITEM_NAME is not null
+				<include refid="query_VHemsJyjg_where" />
+			</where>
+	</select>
+	
+	<select id="getJgdbDate" parameterType="java.lang.String" resultType="java.lang.String">
+		select to_char(min(result_date_time),'yyyy-mm-dd hh24:mi:ss')
+		  from v_hems_jyjg
+		 where mpi = (select mpi from hsp_emg_inf where emg_seq = #{emgSeq,jdbcType=VARCHAR})
+		   and seek_medical_times =
+		       (select jzxh from hsp_emg_inf where emg_seq = #{emgSeq,jdbcType=VARCHAR})
+		   and report_item_name = '肌钙蛋白I'
+	</select>
+  		
+</mapper>

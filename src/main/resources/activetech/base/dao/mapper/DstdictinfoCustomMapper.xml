@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.base.dao.mapper.DstdictinfoCustomMapper">
+	<!-- 查询数据字典的总记录数 -->
+	<select id="findDictCount" parameterType="activetech.base.pojo.dto.DstdictinfoQueryDto"
+		 resultType="int">
+		select count(*) from dstdictinfo
+        <where>
+				<if test="dstdictinfoCustom.typecode!=null and dstdictinfoCustom.typecode!=''">
+					typecode =#{dstdictinfoCustom.typecode}
+				</if> 
+				<if test="dstdictinfoCustom.typecode==null or dstdictinfoCustom.typecode==''">
+					typecode = (select typecode
+					                     from dstdicttype a
+					                    where typesort = (select min(typesort)
+					                                        from dstdicttype b
+					                                       where dicttype = 0
+					                                         and rownum = 1)
+					                      and rownum = 1
+					                      and dicttype = 0)
+               </if>
+               and dstdictinfo.isenable != 3
+		</where>
+	</select>
+	<insert id="insert" parameterType="activetech.base.pojo.domain.Dstdictinfo" >
+	   <selectKey resultType="java.lang.String" keyProperty="infocode" order="AFTER">
+                  select dstdictinfo_infocode_SEQ.currval from dual
+        </selectKey>
+    insert into DSTDICTINFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        INFOCODE,
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="typecode != null" >
+        TYPECODE,
+      </if>
+      
+      <if test="info != null" >
+        INFO,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="dictsort != null" >
+        DICTSORT,
+      </if>
+      <if test="isenable != null" >
+        ISENABLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        dstdictinfo_infocode_SEQ.nextval,
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="typecode != null" >
+        #{typecode,jdbcType=VARCHAR},
+      </if>
+    
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="dictsort != null" >
+        #{dictsort,jdbcType=DECIMAL},
+      </if>
+      <if test="isenable != null" >
+        #{isenable,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+	<!-- 查询数据字典列表 -->
+	<select id="findDictList" parameterType="activetech.base.pojo.dto.DstdictinfoQueryDto"
+		resultType="activetech.base.pojo.dto.DstdictinfoCustom">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select id,
+			   typecode,
+               info,
+               infocode,
+               dictsort,
+               (select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=dstdictinfo.isenable) as isenable,
+               remark,
+               (select typename from dstdicttype a where a.typecode=dstdictinfo.typecode) as typename
+        from dstdictinfo 
+        <where>
+				<if test="dstdictinfoCustom.typecode!=null and dstdictinfoCustom.typecode!=''">
+					typecode =#{dstdictinfoCustom.typecode}
+				</if> 
+				<if test="dstdictinfoCustom.typecode==null or dstdictinfoCustom.typecode==''">
+					typecode = (select typecode
+					                     from dstdicttype a
+					                    where typesort = (select min(typesort)
+					                                        from dstdicttype b
+					                                       where dicttype = 0
+					                                         and rownum = 1)
+					                      and rownum = 1
+					                      and dicttype = 0)
+               </if>
+               and dstdictinfo.isenable != 3
+		</where>
+		
+		order by dictsort asc
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	
+	<!-- 查询数据字典列表 -->
+	<select id="findDictListByTypes" 
+		resultType="activetech.base.pojo.dto.DstdictinfoCustom">
+		select id,
+			   typecode,
+               info,
+               infocode,
+               dictsort,
+               (select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=dstdictinfo.isenable) as isenable,
+               remark,
+               (select typename from dstdicttype a where a.typecode=dstdictinfo.typecode) as typename
+        from dstdictinfo 
+       where typecode in
+		<foreach collection="list"  item="types" index="index" open="(" close=")" separator=",">
+		#{types, jdbcType=VARCHAR} 		
+		</foreach>
+		and isenable=&apos;1&apos;
+		order by dictsort asc,infocode
+	</select>
+	
+	<select id="findDictinfoSub"  parameterType="activetech.base.pojo.dto.DstdictinfoQueryDto" 
+		resultType="activetech.base.pojo.dto.DstdictinfoCustom">
+		select id,
+			   typecode,
+               info,
+               infocode,
+               dictsort,
+               (select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=dstdictinfo.isenable) as isenable,
+               remark,
+               (select typename from dstdicttype a where a.typecode=dstdictinfo.typecode) as typename
+        from dstdictinfo 
+        where remark = #{dstdictinfoCustom.remark}
+		and  typecode = #{dstdictinfoCustom.typecode}
+	</select>
+	
+	 	
+	  <select id="findSequences"  parameterType="java.lang.String" resultType="java.lang.String">
+        select lpad(${Sequences}.nextval,${weishu},'0' )from dual
+     </select>
+
+	<!-- 查询数据字典列表 -->
+	<select id="findAllDictinfo" 
+		resultType="activetech.base.pojo.dto.DstdictinfoCustom">
+		select id,
+			   typecode,
+               info,
+               infocode,
+               dictsort,
+               (select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=dstdictinfo.isenable) as isenable,
+               remark,
+               (select typename from dstdicttype a where a.typecode=dstdictinfo.typecode) as typename
+        from dstdictinfo 
+       where isenable='1'
+		order by dictsort asc,infocode
+	</select>
+	
+	<select id="findDictinfoByTypecodeInfocode" parameterType="java.lang.String" resultType="activetech.base.pojo.dto.DstdictinfoCustom">
+		select *
+		  from dstdictinfo
+		 where typecode = #{typecode}
+		   and infocode = #{infocode}
+	</select>
+
+
+</mapper>

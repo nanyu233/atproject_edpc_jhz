@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspHeartRecordCustomMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspHeartRecordCustom">
+    <id column="HEART_SEQ" jdbcType="VARCHAR" property="heartSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="RESCUE_TIME" jdbcType="TIMESTAMP" property="rescueTime" />
+    <result column="SEN_STU_COD" jdbcType="VARCHAR" property="senStuCod" />
+    <result column="PUPIL_LEFT" jdbcType="VARCHAR" property="pupilLeft" />
+    <result column="PUPIL_RIGHT" jdbcType="VARCHAR" property="pupilRight" />
+    <result column="PUPIL_SIZE_LEFT" jdbcType="VARCHAR" property="pupilSizeLeft" />
+    <result column="PUPIL_SIZE_RIGHT" jdbcType="VARCHAR" property="pupilSizeRight" />
+    <result column="HRT_RTE" jdbcType="VARCHAR" property="hrtRte" />
+    <result column="HRT_RHYTHM" jdbcType="VARCHAR" property="hrtRhythm" />
+    <result column="SBP_NBR_FLG" jdbcType="VARCHAR" property="sbpNbrFlg" />
+    <result column="SBP_UP_NBR" jdbcType="VARCHAR" property="sbpUpNbr" />
+    <result column="SBP_DOWN_NBR" jdbcType="VARCHAR" property="sbpDownNbr" />
+    <result column="BRE_NBR_FLG" jdbcType="VARCHAR" property="breNbrFlg" />
+    <result column="BRE_NBR" jdbcType="VARCHAR" property="breNbr" />
+    <result column="XY_FLG" jdbcType="VARCHAR" property="xyFlg" />
+    <result column="XY" jdbcType="VARCHAR" property="xy" />
+    <result column="VENTILATION" jdbcType="VARCHAR" property="ventilation" />
+    <result column="ITCHY_FLOW" jdbcType="VARCHAR" property="itchyFlow" />
+    <result column="INTRAVENOUS_BOLUS_NAM" jdbcType="VARCHAR" property="intravenousBolusNam" />
+    <result column="INTRAVENOUS_BOLUS_DOSE" jdbcType="VARCHAR" property="intravenousBolusDose" />
+    <result column="INTRAVENOUS_DRIP_NAME" jdbcType="VARCHAR" property="intravenousDripName" />
+    <result column="INTRAVENOUS_DRIP_DOSE" jdbcType="VARCHAR" property="intravenousDripDose" />
+    <result column="RESCUE_RECORD" jdbcType="VARCHAR" property="rescueRecord" />
+    <result column="RECORD_TIME" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="RECORD_NAM" jdbcType="VARCHAR" property="recordNam" />
+    <result column="CRT_DAT" jdbcType="TIMESTAMP" property="crtDat" />
+    <result column="CRT_USR" jdbcType="VARCHAR" property="crtUsr" />
+    <result column="CRT_USR_NAM" jdbcType="VARCHAR" property="crtUsrNam" />
+    <result column="MOD_DAT" jdbcType="TIMESTAMP" property="modDat" />
+    <result column="MOD_USR" jdbcType="VARCHAR" property="modUsr" />
+    <result column="MOD_USR_NAM" jdbcType="VARCHAR" property="modUsrNam" />
+    <result column="INTRAVENOUS_BOLUS_OTHER" jdbcType="VARCHAR" property="intravenousBolusOther" />
+    <result column="INTRAVENOUS_DRIP_OTHER" jdbcType="VARCHAR" property="intravenousDripOther" />
+    <result column="SEN_STU_OTHER" jdbcType="VARCHAR" property="senStuOther" />
+    <result column="OXYGEN_TYPE" jdbcType="VARCHAR" property="oxygenType" />
+    <result column="PUPIL_LEFT_OTHER" jdbcType="VARCHAR" property="pupilLeftOther" />
+    <result column="PUPIL_RIGHT_OTHER" jdbcType="VARCHAR" property="pupilRightOther" />
+    <result column="HRT_RHYTHM_OTHER" property="hrtRhythmOther" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="query_HeartRecord_where">
+		<if test="startdate!=null and startdate!=''">
+			and to_char(RESCUE_TIME,'yyyy/MM/dd') <![CDATA[>=]]> to_char(#{startdate},'yyyy/MM/dd')
+		</if>
+		<if test="enddate!=null and enddate!=''">
+			and to_char(RESCUE_TIME,'yyyy/MM/dd')<![CDATA[<=]]> to_char(#{enddate},'yyyy/MM/dd')
+		</if>
+  </sql>
+  
+  <!-- 获取心肺复苏记录单列表总条数 -->
+  <select id="queryHeartRecordListCount" parameterType="activetech.zyyhospital.pojo.dto.HspHeartRecordQueryDto" resultType="int">
+  	select  
+  	count(*)
+  	 from 
+  	 HSP_HEART_RECORD
+  	 where EMG_SEQ = #{hspHeartRecordCustom.emgSeq}
+  	 <include refid="query_HeartRecord_where" />
+  </select>
+  
+  <!-- 获取心肺复苏记录单列表 -->
+  <select id="queryHeartRecordList" parameterType="activetech.zyyhospital.pojo.dto.HspHeartRecordQueryDto" resultType="activetech.zyyhospital.pojo.dto.HspHeartRecordCustom">
+  	<!-- 分页头 -->
+	<include refid="activetech.base.CommonSql.page_start" />
+  	select  
+  	  	HEART_SEQ, 
+  	  	EMG_SEQ, 
+  	  	RESCUE_TIME, 
+  	  	SEN_STU_COD,
+  	  	(select info from dstdictinfo where typecode = 'SEN_RCT' and infocode = SEN_STU_COD) senStuNam, 
+  	  	PUPIL_LEFT, 
+  	  	PUPIL_RIGHT, 
+  	  	PUPIL_SIZE_LEFT, 
+    	PUPIL_SIZE_RIGHT, 
+    	HRT_RTE, 
+    	(select info from dstdictinfo where typecode = 'HRT_RHYTHM' and infocode = HRT_RHYTHM) hrtRhythm, 
+    	SBP_NBR_FLG, 
+    	SBP_UP_NBR, 
+    	SBP_DOWN_NBR, 
+    	SBP_UP_NBR || '/' || SBP_DOWN_NBR sbpNbrStr,
+    	BRE_NBR_FLG,
+    	BRE_NBR, 
+    	XY_FLG, 
+    	XY, 
+    	(select info from dstdictinfo where typecode = 'VENTILATION' and infocode = VENTILATION) ventilation, 
+    	ITCHY_FLOW, 
+    	(select info from dstdictinfo where typecode = 'INTRAVENOUS_BOLUS' and infocode = INTRAVENOUS_BOLUS_NAM) intravenousBolusNam, 
+    	INTRAVENOUS_BOLUS_DOSE, 
+    	(select info from dstdictinfo where typecode = 'INTRAVENOUS_DRIP' and infocode = INTRAVENOUS_DRIP_NAME) intravenousDripName,
+    	INTRAVENOUS_DRIP_DOSE, 
+    	RESCUE_RECORD, 
+    	RECORD_TIME, 
+    	RECORD_NAM, 
+    	CRT_DAT, 
+    	CRT_USR, 
+    	CRT_USR_NAM, 
+    	MOD_DAT, 
+    	MOD_USR, 
+    	MOD_USR_NAM,
+    	OXYGEN_TYPE,
+    	SEN_STU_OTHER,
+    	INTRAVENOUS_BOLUS_OTHER,
+    	INTRAVENOUS_DRIP_OTHER,
+    	PUPIL_LEFT_OTHER,
+    	PUPIL_RIGHT_OTHER,
+    	HRT_RHYTHM_OTHER
+  	 from 
+  	 HSP_HEART_RECORD
+  	 where EMG_SEQ = #{hspHeartRecordCustom.emgSeq}
+  	 <include refid="query_HeartRecord_where" />
+  	 order by RESCUE_TIME
+  	 <!-- 分页尾部 -->
+	<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspHealtheduItemCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.dto.HspHealtheduItemCustom" >
+    <id column="ITEMNO" property="itemno" jdbcType="VARCHAR" />
+    <result column="ITEM_NAM" property="itemNam" jdbcType="VARCHAR" />
+    <result column="PARENTNO" property="parentno" jdbcType="VARCHAR" />
+    <result column="ISENABLE" property="isenable" jdbcType="CHAR" />
+    <result column="SPELLCODE" property="spellcode" jdbcType="VARCHAR" />
+    <result column="VCHAR1" property="vchar1" jdbcType="VARCHAR" />
+    <result column="VCHAR2" property="vchar2" jdbcType="VARCHAR" />
+    <result column="SHOWORDER" property="showorder" jdbcType="DECIMAL" />
+    <result column="parentname" property="parentname" jdbcType="VARCHAR" />
+    <result column="_parentId" property="_parentId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ITEMNO, ITEM_NAM, PARENTNO, ISENABLE, SPELLCODE, VCHAR1, VCHAR2, SHOWORDER
+  </sql>
+  <sql id="Base_Where_List" >
+    <if test="hspHealtheduItemCustom!=null">
+    	<if test="hspHealtheduItemCustom.itemNam!=null and hspHealtheduItemCustom.itemNam!=''">
+    		and (t.itemno =#{hspHealtheduItemCustom.itemNam}
+    			or t.item_nam like '%'|| #{hspHealtheduItemCustom.itemNam} ||'%'
+    			or t.SPELLCODE like '%'|| upper(#{hspHealtheduItemCustom.itemNam}) ||'%'
+    			or t.SPELLCODE like '%'|| lower(#{hspHealtheduItemCustom.itemNam}) ||'%')
+    	</if>
+    </if>
+  </sql>
+  <select id="getItemsListTree" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.dto.HspHealtheduInfQueryDto" >
+    select
+    t.ITEMNO, t.ITEM_NAM, t.PARENTNO, t.SPELLCODE, t.VCHAR1, t.VCHAR2, t.SHOWORDER,
+    (select info from dstdictinfo where typecode='USERSTAT' and dstdictinfo.infocode=t.ISENABLE) ISENABLE,
+    t1.ITEM_NAM as parentname,t.PARENTNO as "_parentId"
+    from HSP_HEALTHEDU_ITEM  t
+		  left join HSP_HEALTHEDU_ITEM t1 on t.PARENTNO = t1.ITEMNO
+		 where t.ISENABLE != '3' 
+		 <include refid="Base_Where_List"/>
+	START WITH t.itemno=#{hspHealtheduItemCustom.itemno} CONNECT BY PRIOR t.itemno=t.parentno
+	order by showorder asc
+  </select>
+  <select id="getTreeLevel" resultType="int" parameterType="String" >
+    select count(itemno) from HSP_HEALTHEDU_ITEM  t
+		 where t.ISENABLE != '3'
+	START WITH t.itemno=#{itemno} CONNECT BY t.itemno= PRIOR t.parentno
+  </select>
+  <select id="findItemByItemNo" resultMap="BaseResultMap" parameterType="String" >
+    select
+    t.ITEMNO, t.ITEM_NAM, t.PARENTNO, t.SPELLCODE, t.VCHAR1, t.VCHAR2, t.SHOWORDER,
+    (select info from dstdictinfo where typecode='USERSTAT' and dstdictinfo.infocode=t.ISENABLE) ISENABLE,
+    t1.ITEM_NAM as parentname,t.PARENTNO as "_parentId"
+    from HSP_HEALTHEDU_ITEM  t left join HSP_HEALTHEDU_ITEM t1 on t.PARENTNO = t1.ITEMNO
+	where 
+	t.ISENABLE != '3' and t.itemno=#{itemno}
+  </select>
+  
+  <!-- 适用于tree四个节点以内的查询 包含最父节点 -->
+  <select id="findItemTreeByItemNam" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.dto.HspHealtheduInfQueryDto" >
+    with p AS (select itemno,parentno from HSP_HEALTHEDU_ITEM  t
+		 where ISENABLE != '3'<include refid="Base_Where_List"/>)
+
+		SELECT
+		 ITEMNO, ITEM_NAM, PARENTNO, SPELLCODE, VCHAR1, VCHAR2, SHOWORDER,
+    	(select info from dstdictinfo where typecode='USERSTAT' and dstdictinfo.infocode=ISENABLE) ISENABLE,
+    	PARENTNO as "_parentId"
+		FROM  HSP_HEALTHEDU_ITEM WHERE  ITEMNO IN (
+		SELECT itemno FROM (
+		   select itemno from p
+	          union all
+	          
+	       select itemno from HSP_HEALTHEDU_ITEM where itemno in(select parentno from p)
+	      	  <!-- union all
+	      
+	       select itemno from HSP_HEALTHEDU_ITEM where itemno in(
+	       select parentno from HSP_HEALTHEDU_ITEM where itemno in(select parentno from p)) -->
+       ) GROUP BY ITEMNO)
+     START WITH parentno=#{hspHealtheduItemCustom.itemno} CONNECT BY PRIOR itemno= parentno 
+     order by showorder
+  </select>
+  
+  <select id="findItemTreeByItemNamAndParentno" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.dto.HspHealtheduItemCustom" >
+		SELECT
+		 ITEMNO, ITEM_NAM, PARENTNO, SPELLCODE, VCHAR1, VCHAR2, SHOWORDER,
+    	(select info from dstdictinfo where typecode='USERSTAT' and dstdictinfo.infocode=ISENABLE) ISENABLE,
+    	PARENTNO as "_parentId"
+		FROM  HSP_HEALTHEDU_ITEM WHERE ISENABLE != '3' and parentno=#{itemno}
+		<if test="itemNam!=null and itemNam!=''">
+		    and item_nam like '%' || #{itemNam} ||'%'
+		</if>
+     order by showorder
+  </select>
+</mapper>

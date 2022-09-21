@@ -1,0 +1,1102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspHljldInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspHljldInf">
+    <id column="BQHI_SEQ" jdbcType="VARCHAR" property="bqhiSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="TMP_NBR" jdbcType="DECIMAL" property="tmpNbr" />
+    <result column="HRT_RTE" jdbcType="DECIMAL" property="hrtRte" />
+    <result column="SBP_UP_NBR" jdbcType="DECIMAL" property="sbpUpNbr" />
+    <result column="SBP_DOWN_NBR" jdbcType="DECIMAL" property="sbpDownNbr" />
+    <result column="BRE_NBR" jdbcType="DECIMAL" property="breNbr" />
+    <result column="XT" jdbcType="DECIMAL" property="xt" />
+    <result column="SEN_RCT_COD" jdbcType="VARCHAR" property="senRctCod" />
+    <result column="JCHL" jdbcType="VARCHAR" property="jchl" />
+    <result column="JCHL_QT" jdbcType="VARCHAR" property="jchlQt" />
+    <result column="HS_USRNO" jdbcType="VARCHAR" property="hsUsrno" />
+    <result column="HS_USRNAME" jdbcType="VARCHAR" property="hsUsrname" />
+    <result column="SJHS_USRNO" jdbcType="VARCHAR" property="sjhsUsrno" />
+    <result column="SJHS_USRNAME" jdbcType="VARCHAR" property="sjhsUsrname" />
+    <result column="CRT_DAT" jdbcType="TIMESTAMP" property="crtDat" />
+    <result column="CRT_NUR" jdbcType="VARCHAR" property="crtNur" />
+    <result column="CRT_NAME" jdbcType="VARCHAR" property="crtName" />
+    <result column="UP_DAT" jdbcType="TIMESTAMP" property="upDat" />
+    <result column="UP_NUR" jdbcType="VARCHAR" property="upNur" />
+    <result column="UP_NAME" jdbcType="VARCHAR" property="upName" />
+    <result column="XY" jdbcType="DECIMAL" property="xy" />
+    <result column="UP_DAT2" jdbcType="TIMESTAMP" property="upDat2" />
+    <result column="UP_NUR2" jdbcType="VARCHAR" property="upNur2" />
+    <result column="UP_NAME2" jdbcType="VARCHAR" property="upName2" />
+    <result column="UP_DAT3" jdbcType="TIMESTAMP" property="upDat3" />
+    <result column="UP_NUR3" jdbcType="VARCHAR" property="upNur3" />
+    <result column="UP_NAME3" jdbcType="VARCHAR" property="upName3" />
+    <result column="TMP_NBR_FLG" jdbcType="VARCHAR" property="tmpNbrFlg" />
+    <result column="BRE_NBR_FLG" jdbcType="VARCHAR" property="breNbrFlg" />
+    <result column="SBP_NBR_FLG" jdbcType="VARCHAR" property="sbpNbrFlg" />
+    <result column="XY_FLG" jdbcType="VARCHAR" property="xyFlg" />
+    <result column="XT_FLG" jdbcType="VARCHAR" property="xtFlg" />
+    <result column="BRADEN_SEQ" jdbcType="VARCHAR" property="bradenSeq" />
+    <result column="ADL_SEQ" jdbcType="VARCHAR" property="adlSeq" />
+    <result column="ZYFXPF_SEQ" jdbcType="VARCHAR" property="zyfxpfSeq" />
+    <result column="DDFXPGB_SEQ" jdbcType="VARCHAR" property="ddfxpgbSeq" />
+    <result column="GCS_SEQ" jdbcType="VARCHAR" property="gcsSeq" />
+    <result column="NRS_SEQ" jdbcType="VARCHAR" property="nrsSeq" />
+    <result column="RSSJ" jdbcType="TIMESTAMP" property="rssj" />
+    <result column="XT_COD" jdbcType="VARCHAR" property="xtCod" />
+    <result column="TK_LEFT" jdbcType="VARCHAR" property="tkLeft" />
+    <result column="TK_LEFT_COD" jdbcType="CHAR" property="tkLeftCod" />
+    <result column="TK_RIGHT" jdbcType="VARCHAR" property="tkRight" />
+    <result column="TK_RIGHT_COD" jdbcType="CHAR" property="tkRightCod" />
+    <result column="TK_LEFT_OTHER" jdbcType="VARCHAR" property="tkLeftOther" />
+    <result column="TK_RIGHT_OTHER" jdbcType="VARCHAR" property="tkRightOther" />
+    <result column="PULSE" jdbcType="DECIMAL" property="pulse" />
+    <result column="CVP" jdbcType="DECIMAL" property="cvp" />
+    <result column="PULSE_FLG" jdbcType="VARCHAR" property="pulseFlg" />
+    <result column="HRT_RTE_FLG" jdbcType="VARCHAR" property="hrtRteFlg" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="activetech.zyyhospital.pojo.domain.HspHljldInfWithBLOBs">
+    <result column="BQGC" jdbcType="CLOB" property="bqgc" />
+    <result column="BQGC_HEX" jdbcType="CLOB" property="bqgcHex" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    BQHI_SEQ, EMG_SEQ, TMP_NBR, HRT_RTE, SBP_UP_NBR, SBP_DOWN_NBR, BRE_NBR, XT, SEN_RCT_COD, 
+    JCHL, JCHL_QT, HS_USRNO, HS_USRNAME, SJHS_USRNO, SJHS_USRNAME, CRT_DAT, CRT_NUR, 
+    CRT_NAME, UP_DAT, UP_NUR, UP_NAME, XY, UP_DAT2, UP_NUR2, UP_NAME2, UP_DAT3, UP_NUR3, 
+    UP_NAME3, TMP_NBR_FLG, BRE_NBR_FLG, SBP_NBR_FLG, XY_FLG, XT_FLG, BRADEN_SEQ, ADL_SEQ, 
+    ZYFXPF_SEQ, DDFXPGB_SEQ, GCS_SEQ, NRS_SEQ, RSSJ, XT_COD, TK_LEFT, TK_LEFT_COD, TK_RIGHT, 
+    TK_RIGHT_COD, TK_LEFT_OTHER, TK_RIGHT_OTHER, PULSE, CVP, PULSE_FLG, HRT_RTE_FLG
+  </sql>
+  <sql id="Blob_Column_List">
+    BQGC, BQGC_HEX
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspHljldInfExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_HLJLD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspHljldInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_HLJLD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_HLJLD_INF
+    where BQHI_SEQ = #{bqhiSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_HLJLD_INF
+    where BQHI_SEQ = #{bqhiSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspHljldInfExample">
+    delete from HSP_HLJLD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspHljldInfWithBLOBs">
+    insert into HSP_HLJLD_INF (BQHI_SEQ, EMG_SEQ, TMP_NBR, 
+      HRT_RTE, SBP_UP_NBR, SBP_DOWN_NBR, 
+      BRE_NBR, XT, SEN_RCT_COD, 
+      JCHL, JCHL_QT, HS_USRNO, 
+      HS_USRNAME, SJHS_USRNO, SJHS_USRNAME, 
+      CRT_DAT, CRT_NUR, CRT_NAME, 
+      UP_DAT, UP_NUR, UP_NAME, 
+      XY, UP_DAT2, UP_NUR2, 
+      UP_NAME2, UP_DAT3, UP_NUR3, 
+      UP_NAME3, TMP_NBR_FLG, BRE_NBR_FLG, 
+      SBP_NBR_FLG, XY_FLG, XT_FLG, 
+      BRADEN_SEQ, ADL_SEQ, ZYFXPF_SEQ, 
+      DDFXPGB_SEQ, GCS_SEQ, NRS_SEQ, 
+      RSSJ, XT_COD, TK_LEFT, 
+      TK_LEFT_COD, TK_RIGHT, TK_RIGHT_COD, 
+      TK_LEFT_OTHER, TK_RIGHT_OTHER, PULSE, 
+      CVP, PULSE_FLG, HRT_RTE_FLG, 
+      BQGC, BQGC_HEX)
+    values (#{bqhiSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{tmpNbr,jdbcType=DECIMAL}, 
+      #{hrtRte,jdbcType=DECIMAL}, #{sbpUpNbr,jdbcType=DECIMAL}, #{sbpDownNbr,jdbcType=DECIMAL}, 
+      #{breNbr,jdbcType=DECIMAL}, #{xt,jdbcType=DECIMAL}, #{senRctCod,jdbcType=VARCHAR}, 
+      #{jchl,jdbcType=VARCHAR}, #{jchlQt,jdbcType=VARCHAR}, #{hsUsrno,jdbcType=VARCHAR}, 
+      #{hsUsrname,jdbcType=VARCHAR}, #{sjhsUsrno,jdbcType=VARCHAR}, #{sjhsUsrname,jdbcType=VARCHAR}, 
+      #{crtDat,jdbcType=TIMESTAMP}, #{crtNur,jdbcType=VARCHAR}, #{crtName,jdbcType=VARCHAR}, 
+      #{upDat,jdbcType=TIMESTAMP}, #{upNur,jdbcType=VARCHAR}, #{upName,jdbcType=VARCHAR}, 
+      #{xy,jdbcType=DECIMAL}, #{upDat2,jdbcType=TIMESTAMP}, #{upNur2,jdbcType=VARCHAR}, 
+      #{upName2,jdbcType=VARCHAR}, #{upDat3,jdbcType=TIMESTAMP}, #{upNur3,jdbcType=VARCHAR}, 
+      #{upName3,jdbcType=VARCHAR}, #{tmpNbrFlg,jdbcType=VARCHAR}, #{breNbrFlg,jdbcType=VARCHAR}, 
+      #{sbpNbrFlg,jdbcType=VARCHAR}, #{xyFlg,jdbcType=VARCHAR}, #{xtFlg,jdbcType=VARCHAR}, 
+      #{bradenSeq,jdbcType=VARCHAR}, #{adlSeq,jdbcType=VARCHAR}, #{zyfxpfSeq,jdbcType=VARCHAR}, 
+      #{ddfxpgbSeq,jdbcType=VARCHAR}, #{gcsSeq,jdbcType=VARCHAR}, #{nrsSeq,jdbcType=VARCHAR}, 
+      #{rssj,jdbcType=TIMESTAMP}, #{xtCod,jdbcType=VARCHAR}, #{tkLeft,jdbcType=VARCHAR}, 
+      #{tkLeftCod,jdbcType=CHAR}, #{tkRight,jdbcType=VARCHAR}, #{tkRightCod,jdbcType=CHAR}, 
+      #{tkLeftOther,jdbcType=VARCHAR}, #{tkRightOther,jdbcType=VARCHAR}, #{pulse,jdbcType=DECIMAL}, 
+      #{cvp,jdbcType=DECIMAL}, #{pulseFlg,jdbcType=VARCHAR}, #{hrtRteFlg,jdbcType=VARCHAR}, 
+      #{bqgc,jdbcType=CLOB}, #{bqgcHex,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspHljldInfWithBLOBs">
+    insert into HSP_HLJLD_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bqhiSeq != null">
+        BQHI_SEQ,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="tmpNbr != null">
+        TMP_NBR,
+      </if>
+      <if test="hrtRte != null">
+        HRT_RTE,
+      </if>
+      <if test="sbpUpNbr != null">
+        SBP_UP_NBR,
+      </if>
+      <if test="sbpDownNbr != null">
+        SBP_DOWN_NBR,
+      </if>
+      <if test="breNbr != null">
+        BRE_NBR,
+      </if>
+      <if test="xt != null">
+        XT,
+      </if>
+      <if test="senRctCod != null">
+        SEN_RCT_COD,
+      </if>
+      <if test="jchl != null">
+        JCHL,
+      </if>
+      <if test="jchlQt != null">
+        JCHL_QT,
+      </if>
+      <if test="hsUsrno != null">
+        HS_USRNO,
+      </if>
+      <if test="hsUsrname != null">
+        HS_USRNAME,
+      </if>
+      <if test="sjhsUsrno != null">
+        SJHS_USRNO,
+      </if>
+      <if test="sjhsUsrname != null">
+        SJHS_USRNAME,
+      </if>
+      <if test="crtDat != null">
+        CRT_DAT,
+      </if>
+      <if test="crtNur != null">
+        CRT_NUR,
+      </if>
+      <if test="crtName != null">
+        CRT_NAME,
+      </if>
+      <if test="upDat != null">
+        UP_DAT,
+      </if>
+      <if test="upNur != null">
+        UP_NUR,
+      </if>
+      <if test="upName != null">
+        UP_NAME,
+      </if>
+      <if test="xy != null">
+        XY,
+      </if>
+      <if test="upDat2 != null">
+        UP_DAT2,
+      </if>
+      <if test="upNur2 != null">
+        UP_NUR2,
+      </if>
+      <if test="upName2 != null">
+        UP_NAME2,
+      </if>
+      <if test="upDat3 != null">
+        UP_DAT3,
+      </if>
+      <if test="upNur3 != null">
+        UP_NUR3,
+      </if>
+      <if test="upName3 != null">
+        UP_NAME3,
+      </if>
+      <if test="tmpNbrFlg != null">
+        TMP_NBR_FLG,
+      </if>
+      <if test="breNbrFlg != null">
+        BRE_NBR_FLG,
+      </if>
+      <if test="sbpNbrFlg != null">
+        SBP_NBR_FLG,
+      </if>
+      <if test="xyFlg != null">
+        XY_FLG,
+      </if>
+      <if test="xtFlg != null">
+        XT_FLG,
+      </if>
+      <if test="bradenSeq != null">
+        BRADEN_SEQ,
+      </if>
+      <if test="adlSeq != null">
+        ADL_SEQ,
+      </if>
+      <if test="zyfxpfSeq != null">
+        ZYFXPF_SEQ,
+      </if>
+      <if test="ddfxpgbSeq != null">
+        DDFXPGB_SEQ,
+      </if>
+      <if test="gcsSeq != null">
+        GCS_SEQ,
+      </if>
+      <if test="nrsSeq != null">
+        NRS_SEQ,
+      </if>
+      <if test="rssj != null">
+        RSSJ,
+      </if>
+      <if test="xtCod != null">
+        XT_COD,
+      </if>
+      <if test="tkLeft != null">
+        TK_LEFT,
+      </if>
+      <if test="tkLeftCod != null">
+        TK_LEFT_COD,
+      </if>
+      <if test="tkRight != null">
+        TK_RIGHT,
+      </if>
+      <if test="tkRightCod != null">
+        TK_RIGHT_COD,
+      </if>
+      <if test="tkLeftOther != null">
+        TK_LEFT_OTHER,
+      </if>
+      <if test="tkRightOther != null">
+        TK_RIGHT_OTHER,
+      </if>
+      <if test="pulse != null">
+        PULSE,
+      </if>
+      <if test="cvp != null">
+        CVP,
+      </if>
+      <if test="pulseFlg != null">
+        PULSE_FLG,
+      </if>
+      <if test="hrtRteFlg != null">
+        HRT_RTE_FLG,
+      </if>
+      <if test="bqgc != null">
+        BQGC,
+      </if>
+      <if test="bqgcHex != null">
+        BQGC_HEX,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bqhiSeq != null">
+        #{bqhiSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpNbr != null">
+        #{tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="hrtRte != null">
+        #{hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpUpNbr != null">
+        #{sbpUpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpDownNbr != null">
+        #{sbpDownNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="breNbr != null">
+        #{breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="xt != null">
+        #{xt,jdbcType=DECIMAL},
+      </if>
+      <if test="senRctCod != null">
+        #{senRctCod,jdbcType=VARCHAR},
+      </if>
+      <if test="jchl != null">
+        #{jchl,jdbcType=VARCHAR},
+      </if>
+      <if test="jchlQt != null">
+        #{jchlQt,jdbcType=VARCHAR},
+      </if>
+      <if test="hsUsrno != null">
+        #{hsUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="hsUsrname != null">
+        #{hsUsrname,jdbcType=VARCHAR},
+      </if>
+      <if test="sjhsUsrno != null">
+        #{sjhsUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="sjhsUsrname != null">
+        #{sjhsUsrname,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDat != null">
+        #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtNur != null">
+        #{crtNur,jdbcType=VARCHAR},
+      </if>
+      <if test="crtName != null">
+        #{crtName,jdbcType=VARCHAR},
+      </if>
+      <if test="upDat != null">
+        #{upDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upNur != null">
+        #{upNur,jdbcType=VARCHAR},
+      </if>
+      <if test="upName != null">
+        #{upName,jdbcType=VARCHAR},
+      </if>
+      <if test="xy != null">
+        #{xy,jdbcType=DECIMAL},
+      </if>
+      <if test="upDat2 != null">
+        #{upDat2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upNur2 != null">
+        #{upNur2,jdbcType=VARCHAR},
+      </if>
+      <if test="upName2 != null">
+        #{upName2,jdbcType=VARCHAR},
+      </if>
+      <if test="upDat3 != null">
+        #{upDat3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upNur3 != null">
+        #{upNur3,jdbcType=VARCHAR},
+      </if>
+      <if test="upName3 != null">
+        #{upName3,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpNbrFlg != null">
+        #{tmpNbrFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="breNbrFlg != null">
+        #{breNbrFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="sbpNbrFlg != null">
+        #{sbpNbrFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xyFlg != null">
+        #{xyFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtFlg != null">
+        #{xtFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenSeq != null">
+        #{bradenSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="adlSeq != null">
+        #{adlSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="zyfxpfSeq != null">
+        #{zyfxpfSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="ddfxpgbSeq != null">
+        #{ddfxpgbSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="gcsSeq != null">
+        #{gcsSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsSeq != null">
+        #{nrsSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="rssj != null">
+        #{rssj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xtCod != null">
+        #{xtCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tkLeft != null">
+        #{tkLeft,jdbcType=VARCHAR},
+      </if>
+      <if test="tkLeftCod != null">
+        #{tkLeftCod,jdbcType=CHAR},
+      </if>
+      <if test="tkRight != null">
+        #{tkRight,jdbcType=VARCHAR},
+      </if>
+      <if test="tkRightCod != null">
+        #{tkRightCod,jdbcType=CHAR},
+      </if>
+      <if test="tkLeftOther != null">
+        #{tkLeftOther,jdbcType=VARCHAR},
+      </if>
+      <if test="tkRightOther != null">
+        #{tkRightOther,jdbcType=VARCHAR},
+      </if>
+      <if test="pulse != null">
+        #{pulse,jdbcType=DECIMAL},
+      </if>
+      <if test="cvp != null">
+        #{cvp,jdbcType=DECIMAL},
+      </if>
+      <if test="pulseFlg != null">
+        #{pulseFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="hrtRteFlg != null">
+        #{hrtRteFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="bqgc != null">
+        #{bqgc,jdbcType=CLOB},
+      </if>
+      <if test="bqgcHex != null">
+        #{bqgcHex,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspHljldInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_HLJLD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_HLJLD_INF
+    <set>
+      <if test="record.bqhiSeq != null">
+        BQHI_SEQ = #{record.bqhiSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tmpNbr != null">
+        TMP_NBR = #{record.tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hrtRte != null">
+        HRT_RTE = #{record.hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sbpUpNbr != null">
+        SBP_UP_NBR = #{record.sbpUpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sbpDownNbr != null">
+        SBP_DOWN_NBR = #{record.sbpDownNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.breNbr != null">
+        BRE_NBR = #{record.breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.xt != null">
+        XT = #{record.xt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.senRctCod != null">
+        SEN_RCT_COD = #{record.senRctCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jchl != null">
+        JCHL = #{record.jchl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jchlQt != null">
+        JCHL_QT = #{record.jchlQt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsUsrno != null">
+        HS_USRNO = #{record.hsUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsUsrname != null">
+        HS_USRNAME = #{record.hsUsrname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sjhsUsrno != null">
+        SJHS_USRNO = #{record.sjhsUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sjhsUsrname != null">
+        SJHS_USRNAME = #{record.sjhsUsrname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtDat != null">
+        CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtNur != null">
+        CRT_NUR = #{record.crtNur,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtName != null">
+        CRT_NAME = #{record.crtName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upDat != null">
+        UP_DAT = #{record.upDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.upNur != null">
+        UP_NUR = #{record.upNur,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upName != null">
+        UP_NAME = #{record.upName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xy != null">
+        XY = #{record.xy,jdbcType=DECIMAL},
+      </if>
+      <if test="record.upDat2 != null">
+        UP_DAT2 = #{record.upDat2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.upNur2 != null">
+        UP_NUR2 = #{record.upNur2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upName2 != null">
+        UP_NAME2 = #{record.upName2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upDat3 != null">
+        UP_DAT3 = #{record.upDat3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.upNur3 != null">
+        UP_NUR3 = #{record.upNur3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upName3 != null">
+        UP_NAME3 = #{record.upName3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tmpNbrFlg != null">
+        TMP_NBR_FLG = #{record.tmpNbrFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.breNbrFlg != null">
+        BRE_NBR_FLG = #{record.breNbrFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbpNbrFlg != null">
+        SBP_NBR_FLG = #{record.sbpNbrFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xyFlg != null">
+        XY_FLG = #{record.xyFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtFlg != null">
+        XT_FLG = #{record.xtFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bradenSeq != null">
+        BRADEN_SEQ = #{record.bradenSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adlSeq != null">
+        ADL_SEQ = #{record.adlSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zyfxpfSeq != null">
+        ZYFXPF_SEQ = #{record.zyfxpfSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ddfxpgbSeq != null">
+        DDFXPGB_SEQ = #{record.ddfxpgbSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gcsSeq != null">
+        GCS_SEQ = #{record.gcsSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nrsSeq != null">
+        NRS_SEQ = #{record.nrsSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rssj != null">
+        RSSJ = #{record.rssj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.xtCod != null">
+        XT_COD = #{record.xtCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tkLeft != null">
+        TK_LEFT = #{record.tkLeft,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tkLeftCod != null">
+        TK_LEFT_COD = #{record.tkLeftCod,jdbcType=CHAR},
+      </if>
+      <if test="record.tkRight != null">
+        TK_RIGHT = #{record.tkRight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tkRightCod != null">
+        TK_RIGHT_COD = #{record.tkRightCod,jdbcType=CHAR},
+      </if>
+      <if test="record.tkLeftOther != null">
+        TK_LEFT_OTHER = #{record.tkLeftOther,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tkRightOther != null">
+        TK_RIGHT_OTHER = #{record.tkRightOther,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pulse != null">
+        PULSE = #{record.pulse,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cvp != null">
+        CVP = #{record.cvp,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pulseFlg != null">
+        PULSE_FLG = #{record.pulseFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hrtRteFlg != null">
+        HRT_RTE_FLG = #{record.hrtRteFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bqgc != null">
+        BQGC = #{record.bqgc,jdbcType=CLOB},
+      </if>
+      <if test="record.bqgcHex != null">
+        BQGC_HEX = #{record.bqgcHex,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update HSP_HLJLD_INF
+    set BQHI_SEQ = #{record.bqhiSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      TMP_NBR = #{record.tmpNbr,jdbcType=DECIMAL},
+      HRT_RTE = #{record.hrtRte,jdbcType=DECIMAL},
+      SBP_UP_NBR = #{record.sbpUpNbr,jdbcType=DECIMAL},
+      SBP_DOWN_NBR = #{record.sbpDownNbr,jdbcType=DECIMAL},
+      BRE_NBR = #{record.breNbr,jdbcType=DECIMAL},
+      XT = #{record.xt,jdbcType=DECIMAL},
+      SEN_RCT_COD = #{record.senRctCod,jdbcType=VARCHAR},
+      JCHL = #{record.jchl,jdbcType=VARCHAR},
+      JCHL_QT = #{record.jchlQt,jdbcType=VARCHAR},
+      HS_USRNO = #{record.hsUsrno,jdbcType=VARCHAR},
+      HS_USRNAME = #{record.hsUsrname,jdbcType=VARCHAR},
+      SJHS_USRNO = #{record.sjhsUsrno,jdbcType=VARCHAR},
+      SJHS_USRNAME = #{record.sjhsUsrname,jdbcType=VARCHAR},
+      CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      CRT_NUR = #{record.crtNur,jdbcType=VARCHAR},
+      CRT_NAME = #{record.crtName,jdbcType=VARCHAR},
+      UP_DAT = #{record.upDat,jdbcType=TIMESTAMP},
+      UP_NUR = #{record.upNur,jdbcType=VARCHAR},
+      UP_NAME = #{record.upName,jdbcType=VARCHAR},
+      XY = #{record.xy,jdbcType=DECIMAL},
+      UP_DAT2 = #{record.upDat2,jdbcType=TIMESTAMP},
+      UP_NUR2 = #{record.upNur2,jdbcType=VARCHAR},
+      UP_NAME2 = #{record.upName2,jdbcType=VARCHAR},
+      UP_DAT3 = #{record.upDat3,jdbcType=TIMESTAMP},
+      UP_NUR3 = #{record.upNur3,jdbcType=VARCHAR},
+      UP_NAME3 = #{record.upName3,jdbcType=VARCHAR},
+      TMP_NBR_FLG = #{record.tmpNbrFlg,jdbcType=VARCHAR},
+      BRE_NBR_FLG = #{record.breNbrFlg,jdbcType=VARCHAR},
+      SBP_NBR_FLG = #{record.sbpNbrFlg,jdbcType=VARCHAR},
+      XY_FLG = #{record.xyFlg,jdbcType=VARCHAR},
+      XT_FLG = #{record.xtFlg,jdbcType=VARCHAR},
+      BRADEN_SEQ = #{record.bradenSeq,jdbcType=VARCHAR},
+      ADL_SEQ = #{record.adlSeq,jdbcType=VARCHAR},
+      ZYFXPF_SEQ = #{record.zyfxpfSeq,jdbcType=VARCHAR},
+      DDFXPGB_SEQ = #{record.ddfxpgbSeq,jdbcType=VARCHAR},
+      GCS_SEQ = #{record.gcsSeq,jdbcType=VARCHAR},
+      NRS_SEQ = #{record.nrsSeq,jdbcType=VARCHAR},
+      RSSJ = #{record.rssj,jdbcType=TIMESTAMP},
+      XT_COD = #{record.xtCod,jdbcType=VARCHAR},
+      TK_LEFT = #{record.tkLeft,jdbcType=VARCHAR},
+      TK_LEFT_COD = #{record.tkLeftCod,jdbcType=CHAR},
+      TK_RIGHT = #{record.tkRight,jdbcType=VARCHAR},
+      TK_RIGHT_COD = #{record.tkRightCod,jdbcType=CHAR},
+      TK_LEFT_OTHER = #{record.tkLeftOther,jdbcType=VARCHAR},
+      TK_RIGHT_OTHER = #{record.tkRightOther,jdbcType=VARCHAR},
+      PULSE = #{record.pulse,jdbcType=DECIMAL},
+      CVP = #{record.cvp,jdbcType=DECIMAL},
+      PULSE_FLG = #{record.pulseFlg,jdbcType=VARCHAR},
+      HRT_RTE_FLG = #{record.hrtRteFlg,jdbcType=VARCHAR},
+      BQGC = #{record.bqgc,jdbcType=CLOB},
+      BQGC_HEX = #{record.bqgcHex,jdbcType=CLOB}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_HLJLD_INF
+    set BQHI_SEQ = #{record.bqhiSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      TMP_NBR = #{record.tmpNbr,jdbcType=DECIMAL},
+      HRT_RTE = #{record.hrtRte,jdbcType=DECIMAL},
+      SBP_UP_NBR = #{record.sbpUpNbr,jdbcType=DECIMAL},
+      SBP_DOWN_NBR = #{record.sbpDownNbr,jdbcType=DECIMAL},
+      BRE_NBR = #{record.breNbr,jdbcType=DECIMAL},
+      XT = #{record.xt,jdbcType=DECIMAL},
+      SEN_RCT_COD = #{record.senRctCod,jdbcType=VARCHAR},
+      JCHL = #{record.jchl,jdbcType=VARCHAR},
+      JCHL_QT = #{record.jchlQt,jdbcType=VARCHAR},
+      HS_USRNO = #{record.hsUsrno,jdbcType=VARCHAR},
+      HS_USRNAME = #{record.hsUsrname,jdbcType=VARCHAR},
+      SJHS_USRNO = #{record.sjhsUsrno,jdbcType=VARCHAR},
+      SJHS_USRNAME = #{record.sjhsUsrname,jdbcType=VARCHAR},
+      CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      CRT_NUR = #{record.crtNur,jdbcType=VARCHAR},
+      CRT_NAME = #{record.crtName,jdbcType=VARCHAR},
+      UP_DAT = #{record.upDat,jdbcType=TIMESTAMP},
+      UP_NUR = #{record.upNur,jdbcType=VARCHAR},
+      UP_NAME = #{record.upName,jdbcType=VARCHAR},
+      XY = #{record.xy,jdbcType=DECIMAL},
+      UP_DAT2 = #{record.upDat2,jdbcType=TIMESTAMP},
+      UP_NUR2 = #{record.upNur2,jdbcType=VARCHAR},
+      UP_NAME2 = #{record.upName2,jdbcType=VARCHAR},
+      UP_DAT3 = #{record.upDat3,jdbcType=TIMESTAMP},
+      UP_NUR3 = #{record.upNur3,jdbcType=VARCHAR},
+      UP_NAME3 = #{record.upName3,jdbcType=VARCHAR},
+      TMP_NBR_FLG = #{record.tmpNbrFlg,jdbcType=VARCHAR},
+      BRE_NBR_FLG = #{record.breNbrFlg,jdbcType=VARCHAR},
+      SBP_NBR_FLG = #{record.sbpNbrFlg,jdbcType=VARCHAR},
+      XY_FLG = #{record.xyFlg,jdbcType=VARCHAR},
+      XT_FLG = #{record.xtFlg,jdbcType=VARCHAR},
+      BRADEN_SEQ = #{record.bradenSeq,jdbcType=VARCHAR},
+      ADL_SEQ = #{record.adlSeq,jdbcType=VARCHAR},
+      ZYFXPF_SEQ = #{record.zyfxpfSeq,jdbcType=VARCHAR},
+      DDFXPGB_SEQ = #{record.ddfxpgbSeq,jdbcType=VARCHAR},
+      GCS_SEQ = #{record.gcsSeq,jdbcType=VARCHAR},
+      NRS_SEQ = #{record.nrsSeq,jdbcType=VARCHAR},
+      RSSJ = #{record.rssj,jdbcType=TIMESTAMP},
+      XT_COD = #{record.xtCod,jdbcType=VARCHAR},
+      TK_LEFT = #{record.tkLeft,jdbcType=VARCHAR},
+      TK_LEFT_COD = #{record.tkLeftCod,jdbcType=CHAR},
+      TK_RIGHT = #{record.tkRight,jdbcType=VARCHAR},
+      TK_RIGHT_COD = #{record.tkRightCod,jdbcType=CHAR},
+      TK_LEFT_OTHER = #{record.tkLeftOther,jdbcType=VARCHAR},
+      TK_RIGHT_OTHER = #{record.tkRightOther,jdbcType=VARCHAR},
+      PULSE = #{record.pulse,jdbcType=DECIMAL},
+      CVP = #{record.cvp,jdbcType=DECIMAL},
+      PULSE_FLG = #{record.pulseFlg,jdbcType=VARCHAR},
+      HRT_RTE_FLG = #{record.hrtRteFlg,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspHljldInfWithBLOBs">
+    update HSP_HLJLD_INF
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpNbr != null">
+        TMP_NBR = #{tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="hrtRte != null">
+        HRT_RTE = #{hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpUpNbr != null">
+        SBP_UP_NBR = #{sbpUpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpDownNbr != null">
+        SBP_DOWN_NBR = #{sbpDownNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="breNbr != null">
+        BRE_NBR = #{breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="xt != null">
+        XT = #{xt,jdbcType=DECIMAL},
+      </if>
+      <if test="senRctCod != null">
+        SEN_RCT_COD = #{senRctCod,jdbcType=VARCHAR},
+      </if>
+      <if test="jchl != null">
+        JCHL = #{jchl,jdbcType=VARCHAR},
+      </if>
+      <if test="jchlQt != null">
+        JCHL_QT = #{jchlQt,jdbcType=VARCHAR},
+      </if>
+      <if test="hsUsrno != null">
+        HS_USRNO = #{hsUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="hsUsrname != null">
+        HS_USRNAME = #{hsUsrname,jdbcType=VARCHAR},
+      </if>
+      <if test="sjhsUsrno != null">
+        SJHS_USRNO = #{sjhsUsrno,jdbcType=VARCHAR},
+      </if>
+      <if test="sjhsUsrname != null">
+        SJHS_USRNAME = #{sjhsUsrname,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDat != null">
+        CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtNur != null">
+        CRT_NUR = #{crtNur,jdbcType=VARCHAR},
+      </if>
+      <if test="crtName != null">
+        CRT_NAME = #{crtName,jdbcType=VARCHAR},
+      </if>
+      <if test="upDat != null">
+        UP_DAT = #{upDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upNur != null">
+        UP_NUR = #{upNur,jdbcType=VARCHAR},
+      </if>
+      <if test="upName != null">
+        UP_NAME = #{upName,jdbcType=VARCHAR},
+      </if>
+      <if test="xy != null">
+        XY = #{xy,jdbcType=DECIMAL},
+      </if>
+      <if test="upDat2 != null">
+        UP_DAT2 = #{upDat2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upNur2 != null">
+        UP_NUR2 = #{upNur2,jdbcType=VARCHAR},
+      </if>
+      <if test="upName2 != null">
+        UP_NAME2 = #{upName2,jdbcType=VARCHAR},
+      </if>
+      <if test="upDat3 != null">
+        UP_DAT3 = #{upDat3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upNur3 != null">
+        UP_NUR3 = #{upNur3,jdbcType=VARCHAR},
+      </if>
+      <if test="upName3 != null">
+        UP_NAME3 = #{upName3,jdbcType=VARCHAR},
+      </if>
+      <if test="tmpNbrFlg != null">
+        TMP_NBR_FLG = #{tmpNbrFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="breNbrFlg != null">
+        BRE_NBR_FLG = #{breNbrFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="sbpNbrFlg != null">
+        SBP_NBR_FLG = #{sbpNbrFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xyFlg != null">
+        XY_FLG = #{xyFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="xtFlg != null">
+        XT_FLG = #{xtFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenSeq != null">
+        BRADEN_SEQ = #{bradenSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="adlSeq != null">
+        ADL_SEQ = #{adlSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="zyfxpfSeq != null">
+        ZYFXPF_SEQ = #{zyfxpfSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="ddfxpgbSeq != null">
+        DDFXPGB_SEQ = #{ddfxpgbSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="gcsSeq != null">
+        GCS_SEQ = #{gcsSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="nrsSeq != null">
+        NRS_SEQ = #{nrsSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="rssj != null">
+        RSSJ = #{rssj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xtCod != null">
+        XT_COD = #{xtCod,jdbcType=VARCHAR},
+      </if>
+      <if test="tkLeft != null">
+        TK_LEFT = #{tkLeft,jdbcType=VARCHAR},
+      </if>
+      <if test="tkLeftCod != null">
+        TK_LEFT_COD = #{tkLeftCod,jdbcType=CHAR},
+      </if>
+      <if test="tkRight != null">
+        TK_RIGHT = #{tkRight,jdbcType=VARCHAR},
+      </if>
+      <if test="tkRightCod != null">
+        TK_RIGHT_COD = #{tkRightCod,jdbcType=CHAR},
+      </if>
+      <if test="tkLeftOther != null">
+        TK_LEFT_OTHER = #{tkLeftOther,jdbcType=VARCHAR},
+      </if>
+      <if test="tkRightOther != null">
+        TK_RIGHT_OTHER = #{tkRightOther,jdbcType=VARCHAR},
+      </if>
+      <if test="pulse != null">
+        PULSE = #{pulse,jdbcType=DECIMAL},
+      </if>
+      <if test="cvp != null">
+        CVP = #{cvp,jdbcType=DECIMAL},
+      </if>
+      <if test="pulseFlg != null">
+        PULSE_FLG = #{pulseFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="hrtRteFlg != null">
+        HRT_RTE_FLG = #{hrtRteFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="bqgc != null">
+        BQGC = #{bqgc,jdbcType=CLOB},
+      </if>
+      <if test="bqgcHex != null">
+        BQGC_HEX = #{bqgcHex,jdbcType=CLOB},
+      </if>
+    </set>
+    where BQHI_SEQ = #{bqhiSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspHljldInfWithBLOBs">
+    update HSP_HLJLD_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      TMP_NBR = #{tmpNbr,jdbcType=DECIMAL},
+      HRT_RTE = #{hrtRte,jdbcType=DECIMAL},
+      SBP_UP_NBR = #{sbpUpNbr,jdbcType=DECIMAL},
+      SBP_DOWN_NBR = #{sbpDownNbr,jdbcType=DECIMAL},
+      BRE_NBR = #{breNbr,jdbcType=DECIMAL},
+      XT = #{xt,jdbcType=DECIMAL},
+      SEN_RCT_COD = #{senRctCod,jdbcType=VARCHAR},
+      JCHL = #{jchl,jdbcType=VARCHAR},
+      JCHL_QT = #{jchlQt,jdbcType=VARCHAR},
+      HS_USRNO = #{hsUsrno,jdbcType=VARCHAR},
+      HS_USRNAME = #{hsUsrname,jdbcType=VARCHAR},
+      SJHS_USRNO = #{sjhsUsrno,jdbcType=VARCHAR},
+      SJHS_USRNAME = #{sjhsUsrname,jdbcType=VARCHAR},
+      CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      CRT_NUR = #{crtNur,jdbcType=VARCHAR},
+      CRT_NAME = #{crtName,jdbcType=VARCHAR},
+      UP_DAT = #{upDat,jdbcType=TIMESTAMP},
+      UP_NUR = #{upNur,jdbcType=VARCHAR},
+      UP_NAME = #{upName,jdbcType=VARCHAR},
+      XY = #{xy,jdbcType=DECIMAL},
+      UP_DAT2 = #{upDat2,jdbcType=TIMESTAMP},
+      UP_NUR2 = #{upNur2,jdbcType=VARCHAR},
+      UP_NAME2 = #{upName2,jdbcType=VARCHAR},
+      UP_DAT3 = #{upDat3,jdbcType=TIMESTAMP},
+      UP_NUR3 = #{upNur3,jdbcType=VARCHAR},
+      UP_NAME3 = #{upName3,jdbcType=VARCHAR},
+      TMP_NBR_FLG = #{tmpNbrFlg,jdbcType=VARCHAR},
+      BRE_NBR_FLG = #{breNbrFlg,jdbcType=VARCHAR},
+      SBP_NBR_FLG = #{sbpNbrFlg,jdbcType=VARCHAR},
+      XY_FLG = #{xyFlg,jdbcType=VARCHAR},
+      XT_FLG = #{xtFlg,jdbcType=VARCHAR},
+      BRADEN_SEQ = #{bradenSeq,jdbcType=VARCHAR},
+      ADL_SEQ = #{adlSeq,jdbcType=VARCHAR},
+      ZYFXPF_SEQ = #{zyfxpfSeq,jdbcType=VARCHAR},
+      DDFXPGB_SEQ = #{ddfxpgbSeq,jdbcType=VARCHAR},
+      GCS_SEQ = #{gcsSeq,jdbcType=VARCHAR},
+      NRS_SEQ = #{nrsSeq,jdbcType=VARCHAR},
+      RSSJ = #{rssj,jdbcType=TIMESTAMP},
+      XT_COD = #{xtCod,jdbcType=VARCHAR},
+      TK_LEFT = #{tkLeft,jdbcType=VARCHAR},
+      TK_LEFT_COD = #{tkLeftCod,jdbcType=CHAR},
+      TK_RIGHT = #{tkRight,jdbcType=VARCHAR},
+      TK_RIGHT_COD = #{tkRightCod,jdbcType=CHAR},
+      TK_LEFT_OTHER = #{tkLeftOther,jdbcType=VARCHAR},
+      TK_RIGHT_OTHER = #{tkRightOther,jdbcType=VARCHAR},
+      PULSE = #{pulse,jdbcType=DECIMAL},
+      CVP = #{cvp,jdbcType=DECIMAL},
+      PULSE_FLG = #{pulseFlg,jdbcType=VARCHAR},
+      HRT_RTE_FLG = #{hrtRteFlg,jdbcType=VARCHAR},
+      BQGC = #{bqgc,jdbcType=CLOB},
+      BQGC_HEX = #{bqgcHex,jdbcType=CLOB}
+    where BQHI_SEQ = #{bqhiSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspHljldInf">
+    update HSP_HLJLD_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      TMP_NBR = #{tmpNbr,jdbcType=DECIMAL},
+      HRT_RTE = #{hrtRte,jdbcType=DECIMAL},
+      SBP_UP_NBR = #{sbpUpNbr,jdbcType=DECIMAL},
+      SBP_DOWN_NBR = #{sbpDownNbr,jdbcType=DECIMAL},
+      BRE_NBR = #{breNbr,jdbcType=DECIMAL},
+      XT = #{xt,jdbcType=DECIMAL},
+      SEN_RCT_COD = #{senRctCod,jdbcType=VARCHAR},
+      JCHL = #{jchl,jdbcType=VARCHAR},
+      JCHL_QT = #{jchlQt,jdbcType=VARCHAR},
+      HS_USRNO = #{hsUsrno,jdbcType=VARCHAR},
+      HS_USRNAME = #{hsUsrname,jdbcType=VARCHAR},
+      SJHS_USRNO = #{sjhsUsrno,jdbcType=VARCHAR},
+      SJHS_USRNAME = #{sjhsUsrname,jdbcType=VARCHAR},
+      CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      CRT_NUR = #{crtNur,jdbcType=VARCHAR},
+      CRT_NAME = #{crtName,jdbcType=VARCHAR},
+      UP_DAT = #{upDat,jdbcType=TIMESTAMP},
+      UP_NUR = #{upNur,jdbcType=VARCHAR},
+      UP_NAME = #{upName,jdbcType=VARCHAR},
+      XY = #{xy,jdbcType=DECIMAL},
+      UP_DAT2 = #{upDat2,jdbcType=TIMESTAMP},
+      UP_NUR2 = #{upNur2,jdbcType=VARCHAR},
+      UP_NAME2 = #{upName2,jdbcType=VARCHAR},
+      UP_DAT3 = #{upDat3,jdbcType=TIMESTAMP},
+      UP_NUR3 = #{upNur3,jdbcType=VARCHAR},
+      UP_NAME3 = #{upName3,jdbcType=VARCHAR},
+      TMP_NBR_FLG = #{tmpNbrFlg,jdbcType=VARCHAR},
+      BRE_NBR_FLG = #{breNbrFlg,jdbcType=VARCHAR},
+      SBP_NBR_FLG = #{sbpNbrFlg,jdbcType=VARCHAR},
+      XY_FLG = #{xyFlg,jdbcType=VARCHAR},
+      XT_FLG = #{xtFlg,jdbcType=VARCHAR},
+      BRADEN_SEQ = #{bradenSeq,jdbcType=VARCHAR},
+      ADL_SEQ = #{adlSeq,jdbcType=VARCHAR},
+      ZYFXPF_SEQ = #{zyfxpfSeq,jdbcType=VARCHAR},
+      DDFXPGB_SEQ = #{ddfxpgbSeq,jdbcType=VARCHAR},
+      GCS_SEQ = #{gcsSeq,jdbcType=VARCHAR},
+      NRS_SEQ = #{nrsSeq,jdbcType=VARCHAR},
+      RSSJ = #{rssj,jdbcType=TIMESTAMP},
+      XT_COD = #{xtCod,jdbcType=VARCHAR},
+      TK_LEFT = #{tkLeft,jdbcType=VARCHAR},
+      TK_LEFT_COD = #{tkLeftCod,jdbcType=CHAR},
+      TK_RIGHT = #{tkRight,jdbcType=VARCHAR},
+      TK_RIGHT_COD = #{tkRightCod,jdbcType=CHAR},
+      TK_LEFT_OTHER = #{tkLeftOther,jdbcType=VARCHAR},
+      TK_RIGHT_OTHER = #{tkRightOther,jdbcType=VARCHAR},
+      PULSE = #{pulse,jdbcType=DECIMAL},
+      CVP = #{cvp,jdbcType=DECIMAL},
+      PULSE_FLG = #{pulseFlg,jdbcType=VARCHAR},
+      HRT_RTE_FLG = #{hrtRteFlg,jdbcType=VARCHAR}
+    where BQHI_SEQ = #{bqhiSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

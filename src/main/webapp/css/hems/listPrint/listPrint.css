@@ -1,0 +1,209 @@
+.list-content {
+  margin: 0 auto;
+  overflow: auto;
+  margin-top: 4px;
+}
+.div-wrap {
+  float: left;
+  width: 272px;
+  height: 168px;
+  /* min-height: 330px; */
+}
+.div-wrap.active {
+  background: #74b5de;
+}
+.print-wrap {
+  width: 260px;
+  float: left;
+  position: relative;
+  margin: 6px;
+  padding: 2px;
+  padding-bottom: 0px;
+  border: 1px solid #000;
+  cursor: pointer;
+  box-sizing: border-box;
+  background: #fff;
+}
+.print-wrap.isAlreadyPrint {
+  background: #ccc;
+}
+.print-wrap.active {
+  background: #dfedf6;
+}
+.print-content {
+  position: relative;
+}
+.border-line {
+  border-bottom: 1px solid #000;
+}
+.right-time {
+  float: right;
+  margin-right: 2px;
+  display: inline-block;
+}
+.small-title {
+  float: right;
+  display: inline-block;
+  width: 18%;
+}
+.right-gap {
+  margin-right: 3px;
+}
+.right-gap-small {
+  margin-right: 3px;
+}
+.print-wrap ul {
+  float: left;
+  list-style: none;
+  width: 100%;
+}
+.main-wrap {
+  width: 100%;
+  float: left;
+  height: 54px;
+}
+.drug-wrap {
+  width: 100%;
+  float: left;
+  height: 17px;
+}
+ul li {
+  line-height: 13px;
+  height: 13px;
+  padding: 0;
+  margin: 0;
+}
+ul li.eightLi {
+  float: left;
+  width: 80%;
+}
+ul li.twoLi {
+  float: left;
+  width: 20%;
+}
+.bottom-line {
+  float: left;
+  width: 100%;
+  height: 42px;
+  padding-top: 1px;
+  border-top: 1px solid #000;
+}
+.bottom-line .heavy-font {
+  font-weight: bolder;
+  line-height: 38px;
+  font-size: 14px;
+}
+.bottom-line .small-font {
+  font-weight: bolder;
+  line-height: 20px;
+  font-size: 14px;
+}
+.bottom-line span {
+  float: left;
+  display: inline-block;
+  width: 33%;
+  text-align: center;
+}
+.bottom-line span.long-span {
+  width: 40%;
+}
+.bottom-line .qrCode {
+  float: right;
+  width: 42px;
+}
+.center-btn {
+  float: right;
+  width: 100%;
+  margin: 0 0 7px 0;
+  text-align: center;
+}
+
+.innerLeft, .innerRight {
+  display: inline-block;
+  position: absolute;
+  border-left: 1px solid red;
+  width: 0;
+  height: 301px;
+  z-index: 999;
+  top: -76px;
+  left: 130px;
+}
+.innerLeft {
+  transform: rotate(60deg);
+  -ms-transform: rotate(60deg);
+  -moz-transform: rotate(60deg);
+  -webkit-transform: rotate(60deg);
+  -o-transform: rotate(60deg);
+}
+.innerRight {
+  transform: rotate(-60deg);
+  -ms-transform: rotate(-60deg);
+  -moz-transform: rotate(-60deg);
+  -webkit-transform: rotate(-60deg);
+  -o-transform: rotate(-60deg);
+}
+.innerText {
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+  color: red;
+  font-size: 26px;
+  text-align: center;
+  line-height: 140px;
+  display: inline-block;
+}
+.rightMenu {
+  position: fixed;
+  left:0;
+  top:0;
+  width:125px;
+  padding: 0;
+  margin: 0;
+  display: none;
+  box-sizing: border-box;
+  background: #fff;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, .08);
+  z-index: 999999;
+}
+.rightMenu li{
+  list-style: none;
+  width: 125px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  color: #3275c1;
+  box-sizing: border-box;
+}
+.rightMenu li:hover{
+  cursor: pointer;
+  color: #000;
+  background: #e0ecff;
+}
+.disabledBtn {
+  background: #ececec !important;
+}
+.riskFlg {
+  font-style: italic;
+  margin-right: 3px;
+  font-weight: bold;
+}
+.time-span {
+  min-width: 60%;
+  display: inline-block;
+}
+
+.bottom-line .qrCodeSpan, .bottom-line .qrCodeSpan img, .bottom-line .qrCodeSpan canvas {
+  height: 100%;
+  width: 100%;
+}
+
+/* 条形码 */
+/* .bottom-line span {
+  width: 20%;
+}
+.bottom-line span.long-span {
+  width: 35%;
+}
+.bottom-line .qrCode {
+  width: 45%;
+} */

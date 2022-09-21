@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspConsultationRecordsCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom" >
+    <id column="CONSULTATION_RECORDS_SEQ" property="consultationRecordsSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ_CR" property="emgSeqCr" jdbcType="VARCHAR" />
+    <result column="APPLY_CREATE_DATE" property="applyCreateDate" jdbcType="TIMESTAMP" />
+    <result column="INVITATION_DATE" property="invitationDate" jdbcType="TIMESTAMP" />
+    <result column="INVITATION_DOC_COD" property="invitationDocCod" jdbcType="VARCHAR" />
+    <result column="INVITATION_DOC_NME" property="invitationDocNme" jdbcType="VARCHAR" />
+    <result column="INVITATION_DEP" property="invitationDep" jdbcType="VARCHAR" />
+    <result column="APPLY_DOC" property="applyDoc" jdbcType="VARCHAR" />
+    <result column="ILLNESS_STATE" property="illnessState" jdbcType="VARCHAR" />
+    <result column="OBJECTIVE" property="objective" jdbcType="VARCHAR" />
+    <result column="REPLY_CONTENT" property="replyContent" jdbcType="VARCHAR" />
+    <result column="CONSULTATION_DATE" property="consultationDate" jdbcType="TIMESTAMP" />
+    <result column="REPLY_DEP" property="replyDep" jdbcType="VARCHAR" />
+    <result column="REPLY_DOC" property="replyDoc" jdbcType="VARCHAR" />
+    <result column="REPLY_CREATE_DATE" property="replyCreateDate" jdbcType="TIMESTAMP" />
+    <result column="APPLY_UPDATE_DOC" property="applyUpdateDoc" jdbcType="VARCHAR" />
+    <result column="APPLY_UPDATE_DATE" property="applyUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="REPLY_UPDATE_DOC" property="replyUpdateDoc" jdbcType="VARCHAR" />
+    <result column="REPLY_UPDATE_DATE" property="replyUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="CONSULTATION_OPINION" property="consultationOpinion" jdbcType="CLOB" />
+    <result column="applyCreateDateStr" property="applyCreateDateStr" jdbcType="VARCHAR" />
+    <result column="invitationDateStr" property="invitationDateStr" jdbcType="VARCHAR" />
+    <result column="consultationDateStr" property="consultationDateStr" jdbcType="VARCHAR" />
+    <result column="replyCreateDateStr" property="replyCreateDateStr" jdbcType="VARCHAR" />
+    <result column="applyUpdateDateStr" property="applyUpdateDateStr" jdbcType="VARCHAR" />
+    <result column="replyUpdateDateStr" property="replyUpdateDateStr" jdbcType="VARCHAR" />
+    <result column="invitationDocName" property="invitationDocName" jdbcType="VARCHAR" />
+    <result column="applyDocName" property="applyDocName" jdbcType="VARCHAR" />
+    <result column="replyDocName" property="replyDocName" jdbcType="VARCHAR" />
+    <result column="applyUpdateDocName" property="applyUpdateDocName" jdbcType="VARCHAR" />
+    <result column="replyUpdateDocName" property="replyUpdateDocName" jdbcType="VARCHAR" />
+    <result column="invitationDepStr" property="invitationDepStr" jdbcType="VARCHAR" />
+    <result column="applyDepStr" property="applyDepStr" jdbcType="VARCHAR" />
+    <result column="replyDepStr" property="replyDepStr" jdbcType="VARCHAR" />
+    <result column="cstNam" property="cstNam" jdbcType="VARCHAR" />
+    <result column="cstSexCod" property="cstSexCod" jdbcType="VARCHAR" />
+    <result column="vstCad" property="vstCad" jdbcType="VARCHAR" />
+    <result column="APPLY_DOC_NAME" jdbcType="VARCHAR" property="applyDocName" />
+    <result column="REPLY_DOC_NAME" jdbcType="VARCHAR" property="replyDocName" />
+    <result column="QDHS_NAME" property="qdhsName" jdbcType="VARCHAR" />
+    <result column="QDHS_DATE" property="qdhsDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="query_consultation_where">
+		<if test="hspConsultationRecordsCustom != null">
+		    and 1=1
+			<if test="hspConsultationRecordsCustom.emgSeqCr !=null and hspConsultationRecordsCustom.emgSeqCr !=''">
+				and EMG_SEQ_CR = #{hspConsultationRecordsCustom.emgSeqCr}
+			</if>
+			<if test="hspConsultationRecordsCustom.cstNam !=null and hspConsultationRecordsCustom.cstNam !=''">
+				and emg.cst_nam = #{hspConsultationRecordsCustom.cstNam}
+			</if>
+			<if test="hspConsultationRecordsCustom.qdFlg == 0 ">
+				and CONSULTATION_DATE is null
+			</if>
+			<if test="hspConsultationRecordsCustom.qdFlg == 1 ">
+				and CONSULTATION_DATE is not null
+			</if>
+		</if>
+		<if test="recordFlag==null or recordFlag!='hzdj'">
+			<if test="startdate != null">
+				and REPLY_CREATE_DATE <![CDATA[>=]]> #{startdate}
+			</if>
+			<if test="enddate != null">
+				and REPLY_CREATE_DATE <![CDATA[< ]]> #{enddate}
+			</if>
+		</if>
+		<if test="recordFlag!=null and recordFlag=='hzdj'">
+			<if test="hspConsultationRecordsCustom != null">
+				<if test="hspConsultationRecordsCustom.invitationDepStr != null and hspConsultationRecordsCustom.invitationDepStr != ''">
+					and invitation_Dep like'%'|| #{hspConsultationRecordsCustom.invitationDepStr} ||'%'
+				</if>
+				<if test="hspConsultationRecordsCustom.replyDocName != null and hspConsultationRecordsCustom.replyDocName != ''">
+					and replyDocName like'%'|| #{hspConsultationRecordsCustom.replyDocName} ||'%'
+				</if>
+			</if>
+			<if test="querytype!=null">
+				<if test="querytype=='day'">
+					and to_char(INVITATION_DATE,'yyyy/MM/dd') =to_char(#{startdate},'yyyy/MM/dd')
+				</if>
+				<if test="querytype=='month'">
+					and to_char(INVITATION_DATE,'yyyy/MM') = to_char(#{startdate},'yyyy/MM')
+				</if>
+				<if test="querytype=='range'">
+					<if test="startdate != null">
+						and to_char(INVITATION_DATE,'yyyy/MM/dd') <![CDATA[>=]]> to_char(#{startdate},'yyyy/MM/dd')
+					</if>
+					<if test="enddate != null">
+						and to_char(INVITATION_DATE,'yyyy/MM/dd') <![CDATA[<=]]> to_char(#{enddate},'yyyy/MM/dd')
+					</if>
+				</if>
+			</if>
+			<if test="pageName != null and pageName == 'hzmxlb'">
+				and INVITATION_DATE is not null and CONSULTATION_DATE is not null
+			</if>
+		</if>
+	</sql>
+  
+  <select id="findHspConsultationRecordsList" resultMap="BaseResultMap" 
+  	parameterType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto">
+  	<!-- 分页头 -->
+	<include refid="activetech.base.CommonSql.page_start" />
+  	select * from (select
+  		consultation.CONSULTATION_RECORDS_SEQ,
+		consultation.EMG_SEQ_CR,emg.cst_nam cstNam,case when emg.CST_SEX_COD='0' then '男' else '女' end cstSexCod,emg.vst_cad vstCad,consultation.INVITATION_DATE,
+		to_char(consultation.INVITATION_DATE,'yyyy/MM/dd HH24:mi:ss') invitationDateStr,consultation.INVITATION_DEP,
+		consultation.APPLY_DOC,
+		(select COMCNAME from DSTCOMPCTL dcompctl where dcompctl.COMNO = 
+			(select sysid from dstuser duser where duser.USRNO = consultation.APPLY_DOC) ) applyDepStr,
+		(select COMCNAME from DSTCOMPCTL dcompctl where dcompctl.COMNO = consultation.REPLY_DEP) replyDepStr,
+		APPLY_DOC_NAME,
+		REPLY_DEP,
+		REPLY_DOC_NAME,
+		INVITATION_DOC_NME,
+		consultation.ILLNESS_STATE,
+		consultation.OBJECTIVE,
+		consultation.REPLY_CONTENT,
+		consultation.APPLY_DOC_NAME applyDocName,
+		to_char(consultation.CONSULTATION_DATE,'yyyy/MM/dd HH24:mi:ss') consultationDateStr,
+		to_char(consultation.REPLY_CREATE_DATE,'yyyy/MM/dd HH24:mi:ss') replyCreateDateStr,
+		consultation.CONSULTATION_OPINION,
+		consultation.REPLY_DOC_NAME replyDocName,
+		(select USRNAME from DSTUSER duser where duser.USRNO = consultation.APPLY_UPDATE_DOC) applyUpdateDocName,
+		emg.OBSERVATION_CODE,
+		consultation.CONSULTATION_DATE,
+		consultation.REPLY_CREATE_DATE,
+		consultation.QDHS_NAME,
+		consultation.QDHS_DATE,
+		emg.mpi
+	from HSP_CONSULTATION_RECORDS consultation,hsp_emg_inf emg
+	where consultation.EMG_SEQ_CR(+) = emg.emg_seq)
+	<where>
+		<include refid="query_consultation_where" />
+		<if test="recordFlag!=null and recordFlag=='hzdj'">
+			order by ${sort} ${order}
+		</if>
+		<if test="recordFlag==null or recordFlag==''">
+			order by INVITATION_DATE
+		</if>
+		
+	</where>
+	<include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  
+   <select id="findHspConsultationRecordsTotal" resultType="int"
+  	parameterType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto">
+  	select count(CONSULTATION_RECORDS_SEQ) from (
+	  	select CONSULTATION_RECORDS_SEQ,emg.cst_nam cstNam,INVITATION_DATE,EMG_SEQ_CR,INVITATION_DOC_NME,INVITATION_DEP,
+		REPLY_DOC_NAME replyDocName,
+		CONSULTATION_DATE
+		 from HSP_CONSULTATION_RECORDS,hsp_emg_inf emg
+		 where EMG_SEQ_CR(+) = emg.emg_seq
+	 ) consultation
+	 <where>
+		<include refid="query_consultation_where" />
+	 </where>
+  </select>
+  
+  <select id="findHspConsultationRecords" resultMap="BaseResultMap" 
+  	parameterType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto">
+  	select
+  		consultation.CONSULTATION_RECORDS_SEQ,
+		consultation.EMG_SEQ_CR,
+		consultation.INVITATION_DATE,
+		to_char(consultation.INVITATION_DATE,'yyyy/MM/dd HH24:mi:ss') invitationDateStr,
+		consultation.INVITATION_DOC_COD,
+		INVITATION_DOC_NME,
+		consultation.INVITATION_DEP,
+		consultation.REPLY_DEP,
+		(select COMCNAME from DSTCOMPCTL dcompctl where dcompctl.COMNO = consultation.REPLY_DEP) replyDepStr,
+		consultation.APPLY_DOC,
+		consultation.APPLY_DOC_NAME applyDocName,
+		consultation.ILLNESS_STATE,
+		consultation.OBJECTIVE,
+		consultation.REPLY_CONTENT,
+		consultation.CONSULTATION_DATE,
+		to_char(consultation.CONSULTATION_DATE,'yyyy/MM/dd HH24:mi:ss') consultationDateStr,
+		to_char(consultation.REPLY_CREATE_DATE,'yyyy/MM/dd HH24:mi:ss') replyCreateDateStr,
+		consultation.CONSULTATION_OPINION,
+		consultation.REPLY_DOC,
+		consultation.REPLY_CREATE_DATE,
+		consultation.REPLY_DOC_NAME replyDocName,
+		consultation.QDHS_NAME,
+		consultation.QDHS_DATE,
+		emg.OBSERVATION_CODE
+	from HSP_CONSULTATION_RECORDS consultation,hsp_emg_inf emg
+	where consultation.EMG_SEQ_CR(+) = emg.emg_seq
+	and consultation.CONSULTATION_RECORDS_SEQ = #{hspConsultationRecordsCustom.consultationRecordsSeq}
+  </select>
+  
+  <!-- 急诊科各科室会诊平均时间 -->
+	<select id="findHspConsultationRecordsAvgListByYear" parameterType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto" 
+	resultType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom">
+        <![CDATA[
+        WITH a AS
+        (
+        	SELECT CONSULTATION_DATE-INVITATION_DATE inter,INVITATION_DEP,CONSULTATION_DATE
+	        FROM HSP_CONSULTATION_RECORDS,hsp_emg_inf emg
+		 	where EMG_SEQ_CR(+) = emg.emg_seq
+	        and CONSULTATION_DATE is not null
+	        and INVITATION_DATE is not null
+        )
+        select count(INVITATION_DEP) zgcount,(#{querytype}) querydate,
+        nvl(ceil(sum(trunc(extract(DAY FROM inter)*24*60 + extract(hour FROM inter)*60 +extract(minute FROM inter)+extract(second FROM inter)/60))/count(INVITATION_DEP)),0) avgtime,
+        a.INVITATION_DEP invitationDep
+        from a
+        where inter is not null  and to_char(CONSULTATION_DATE,'yyyy')=#{querytype} group by INVITATION_DEP
+]]>
+	</select>
+	<select id="findHspConsultationRecordsAvgListByHalfyear" parameterType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto" 
+	resultType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom">
+	<![CDATA[
+		select t11.querydate,t11.INVITATION_DEP invitationDep,nvl(t22.avgtime,0) avgtime,nvl(t22.zgcount,0) zgcount
+		from
+		(select querydate,INVITATION_DEP
+		  from
+		  (SELECT case when ((add_months(#{startdate}, 6*(ROWNUM - 1))) < to_date(#{halfdate}||'-07','yyyy-mm')) 
+		             then #{halfdate}||'上半年' else #{halfdate}||'下半年' end querydate FROM DUAL CONNECT BY ROWNUM <=
+		                (SELECT months_between(#{enddate},  #{startdate}) 
+		              FROM dual)/6
+		  ) t1,
+		  (select * from 
+		    (select INVITATION_DEP  
+		    from HSP_CONSULTATION_RECORDS,hsp_emg_inf emg
+		 	where EMG_SEQ_CR(+) = emg.emg_seq
+	        and CONSULTATION_DATE is not null
+	        and INVITATION_DATE is not null
+		    and INVITATION_DATE >= #{startdate}
+		    and INVITATION_DATE < #{enddate}
+		    )
+		  group by INVITATION_DEP
+		  ) t2
+		) t11,
+		(select querydate,count(INVITATION_DEP) zgcount,INVITATION_DEP,
+		nvl(ceil(sum(trunc(extract(DAY FROM inter)*24*60 + extract(hour FROM inter)*60 +extract(minute FROM inter)+extract(second FROM inter)/60))/count(INVITATION_DEP)),0) avgtime
+		from  
+		(SELECT case when (CONSULTATION_DATE<to_date(#{halfdate}||'-07-01','yyyy/MM/dd')) then #{halfdate}||'上半年' 
+		        else #{halfdate}||'下半年' end querydate,
+		        CONSULTATION_DATE-INVITATION_DATE inter,
+		        CONSULTATION_DATE,INVITATION_DEP 
+		FROM HSP_CONSULTATION_RECORDS,hsp_emg_inf emg
+		where EMG_SEQ_CR(+) = emg.emg_seq
+	    and CONSULTATION_DATE is not null
+	    and INVITATION_DATE is not null
+		and INVITATION_DATE >= #{startdate}
+		and INVITATION_DATE < #{enddate}) a
+		group by querydate,INVITATION_DEP
+		) t22
+		where t11.querydate = t22.querydate(+)
+		and t11.INVITATION_DEP =t22.INVITATION_DEP(+)
+		order by t11.querydate,t11.INVITATION_DEP
+        ]]> 
+	</select>
+	<select id="findHspConsultationRecordsAvgListByMonth" parameterType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto" 
+	resultType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom">
+		<![CDATA[
+		WITH a AS
+        (
+        	SELECT CONSULTATION_DATE-INVITATION_DATE inter,INVITATION_DEP,CONSULTATION_DATE,INVITATION_DATE
+	        FROM HSP_CONSULTATION_RECORDS,hsp_emg_inf emg
+		 	where EMG_SEQ_CR(+) = emg.emg_seq
+	        and CONSULTATION_DATE is not null
+	        and INVITATION_DATE is not null
+        )
+        select count(INVITATION_DEP) zgcount,(to_char(#{startdate},'yyyy/mm')) querydate,
+        nvl(ceil(sum(trunc(extract(DAY FROM inter)*24*60 + extract(hour FROM inter)*60 +extract(minute FROM inter)+extract(second FROM inter)/60))/count(INVITATION_DEP)),0) avgtime,
+        INVITATION_DEP invitationDep
+        from a
+        where inter is not null  
+        and to_char(INVITATION_DATE,'yyyy/mm')=to_char(#{startdate},'yyyy/mm') 
+        group by INVITATION_DEP
+        ]]>
+	</select>
+	<select id="findHspConsultationRecordsAvgListByDay" parameterType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto" 
+	resultType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom">
+		<![CDATA[
+		WITH a AS
+        (
+        	SELECT CONSULTATION_DATE-INVITATION_DATE inter,INVITATION_DEP,CONSULTATION_DATE,INVITATION_DATE
+	        FROM HSP_CONSULTATION_RECORDS,hsp_emg_inf emg
+		 	where EMG_SEQ_CR(+) = emg.emg_seq
+	        and CONSULTATION_DATE is not null
+	        and INVITATION_DATE is not null
+        )
+        select count(INVITATION_DEP) zgcount,(to_char(#{startdate},'yyyy/mm/dd')) querydate,
+        nvl(ceil(sum(trunc(extract(DAY FROM inter)*24*60 + extract(hour FROM inter)*60 +extract(minute FROM inter)+extract(second FROM inter)/60))/count(INVITATION_DEP)),0) avgtime,
+        INVITATION_DEP invitationDep
+        from a
+        where inter is not null  
+        and to_char(INVITATION_DATE,'yyyy/mm/dd')=to_char(#{startdate},'yyyy/mm/dd') 
+        group by INVITATION_DEP
+        ]]>
+	</select>
+	<!-- 急诊科会诊平均时间 -->
+	<select id="findHspConsultationRecordsAvgTotalList" parameterType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto" 
+	resultType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom">
+	    WITH a AS
+        (
+        	SELECT CONSULTATION_DATE-INVITATION_DATE inter,INVITATION_DEP,CONSULTATION_DATE,INVITATION_DATE
+	        FROM HSP_CONSULTATION_RECORDS,hsp_emg_inf emg
+		 	where EMG_SEQ_CR(+) = emg.emg_seq
+	        and CONSULTATION_DATE is not null
+	        and INVITATION_DATE is not null
+        )
+        select count(*) zgcount,
+        nvl(ceil(sum(trunc(extract(DAY FROM inter)*24*60 + extract(hour FROM inter)*60 +extract(minute FROM inter)+extract(second FROM inter)/60))/count(INVITATION_DEP)),0) avgtime
+        from a
+        where inter is not null
+        and to_char(INVITATION_DATE,'yyyy/mm/dd') <![CDATA[>=]]> to_char(#{startdate},'yyyy/mm/dd')
+		and to_char(INVITATION_DATE,'yyyy/mm/dd') <![CDATA[<]]> to_char(#{enddate},'yyyy/mm/dd')
+	</select>
+	<select id="findHspConsultationRecordsAvgTotalListHalfyear" parameterType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto" 
+	resultType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom">
+	   <![CDATA[
+			select querydate,count(CONSULTATION_RECORDS_SEQ) zgcount,
+				nvl(ceil(sum(trunc(extract(DAY FROM inter)*24*60 + extract(hour FROM inter)*60 +extract(minute FROM inter)+extract(second FROM inter)/60))/count(*)),0) avgtime
+				from
+				(SELECT case when (CONSULTATION_DATE<to_date(#{halfdate}||'-07-01','yyyy/MM/dd')) then #{halfdate}||'上半年' 
+				        else #{halfdate}||'下半年' end querydate,CONSULTATION_RECORDS_SEQ,
+				        CONSULTATION_DATE-INVITATION_DATE inter,
+				        CONSULTATION_DATE
+				FROM HSP_CONSULTATION_RECORDS,hsp_emg_inf emg
+				where EMG_SEQ_CR(+) = emg.emg_seq
+	    		and CONSULTATION_DATE is not null
+	    		and INVITATION_DATE is not null
+				and INVITATION_DATE >= #{startdate}
+				and INVITATION_DATE < #{enddate}
+				) 
+				group by querydate order by querydate
+		]]>
+	</select>
+	<!-- 获取心内科会诊 -->
+	<select id="findHspConsultationRecordsByInvitationDepLike"
+		parameterType="java.lang.String" resultType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom">
+		select *
+		  from hsp_consultation_records
+		 where emg_seq_cr = #{emgSeq}
+		   and (invitation_dep like '%心血管内科%' or invitation_dep like '%心内科%')
+	  order by apply_create_date
+	</select>
+	<!-- 介入部分增加通知会诊内容，自动抓取通知神经介入科会诊的第一条记录-->
+	<select id="findCzHzInfEmgSeqJR" resultType="activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom">
+		 select *
+		  from (select *
+		          from hsp_consultation_records 
+		         where emg_seq_cr = #{emgSeq, jdbcType = VARCHAR}
+		           and invitation_dep like '%神经介入科%'
+		         order by invitation_date asc)
+		 where rownum = 1
+	</select>
+</mapper>

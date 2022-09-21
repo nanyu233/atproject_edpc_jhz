@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.PdatransfusionrecordMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.PdatransfusionrecordCustom">
+    <result column="XH" jdbcType="DECIMAL" property="xh" />
+    <result column="OUTPATIENTID" jdbcType="VARCHAR" property="outpatientid" />
+    <result column="BLOODBAGID" jdbcType="VARCHAR" property="bloodbagid" />
+    <result column="PATIENTCODE" jdbcType="VARCHAR" property="patientcode" />
+    <result column="INSPECTIONID" jdbcType="VARCHAR" property="inspectionid" />
+    <result column="COLLATOR" jdbcType="VARCHAR" property="collator" />
+    <result column="WITNESS" jdbcType="VARCHAR" property="witness" />
+    <result column="WRITETIME" jdbcType="TIMESTAMP" property="writetime" />
+    <result column="STEP" jdbcType="DECIMAL" property="step" />
+    <result column="STEPNAME" jdbcType="VARCHAR" property="stepname" />
+    <result column="ISREACTION" jdbcType="DECIMAL" property="isreaction" />
+    <result column="TEMPERATURE" jdbcType="VARCHAR" property="temperature" />
+    <result column="XY1" jdbcType="VARCHAR" property="xy1" />
+    <result column="XY2" jdbcType="VARCHAR" property="xy2" />
+    <result column="BLOODPRESSURE" jdbcType="VARCHAR" property="bloodpressure" />
+    <result column="HEARTRATE" jdbcType="VARCHAR" property="heartrate" />
+    <result column="BREATHE" jdbcType="VARCHAR" property="breathe" />
+    <result column="SPO" jdbcType="VARCHAR" property="spo" />
+    <result column="DRIPPINGSPEED" jdbcType="VARCHAR" property="drippingspeed" />
+    <result column="NURSRECORD" jdbcType="VARCHAR" property="nursrecord" />
+    <result column="REACTIONCONTENT" jdbcType="VARCHAR" property="reactioncontent" />
+    <result column="REACTIOINDEAL" jdbcType="VARCHAR" property="reactioindeal" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    XH, OUTPATIENTID, BLOODBAGID,PATIENTCODE, INSPECTIONID, COLLATOR, WITNESS, WRITETIME, STEP, STEPNAME, 
+    ISREACTION, TEMPERATURE, XY1, XY2, BLOODPRESSURE, HEARTRATE, BREATHE, SPO, DRIPPINGSPEED, 
+    NURSRECORD, REACTIONCONTENT, REACTIOINDEAL
+  </sql>
+  
+  <!-- 区域是查询条件 通常情况，为了提高 sql片段可重用性，按单表创建sql片段 -->
+  <sql id="query_PdatransfusionrecordCustom_where">
+	<if test="pdatransfusionrecordCustom.startdate!=null and pdatransfusionrecordCustom.startdate!=''">
+		and WRITETIME<![CDATA[>=]]> #{pdatransfusionrecordCustom.startdate}
+	</if>
+	<if test="pdatransfusionrecordCustom.enddate!=null and pdatransfusionrecordCustom.enddate!=''">
+		and WRITETIME <![CDATA[<=]]> #{pdatransfusionrecordCustom.enddate}
+	</if>
+  </sql>
+  
+  <select id="findPdatransfusionrecordList" parameterType="activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto" 
+  resultMap="BaseResultMap">
+	select 
+	<include refid="Base_Column_List" />
+	from PDATRANSFUSIONRECORD@blood 
+	<where>
+		patientcode = #{pdatransfusionrecordCustom.outpatientid}
+		<include refid="query_PdatransfusionrecordCustom_where"/>
+	</where>
+	order by WRITETIME DESC
+  </select>
+  
+</mapper>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.base.dao.mapper.DstmoduleCustomMapper">
+ 	<sql id="select-all-module">
+		select t.moduleid,
+		       t.modulename,
+		       t.parentid,
+		       t1.modulename as parentname,
+		       t.url,
+		       t.icon,
+		       t.showorder,
+		       t.isused
+		  from dstmodule t
+		  left join dstmodule t1 on t.parentid = t1.moduleid
+		 where 1 = 1 
+	</sql>
+    <sql id="order-by-showorder">order by t.showorder</sql>
+    <sql id="query_module_where">
+		<if test="dstmoduleCustom!=null">
+			<if test="dstmoduleCustom.moduleid!=null and dstmoduleCustom.moduleid!=''">
+				and dstmodule.moduleid = #{dstmoduleCustom.moduleid}
+			</if>
+			<if test="dstmoduleCustom.modulename!=null and dstmoduleCustom.modulename!=''">
+				and dstmodule.modulename like  '%'|| #{dstmoduleCustom.modulename}||'%' 
+			</if>
+			<if test="dstmoduleCustom.parentid!=null and dstmoduleCustom.parentid!=''">
+				and dstmodule.parentid = #{dstmoduleCustom.parentid} 
+			</if>
+		</if>
+	</sql>
+    <!-- 查询当前所有模块 -->
+    <select id="getModuleList"  resultType="activetech.base.pojo.dto.DstmoduleCustom">
+        <include refid="select-all-module"/>
+        <include refid="order-by-showorder"/>
+    </select>
+    
+    <!-- 查询某个模块的子模块 -->
+    <select id="getModuleListByParentid"  resultType="activetech.base.pojo.dto.DstmoduleCustom">
+        <include refid="select-all-module"/>
+        and t.parentid = #{parentid}
+        <include refid="order-by-showorder"/>
+    </select>
+    
+    <!-- 查询当前所有模块个数 -->
+    <select id="getChildModuleListCount"  resultType="java.lang.Integer">
+          select count(*)
+		      from dstmodule where parentid = #{parentid}
+    </select>  
+    
+    <!-- 查询指定角色码已授权模块 -->
+    <select id="getModuleListByRoleid"  resultType="java.lang.String">
+         select distinct t.moduleid
+             from dstrolemodule t
+               where t.roleid=#{roleid}
+	</select>
+	<!-- 查询用户列表的总记录数 -->
+	<select id="findModuleCount" parameterType="activetech.base.pojo.dto.DstmoduleQueryDto" resultType="int">
+		select count(*) from dstmodule
+		<where>
+			<include refid="query_module_where" />
+		</where>
+	</select>
+	
+	<!-- 查询模块列表 -->
+	<select id="findModuleList" parameterType="activetech.base.pojo.dto.DstmoduleQueryDto"
+		resultType="activetech.base.pojo.dto.DstmoduleCustom">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		
+		select 
+		       moduleid,
+		       modulename,
+               parentid,
+               (select modulename from dstmodule a where a.moduleid=dstmodule.parentid ) as parentname,
+               url,
+               icon,
+               showorder,
+               (select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=dstmodule.isused) as isused,
+               vchar1,
+               vchar2,
+               vchar3,
+               vchar4,
+               (select info from dstdictinfo a where a.typecode='RELOAD_TYPE' and a.infocode=dstmodule.reload_type)as reloadType
+          from dstmodule
+		<where>
+			<include refid="query_module_where" />
+		</where>
+         order by showorder
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+		</select>
+		
+		<!--根据moduleid查询唯一的模块信息 带parentsname-->
+		<select id="findModuleByModuleId" parameterType="java.lang.String"
+		resultType="activetech.base.pojo.dto.DstmoduleCustom">
+		 select 
+		       moduleid,
+		       modulename,
+               parentid,
+               (select modulename from dstmodule a where a.moduleid=dstmodule.parentid ) as parentname,
+               url,
+               icon,
+               showorder,
+               isused,
+               vchar1,
+               vchar2,
+               vchar3,
+               vchar4,
+               reload_Type reloadType
+          from dstmodule
+          where moduleid=#{moduleid}
+	   </select>
+	   <select id="getMaxShowOrderByParentid" parameterType="java.lang.String" resultType="java.lang.Integer">
+	     select nvl(max(showorder),0) from dstmodule where parentid=#{parentid}
+	   </select>
+</mapper>

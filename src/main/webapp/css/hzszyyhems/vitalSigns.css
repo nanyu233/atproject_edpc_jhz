@@ -1,0 +1,210 @@
+@charset "utf-8";
+
+/**
+*  生命体征
+*/
+body.tempItems{
+    /* margin-top: 10px; */
+    border-left: 1px solid rgb(149, 184, 231);
+    /* background-color: #f2f4f8; */
+    float: left;
+    height:100%;
+}
+body.tempItems form{
+    float: left;
+    margin-top: 10px;
+}
+.mainWrapper{
+    float: left;
+    width: 100%;
+}
+.leftWrapper{
+    float: left;
+    width: 28%;
+    height: 100%;
+}
+.leftWrapper p{
+    margin-left: 2px;
+}
+.rightWrapper{
+    float: right;
+    width: 72%;    
+    height: 100%;
+}
+.rightWrapper #_contentIfream {
+    float:left;
+    height: 100%;
+}
+
+.subtitle{
+    width: 99%;
+    line-height: 20px;
+    height: 20px;
+    float: left;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    /* background: rgb(243, 249, 255); */
+    border-bottom: 1px solid #80b9ff;
+}
+.span-left{
+    float: left;
+    padding-left: 5px;
+    font-size: 13px;
+    font-weight: 800;
+    width:  80px;
+    text-align: center;
+    padding-right:  5px;
+    background: #80b9ff;
+    display:  inline-block;
+    color: #fff;
+}
+.basicli{
+    float: left;
+    width: 100%;
+    margin-bottom: 2px;
+    height: 24px;
+}
+.sixPartli{
+    width: 57%;
+}
+.fourPartli{
+    width: 43%;
+}
+.span-wrapper{
+    width: 94%;
+    padding-bottom: 10px;
+}
+.Signsel{
+    width:80px;
+}
+.rightsel{
+    width:80px;
+    margin-right: 4px;
+}
+.Signinput{
+    width:60px;
+    height: 22px !important;
+}
+.nlinput{
+    width: 45px;
+    height: 22px !important
+}
+.normal-labtitle{
+    float:left;
+    display:inline-block;
+    width:7em;
+    color:#000;
+    vertical-align:top;
+    text-align:right;
+    font-size:12px;
+    line-height:23px;
+    padding-left: 15px;
+}
+.xtCod-labtitle{
+    width: 7.5em;
+    padding-left: 9px
+}
+.longinput{
+    width: 80%;
+}
+.itemsWrapper{
+    float: left;
+}
+.vitalSigns .deletebtn{
+    width: 60px;
+    margin-left: 15px;
+    text-decoration: none;
+    height: 26px;
+}
+.vitalSigns .showItemDiv{
+    float: left;
+    width: 100%;
+    margin-left: 2px;
+    margin-top: 2px;
+}
+.vitalSigns .spanDate{
+    float: left;
+    margin-top: 2px;
+    margin-right: 40px;
+}
+
+.rightTemp .rightWrapper{
+    position: absolute;
+    right: 4px;
+    top: 0px;
+    width: 324px;
+    background: #e6eef8;
+    border-left: 1px solid #b8cfed;
+}
+.rightTemp .rightPanel{
+    float: right;
+    background: #ffffff;
+    border: 1px solid #b8cfed;
+    border-top: none;
+    width:320px;
+}
+.rightTemp .operationDiv{
+    float: left;
+    margin-top: 6px;
+}
+.rightTemp .msgDiv{
+    float: left;
+}
+.rightTemp .operationDiv p{
+    width: 30px;
+    float: left;
+    line-height: 14px;
+    margin-left: 4px;
+    margin-top: 9px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+}
+.rightTemp .msgDiv p.tittle{
+    width: 100px;
+    float: left;
+    line-height: 14px;
+    margin-left: 4px;
+    margin-top: 9px;
+    margin-bottom: 10px;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+}
+.rightTemp .marinLeft{
+    margin-left: 4px;
+    margin-top: 2px;
+}
+.rightTemp .operatTemp{
+    float: left;
+    width: 100%;
+    padding-top: 10px;
+}
+.rightTemp .leftBtn{
+    margin:0px 20px 10px 20px;
+}
+.rightTemp .operationDiv .dashedborder{
+    float: right;
+    width: 270px;
+    margin-top: 14px;
+    border-bottom: 1px dashed #b8cfed;
+}
+.rightTemp .msgDiv .dashedborder{
+    float: right;
+    width: 214px;
+    margin-top: 14px;
+    border-bottom: 1px dashed #b8cfed;
+}
+.rightTemp .tabWrapper,.rightTemp .dataGridDiv{
+    float: left;
+    width: 100%;
+}
+.rightTemp .dataGridDiv{
+    margin: 2px 2px 2px 2px;
+    width: 216px;
+}
+
+.rightTemp a.commonbtn {
+    text-decoration: none;
+}
+.rightTemp #dateBar,.vitalSigns #tb{
+    height: 30px;
+}

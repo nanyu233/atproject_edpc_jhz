@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspNrsconsentInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspNrsconsentInfCustom" >
+    <id column="SEQNO" property="seqno" jdbcType="VARCHAR" />
+    <result column="REFSEQNO" property="refseqno" jdbcType="VARCHAR" />
+    <result column="TEMPNO" property="tempno" jdbcType="VARCHAR" />
+    <result column="TEMPNAME" property="tempname" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="CRTUSRNO" property="crtusrno" jdbcType="VARCHAR" />
+    <result column="CRTUSRNAME" property="crtusrname" jdbcType="VARCHAR" />
+    <result column="CRTDATE" property="crtdate" jdbcType="TIMESTAMP" />
+    <result column="UPDUSRNO" property="updusrno" jdbcType="VARCHAR" />
+    <result column="UPDUSRNAME" property="updusrname" jdbcType="VARCHAR" />
+    <result column="UPDDATE" property="upddate" jdbcType="TIMESTAMP" />
+    <result column="TEXTPARAM" property="textparam" jdbcType="VARCHAR" />
+    <result column="CONTENT" property="content" jdbcType="CLOB" />
+    <result column="TEXTHTML" property="texthtml" jdbcType="CLOB" />
+  </resultMap>
+  
+  <sql id="query_HspNrsconsentInfCustom_where">
+  		<if test="startdate != null and startdate != ''">
+			and hsp_consent_inf.crtdate<![CDATA[>=]]> #{startdate}
+		</if>
+		<if test="enddate!=null and enddate!=''">
+			and hsp_consent_inf.crtdate <![CDATA[<=]]>  #{enddate}
+		</if>
+		<if test="hspNrsconsentInfCustom !=null ">
+			<if test="hspNrsconsentInfCustom.Refseqno != null and hspNrsconsentInfCustom.Refseqno != ''">
+					and REFSEQNO = #{hspNrsconsentInfCustom.refseqno}
+			</if>
+			<if test="hspNrsconsentInfCustom.tempno != null and hspNrsconsentInfCustom.tempno != ''">
+				and TEMPNO = #{hspNrsconsentInfCustom.tempno}
+			</if>
+		</if>
+	</sql>
+  
+  <sql id="Base_Column_List" >
+    SEQNO, REFSEQNO, TEMPNO, TEMPNAME, MEMO, CRTUSRNO, CRTUSRNAME, CRTDATE, UPDUSRNO, 
+    UPDUSRNAME, UPDDATE, TEXTPARAM
+  </sql>
+  <select id="findDocumentTotal" parameterType="activetech.zyyhospital.pojo.dto.HspNrsconsentInfQueryDto"
+  		resultType="int">
+  		select 
+			count(SEQNO)
+		from HSP_NRSCONSENT_INF
+		<where>
+			<include refid="query_HspNrsconsentInfCustom_where" />
+		</where>
+  </select>
+  
+  <select id="findfindDocumentList" parameterType="activetech.zyyhospital.pojo.dto.HspNrsconsentInfQueryDto"
+  		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />	
+	  	select 
+			SEQNO,
+			CRTDATE,
+			CRTUSRNAME
+	   from HSP_NRSCONSENT_INF
+		<where>
+			<include refid="query_HspNrsconsentInfCustom_where" />
+		</where>
+		<!-- 分页尾-->
+		 <include refid="activetech.base.CommonSql.page_end" />	
+		 order by CRTDATE
+  </select>
+  
+</mapper>

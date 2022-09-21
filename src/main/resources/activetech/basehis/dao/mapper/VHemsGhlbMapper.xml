@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.basehis.dao.mapper.VHemsGhlbMapper" >
+
+	<sql id="registered_condition">
+		<where>
+			<if test="vHemsGhlbCustom != null">
+				<if test="vHemsGhlbCustom.mzrq !=null and vHemsGhlbCustom.mzrq != ''">
+					G.MZRQ >= TO_DATE(#{vHemsGhlbCustom.mzrq, jdbcType=VARCHAR}, 'YYYY-MM-DD')
+					AND NOT EXISTS (SELECT 1 FROM HSP_EMG_INF T 
+									 WHERE T.VST_CAD = TO_CHAR(G.ZYH)
+									   AND T.EMG_DAT >= TO_DATE(#{vHemsGhlbCustom.mzrq, jdbcType=VARCHAR}, 'YYYY-MM-DD')
+									)
+				</if>
+				<if test="vHemsGhlbCustom.xm !=null and vHemsGhlbCustom.xm != ''">
+					AND G.XM LIKE '%' || #{vHemsGhlbCustom.xm, jdbcType=VARCHAR} || '%'
+				</if>
+			</if>
+		</where>
+	</sql>
+	<!-- 已挂号患者列表总记录数  -->
+	<select id="getRegisteredCount" parameterType="activetech.basehis.pojo.dto.VHemsGhlbQueryDto" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM V_HEMS_GHLB G
+		<include refid="registered_condition" />
+	</select>
+	
+	<!-- 已挂号患者列表  -->
+	<select id="getRegisteredList" parameterType="activetech.basehis.pojo.dto.VHemsGhlbQueryDto" 
+		resultType="activetech.basehis.pojo.dto.VHemsGhlbCustom">
+		<include refid="activetech.base.CommonSql.page_start" />
+			SELECT G.ZYH,
+                   G.XM,
+                   G.SFZH,
+                   G.XB,
+                   TO_CHAR(G.CSNY, 'YYYY-MM-DD') CSNY,
+                   G.NL,
+                   G.ZLKH,
+                   TO_CHAR(G.MZRQ, 'YYYY-MM-DD  HH24:MI:SS') MZRQ,
+                   G.DWDH,
+                   G.JTDZ
+			  FROM V_HEMS_GHLB G
+			<include refid="registered_condition" />
+			ORDER BY G.MZRQ ASC
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+</mapper>

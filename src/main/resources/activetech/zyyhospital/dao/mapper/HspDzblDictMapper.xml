@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspDzblDictMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspDzblDict" >
+    <result column="MB_SEQ" property="mbSeq" jdbcType="VARCHAR" />
+    <result column="MB_TITLE" property="mbTitle" jdbcType="VARCHAR" />
+    <result column="MB_TYPE" property="mbType" jdbcType="CHAR" />
+    <result column="TY_TYPE" property="tyType" jdbcType="CHAR" />
+    <result column="EMG_FK_COD" property="emgFkCod" jdbcType="VARCHAR" />
+    <result column="MB_CONTENT" property="mbContent" jdbcType="VARCHAR" />
+    <result column="MB_SORT" property="mbSort" jdbcType="DECIMAL" />
+    <result column="MB_CRT_USER" property="mbCrtUser" jdbcType="VARCHAR" />
+    <result column="MB_CRT_TIME" property="mbCrtTime" jdbcType="TIMESTAMP" />
+    <result column="MB_CRT_NAME" property="mbCrtName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MB_SEQ, MB_TITLE, MB_TYPE, TY_TYPE, EMG_FK_COD, MB_CONTENT, MB_SORT, MB_CRT_USER, 
+    MB_CRT_TIME, MB_CRT_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspDzblDictExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_DZBL_DICT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDzblDictExample" >
+    delete from HSP_DZBL_DICT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspDzblDict" >
+    insert into HSP_DZBL_DICT (MB_SEQ, MB_TITLE, MB_TYPE, 
+      TY_TYPE, EMG_FK_COD, MB_CONTENT, 
+      MB_SORT, MB_CRT_USER, MB_CRT_TIME, 
+      MB_CRT_NAME)
+    values (#{mbSeq,jdbcType=VARCHAR}, #{mbTitle,jdbcType=VARCHAR}, #{mbType,jdbcType=CHAR}, 
+      #{tyType,jdbcType=CHAR}, #{emgFkCod,jdbcType=VARCHAR}, #{mbContent,jdbcType=VARCHAR}, 
+      #{mbSort,jdbcType=DECIMAL}, #{mbCrtUser,jdbcType=VARCHAR}, #{mbCrtTime,jdbcType=TIMESTAMP}, 
+      #{mbCrtName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspDzblDict" >
+    insert into HSP_DZBL_DICT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mbSeq != null" >
+        MB_SEQ,
+      </if>
+      <if test="mbTitle != null" >
+        MB_TITLE,
+      </if>
+      <if test="mbType != null" >
+        MB_TYPE,
+      </if>
+      <if test="tyType != null" >
+        TY_TYPE,
+      </if>
+      <if test="emgFkCod != null" >
+        EMG_FK_COD,
+      </if>
+      <if test="mbContent != null" >
+        MB_CONTENT,
+      </if>
+      <if test="mbSort != null" >
+        MB_SORT,
+      </if>
+      <if test="mbCrtUser != null" >
+        MB_CRT_USER,
+      </if>
+      <if test="mbCrtTime != null" >
+        MB_CRT_TIME,
+      </if>
+      <if test="mbCrtName != null" >
+        MB_CRT_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mbSeq != null" >
+        #{mbSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="mbTitle != null" >
+        #{mbTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mbType != null" >
+        #{mbType,jdbcType=CHAR},
+      </if>
+      <if test="tyType != null" >
+        #{tyType,jdbcType=CHAR},
+      </if>
+      <if test="emgFkCod != null" >
+        #{emgFkCod,jdbcType=VARCHAR},
+      </if>
+      <if test="mbContent != null" >
+        #{mbContent,jdbcType=VARCHAR},
+      </if>
+      <if test="mbSort != null" >
+        #{mbSort,jdbcType=DECIMAL},
+      </if>
+      <if test="mbCrtUser != null" >
+        #{mbCrtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="mbCrtTime != null" >
+        #{mbCrtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mbCrtName != null" >
+        #{mbCrtName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspDzblDictExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_DZBL_DICT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_DZBL_DICT
+    <set >
+      <if test="record.mbSeq != null" >
+        MB_SEQ = #{record.mbSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbTitle != null" >
+        MB_TITLE = #{record.mbTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbType != null" >
+        MB_TYPE = #{record.mbType,jdbcType=CHAR},
+      </if>
+      <if test="record.tyType != null" >
+        TY_TYPE = #{record.tyType,jdbcType=CHAR},
+      </if>
+      <if test="record.emgFkCod != null" >
+        EMG_FK_COD = #{record.emgFkCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbContent != null" >
+        MB_CONTENT = #{record.mbContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbSort != null" >
+        MB_SORT = #{record.mbSort,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mbCrtUser != null" >
+        MB_CRT_USER = #{record.mbCrtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbCrtTime != null" >
+        MB_CRT_TIME = #{record.mbCrtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mbCrtName != null" >
+        MB_CRT_NAME = #{record.mbCrtName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_DZBL_DICT
+    set MB_SEQ = #{record.mbSeq,jdbcType=VARCHAR},
+      MB_TITLE = #{record.mbTitle,jdbcType=VARCHAR},
+      MB_TYPE = #{record.mbType,jdbcType=CHAR},
+      TY_TYPE = #{record.tyType,jdbcType=CHAR},
+      EMG_FK_COD = #{record.emgFkCod,jdbcType=VARCHAR},
+      MB_CONTENT = #{record.mbContent,jdbcType=VARCHAR},
+      MB_SORT = #{record.mbSort,jdbcType=DECIMAL},
+      MB_CRT_USER = #{record.mbCrtUser,jdbcType=VARCHAR},
+      MB_CRT_TIME = #{record.mbCrtTime,jdbcType=TIMESTAMP},
+      MB_CRT_NAME = #{record.mbCrtName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

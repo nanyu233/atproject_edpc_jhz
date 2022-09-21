@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspFuvInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspFuvInf" >
+    <id column="FUV_SEQ" property="fuvSeq" jdbcType="VARCHAR" />
+    <result column="PAT_ID" property="patId" jdbcType="VARCHAR" />
+    <result column="OUT_TIM" property="outTim" jdbcType="TIMESTAMP" />
+    <result column="DIA_RST" property="diaRst" jdbcType="VARCHAR" />
+    <result column="FUV_WAY_COD" property="fuvWayCod" jdbcType="VARCHAR" />
+    <result column="FUV_TYP" property="fuvTyp" jdbcType="VARCHAR" />
+    <result column="FUV_TIM" property="fuvTim" jdbcType="TIMESTAMP" />
+    <result column="FUV_GRP" property="fuvGrp" jdbcType="VARCHAR" />
+    <result column="FUV_DOC" property="fuvDoc" jdbcType="VARCHAR" />
+    <result column="DGR_STF" property="dgrStf" jdbcType="DECIMAL" />
+    <result column="PAT_SYM_COD" property="patSymCod" jdbcType="VARCHAR" />
+    <result column="PAT_WGT" property="patWgt" jdbcType="DECIMAL" />
+    <result column="SMK_CON" property="smkCon" jdbcType="VARCHAR" />
+    <result column="ALC_CON" property="alcCon" jdbcType="VARCHAR" />
+    <result column="FOD_CON" property="fodCon" jdbcType="VARCHAR" />
+    <result column="SLT_CON_COD" property="sltConCod" jdbcType="VARCHAR" />
+    <result column="SPT_CON_WEK" property="sptConWek" jdbcType="DECIMAL" />
+    <result column="SPT_CON_TIM" property="sptConTim" jdbcType="DECIMAL" />
+    <result column="MTL_SET_COD" property="mtlSetCod" jdbcType="VARCHAR" />
+    <result column="COM_ACT_COD" property="comActCod" jdbcType="VARCHAR" />
+    <result column="ASS_EXM_COD" property="assExmCod" jdbcType="VARCHAR" />
+    <result column="EXM_RST" property="exmRst" jdbcType="VARCHAR" />
+    <result column="MED_CON" property="medCon" jdbcType="VARCHAR" />
+    <result column="COO_MBT_COD" property="cooMbtCod" jdbcType="VARCHAR" />
+    <result column="SCD_VST_COD" property="scdVstCod" jdbcType="VARCHAR" />
+    <result column="TAK_MED_COD" property="takMedCod" jdbcType="VARCHAR" />
+    <result column="MED_RFT_FLG" property="medRftFlg" jdbcType="CHAR" />
+    <result column="HAV_BLD_FLG" property="havBldFlg" jdbcType="CHAR" />
+    <result column="ADD_EXP" property="addExp" jdbcType="VARCHAR" />
+    <result column="FUV_AGN_FLG" property="fuvAgnFlg" jdbcType="CHAR" />
+    <result column="NXT_FUV_TIM" property="nxtFuvTim" jdbcType="TIMESTAMP" />
+    <result column="NXT_FUV_GRP" property="nxtFuvGrp" jdbcType="VARCHAR" />
+    <result column="NXT_FUV_DOC" property="nxtFuvDoc" jdbcType="VARCHAR" />
+    <result column="PAT_COO" property="patCoo" jdbcType="DECIMAL" />
+    <result column="PLN_SEQ" property="plnSeq" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FUV_SEQ, PAT_ID, OUT_TIM, DIA_RST, FUV_WAY_COD, FUV_TYP, FUV_TIM, FUV_GRP, FUV_DOC, 
+    DGR_STF, PAT_SYM_COD, PAT_WGT, SMK_CON, ALC_CON, FOD_CON, SLT_CON_COD, SPT_CON_WEK, 
+    SPT_CON_TIM, MTL_SET_COD, COM_ACT_COD, ASS_EXM_COD, EXM_RST, MED_CON, COO_MBT_COD, 
+    SCD_VST_COD, TAK_MED_COD, MED_RFT_FLG, HAV_BLD_FLG, ADD_EXP, FUV_AGN_FLG, NXT_FUV_TIM, 
+    NXT_FUV_GRP, NXT_FUV_DOC, PAT_COO, PLN_SEQ
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspFuvInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_FUV_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_FUV_INF
+    where FUV_SEQ = #{fuvSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_FUV_INF
+    where FUV_SEQ = #{fuvSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspFuvInfExample" >
+    delete from HSP_FUV_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspFuvInf" >
+    insert into HSP_FUV_INF (FUV_SEQ, PAT_ID, OUT_TIM, 
+      DIA_RST, FUV_WAY_COD, FUV_TYP, 
+      FUV_TIM, FUV_GRP, FUV_DOC, 
+      DGR_STF, PAT_SYM_COD, PAT_WGT, 
+      SMK_CON, ALC_CON, FOD_CON, 
+      SLT_CON_COD, SPT_CON_WEK, SPT_CON_TIM, 
+      MTL_SET_COD, COM_ACT_COD, ASS_EXM_COD, 
+      EXM_RST, MED_CON, COO_MBT_COD, 
+      SCD_VST_COD, TAK_MED_COD, MED_RFT_FLG, 
+      HAV_BLD_FLG, ADD_EXP, FUV_AGN_FLG, 
+      NXT_FUV_TIM, NXT_FUV_GRP, NXT_FUV_DOC, 
+      PAT_COO, PLN_SEQ)
+    values (#{fuvSeq,jdbcType=VARCHAR}, #{patId,jdbcType=VARCHAR}, #{outTim,jdbcType=TIMESTAMP}, 
+      #{diaRst,jdbcType=VARCHAR}, #{fuvWayCod,jdbcType=VARCHAR}, #{fuvTyp,jdbcType=VARCHAR}, 
+      #{fuvTim,jdbcType=TIMESTAMP}, #{fuvGrp,jdbcType=VARCHAR}, #{fuvDoc,jdbcType=VARCHAR}, 
+      #{dgrStf,jdbcType=DECIMAL}, #{patSymCod,jdbcType=VARCHAR}, #{patWgt,jdbcType=DECIMAL}, 
+      #{smkCon,jdbcType=VARCHAR}, #{alcCon,jdbcType=VARCHAR}, #{fodCon,jdbcType=VARCHAR}, 
+      #{sltConCod,jdbcType=VARCHAR}, #{sptConWek,jdbcType=DECIMAL}, #{sptConTim,jdbcType=DECIMAL}, 
+      #{mtlSetCod,jdbcType=VARCHAR}, #{comActCod,jdbcType=VARCHAR}, #{assExmCod,jdbcType=VARCHAR}, 
+      #{exmRst,jdbcType=VARCHAR}, #{medCon,jdbcType=VARCHAR}, #{cooMbtCod,jdbcType=VARCHAR}, 
+      #{scdVstCod,jdbcType=VARCHAR}, #{takMedCod,jdbcType=VARCHAR}, #{medRftFlg,jdbcType=CHAR}, 
+      #{havBldFlg,jdbcType=CHAR}, #{addExp,jdbcType=VARCHAR}, #{fuvAgnFlg,jdbcType=CHAR}, 
+      #{nxtFuvTim,jdbcType=TIMESTAMP}, #{nxtFuvGrp,jdbcType=VARCHAR}, #{nxtFuvDoc,jdbcType=VARCHAR}, 
+      #{patCoo,jdbcType=DECIMAL}, #{plnSeq,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspFuvInf" >
+    insert into HSP_FUV_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fuvSeq != null" >
+        FUV_SEQ,
+      </if>
+      <if test="patId != null" >
+        PAT_ID,
+      </if>
+      <if test="outTim != null" >
+        OUT_TIM,
+      </if>
+      <if test="diaRst != null" >
+        DIA_RST,
+      </if>
+      <if test="fuvWayCod != null" >
+        FUV_WAY_COD,
+      </if>
+      <if test="fuvTyp != null" >
+        FUV_TYP,
+      </if>
+      <if test="fuvTim != null" >
+        FUV_TIM,
+      </if>
+      <if test="fuvGrp != null" >
+        FUV_GRP,
+      </if>
+      <if test="fuvDoc != null" >
+        FUV_DOC,
+      </if>
+      <if test="dgrStf != null" >
+        DGR_STF,
+      </if>
+      <if test="patSymCod != null" >
+        PAT_SYM_COD,
+      </if>
+      <if test="patWgt != null" >
+        PAT_WGT,
+      </if>
+      <if test="smkCon != null" >
+        SMK_CON,
+      </if>
+      <if test="alcCon != null" >
+        ALC_CON,
+      </if>
+      <if test="fodCon != null" >
+        FOD_CON,
+      </if>
+      <if test="sltConCod != null" >
+        SLT_CON_COD,
+      </if>
+      <if test="sptConWek != null" >
+        SPT_CON_WEK,
+      </if>
+      <if test="sptConTim != null" >
+        SPT_CON_TIM,
+      </if>
+      <if test="mtlSetCod != null" >
+        MTL_SET_COD,
+      </if>
+      <if test="comActCod != null" >
+        COM_ACT_COD,
+      </if>
+      <if test="assExmCod != null" >
+        ASS_EXM_COD,
+      </if>
+      <if test="exmRst != null" >
+        EXM_RST,
+      </if>
+      <if test="medCon != null" >
+        MED_CON,
+      </if>
+      <if test="cooMbtCod != null" >
+        COO_MBT_COD,
+      </if>
+      <if test="scdVstCod != null" >
+        SCD_VST_COD,
+      </if>
+      <if test="takMedCod != null" >
+        TAK_MED_COD,
+      </if>
+      <if test="medRftFlg != null" >
+        MED_RFT_FLG,
+      </if>
+      <if test="havBldFlg != null" >
+        HAV_BLD_FLG,
+      </if>
+      <if test="addExp != null" >
+        ADD_EXP,
+      </if>
+      <if test="fuvAgnFlg != null" >
+        FUV_AGN_FLG,
+      </if>
+      <if test="nxtFuvTim != null" >
+        NXT_FUV_TIM,
+      </if>
+      <if test="nxtFuvGrp != null" >
+        NXT_FUV_GRP,
+      </if>
+      <if test="nxtFuvDoc != null" >
+        NXT_FUV_DOC,
+      </if>
+      <if test="patCoo != null" >
+        PAT_COO,
+      </if>
+      <if test="plnSeq != null" >
+        PLN_SEQ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fuvSeq != null" >
+        #{fuvSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="patId != null" >
+        #{patId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTim != null" >
+        #{outTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="diaRst != null" >
+        #{diaRst,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvWayCod != null" >
+        #{fuvWayCod,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvTyp != null" >
+        #{fuvTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvTim != null" >
+        #{fuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fuvGrp != null" >
+        #{fuvGrp,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvDoc != null" >
+        #{fuvDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="dgrStf != null" >
+        #{dgrStf,jdbcType=DECIMAL},
+      </if>
+      <if test="patSymCod != null" >
+        #{patSymCod,jdbcType=VARCHAR},
+      </if>
+      <if test="patWgt != null" >
+        #{patWgt,jdbcType=DECIMAL},
+      </if>
+      <if test="smkCon != null" >
+        #{smkCon,jdbcType=VARCHAR},
+      </if>
+      <if test="alcCon != null" >
+        #{alcCon,jdbcType=VARCHAR},
+      </if>
+      <if test="fodCon != null" >
+        #{fodCon,jdbcType=VARCHAR},
+      </if>
+      <if test="sltConCod != null" >
+        #{sltConCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sptConWek != null" >
+        #{sptConWek,jdbcType=DECIMAL},
+      </if>
+      <if test="sptConTim != null" >
+        #{sptConTim,jdbcType=DECIMAL},
+      </if>
+      <if test="mtlSetCod != null" >
+        #{mtlSetCod,jdbcType=VARCHAR},
+      </if>
+      <if test="comActCod != null" >
+        #{comActCod,jdbcType=VARCHAR},
+      </if>
+      <if test="assExmCod != null" >
+        #{assExmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="exmRst != null" >
+        #{exmRst,jdbcType=VARCHAR},
+      </if>
+      <if test="medCon != null" >
+        #{medCon,jdbcType=VARCHAR},
+      </if>
+      <if test="cooMbtCod != null" >
+        #{cooMbtCod,jdbcType=VARCHAR},
+      </if>
+      <if test="scdVstCod != null" >
+        #{scdVstCod,jdbcType=VARCHAR},
+      </if>
+      <if test="takMedCod != null" >
+        #{takMedCod,jdbcType=VARCHAR},
+      </if>
+      <if test="medRftFlg != null" >
+        #{medRftFlg,jdbcType=CHAR},
+      </if>
+      <if test="havBldFlg != null" >
+        #{havBldFlg,jdbcType=CHAR},
+      </if>
+      <if test="addExp != null" >
+        #{addExp,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvAgnFlg != null" >
+        #{fuvAgnFlg,jdbcType=CHAR},
+      </if>
+      <if test="nxtFuvTim != null" >
+        #{nxtFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nxtFuvGrp != null" >
+        #{nxtFuvGrp,jdbcType=VARCHAR},
+      </if>
+      <if test="nxtFuvDoc != null" >
+        #{nxtFuvDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="patCoo != null" >
+        #{patCoo,jdbcType=DECIMAL},
+      </if>
+      <if test="plnSeq != null" >
+        #{plnSeq,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspFuvInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_FUV_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_FUV_INF
+    <set >
+      <if test="record.fuvSeq != null" >
+        FUV_SEQ = #{record.fuvSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patId != null" >
+        PAT_ID = #{record.patId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outTim != null" >
+        OUT_TIM = #{record.outTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.diaRst != null" >
+        DIA_RST = #{record.diaRst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuvWayCod != null" >
+        FUV_WAY_COD = #{record.fuvWayCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuvTyp != null" >
+        FUV_TYP = #{record.fuvTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuvTim != null" >
+        FUV_TIM = #{record.fuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fuvGrp != null" >
+        FUV_GRP = #{record.fuvGrp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuvDoc != null" >
+        FUV_DOC = #{record.fuvDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dgrStf != null" >
+        DGR_STF = #{record.dgrStf,jdbcType=DECIMAL},
+      </if>
+      <if test="record.patSymCod != null" >
+        PAT_SYM_COD = #{record.patSymCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patWgt != null" >
+        PAT_WGT = #{record.patWgt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.smkCon != null" >
+        SMK_CON = #{record.smkCon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alcCon != null" >
+        ALC_CON = #{record.alcCon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fodCon != null" >
+        FOD_CON = #{record.fodCon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sltConCod != null" >
+        SLT_CON_COD = #{record.sltConCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sptConWek != null" >
+        SPT_CON_WEK = #{record.sptConWek,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sptConTim != null" >
+        SPT_CON_TIM = #{record.sptConTim,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mtlSetCod != null" >
+        MTL_SET_COD = #{record.mtlSetCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comActCod != null" >
+        COM_ACT_COD = #{record.comActCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assExmCod != null" >
+        ASS_EXM_COD = #{record.assExmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exmRst != null" >
+        EXM_RST = #{record.exmRst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medCon != null" >
+        MED_CON = #{record.medCon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cooMbtCod != null" >
+        COO_MBT_COD = #{record.cooMbtCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scdVstCod != null" >
+        SCD_VST_COD = #{record.scdVstCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.takMedCod != null" >
+        TAK_MED_COD = #{record.takMedCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medRftFlg != null" >
+        MED_RFT_FLG = #{record.medRftFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.havBldFlg != null" >
+        HAV_BLD_FLG = #{record.havBldFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.addExp != null" >
+        ADD_EXP = #{record.addExp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuvAgnFlg != null" >
+        FUV_AGN_FLG = #{record.fuvAgnFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.nxtFuvTim != null" >
+        NXT_FUV_TIM = #{record.nxtFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nxtFuvGrp != null" >
+        NXT_FUV_GRP = #{record.nxtFuvGrp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nxtFuvDoc != null" >
+        NXT_FUV_DOC = #{record.nxtFuvDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patCoo != null" >
+        PAT_COO = #{record.patCoo,jdbcType=DECIMAL},
+      </if>
+      <if test="record.plnSeq != null" >
+        PLN_SEQ = #{record.plnSeq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_FUV_INF
+    set FUV_SEQ = #{record.fuvSeq,jdbcType=VARCHAR},
+      PAT_ID = #{record.patId,jdbcType=VARCHAR},
+      OUT_TIM = #{record.outTim,jdbcType=TIMESTAMP},
+      DIA_RST = #{record.diaRst,jdbcType=VARCHAR},
+      FUV_WAY_COD = #{record.fuvWayCod,jdbcType=VARCHAR},
+      FUV_TYP = #{record.fuvTyp,jdbcType=VARCHAR},
+      FUV_TIM = #{record.fuvTim,jdbcType=TIMESTAMP},
+      FUV_GRP = #{record.fuvGrp,jdbcType=VARCHAR},
+      FUV_DOC = #{record.fuvDoc,jdbcType=VARCHAR},
+      DGR_STF = #{record.dgrStf,jdbcType=DECIMAL},
+      PAT_SYM_COD = #{record.patSymCod,jdbcType=VARCHAR},
+      PAT_WGT = #{record.patWgt,jdbcType=DECIMAL},
+      SMK_CON = #{record.smkCon,jdbcType=VARCHAR},
+      ALC_CON = #{record.alcCon,jdbcType=VARCHAR},
+      FOD_CON = #{record.fodCon,jdbcType=VARCHAR},
+      SLT_CON_COD = #{record.sltConCod,jdbcType=VARCHAR},
+      SPT_CON_WEK = #{record.sptConWek,jdbcType=DECIMAL},
+      SPT_CON_TIM = #{record.sptConTim,jdbcType=DECIMAL},
+      MTL_SET_COD = #{record.mtlSetCod,jdbcType=VARCHAR},
+      COM_ACT_COD = #{record.comActCod,jdbcType=VARCHAR},
+      ASS_EXM_COD = #{record.assExmCod,jdbcType=VARCHAR},
+      EXM_RST = #{record.exmRst,jdbcType=VARCHAR},
+      MED_CON = #{record.medCon,jdbcType=VARCHAR},
+      COO_MBT_COD = #{record.cooMbtCod,jdbcType=VARCHAR},
+      SCD_VST_COD = #{record.scdVstCod,jdbcType=VARCHAR},
+      TAK_MED_COD = #{record.takMedCod,jdbcType=VARCHAR},
+      MED_RFT_FLG = #{record.medRftFlg,jdbcType=CHAR},
+      HAV_BLD_FLG = #{record.havBldFlg,jdbcType=CHAR},
+      ADD_EXP = #{record.addExp,jdbcType=VARCHAR},
+      FUV_AGN_FLG = #{record.fuvAgnFlg,jdbcType=CHAR},
+      NXT_FUV_TIM = #{record.nxtFuvTim,jdbcType=TIMESTAMP},
+      NXT_FUV_GRP = #{record.nxtFuvGrp,jdbcType=VARCHAR},
+      NXT_FUV_DOC = #{record.nxtFuvDoc,jdbcType=VARCHAR},
+      PAT_COO = #{record.patCoo,jdbcType=DECIMAL},
+      PLN_SEQ = #{record.plnSeq,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspFuvInf" >
+    update HSP_FUV_INF
+    <set >
+      <if test="patId != null" >
+        PAT_ID = #{patId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTim != null" >
+        OUT_TIM = #{outTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="diaRst != null" >
+        DIA_RST = #{diaRst,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvWayCod != null" >
+        FUV_WAY_COD = #{fuvWayCod,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvTyp != null" >
+        FUV_TYP = #{fuvTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvTim != null" >
+        FUV_TIM = #{fuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fuvGrp != null" >
+        FUV_GRP = #{fuvGrp,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvDoc != null" >
+        FUV_DOC = #{fuvDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="dgrStf != null" >
+        DGR_STF = #{dgrStf,jdbcType=DECIMAL},
+      </if>
+      <if test="patSymCod != null" >
+        PAT_SYM_COD = #{patSymCod,jdbcType=VARCHAR},
+      </if>
+      <if test="patWgt != null" >
+        PAT_WGT = #{patWgt,jdbcType=DECIMAL},
+      </if>
+      <if test="smkCon != null" >
+        SMK_CON = #{smkCon,jdbcType=VARCHAR},
+      </if>
+      <if test="alcCon != null" >
+        ALC_CON = #{alcCon,jdbcType=VARCHAR},
+      </if>
+      <if test="fodCon != null" >
+        FOD_CON = #{fodCon,jdbcType=VARCHAR},
+      </if>
+      <if test="sltConCod != null" >
+        SLT_CON_COD = #{sltConCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sptConWek != null" >
+        SPT_CON_WEK = #{sptConWek,jdbcType=DECIMAL},
+      </if>
+      <if test="sptConTim != null" >
+        SPT_CON_TIM = #{sptConTim,jdbcType=DECIMAL},
+      </if>
+      <if test="mtlSetCod != null" >
+        MTL_SET_COD = #{mtlSetCod,jdbcType=VARCHAR},
+      </if>
+      <if test="comActCod != null" >
+        COM_ACT_COD = #{comActCod,jdbcType=VARCHAR},
+      </if>
+      <if test="assExmCod != null" >
+        ASS_EXM_COD = #{assExmCod,jdbcType=VARCHAR},
+      </if>
+      <if test="exmRst != null" >
+        EXM_RST = #{exmRst,jdbcType=VARCHAR},
+      </if>
+      <if test="medCon != null" >
+        MED_CON = #{medCon,jdbcType=VARCHAR},
+      </if>
+      <if test="cooMbtCod != null" >
+        COO_MBT_COD = #{cooMbtCod,jdbcType=VARCHAR},
+      </if>
+      <if test="scdVstCod != null" >
+        SCD_VST_COD = #{scdVstCod,jdbcType=VARCHAR},
+      </if>
+      <if test="takMedCod != null" >
+        TAK_MED_COD = #{takMedCod,jdbcType=VARCHAR},
+      </if>
+      <if test="medRftFlg != null" >
+        MED_RFT_FLG = #{medRftFlg,jdbcType=CHAR},
+      </if>
+      <if test="havBldFlg != null" >
+        HAV_BLD_FLG = #{havBldFlg,jdbcType=CHAR},
+      </if>
+      <if test="addExp != null" >
+        ADD_EXP = #{addExp,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvAgnFlg != null" >
+        FUV_AGN_FLG = #{fuvAgnFlg,jdbcType=CHAR},
+      </if>
+      <if test="nxtFuvTim != null" >
+        NXT_FUV_TIM = #{nxtFuvTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nxtFuvGrp != null" >
+        NXT_FUV_GRP = #{nxtFuvGrp,jdbcType=VARCHAR},
+      </if>
+      <if test="nxtFuvDoc != null" >
+        NXT_FUV_DOC = #{nxtFuvDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="patCoo != null" >
+        PAT_COO = #{patCoo,jdbcType=DECIMAL},
+      </if>
+      <if test="plnSeq != null" >
+        PLN_SEQ = #{plnSeq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FUV_SEQ = #{fuvSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspFuvInf" >
+    update HSP_FUV_INF
+    set PAT_ID = #{patId,jdbcType=VARCHAR},
+      OUT_TIM = #{outTim,jdbcType=TIMESTAMP},
+      DIA_RST = #{diaRst,jdbcType=VARCHAR},
+      FUV_WAY_COD = #{fuvWayCod,jdbcType=VARCHAR},
+      FUV_TYP = #{fuvTyp,jdbcType=VARCHAR},
+      FUV_TIM = #{fuvTim,jdbcType=TIMESTAMP},
+      FUV_GRP = #{fuvGrp,jdbcType=VARCHAR},
+      FUV_DOC = #{fuvDoc,jdbcType=VARCHAR},
+      DGR_STF = #{dgrStf,jdbcType=DECIMAL},
+      PAT_SYM_COD = #{patSymCod,jdbcType=VARCHAR},
+      PAT_WGT = #{patWgt,jdbcType=DECIMAL},
+      SMK_CON = #{smkCon,jdbcType=VARCHAR},
+      ALC_CON = #{alcCon,jdbcType=VARCHAR},
+      FOD_CON = #{fodCon,jdbcType=VARCHAR},
+      SLT_CON_COD = #{sltConCod,jdbcType=VARCHAR},
+      SPT_CON_WEK = #{sptConWek,jdbcType=DECIMAL},
+      SPT_CON_TIM = #{sptConTim,jdbcType=DECIMAL},
+      MTL_SET_COD = #{mtlSetCod,jdbcType=VARCHAR},
+      COM_ACT_COD = #{comActCod,jdbcType=VARCHAR},
+      ASS_EXM_COD = #{assExmCod,jdbcType=VARCHAR},
+      EXM_RST = #{exmRst,jdbcType=VARCHAR},
+      MED_CON = #{medCon,jdbcType=VARCHAR},
+      COO_MBT_COD = #{cooMbtCod,jdbcType=VARCHAR},
+      SCD_VST_COD = #{scdVstCod,jdbcType=VARCHAR},
+      TAK_MED_COD = #{takMedCod,jdbcType=VARCHAR},
+      MED_RFT_FLG = #{medRftFlg,jdbcType=CHAR},
+      HAV_BLD_FLG = #{havBldFlg,jdbcType=CHAR},
+      ADD_EXP = #{addExp,jdbcType=VARCHAR},
+      FUV_AGN_FLG = #{fuvAgnFlg,jdbcType=CHAR},
+      NXT_FUV_TIM = #{nxtFuvTim,jdbcType=TIMESTAMP},
+      NXT_FUV_GRP = #{nxtFuvGrp,jdbcType=VARCHAR},
+      NXT_FUV_DOC = #{nxtFuvDoc,jdbcType=VARCHAR},
+      PAT_COO = #{patCoo,jdbcType=DECIMAL},
+      PLN_SEQ = #{plnSeq,jdbcType=VARCHAR}
+    where FUV_SEQ = #{fuvSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

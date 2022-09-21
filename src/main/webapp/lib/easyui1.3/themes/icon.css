@@ -1,0 +1,204 @@
+.icon {
+  line-height: 18px;
+  display: inline-block;
+  width: 18px;
+  background: url('../images/tabicons.png') no-repeat;
+}
+.icon-set {
+  background-position: -380px -200px;
+}
+
+.icon-add {
+  background-position: -20px 0;
+}
+
+.icon-add1 {
+  background: url('icon/edit_add.png') no-repeat;
+}
+
+.icon-nav {
+  background-position: -100px -20px;
+}
+
+.icon-users {
+  background-position: -100px -480px;
+}
+
+.icon-role {
+  background-position: -360px -200px;
+}
+
+.icon-set {
+  background-position: -380px -200px;
+}
+
+.icon-log {
+  background-position: -380px -80px;
+}
+
+.icon-dict {
+  background-position: -120px -60px;
+}
+
+.icon-module {
+  background-position: -220px -300px;
+}
+
+.icon-role {
+  background-position: -260px -480px;
+}
+
+.icon-compctl {
+  background-position: -300px -80px;
+}
+
+.icon-print {
+  background-position: -240px -340px;
+}
+
+.icon-import {
+  background-position: -220px -160px;
+}
+
+.icon-sys {
+  background-position: -0 -220px;
+}
+.icon-user {
+  line-height: 18px;
+  display: inline-block;
+  width: 18px;
+  background: url('../images/tabicons.png') no-repeat;
+}
+.icon-users {
+  background-position: -80px -420px;
+}
+.icon-delete16 {
+  line-height: 18px;
+  display: inline-block;
+  width: 18px;
+  background: url('icon/delete.gif') no-repeat;
+}
+.icon-delete {
+  background-position: -140px -120px;
+}
+.icon-edit {
+  background-position: -380px -320px;
+}
+.icon-magic {
+  background-position: 0 -500px;
+}
+.icon-database {
+  background-position: -20px -140px;
+}
+.icon-add{
+	background:url('icons/edit_add.png') no-repeat;
+}
+.icon-edit{
+	background:url('icons/pencil.png') no-repeat;
+}
+.icon-remove{
+	background:url('icons/edit_remove.png') no-repeat;
+}
+.icon-save{
+	background:url('icons/filesave.png') no-repeat;
+}
+.icon-cut{
+	background:url('icons/cut.png') no-repeat;
+}
+.icon-ok{
+	background:url('icons/ok.png') no-repeat;
+}
+.icon-no{
+	background:url('icons/no.png') no-repeat;
+}
+.icon-cancel{
+	background:url('icons/cancel.png') no-repeat;
+}
+.icon-reload{
+	background:url('icons/reload.png') no-repeat;
+}
+.icon-search{
+	background:url('icons/search.png') no-repeat;
+}
+.icon-print{
+	background:url('icons/print.png') no-repeat;
+}
+.icon-help{
+	background:url('icons/help.png') no-repeat;
+}
+.icon-undo{
+	background:url('icons/undo.png') no-repeat;
+}
+.icon-redo{
+	background:url('icons/redo.png') no-repeat;
+}
+.icon-back{
+	background:url('icons/back.png') no-repeat;
+}
+.icon-node-module{
+	background:url('icons/node-module.png') no-repeat;
+}
+.icon-node-module-bottom{
+	background:url('icons/node-module-bottom.png') no-repeat;
+}
+.icon-node-root{
+	background:url('icons/node-root.png') no-repeat;
+}
+.icon-system-manage{
+	background:url('icons/system-manage.png') no-repeat;
+}
+.icon-user-manage{
+	background:url('icons/user-manage.png') no-repeat;
+}
+.icon-nurse {
+  background:url('icons/nurse-station.png') no-repeat;
+}
+.icon-respect, .icon-nurse-station, .icon-nurse-record {
+	background:url('icons/respect-patient.png') no-repeat;
+}
+.icon-emergency-record{
+	background:url('icons/emergency-record.png') no-repeat;
+}
+.icon-quality-control,.icon-stat-control{
+	background:url('icons/quality-control.png') no-repeat;
+}
+.icon-form{
+	background:url('icons/form.png') no-repeat;
+}
+.icon-auxilium{
+	background:url('icons/auxilium.png') no-repeat;
+}
+.icon-report_add{
+	background:url('icons/report_add.png') no-repeat;
+}
+.icon-qjsgl{
+	background:url('icons/respect-patient.png') no-repeat;
+}
+.icon-hos {
+	background:url('icons/qjsgl.png') no-repeat;
+}
+.icon-hzjl{
+	background:url('icons/hzjl.png') no-repeat;
+}
+.icon-hzdj{
+	background:url('icons/tabiconhz.png') no-repeat;
+}
+.icon-arrowin{
+	background:url('icons/arrow_in.png') no-repeat;
+}
+
+.icon-arrowout{
+	background:url('icons/arrow_out.png') no-repeat;
+}
+
+.icon-ksjh{
+	background:url('icons/ksjh.png') no-repeat;
+}
+.icon-child{
+	background:url('icons/child.png') no-repeat;
+}
+
+.icon-bed{
+	background:url('icons/bedicon.png') no-repeat;
+}
+

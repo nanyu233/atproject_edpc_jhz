@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspTiInfCustomMapper" >
+    <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspTiInfCustom" >
+        <id column="TI_SEQ" property="tiSeq" jdbcType="VARCHAR" />
+        <result column="TI_PART_COD" property="tiPartCod" jdbcType="VARCHAR" />
+        <result column="TI_TRM_COD" property="tiTrmCod" jdbcType="VARCHAR" />
+        <result column="TI_SBU_COD" property="tiSbuCod" jdbcType="VARCHAR" />
+        <result column="TI_PUL_COD" property="tiPulCod" jdbcType="VARCHAR" />
+        <result column="TI_CSC_COD" property="tiCscCod" jdbcType="VARCHAR" />
+        <result column="TI_BRE_COD" property="tiBreCod" jdbcType="VARCHAR" />
+        <result column="TI_WCX_COD" property="tiWcxCod" jdbcType="VARCHAR" />
+        <result column="CRAT_DAT" property="cratDat" jdbcType="TIMESTAMP" />
+        <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+        <result column="TI_TRM_OTHER" property="tiTrmOther" jdbcType="VARCHAR" />
+        <result column="TI_SCO" property="tiSco" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="findTiByEmgSeq" resultType="activetech.zyyhospital.pojo.dto.HspTiInfCustom">
+        select *
+        from HSP_TI_INF
+        where EMG_SEQ = #{#emgSeq}
+    </select>
+</mapper>

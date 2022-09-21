@@ -1,0 +1,49 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
+
+	<!-- 系统配置 -->
+	<bean id="systemConfigService" class="activetech.base.service.impl.SystemConfigServiceImpl"/>
+	<!-- 权限管理 -->
+	<bean id="roleService" class="activetech.base.service.impl.RoleServiceImpl"/>
+	<!-- 模块管理 -->
+	<bean id="moduleService" class="activetech.base.service.impl.ModuleServiceImpl"/>
+	<!-- 用户管理  -->
+	<bean id="userService" class="activetech.base.service.impl.UserServiceImpl"/>
+	<!-- 机构管理  -->
+	<bean id="compctlService" class="activetech.base.service.impl.CompctlServiceImpl"/>
+	<!-- 操作管理 -->
+	<bean id="operationService" class="activetech.base.service.impl.OperationServiceImpl"/>
+	<!-- 基础配置管理 -->
+	<bean id="appoptionService" class="activetech.base.service.impl.AppoptionServiceImpl"/>
+	<!-- 数据字典 -->
+	<bean id="dictService" class="activetech.base.service.impl.DictServiceImpl"/>
+	<!-- 用户导入Service -->
+	<bean id="userImportService" class="activetech.base.service.impl.UserImportServiceImpl"/>
+	<!-- 日志Service -->
+	<bean id="logService" class="activetech.base.service.impl.LogServiceImpl"/>
+	<!-- 用户调配Service -->
+	<bean id="usrtrainfService" class="activetech.base.service.impl.UsrtrainfServiceImpl"/>
+	<!-- 物资维护Service -->
+	<bean id="ksjhService" class="activetech.base.service.impl.KsjhServiceImpl"/>
+	<!-- 首页Service -->
+	<bean id="firstService" class="activetech.base.service.impl.FirstServiceImpl"/>
+	<!--初步印象管理-->
+	<bean id="hspCbyxglService" class="activetech.base.service.impl.HspCbyxglServiceImpl"/>
+	<!-- 新疾病库 -->
+	<bean id="hspJbzdLzService" class="activetech.base.service.impl.HspJbzdLzServiceImpl"/>
+		
+	<bean id="commonService" class="activetech.base.service.impl.CommonServiceImpl"/>	
+		
+</beans>

@@ -1,0 +1,168 @@
+html{
+	overflow:hidden;
+}
+body{
+    overflow: hidden;
+    width: 1440px;
+    height: 900px;
+    transform: scale(1);
+    transform-origin: left top 0px; 
+}
+.at-container-fluid {
+    float: left;
+    width: 100%;
+    height: 100%;
+    background-color: #ecf3fd;
+}
+.at-container-fluid .at-tabs-container {
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+.sickbed-container {
+    float: left;
+    margin-top: 4px;
+}
+.sickbed-box {
+    display: inline-block;
+    background-color: transparent;
+}
+.sickbed-box.active {
+    background-color: #74b5de;
+}
+.sickbed-container .sickbed {
+    float: left;
+    overflow: hidden;
+    width: 340px;
+    height: 194px;
+    margin: 5px 6px 0 10px;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    border: solid 1px #a2aebe;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.34);
+}
+.basicMsg {
+    float: left;
+    height: 194px;
+}
+.basicMsg .topMsgUl {
+    float: left;
+    height: 163px;
+    width: 340px;
+}
+.basicMsg .topMsgUl li {
+    float: left;
+    width: 96%;
+    text-align: left;
+    padding-left: 4%;
+    font-size: 14px;
+    color: #434c58;
+    height: 20px;
+    line-height: 20px;
+    margin: 2px 0px;
+}
+.topMsgUl li.topLi img {
+    vertical-align: middle;
+    float: left;
+    margin-top: 4px;
+}
+.topMsgUl li.topLi img.imgWth {
+    width: 40px;
+}
+.basicMsg .topMsgUl li.topLi {
+    font-size: 18px;
+    height: 39px;
+    line-height: 39px;
+    border-bottom: 1px solid #a2aebe;
+    margin: 0px;
+    background:url(../../images/common/bigScreen/topBg.png);
+}
+.basicMsg .topMsgUl li.noContentLi {
+	height:158px;
+	text-align:center;
+	font-size:25px;
+    line-height:158px;
+    background: #fff;
+    margin: 0;
+    color: #848a92;
+}
+.basicMsg .topMsgUl li.noContentLi img {
+    width: 120px;
+    vertical-align: middle;
+    margin-left: -10px;
+}
+.basicMsg .topMsgUl li.marginUp {
+    margin-top: 4px;
+}
+.basicMsg .topMsgUl li.marginDown {
+    margin-bottom: 4px;
+}
+.basicMsg .topLi span{
+    float: right;
+    margin-right: 6px;
+}
+.basicMsg .topLi .marginSpace {
+    float: left;
+    margin-left: 9px;
+    font-size: 22px;
+}
+.basicMsg  .marginGap {
+    margin: 0px 8px;
+}
+.basicMsg .topLi span.marginSmall {
+    float: left;
+    margin-left: 0px;
+    margin-right: 0px;
+    font-size: 18px;
+}
+.basicMsg .GradeUl {
+    float: left;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 33px;
+    font-size: 15px;
+    line-height: 33px;
+    background: #d6d6d6;
+}
+.basicMsg .GradeUl li.threeLi {
+    float: left;
+    width: 33%;
+    font-size: 16px;
+    color: #2e2e2e;
+}
+.basicMsg .GradeUl.level0 {
+    border-color: #ec361c;
+    background-color: red;
+}
+.basicMsg .GradeUl.level1 {
+    border-color: #bfb926;
+    background-color: #f90;
+}
+.basicMsg .GradeUl.level2 {
+    border-color: #ece533;
+    background-color: yellow;
+}
+.basicMsg .GradeUl.level3,
+.basicMsg .GradeUl.level4 {
+    border-color: #169a18;
+    background-color: #44b548;
+}
+.fullScreenBtn {
+    position: absolute;
+    bottom: 100px;
+    right: 20px;
+    cursor: pointer;
+}
+.fullScreenBtn .exitFullScreen {
+    display: none;
+}
+.thinColor {
+    color: rgb(140, 144, 150);
+}
+.basicMsg a, .bottomMsgInfo {
+    color: rgb(0, 0, 0);
+}

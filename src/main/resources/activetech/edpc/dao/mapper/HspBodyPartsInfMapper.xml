@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspBodyPartsInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspBodyPartsInf" >
+    <id column="PART_SEQ" property="partSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="CLICK_AXIS_X" property="clickAxisX" jdbcType="DECIMAL" />
+    <result column="CLICK_AXIS_Y" property="clickAxisY" jdbcType="DECIMAL" />
+    <result column="PART_ID" property="partId" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="TIMESTAMP" />
+    <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+    <result column="MOD_USER" property="modUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PART_SEQ, EMG_SEQ, CLICK_AXIS_X, CLICK_AXIS_Y, PART_ID, MEMO, CRT_TIME, CRT_USER, 
+    MOD_TIME, MOD_USER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspBodyPartsInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_BODY_PARTS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_BODY_PARTS_INF
+    where PART_SEQ = #{partSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_BODY_PARTS_INF
+    where PART_SEQ = #{partSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspBodyPartsInfExample" >
+    delete from HSP_BODY_PARTS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspBodyPartsInf" >
+    insert into HSP_BODY_PARTS_INF (PART_SEQ, EMG_SEQ, CLICK_AXIS_X, 
+      CLICK_AXIS_Y, PART_ID, MEMO, 
+      CRT_TIME, CRT_USER, MOD_TIME, 
+      MOD_USER)
+    values (#{partSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{clickAxisX,jdbcType=DECIMAL}, 
+      #{clickAxisY,jdbcType=DECIMAL}, #{partId,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{crtTime,jdbcType=TIMESTAMP}, #{crtUser,jdbcType=VARCHAR}, #{modTime,jdbcType=TIMESTAMP}, 
+      #{modUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspBodyPartsInf" >
+    insert into HSP_BODY_PARTS_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="partSeq != null" >
+        PART_SEQ,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="clickAxisX != null" >
+        CLICK_AXIS_X,
+      </if>
+      <if test="clickAxisY != null" >
+        CLICK_AXIS_Y,
+      </if>
+      <if test="partId != null" >
+        PART_ID,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="modUser != null" >
+        MOD_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="partSeq != null" >
+        #{partSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="clickAxisX != null" >
+        #{clickAxisX,jdbcType=DECIMAL},
+      </if>
+      <if test="clickAxisY != null" >
+        #{clickAxisY,jdbcType=DECIMAL},
+      </if>
+      <if test="partId != null" >
+        #{partId,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null" >
+        #{modUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspBodyPartsInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_BODY_PARTS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_BODY_PARTS_INF
+    <set >
+      <if test="record.partSeq != null" >
+        PART_SEQ = #{record.partSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clickAxisX != null" >
+        CLICK_AXIS_X = #{record.clickAxisX,jdbcType=DECIMAL},
+      </if>
+      <if test="record.clickAxisY != null" >
+        CLICK_AXIS_Y = #{record.clickAxisY,jdbcType=DECIMAL},
+      </if>
+      <if test="record.partId != null" >
+        PART_ID = #{record.partId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTime != null" >
+        CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUser != null" >
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTime != null" >
+        MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUser != null" >
+        MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_BODY_PARTS_INF
+    set PART_SEQ = #{record.partSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      CLICK_AXIS_X = #{record.clickAxisX,jdbcType=DECIMAL},
+      CLICK_AXIS_Y = #{record.clickAxisY,jdbcType=DECIMAL},
+      PART_ID = #{record.partId,jdbcType=VARCHAR},
+      MEMO = #{record.memo,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspBodyPartsInf" >
+    update HSP_BODY_PARTS_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="clickAxisX != null" >
+        CLICK_AXIS_X = #{clickAxisX,jdbcType=DECIMAL},
+      </if>
+      <if test="clickAxisY != null" >
+        CLICK_AXIS_Y = #{clickAxisY,jdbcType=DECIMAL},
+      </if>
+      <if test="partId != null" >
+        PART_ID = #{partId,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null" >
+        MOD_USER = #{modUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PART_SEQ = #{partSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspBodyPartsInf" >
+    update HSP_BODY_PARTS_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      CLICK_AXIS_X = #{clickAxisX,jdbcType=DECIMAL},
+      CLICK_AXIS_Y = #{clickAxisY,jdbcType=DECIMAL},
+      PART_ID = #{partId,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{modUser,jdbcType=VARCHAR}
+    where PART_SEQ = #{partSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspXtzlDefMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspXtzlDef" >
+    <id column="BUS_STEP" property="busStep" jdbcType="VARCHAR" />
+    <id column="PRO_CODE" property="proCode" jdbcType="VARCHAR" />
+    <result column="PRO_TYPE" property="proType" jdbcType="VARCHAR" />
+    <result column="PRO_NAME" property="proName" jdbcType="VARCHAR" />
+    <result column="PRO_UNIT" property="proUnit" jdbcType="VARCHAR" />
+    <result column="PRO_LIST" property="proList" jdbcType="VARCHAR" />
+    <result column="RED_FLAG" property="redFlag" jdbcType="CHAR" />
+    <result column="AUT_FLAG" property="autFlag" jdbcType="CHAR" />
+    <result column="TIT_FLAG" property="titFlag" jdbcType="CHAR" />
+    <result column="PRE_CODE" property="preCode" jdbcType="VARCHAR" />
+    <result column="PRE_LITM" property="preLitm" jdbcType="VARCHAR" />
+    <result column="PRO_MEMO" property="proMemo" jdbcType="VARCHAR" />
+    <result column="FLD_SORT" property="fldSort" jdbcType="DECIMAL" />
+    <result column="NODE_ID" property="nodeId" jdbcType="VARCHAR" />
+    <result column="KEY_TIME" property="keyTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BUS_STEP, PRO_CODE, PRO_TYPE, PRO_NAME, PRO_UNIT, PRO_LIST, RED_FLAG, AUT_FLAG, TIT_FLAG, 
+    PRE_CODE, PRE_LITM, PRO_MEMO, FLD_SORT, NODE_ID, KEY_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspXtzlDefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_XTZL_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspXtzlDefKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_XTZL_DEF
+    where BUS_STEP = #{busStep,jdbcType=VARCHAR}
+      and PRO_CODE = #{proCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspXtzlDefKey" >
+    delete from HSP_XTZL_DEF
+    where BUS_STEP = #{busStep,jdbcType=VARCHAR}
+      and PRO_CODE = #{proCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspXtzlDefExample" >
+    delete from HSP_XTZL_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspXtzlDef" >
+    insert into HSP_XTZL_DEF (BUS_STEP, PRO_CODE, PRO_TYPE, 
+      PRO_NAME, PRO_UNIT, PRO_LIST, 
+      RED_FLAG, AUT_FLAG, TIT_FLAG, PRE_CODE, 
+      PRE_LITM, PRO_MEMO, FLD_SORT, 
+      NODE_ID, KEY_TIME)
+    values (#{busStep,jdbcType=VARCHAR}, #{proCode,jdbcType=VARCHAR}, #{proType,jdbcType=VARCHAR}, 
+      #{proName,jdbcType=VARCHAR}, #{proUnit,jdbcType=VARCHAR}, #{proList,jdbcType=VARCHAR}, 
+      #{redFlag,jdbcType=CHAR}, #{autFlag,jdbcType=CHAR}, #{titFlag,jdbcType=CHAR}, #{preCode,jdbcType=VARCHAR}, 
+      #{preLitm,jdbcType=VARCHAR}, #{proMemo,jdbcType=VARCHAR}, #{fldSort,jdbcType=DECIMAL}, 
+      #{nodeId,jdbcType=VARCHAR}, #{keyTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspXtzlDef" >
+    insert into HSP_XTZL_DEF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="busStep != null" >
+        BUS_STEP,
+      </if>
+      <if test="proCode != null" >
+        PRO_CODE,
+      </if>
+      <if test="proType != null" >
+        PRO_TYPE,
+      </if>
+      <if test="proName != null" >
+        PRO_NAME,
+      </if>
+      <if test="proUnit != null" >
+        PRO_UNIT,
+      </if>
+      <if test="proList != null" >
+        PRO_LIST,
+      </if>
+      <if test="redFlag != null" >
+        RED_FLAG,
+      </if>
+      <if test="autFlag != null" >
+        AUT_FLAG,
+      </if>
+      <if test="titFlag != null" >
+        TIT_FLAG,
+      </if>
+      <if test="preCode != null" >
+        PRE_CODE,
+      </if>
+      <if test="preLitm != null" >
+        PRE_LITM,
+      </if>
+      <if test="proMemo != null" >
+        PRO_MEMO,
+      </if>
+      <if test="fldSort != null" >
+        FLD_SORT,
+      </if>
+      <if test="nodeId != null" >
+        NODE_ID,
+      </if>
+      <if test="keyTime != null" >
+        KEY_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="busStep != null" >
+        #{busStep,jdbcType=VARCHAR},
+      </if>
+      <if test="proCode != null" >
+        #{proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="proType != null" >
+        #{proType,jdbcType=VARCHAR},
+      </if>
+      <if test="proName != null" >
+        #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proUnit != null" >
+        #{proUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="proList != null" >
+        #{proList,jdbcType=VARCHAR},
+      </if>
+      <if test="redFlag != null" >
+        #{redFlag,jdbcType=CHAR},
+      </if>
+      <if test="autFlag != null" >
+        #{autFlag,jdbcType=CHAR},
+      </if>
+      <if test="titFlag != null" >
+        #{titFlag,jdbcType=CHAR},
+      </if>
+      <if test="preCode != null" >
+        #{preCode,jdbcType=VARCHAR},
+      </if>
+      <if test="preLitm != null" >
+        #{preLitm,jdbcType=VARCHAR},
+      </if>
+      <if test="proMemo != null" >
+        #{proMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="fldSort != null" >
+        #{fldSort,jdbcType=DECIMAL},
+      </if>
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="keyTime != null" >
+        #{keyTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspXtzlDefExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_XTZL_DEF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_XTZL_DEF
+    <set >
+      <if test="record.busStep != null" >
+        BUS_STEP = #{record.busStep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proCode != null" >
+        PRO_CODE = #{record.proCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proType != null" >
+        PRO_TYPE = #{record.proType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proName != null" >
+        PRO_NAME = #{record.proName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proUnit != null" >
+        PRO_UNIT = #{record.proUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proList != null" >
+        PRO_LIST = #{record.proList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.redFlag != null" >
+        RED_FLAG = #{record.redFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.autFlag != null" >
+        AUT_FLAG = #{record.autFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.titFlag != null" >
+        TIT_FLAG = #{record.titFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.preCode != null" >
+        PRE_CODE = #{record.preCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.preLitm != null" >
+        PRE_LITM = #{record.preLitm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proMemo != null" >
+        PRO_MEMO = #{record.proMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fldSort != null" >
+        FLD_SORT = #{record.fldSort,jdbcType=DECIMAL},
+      </if>
+      <if test="record.nodeId != null" >
+        NODE_ID = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyTime != null" >
+        KEY_TIME = #{record.keyTime,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_XTZL_DEF
+    set BUS_STEP = #{record.busStep,jdbcType=VARCHAR},
+      PRO_CODE = #{record.proCode,jdbcType=VARCHAR},
+      PRO_TYPE = #{record.proType,jdbcType=VARCHAR},
+      PRO_NAME = #{record.proName,jdbcType=VARCHAR},
+      PRO_UNIT = #{record.proUnit,jdbcType=VARCHAR},
+      PRO_LIST = #{record.proList,jdbcType=VARCHAR},
+      RED_FLAG = #{record.redFlag,jdbcType=CHAR},
+      AUT_FLAG = #{record.autFlag,jdbcType=CHAR},
+      TIT_FLAG = #{record.titFlag,jdbcType=CHAR},
+      PRE_CODE = #{record.preCode,jdbcType=VARCHAR},
+      PRE_LITM = #{record.preLitm,jdbcType=VARCHAR},
+      PRO_MEMO = #{record.proMemo,jdbcType=VARCHAR},
+      FLD_SORT = #{record.fldSort,jdbcType=DECIMAL},
+      NODE_ID = #{record.nodeId,jdbcType=VARCHAR},
+      KEY_TIME = #{record.keyTime,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspXtzlDef" >
+    update HSP_XTZL_DEF
+    <set >
+      <if test="proType != null" >
+        PRO_TYPE = #{proType,jdbcType=VARCHAR},
+      </if>
+      <if test="proName != null" >
+        PRO_NAME = #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proUnit != null" >
+        PRO_UNIT = #{proUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="proList != null" >
+        PRO_LIST = #{proList,jdbcType=VARCHAR},
+      </if>
+      <if test="redFlag != null" >
+        RED_FLAG = #{redFlag,jdbcType=CHAR},
+      </if>
+      <if test="autFlag != null" >
+        AUT_FLAG = #{autFlag,jdbcType=CHAR},
+      </if>
+      <if test="titFlag != null" >
+        TIT_FLAG = #{titFlag,jdbcType=CHAR},
+      </if>
+      <if test="preCode != null" >
+        PRE_CODE = #{preCode,jdbcType=VARCHAR},
+      </if>
+      <if test="preLitm != null" >
+        PRE_LITM = #{preLitm,jdbcType=VARCHAR},
+      </if>
+      <if test="proMemo != null" >
+        PRO_MEMO = #{proMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="fldSort != null" >
+        FLD_SORT = #{fldSort,jdbcType=DECIMAL},
+      </if>
+      <if test="nodeId != null" >
+        NODE_ID = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="keyTime != null" >
+        KEY_TIME = #{keyTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where BUS_STEP = #{busStep,jdbcType=VARCHAR}
+      and PRO_CODE = #{proCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspXtzlDef" >
+    update HSP_XTZL_DEF
+    set PRO_TYPE = #{proType,jdbcType=VARCHAR},
+      PRO_NAME = #{proName,jdbcType=VARCHAR},
+      PRO_UNIT = #{proUnit,jdbcType=VARCHAR},
+      PRO_LIST = #{proList,jdbcType=VARCHAR},
+      RED_FLAG = #{redFlag,jdbcType=CHAR},
+      AUT_FLAG = #{autFlag,jdbcType=CHAR},
+      TIT_FLAG = #{titFlag,jdbcType=CHAR},
+      PRE_CODE = #{preCode,jdbcType=VARCHAR},
+      PRE_LITM = #{preLitm,jdbcType=VARCHAR},
+      PRO_MEMO = #{proMemo,jdbcType=VARCHAR},
+      FLD_SORT = #{fldSort,jdbcType=DECIMAL},
+      NODE_ID = #{nodeId,jdbcType=VARCHAR},
+      KEY_TIME = #{keyTime,jdbcType=CHAR}
+    where BUS_STEP = #{busStep,jdbcType=VARCHAR}
+      and PRO_CODE = #{proCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

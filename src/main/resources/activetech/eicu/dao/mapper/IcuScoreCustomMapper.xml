@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.eicu.dao.mapper.IcuScoreCustomMapper" >
+  
+  <select id="queryGradeList" parameterType="activetech.eicu.pojo.dto.IcuScoreQueryDto"
+  	resultType="activetech.eicu.pojo.dto.IcuGradeTotalCustom">
+		select t.grade_seq,
+		       t.grade_type,
+		       t.live_no,
+		       t.grade_sco,
+		       t.grade_detl,
+		       t.grade_time,
+		       t.grade_user,
+		       (select usrname from dstuser where usrno = t.grade_user) gradeUserStr,
+		       t.crt_time,
+		       t.crt_user,
+		       t.mod_time,
+		       t.mod_user,
+		       abc.fld_cod||cpn.fld_cod fldCod
+		  from icu_grade_total t,HSP_CSABC_INF abc,hsp_cscpn_inf cpn
+		 where t.live_no = #{liveNo, jdbcType = VARCHAR }
+		   and t.grade_type = #{gradeType, jdbcType = VARCHAR }
+		   and t.grade_seq = abc.fld_val(+)
+      	   and t.grade_seq = cpn.fld_val(+)
+		 order by grade_time desc nulls last
+  </select>
+  
+  <select id="findTotalInfo" resultType="activetech.eicu.pojo.dto.IcuGradeTotalCustom"
+  	parameterType="activetech.eicu.pojo.dto.IcuScoreQueryDto">
+	select grade_seq,
+	       grade_type,
+	       live_no,
+	       grade_sco,
+	       grade_time,
+	       grade_user,
+	       (select usrname from dstuser b where a.grade_user = b.usrno) gradeUserStr,
+	       crt_time,
+	       crt_user,
+	       (select usrname from dstuser b where a.crt_user = b.usrno) crtUserStr,
+	       mod_time,
+	       mod_user,
+	       (select usrname from dstuser b where a.mod_user = b.usrno) modUserStr
+	  from icu_grade_total a
+	 where live_no = #{liveNo, jdbcType = VARCHAR}
+	   and grade_seq = #{gradeSeq, jdbcType = VARCHAR}
+	   and grade_type = #{gradeType, jdbcType = VARCHAR}
+	 order by crt_time desc nulls last
+  </select>
+
+  <update id="addOrEditGradeTotal" parameterType="activetech.eicu.pojo.dto.IcuGradeTotalCustom">
+	merge into icu_grade_total a
+	using (select #{gradeSeq, jdbcType = VARCHAR} grade_seq,
+	              #{gradeType, jdbcType = VARCHAR} grade_type,
+	              #{liveNo, jdbcType = VARCHAR} live_no,
+	              nvl(#{gradeSco, jdbcType = VARCHAR}, '-') grade_sco,
+	              #{gradeDetl, jdbcType = VARCHAR} grade_detl,
+	              empty_clob() html_text,
+	              nvl(to_date(#{gradeTimeStr, jdbcType = VARCHAR},'yyyy/MM/dd hh24:mi'), sysdate)grade_time,
+	              nvl(#{gradeUser, jdbcType = VARCHAR }, #{crtUser, jdbcType = VARCHAR}) grade_user,
+	              sysdate crt_time,
+	              #{crtUser, jdbcType = VARCHAR} crt_user,
+	              sysdate mod_time,
+	              #{modUser, jdbcType = VARCHAR} mod_user
+	         from dual) b
+	on (a.grade_seq = b.grade_seq and a.grade_type = b.grade_type)
+	when matched then
+	  update
+	     set a.grade_sco  = b.grade_sco,
+	     	 a.grade_detl = b.grade_detl,
+	     	 a.grade_time = b.grade_time,
+	     	 a.grade_user = b.grade_user,
+	         a.mod_time  = b.mod_time,
+	         a.mod_user  = b.mod_user
+	   where a.grade_sco != b.grade_sco
+	      or a.grade_detl!= b.grade_detl
+	      or a.grade_user!= b.grade_user
+	      or a.grade_time!= b.grade_time
+	when not matched then
+	  insert
+	  values
+	    (b.grade_seq,
+	     b.grade_type,
+	     b.live_no,
+	     b.grade_sco,
+	     b.grade_detl,
+	     b.html_text,
+	     b.grade_time,
+	     b.grade_user,
+	     b.crt_time,
+	     b.crt_user,
+	     b.mod_time,
+	     b.mod_user)
+  </update>
+  
+  <select id="queryGradeForCare" parameterType="activetech.eicu.pojo.dto.IcuCustInfoQueryDto"	
+  	resultType="activetech.eicu.pojo.dto.IcuGradeTotalCustom">
+		select grade_time,
+		       to_char(grade_time, 'yyyy/MM/dd hh24:mi:ss') gradeTimeStr,
+		       to_char(replace(grade_detl,',','|')) grade_detl,
+		       to_char(replace(grade_user,',','/')) grade_user
+		  from (select trunc(a.grade_time, 'mi') grade_time,
+		               wm_concat(a.grade_detl)
+		                       over(partition by trunc(a.grade_time, 'mi')) grade_detl,
+		               wm_concat(distinct(c.usrname))
+		                       over(partition by trunc(a.grade_time, 'mi')) grade_user,
+		               row_number() over(partition by trunc(a.grade_time, 'mi') order by 1) rn,
+		               count(*) over(partition by trunc(a.grade_time, 'mi')) cnt
+		          from icu_grade_total a, dstuser c
+		         where a.live_no = #{liveNo,jdbcType = VARCHAR}
+		           and a.grade_time <![CDATA[>=]]> to_date(to_char(#{startDate,jdbcType=TIMESTAMP},'yyyy-MM-dd') || 
+		                (select optvalue from dstappoption where optkey = 'SHIFT_A'),'yyyy-MM-dd hh24:mi')
+		           and a.grade_time <![CDATA[<]]> to_date(to_char(#{endDate,jdbcType=TIMESTAMP}+1,'yyyy-MM-dd') || 
+		                (select optvalue from dstappoption where optkey = 'SHIFT_A'),'yyyy-MM-dd hh24:mi')
+		           and a.grade_user = c.usrno)
+		 where rn = cnt
+  </select>
+  
+  <select id="querySubItemListByItemDef" resultType="activetech.eicu.pojo.dto.IcuGradeSubitemCustom"
+		parameterType="activetech.eicu.pojo.dto.IcuScoreQueryDto">
+	  select c.grade_seq  as grade_seq,
+	         c.grade_type as grade_type,
+	         c.item_field as item_field,
+	         c.item_value as item_value,
+	         b.item_flag  as item_flag,
+	         b.item_root  as item_root
+	    from icu_grade_subitem c, icu_grade_def b
+	   where c.item_field = b.item_field
+	     and c.grade_type in
+	     <foreach collection="typeList" item="type" index="ind" open="(" close=")" separator=",">
+	     	#{type, jdbcType = VARCHAR }
+	     </foreach>
+	     <choose>
+	     	<when test="gradeSeq != null and gradeSeq != ''">
+	     		and c.grade_seq = #{gradeSeq, jdbcType = VARCHAR }
+	     	</when>
+	     	<otherwise>
+			    and 1=2
+	     	</otherwise>
+	     </choose>
+	   order by b.item_sort
+  </select>
+  <!-- and b.item_flag in ('T', '9') 
+  		c.grade_seq in (select grade_seq
+			                          from (select a.grade_seq,
+			                                       row_number() over(partition by live_no, grade_type order by grade_time desc) rn
+			                                  from icu_grade_total a
+			                                 where live_no = #{liveNo, jdbcType = VARCHAR }
+			                                   and grade_type = #{gradeType, jdbcType = VARCHAR })
+			                         where rn = 1)
+  -->
+  
+  <select id="queryGradeHead" parameterType="activetech.eicu.pojo.dto.IcuScoreQueryDto" 
+  	resultType="activetech.eicu.pojo.dto.IcuGradeTotalCustom">
+	select grade_seq,
+	       a.grade_type,
+	       live_no,
+	       grade_sco,
+	       grade_detl,
+	       b.risk_type,
+	       b.risk_desc,
+	       c.info riskName,
+       	   c.remark riskColor,
+	       crt_time,
+	       grade_time,
+	       to_char(grade_time, 'yyyy/MM/dd hh24:mi') gradeTimeStr,
+	       (select usrname from dstuser where usrno = grade_user) grade_user,
+	       (select usrname from dstuser where usrno = crt_user) crtUser,
+	       mod_time,
+	       to_char(mod_time, 'yyyy/MM/dd hh24:mi') modTimeStr,
+	       (select usrname from dstuser where usrno = mod_user) modUser
+	  from (select * 
+	  		  from (select *
+			          from icu_grade_total
+			         where grade_type = #{gradeType, jdbcType = VARCHAR }
+			           and live_no = #{liveNo, jdbcType = VARCHAR }
+			           <if test="startDate != null">
+			           and trunc(grade_time,'mi') <![CDATA[>=]]>
+					   	   (select to_date(to_char(#{startDate,jdbcType=TIMESTAMP}, 'yyyy-MM-dd') || optvalue,
+					                       'yyyy-MM-dd hh24:mi:ss')
+					          from dstappoption
+					         where optkey = 'SHIFT_A')
+			           </if>
+			           <if test="endDate != null">
+					   and trunc(grade_time,'mi') <![CDATA[<]]>
+					       (select to_date(to_char(#{endDate,jdbcType=TIMESTAMP} + 1, 'yyyy-MM-dd') || optvalue,
+					                       'yyyy-MM-dd hh24:mi:ss')
+					          from dstappoption
+					         where optkey = 'SHIFT_A')
+			           </if>
+			         order by grade_time desc,mod_time desc)
+			 <if test="endDate == null or startDate == null">
+			 where rownum <![CDATA[<=]]> 10
+			 </if>) a
+	  left join icu_grade_risk b
+	    on a.grade_type = b.grade_type
+	   and replace(a.grade_sco, '+T', '') between b.low_value and b.upp_value
+	  left join (select * from dstdictinfo where typecode = 'RISK_COLOR') c
+    	on b.risk_type = c.infocode
+	 order by grade_time desc, mod_time desc
+  </select>
+  
+  <select id="queryGradeItemList" parameterType="activetech.eicu.pojo.dto.IcuScoreQueryDto" 
+  	resultType="activetech.eicu.pojo.dto.IcuGradeSubitemCustom">
+		select a.grade_seq, a.grade_type, a.item_field, item_value, item_sort
+		  from icu_grade_subitem a, 
+			   (select *
+		         from icu_grade_def
+		        start with item_field = #{gradeType, jdbcType = VARCHAR }
+		      connect by prior item_field = item_root) b
+		 where a.item_field = b.item_field
+		   and grade_seq in (select grade_seq
+		                       from (select *
+		                               from icu_grade_total
+		                              where grade_type = #{gradeType, jdbcType = VARCHAR }
+		                                and live_no = #{liveNo, jdbcType = VARCHAR }
+		                                <if test="startDate != null">
+							            and trunc(grade_time,'mi') <![CDATA[>=]]>
+									   	    (select to_date(to_char(#{startDate,jdbcType=TIMESTAMP}, 'yyyy-MM-dd') || optvalue,
+									                        'yyyy-MM-dd hh24:mi:ss')
+									           from dstappoption
+									          where optkey = 'SHIFT_A')
+							            </if>
+							            <if test="endDate != null">
+									    and trunc(grade_time,'mi') <![CDATA[<]]>
+									        (select to_date(to_char(#{endDate,jdbcType=TIMESTAMP} + 1, 'yyyy-MM-dd') || optvalue,
+									                        'yyyy-MM-dd hh24:mi:ss')
+									           from dstappoption
+									         where optkey = 'SHIFT_A')
+							            </if>
+		                              order by grade_time desc,mod_time desc)
+		                      <if test="endDate == null or startDate == null">
+		                      where rownum <![CDATA[<=]]> 10
+		                      </if>
+		                      )
+		 order by grade_seq, item_sort
+  </select>
+  
+  <select id="queryTotalScoByMenu" parameterType="activetech.eicu.pojo.dto.IcuScoreQueryDto"
+  	resultType="activetech.eicu.pojo.dto.IcuGradeTotalCustom">
+		select d.menu_type grade_type,
+		       d.menu_name item_name,
+		       grade_seq,
+		       live_no,
+		       grade_sco,
+		       grade_detl,
+		       grade_time,
+		       to_char(grade_time, 'yyyy/MM/dd hh24:mi') gradeTimeStr,
+		       (select usrname 
+		          from dstuser
+		         where usrno = grade_user) grade_user,
+		       c.riskName,
+		       c.riskColor,
+		       c.risk_type,
+	       	   c.risk_desc,
+	       	   d.yAxisVal,
+		       crt_time,
+		       crt_user,
+		       mod_time,
+		       mod_user
+		  from (select *
+		          from (select a.grade_seq,
+		                       a.grade_type,
+		                       a.live_no,
+		                       a.grade_sco,
+		                       a.grade_detl,
+		                       a.grade_time,
+		                       a.grade_user,
+		                       a.crt_time,
+		                       a.crt_user,
+		                       a.mod_time,
+		                       a.mod_user,
+		                       b.risk_type,
+		                       b.low_value,
+		                       b.upp_value,
+		                       g.info riskName,
+                       		   g.remark riskColor,
+                       		   b.risk_desc,
+		                       first_value(risk_type) over(partition by a.grade_type order by a.grade_time desc, mod_time desc) fv,
+		                       row_number() over(partition by a.grade_type order by a.grade_time desc, mod_time desc) rn
+		                  from icu_grade_total a
+		                  left join icu_grade_risk b
+		                    on a.grade_type = b.grade_type
+		                   and replace(a.grade_sco, '+T', '') between b.low_value and
+		                       b.upp_value
+		                  left join (select *
+		                              from dstdictinfo
+		                             where typecode = 'RISK_COLOR') g
+		                    on b.risk_type = infocode
+		                 where a.live_no = #{liveNo, jdbcType = VARCHAR })
+		         <where>
+			         <choose>
+				         <when test="flag == 'chart'.toString()">
+				           and rn <![CDATA[<=]]> 10
+				         </when>
+				         <when test="flag == 'basic'.toString()">
+				           and rn = 1
+				         </when>
+			         </choose>
+		         </where>
+		         ) c
+		 right join (select e.*,f.score_memo yAxisVal
+		               from icu_menu_def e
+		               left join (select *
+		                            from icu_grade_def
+		                           where item_flag = 'T'
+		                             and score_memo != '#') f
+		                 on e.menu_type = f.item_root
+		              where ov_flag = '1' and e.menu_stat='1'
+		                  <choose>
+		                    <when test="flag == 'single'.toString()">
+		                      and menu_type = #{gradeType, jdbcType = VARCHAR }
+		                    </when>
+		                    <otherwise>
+		                              and menu_root = (select menu_root
+		                                                 from icu_menu_def
+		                                                where menu_type = #{gradeType, jdbcType = VARCHAR })
+		                              and menu_type != #{gradeType, jdbcType = VARCHAR }
+		                    </otherwise>                
+		                  </choose>
+		                ) d
+		    on c.grade_type = d.menu_type
+		 order by fv asc nulls last, menu_id, grade_time
+  </select>
+
+  <select id="queryGradeRisk" parameterType="java.lang.String"
+  	resultType="activetech.eicu.pojo.dto.IcuGradeRiskCustom">
+	select a.*, b.info riskName, b.remark riskColor
+	  from icu_grade_risk a,
+	       (select * from dstdictinfo where typecode = 'RISK_COLOR') b
+	 where a.risk_type = b.infocode(+)
+	   <if test="gradeType != null and gradeType != ''">
+	   and a.grade_type = #{gradeType, jdbcType = VARCHAR }
+	   </if>
+	 order by a.grade_type, a.risk_type
+  </select>
+
+  <select id="queryGradeListByLiveNo" parameterType="activetech.eicu.pojo.dto.IcuScoreQueryDto"
+  	resultType="activetech.eicu.pojo.dto.IcuGradeTotalCustom">
+		select t.grade_seq,
+		       t.grade_type,
+		       t.live_no,
+		       t.grade_sco,
+		       t.grade_detl,
+		       t.grade_time,
+		       t.grade_user,
+		       (select usrname from dstuser where usrno = t.grade_user) gradeUserStr,
+		       t.crt_time,
+		       t.crt_user,
+		       t.mod_time,
+		       t.mod_user,
+		       abc.fld_cod||cpn.fld_cod fldCod
+		  from icu_grade_total t,hsp_csabc_inf abc,hsp_cscpn_inf cpn
+		 where live_no = #{liveNo, jdbcType = VARCHAR }
+		 and t.grade_seq = abc.fld_val(+)
+      	 and t.grade_seq = cpn.fld_val(+)
+		 <if test="gradeType != null">
+           		and t.grade_type<![CDATA[>=]]>#{gradeType, jdbcType = VARCHAR }
+         </if>
+		 <if test="startDate != null">
+           		and t.grade_time<![CDATA[>=]]>#{startDate}
+         </if>
+         <if test="endDate != null">
+	            and t.grade_time<![CDATA[<]]>#{endDate}
+         </if>
+		 order by t.grade_time desc nulls last
+  </select>
+
+</mapper>

@@ -1,0 +1,260 @@
+@charset "utf-8";
+/**
+*  首页单独css
+*/
+body,
+html {
+    height: 100%;
+    min-width: 1139px !important;
+    /* background: rgb(248, 248, 248); */
+	display: flex;
+	justify-content: space-around;
+}
+.indexBody{
+	background: url('../../images/common/bigScreen/background.png') no-repeat top center;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	overflow-y: visible;
+	transform: scale(1);
+	transform-origin: left top 0px;
+	overflow: hidden;
+}
+.left_part {
+    width: 24%;
+	height:100%;
+    box-sizing: border-box;
+}
+.center_part {
+    width: 50.5%;
+	height:100%;
+	box-sizing: border-box;
+}
+.right_part {
+    width: 24%;
+	height:100%;
+	box-sizing: border-box;
+}
+
+/* .jzimg {
+    padding-top: 16px;
+    width: 99.9%;
+    height: 80%;
+    border-top: 1px solid #d1d1d1;
+} */
+
+.blimg,
+.btmimg {
+    width: 99.8%;
+    height: 85%;
+    /* border-top: 1px solid #d1d1d1; */
+}
+
+/* .jzform {
+    float: left;
+    overflow: hidden;
+    margin-right: 2%;
+    margin-left: 0%;
+    width: 100%;
+    height: 99%;
+    border: 1px solid #d1d1d1;
+    background: #fff;
+    /* -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 01px 1px 10px rgba(0, 0, 0, 0.1); */
+} */
+
+.jzform p {
+    width: 100%;
+    height: 30px;
+    background: -webkit-linear-gradient(top, rgb(224, 236, 255) 0, #fff 100%);
+    background: -moz-linear-gradient(top, rgb(224, 236, 255) 0, #fff 100%);
+    background: -o-linear-gradient(top, rgb(224, 236, 255) 0, #fff 100%);
+    background: linear-gradient(to bottom, rgb(224, 236, 255) 0, #fff 100%);
+    background-color: #E0ECFF;
+    background-repeat: repeat-x;
+    color: #666666;
+    text-align: center;
+    text-align: left;
+    text-indent: 1em;
+    font-size: 14px;
+    font-family: '微软雅黑';
+    line-height: 30px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#e1ecff, endcolorstr=#ffffff);
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#e1ecff, endcolorstr=#ffffff);
+}
+
+.blform,
+.btmdiv {
+    float: right;
+    overflow: hidden;
+    width: 100%;
+    height: 98.9%;
+    /* border: 1px solid #d1d1d1; */
+    /* background: #fff; */
+    /* -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 01px 1px 10px rgba(0, 0, 0, 0.1); */
+}
+
+.blform p,
+.btmdiv p {
+    width: 100%;
+    height: 30px;
+	background: #23427A;
+    /* background: -webkit-linear-gradient(top, rgb(224, 236, 255) 0, #fff 100%);
+    background: -moz-linear-gradient(top, rgb(224, 236, 255) 0, #fff 100%);
+    background: -o-linear-gradient(top, rgb(224, 236, 255) 0, #fff 100%);
+    background: linear-gradient(to bottom, rgb(224, 236, 255) 0, #fff 100%);
+    background-color: #E0ECFF;
+    background-repeat: repeat-x; */
+    color: #77d4ef;
+    text-align: center;
+    text-align: left;
+    text-indent: 1em;
+    font-size: 16px;
+    font-family: '微软雅黑';
+    line-height: 30px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#e1ecff, endcolorstr=#ffffff);
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#e1ecff, endcolorstr=#ffffff);
+}
+
+.left_top,.right_top{
+	float:left;
+	width:100%;
+	height:33.3%;
+}
+.left_center,.left_bottom,.right_center,.right_bottom {
+    float: left;
+	height: 32.7%;
+	width: 100%;
+	margin: 2px 0;
+	/* box-shadow: 0 0 5px #ccc; */
+	box-shadow: 0px 0px 90px rgba(0,108,255,0.6) inset;
+    box-sizing: border-box;
+}
+.center_top{
+	float: left;
+	height:10%;
+	width:100%;
+	display:table;
+}
+.center_top .title{
+	width:40%;
+	text-align: center;
+	font-size: 30px;
+	color: #77d4ef;
+	/* font-weight: 800; */
+	vertical-align:middle;
+	display:table-cell;
+	text-shadow: 5px 5px 5px #73c3c4;
+}
+.center_center,.center_bottom {
+    float: left;
+	height: 44.6%;
+	width: 100%;
+	margin-bottom: 4px;
+	/* box-shadow: 0 0 5px #ccc; */
+	box-shadow: 0px 0px 100px rgba(0,108,255,0.6) inset;
+}
+.titleLine{
+	width: 100%;
+	height: 48%;
+	text-align: center;
+	margin-top: 3px;
+	display: flex;
+	justify-content: space-around;
+}
+.titleLine .left{
+	float: left;
+	width: 48%;
+    height: 100%;
+	border-radius: 10px;
+	border: 3px solid #2d81bbad;
+	box-shadow: 0px 0px 30px rgba(0,108,255,0.6) inset;
+	box-sizing:border-box;
+	padding:1% 0;
+}
+.titleLine .right{
+	float: left;
+	width: 48%;
+    height: 100%;
+	border-radius: 10px;
+	border: 3px solid #2d81bbad;
+	box-shadow: 0px 0px 30px rgba(0,108,255,0.6) inset;
+	box-sizing:border-box;
+	padding:1% 0;
+}
+.titleLine .number{
+	font-size: 36px;
+    /* font-weight: 800; */
+    color: #88f4fe;
+}
+.titleLine .textBox{
+	font-size: 16px;
+    color: #fff;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #d1d1d1;
+    background: -webkit-linear-gradient(top, rgb(224, 236, 255) 0, #fff 100%);
+    background: -moz-linear-gradient(top, rgb(224, 236, 255) 0, #fff 100%);
+    background: -o-linear-gradient(top, rgb(224, 236, 255) 0, #fff 100%);
+    background: linear-gradient(to bottom, rgb(224, 236, 255) 0, #fff 100%);
+    background-color: #fff;
+    background-color: #E0ECFF;
+    background-repeat: repeat-x;
+    box-shadow: 01px 1px 10px rgba(0, 0, 0, 0.1);
+    filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#e1ecff, endcolorstr=#ffffff);
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#e1ecff, endcolorstr=#ffffff);
+}
+
+table td {
+    border: 1px solid #d1d1d1;
+    text-align: center;
+    line-height: 40px;
+}
+
+.lefttitle {
+    width: 20%;
+}
+
+
+.form_cat {
+    float: left;
+    margin-top: 20px;
+    width: 100%;
+    background: #e4efff;
+}
+
+.titleimg {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+/**
+ * 杭州市中医院特殊css
+ */
+
+.gap_part {
+    float: left;
+    margin-left: 2%;
+    margin-top: 10px;
+    width: 96%;
+}
+.gap_part .message{
+    margin-bottom: 0px;
+    height: 40px;
+}
+ul li.hzsli {
+    float: left;
+    width: 50%;
+    background-color: rgb(235, 243, 245);
+}
+.message ul.ulheight {
+    width: 50%;
+    float: left;
+    border: none;
+}

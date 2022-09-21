@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.HspCbyxglMapper" >
+  <resultMap id="BaseResultMap" type="activetech.base.pojo.domain.HspCbyxgl" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CBYX" property="cbyx" jdbcType="VARCHAR" />
+    <result column="PYSM" property="pysm" jdbcType="VARCHAR" />
+    <result column="BRQX" property="brqx" jdbcType="VARCHAR" />
+    <result column="FZKS" property="fzks" jdbcType="VARCHAR" />
+    <result column="YJDJ" property="yjdj" jdbcType="VARCHAR" />
+    <result column="ZBCS" property="zbcs" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CBYX, PYSM, BRQX, FZKS, YJDJ, ZBCS, MEMO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.base.pojo.domain.HspCbyxglExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CBYXGL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CBYXGL
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_CBYXGL
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.HspCbyxglExample" >
+    delete from HSP_CBYXGL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.base.pojo.domain.HspCbyxgl" >
+    insert into HSP_CBYXGL (ID, CBYX, PYSM, 
+      BRQX, FZKS, YJDJ, ZBCS, 
+      MEMO)
+    values (#{id,jdbcType=VARCHAR}, #{cbyx,jdbcType=VARCHAR}, #{pysm,jdbcType=VARCHAR}, 
+      #{brqx,jdbcType=VARCHAR}, #{fzks,jdbcType=VARCHAR}, #{yjdj,jdbcType=VARCHAR}, #{zbcs,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.base.pojo.domain.HspCbyxgl" >
+    insert into HSP_CBYXGL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="cbyx != null" >
+        CBYX,
+      </if>
+      <if test="pysm != null" >
+        PYSM,
+      </if>
+      <if test="brqx != null" >
+        BRQX,
+      </if>
+      <if test="fzks != null" >
+        FZKS,
+      </if>
+      <if test="yjdj != null" >
+        YJDJ,
+      </if>
+      <if test="zbcs != null" >
+        ZBCS,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cbyx != null" >
+        #{cbyx,jdbcType=VARCHAR},
+      </if>
+      <if test="pysm != null" >
+        #{pysm,jdbcType=VARCHAR},
+      </if>
+      <if test="brqx != null" >
+        #{brqx,jdbcType=VARCHAR},
+      </if>
+      <if test="fzks != null" >
+        #{fzks,jdbcType=VARCHAR},
+      </if>
+      <if test="yjdj != null" >
+        #{yjdj,jdbcType=VARCHAR},
+      </if>
+      <if test="zbcs != null" >
+        #{zbcs,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.base.pojo.domain.HspCbyxglExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_CBYXGL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_CBYXGL
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cbyx != null" >
+        CBYX = #{record.cbyx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pysm != null" >
+        PYSM = #{record.pysm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brqx != null" >
+        BRQX = #{record.brqx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fzks != null" >
+        FZKS = #{record.fzks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yjdj != null" >
+        YJDJ = #{record.yjdj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zbcs != null" >
+        ZBCS = #{record.zbcs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_CBYXGL
+    set ID = #{record.id,jdbcType=VARCHAR},
+      CBYX = #{record.cbyx,jdbcType=VARCHAR},
+      PYSM = #{record.pysm,jdbcType=VARCHAR},
+      BRQX = #{record.brqx,jdbcType=VARCHAR},
+      FZKS = #{record.fzks,jdbcType=VARCHAR},
+      YJDJ = #{record.yjdj,jdbcType=VARCHAR},
+      ZBCS = #{record.zbcs,jdbcType=VARCHAR},
+      MEMO = #{record.memo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.HspCbyxgl" >
+    update HSP_CBYXGL
+    <set >
+      <if test="cbyx != null" >
+        CBYX = #{cbyx,jdbcType=VARCHAR},
+      </if>
+      <if test="pysm != null" >
+        PYSM = #{pysm,jdbcType=VARCHAR},
+      </if>
+      <if test="zbcs != null" >
+        ZBCS = #{zbcs,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      BRQX = #{brqx,jdbcType=VARCHAR},FZKS = #{fzks,jdbcType=VARCHAR},YJDJ = #{yjdj,jdbcType=VARCHAR}
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.HspCbyxgl" >
+    update HSP_CBYXGL
+    set CBYX = #{cbyx,jdbcType=VARCHAR},
+      PYSM = #{pysm,jdbcType=VARCHAR},
+      BRQX = #{brqx,jdbcType=VARCHAR},
+      FZKS = #{fzks,jdbcType=VARCHAR},
+      YJDJ = #{yjdj,jdbcType=VARCHAR},
+      ZBCS = #{zbcs,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspConsentTempCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspConsentTemp" >
+    <id column="TEMPNO" property="tempno" jdbcType="VARCHAR" />
+    <result column="TEMPNAME" property="tempname" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="QM_HASH" property="qmHash" jdbcType="VARCHAR" />
+    <result column="QM_TAG" property="qmTag" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="findHspConsentTemp" parameterType="activetech.zyyhospital.pojo.dto.HspConsentTempCustomDto"
+		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		 select tempno,
+		 tempname,
+		 memo,
+		 QM_HASH,
+		 QM_TAG
+		 from hsp_consent_temp
+		 where 1=1
+		 <if test="hspConsentTempCustom.tempname!=null and hspConsentTempCustom.tempname!=''">
+				and hsp_consent_temp.tempname like '%'||#{hspConsentTempCustom.tempname}||'%' 
+		</if>
+		<choose>
+			<when test="hspConsentTempCustom.memo!=null and hspConsentTempCustom.memo!=''">
+				and hsp_consent_temp.memo = #{hspConsentTempCustom.memo}
+			</when>
+			<otherwise>
+				and hsp_consent_temp.memo in ('ZQTYS','ZQTYSMZ')
+			</otherwise>
+		</choose>
+		order by ordnumb asc
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+  </mapper>

@@ -1,0 +1,318 @@
+@charset "utf-8";
+
+/**
+* 接收病人页面8个弹出框样式
+*/
+.face {
+    display: inline-block;
+    width: 58px;
+    height: 63px;
+    background-image: url(../../images/hems/nurse/face.png);
+    /* background-repeat: no-repeat; */ }
+
+.face.face-00 {
+    background-position: 0 0; }
+
+.face.face-01 {
+    background-position: -58px 0; }
+
+.face.face-02 {
+    background-position: -114px 0; }
+
+.face.face-03 {
+    background-position: -170px 0; }
+
+.face.face-04 {
+    background-position: -226px 0; }
+
+.face.face-05 {
+    background-position: -284px 0; }
+
+.face.face-06 {
+    background-position: -340px 0; }
+
+.face.face-07 {
+    background-position: -398px 0; }
+
+.face.face-08 {
+    background-position: -456px 0; }
+
+.face.face-09 {
+    background-position: -512px 0; }
+
+.face.face-10 {
+    background-position: -568px 0; }
+
+.face.face-00.active {
+    background-position: 0 -63px; }
+
+.face.face-01.active {
+    background-position: -58px -63px; }
+
+.face.face-02.active {
+    background-position: -114px -63px; }
+
+.face.face-03.active {
+    background-position: -170px -63px; }
+
+.face.face-04.active {
+    background-position: -226px -63px; }
+
+.face.face-05.active {
+    background-position: -284px -63px; }
+
+.face.face-06.active {
+    background-position: -340px -63px; }
+
+.face.face-07.active {
+    background-position: -398px -63px; }
+
+.face.face-08.active {
+    background-position: -456px -63px; }
+
+.face.face-09.active {
+    background-position: -512px -63px; }
+
+.face.face-10.active {
+    background-position: -568px -63px; }
+
+.queryMsgMews,
+.querynrs{
+    overflow: hidden;
+}
+.queryMsgMews .mews_container,
+.querynrs .nrs_container{
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+}
+
+.queryMsgMews .box_title,
+.querynrs .box_title{
+    text-align: center;
+    color: #000;
+    font-size: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.queryMsgMews .mews_container .score_div,
+.querynrs .nrs_container .score_div {
+    float: right;
+    width: 80px;
+    height: 31px;
+    margin-right: 10px;
+    margin-top: 15px;
+}
+.querynrs .nrs_container .score_div{
+    position: absolute;
+    right: 20px;
+    bottom: 40px;
+}
+
+.queryMsgMews .mews_container .score_div span,
+.querynrs .nrs_container .score_div span{
+    text-align: left;
+    font-size: 18px;
+    color: #000;
+}
+
+.queryMsgMews .mews_container .score_div i,
+.querynrs .nrs_container .score_div i{
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    color: #f0791b;
+}
+.nrs_container .span.content_span {
+    margin-right: 4px;
+}
+.querynrs .box_p_bottom {
+    margin-bottom: 20px;
+}
+.querynrs .content_div{
+    float:left;
+    margin-bottom:10px;
+}
+.querynrs .nrstitle {
+    display:inline-block;
+    float: left;
+    width:6em;
+    text-align: right;
+}
+.querynrs .nrsSpc{
+    line-height: 60px;
+}
+.querynrs .nrsDiv {
+    width: 850px;
+    float: left;
+}
+.querynrs .con_pos{
+    margin-top:10px;
+}
+.querynrs .remarkinput {
+    width: 580px;
+}
+.querynrs .qtinput {
+    width:190px;
+}
+div.grp_btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.queryczface .czface_container .act_div {
+    float: left;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #dddddd
+}
+.queryczface .czface_container .first_act{
+    border-top: 1px solid #dddddd;
+    margin-top: 2px;
+}
+.queryczface .czface_container .act_div .msg_div{
+   margin-top: 6.5px;
+   float: left;
+   width: 80%;
+}
+.queryczface .czface_container .act_p{
+    font-size: 14px;
+    width: 20%;
+    color: #2a00ff;
+    height: 50px;
+    float: left;
+    text-align: center;
+    line-height: 50px;
+    box-sizing: border-box;
+    background: rgb(243,249,255);
+    border-right: 1px solid #dddddd;
+}
+.queryczface .czface_container .act_label {
+    display: block;
+    float: left;
+    width: 100%;
+    box-sizing: border-box;
+}
+.queryczface .czface_container .act_label{
+    text-indent: 1em;
+}
+.queryczface .czface_container .act_label input {
+    float: right;
+    margin-right: 5.5em;
+    margin-top: 3px;
+}
+.queryrisk .risk_container {
+  padding-top: 10px;
+}
+.risk_container .box_title {
+    font-size: 20px;
+    padding-bottom: 5px;
+    text-align: center;
+    color: #000;
+}
+.risk_container .inspect_p {
+    width: 80%;
+    text-indent: 1em;
+    color: #000;
+}
+.risk_container .inspect_span {
+    float: right;
+    width: 20%;
+    display: inline-block;
+    margin-top: -30px;
+}
+.risk_container .inspect_p, .risk_container .inspect_span {
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+}
+.lineLabel {
+  float: left;
+  width: 100%;
+  font-size: 14px;
+  line-height: 30px;
+  border-bottom: 1px solid #dddddd;
+}
+.lineLabel span {
+  display: inline-block;
+  width: 80%;
+  border-right: 1px solid #dddddd;
+  text-align: center;
+  color: #2a00ff;
+}
+.lineLabel input {
+  margin-left: 9%;
+}
+.divCustom {
+  float: left;
+  width: 100%;
+  margin-bottom: 4px;
+}
+.halfLineLabel {
+    width: 48%;
+    float: left;
+    line-height: 30px;
+    font-size: 14px;
+    padding-left: 2%;
+}
+.borderDiv {
+  border-top: 1px solid #ddd;
+}
+
+.queryMsgMews .mews_container .mark_msg_detail ul {
+  height: 52px;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+.queryMsgMews .mews_container .mark_msg_detail ul li {
+  font-size: 14px;
+  line-height: 26px;
+  float: left;
+  width: 33%;
+  height: 26px; }
+
+.queryMsgMews .mews_container .mark_msg_detail ul li.lastli {
+  width: 50%; }
+
+.queryMsgMews .mews_container .mark_msg_detail ul .bre_span {
+  display: inline-block;
+  width: 5em;
+  text-align: right; }
+  .queryMsgMews .mews_container .mark_msg_detail .item_color {
+  color: #808080; }
+
+.queryMsgMews .mews_container table.mark_rule {
+  margin-top: 8px;
+  width: 100%; }
+
+.queryMsgMews .mews_container table.mark_rule .mark_score td {
+  color: #e57200; }
+
+.queryMsgMews .mews_container table.mark_rule td.active {
+  color: #0e86ed;
+  background: #f3f8ff; }
+
+.queryMsgMews .mews_container table.mark_rule td,
+.queryMsgMews .mews_container table.mark_rule th {
+  font-size: 14px;
+  line-height: 1.5;
+  width: 12.5%;
+  height: 33px;
+  text-align: center;
+  color: #666;
+  border: solid 1px #d6d6d6; }
+.curTd {
+  cursor: pointer;
+}
+.titleTh {
+  color: #000 !important;
+  font-weight: bold;
+}
+.zjDiv{
+    margin-left: 10px
+}
+.jbsDiv .lab-title input[type="checkbox"],.zjDiv .lab-title input[type="checkbox"]{
+    margin-left: 10px;
+}

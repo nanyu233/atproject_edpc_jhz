@@ -1,0 +1,89 @@
+.bleedtable{
+  width:40%;
+  border-collapse: collapse;
+  float:left;
+}
+.bleedtable2{
+  width:60%;
+  border-collapse: collapse;
+  float:left;
+}
+.bleedtable tr{
+  border: 1px solid #000;
+  height: 26px;
+  border-right-width: 0.5px;
+}
+.bleedtable2 tr{
+  border: 1px solid #000;
+  height: 26px;
+  border-left-width: 0;
+}
+.bleedtable td,.bleedtable2 td,.vtetable td{
+  height: 26px;
+  line-height: 26px;
+  padding-left: 5px;
+}
+.resulttable{
+  width:100%;
+}
+.resulttable tr{
+  border: 1px solid #000;
+  height: 26px;
+  border-top-width: 0;
+}
+
+.vtetable{
+  width:100%;
+  border-collapse:collapse; 
+}
+.vtetable td{
+  border: 1px solid #000;
+}
+.infotd{
+  width:70%;
+  text-align: center;
+}
+.scotd{
+  width:30%;
+  text-align: center;
+}
+
+/* 打印 */
+.bleedtablep,.bleedtable2p{
+  margin-top:5mm;
+  float: left;
+  border-collapse: collapse;
+}
+.bleedtablep{
+  width:40%;
+}
+.bleedtable2p{
+  width:60%;
+}
+.bleedtablep td,.bleedtable2p td{
+  border: 1px solid #000;
+  height: 26px !important;
+}
+.bleedtablep td{
+  border-right-width: 0;
+}
+.rightass{
+  width:100%;
+  margin-top:2mm;
+}
+.rightass label{
+  float:right;
+}
+.rightass span{
+  border-bottom: 1px solid #000;
+  width:58m;
+}
+.resultp{
+  width:100%;
+  border: 1px solid #000;
+  border-top-width: 0;
+}
+.resultp td{
+  height: 26px;
+  margin-top:0;
+}

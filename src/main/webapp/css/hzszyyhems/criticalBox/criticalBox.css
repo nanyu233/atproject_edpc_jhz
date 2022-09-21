@@ -1,0 +1,60 @@
+/* .criticalDiv {
+  padding: 10px;
+}
+.leftTab {
+  float: left;
+  width: 60%;
+}
+.leftTab table {
+  width: 95%;
+  height: 130px;
+  float: left;
+}
+.leftTab table th, .leftTab table td {
+  border: 1px solid #ccc;
+}
+.leftTab table th {
+    background: rgb(243,249,255);
+}
+.leftTab table td {
+  text-align: center;
+}
+.rightContent {
+  float: right;
+  width: 40%;
+}
+.highTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+.smallInputWth {
+  width: 90px !important;
+}
+.marginGap {
+  float: left;
+  margin: 10px 0;
+} */
+
+.normalLine {
+  float: left;
+  margin-left: 6px;
+  margin-top: 2px;
+  color: red;
+}
+.form table td {
+  width: 33%;
+}
+.form table th {
+  width: 17%;
+}
+.divRead{
+  float: left;
+  width: 100%;
+  border: 1px solid #ccc;
+  background: #ececec;
+  height: 100px;
+  overflow-y: scroll;
+}
+.userList {
+  max-height: 90px;
+}

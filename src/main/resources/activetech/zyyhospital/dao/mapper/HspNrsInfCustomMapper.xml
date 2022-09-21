@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspNrsInfCustomMapper" >
+
+  <!-- 查询预检登记疼痛评分 -->
+  <select id="findNrsByEmgSeq" resultType="activetech.zyyhospital.pojo.dto.HspNrsInfCustom" parameterType="String" >
+    select 
+     XTPG_SEQ xtpgSeq, EMG_SEQ emgSeq, NRS_TTBW nrsTtbw, NRS_TTBW_QT nrsTtbwQt, NRS_TTXZ nrsTtxz, 
+     NRS_TTXZ_QT nrsTtxzQt, NRS_TTSJ nrsTtsj, NRS_SCO nrsSco, NRS_MEMO nrsMemo, NRS_DAT nrsDat,
+     NRS_STATUS nrsStatus,NRS_TTKZ nrsTtkz,TTPF_TYPE_COD ttpfTypeCod, TTPF_NR ttpfNr
+    from HSP_NRS_INF where 
+    emg_seq=#{emgSeq} and nrs_status='0'
+  </select>
+  
+  
+    <select id="findNrsByxtpgSeqnotinsco" resultType="activetech.zyyhospital.pojo.dto.HspNrsInfCustom" 
+      parameterType="String" >
+    select NRS_SCO nrsSco
+    from HSP_NRS_INF where 
+    XTPG_SEQ=#{xtpgSeq} 
+  </select>
+  
+  <select id="findNrsByxtpgSeqinsco" resultType="activetech.zyyhospital.pojo.dto.HspNrsInfCustom" 
+      parameterType="String" >
+     select NRS_TTBW nrsTtbw, NRS_TTBW_QT nrsTtbwQt, NRS_TTXZ nrsTtxz, NRS_TTKZ nrsTtkz,
+     NRS_TTXZ_QT nrsTtxzQt, NRS_TTSJ nrsTtsj,  NRS_MEMO nrsMemo, NRS_DAT nrsDat,TTPF_TYPE_COD ttpfTypeCod, TTPF_NR ttpfNr
+    from HSP_NRS_INF where
+    XTPG_SEQ=#{xtpgSeq} 
+  </select>
+  
+  <delete id="deleteByEmgSeq" parameterType="java.lang.String" >
+    delete from HSP_NRS_INF
+    where EMG_SEQ = #{emgSeq}
+  </delete>
+  
+</mapper>

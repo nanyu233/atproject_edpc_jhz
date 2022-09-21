@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspBedInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspBedInf" >
+    <id column="BEDID" property="bedid" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="BED_PLACE" property="bedPlace" jdbcType="VARCHAR" />
+    <result column="BED_NUM" property="bedNum" jdbcType="VARCHAR" />
+    <result column="CRT_DAT" property="crtDat" jdbcType="TIMESTAMP" />
+    <result column="CRT_NBR" property="crtNbr" jdbcType="VARCHAR" />
+    <result column="CRT_NAM" property="crtNam" jdbcType="VARCHAR" />
+    <result column="UPD_DAT" property="updDat" jdbcType="TIMESTAMP" />
+    <result column="UPD_NBR" property="updNbr" jdbcType="VARCHAR" />
+    <result column="UPD_NAM" property="updNam" jdbcType="VARCHAR" />
+    <result column="BED_STATUS" property="bedStatus" jdbcType="CHAR" />
+    <result column="SHOWORDER" property="showorder" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BEDID, EMG_SEQ, BED_PLACE, BED_NUM, CRT_DAT, CRT_NBR, CRT_NAM, UPD_DAT, UPD_NBR, 
+    UPD_NAM, BED_STATUS, SHOWORDER
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspBedInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_BED_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_BED_INF
+    where BEDID = #{bedid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_BED_INF
+    where BEDID = #{bedid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspBedInfExample" >
+    delete from HSP_BED_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspBedInf" >
+    insert into HSP_BED_INF (BEDID, EMG_SEQ, BED_PLACE, 
+      BED_NUM, CRT_DAT, CRT_NBR, 
+      CRT_NAM, UPD_DAT, UPD_NBR, 
+      UPD_NAM, BED_STATUS, SHOWORDER
+      )
+    values (#{bedid,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{bedPlace,jdbcType=VARCHAR}, 
+      #{bedNum,jdbcType=VARCHAR}, #{crtDat,jdbcType=TIMESTAMP}, #{crtNbr,jdbcType=VARCHAR}, 
+      #{crtNam,jdbcType=VARCHAR}, #{updDat,jdbcType=TIMESTAMP}, #{updNbr,jdbcType=VARCHAR}, 
+      #{updNam,jdbcType=VARCHAR}, #{bedStatus,jdbcType=CHAR}, #{showorder,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspBedInf" >
+    insert into HSP_BED_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bedid != null" >
+        BEDID,
+      </if>
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="bedPlace != null" >
+        BED_PLACE,
+      </if>
+      <if test="bedNum != null" >
+        BED_NUM,
+      </if>
+      <if test="crtDat != null" >
+        CRT_DAT,
+      </if>
+      <if test="crtNbr != null" >
+        CRT_NBR,
+      </if>
+      <if test="crtNam != null" >
+        CRT_NAM,
+      </if>
+      <if test="updDat != null" >
+        UPD_DAT,
+      </if>
+      <if test="updNbr != null" >
+        UPD_NBR,
+      </if>
+      <if test="updNam != null" >
+        UPD_NAM,
+      </if>
+      <if test="bedStatus != null" >
+        BED_STATUS,
+      </if>
+      <if test="showorder != null" >
+        SHOWORDER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bedid != null" >
+        #{bedid,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="bedPlace != null" >
+        #{bedPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="bedNum != null" >
+        #{bedNum,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDat != null" >
+        #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtNbr != null" >
+        #{crtNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="crtNam != null" >
+        #{crtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updDat != null" >
+        #{updDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updNbr != null" >
+        #{updNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="updNam != null" >
+        #{updNam,jdbcType=VARCHAR},
+      </if>
+      <if test="bedStatus != null" >
+        #{bedStatus,jdbcType=CHAR},
+      </if>
+      <if test="showorder != null" >
+        #{showorder,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspBedInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_BED_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_BED_INF
+    <set >
+      <if test="record.bedid != null" >
+        BEDID = #{record.bedid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bedPlace != null" >
+        BED_PLACE = #{record.bedPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bedNum != null" >
+        BED_NUM = #{record.bedNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtDat != null" >
+        CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtNbr != null" >
+        CRT_NBR = #{record.crtNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtNam != null" >
+        CRT_NAM = #{record.crtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updDat != null" >
+        UPD_DAT = #{record.updDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updNbr != null" >
+        UPD_NBR = #{record.updNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updNam != null" >
+        UPD_NAM = #{record.updNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bedStatus != null" >
+        BED_STATUS = #{record.bedStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.showorder != null" >
+        SHOWORDER = #{record.showorder,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_BED_INF
+    set BEDID = #{record.bedid,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      BED_PLACE = #{record.bedPlace,jdbcType=VARCHAR},
+      BED_NUM = #{record.bedNum,jdbcType=VARCHAR},
+      CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      CRT_NBR = #{record.crtNbr,jdbcType=VARCHAR},
+      CRT_NAM = #{record.crtNam,jdbcType=VARCHAR},
+      UPD_DAT = #{record.updDat,jdbcType=TIMESTAMP},
+      UPD_NBR = #{record.updNbr,jdbcType=VARCHAR},
+      UPD_NAM = #{record.updNam,jdbcType=VARCHAR},
+      BED_STATUS = #{record.bedStatus,jdbcType=CHAR},
+      SHOWORDER = #{record.showorder,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspBedInf" >
+    update HSP_BED_INF
+    <set >
+      <if test="emgSeq != null" >
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="bedPlace != null" >
+        BED_PLACE = #{bedPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="bedNum != null" >
+        BED_NUM = #{bedNum,jdbcType=VARCHAR},
+      </if>
+      <if test="crtDat != null" >
+        CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtNbr != null" >
+        CRT_NBR = #{crtNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="crtNam != null" >
+        CRT_NAM = #{crtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updDat != null" >
+        UPD_DAT = #{updDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updNbr != null" >
+        UPD_NBR = #{updNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="updNam != null" >
+        UPD_NAM = #{updNam,jdbcType=VARCHAR},
+      </if>
+      <if test="bedStatus != null" >
+        BED_STATUS = #{bedStatus,jdbcType=CHAR},
+      </if>
+      <if test="showorder != null" >
+        SHOWORDER = #{showorder,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BEDID = #{bedid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspBedInf" >
+    update HSP_BED_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      BED_PLACE = #{bedPlace,jdbcType=VARCHAR},
+      BED_NUM = #{bedNum,jdbcType=VARCHAR},
+      CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      CRT_NBR = #{crtNbr,jdbcType=VARCHAR},
+      CRT_NAM = #{crtNam,jdbcType=VARCHAR},
+      UPD_DAT = #{updDat,jdbcType=TIMESTAMP},
+      UPD_NBR = #{updNbr,jdbcType=VARCHAR},
+      UPD_NAM = #{updNam,jdbcType=VARCHAR},
+      BED_STATUS = #{bedStatus,jdbcType=CHAR},
+      SHOWORDER = #{showorder,jdbcType=VARCHAR}
+    where BEDID = #{bedid,jdbcType=VARCHAR}
+  </update>
+</mapper>

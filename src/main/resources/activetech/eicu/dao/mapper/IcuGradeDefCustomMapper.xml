@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.eicu.dao.mapper.IcuGradeDefCustomMapper" >
+
+  <select id="getGradeItemDef" parameterType="java.util.List"
+  	resultType="activetech.eicu.pojo.domain.IcuGradeDef">
+	select *
+	  from icu_grade_def
+	 start with item_field in 
+	 <foreach collection="gradeTypeList" index="ind" open="(" close=")" item="gradeType" separator=",">
+	 	#{gradeType, jdbcType = VARCHAR }
+	 </foreach>
+	connect by prior item_field = item_root
+	 order by item_sort
+  </select>
+
+</mapper>

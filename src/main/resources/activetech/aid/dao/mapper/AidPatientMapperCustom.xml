@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.aid.dao.mapper.AidPatientMapperCustom" >
+
+
+	<update id="mergeAidPatient" parameterType="activetech.aid.pojo.domain.AidPatient">
+		merge into aid_patient a
+                using (select #{patid, jdbcType = VARCHAR} patid,
+                			  #{sceAr0Cod,jdbcType=VARCHAR} sce_Ar0_Cod, 
+                			  #{scePrvCod,jdbcType=VARCHAR} sce_Prv_Cod, 
+                			  #{sceCtyCod,jdbcType=VARCHAR} sce_Cty_Cod,
+							  #{illTim,jdbcType=TIMESTAMP} ill_tim,
+							  #{illperd,jdbcType=VARCHAR} illperd,
+							  #{almtime,jdbcType=TIMESTAMP} almtime,
+							  #{illTimFlg,jdbcType=CHAR} ill_Tim_Flg
+                         from dual) b
+                on (a.patid = b.patid )
+                when matched then
+                  update
+                     set a.almtime =  b.almtime,
+                         a.ill_tim  =  b.ill_tim,
+                         a.illperd  =  b.illperd,
+                         a.sce_Ar0_Cod = b.sce_Ar0_Cod,
+                         a.sce_Prv_Cod = b.sce_Prv_Cod,
+                         a.sce_Cty_Cod = b.sce_Cty_Cod,
+                         a.ill_Tim_Flg = b.ill_Tim_Flg
+                when not matched then
+                  insert
+                    (PATID,
+                     ALMTIME,
+                     ILL_TIM,
+                     ILLPERD,
+                     SCE_AR0_COD,
+                     SCE_PRV_COD,
+                     SCE_CTY_COD,
+                     ILL_TIM_FLG)
+                  values
+                    (AID_PATIENT_PATID.nextval,
+                     b.almtime,
+                     b.ill_Tim,
+                     b.illperd,
+                     b.sce_Ar0_Cod,
+                     b.sce_Prv_Cod,
+                     b.sce_Cty_Cod,
+                     b.ill_Tim_Flg) 
+	
+	</update>
+	
+	<insert id="insertAidPatient" parameterType="activetech.aid.pojo.domain.AidPatient"
+		useGeneratedKeys="true" keyColumn="patid" >
+		<selectKey resultType="java.lang.String" keyProperty="patid" order="BEFORE">
+               select AID_PATIENT_PATID.nextval from dual
+        </selectKey>
+		insert into AID_PATIENT
+				  (PATID, SCE_AR0_COD, SCE_PRV_COD,SCE_CTY_COD,ILL_TIM, ILLPERD, ALMTIME)
+				values
+				  (#{patid,jdbcType = VARCHAR},
+				   #{sceAr0Cod,jdbcType = VARCHAR},
+				   #{scePrvCod,jdbcType = VARCHAR},
+				   #{sceCtyCod,jdbcType = VARCHAR},
+				   #{illTim,jdbcType = TIMESTAMP},
+				   #{illperd,jdbcType = VARCHAR},  
+				   #{almtime,jdbcType = TIMESTAMP})
+	
+	
+	
+	</insert>
+	
+ 		
+</mapper>

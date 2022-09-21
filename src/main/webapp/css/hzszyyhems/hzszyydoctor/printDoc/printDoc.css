@@ -1,0 +1,84 @@
+
+.title {margin:0;padding:1mm 0 0 0;text-align:center;font-size:.42cm;line-height:1.5;}
+.title1 {margin:2mm 0;padding:0;text-align:center;font-weight:700;font-size:.58cm}
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: 0;
+}
+.messages{
+  font-size: 3.6mm
+}
+.messages .tbody label {
+  text-indent: 0em;
+}
+.messages .tbody .line-tr {
+  border-bottom: 1px solid #000;
+}
+.printHide{
+  display: none
+}
+#table{
+  width: 100%
+}
+.cstNam,.emgFkCod,.inputA{
+  width: 80px;
+}
+.cstSexCod,.age{
+  width: 30px;
+}
+.mpi{
+  width: 86px;
+}
+.inputB{
+  width: 130px;
+}
+.inputC{
+  width: 180px;
+}
+.inputD{
+  width: 120px;
+}
+.inputF{
+  width: 180px;
+}
+.inputG{
+  width: 480px
+}
+tbody td{
+  line-height: 1.2
+}
+.spanRelative img{
+  vertical-align: middle;
+  height: 0.45cm;
+  width: auto;
+}
+input[type=text]{
+  border: none !important;
+  border-bottom: 1px solid #ddd !important;
+}
+.basicMsgTr{
+  border-bottom: 1px solid #000;
+}
+.basicMsgTr td{
+  padding-bottom: 5px;
+  border-bottom: 1px solid #000;
+}
+.inputE{
+  width: 380px;
+}
+.childPoint{
+  margin-left: 2em
+}
+.childPointB{
+  margin-left: 1em
+}
+.fullArea{
+  width: 100%;
+  height: 20mm;
+  resize: none
+}
+input:disabled {
+  background: #fff;
+  color: #000;
+}

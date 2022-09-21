@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspXtAddMapperCustom" >
+  
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspXtAdd">
+    insert into HSP_XT_ADD (XT_SEQ, WAY_TYP, MPI_NO, 
+      SAD_ID, VST_CAD, ADM_NBR, 
+      ID_NBR, CST_NAM, CST_SEX_COD, 
+      BTH_DAT, CST_AGE, CST_AGE_COD, 
+      PHE_NBR, CST_ADR, SEN_RCT, 
+      BRE_NBR, PUL_FQY, HRT_RTE, 
+      SBP_NBR, DBP_NBR, BLD_OXY, 
+      TMP_NBR, REP_DOC, DOC_DIA, 
+      STATUS, REG_TIM, HSP_DEP, 
+      ILL_DEP, ILL_TIM, CBP_FLG, 
+      ILL_PRD, CON_ASS, CON_ASS_DTL, 
+      FST_TIM, LVE_TIM, CRT_USR, 
+      CRT_TIM, MOD_USR, MOD_TIM
+      )
+    values (HSP_XT_ADD_SEQ.nextval, #{wayTyp,jdbcType=CHAR}, #{mpiNo,jdbcType=VARCHAR}, 
+      #{sadId,jdbcType=VARCHAR}, #{vstCad,jdbcType=VARCHAR}, #{admNbr,jdbcType=VARCHAR}, 
+      #{idNbr,jdbcType=VARCHAR}, #{cstNam,jdbcType=VARCHAR}, #{cstSexCod,jdbcType=VARCHAR}, 
+      #{bthDat,jdbcType=TIMESTAMP}, #{cstAge,jdbcType=VARCHAR}, #{cstAgeCod,jdbcType=VARCHAR}, 
+      #{pheNbr,jdbcType=VARCHAR}, #{cstAdr,jdbcType=VARCHAR}, #{senRct,jdbcType=VARCHAR}, 
+      #{breNbr,jdbcType=DECIMAL}, #{pulFqy,jdbcType=DECIMAL}, #{hrtRte,jdbcType=DECIMAL}, 
+      #{sbpNbr,jdbcType=DECIMAL}, #{dbpNbr,jdbcType=DECIMAL}, #{bldOxy,jdbcType=DECIMAL}, 
+      #{tmpNbr,jdbcType=DECIMAL}, #{repDoc,jdbcType=VARCHAR}, #{docDia,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{regTim,jdbcType=TIMESTAMP}, #{hspDep,jdbcType=VARCHAR}, 
+      #{illDep,jdbcType=VARCHAR}, #{illTim,jdbcType=TIMESTAMP}, #{cbpFlg,jdbcType=CHAR}, 
+      #{illPrd,jdbcType=VARCHAR}, #{conAss,jdbcType=VARCHAR}, #{conAssDtl,jdbcType=VARCHAR}, 
+      #{fstTim,jdbcType=TIMESTAMP}, #{lveTim,jdbcType=TIMESTAMP}, #{crtUsr,jdbcType=VARCHAR}, 
+      sysdate, #{modUsr,jdbcType=VARCHAR}, #{modTim,jdbcType=TIMESTAMP}
+      )
+  </insert>
+	  
+</mapper>

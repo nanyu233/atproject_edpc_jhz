@@ -1,0 +1,907 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.pda.dao.mapper.HspCfxxExecMapper">
+  <resultMap id="BaseResultMap" type="activetech.pda.pojo.domain.HspCfxxExec">
+    <id column="EXEC_SEQ" jdbcType="VARCHAR" property="execSeq" />
+    <result column="DISPOSAL_SEQ" jdbcType="VARCHAR" property="disposalSeq" />
+    <result column="DA_SEQ" jdbcType="VARCHAR" property="daSeq" />
+    <result column="DA_NO" jdbcType="VARCHAR" property="daNo" />
+    <result column="DA_SUB" jdbcType="VARCHAR" property="daSub" />
+    <result column="VST_CAD" jdbcType="VARCHAR" property="vstCad" />
+    <result column="EXEC_SRC" jdbcType="VARCHAR" property="execSrc" />
+    <result column="PLAN_TIME" jdbcType="TIMESTAMP" property="planTime" />
+    <result column="EXEC_TIME" jdbcType="TIMESTAMP" property="execTime" />
+    <result column="EXEC_USER" jdbcType="VARCHAR" property="execUser" />
+    <result column="EXEC_USERXM" jdbcType="VARCHAR" property="execUserxm" />
+    <result column="EXEC_USER_SECOND" jdbcType="VARCHAR" property="execUserSecond" />
+    <result column="EXEC_USERXM_SECOND" jdbcType="VARCHAR" property="execUserxmSecond" />
+    <result column="FINI_TIME" jdbcType="TIMESTAMP" property="finiTime" />
+    <result column="FINI_USER" jdbcType="VARCHAR" property="finiUser" />
+    <result column="FINI_USERXM" jdbcType="VARCHAR" property="finiUserxm" />
+    <result column="DA_TYPE" jdbcType="VARCHAR" property="daType" />
+    <result column="DA_INFO" jdbcType="VARCHAR" property="daInfo" />
+    <result column="DA_DOSE" jdbcType="VARCHAR" property="daDose" />
+    <result column="DA_UNIT" jdbcType="VARCHAR" property="daUnit" />
+    <result column="DA_WAY" jdbcType="VARCHAR" property="daWay" />
+    <result column="DA_WAY_COD" jdbcType="VARCHAR" property="daWayCod" />
+    <result column="DA_NUMB" jdbcType="DECIMAL" property="daNumb" />
+    <result column="YFDW" jdbcType="VARCHAR" property="yfdw" />
+    <result column="DA_FREQ" jdbcType="VARCHAR" property="daFreq" />
+    <result column="EXEC_DOSE" jdbcType="VARCHAR" property="execDose" />
+    <result column="ZXDTYPE" jdbcType="VARCHAR" property="zxdtype" />
+    <result column="ZXDDAT" jdbcType="TIMESTAMP" property="zxddat" />
+    <result column="ISPRINT" jdbcType="VARCHAR" property="isprint" />
+    <result column="PSJG" jdbcType="VARCHAR" property="psjg" />
+    <result column="PSTXRDAT" jdbcType="TIMESTAMP" property="pstxrdat" />
+    <result column="PSTXR" jdbcType="VARCHAR" property="pstxr" />
+    <result column="PSTXRXM" jdbcType="VARCHAR" property="pstxrxm" />
+    <result column="PSSHRDAT" jdbcType="TIMESTAMP" property="psshrdat" />
+    <result column="PSSHR" jdbcType="VARCHAR" property="psshr" />
+    <result column="PSSHRXM" jdbcType="VARCHAR" property="psshrxm" />
+    <result column="ZXDZT" jdbcType="VARCHAR" property="zxdzt" />
+    <result column="MPI" jdbcType="VARCHAR" property="mpi" />
+    <result column="CRT_TIME" jdbcType="TIMESTAMP" property="crtTime" />
+    <result column="CRT_USER" jdbcType="VARCHAR" property="crtUser" />
+    <result column="MOD_TIME" jdbcType="TIMESTAMP" property="modTime" />
+    <result column="MOD_USER" jdbcType="VARCHAR" property="modUser" />
+    <result column="DISPENSE_DATE" jdbcType="TIMESTAMP" property="dispenseDate" />
+    <result column="DISPENSE_USER" jdbcType="VARCHAR" property="dispenseUser" />
+    <result column="DISPENSE_USERXM" jdbcType="VARCHAR" property="dispenseUserxm" />
+    <result column="DISPENSE_USER_SECOND" jdbcType="VARCHAR" property="dispenseUserSecond" />
+    <result column="DISPENSE_USERXM_SECOND" jdbcType="VARCHAR" property="dispenseUserxmSecond" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="BOOK_FLAG" jdbcType="VARCHAR" property="bookFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    EXEC_SEQ, DISPOSAL_SEQ, DA_SEQ, DA_NO, DA_SUB, VST_CAD, EXEC_SRC, PLAN_TIME, EXEC_TIME, 
+    EXEC_USER, EXEC_USERXM, EXEC_USER_SECOND, EXEC_USERXM_SECOND, FINI_TIME, FINI_USER, 
+    FINI_USERXM, DA_TYPE, DA_INFO, DA_DOSE, DA_UNIT, DA_WAY, DA_WAY_COD, DA_NUMB, YFDW, 
+    DA_FREQ, EXEC_DOSE, ZXDTYPE, ZXDDAT, ISPRINT, PSJG, PSTXRDAT, PSTXR, PSTXRXM, PSSHRDAT, 
+    PSSHR, PSSHRXM, ZXDZT, MPI, CRT_TIME, CRT_USER, MOD_TIME, MOD_USER, DISPENSE_DATE, 
+    DISPENSE_USER, DISPENSE_USERXM, DISPENSE_USER_SECOND, DISPENSE_USERXM_SECOND, REMARK, 
+    BOOK_FLAG
+  </sql>
+  <select id="selectByExample" parameterType="activetech.pda.pojo.domain.HspCfxxExecExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CFXX_EXEC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CFXX_EXEC
+    where EXEC_SEQ = #{execSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_CFXX_EXEC
+    where EXEC_SEQ = #{execSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.pda.pojo.domain.HspCfxxExecExample">
+    delete from HSP_CFXX_EXEC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.pda.pojo.domain.HspCfxxExec">
+    insert into HSP_CFXX_EXEC (EXEC_SEQ, DISPOSAL_SEQ, DA_SEQ, 
+      DA_NO, DA_SUB, VST_CAD, 
+      EXEC_SRC, PLAN_TIME, EXEC_TIME, 
+      EXEC_USER, EXEC_USERXM, EXEC_USER_SECOND, 
+      EXEC_USERXM_SECOND, FINI_TIME, FINI_USER, 
+      FINI_USERXM, DA_TYPE, DA_INFO, 
+      DA_DOSE, DA_UNIT, DA_WAY, 
+      DA_WAY_COD, DA_NUMB, YFDW, 
+      DA_FREQ, EXEC_DOSE, ZXDTYPE, 
+      ZXDDAT, ISPRINT, PSJG, 
+      PSTXRDAT, PSTXR, PSTXRXM, 
+      PSSHRDAT, PSSHR, PSSHRXM, 
+      ZXDZT, MPI, CRT_TIME, 
+      CRT_USER, MOD_TIME, MOD_USER, 
+      DISPENSE_DATE, DISPENSE_USER, DISPENSE_USERXM, 
+      DISPENSE_USER_SECOND, DISPENSE_USERXM_SECOND, 
+      REMARK, BOOK_FLAG)
+    values (#{execSeq,jdbcType=VARCHAR}, #{disposalSeq,jdbcType=VARCHAR}, #{daSeq,jdbcType=VARCHAR}, 
+      #{daNo,jdbcType=VARCHAR}, #{daSub,jdbcType=VARCHAR}, #{vstCad,jdbcType=VARCHAR}, 
+      #{execSrc,jdbcType=VARCHAR}, #{planTime,jdbcType=TIMESTAMP}, #{execTime,jdbcType=TIMESTAMP}, 
+      #{execUser,jdbcType=VARCHAR}, #{execUserxm,jdbcType=VARCHAR}, #{execUserSecond,jdbcType=VARCHAR}, 
+      #{execUserxmSecond,jdbcType=VARCHAR}, #{finiTime,jdbcType=TIMESTAMP}, #{finiUser,jdbcType=VARCHAR}, 
+      #{finiUserxm,jdbcType=VARCHAR}, #{daType,jdbcType=VARCHAR}, #{daInfo,jdbcType=VARCHAR}, 
+      #{daDose,jdbcType=VARCHAR}, #{daUnit,jdbcType=VARCHAR}, #{daWay,jdbcType=VARCHAR}, 
+      #{daWayCod,jdbcType=VARCHAR}, #{daNumb,jdbcType=DECIMAL}, #{yfdw,jdbcType=VARCHAR}, 
+      #{daFreq,jdbcType=VARCHAR}, #{execDose,jdbcType=VARCHAR}, #{zxdtype,jdbcType=VARCHAR}, 
+      #{zxddat,jdbcType=TIMESTAMP}, #{isprint,jdbcType=VARCHAR}, #{psjg,jdbcType=VARCHAR}, 
+      #{pstxrdat,jdbcType=TIMESTAMP}, #{pstxr,jdbcType=VARCHAR}, #{pstxrxm,jdbcType=VARCHAR}, 
+      #{psshrdat,jdbcType=TIMESTAMP}, #{psshr,jdbcType=VARCHAR}, #{psshrxm,jdbcType=VARCHAR}, 
+      #{zxdzt,jdbcType=VARCHAR}, #{mpi,jdbcType=VARCHAR}, #{crtTime,jdbcType=TIMESTAMP}, 
+      #{crtUser,jdbcType=VARCHAR}, #{modTime,jdbcType=TIMESTAMP}, #{modUser,jdbcType=VARCHAR}, 
+      #{dispenseDate,jdbcType=TIMESTAMP}, #{dispenseUser,jdbcType=VARCHAR}, #{dispenseUserxm,jdbcType=VARCHAR}, 
+      #{dispenseUserSecond,jdbcType=VARCHAR}, #{dispenseUserxmSecond,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{bookFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.pda.pojo.domain.HspCfxxExec">
+    insert into HSP_CFXX_EXEC
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="execSeq != null">
+        EXEC_SEQ,
+      </if>
+      <if test="disposalSeq != null">
+        DISPOSAL_SEQ,
+      </if>
+      <if test="daSeq != null">
+        DA_SEQ,
+      </if>
+      <if test="daNo != null">
+        DA_NO,
+      </if>
+      <if test="daSub != null">
+        DA_SUB,
+      </if>
+      <if test="vstCad != null">
+        VST_CAD,
+      </if>
+      <if test="execSrc != null">
+        EXEC_SRC,
+      </if>
+      <if test="planTime != null">
+        PLAN_TIME,
+      </if>
+      <if test="execTime != null">
+        EXEC_TIME,
+      </if>
+      <if test="execUser != null">
+        EXEC_USER,
+      </if>
+      <if test="execUserxm != null">
+        EXEC_USERXM,
+      </if>
+      <if test="execUserSecond != null">
+        EXEC_USER_SECOND,
+      </if>
+      <if test="execUserxmSecond != null">
+        EXEC_USERXM_SECOND,
+      </if>
+      <if test="finiTime != null">
+        FINI_TIME,
+      </if>
+      <if test="finiUser != null">
+        FINI_USER,
+      </if>
+      <if test="finiUserxm != null">
+        FINI_USERXM,
+      </if>
+      <if test="daType != null">
+        DA_TYPE,
+      </if>
+      <if test="daInfo != null">
+        DA_INFO,
+      </if>
+      <if test="daDose != null">
+        DA_DOSE,
+      </if>
+      <if test="daUnit != null">
+        DA_UNIT,
+      </if>
+      <if test="daWay != null">
+        DA_WAY,
+      </if>
+      <if test="daWayCod != null">
+        DA_WAY_COD,
+      </if>
+      <if test="daNumb != null">
+        DA_NUMB,
+      </if>
+      <if test="yfdw != null">
+        YFDW,
+      </if>
+      <if test="daFreq != null">
+        DA_FREQ,
+      </if>
+      <if test="execDose != null">
+        EXEC_DOSE,
+      </if>
+      <if test="zxdtype != null">
+        ZXDTYPE,
+      </if>
+      <if test="zxddat != null">
+        ZXDDAT,
+      </if>
+      <if test="isprint != null">
+        ISPRINT,
+      </if>
+      <if test="psjg != null">
+        PSJG,
+      </if>
+      <if test="pstxrdat != null">
+        PSTXRDAT,
+      </if>
+      <if test="pstxr != null">
+        PSTXR,
+      </if>
+      <if test="pstxrxm != null">
+        PSTXRXM,
+      </if>
+      <if test="psshrdat != null">
+        PSSHRDAT,
+      </if>
+      <if test="psshr != null">
+        PSSHR,
+      </if>
+      <if test="psshrxm != null">
+        PSSHRXM,
+      </if>
+      <if test="zxdzt != null">
+        ZXDZT,
+      </if>
+      <if test="mpi != null">
+        MPI,
+      </if>
+      <if test="crtTime != null">
+        CRT_TIME,
+      </if>
+      <if test="crtUser != null">
+        CRT_USER,
+      </if>
+      <if test="modTime != null">
+        MOD_TIME,
+      </if>
+      <if test="modUser != null">
+        MOD_USER,
+      </if>
+      <if test="dispenseDate != null">
+        DISPENSE_DATE,
+      </if>
+      <if test="dispenseUser != null">
+        DISPENSE_USER,
+      </if>
+      <if test="dispenseUserxm != null">
+        DISPENSE_USERXM,
+      </if>
+      <if test="dispenseUserSecond != null">
+        DISPENSE_USER_SECOND,
+      </if>
+      <if test="dispenseUserxmSecond != null">
+        DISPENSE_USERXM_SECOND,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="bookFlag != null">
+        BOOK_FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="execSeq != null">
+        #{execSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="disposalSeq != null">
+        #{disposalSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="daSeq != null">
+        #{daSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="daNo != null">
+        #{daNo,jdbcType=VARCHAR},
+      </if>
+      <if test="daSub != null">
+        #{daSub,jdbcType=VARCHAR},
+      </if>
+      <if test="vstCad != null">
+        #{vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="execSrc != null">
+        #{execSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="planTime != null">
+        #{planTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="execTime != null">
+        #{execTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="execUser != null">
+        #{execUser,jdbcType=VARCHAR},
+      </if>
+      <if test="execUserxm != null">
+        #{execUserxm,jdbcType=VARCHAR},
+      </if>
+      <if test="execUserSecond != null">
+        #{execUserSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="execUserxmSecond != null">
+        #{execUserxmSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="finiTime != null">
+        #{finiTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finiUser != null">
+        #{finiUser,jdbcType=VARCHAR},
+      </if>
+      <if test="finiUserxm != null">
+        #{finiUserxm,jdbcType=VARCHAR},
+      </if>
+      <if test="daType != null">
+        #{daType,jdbcType=VARCHAR},
+      </if>
+      <if test="daInfo != null">
+        #{daInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="daDose != null">
+        #{daDose,jdbcType=VARCHAR},
+      </if>
+      <if test="daUnit != null">
+        #{daUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="daWay != null">
+        #{daWay,jdbcType=VARCHAR},
+      </if>
+      <if test="daWayCod != null">
+        #{daWayCod,jdbcType=VARCHAR},
+      </if>
+      <if test="daNumb != null">
+        #{daNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="yfdw != null">
+        #{yfdw,jdbcType=VARCHAR},
+      </if>
+      <if test="daFreq != null">
+        #{daFreq,jdbcType=VARCHAR},
+      </if>
+      <if test="execDose != null">
+        #{execDose,jdbcType=VARCHAR},
+      </if>
+      <if test="zxdtype != null">
+        #{zxdtype,jdbcType=VARCHAR},
+      </if>
+      <if test="zxddat != null">
+        #{zxddat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isprint != null">
+        #{isprint,jdbcType=VARCHAR},
+      </if>
+      <if test="psjg != null">
+        #{psjg,jdbcType=VARCHAR},
+      </if>
+      <if test="pstxrdat != null">
+        #{pstxrdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pstxr != null">
+        #{pstxr,jdbcType=VARCHAR},
+      </if>
+      <if test="pstxrxm != null">
+        #{pstxrxm,jdbcType=VARCHAR},
+      </if>
+      <if test="psshrdat != null">
+        #{psshrdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="psshr != null">
+        #{psshr,jdbcType=VARCHAR},
+      </if>
+      <if test="psshrxm != null">
+        #{psshrxm,jdbcType=VARCHAR},
+      </if>
+      <if test="zxdzt != null">
+        #{zxdzt,jdbcType=VARCHAR},
+      </if>
+      <if test="mpi != null">
+        #{mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null">
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null">
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null">
+        #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dispenseDate != null">
+        #{dispenseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dispenseUser != null">
+        #{dispenseUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dispenseUserxm != null">
+        #{dispenseUserxm,jdbcType=VARCHAR},
+      </if>
+      <if test="dispenseUserSecond != null">
+        #{dispenseUserSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="dispenseUserxmSecond != null">
+        #{dispenseUserxmSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="bookFlag != null">
+        #{bookFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.pda.pojo.domain.HspCfxxExecExample" resultType="java.lang.Long">
+    select count(*) from HSP_CFXX_EXEC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_CFXX_EXEC
+    <set>
+      <if test="record.execSeq != null">
+        EXEC_SEQ = #{record.execSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disposalSeq != null">
+        DISPOSAL_SEQ = #{record.disposalSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daSeq != null">
+        DA_SEQ = #{record.daSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daNo != null">
+        DA_NO = #{record.daNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daSub != null">
+        DA_SUB = #{record.daSub,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vstCad != null">
+        VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="record.execSrc != null">
+        EXEC_SRC = #{record.execSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planTime != null">
+        PLAN_TIME = #{record.planTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.execTime != null">
+        EXEC_TIME = #{record.execTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.execUser != null">
+        EXEC_USER = #{record.execUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.execUserxm != null">
+        EXEC_USERXM = #{record.execUserxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.execUserSecond != null">
+        EXEC_USER_SECOND = #{record.execUserSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.execUserxmSecond != null">
+        EXEC_USERXM_SECOND = #{record.execUserxmSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finiTime != null">
+        FINI_TIME = #{record.finiTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finiUser != null">
+        FINI_USER = #{record.finiUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finiUserxm != null">
+        FINI_USERXM = #{record.finiUserxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daType != null">
+        DA_TYPE = #{record.daType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daInfo != null">
+        DA_INFO = #{record.daInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daDose != null">
+        DA_DOSE = #{record.daDose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daUnit != null">
+        DA_UNIT = #{record.daUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daWay != null">
+        DA_WAY = #{record.daWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daWayCod != null">
+        DA_WAY_COD = #{record.daWayCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daNumb != null">
+        DA_NUMB = #{record.daNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yfdw != null">
+        YFDW = #{record.yfdw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daFreq != null">
+        DA_FREQ = #{record.daFreq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.execDose != null">
+        EXEC_DOSE = #{record.execDose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zxdtype != null">
+        ZXDTYPE = #{record.zxdtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zxddat != null">
+        ZXDDAT = #{record.zxddat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isprint != null">
+        ISPRINT = #{record.isprint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psjg != null">
+        PSJG = #{record.psjg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pstxrdat != null">
+        PSTXRDAT = #{record.pstxrdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pstxr != null">
+        PSTXR = #{record.pstxr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pstxrxm != null">
+        PSTXRXM = #{record.pstxrxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psshrdat != null">
+        PSSHRDAT = #{record.psshrdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.psshr != null">
+        PSSHR = #{record.psshr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psshrxm != null">
+        PSSHRXM = #{record.psshrxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zxdzt != null">
+        ZXDZT = #{record.zxdzt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mpi != null">
+        MPI = #{record.mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTime != null">
+        CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUser != null">
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTime != null">
+        MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUser != null">
+        MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dispenseDate != null">
+        DISPENSE_DATE = #{record.dispenseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dispenseUser != null">
+        DISPENSE_USER = #{record.dispenseUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dispenseUserxm != null">
+        DISPENSE_USERXM = #{record.dispenseUserxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dispenseUserSecond != null">
+        DISPENSE_USER_SECOND = #{record.dispenseUserSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dispenseUserxmSecond != null">
+        DISPENSE_USERXM_SECOND = #{record.dispenseUserxmSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookFlag != null">
+        BOOK_FLAG = #{record.bookFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_CFXX_EXEC
+    set EXEC_SEQ = #{record.execSeq,jdbcType=VARCHAR},
+      DISPOSAL_SEQ = #{record.disposalSeq,jdbcType=VARCHAR},
+      DA_SEQ = #{record.daSeq,jdbcType=VARCHAR},
+      DA_NO = #{record.daNo,jdbcType=VARCHAR},
+      DA_SUB = #{record.daSub,jdbcType=VARCHAR},
+      VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      EXEC_SRC = #{record.execSrc,jdbcType=VARCHAR},
+      PLAN_TIME = #{record.planTime,jdbcType=TIMESTAMP},
+      EXEC_TIME = #{record.execTime,jdbcType=TIMESTAMP},
+      EXEC_USER = #{record.execUser,jdbcType=VARCHAR},
+      EXEC_USERXM = #{record.execUserxm,jdbcType=VARCHAR},
+      EXEC_USER_SECOND = #{record.execUserSecond,jdbcType=VARCHAR},
+      EXEC_USERXM_SECOND = #{record.execUserxmSecond,jdbcType=VARCHAR},
+      FINI_TIME = #{record.finiTime,jdbcType=TIMESTAMP},
+      FINI_USER = #{record.finiUser,jdbcType=VARCHAR},
+      FINI_USERXM = #{record.finiUserxm,jdbcType=VARCHAR},
+      DA_TYPE = #{record.daType,jdbcType=VARCHAR},
+      DA_INFO = #{record.daInfo,jdbcType=VARCHAR},
+      DA_DOSE = #{record.daDose,jdbcType=VARCHAR},
+      DA_UNIT = #{record.daUnit,jdbcType=VARCHAR},
+      DA_WAY = #{record.daWay,jdbcType=VARCHAR},
+      DA_WAY_COD = #{record.daWayCod,jdbcType=VARCHAR},
+      DA_NUMB = #{record.daNumb,jdbcType=DECIMAL},
+      YFDW = #{record.yfdw,jdbcType=VARCHAR},
+      DA_FREQ = #{record.daFreq,jdbcType=VARCHAR},
+      EXEC_DOSE = #{record.execDose,jdbcType=VARCHAR},
+      ZXDTYPE = #{record.zxdtype,jdbcType=VARCHAR},
+      ZXDDAT = #{record.zxddat,jdbcType=TIMESTAMP},
+      ISPRINT = #{record.isprint,jdbcType=VARCHAR},
+      PSJG = #{record.psjg,jdbcType=VARCHAR},
+      PSTXRDAT = #{record.pstxrdat,jdbcType=TIMESTAMP},
+      PSTXR = #{record.pstxr,jdbcType=VARCHAR},
+      PSTXRXM = #{record.pstxrxm,jdbcType=VARCHAR},
+      PSSHRDAT = #{record.psshrdat,jdbcType=TIMESTAMP},
+      PSSHR = #{record.psshr,jdbcType=VARCHAR},
+      PSSHRXM = #{record.psshrxm,jdbcType=VARCHAR},
+      ZXDZT = #{record.zxdzt,jdbcType=VARCHAR},
+      MPI = #{record.mpi,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      DISPENSE_DATE = #{record.dispenseDate,jdbcType=TIMESTAMP},
+      DISPENSE_USER = #{record.dispenseUser,jdbcType=VARCHAR},
+      DISPENSE_USERXM = #{record.dispenseUserxm,jdbcType=VARCHAR},
+      DISPENSE_USER_SECOND = #{record.dispenseUserSecond,jdbcType=VARCHAR},
+      DISPENSE_USERXM_SECOND = #{record.dispenseUserxmSecond,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      BOOK_FLAG = #{record.bookFlag,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.pda.pojo.domain.HspCfxxExec">
+    update HSP_CFXX_EXEC
+    <set>
+      <if test="disposalSeq != null">
+        DISPOSAL_SEQ = #{disposalSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="daSeq != null">
+        DA_SEQ = #{daSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="daNo != null">
+        DA_NO = #{daNo,jdbcType=VARCHAR},
+      </if>
+      <if test="daSub != null">
+        DA_SUB = #{daSub,jdbcType=VARCHAR},
+      </if>
+      <if test="vstCad != null">
+        VST_CAD = #{vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="execSrc != null">
+        EXEC_SRC = #{execSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="planTime != null">
+        PLAN_TIME = #{planTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="execTime != null">
+        EXEC_TIME = #{execTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="execUser != null">
+        EXEC_USER = #{execUser,jdbcType=VARCHAR},
+      </if>
+      <if test="execUserxm != null">
+        EXEC_USERXM = #{execUserxm,jdbcType=VARCHAR},
+      </if>
+      <if test="execUserSecond != null">
+        EXEC_USER_SECOND = #{execUserSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="execUserxmSecond != null">
+        EXEC_USERXM_SECOND = #{execUserxmSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="finiTime != null">
+        FINI_TIME = #{finiTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finiUser != null">
+        FINI_USER = #{finiUser,jdbcType=VARCHAR},
+      </if>
+      <if test="finiUserxm != null">
+        FINI_USERXM = #{finiUserxm,jdbcType=VARCHAR},
+      </if>
+      <if test="daType != null">
+        DA_TYPE = #{daType,jdbcType=VARCHAR},
+      </if>
+      <if test="daInfo != null">
+        DA_INFO = #{daInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="daDose != null">
+        DA_DOSE = #{daDose,jdbcType=VARCHAR},
+      </if>
+      <if test="daUnit != null">
+        DA_UNIT = #{daUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="daWay != null">
+        DA_WAY = #{daWay,jdbcType=VARCHAR},
+      </if>
+      <if test="daWayCod != null">
+        DA_WAY_COD = #{daWayCod,jdbcType=VARCHAR},
+      </if>
+      <if test="daNumb != null">
+        DA_NUMB = #{daNumb,jdbcType=DECIMAL},
+      </if>
+      <if test="yfdw != null">
+        YFDW = #{yfdw,jdbcType=VARCHAR},
+      </if>
+      <if test="daFreq != null">
+        DA_FREQ = #{daFreq,jdbcType=VARCHAR},
+      </if>
+      <if test="execDose != null">
+        EXEC_DOSE = #{execDose,jdbcType=VARCHAR},
+      </if>
+      <if test="zxdtype != null">
+        ZXDTYPE = #{zxdtype,jdbcType=VARCHAR},
+      </if>
+      <if test="zxddat != null">
+        ZXDDAT = #{zxddat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isprint != null">
+        ISPRINT = #{isprint,jdbcType=VARCHAR},
+      </if>
+      <if test="psjg != null">
+        PSJG = #{psjg,jdbcType=VARCHAR},
+      </if>
+      <if test="pstxrdat != null">
+        PSTXRDAT = #{pstxrdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pstxr != null">
+        PSTXR = #{pstxr,jdbcType=VARCHAR},
+      </if>
+      <if test="pstxrxm != null">
+        PSTXRXM = #{pstxrxm,jdbcType=VARCHAR},
+      </if>
+      <if test="psshrdat != null">
+        PSSHRDAT = #{psshrdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="psshr != null">
+        PSSHR = #{psshr,jdbcType=VARCHAR},
+      </if>
+      <if test="psshrxm != null">
+        PSSHRXM = #{psshrxm,jdbcType=VARCHAR},
+      </if>
+      <if test="zxdzt != null">
+        ZXDZT = #{zxdzt,jdbcType=VARCHAR},
+      </if>
+      <if test="mpi != null">
+        MPI = #{mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null">
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null">
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null">
+        MOD_USER = #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dispenseDate != null">
+        DISPENSE_DATE = #{dispenseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dispenseUser != null">
+        DISPENSE_USER = #{dispenseUser,jdbcType=VARCHAR},
+      </if>
+      <if test="dispenseUserxm != null">
+        DISPENSE_USERXM = #{dispenseUserxm,jdbcType=VARCHAR},
+      </if>
+      <if test="dispenseUserSecond != null">
+        DISPENSE_USER_SECOND = #{dispenseUserSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="dispenseUserxmSecond != null">
+        DISPENSE_USERXM_SECOND = #{dispenseUserxmSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="bookFlag != null">
+        BOOK_FLAG = #{bookFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EXEC_SEQ = #{execSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.pda.pojo.domain.HspCfxxExec">
+    update HSP_CFXX_EXEC
+    set DISPOSAL_SEQ = #{disposalSeq,jdbcType=VARCHAR},
+      DA_SEQ = #{daSeq,jdbcType=VARCHAR},
+      DA_NO = #{daNo,jdbcType=VARCHAR},
+      DA_SUB = #{daSub,jdbcType=VARCHAR},
+      VST_CAD = #{vstCad,jdbcType=VARCHAR},
+      EXEC_SRC = #{execSrc,jdbcType=VARCHAR},
+      PLAN_TIME = #{planTime,jdbcType=TIMESTAMP},
+      EXEC_TIME = #{execTime,jdbcType=TIMESTAMP},
+      EXEC_USER = #{execUser,jdbcType=VARCHAR},
+      EXEC_USERXM = #{execUserxm,jdbcType=VARCHAR},
+      EXEC_USER_SECOND = #{execUserSecond,jdbcType=VARCHAR},
+      EXEC_USERXM_SECOND = #{execUserxmSecond,jdbcType=VARCHAR},
+      FINI_TIME = #{finiTime,jdbcType=TIMESTAMP},
+      FINI_USER = #{finiUser,jdbcType=VARCHAR},
+      FINI_USERXM = #{finiUserxm,jdbcType=VARCHAR},
+      DA_TYPE = #{daType,jdbcType=VARCHAR},
+      DA_INFO = #{daInfo,jdbcType=VARCHAR},
+      DA_DOSE = #{daDose,jdbcType=VARCHAR},
+      DA_UNIT = #{daUnit,jdbcType=VARCHAR},
+      DA_WAY = #{daWay,jdbcType=VARCHAR},
+      DA_WAY_COD = #{daWayCod,jdbcType=VARCHAR},
+      DA_NUMB = #{daNumb,jdbcType=DECIMAL},
+      YFDW = #{yfdw,jdbcType=VARCHAR},
+      DA_FREQ = #{daFreq,jdbcType=VARCHAR},
+      EXEC_DOSE = #{execDose,jdbcType=VARCHAR},
+      ZXDTYPE = #{zxdtype,jdbcType=VARCHAR},
+      ZXDDAT = #{zxddat,jdbcType=TIMESTAMP},
+      ISPRINT = #{isprint,jdbcType=VARCHAR},
+      PSJG = #{psjg,jdbcType=VARCHAR},
+      PSTXRDAT = #{pstxrdat,jdbcType=TIMESTAMP},
+      PSTXR = #{pstxr,jdbcType=VARCHAR},
+      PSTXRXM = #{pstxrxm,jdbcType=VARCHAR},
+      PSSHRDAT = #{psshrdat,jdbcType=TIMESTAMP},
+      PSSHR = #{psshr,jdbcType=VARCHAR},
+      PSSHRXM = #{psshrxm,jdbcType=VARCHAR},
+      ZXDZT = #{zxdzt,jdbcType=VARCHAR},
+      MPI = #{mpi,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{modUser,jdbcType=VARCHAR},
+      DISPENSE_DATE = #{dispenseDate,jdbcType=TIMESTAMP},
+      DISPENSE_USER = #{dispenseUser,jdbcType=VARCHAR},
+      DISPENSE_USERXM = #{dispenseUserxm,jdbcType=VARCHAR},
+      DISPENSE_USER_SECOND = #{dispenseUserSecond,jdbcType=VARCHAR},
+      DISPENSE_USERXM_SECOND = #{dispenseUserxmSecond,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      BOOK_FLAG = #{bookFlag,jdbcType=VARCHAR}
+    where EXEC_SEQ = #{execSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

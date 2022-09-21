@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspConsentTempMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspConsentTemp" >
+    <id column="TEMPNO" property="tempno" jdbcType="VARCHAR" />
+    <result column="TEMPNAME" property="tempname" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="ORDNUMB" property="ordnumb" jdbcType="DECIMAL" />
+    <result column="QM_HASH" property="qmHash" jdbcType="VARCHAR" />
+    <result column="QM_TAG" property="qmTag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TEMPNO, TEMPNAME, MEMO, ORDNUMB, QM_HASH, QM_TAG
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspConsentTempExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CONSENT_TEMP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CONSENT_TEMP
+    where TEMPNO = #{tempno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_CONSENT_TEMP
+    where TEMPNO = #{tempno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspConsentTempExample" >
+    delete from HSP_CONSENT_TEMP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspConsentTemp" >
+    insert into HSP_CONSENT_TEMP (TEMPNO, TEMPNAME, MEMO, 
+      ORDNUMB, QM_HASH, QM_TAG
+      )
+    values (#{tempno,jdbcType=VARCHAR}, #{tempname,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{ordnumb,jdbcType=DECIMAL}, #{qmHash,jdbcType=VARCHAR}, #{qmTag,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspConsentTemp" >
+    insert into HSP_CONSENT_TEMP
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tempno != null" >
+        TEMPNO,
+      </if>
+      <if test="tempname != null" >
+        TEMPNAME,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+      <if test="ordnumb != null" >
+        ORDNUMB,
+      </if>
+      <if test="qmHash != null" >
+        QM_HASH,
+      </if>
+      <if test="qmTag != null" >
+        QM_TAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tempno != null" >
+        #{tempno,jdbcType=VARCHAR},
+      </if>
+      <if test="tempname != null" >
+        #{tempname,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="ordnumb != null" >
+        #{ordnumb,jdbcType=DECIMAL},
+      </if>
+      <if test="qmHash != null" >
+        #{qmHash,jdbcType=VARCHAR},
+      </if>
+      <if test="qmTag != null" >
+        #{qmTag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspConsentTempExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_CONSENT_TEMP
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_CONSENT_TEMP
+    <set >
+      <if test="record.tempno != null" >
+        TEMPNO = #{record.tempno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempname != null" >
+        TEMPNAME = #{record.tempname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordnumb != null" >
+        ORDNUMB = #{record.ordnumb,jdbcType=DECIMAL},
+      </if>
+      <if test="record.qmHash != null" >
+        QM_HASH = #{record.qmHash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qmTag != null" >
+        QM_TAG = #{record.qmTag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_CONSENT_TEMP
+    set TEMPNO = #{record.tempno,jdbcType=VARCHAR},
+      TEMPNAME = #{record.tempname,jdbcType=VARCHAR},
+      MEMO = #{record.memo,jdbcType=VARCHAR},
+      ORDNUMB = #{record.ordnumb,jdbcType=DECIMAL},
+      QM_HASH = #{record.qmHash,jdbcType=VARCHAR},
+      QM_TAG = #{record.qmTag,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspConsentTemp" >
+    update HSP_CONSENT_TEMP
+    <set >
+      <if test="tempname != null" >
+        TEMPNAME = #{tempname,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="ordnumb != null" >
+        ORDNUMB = #{ordnumb,jdbcType=DECIMAL},
+      </if>
+      <if test="qmHash != null" >
+        QM_HASH = #{qmHash,jdbcType=VARCHAR},
+      </if>
+      <if test="qmTag != null" >
+        QM_TAG = #{qmTag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TEMPNO = #{tempno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspConsentTemp" >
+    update HSP_CONSENT_TEMP
+    set TEMPNAME = #{tempname,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      ORDNUMB = #{ordnumb,jdbcType=DECIMAL},
+      QM_HASH = #{qmHash,jdbcType=VARCHAR},
+      QM_TAG = #{qmTag,jdbcType=VARCHAR}
+    where TEMPNO = #{tempno,jdbcType=VARCHAR}
+  </update>
+</mapper>

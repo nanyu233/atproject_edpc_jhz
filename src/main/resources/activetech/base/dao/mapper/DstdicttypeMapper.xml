@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.DstdicttypeMapper" >
+  <resultMap id="BaseResultMap" type="activetech.base.pojo.domain.Dstdicttype" >
+    <id column="TYPECODE" property="typecode" jdbcType="VARCHAR" />
+    <result column="TYPENAME" property="typename" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="TYPESORT" property="typesort" jdbcType="DECIMAL" />
+    <result column="DICTTYPE" property="dicttype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TYPECODE, TYPENAME, REMARK, TYPESORT, DICTTYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.base.pojo.domain.DstdicttypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DSTDICTTYPE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DSTDICTTYPE
+    where TYPECODE = #{typecode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DSTDICTTYPE
+    where TYPECODE = #{typecode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.DstdicttypeExample" >
+    delete from DSTDICTTYPE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.base.pojo.domain.Dstdicttype" >
+    insert into DSTDICTTYPE (TYPECODE, TYPENAME, REMARK, 
+      TYPESORT, DICTTYPE)
+    values (#{typecode,jdbcType=VARCHAR}, #{typename,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{typesort,jdbcType=DECIMAL}, #{dicttype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.base.pojo.domain.Dstdicttype" >
+    insert into DSTDICTTYPE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typecode != null" >
+        TYPECODE,
+      </if>
+      <if test="typename != null" >
+        TYPENAME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="typesort != null" >
+        TYPESORT,
+      </if>
+      <if test="dicttype != null" >
+        DICTTYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typecode != null" >
+        #{typecode,jdbcType=VARCHAR},
+      </if>
+      <if test="typename != null" >
+        #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="typesort != null" >
+        #{typesort,jdbcType=DECIMAL},
+      </if>
+      <if test="dicttype != null" >
+        #{dicttype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.base.pojo.domain.DstdicttypeExample" resultType="java.lang.Integer" >
+    select count(*) from DSTDICTTYPE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DSTDICTTYPE
+    <set >
+      <if test="record.typecode != null" >
+        TYPECODE = #{record.typecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typename != null" >
+        TYPENAME = #{record.typename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typesort != null" >
+        TYPESORT = #{record.typesort,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dicttype != null" >
+        DICTTYPE = #{record.dicttype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DSTDICTTYPE
+    set TYPECODE = #{record.typecode,jdbcType=VARCHAR},
+      TYPENAME = #{record.typename,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      TYPESORT = #{record.typesort,jdbcType=DECIMAL},
+      DICTTYPE = #{record.dicttype,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.Dstdicttype" >
+    update DSTDICTTYPE
+    <set >
+      <if test="typename != null" >
+        TYPENAME = #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="typesort != null" >
+        TYPESORT = #{typesort,jdbcType=DECIMAL},
+      </if>
+      <if test="dicttype != null" >
+        DICTTYPE = #{dicttype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TYPECODE = #{typecode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.Dstdicttype" >
+    update DSTDICTTYPE
+    set TYPENAME = #{typename,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      TYPESORT = #{typesort,jdbcType=DECIMAL},
+      DICTTYPE = #{dicttype,jdbcType=VARCHAR}
+    where TYPECODE = #{typecode,jdbcType=VARCHAR}
+  </update>
+</mapper>

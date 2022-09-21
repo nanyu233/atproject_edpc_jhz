@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.CpcMapper" >
+  
+  	<select id="getCpcPatientInfoList" resultType="activetech.hospital.pojo.dto.HspemginfCustom"
+  		parameterType="activetech.edpc.pojo.dto.QueryDto">
+  		
+  		select a.emg_seq,
+  		       '0' way_typ,
+  		       a.mpi,
+			   a.emg_dat,
+			   a.cst_nam,
+			   a.cst_age,
+			   a.cst_sex_cod,
+			   a.xt_sub_cod,
+			   a.oxy_nbr, 
+			   b.sbpup_nbr,
+			   b.sbpdown_nbr,  
+			   b.hrt_rte,
+			   a.id_nbr,
+			   a.phe_nbr,
+			   a.pre_dgn_cod,
+			   (select pro_val from hsp_xtzl_inf where emg_no = a.emg_seq and pro_code = 'BQPG') xt_cod,
+			   (select bed_num from hsp_bed_inf where emg_seq = a.emg_seq) bed_num,
+			   (select pro_val from hsp_xtzl_inf where emg_no = a.emg_seq and pro_code = 'KILLIP') killip
+		  from hsp_emg_inf a, hsp_mews_inf b
+		 where a.emg_seq = b.emg_seq(+)
+		   and a.xtlcflg = '1'
+	   		<if test="cstNam !=null and cstNam.length()>0">
+	 			and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
+	 				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+	 			)
+	 		</if>
+	 		<if test = "bhls == false ">
+	 			and a.emg_dat >= sysdate - 1
+	 		</if>
+	 		
+	 		union all
+			   select c.xt_seq as emg_seq,
+			    	  c.way_typ,
+			    	  c.mpi_no,
+		              c.reg_tim emg_dat,
+		              c.cst_nam,
+		              c.cst_age,
+		              c.cst_sex_cod,
+		              c.con_ass_dtl,
+		              c.bld_oxy, 
+			  		  c.sbp_nbr,
+			   		  c.dbp_nbr,
+		              c.hrt_rte,
+		              c.id_nbr,
+		              c.phe_nbr,
+		              c.doc_dia,
+		              (select pro_val from hsp_xtzl_inf where emg_no = c.xt_seq and pro_code = 'BQPG') xt_cod,
+		              null,
+		              (select pro_val from hsp_xtzl_inf where emg_no = c.xt_seq and pro_code = 'KILLIP') killip
+				 from HSP_XT_ADD c
+				where 1 = 1
+		        <if test="cstNam !=null and cstNam.length()>0">
+		 			and (c.vst_cad = #{cstNam, jdbcType = VARCHAR}
+		 				or c.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+		 			)
+		 		</if>
+		 		<if test = "bhls == false ">
+		 			and c.crt_tim >= sysdate - 1
+		 		</if>
+	  order by emg_dat desc nulls last
+  	</select>
+  	
+  	<select id="getCsPatientInfoList" resultType="activetech.hospital.pojo.dto.HspemginfCustom"
+  		parameterType="activetech.edpc.pojo.dto.QueryDto">
+  		select a.emg_seq,
+			   a.emg_dat,
+			   a.cst_nam,
+			   a.cst_age,
+			   a.cst_sex_cod,
+			   a.xt_sub_cod,
+			   a.oxy_nbr, 
+			   b.sbpup_nbr,
+			   b.sbpdown_nbr,  
+			   b.hrt_rte,
+			   a.id_nbr,
+			   a.phe_nbr,
+			   a.pre_dgn_cod,
+			   a.sym_sit_des,
+			   (select bed_num from hsp_bed_inf where emg_seq = a.emg_seq) bed_num,
+			   (select pro_val from hsp_xtzl_inf where emg_no = a.emg_seq and pro_code = 'KILLIP') killip,
+			   (select ill_tim from aid_patient where patid = a.patid) illTim
+		  from hsp_emg_inf a, hsp_mews_inf b
+		 where a.emg_seq = b.emg_seq(+)
+		   and a.cspg_flg = '1'
+	   		<if test="cstNam !=null and cstNam.length()>0">
+	 			and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
+	 				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+	 			)
+	 		</if>
+	 		<if test = "bhls == false ">
+	 			and a.emg_dat >= sysdate - 1
+	 		</if>
+	  order by emg_dat desc
+  	</select>
+	
+	
+</mapper>

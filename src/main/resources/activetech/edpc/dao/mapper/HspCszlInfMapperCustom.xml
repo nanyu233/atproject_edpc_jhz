@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspCszlInfMapperCustom">
+	<select id="countCsPatientList" parameterType="activetech.edpc.pojo.dto.HspCszlInfQueryDto"
+				 resultType="java.lang.Integer">
+		select count(*)
+		  from hsp_emg_inf
+		 where cspg_flg = '1'
+		 <if test="cstNam !=null and cstNam.length()>0">
+		   and cst_nam = #{cstNam, jdbcType = VARCHAR}
+		 </if>
+		 <if test="vstCad !=null and vstCad.length()>0">
+		   and vst_cad = #{vstCad, jdbcType = VARCHAR}
+		 </if>
+		   and emg_dat <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}
+	   	   and emg_dat <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
+	</select>
+		
+	<select id="getCsPatientList" parameterType="activetech.edpc.pojo.dto.HspCszlInfQueryDto"
+		resultType="activetech.edpc.pojo.dto.HspCszlInfQueryDto">
+		<include refid="activetech.base.CommonSql.page_start" />
+		select emg_seq,
+		       vst_cad,
+		       cst_nam,
+		       emg_dat,
+		       (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
+		          from hsp_cszl_inf
+		         where pro_code = 'FBSJ'
+		           and emg_no = hsp_emg_inf.emg_seq) fbsj,
+		       cst_sex_cod,
+		       bth_dat,
+		       cst_age,
+		       (select info
+		          from dstdictinfo
+		         where typecode = 'ARV_CHL_COD'
+		           and infocode = hsp_emg_inf.arv_chl_cod) arvChlCod,
+		       getjbzddata('4', hsp_emg_inf.emg_seq) jbzdDes
+		  from hsp_emg_inf
+		 where cspg_flg = '1'
+		 <if test="cstNam !=null and cstNam.length()>0">
+		   and cst_nam = #{cstNam, jdbcType = VARCHAR}
+		 </if>
+		 <if test="vstCad !=null and vstCad.length()>0">
+		   and vst_cad = #{vstCad, jdbcType = VARCHAR}
+		 </if>
+		   and emg_dat <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}
+	   	   and emg_dat <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	
+	<!-- 创伤急救时间轴 -->
+	<select id="getCzTimeline" parameterType="java.lang.String"
+		resultType="activetech.edpc.pojo.dto.HspCszlInfCustom">
+		select seq_no,
+			   emg_no,
+			   pro_code,
+			   pro_type,
+			   pro_name,
+			   pro_val,
+			   key_time
+		  from (select inf.seq_no,
+		               inf.emg_no,
+		               inf.pro_code,
+		               inf.pro_val,
+		               substr(inf.pro_val, 0, 16) valsort,
+		               def.pro_type,
+		               def.pro_name,
+		               def.key_time
+		          from hsp_cszl_inf inf, hsp_cszl_def def
+		         where inf.pro_code = def.pro_code
+		           and inf.emg_no = #{emgSeq, jdbcType = VARCHAR}
+		           and def.pro_type = 'datetime'
+		           and def.key_time in ('1', '2')
+		           and inf.pro_val is not null) temp
+		 order by temp.valsort asc
+
+	</select>
+	
+	<select id="mergeHspCszlInf" parameterType="activetech.edpc.pojo.domain.HspCszlInf">
+				merge into hsp_cszl_inf a
+				using (select #{emgNo, jdbcType = VARCHAR} emg_no,
+				              #{proCode, jdbcType = VARCHAR} pro_code,
+				              #{proVal, jdbcType = VARCHAR} pro_val
+				         from dual) b
+				on (a.emg_no = b.emg_no and a.pro_code = b.pro_code)
+				when matched then
+				  update
+				     set a.pro_val   = b.pro_val,
+				         a.mod_user  = #{modUser, jdbcType = VARCHAR},
+				         a.mod_time  = sysdate
+				when not matched then
+				  insert
+				    (SEQ_NO,
+				     EMG_NO,
+				     PRO_CODE,
+				     PRO_VAL,
+				     CRT_TIME,
+				     CRT_USER,
+				     MOD_TIME,
+				     MOD_USER)
+				  values
+				     (#{seqNo, jdbcType = VARCHAR},
+				     b.emg_no,
+				     b.pro_code,
+				     b.pro_val,
+				     sysdate,
+				     #{crtUser, jdbcType = VARCHAR},
+				     sysdate,
+				     #{crtUser, jdbcType = VARCHAR})
+	</select>
+</mapper>

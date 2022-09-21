@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspDocadviceInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspDocadviceInfCustom" >
+   <id column="DOCADVICE_SEQ" property="docadviceSeq" jdbcType="VARCHAR" />
+    <result column="VST_CAD" property="vstCad" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_ISDAT" property="docadviceIsdat" jdbcType="TIMESTAMP" />
+    <result column="DOCADVICE_BEDAT" property="docadviceBedat" jdbcType="TIMESTAMP" />
+    <result column="DOCADVICE_NAM" property="docadviceNam" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_NUIMDAT" property="docadviceNuimdat" jdbcType="TIMESTAMP" />
+    <result column="DOCADVICE_NUIMNAM" property="docadviceNuimnam" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_DOCSTDAT" property="docadviceDocstdat" jdbcType="TIMESTAMP" />
+    <result column="DOCADVICE_DOCSTNAM" property="docadviceDocstnam" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_NUSTDAT" property="docadviceNustdat" jdbcType="TIMESTAMP" />
+    <result column="DOCADVICE_NUSTNAM" property="docadviceNustnam" jdbcType="VARCHAR" />
+    <result column="CREATE_DAT" property="createDat" jdbcType="TIMESTAMP" />
+    <result column="CREATE_NUM" property="createNum" jdbcType="VARCHAR" />
+    <result column="CREATE_NAM" property="createNam" jdbcType="VARCHAR" />
+    <result column="UPDATE_DAT" property="updateDat" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_NUM" property="updateNum" jdbcType="VARCHAR" />
+    <result column="UPDATE_NAM" property="updateNam" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_CONTENT" property="docadviceContent" jdbcType="VARCHAR" />
+     <result column="DOCADVICE_WAY" property="docadviceWay" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_TYPE" property="docadviceType" jdbcType="VARCHAR" />
+    <result column="counts" property="counts" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_FLAG" property="docadviceFlag" jdbcType="CHAR" />
+    <result column="DOCADVICE_YYJL" property="docadviceYyjl" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_BZ" property="docadviceBz" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_MAINFLG" property="docadviceMainflg" jdbcType="VARCHAR" />
+    <result column="pl" property="pl" jdbcType="VARCHAR" />
+    <result column="PX" property="px" jdbcType="VARCHAR" />
+    <result column="GYFSMC" property="gyfsmc" jdbcType="VARCHAR" />
+    <result column="SL" property="sl" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_STATUS" property="docadviceStatus" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_CHECKNAM" property="docadviceChecknam" jdbcType="VARCHAR" />
+    <result column="DOCADVICE_NUIMNAM2" property="docadviceNuimnam2" jdbcType="VARCHAR" />
+  </resultMap>
+	
+	<select id="findyzxxbyid" resultMap="BaseResultMap" parameterType="String" >
+    select
+	     DOCADVICE_SEQ,VST_CAD,DOCADVICE_ISDAT,DOCADVICE_BEDAT,DOCADVICE_CONTENT,
+	     DOCADVICE_NAM,DOCADVICE_NUIMDAT,DOCADVICE_NUIMNAM,DOCADVICE_NUIMNAM2,DOCADVICE_DOCSTDAT,
+	     DOCADVICE_DOCSTNAM,DOCADVICE_NUSTDAT, DOCADVICE_NUSTNAM,DOCADVICE_WAY,DOCADVICE_TYPE,DOCADVICE_FLAG,DOCADVICE_YYJL, DOCADVICE_BZ,DOCADVICE_MAINFLG,gyfsmc,sl,DOCADVICE_CHECKNAM,DOCADVICE_STATUS
+    from HSP_DOCADVICE_INF
+    where DOCADVICE_SEQ=#{docadviceSeq}
+  </select>
+  
+  <update id="afterprint" parameterType="activetech.external.pojo.dto.VHemsJyjgQueryDto">
+		update hsp_docadvice_inf
+		   set isprint = '1'
+		 where DOCADVICE_SEQ in
+		<foreach collection="docadviceSeqList" index="index" item="docadviceSeq" open="(" separator="," close=")">  
+           #{docadviceSeq}  
+       </foreach>		 
+  	</update>
+  	
+  	<select id="findvhemsypxxinfoanddocadviceList" parameterType="activetech.external.pojo.dto.VHemsJyjgQueryDto"
+		resultMap="BaseResultMap">
+		SELECT DOCADVICE_SEQ,
+		       VST_CAD,
+		       DOCADVICE_ISDAT,
+		       DOCADVICE_BEDAT,
+		       DOCADVICE_CONTENT,
+		       DOCADVICE_NAM,
+		       DOCADVICE_NUIMDAT,
+		       DOCADVICE_NUIMNAM,
+		       DOCADVICE_DOCSTDAT,
+		       DOCADVICE_DOCSTNAM,
+		       DOCADVICE_NUSTDAT,
+		       DOCADVICE_NUSTNAM,
+		       DOCADVICE_WAY,
+		       DOCADVICE_TYPE,
+		       DOCADVICE_FLAG,
+		       DOCADVICE_YYJL,
+		       DOCADVICE_BZ,
+		       DOCADVICE_MAINFLG,
+		       pl,
+		       px,
+		       gyfsmc,
+		       sl,
+		       DOCADVICE_CHECKNAM,
+		       DOCADVICE_STATUS,
+		       DOCADVICE_ORDER,
+		       nvl(ISPRINT,'0') ISPRINT 
+		       from (
+    select DOCADVICE_SEQ,VST_CAD,DOCADVICE_ISDAT,DOCADVICE_BEDAT,dbms_lob.substr(DOCADVICE_CONTENT) DOCADVICE_CONTENT,DOCADVICE_NAM,
+              DOCADVICE_NUIMDAT,DOCADVICE_NUIMNAM,DOCADVICE_DOCSTDAT,DOCADVICE_DOCSTNAM,DOCADVICE_NUSTDAT,
+              DOCADVICE_NUSTNAM,DOCADVICE_WAY,DOCADVICE_TYPE,DOCADVICE_FLAG,DOCADVICE_YYJL,DOCADVICE_BZ,DOCADVICE_MAINFLG,substr(DOCADVICE_WAY,instr(DOCADVICE_WAY,' ',-1)+1) pl,
+              px,gyfsmc,sl,DOCADVICE_CHECKNAM,DOCADVICE_STATUS,DOCADVICE_ORDER,ISPRINT
+              from  HSP_DOCADVICE_INF 
+		 		where VST_CAD=#{hspDocadviceInfCustom.vstCad} and DOCADVICE_STATUS ='0'
+	union all 
+	select * from 	(select CFSB||CFXH DOCADVICE_SEQ,JZKH VST_CAD,CFRQ DOCADVICE_ISDAT,CFRQ DOCADVICE_BEDAT,PMGG DOCADVICE_CONTENT,YSXM DOCADVICE_NAM,
+            null DOCADVICE_NUIMDAT,null DOCADVICE_NUIMNAM,null DOCADVICE_DOCSTDAT,null DOCADVICE_DOCSTNAM,null DOCADVICE_NUSTDAT,
+            null DOCADVICE_NUSTNAM,gyfsmc||' '||pl DOCADVICE_WAY,to_char(CFSB) DOCADVICE_TYPE,'1' DOCADVICE_FLAG,DYJL||JLDW DOCADVICE_YYJL,substr(bz,0,1) DOCADVICE_BZ,
+             CASE WHEN gyfsmc like '%副药%'  THEN   '1'
+                  ELSE '0'
+             END DOCADVICE_MAINFLG,pl,
+              CASE WHEN PMGG like '%氯化钠%'  THEN   '1'
+               ELSE '0'
+             END px,gyfsmc,to_char(sl),null DOCADVICE_CHECKNAM,'0' DOCADVICE_STATUS,DOCADVICE_ORDER,'0'
+             FROM dsfjk.V_HEMS_YPXX  ) ypxx
+             where ypxx.VST_CAD=#{hspDocadviceInfCustom.vstCad}
+         and not exists (select * from hsp_docadvice_inf advice where advice.docadvice_seq = ypxx.docadvice_seq))
+			<where>
+				<include refid="activetech.basehis.dao.mapper.VHemsYpxxMapper.query_DocadviceInf_where" />
+			</where>
+		order by DOCADVICE_ISDAT,DOCADVICE_ORDER,DOCADVICE_TYPE,DOCADVICE_BZ,DOCADVICE_MAINFLG ASC,pl desc, px desc
+	</select>
+  
+</mapper>

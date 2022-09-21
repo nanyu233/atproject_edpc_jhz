@@ -1,0 +1,224 @@
+.printHtml {
+  float: left;
+  width: 100%;
+}
+.print-body {
+  float: left;
+  width: 100%;
+  min-width:210mm;
+  font-family:'微软雅黑';
+}
+.print-body .title {
+  margin:0;
+  padding: 3mm 0 0 0;
+  text-align:center;
+  font-size:.42cm;
+  line-height:1.5;
+}
+.print-body .subTitle {
+  margin:2mm 0;
+  padding:0;
+  text-align:center;
+  font-weight:700;
+  font-size:.58cm;
+}
+.printHtml .mainbody {
+  overflow-y: auto;
+}
+.print-ul{
+  float: left;
+  width: 90%;
+  font-size: 0.38cm;
+  margin: 0 5%;
+  padding: 0;
+}
+.contentDiv {
+  float: left;
+  width: 89%;
+  font-size: 0.38cm;
+  margin: 0 5% 0 6%;
+  padding: 0;
+}
+.print-ul li {
+  float: left;
+  margin-left: 1%;
+  line-height: 1.5;
+  padding-bottom: 2mm;
+}
+.print-ul .printFullLi {
+  width: 99%;
+}
+.print-ul .printHalfLi {
+  width: 49%;
+}
+.print-ul .longFloatRightLi, .rightText{
+  width: 40%;
+  margin-left: 60%;
+  min-width: 354px;
+  float: right;
+}
+.print-ul .floatRightLi, .rightText{
+  width: 20%;
+  margin-left: 80%;
+  min-width: 200px;
+  float: right;
+}
+.print-ul .leftGap, .print-ul .basic-span {
+  display: inline-block;
+  margin-left: 3mm;
+}
+.print-ul .marginGap, .printText {
+  display: inline-block;
+  margin-left: 2mm;
+}
+.print-ul .marginBigGap {
+  display: inline-block;
+  margin-left: 4mm;
+}
+.print-ul .bordered {
+  width: 99%;
+  padding-bottom: 0mm;
+  margin-bottom: 1mm;
+  border-bottom: 1px solid #000;
+  text-align: left;
+}
+.print-ul .labTitle {
+  font-weight: bold;
+  text-align: left;
+}
+.print-ul .SpanleftGap {
+  display: inline-block;
+  width: 24%;
+}
+pre {
+  float: left;
+  width: 100%;
+  text-indent: 2em;
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family:'微软雅黑';
+}
+.tablePrint {
+  width: 90%;
+  margin: 0 5%;
+  float: left;
+  border: 1px solid #000;
+}
+.tablePrint tr td, .tablePrint tr th {
+  height: 20px;
+  border: 1px solid #000;
+}
+.tablePrint tr td {
+  text-indent: 2em;
+}
+.tablePrint tr td.centerTd {
+  text-align: center;
+  text-indent: 0;
+}
+.mainDiv {
+  padding: 0;
+  left: 0;
+  height: 100%;
+}
+.contentText {
+  float: left;
+  width: 100%;
+  text-indent: 2em;
+}
+.boldText {
+  font-weight: bold;
+}
+.leftPre {
+  float: left;
+  width: 98%;
+  margin-left: 2%;
+  text-indent: 0;
+}
+.threeText {
+  float: left;
+  width: 33%;
+}
+.sixText {
+  float: left;
+  width: 66%;
+}
+.cutLine {
+  height:1px;
+  width: 95%;
+  float: left;
+  border:none;
+  border-top:1px dashed #ddd;
+}
+.tableTbodyDiv {
+  float: left;
+  overflow-y: auto;
+  width: 89%;
+  font-size: 0.38cm;
+  margin: 0 5% 0 6%;
+  padding: 0;
+}
+.tableTheadDiv {
+  float: left;
+  width: 89%;
+  font-size: 0.38cm;
+  margin: 0 5% 0 6%;
+  padding: 0;
+  height: 30px;
+}
+.tableTheadDiv, .tableTheadDiv th, .printable {
+  border: 1px solid #000;
+}
+.printable, .tableTheadDiv {
+  table-layout: fixed;
+}
+.printTableShow .panel-header, .printTableShow .panel-body{
+  border: 1px solid #000;
+}
+.printTableShow .datagrid-header {
+  background: #ffffff;
+}
+.printTableShow .datagrid-header td, .printTableShow .datagrid-body td, .printTableShow .datagrid-footer td {
+  border-width: 0 1px 1px 0;
+  border-style: solid;
+  border-color: #000;
+}
+.printTableShow .datagrid-row-alt {
+  background: #ffffff;
+}
+.printTableShow .datagrid-header, .printTableShow .datagrid-toolbar, .printTableShow .datagrid-pager, .printTableShow .datagrid-footer-inner {
+  border-color: #000;
+}
+.printTableShow .datagrid-row-hover, .printTableShow .datagrid-header td.datagrid-header-over {
+  background: #fff;
+}
+.printTableShow .datagrid-row-selected, .printTableShow .datagrid-td-rownumber {
+  background: #fff;
+}
+.printTableShow .pagination-page-list, .printTableShow .pagination .pagination-num {
+  background: #ddd;
+}
+.floatBody {
+  float: left;
+  width: 100%;
+}
+.centerWz {
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.tabWrapper {
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 10px;
+}
+.tabWrapper td, .tabWrapper th{
+  border: 1px solid #000;
+}
+.centerTd {
+  text-align: center;
+}
+.hookShow {
+  font-family: monospace;
+}

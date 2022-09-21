@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspMediaInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspMediaInfCustom" >
+    <id column="MED_SEQ" property="medSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="MED_CLASS" property="medClass" jdbcType="VARCHAR" />
+    <result column="MED_NAME" property="medName" jdbcType="VARCHAR" />
+    <result column="MED_FILE" property="medFile" jdbcType="VARCHAR" />
+    <result column="MED_EXTEND" property="medExtend" jdbcType="VARCHAR" />
+    <result column="MED_TYPE" property="medType" jdbcType="VARCHAR" />
+    <result column="MED_DATE" property="medDate" jdbcType="TIMESTAMP" />
+    <result column="MED_SIZE" property="medSize" jdbcType="DECIMAL" />
+    <result column="MED_DATA" property="medData" jdbcType="BLOB" />
+  </resultMap>
+  
+  
+  <select id="selectByEmgSeq" resultMap="BaseResultMap" parameterType="String" >
+ 	select  MED_SEQ, EMG_SEQ, MED_CLASS, MED_NAME, MED_FILE, MED_EXTEND, MED_TYPE, MED_DATE, 
+    	MED_SIZE,MED_DATA
+    	from HSP_MEDIA_INF 
+    	where  EMG_SEQ=#{emgSeq} 
+ 
+  </select>
+  
+  </mapper>

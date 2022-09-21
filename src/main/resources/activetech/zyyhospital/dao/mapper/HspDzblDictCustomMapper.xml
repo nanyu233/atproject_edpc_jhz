@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspDzblDictCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspDzblDictCustom" >
+    <result column="MB_SEQ" property="mbSeq" jdbcType="VARCHAR" />
+    <result column="MB_TITLE" property="mbTitle" jdbcType="VARCHAR" />
+    <result column="MB_TYPE" property="mbType" jdbcType="CHAR" />
+    <result column="TY_TYPE" property="tyType" jdbcType="CHAR" />
+    <result column="EMG_FK_COD" property="emgFkCod" jdbcType="VARCHAR" />
+    <result column="MB_CONTENT" property="mbContent" jdbcType="VARCHAR" />
+    <result column="MB_SORT" property="mbSort" jdbcType="DECIMAL" />
+    <result column="MB_CRT_USER" property="mbCrtUser" jdbcType="VARCHAR" />
+    <result column="MB_CRT_TIME" property="mbCrtTime" jdbcType="TIMESTAMP" />
+    <result column="MB_CRT_NAME" property="mbCrtName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    MB_SEQ, MB_TITLE, TY_TYPE, MB_CONTENT, MB_CRT_USER,MB_CRT_NAME,MB_SORT
+  </sql>
+  
+  <sql id="query_dict_where">
+		<if test="hspDzblDictCustom!=null">
+			<if test="hspDzblDictCustom.mbSeq!=null and hspDzblDictCustom.mbSeq!=''">
+				and MB_SEQ = #{hspDzblDictCustom.mbSeq} 
+			</if>
+			<if test="hspDzblDictCustom.mbTitle!=null and hspDzblDictCustom.mbTitle!=''">
+				and (MB_TITLE like '%'||#{hspDzblDictCustom.mbTitle} ||'%'
+				or MB_CRT_NAME like '%'||#{hspDzblDictCustom.mbTitle}||'%')
+			</if>
+			<if test="hspDzblDictCustom.tyType!=null and hspDzblDictCustom.tyType!=''">
+				<if test="hspDzblDictCustom.tyType == 1">
+					and TY_TYPE = #{hspDzblDictCustom.tyType}
+				</if>
+				<if test="hspDzblDictCustom.tyType == 2">
+					and TY_TYPE = #{hspDzblDictCustom.tyType}
+				</if>
+				<if test="hspDzblDictCustom.tyType == 0">
+					<if test="hspDzblDictCustom.mbCrtUser!=null and hspDzblDictCustom.mbCrtUser!=''">
+						and MB_CRT_USER = #{hspDzblDictCustom.mbCrtUser}
+					</if>
+					and TY_TYPE = #{hspDzblDictCustom.tyType}
+				</if>
+			</if>
+		</if>
+	</sql>
+  
+  <select id="findHspDzblDictList" parameterType="activetech.zyyhospital.pojo.dto.HspDzblDictDto"
+		resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />
+			from HSP_DZBL_DICT
+		 <where>
+			<include refid="query_dict_where" />
+		</where> 
+		order by MB_CRT_USER,MB_SORT asc
+	</select>
+	
+	<select id="findAllDict" parameterType="activetech.zyyhospital.pojo.dto.HspDzblDictDto"
+		resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />
+			from HSP_DZBL_DICT
+		order by MB_CRT_USER,MB_SORT asc
+	</select>
+	
+  <select id="findHspDzblDictListByDesc" parameterType="activetech.zyyhospital.pojo.dto.HspDzblDictDto"
+		resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />
+			from HSP_DZBL_DICT
+	    <where>
+			<if test="hspDzblDictCustom.tyType!=null and hspDzblDictCustom.tyType!=''">
+				<if test="hspDzblDictCustom.tyType == 1">
+					and TY_TYPE = #{hspDzblDictCustom.tyType}
+				</if>
+				<if test="hspDzblDictCustom.tyType == 2">
+					<if test="hspDzblDictCustom.mbCrtUser!=null and hspDzblDictCustom.mbCrtUser!=''">
+						and MB_CRT_USER = #{hspDzblDictCustom.mbCrtUser}
+					</if>
+					and TY_TYPE = #{hspDzblDictCustom.tyType}
+				</if>
+				<if test="hspDzblDictCustom.tyType == 0">
+					<if test="hspDzblDictCustom.mbCrtUser!=null and hspDzblDictCustom.mbCrtUser!=''">
+						and MB_CRT_USER = #{hspDzblDictCustom.mbCrtUser}
+					</if>
+					and TY_TYPE = #{hspDzblDictCustom.tyType}
+				</if>
+			</if>
+		</where> 
+		order by MB_SORT desc
+	</select>
+	
+  <select id="findHspDzblDict" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />
+		from HSP_DZBL_DICT
+		where MB_SEQ = #{mbSeq,jdbcType=VARCHAR}
+	</select>
+	
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspDzblDict">
+    update HSP_DZBL_DICT
+    set MB_TITLE = #{mbTitle,jdbcType=VARCHAR},
+      MB_CONTENT = #{mbContent,jdbcType=VARCHAR},
+      TY_TYPE = #{tyType,jdbcType=VARCHAR},
+      MB_CRT_TIME = #{mbCrtTime,jdbcType=TIMESTAMP},
+      MB_CRT_NAME = #{mbCrtName,jdbcType=VARCHAR},
+      MB_SORT = #{mbSort,jdbcType=DECIMAL}
+    where MB_SEQ = #{mbSeq,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_DZBL_DICT
+    where MB_SEQ = #{mbSeq,jdbcType=VARCHAR}
+  </delete>
+  
+</mapper>

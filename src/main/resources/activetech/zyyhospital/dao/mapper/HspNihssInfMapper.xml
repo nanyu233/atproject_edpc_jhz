@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspNihssInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspNihssInf">
+    <id column="CEREBRAL_COURSE_SEQ" jdbcType="VARCHAR" property="cerebralCourseSeq" />
+    <result column="EMG_SEQ_DC" jdbcType="VARCHAR" property="emgSeqDc" />
+    <result column="NIHSS_CONTENT" jdbcType="VARCHAR" property="nihssContent" />
+    <result column="ASSESS_DOC" jdbcType="VARCHAR" property="assessDoc" />
+    <result column="ASSESS_DATE" jdbcType="VARCHAR" property="assessDate" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="CREATE_DOC" jdbcType="VARCHAR" property="createDoc" />
+    <result column="UPDATE_DOC" jdbcType="VARCHAR" property="updateDoc" />
+    <result column="CREATE_NAM" jdbcType="VARCHAR" property="createNam" />
+    <result column="UPDATE_NAM" jdbcType="VARCHAR" property="updateNam" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CEREBRAL_COURSE_SEQ, EMG_SEQ_DC, NIHSS_CONTENT, ASSESS_DOC, ASSESS_DATE, CREATE_DATE, 
+    UPDATE_DATE, CREATE_DOC, UPDATE_DOC, CREATE_NAM, UPDATE_NAM
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspNihssInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_NIHSS_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_NIHSS_INF
+    where CEREBRAL_COURSE_SEQ = #{cerebralCourseSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_NIHSS_INF
+    where CEREBRAL_COURSE_SEQ = #{cerebralCourseSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspNihssInfExample">
+    delete from HSP_NIHSS_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspNihssInf">
+    insert into HSP_NIHSS_INF (CEREBRAL_COURSE_SEQ, EMG_SEQ_DC, NIHSS_CONTENT, 
+      ASSESS_DOC, ASSESS_DATE, CREATE_DATE, 
+      UPDATE_DATE, CREATE_DOC, UPDATE_DOC, 
+      CREATE_NAM, UPDATE_NAM)
+    values (#{cerebralCourseSeq,jdbcType=VARCHAR}, #{emgSeqDc,jdbcType=VARCHAR}, #{nihssContent,jdbcType=VARCHAR}, 
+      #{assessDoc,jdbcType=VARCHAR}, #{assessDate,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{createDoc,jdbcType=VARCHAR}, #{updateDoc,jdbcType=VARCHAR}, 
+      #{createNam,jdbcType=VARCHAR}, #{updateNam,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspNihssInf">
+    insert into HSP_NIHSS_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cerebralCourseSeq != null">
+        CEREBRAL_COURSE_SEQ,
+      </if>
+      <if test="emgSeqDc != null">
+        EMG_SEQ_DC,
+      </if>
+      <if test="nihssContent != null">
+        NIHSS_CONTENT,
+      </if>
+      <if test="assessDoc != null">
+        ASSESS_DOC,
+      </if>
+      <if test="assessDate != null">
+        ASSESS_DATE,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="createDoc != null">
+        CREATE_DOC,
+      </if>
+      <if test="updateDoc != null">
+        UPDATE_DOC,
+      </if>
+      <if test="createNam != null">
+        CREATE_NAM,
+      </if>
+      <if test="updateNam != null">
+        UPDATE_NAM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cerebralCourseSeq != null">
+        #{cerebralCourseSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeqDc != null">
+        #{emgSeqDc,jdbcType=VARCHAR},
+      </if>
+      <if test="nihssContent != null">
+        #{nihssContent,jdbcType=VARCHAR},
+      </if>
+      <if test="assessDoc != null">
+        #{assessDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="assessDate != null">
+        #{assessDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDoc != null">
+        #{createDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDoc != null">
+        #{updateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="createNam != null">
+        #{createNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updateNam != null">
+        #{updateNam,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspNihssInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_NIHSS_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_NIHSS_INF
+    <set>
+      <if test="record.cerebralCourseSeq != null">
+        CEREBRAL_COURSE_SEQ = #{record.cerebralCourseSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeqDc != null">
+        EMG_SEQ_DC = #{record.emgSeqDc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nihssContent != null">
+        NIHSS_CONTENT = #{record.nihssContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assessDoc != null">
+        ASSESS_DOC = #{record.assessDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assessDate != null">
+        ASSESS_DATE = #{record.assessDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createDoc != null">
+        CREATE_DOC = #{record.createDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDoc != null">
+        UPDATE_DOC = #{record.updateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createNam != null">
+        CREATE_NAM = #{record.createNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateNam != null">
+        UPDATE_NAM = #{record.updateNam,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_NIHSS_INF
+    set CEREBRAL_COURSE_SEQ = #{record.cerebralCourseSeq,jdbcType=VARCHAR},
+      EMG_SEQ_DC = #{record.emgSeqDc,jdbcType=VARCHAR},
+      NIHSS_CONTENT = #{record.nihssContent,jdbcType=VARCHAR},
+      ASSESS_DOC = #{record.assessDoc,jdbcType=VARCHAR},
+      ASSESS_DATE = #{record.assessDate,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      CREATE_DOC = #{record.createDoc,jdbcType=VARCHAR},
+      UPDATE_DOC = #{record.updateDoc,jdbcType=VARCHAR},
+      CREATE_NAM = #{record.createNam,jdbcType=VARCHAR},
+      UPDATE_NAM = #{record.updateNam,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspNihssInf">
+    update HSP_NIHSS_INF
+    <set>
+      <if test="emgSeqDc != null">
+        EMG_SEQ_DC = #{emgSeqDc,jdbcType=VARCHAR},
+      </if>
+      <if test="nihssContent != null">
+        NIHSS_CONTENT = #{nihssContent,jdbcType=VARCHAR},
+      </if>
+      <if test="assessDoc != null">
+        ASSESS_DOC = #{assessDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="assessDate != null">
+        ASSESS_DATE = #{assessDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDoc != null">
+        CREATE_DOC = #{createDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDoc != null">
+        UPDATE_DOC = #{updateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="createNam != null">
+        CREATE_NAM = #{createNam,jdbcType=VARCHAR},
+      </if>
+      <if test="updateNam != null">
+        UPDATE_NAM = #{updateNam,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CEREBRAL_COURSE_SEQ = #{cerebralCourseSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspNihssInf">
+    update HSP_NIHSS_INF
+    set EMG_SEQ_DC = #{emgSeqDc,jdbcType=VARCHAR},
+      NIHSS_CONTENT = #{nihssContent,jdbcType=VARCHAR},
+      ASSESS_DOC = #{assessDoc,jdbcType=VARCHAR},
+      ASSESS_DATE = #{assessDate,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      CREATE_DOC = #{createDoc,jdbcType=VARCHAR},
+      UPDATE_DOC = #{updateDoc,jdbcType=VARCHAR},
+      CREATE_NAM = #{createNam,jdbcType=VARCHAR},
+      UPDATE_NAM = #{updateNam,jdbcType=VARCHAR}
+    where CEREBRAL_COURSE_SEQ = #{cerebralCourseSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.external.dao.mapper.HspEcgInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.external.pojo.domain.HspEcgInf" >
+    <id column="ECG_SEQ" property="ecgSeq" jdbcType="VARCHAR" />
+    <result column="REF_ID" property="refId" jdbcType="VARCHAR" />
+    <result column="ECG_TYPE" property="ecgType" jdbcType="CHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="FILE_DATE" property="fileDate" jdbcType="TIMESTAMP" />
+    <result column="FILE_TRS_DATE" property="fileTrsDate" jdbcType="TIMESTAMP" />
+    <result column="FILE_DIA_DATE" property="fileDiaDate" jdbcType="TIMESTAMP" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="FILE_TYPE" property="fileType" jdbcType="CHAR" />
+    <result column="APP_NO" property="appNo" jdbcType="VARCHAR" />
+    <result column="MPI_NO" property="mpiNo" jdbcType="VARCHAR" />
+    <result column="SAD_ID" property="sadId" jdbcType="DECIMAL" />
+    <result column="CRT_DATE" property="crtDate" jdbcType="TIMESTAMP" />
+    <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="activetech.external.pojo.domain.HspEcgInf" extends="BaseResultMap" >
+    <result column="FILE_CON" property="fileCon" jdbcType="BLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ECG_SEQ, REF_ID, ECG_TYPE, FILE_NAME, FILE_DATE, FILE_TRS_DATE, FILE_DIA_DATE, FILE_PATH, 
+    FILE_TYPE, APP_NO, MPI_NO, SAD_ID, CRT_DATE, CRT_USER
+  </sql>
+  <sql id="Blob_Column_List" >
+    FILE_CON
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="activetech.external.pojo.domain.HspEcgInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_ECG_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.external.pojo.domain.HspEcgInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_ECG_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_ECG_INF
+    where ECG_SEQ = #{ecgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_ECG_INF
+    where ECG_SEQ = #{ecgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.external.pojo.domain.HspEcgInfExample" >
+    delete from HSP_ECG_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.external.pojo.domain.HspEcgInf" >
+    insert into HSP_ECG_INF (ECG_SEQ, REF_ID, ECG_TYPE, 
+      FILE_NAME, FILE_DATE, FILE_TRS_DATE, 
+      FILE_DIA_DATE, FILE_PATH, FILE_TYPE, 
+      APP_NO, MPI_NO, SAD_ID, 
+      CRT_DATE, CRT_USER, FILE_CON
+      )
+    values (#{ecgSeq,jdbcType=VARCHAR}, #{refId,jdbcType=VARCHAR}, #{ecgType,jdbcType=CHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{fileDate,jdbcType=TIMESTAMP}, #{fileTrsDate,jdbcType=TIMESTAMP}, 
+      #{fileDiaDate,jdbcType=TIMESTAMP}, #{filePath,jdbcType=VARCHAR}, #{fileType,jdbcType=CHAR}, 
+      #{appNo,jdbcType=VARCHAR}, #{mpiNo,jdbcType=VARCHAR}, #{sadId,jdbcType=DECIMAL}, 
+      #{crtDate,jdbcType=TIMESTAMP}, #{crtUser,jdbcType=VARCHAR}, #{fileCon,jdbcType=BLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.external.pojo.domain.HspEcgInf" >
+    insert into HSP_ECG_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ecgSeq != null" >
+        ECG_SEQ,
+      </if>
+      <if test="refId != null" >
+        REF_ID,
+      </if>
+      <if test="ecgType != null" >
+        ECG_TYPE,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+      <if test="fileDate != null" >
+        FILE_DATE,
+      </if>
+      <if test="fileTrsDate != null" >
+        FILE_TRS_DATE,
+      </if>
+      <if test="fileDiaDate != null" >
+        FILE_DIA_DATE,
+      </if>
+      <if test="filePath != null" >
+        FILE_PATH,
+      </if>
+      <if test="fileType != null" >
+        FILE_TYPE,
+      </if>
+      <if test="appNo != null" >
+        APP_NO,
+      </if>
+      <if test="mpiNo != null" >
+        MPI_NO,
+      </if>
+      <if test="sadId != null" >
+        SAD_ID,
+      </if>
+      <if test="crtDate != null" >
+        CRT_DATE,
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER,
+      </if>
+      <if test="fileCon != null" >
+        FILE_CON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ecgSeq != null" >
+        #{ecgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="refId != null" >
+        #{refId,jdbcType=VARCHAR},
+      </if>
+      <if test="ecgType != null" >
+        #{ecgType,jdbcType=CHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileDate != null" >
+        #{fileDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileTrsDate != null" >
+        #{fileTrsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileDiaDate != null" >
+        #{fileDiaDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        #{fileType,jdbcType=CHAR},
+      </if>
+      <if test="appNo != null" >
+        #{appNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mpiNo != null" >
+        #{mpiNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sadId != null" >
+        #{sadId,jdbcType=DECIMAL},
+      </if>
+      <if test="crtDate != null" >
+        #{crtDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCon != null" >
+        #{fileCon,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.external.pojo.domain.HspEcgInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_ECG_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_ECG_INF
+    <set >
+      <if test="record.ecgSeq != null" >
+        ECG_SEQ = #{record.ecgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refId != null" >
+        REF_ID = #{record.refId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ecgType != null" >
+        ECG_TYPE = #{record.ecgType,jdbcType=CHAR},
+      </if>
+      <if test="record.fileName != null" >
+        FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileDate != null" >
+        FILE_DATE = #{record.fileDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fileTrsDate != null" >
+        FILE_TRS_DATE = #{record.fileTrsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fileDiaDate != null" >
+        FILE_DIA_DATE = #{record.fileDiaDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.filePath != null" >
+        FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileType != null" >
+        FILE_TYPE = #{record.fileType,jdbcType=CHAR},
+      </if>
+      <if test="record.appNo != null" >
+        APP_NO = #{record.appNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mpiNo != null" >
+        MPI_NO = #{record.mpiNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sadId != null" >
+        SAD_ID = #{record.sadId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.crtDate != null" >
+        CRT_DATE = #{record.crtDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUser != null" >
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileCon != null" >
+        FILE_CON = #{record.fileCon,jdbcType=BLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update HSP_ECG_INF
+    set ECG_SEQ = #{record.ecgSeq,jdbcType=VARCHAR},
+      REF_ID = #{record.refId,jdbcType=VARCHAR},
+      ECG_TYPE = #{record.ecgType,jdbcType=CHAR},
+      FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      FILE_DATE = #{record.fileDate,jdbcType=TIMESTAMP},
+      FILE_TRS_DATE = #{record.fileTrsDate,jdbcType=TIMESTAMP},
+      FILE_DIA_DATE = #{record.fileDiaDate,jdbcType=TIMESTAMP},
+      FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
+      FILE_TYPE = #{record.fileType,jdbcType=CHAR},
+      APP_NO = #{record.appNo,jdbcType=VARCHAR},
+      MPI_NO = #{record.mpiNo,jdbcType=VARCHAR},
+      SAD_ID = #{record.sadId,jdbcType=DECIMAL},
+      CRT_DATE = #{record.crtDate,jdbcType=TIMESTAMP},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      FILE_CON = #{record.fileCon,jdbcType=BLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_ECG_INF
+    set ECG_SEQ = #{record.ecgSeq,jdbcType=VARCHAR},
+      REF_ID = #{record.refId,jdbcType=VARCHAR},
+      ECG_TYPE = #{record.ecgType,jdbcType=CHAR},
+      FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
+      FILE_DATE = #{record.fileDate,jdbcType=TIMESTAMP},
+      FILE_TRS_DATE = #{record.fileTrsDate,jdbcType=TIMESTAMP},
+      FILE_DIA_DATE = #{record.fileDiaDate,jdbcType=TIMESTAMP},
+      FILE_PATH = #{record.filePath,jdbcType=VARCHAR},
+      FILE_TYPE = #{record.fileType,jdbcType=CHAR},
+      APP_NO = #{record.appNo,jdbcType=VARCHAR},
+      MPI_NO = #{record.mpiNo,jdbcType=VARCHAR},
+      SAD_ID = #{record.sadId,jdbcType=DECIMAL},
+      CRT_DATE = #{record.crtDate,jdbcType=TIMESTAMP},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.external.pojo.domain.HspEcgInf" >
+    update HSP_ECG_INF
+    <set >
+      <if test="refId != null" >
+        REF_ID = #{refId,jdbcType=VARCHAR},
+      </if>
+      <if test="ecgType != null" >
+        ECG_TYPE = #{ecgType,jdbcType=CHAR},
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileDate != null" >
+        FILE_DATE = #{fileDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileTrsDate != null" >
+        FILE_TRS_DATE = #{fileTrsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileDiaDate != null" >
+        FILE_DIA_DATE = #{fileDiaDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="filePath != null" >
+        FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        FILE_TYPE = #{fileType,jdbcType=CHAR},
+      </if>
+      <if test="appNo != null" >
+        APP_NO = #{appNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mpiNo != null" >
+        MPI_NO = #{mpiNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sadId != null" >
+        SAD_ID = #{sadId,jdbcType=DECIMAL},
+      </if>
+      <if test="crtDate != null" >
+        CRT_DATE = #{crtDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCon != null" >
+        FILE_CON = #{fileCon,jdbcType=BLOB},
+      </if>
+    </set>
+    where ECG_SEQ = #{ecgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.external.pojo.domain.HspEcgInf" >
+    update HSP_ECG_INF
+    set REF_ID = #{refId,jdbcType=VARCHAR},
+      ECG_TYPE = #{ecgType,jdbcType=CHAR},
+      FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      FILE_DATE = #{fileDate,jdbcType=TIMESTAMP},
+      FILE_TRS_DATE = #{fileTrsDate,jdbcType=TIMESTAMP},
+      FILE_DIA_DATE = #{fileDiaDate,jdbcType=TIMESTAMP},
+      FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      FILE_TYPE = #{fileType,jdbcType=CHAR},
+      APP_NO = #{appNo,jdbcType=VARCHAR},
+      MPI_NO = #{mpiNo,jdbcType=VARCHAR},
+      SAD_ID = #{sadId,jdbcType=DECIMAL},
+      CRT_DATE = #{crtDate,jdbcType=TIMESTAMP},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      FILE_CON = #{fileCon,jdbcType=BLOB}
+    where ECG_SEQ = #{ecgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.external.pojo.domain.HspEcgInf" >
+    update HSP_ECG_INF
+    set REF_ID = #{refId,jdbcType=VARCHAR},
+      ECG_TYPE = #{ecgType,jdbcType=CHAR},
+      FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      FILE_DATE = #{fileDate,jdbcType=TIMESTAMP},
+      FILE_TRS_DATE = #{fileTrsDate,jdbcType=TIMESTAMP},
+      FILE_DIA_DATE = #{fileDiaDate,jdbcType=TIMESTAMP},
+      FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      FILE_TYPE = #{fileType,jdbcType=CHAR},
+      APP_NO = #{appNo,jdbcType=VARCHAR},
+      MPI_NO = #{mpiNo,jdbcType=VARCHAR},
+      SAD_ID = #{sadId,jdbcType=DECIMAL},
+      CRT_DATE = #{crtDate,jdbcType=TIMESTAMP},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR}
+    where ECG_SEQ = #{ecgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

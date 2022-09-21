@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.eicu.dao.mapper.IcuGradeSubitemMapper" >
+  <resultMap id="BaseResultMap" type="activetech.eicu.pojo.domain.IcuGradeSubitem" >
+    <id column="GRADE_SEQ" property="gradeSeq" jdbcType="VARCHAR" />
+    <id column="GRADE_TYPE" property="gradeType" jdbcType="VARCHAR" />
+    <id column="ITEM_FIELD" property="itemField" jdbcType="VARCHAR" />
+    <result column="ITEM_VALUE" property="itemValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    GRADE_SEQ, GRADE_TYPE, ITEM_FIELD, ITEM_VALUE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.eicu.pojo.domain.IcuGradeSubitemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ICU_GRADE_SUBITEM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="activetech.eicu.pojo.domain.IcuGradeSubitemKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ICU_GRADE_SUBITEM
+    where GRADE_SEQ = #{gradeSeq,jdbcType=VARCHAR}
+      and GRADE_TYPE = #{gradeType,jdbcType=VARCHAR}
+      and ITEM_FIELD = #{itemField,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="activetech.eicu.pojo.domain.IcuGradeSubitemKey" >
+    delete from ICU_GRADE_SUBITEM
+    where GRADE_SEQ = #{gradeSeq,jdbcType=VARCHAR}
+      and GRADE_TYPE = #{gradeType,jdbcType=VARCHAR}
+      and ITEM_FIELD = #{itemField,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.eicu.pojo.domain.IcuGradeSubitemExample" >
+    delete from ICU_GRADE_SUBITEM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.eicu.pojo.domain.IcuGradeSubitem" >
+    insert into ICU_GRADE_SUBITEM (GRADE_SEQ, GRADE_TYPE, ITEM_FIELD, 
+      ITEM_VALUE)
+    values (#{gradeSeq,jdbcType=VARCHAR}, #{gradeType,jdbcType=VARCHAR}, #{itemField,jdbcType=VARCHAR}, 
+      #{itemValue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.eicu.pojo.domain.IcuGradeSubitem" >
+    insert into ICU_GRADE_SUBITEM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gradeSeq != null" >
+        GRADE_SEQ,
+      </if>
+      <if test="gradeType != null" >
+        GRADE_TYPE,
+      </if>
+      <if test="itemField != null" >
+        ITEM_FIELD,
+      </if>
+      <if test="itemValue != null" >
+        ITEM_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gradeSeq != null" >
+        #{gradeSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeType != null" >
+        #{gradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="itemField != null" >
+        #{itemField,jdbcType=VARCHAR},
+      </if>
+      <if test="itemValue != null" >
+        #{itemValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.eicu.pojo.domain.IcuGradeSubitemExample" resultType="java.lang.Integer" >
+    select count(*) from ICU_GRADE_SUBITEM
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ICU_GRADE_SUBITEM
+    <set >
+      <if test="record.gradeSeq != null" >
+        GRADE_SEQ = #{record.gradeSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gradeType != null" >
+        GRADE_TYPE = #{record.gradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemField != null" >
+        ITEM_FIELD = #{record.itemField,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemValue != null" >
+        ITEM_VALUE = #{record.itemValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ICU_GRADE_SUBITEM
+    set GRADE_SEQ = #{record.gradeSeq,jdbcType=VARCHAR},
+      GRADE_TYPE = #{record.gradeType,jdbcType=VARCHAR},
+      ITEM_FIELD = #{record.itemField,jdbcType=VARCHAR},
+      ITEM_VALUE = #{record.itemValue,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.eicu.pojo.domain.IcuGradeSubitem" >
+    update ICU_GRADE_SUBITEM
+    <set >
+      <if test="itemValue != null" >
+        ITEM_VALUE = #{itemValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GRADE_SEQ = #{gradeSeq,jdbcType=VARCHAR}
+      and GRADE_TYPE = #{gradeType,jdbcType=VARCHAR}
+      and ITEM_FIELD = #{itemField,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.eicu.pojo.domain.IcuGradeSubitem" >
+    update ICU_GRADE_SUBITEM
+    set ITEM_VALUE = #{itemValue,jdbcType=VARCHAR}
+    where GRADE_SEQ = #{gradeSeq,jdbcType=VARCHAR}
+      and GRADE_TYPE = #{gradeType,jdbcType=VARCHAR}
+      and ITEM_FIELD = #{itemField,jdbcType=VARCHAR}
+  </update>
+</mapper>

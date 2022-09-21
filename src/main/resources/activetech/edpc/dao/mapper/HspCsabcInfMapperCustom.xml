@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspCsabcInfMapperCustom" >
+  	<select id="getHspCsabcInfList" parameterType="activetech.edpc.pojo.dto.HspCsabcInfQueryDto"
+  		resultType="activetech.edpc.pojo.dto.HspCsabcInfCustom">
+  		select a.abc_seq,
+		       a.emg_seq,
+		       a.fld_cod,
+		       a.fld_val,
+		       a.usr_no,
+		       a.usr_nme,
+		       a.crt_tim,
+		       b.fld_typ,
+		       (select grade_sco from icu_grade_total where icu_grade_total.grade_seq = a.fld_val) gradeSco	   	  
+		  from HSP_CSABC_INF a,HSP_CSABC_DEF b
+		 where a.fld_cod = b.fld_cod(+)
+		   and a.emg_seq = #{emgSeq,jdbcType=VARCHAR}
+  	</select>
+</mapper>

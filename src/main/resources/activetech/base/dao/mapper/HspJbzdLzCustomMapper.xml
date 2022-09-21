@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.HspJbzdLzCustomMapper">
+	<resultMap id="BaseResultMap" type="activetech.base.pojo.dto.HspJbzdLzCustom">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="JBBC" property="jbbc" jdbcType="VARCHAR" />
+		<result column="ICD10" property="icd10" jdbcType="VARCHAR" />
+		<result column="PYSM" property="pysm" jdbcType="VARCHAR" />
+		<result column="SRM2" property="srm2" jdbcType="VARCHAR" />
+		<result column="SRM3" property="srm3" jdbcType="VARCHAR" />
+		<result column="JIBINGTYPE" property="jibingtype" jdbcType="CHAR" />
+	</resultMap>
+	<sql id="Query_HspJbzdLz_where">
+		<if test="hspJbzdLzCustom!=null">
+			<if test="hspJbzdLzCustom.pysm!=null and hspJbzdLzCustom.pysm!=''">
+				JBBC like '%'|| #{hspJbzdLzCustom.pysm,jdbcType=VARCHAR} || '%' or
+				PYSM like upper (#{hspJbzdLzCustom.pysm,jdbcType=VARCHAR} || '%')
+			</if>
+		</if>
+	</sql>
+
+	<!-- 查询疾病字典列表 -->
+	<select id="findHspJbzdLzByPysm" parameterType="activetech.base.pojo.dto.HspJbzdLzDto"
+		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select id,
+		jbbc,
+		pysm,
+		icd10,
+		srm2,
+		srm3,
+		jibingtype
+		from hsp_jbzd_lz
+		where hsp_jbzd_lz.pysm like
+		upper(#{hspJbzdLzCustom.pysm,jdbcType=VARCHAR}||'%')
+		or hsp_jbzd_lz.jbbc like
+		upper('%'||#{hspJbzdLzCustom.pysm,jdbcType=VARCHAR}||'%')
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	<select id="findHspJbzdLz" parameterType="activetech.base.pojo.dto.HspJbzdLzDto"
+		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select id,
+		JBBC,
+		pysm,
+		icd10,
+		srm2,
+		srm3,
+		jibingtype
+		from hsp_jbzd_lz
+		<where>
+			<include refid="Query_HspJbzdLz_where" />
+		</where>
+		<!-- 分页尾部 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	<select id="findHspJbzdLzCount" parameterType="activetech.base.pojo.dto.HspJbzdLzDto"
+		resultType="int">
+		select count(1) from hsp_jbzd_lz
+		<where>
+			<include refid="Query_HspJbzdLz_where" />
+		</where>
+	</select>
+	<select id="findHspJbzdLzByjbzd" parameterType="activetech.base.pojo.dto.HspJbzdLzDto"
+		resultMap="BaseResultMap">
+		select id,
+		jbbc,
+		pysm,
+		icd10,
+		srm2,
+		srm3,
+		jibingtype
+		from hsp_jbzd_lz
+		where JBBC=#{hspJbzdLzCustom.jbbc}
+		<if test="hspJbzdLzCustom.id!=null and hspJbzdLzCustom.id!=''">
+			and ID!=#{hspJbzdLzCustom.id}
+		</if>
+	</select>
+</mapper>

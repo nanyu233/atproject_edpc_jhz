@@ -1,0 +1,233 @@
+/*
+* @Author: wdy
+* @Date:   2018-02-01 10:47:21
+* @Last Modified by:   wdy
+* @Last Modified time: 2018-02-28 17:01:18
+*/
+body {
+  background-color: #e4efff; }
+
+.basic-msg {
+  float: left;
+  width: 100%;
+  font-size: 14px;
+  line-height: 18px;
+  box-sizing: content-box;
+  vertical-align: bottom;
+  background-color: #fff; }
+  .basic-msg * {
+    padding-right: 15px; }
+  .basic-msg .name {
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-block;
+    padding-right: 15px; }
+  .basic-msg .level {
+    font-size: 16px;
+    font-weight: bold;
+    padding-right: 15px; }
+  .basic-msg .level.level0 {
+    color: red; }
+  .basic-msg .level.level1 {
+    color: #f90; }
+  .basic-msg .level.level2 {
+    color: #f3d800; }
+  .basic-msg .level.level3 {
+    color: #44b548; }
+  .basic-msg .sex,
+  .basic-msg .age {
+    padding-right: 0; }
+
+.nav-tree {
+  width: 100%;
+  height: auto;
+  background-color: #fff; }
+  .nav-tree dl {
+    height: 100%;
+    background-color: #fff; }
+    .nav-tree dl dt {
+      font-size: 14px;
+      line-height: 39px;
+      height: 39px;
+      padding-left: 20px;
+      color: #333;
+      border-bottom: solid 1px #dcdcdc; }
+    .nav-tree dl dd {
+      font-size: 14px;
+      line-height: 34px;
+      height: 34px;
+      padding-left: 20px;
+      cursor: pointer;
+      color: #1477bc;
+      border-bottom: dashed 1px #eaeaea; }
+      .nav-tree dl dd.active {
+        background-color: #eff6ff; }
+
+.main {
+  width: 100%;
+  height: 100%; }
+  .main iframe {
+    width: 100%;
+    height: 100%; }
+
+/*# sourceMappingURL=qjscasenote.css.map */
+.checkTime {
+    display: none;
+    position: absolute;
+    width: 208px;
+    bottom: 40px;
+    left: 3px;
+    padding: 4px;
+    z-index: 999;
+    height: auto;
+    background-color: #fff; 
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px 0 rgba(7,17,27,.1);
+    font-size: 13px;
+}
+.checkTime li {
+    padding: 2px 0;
+}
+.timeSpan {
+    display: none;
+}
+.timeSpan input {
+    padding: 0;
+    width: 134px;
+    font-size: 12px;
+}
+.checkBtn {
+    width: 90px;
+    height: 32px;
+    margin-top: 4px;
+    margin-bottom: 2px;
+    margin-left: 50px;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    border: 0;
+    background: #ddd;
+}
+.checkBtn.active {
+    background: linear-gradient(#f6f6f6, #e1e1e1);
+    -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.15);
+    border-color: #088ef0;
+    background: -webkit-gradient(linear, left top, left bottom, from(#34a5f8), to(#088ef0));
+    background: linear-gradient(#34a5f8, #088ef0);
+}
+.checkMenu {
+    font-weight: bold;
+    color: blue !important;
+}
+.checkMenu span, .normalMenu span {
+    float: right;
+}
+.checkMenu img, .normalMenu img {
+    width: 20px;
+    height: 20px;
+    padding: 7px;
+}
+.checkInput {
+    float: right;
+    margin-right: 10px;
+    vertical-align: middle;
+    line-height: 35px;
+    height: 35px;
+}
+.btn-label {
+    background: #629bec;
+    color: #fff;
+    border-radius: 4px;
+    padding:1px 3px;
+}
+.basic-msg span {padding-right: 10px; }
+@media screen and (min-device-height: 720px) and (max-device-height: 768px) {
+    .checkTime {
+        padding: 1px;
+        bottom: 0px;
+    }
+    .checkTime li {
+        padding: 1px;
+    }
+    .overTree {
+        height: 340px;
+        overflow-y: auto;
+    }
+}
+.reviewRecord {
+    float: left;
+    margin-top: -4px;
+    margin-right: 10px;
+    padding-right: 0px;
+    cursor: pointer;
+    color: #2a00ff;
+}
+.reviewRecord a {
+    font-weight: normal !important;
+    height: 25px;
+    line-height: 25px;
+    vertical-align: middle;
+}
+.reviewRecord img {
+    width: 28px;
+    padding-right: 0px;
+}
+.floatMenu {
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    max-height: 100%;
+    line-height: 28px;
+    overflow-y: auto;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px #888888;
+    -webkit-box-shadow: 1px 1px 5px #888888;
+    border-radius: 4px;
+    -webkit-box-radius: 4px;
+    background-color: #77acf7;
+}
+.floatMenu dt {
+    font-weight: bold;
+    padding-left: 4px;
+    color: #fff;
+}
+.floatMenu dt span {
+    font-size: 15px;
+    margin-left: 10px;
+}
+.floatMenu dd {
+    /* margin: 2px 4px; */
+    background: #fff;
+    padding-left: 4px;
+    border-top: 1px dashed #ddd;
+}
+.floatMenu dd:hover, .ddActive {
+    background: #eff1f8 !important;
+}
+.lay-box-small .layui-layer-dialog {
+    min-width: 150px !important;
+}
+  
+.lay-box-small .layui-layer-title {
+    padding: 0 40px 0 20px !important;
+}
+.knowledgeBox {
+    position: absolute;
+    right: 0px;
+    top: 20px;
+    width: 35px;
+    height: 150px;
+    background: #009cdf;
+    z-index: 9;
+    cursor: pointer;
+}
+.knowledgeBox p {
+    width: 38px;
+    margin-top: 35px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    color: #fff;
+}

@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspNczrslchcbInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspNczrslchcbInf">
+    <id column="SEQNO" jdbcType="VARCHAR" property="seqno" />
+    <result column="REFSEQNO" jdbcType="VARCHAR" property="refseqno" />
+    <result column="QRSJQSZZBX" jdbcType="VARCHAR" property="qrsjqszzbx" />
+    <result column="QRFBSJ_COD" jdbcType="VARCHAR" property="qrfbsjCod" />
+    <result column="QRFBSJ_QT" jdbcType="VARCHAR" property="qrfbsjQt" />
+    <result column="RY_DAT" jdbcType="TIMESTAMP" property="ryDat" />
+    <result column="QDRSLC_DAT" jdbcType="TIMESTAMP" property="qdrslcDat" />
+    <result column="YZJHL_DAT" jdbcType="TIMESTAMP" property="yzjhlDat" />
+    <result column="TZWQZYG_DAT" jdbcType="TIMESTAMP" property="tzwqzygDat" />
+    <result column="SJNKRSXZDD_DAT" jdbcType="TIMESTAMP" property="sjnkrsxzddDat" />
+    <result column="WQDD_DAT" jdbcType="TIMESTAMP" property="wqddDat" />
+    <result column="WCFF_DAT" jdbcType="TIMESTAMP" property="wcffDat" />
+    <result column="WCSYSXBBCJHSJ_DAT" jdbcType="TIMESTAMP" property="wcsysxbbcjhsjDat" />
+    <result column="SCTAJC_DAT" jdbcType="TIMESTAMP" property="sctajcDat" />
+    <result column="FHQJS_DAT" jdbcType="TIMESTAMP" property="fhqjsDat" />
+    <result column="XDT_DAT" jdbcType="TIMESTAMP" property="xdtDat" />
+    <result column="SJNKRSTYQZQR_DAT" jdbcType="TIMESTAMP" property="sjnkrstyqzqrDat" />
+    <result column="RSYWKSSY_DAT" jdbcType="TIMESTAMP" property="rsywkssyDat" />
+    <result column="RSYWJSSY_DAT" jdbcType="TIMESTAMP" property="rsywjssyDat" />
+    <result column="FCTLCT_DAT" jdbcType="TIMESTAMP" property="fctlctDat" />
+    <result column="SZRY_DAT" jdbcType="TIMESTAMP" property="szryDat" />
+    <result column="RYZWCLNCTAFHJZZYS" jdbcType="VARCHAR" property="ryzwclnctafhjzzys" />
+    <result column="RYZRSYWKSSYZYS" jdbcType="VARCHAR" property="ryzrsywkssyzys" />
+    <result column="MEMO" jdbcType="VARCHAR" property="memo" />
+    <result column="CRTUSRNO" jdbcType="VARCHAR" property="crtusrno" />
+    <result column="CRTUSRNAME" jdbcType="VARCHAR" property="crtusrname" />
+    <result column="CRTDATE" jdbcType="TIMESTAMP" property="crtdate" />
+    <result column="UPDUSRNO" jdbcType="VARCHAR" property="updusrno" />
+    <result column="UPDUSRNAME" jdbcType="VARCHAR" property="updusrname" />
+    <result column="UPDDATE" jdbcType="TIMESTAMP" property="upddate" />
+    <result column="TEXTHTML" jdbcType="VARCHAR" property="texthtml" />
+    <result column="TEXTPARAM" jdbcType="VARCHAR" property="textparam" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SEQNO, REFSEQNO, QRSJQSZZBX, QRFBSJ_COD, QRFBSJ_QT, RY_DAT, QDRSLC_DAT, YZJHL_DAT, 
+    TZWQZYG_DAT, SJNKRSXZDD_DAT, WQDD_DAT, WCFF_DAT, WCSYSXBBCJHSJ_DAT, SCTAJC_DAT, FHQJS_DAT, 
+    XDT_DAT, SJNKRSTYQZQR_DAT, RSYWKSSY_DAT, RSYWJSSY_DAT, FCTLCT_DAT, SZRY_DAT, RYZWCLNCTAFHJZZYS, 
+    RYZRSYWKSSYZYS, MEMO, CRTUSRNO, CRTUSRNAME, CRTDATE, UPDUSRNO, UPDUSRNAME, UPDDATE, 
+    TEXTHTML, TEXTPARAM
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspNczrslchcbInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_NCZRSLCHCB_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_NCZRSLCHCB_INF
+    where SEQNO = #{seqno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_NCZRSLCHCB_INF
+    where SEQNO = #{seqno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspNczrslchcbInfExample">
+    delete from HSP_NCZRSLCHCB_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspNczrslchcbInf">
+    insert into HSP_NCZRSLCHCB_INF (SEQNO, REFSEQNO, QRSJQSZZBX, 
+      QRFBSJ_COD, QRFBSJ_QT, RY_DAT, 
+      QDRSLC_DAT, YZJHL_DAT, TZWQZYG_DAT, 
+      SJNKRSXZDD_DAT, WQDD_DAT, WCFF_DAT, 
+      WCSYSXBBCJHSJ_DAT, SCTAJC_DAT, FHQJS_DAT, 
+      XDT_DAT, SJNKRSTYQZQR_DAT, RSYWKSSY_DAT, 
+      RSYWJSSY_DAT, FCTLCT_DAT, SZRY_DAT, 
+      RYZWCLNCTAFHJZZYS, RYZRSYWKSSYZYS, MEMO, 
+      CRTUSRNO, CRTUSRNAME, CRTDATE, 
+      UPDUSRNO, UPDUSRNAME, UPDDATE, 
+      TEXTHTML, TEXTPARAM)
+    values (#{seqno,jdbcType=VARCHAR}, #{refseqno,jdbcType=VARCHAR}, #{qrsjqszzbx,jdbcType=VARCHAR}, 
+      #{qrfbsjCod,jdbcType=VARCHAR}, #{qrfbsjQt,jdbcType=VARCHAR}, #{ryDat,jdbcType=TIMESTAMP}, 
+      #{qdrslcDat,jdbcType=TIMESTAMP}, #{yzjhlDat,jdbcType=TIMESTAMP}, #{tzwqzygDat,jdbcType=TIMESTAMP}, 
+      #{sjnkrsxzddDat,jdbcType=TIMESTAMP}, #{wqddDat,jdbcType=TIMESTAMP}, #{wcffDat,jdbcType=TIMESTAMP}, 
+      #{wcsysxbbcjhsjDat,jdbcType=TIMESTAMP}, #{sctajcDat,jdbcType=TIMESTAMP}, #{fhqjsDat,jdbcType=TIMESTAMP}, 
+      #{xdtDat,jdbcType=TIMESTAMP}, #{sjnkrstyqzqrDat,jdbcType=TIMESTAMP}, #{rsywkssyDat,jdbcType=TIMESTAMP}, 
+      #{rsywjssyDat,jdbcType=TIMESTAMP}, #{fctlctDat,jdbcType=TIMESTAMP}, #{szryDat,jdbcType=TIMESTAMP}, 
+      #{ryzwclnctafhjzzys,jdbcType=VARCHAR}, #{ryzrsywkssyzys,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{crtusrno,jdbcType=VARCHAR}, #{crtusrname,jdbcType=VARCHAR}, #{crtdate,jdbcType=TIMESTAMP}, 
+      #{updusrno,jdbcType=VARCHAR}, #{updusrname,jdbcType=VARCHAR}, #{upddate,jdbcType=TIMESTAMP}, 
+      #{texthtml,jdbcType=VARCHAR}, #{textparam,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspNczrslchcbInf">
+    insert into HSP_NCZRSLCHCB_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seqno != null">
+        SEQNO,
+      </if>
+      <if test="refseqno != null">
+        REFSEQNO,
+      </if>
+      <if test="qrsjqszzbx != null">
+        QRSJQSZZBX,
+      </if>
+      <if test="qrfbsjCod != null">
+        QRFBSJ_COD,
+      </if>
+      <if test="qrfbsjQt != null">
+        QRFBSJ_QT,
+      </if>
+      <if test="ryDat != null">
+        RY_DAT,
+      </if>
+      <if test="qdrslcDat != null">
+        QDRSLC_DAT,
+      </if>
+      <if test="yzjhlDat != null">
+        YZJHL_DAT,
+      </if>
+      <if test="tzwqzygDat != null">
+        TZWQZYG_DAT,
+      </if>
+      <if test="sjnkrsxzddDat != null">
+        SJNKRSXZDD_DAT,
+      </if>
+      <if test="wqddDat != null">
+        WQDD_DAT,
+      </if>
+      <if test="wcffDat != null">
+        WCFF_DAT,
+      </if>
+      <if test="wcsysxbbcjhsjDat != null">
+        WCSYSXBBCJHSJ_DAT,
+      </if>
+      <if test="sctajcDat != null">
+        SCTAJC_DAT,
+      </if>
+      <if test="fhqjsDat != null">
+        FHQJS_DAT,
+      </if>
+      <if test="xdtDat != null">
+        XDT_DAT,
+      </if>
+      <if test="sjnkrstyqzqrDat != null">
+        SJNKRSTYQZQR_DAT,
+      </if>
+      <if test="rsywkssyDat != null">
+        RSYWKSSY_DAT,
+      </if>
+      <if test="rsywjssyDat != null">
+        RSYWJSSY_DAT,
+      </if>
+      <if test="fctlctDat != null">
+        FCTLCT_DAT,
+      </if>
+      <if test="szryDat != null">
+        SZRY_DAT,
+      </if>
+      <if test="ryzwclnctafhjzzys != null">
+        RYZWCLNCTAFHJZZYS,
+      </if>
+      <if test="ryzrsywkssyzys != null">
+        RYZRSYWKSSYZYS,
+      </if>
+      <if test="memo != null">
+        MEMO,
+      </if>
+      <if test="crtusrno != null">
+        CRTUSRNO,
+      </if>
+      <if test="crtusrname != null">
+        CRTUSRNAME,
+      </if>
+      <if test="crtdate != null">
+        CRTDATE,
+      </if>
+      <if test="updusrno != null">
+        UPDUSRNO,
+      </if>
+      <if test="updusrname != null">
+        UPDUSRNAME,
+      </if>
+      <if test="upddate != null">
+        UPDDATE,
+      </if>
+      <if test="texthtml != null">
+        TEXTHTML,
+      </if>
+      <if test="textparam != null">
+        TEXTPARAM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seqno != null">
+        #{seqno,jdbcType=VARCHAR},
+      </if>
+      <if test="refseqno != null">
+        #{refseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="qrsjqszzbx != null">
+        #{qrsjqszzbx,jdbcType=VARCHAR},
+      </if>
+      <if test="qrfbsjCod != null">
+        #{qrfbsjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="qrfbsjQt != null">
+        #{qrfbsjQt,jdbcType=VARCHAR},
+      </if>
+      <if test="ryDat != null">
+        #{ryDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qdrslcDat != null">
+        #{qdrslcDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yzjhlDat != null">
+        #{yzjhlDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tzwqzygDat != null">
+        #{tzwqzygDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sjnkrsxzddDat != null">
+        #{sjnkrsxzddDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wqddDat != null">
+        #{wqddDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wcffDat != null">
+        #{wcffDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wcsysxbbcjhsjDat != null">
+        #{wcsysxbbcjhsjDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sctajcDat != null">
+        #{sctajcDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhqjsDat != null">
+        #{fhqjsDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xdtDat != null">
+        #{xdtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sjnkrstyqzqrDat != null">
+        #{sjnkrstyqzqrDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsywkssyDat != null">
+        #{rsywkssyDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsywjssyDat != null">
+        #{rsywjssyDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fctlctDat != null">
+        #{fctlctDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="szryDat != null">
+        #{szryDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ryzwclnctafhjzzys != null">
+        #{ryzwclnctafhjzzys,jdbcType=VARCHAR},
+      </if>
+      <if test="ryzrsywkssyzys != null">
+        #{ryzrsywkssyzys,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrno != null">
+        #{crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrname != null">
+        #{crtusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="crtdate != null">
+        #{crtdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updusrno != null">
+        #{updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="updusrname != null">
+        #{updusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="upddate != null">
+        #{upddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="texthtml != null">
+        #{texthtml,jdbcType=VARCHAR},
+      </if>
+      <if test="textparam != null">
+        #{textparam,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspNczrslchcbInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_NCZRSLCHCB_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_NCZRSLCHCB_INF
+    <set>
+      <if test="record.seqno != null">
+        SEQNO = #{record.seqno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refseqno != null">
+        REFSEQNO = #{record.refseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrsjqszzbx != null">
+        QRSJQSZZBX = #{record.qrsjqszzbx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrfbsjCod != null">
+        QRFBSJ_COD = #{record.qrfbsjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrfbsjQt != null">
+        QRFBSJ_QT = #{record.qrfbsjQt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ryDat != null">
+        RY_DAT = #{record.ryDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.qdrslcDat != null">
+        QDRSLC_DAT = #{record.qdrslcDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.yzjhlDat != null">
+        YZJHL_DAT = #{record.yzjhlDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tzwqzygDat != null">
+        TZWQZYG_DAT = #{record.tzwqzygDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sjnkrsxzddDat != null">
+        SJNKRSXZDD_DAT = #{record.sjnkrsxzddDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.wqddDat != null">
+        WQDD_DAT = #{record.wqddDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.wcffDat != null">
+        WCFF_DAT = #{record.wcffDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.wcsysxbbcjhsjDat != null">
+        WCSYSXBBCJHSJ_DAT = #{record.wcsysxbbcjhsjDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sctajcDat != null">
+        SCTAJC_DAT = #{record.sctajcDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fhqjsDat != null">
+        FHQJS_DAT = #{record.fhqjsDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.xdtDat != null">
+        XDT_DAT = #{record.xdtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sjnkrstyqzqrDat != null">
+        SJNKRSTYQZQR_DAT = #{record.sjnkrstyqzqrDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rsywkssyDat != null">
+        RSYWKSSY_DAT = #{record.rsywkssyDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rsywjssyDat != null">
+        RSYWJSSY_DAT = #{record.rsywjssyDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fctlctDat != null">
+        FCTLCT_DAT = #{record.fctlctDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.szryDat != null">
+        SZRY_DAT = #{record.szryDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ryzwclnctafhjzzys != null">
+        RYZWCLNCTAFHJZZYS = #{record.ryzwclnctafhjzzys,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ryzrsywkssyzys != null">
+        RYZRSYWKSSYZYS = #{record.ryzrsywkssyzys,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null">
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtusrno != null">
+        CRTUSRNO = #{record.crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtusrname != null">
+        CRTUSRNAME = #{record.crtusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtdate != null">
+        CRTDATE = #{record.crtdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updusrno != null">
+        UPDUSRNO = #{record.updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updusrname != null">
+        UPDUSRNAME = #{record.updusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upddate != null">
+        UPDDATE = #{record.upddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.texthtml != null">
+        TEXTHTML = #{record.texthtml,jdbcType=VARCHAR},
+      </if>
+      <if test="record.textparam != null">
+        TEXTPARAM = #{record.textparam,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_NCZRSLCHCB_INF
+    set SEQNO = #{record.seqno,jdbcType=VARCHAR},
+      REFSEQNO = #{record.refseqno,jdbcType=VARCHAR},
+      QRSJQSZZBX = #{record.qrsjqszzbx,jdbcType=VARCHAR},
+      QRFBSJ_COD = #{record.qrfbsjCod,jdbcType=VARCHAR},
+      QRFBSJ_QT = #{record.qrfbsjQt,jdbcType=VARCHAR},
+      RY_DAT = #{record.ryDat,jdbcType=TIMESTAMP},
+      QDRSLC_DAT = #{record.qdrslcDat,jdbcType=TIMESTAMP},
+      YZJHL_DAT = #{record.yzjhlDat,jdbcType=TIMESTAMP},
+      TZWQZYG_DAT = #{record.tzwqzygDat,jdbcType=TIMESTAMP},
+      SJNKRSXZDD_DAT = #{record.sjnkrsxzddDat,jdbcType=TIMESTAMP},
+      WQDD_DAT = #{record.wqddDat,jdbcType=TIMESTAMP},
+      WCFF_DAT = #{record.wcffDat,jdbcType=TIMESTAMP},
+      WCSYSXBBCJHSJ_DAT = #{record.wcsysxbbcjhsjDat,jdbcType=TIMESTAMP},
+      SCTAJC_DAT = #{record.sctajcDat,jdbcType=TIMESTAMP},
+      FHQJS_DAT = #{record.fhqjsDat,jdbcType=TIMESTAMP},
+      XDT_DAT = #{record.xdtDat,jdbcType=TIMESTAMP},
+      SJNKRSTYQZQR_DAT = #{record.sjnkrstyqzqrDat,jdbcType=TIMESTAMP},
+      RSYWKSSY_DAT = #{record.rsywkssyDat,jdbcType=TIMESTAMP},
+      RSYWJSSY_DAT = #{record.rsywjssyDat,jdbcType=TIMESTAMP},
+      FCTLCT_DAT = #{record.fctlctDat,jdbcType=TIMESTAMP},
+      SZRY_DAT = #{record.szryDat,jdbcType=TIMESTAMP},
+      RYZWCLNCTAFHJZZYS = #{record.ryzwclnctafhjzzys,jdbcType=VARCHAR},
+      RYZRSYWKSSYZYS = #{record.ryzrsywkssyzys,jdbcType=VARCHAR},
+      MEMO = #{record.memo,jdbcType=VARCHAR},
+      CRTUSRNO = #{record.crtusrno,jdbcType=VARCHAR},
+      CRTUSRNAME = #{record.crtusrname,jdbcType=VARCHAR},
+      CRTDATE = #{record.crtdate,jdbcType=TIMESTAMP},
+      UPDUSRNO = #{record.updusrno,jdbcType=VARCHAR},
+      UPDUSRNAME = #{record.updusrname,jdbcType=VARCHAR},
+      UPDDATE = #{record.upddate,jdbcType=TIMESTAMP},
+      TEXTHTML = #{record.texthtml,jdbcType=VARCHAR},
+      TEXTPARAM = #{record.textparam,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspNczrslchcbInf">
+    update HSP_NCZRSLCHCB_INF
+    <set>
+      <if test="refseqno != null">
+        REFSEQNO = #{refseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="qrsjqszzbx != null">
+        QRSJQSZZBX = #{qrsjqszzbx,jdbcType=VARCHAR},
+      </if>
+      <if test="qrfbsjCod != null">
+        QRFBSJ_COD = #{qrfbsjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="qrfbsjQt != null">
+        QRFBSJ_QT = #{qrfbsjQt,jdbcType=VARCHAR},
+      </if>
+      <if test="ryDat != null">
+        RY_DAT = #{ryDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qdrslcDat != null">
+        QDRSLC_DAT = #{qdrslcDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yzjhlDat != null">
+        YZJHL_DAT = #{yzjhlDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tzwqzygDat != null">
+        TZWQZYG_DAT = #{tzwqzygDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sjnkrsxzddDat != null">
+        SJNKRSXZDD_DAT = #{sjnkrsxzddDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wqddDat != null">
+        WQDD_DAT = #{wqddDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wcffDat != null">
+        WCFF_DAT = #{wcffDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wcsysxbbcjhsjDat != null">
+        WCSYSXBBCJHSJ_DAT = #{wcsysxbbcjhsjDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sctajcDat != null">
+        SCTAJC_DAT = #{sctajcDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhqjsDat != null">
+        FHQJS_DAT = #{fhqjsDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xdtDat != null">
+        XDT_DAT = #{xdtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sjnkrstyqzqrDat != null">
+        SJNKRSTYQZQR_DAT = #{sjnkrstyqzqrDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsywkssyDat != null">
+        RSYWKSSY_DAT = #{rsywkssyDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rsywjssyDat != null">
+        RSYWJSSY_DAT = #{rsywjssyDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fctlctDat != null">
+        FCTLCT_DAT = #{fctlctDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="szryDat != null">
+        SZRY_DAT = #{szryDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ryzwclnctafhjzzys != null">
+        RYZWCLNCTAFHJZZYS = #{ryzwclnctafhjzzys,jdbcType=VARCHAR},
+      </if>
+      <if test="ryzrsywkssyzys != null">
+        RYZRSYWKSSYZYS = #{ryzrsywkssyzys,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrno != null">
+        CRTUSRNO = #{crtusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="crtusrname != null">
+        CRTUSRNAME = #{crtusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="crtdate != null">
+        CRTDATE = #{crtdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updusrno != null">
+        UPDUSRNO = #{updusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="updusrname != null">
+        UPDUSRNAME = #{updusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="upddate != null">
+        UPDDATE = #{upddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="texthtml != null">
+        TEXTHTML = #{texthtml,jdbcType=VARCHAR},
+      </if>
+      <if test="textparam != null">
+        TEXTPARAM = #{textparam,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SEQNO = #{seqno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspNczrslchcbInf">
+    update HSP_NCZRSLCHCB_INF
+    set REFSEQNO = #{refseqno,jdbcType=VARCHAR},
+      QRSJQSZZBX = #{qrsjqszzbx,jdbcType=VARCHAR},
+      QRFBSJ_COD = #{qrfbsjCod,jdbcType=VARCHAR},
+      QRFBSJ_QT = #{qrfbsjQt,jdbcType=VARCHAR},
+      RY_DAT = #{ryDat,jdbcType=TIMESTAMP},
+      QDRSLC_DAT = #{qdrslcDat,jdbcType=TIMESTAMP},
+      YZJHL_DAT = #{yzjhlDat,jdbcType=TIMESTAMP},
+      TZWQZYG_DAT = #{tzwqzygDat,jdbcType=TIMESTAMP},
+      SJNKRSXZDD_DAT = #{sjnkrsxzddDat,jdbcType=TIMESTAMP},
+      WQDD_DAT = #{wqddDat,jdbcType=TIMESTAMP},
+      WCFF_DAT = #{wcffDat,jdbcType=TIMESTAMP},
+      WCSYSXBBCJHSJ_DAT = #{wcsysxbbcjhsjDat,jdbcType=TIMESTAMP},
+      SCTAJC_DAT = #{sctajcDat,jdbcType=TIMESTAMP},
+      FHQJS_DAT = #{fhqjsDat,jdbcType=TIMESTAMP},
+      XDT_DAT = #{xdtDat,jdbcType=TIMESTAMP},
+      SJNKRSTYQZQR_DAT = #{sjnkrstyqzqrDat,jdbcType=TIMESTAMP},
+      RSYWKSSY_DAT = #{rsywkssyDat,jdbcType=TIMESTAMP},
+      RSYWJSSY_DAT = #{rsywjssyDat,jdbcType=TIMESTAMP},
+      FCTLCT_DAT = #{fctlctDat,jdbcType=TIMESTAMP},
+      SZRY_DAT = #{szryDat,jdbcType=TIMESTAMP},
+      RYZWCLNCTAFHJZZYS = #{ryzwclnctafhjzzys,jdbcType=VARCHAR},
+      RYZRSYWKSSYZYS = #{ryzrsywkssyzys,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      CRTUSRNO = #{crtusrno,jdbcType=VARCHAR},
+      CRTUSRNAME = #{crtusrname,jdbcType=VARCHAR},
+      CRTDATE = #{crtdate,jdbcType=TIMESTAMP},
+      UPDUSRNO = #{updusrno,jdbcType=VARCHAR},
+      UPDUSRNAME = #{updusrname,jdbcType=VARCHAR},
+      UPDDATE = #{upddate,jdbcType=TIMESTAMP},
+      TEXTHTML = #{texthtml,jdbcType=VARCHAR},
+      TEXTPARAM = #{textparam,jdbcType=VARCHAR}
+    where SEQNO = #{seqno,jdbcType=VARCHAR}
+  </update>
+</mapper>

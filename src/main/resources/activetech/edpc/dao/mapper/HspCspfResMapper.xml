@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspCspfResMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspCspfRes" >
+    <id column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="AIS_SCOE" property="aisScoe" jdbcType="DECIMAL" />
+    <result column="ISS_SCOE" property="issScoe" jdbcType="DECIMAL" />
+    <result column="RES_DESC" property="resDesc" jdbcType="VARCHAR" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="DATE" />
+    <result column="USR_NO" property="usrNo" jdbcType="VARCHAR" />
+    <result column="USR_NAME" property="usrName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMG_SEQ, AIS_SCOE, ISS_SCOE, RES_DESC, CRT_TIME, USR_NO, USR_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspCspfResExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CSPF_RES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CSPF_RES
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_CSPF_RES
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspCspfResExample" >
+    delete from HSP_CSPF_RES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspCspfRes" >
+    insert into HSP_CSPF_RES (EMG_SEQ, AIS_SCOE, ISS_SCOE, 
+      RES_DESC, CRT_TIME, USR_NO, 
+      USR_NAME)
+    values (#{emgSeq,jdbcType=VARCHAR}, #{aisScoe,jdbcType=DECIMAL}, #{issScoe,jdbcType=DECIMAL}, 
+      #{resDesc,jdbcType=VARCHAR}, #{crtTime,jdbcType=DATE}, #{usrNo,jdbcType=VARCHAR}, 
+      #{usrName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspCspfRes" >
+    insert into HSP_CSPF_RES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="aisScoe != null" >
+        AIS_SCOE,
+      </if>
+      <if test="issScoe != null" >
+        ISS_SCOE,
+      </if>
+      <if test="resDesc != null" >
+        RES_DESC,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+      <if test="usrNo != null" >
+        USR_NO,
+      </if>
+      <if test="usrName != null" >
+        USR_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="aisScoe != null" >
+        #{aisScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="issScoe != null" >
+        #{issScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="resDesc != null" >
+        #{resDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=DATE},
+      </if>
+      <if test="usrNo != null" >
+        #{usrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="usrName != null" >
+        #{usrName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspCspfResExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_CSPF_RES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_CSPF_RES
+    <set >
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aisScoe != null" >
+        AIS_SCOE = #{record.aisScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="record.issScoe != null" >
+        ISS_SCOE = #{record.issScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="record.resDesc != null" >
+        RES_DESC = #{record.resDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTime != null" >
+        CRT_TIME = #{record.crtTime,jdbcType=DATE},
+      </if>
+      <if test="record.usrNo != null" >
+        USR_NO = #{record.usrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrName != null" >
+        USR_NAME = #{record.usrName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_CSPF_RES
+    set EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      AIS_SCOE = #{record.aisScoe,jdbcType=DECIMAL},
+      ISS_SCOE = #{record.issScoe,jdbcType=DECIMAL},
+      RES_DESC = #{record.resDesc,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=DATE},
+      USR_NO = #{record.usrNo,jdbcType=VARCHAR},
+      USR_NAME = #{record.usrName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspCspfRes" >
+    update HSP_CSPF_RES
+    <set >
+      <if test="aisScoe != null" >
+        AIS_SCOE = #{aisScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="issScoe != null" >
+        ISS_SCOE = #{issScoe,jdbcType=DECIMAL},
+      </if>
+      <if test="resDesc != null" >
+        RES_DESC = #{resDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME = #{crtTime,jdbcType=DATE},
+      </if>
+      <if test="usrNo != null" >
+        USR_NO = #{usrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="usrName != null" >
+        USR_NAME = #{usrName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspCspfRes" >
+    update HSP_CSPF_RES
+    set AIS_SCOE = #{aisScoe,jdbcType=DECIMAL},
+      ISS_SCOE = #{issScoe,jdbcType=DECIMAL},
+      RES_DESC = #{resDesc,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=DATE},
+      USR_NO = #{usrNo,jdbcType=VARCHAR},
+      USR_NAME = #{usrName,jdbcType=VARCHAR}
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

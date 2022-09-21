@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspPatInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspPatInf" >
+    <id column="PAT_ID" property="patId" jdbcType="VARCHAR" />
+    <result column="PAT_NAM" property="patNam" jdbcType="VARCHAR" />
+    <result column="CST_SEX_COD" property="cstSexCod" jdbcType="VARCHAR" />
+    <result column="BTH_DAT" property="bthDat" jdbcType="DATE" />
+    <result column="LNK_NBR" property="lnkNbr" jdbcType="VARCHAR" />
+    <result column="PAT_NAT_COD" property="patNatCod" jdbcType="VARCHAR" />
+    <result column="MAR_STA_COD" property="marStaCod" jdbcType="CHAR" />
+    <result column="PAT_JOB" property="patJob" jdbcType="VARCHAR" />
+    <result column="ID_NBR" property="idNbr" jdbcType="VARCHAR" />
+    <result column="PAT_ADR" property="patAdr" jdbcType="VARCHAR" />
+    <result column="PAT_TEL" property="patTel" jdbcType="VARCHAR" />
+    <result column="PAT_LNG" property="patLng" jdbcType="VARCHAR" />
+    <result column="PAT_NAT" property="patNat" jdbcType="VARCHAR" />
+    <result column="BTH_ADR" property="bthAdr" jdbcType="VARCHAR" />
+    <result column="PAT_REL" property="patRel" jdbcType="VARCHAR" />
+    <result column="FUV_SEQ" property="fuvSeq" jdbcType="VARCHAR" />
+    <result column="PLN_SEQ" property="plnSeq" jdbcType="VARCHAR" />
+    <result column="XT_FLG" property="xtFlg" jdbcType="CHAR" />
+    <result column="CSPG_FLG" property="cspgFlg" jdbcType="CHAR" />
+    <result column="CZ_FLAG" property="czFlag" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PAT_ID, PAT_NAM, CST_SEX_COD, BTH_DAT, LNK_NBR, PAT_NAT_COD, MAR_STA_COD, PAT_JOB, 
+    ID_NBR, PAT_ADR, PAT_TEL, PAT_LNG, PAT_NAT, BTH_ADR, PAT_REL, FUV_SEQ, PLN_SEQ, XT_FLG, 
+    CSPG_FLG, CZ_FLAG
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspPatInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_PAT_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_PAT_INF
+    where PAT_ID = #{patId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_PAT_INF
+    where PAT_ID = #{patId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspPatInfExample" >
+    delete from HSP_PAT_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspPatInf" >
+    insert into HSP_PAT_INF (PAT_ID, PAT_NAM, CST_SEX_COD, 
+      BTH_DAT, LNK_NBR, PAT_NAT_COD, 
+      MAR_STA_COD, PAT_JOB, ID_NBR, 
+      PAT_ADR, PAT_TEL, PAT_LNG, 
+      PAT_NAT, BTH_ADR, PAT_REL, 
+      FUV_SEQ, PLN_SEQ, XT_FLG, 
+      CSPG_FLG, CZ_FLAG)
+    values (#{patId,jdbcType=VARCHAR}, #{patNam,jdbcType=VARCHAR}, #{cstSexCod,jdbcType=VARCHAR}, 
+      #{bthDat,jdbcType=DATE}, #{lnkNbr,jdbcType=VARCHAR}, #{patNatCod,jdbcType=VARCHAR}, 
+      #{marStaCod,jdbcType=CHAR}, #{patJob,jdbcType=VARCHAR}, #{idNbr,jdbcType=VARCHAR}, 
+      #{patAdr,jdbcType=VARCHAR}, #{patTel,jdbcType=VARCHAR}, #{patLng,jdbcType=VARCHAR}, 
+      #{patNat,jdbcType=VARCHAR}, #{bthAdr,jdbcType=VARCHAR}, #{patRel,jdbcType=VARCHAR}, 
+      #{fuvSeq,jdbcType=VARCHAR}, #{plnSeq,jdbcType=VARCHAR}, #{xtFlg,jdbcType=CHAR}, 
+      #{cspgFlg,jdbcType=CHAR}, #{czFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspPatInf" >
+    insert into HSP_PAT_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="patId != null" >
+        PAT_ID,
+      </if>
+      <if test="patNam != null" >
+        PAT_NAM,
+      </if>
+      <if test="cstSexCod != null" >
+        CST_SEX_COD,
+      </if>
+      <if test="bthDat != null" >
+        BTH_DAT,
+      </if>
+      <if test="lnkNbr != null" >
+        LNK_NBR,
+      </if>
+      <if test="patNatCod != null" >
+        PAT_NAT_COD,
+      </if>
+      <if test="marStaCod != null" >
+        MAR_STA_COD,
+      </if>
+      <if test="patJob != null" >
+        PAT_JOB,
+      </if>
+      <if test="idNbr != null" >
+        ID_NBR,
+      </if>
+      <if test="patAdr != null" >
+        PAT_ADR,
+      </if>
+      <if test="patTel != null" >
+        PAT_TEL,
+      </if>
+      <if test="patLng != null" >
+        PAT_LNG,
+      </if>
+      <if test="patNat != null" >
+        PAT_NAT,
+      </if>
+      <if test="bthAdr != null" >
+        BTH_ADR,
+      </if>
+      <if test="patRel != null" >
+        PAT_REL,
+      </if>
+      <if test="fuvSeq != null" >
+        FUV_SEQ,
+      </if>
+      <if test="plnSeq != null" >
+        PLN_SEQ,
+      </if>
+      <if test="xtFlg != null" >
+        XT_FLG,
+      </if>
+      <if test="cspgFlg != null" >
+        CSPG_FLG,
+      </if>
+      <if test="czFlag != null" >
+        CZ_FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="patId != null" >
+        #{patId,jdbcType=VARCHAR},
+      </if>
+      <if test="patNam != null" >
+        #{patNam,jdbcType=VARCHAR},
+      </if>
+      <if test="cstSexCod != null" >
+        #{cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bthDat != null" >
+        #{bthDat,jdbcType=DATE},
+      </if>
+      <if test="lnkNbr != null" >
+        #{lnkNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="patNatCod != null" >
+        #{patNatCod,jdbcType=VARCHAR},
+      </if>
+      <if test="marStaCod != null" >
+        #{marStaCod,jdbcType=CHAR},
+      </if>
+      <if test="patJob != null" >
+        #{patJob,jdbcType=VARCHAR},
+      </if>
+      <if test="idNbr != null" >
+        #{idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="patAdr != null" >
+        #{patAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="patTel != null" >
+        #{patTel,jdbcType=VARCHAR},
+      </if>
+      <if test="patLng != null" >
+        #{patLng,jdbcType=VARCHAR},
+      </if>
+      <if test="patNat != null" >
+        #{patNat,jdbcType=VARCHAR},
+      </if>
+      <if test="bthAdr != null" >
+        #{bthAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="patRel != null" >
+        #{patRel,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvSeq != null" >
+        #{fuvSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="plnSeq != null" >
+        #{plnSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="xtFlg != null" >
+        #{xtFlg,jdbcType=CHAR},
+      </if>
+      <if test="cspgFlg != null" >
+        #{cspgFlg,jdbcType=CHAR},
+      </if>
+      <if test="czFlag != null" >
+        #{czFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspPatInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_PAT_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_PAT_INF
+    <set >
+      <if test="record.patId != null" >
+        PAT_ID = #{record.patId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patNam != null" >
+        PAT_NAM = #{record.patNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstSexCod != null" >
+        CST_SEX_COD = #{record.cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bthDat != null" >
+        BTH_DAT = #{record.bthDat,jdbcType=DATE},
+      </if>
+      <if test="record.lnkNbr != null" >
+        LNK_NBR = #{record.lnkNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patNatCod != null" >
+        PAT_NAT_COD = #{record.patNatCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marStaCod != null" >
+        MAR_STA_COD = #{record.marStaCod,jdbcType=CHAR},
+      </if>
+      <if test="record.patJob != null" >
+        PAT_JOB = #{record.patJob,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idNbr != null" >
+        ID_NBR = #{record.idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patAdr != null" >
+        PAT_ADR = #{record.patAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patTel != null" >
+        PAT_TEL = #{record.patTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patLng != null" >
+        PAT_LNG = #{record.patLng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patNat != null" >
+        PAT_NAT = #{record.patNat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bthAdr != null" >
+        BTH_ADR = #{record.bthAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patRel != null" >
+        PAT_REL = #{record.patRel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuvSeq != null" >
+        FUV_SEQ = #{record.fuvSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plnSeq != null" >
+        PLN_SEQ = #{record.plnSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xtFlg != null" >
+        XT_FLG = #{record.xtFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.cspgFlg != null" >
+        CSPG_FLG = #{record.cspgFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.czFlag != null" >
+        CZ_FLAG = #{record.czFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_PAT_INF
+    set PAT_ID = #{record.patId,jdbcType=VARCHAR},
+      PAT_NAM = #{record.patNam,jdbcType=VARCHAR},
+      CST_SEX_COD = #{record.cstSexCod,jdbcType=VARCHAR},
+      BTH_DAT = #{record.bthDat,jdbcType=DATE},
+      LNK_NBR = #{record.lnkNbr,jdbcType=VARCHAR},
+      PAT_NAT_COD = #{record.patNatCod,jdbcType=VARCHAR},
+      MAR_STA_COD = #{record.marStaCod,jdbcType=CHAR},
+      PAT_JOB = #{record.patJob,jdbcType=VARCHAR},
+      ID_NBR = #{record.idNbr,jdbcType=VARCHAR},
+      PAT_ADR = #{record.patAdr,jdbcType=VARCHAR},
+      PAT_TEL = #{record.patTel,jdbcType=VARCHAR},
+      PAT_LNG = #{record.patLng,jdbcType=VARCHAR},
+      PAT_NAT = #{record.patNat,jdbcType=VARCHAR},
+      BTH_ADR = #{record.bthAdr,jdbcType=VARCHAR},
+      PAT_REL = #{record.patRel,jdbcType=VARCHAR},
+      FUV_SEQ = #{record.fuvSeq,jdbcType=VARCHAR},
+      PLN_SEQ = #{record.plnSeq,jdbcType=VARCHAR},
+      XT_FLG = #{record.xtFlg,jdbcType=CHAR},
+      CSPG_FLG = #{record.cspgFlg,jdbcType=CHAR},
+      CZ_FLAG = #{record.czFlag,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspPatInf" >
+    update HSP_PAT_INF
+    <set >
+      <if test="patNam != null" >
+        PAT_NAM = #{patNam,jdbcType=VARCHAR},
+      </if>
+      <if test="cstSexCod != null" >
+        CST_SEX_COD = #{cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bthDat != null" >
+        BTH_DAT = #{bthDat,jdbcType=DATE},
+      </if>
+      <if test="lnkNbr != null" >
+        LNK_NBR = #{lnkNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="patNatCod != null" >
+        PAT_NAT_COD = #{patNatCod,jdbcType=VARCHAR},
+      </if>
+      <if test="marStaCod != null" >
+        MAR_STA_COD = #{marStaCod,jdbcType=CHAR},
+      </if>
+      <if test="patJob != null" >
+        PAT_JOB = #{patJob,jdbcType=VARCHAR},
+      </if>
+      <if test="idNbr != null" >
+        ID_NBR = #{idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="patAdr != null" >
+        PAT_ADR = #{patAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="patTel != null" >
+        PAT_TEL = #{patTel,jdbcType=VARCHAR},
+      </if>
+      <if test="patLng != null" >
+        PAT_LNG = #{patLng,jdbcType=VARCHAR},
+      </if>
+      <if test="patNat != null" >
+        PAT_NAT = #{patNat,jdbcType=VARCHAR},
+      </if>
+      <if test="bthAdr != null" >
+        BTH_ADR = #{bthAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="patRel != null" >
+        PAT_REL = #{patRel,jdbcType=VARCHAR},
+      </if>
+      <if test="fuvSeq != null" >
+        FUV_SEQ = #{fuvSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="plnSeq != null" >
+        PLN_SEQ = #{plnSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="xtFlg != null" >
+        XT_FLG = #{xtFlg,jdbcType=CHAR},
+      </if>
+      <if test="cspgFlg != null" >
+        CSPG_FLG = #{cspgFlg,jdbcType=CHAR},
+      </if>
+      <if test="czFlag != null" >
+        CZ_FLAG = #{czFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where PAT_ID = #{patId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspPatInf" >
+    update HSP_PAT_INF
+    set PAT_NAM = #{patNam,jdbcType=VARCHAR},
+      CST_SEX_COD = #{cstSexCod,jdbcType=VARCHAR},
+      BTH_DAT = #{bthDat,jdbcType=DATE},
+      LNK_NBR = #{lnkNbr,jdbcType=VARCHAR},
+      PAT_NAT_COD = #{patNatCod,jdbcType=VARCHAR},
+      MAR_STA_COD = #{marStaCod,jdbcType=CHAR},
+      PAT_JOB = #{patJob,jdbcType=VARCHAR},
+      ID_NBR = #{idNbr,jdbcType=VARCHAR},
+      PAT_ADR = #{patAdr,jdbcType=VARCHAR},
+      PAT_TEL = #{patTel,jdbcType=VARCHAR},
+      PAT_LNG = #{patLng,jdbcType=VARCHAR},
+      PAT_NAT = #{patNat,jdbcType=VARCHAR},
+      BTH_ADR = #{bthAdr,jdbcType=VARCHAR},
+      PAT_REL = #{patRel,jdbcType=VARCHAR},
+      FUV_SEQ = #{fuvSeq,jdbcType=VARCHAR},
+      PLN_SEQ = #{plnSeq,jdbcType=VARCHAR},
+      XT_FLG = #{xtFlg,jdbcType=CHAR},
+      CSPG_FLG = #{cspgFlg,jdbcType=CHAR},
+      CZ_FLAG = #{czFlag,jdbcType=CHAR}
+    where PAT_ID = #{patId,jdbcType=VARCHAR}
+  </update>
+</mapper>

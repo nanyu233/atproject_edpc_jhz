@@ -1,0 +1,149 @@
+/*
+* @Author: wdy
+* @Date:   2018-02-01 13:44:35
+* @Last Modified by:   wdy
+* @Last Modified time: 2018-02-28 14:25:42
+*/
+
+form {
+    display: block;
+
+    margin-top: 0;
+    padding: 4px;
+
+    /*border-bottom: solid 1px #a2c1e8;*/
+}
+
+.at-form-item {
+    margin-bottom: 0;
+}
+
+.at-form--inline .at-form-item {
+    display: inline-block;
+
+    margin-right: 10px;
+
+    vertical-align: top;
+}
+
+.at-form-item .at-form-item__label {
+    font-size: 12px;
+    line-height: 28px;
+
+    float: left;
+
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 0 0 0;
+
+    text-align: right;
+    vertical-align: middle;
+}
+
+.at-form--inline .at-form-item__label {
+    display: inline-block;
+    float: none;
+}
+
+.at-form-item__content {
+    font-size: 12px;
+    line-height: 28px;
+
+    position: relative;
+}
+
+.at-form--inline .at-form-item__content {
+    display: inline-block;
+
+    vertical-align: top;
+}
+
+.at-input {
+    font-size: 12px;
+
+    position: relative;
+
+    display: inline-block;
+
+    width: 100%;
+}
+
+.at-input__inner,
+.at-textarea__inner {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    background-image: none;
+}
+
+.at-input__inner {
+    font-size: inherit;
+    line-height: 1;
+
+    display: inline-block;
+
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 28px;
+    padding: 0 15px;
+
+    border: solid 1px #ddd;
+    outline: 0;
+}
+
+.table-container {
+    /*padding-top: 10px;*/
+    padding-bottom: 8px;
+}
+
+.at-tools {
+    line-height: 30px;
+
+    height: 30px;
+
+    text-align: right;
+    margin-right: 10px;
+}
+
+.recorder {
+    width: 100%;
+}
+
+.recorder__label {
+    line-height: 26px;
+
+    float: right;
+
+    width: 72px;
+    height: 26px;
+    padding-right: 10px;
+
+    text-align: right;
+}
+
+.recorder__content {
+    float: right;
+}
+
+/**
+*  datagrid 表格强制宽度100%
+*/
+.datagrid-view2 {
+    left: 25px;
+    width: 100% !important;
+}
+
+.datagrid-view,
+.datagrid-body,
+.datagrid-header-inner table,
+.datagrid-cell div {
+    width: 100% !important;
+}
+.panel-header{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.panel-header .panel-title{
+    margin-left: 5px;
+}

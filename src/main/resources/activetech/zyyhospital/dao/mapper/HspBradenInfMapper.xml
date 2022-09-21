@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspBradenInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspBradenInf">
+    <id column="XTPG_SEQ" jdbcType="VARCHAR" property="xtpgSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="BRADEN_GJ_COD" jdbcType="VARCHAR" property="bradenGjCod" />
+    <result column="BRADEN_CS_COD" jdbcType="VARCHAR" property="bradenCsCod" />
+    <result column="BRADEN_HDNL_COD" jdbcType="VARCHAR" property="bradenHdnlCod" />
+    <result column="BRADEN_YDNL_COD" jdbcType="VARCHAR" property="bradenYdnlCod" />
+    <result column="BRADEN_YY_COD" jdbcType="VARCHAR" property="bradenYyCod" />
+    <result column="BRADEN_MCHJQL_COD" jdbcType="VARCHAR" property="bradenMchjqlCod" />
+    <result column="BRADEN_SCO" jdbcType="DECIMAL" property="bradenSco" />
+    <result column="MEMO" jdbcType="VARCHAR" property="memo" />
+    <result column="CRAT_DAT" jdbcType="TIMESTAMP" property="cratDat" />
+    <result column="CRT_USR_NO" jdbcType="VARCHAR" property="crtUsrNo" />
+    <result column="CRT_USR_NME" jdbcType="VARCHAR" property="crtUsrNme" />
+    <result column="UPD_USR_NO" jdbcType="VARCHAR" property="updUsrNo" />
+    <result column="UPD_USR_NME" jdbcType="VARCHAR" property="updUsrNme" />
+    <result column="UPD_TIME" jdbcType="TIMESTAMP" property="updTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    XTPG_SEQ, EMG_SEQ, BRADEN_GJ_COD, BRADEN_CS_COD, BRADEN_HDNL_COD, BRADEN_YDNL_COD, 
+    BRADEN_YY_COD, BRADEN_MCHJQL_COD, BRADEN_SCO, MEMO, CRAT_DAT, CRT_USR_NO, CRT_USR_NME, 
+    UPD_USR_NO, UPD_USR_NME, UPD_TIME
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspBradenInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_BRADEN_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_BRADEN_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_BRADEN_INF
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspBradenInfExample">
+    delete from HSP_BRADEN_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspBradenInf">
+    insert into HSP_BRADEN_INF (XTPG_SEQ, EMG_SEQ, BRADEN_GJ_COD, 
+      BRADEN_CS_COD, BRADEN_HDNL_COD, BRADEN_YDNL_COD, 
+      BRADEN_YY_COD, BRADEN_MCHJQL_COD, BRADEN_SCO, 
+      MEMO, CRAT_DAT, CRT_USR_NO, 
+      CRT_USR_NME, UPD_USR_NO, UPD_USR_NME, 
+      UPD_TIME)
+    values (#{xtpgSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{bradenGjCod,jdbcType=VARCHAR}, 
+      #{bradenCsCod,jdbcType=VARCHAR}, #{bradenHdnlCod,jdbcType=VARCHAR}, #{bradenYdnlCod,jdbcType=VARCHAR}, 
+      #{bradenYyCod,jdbcType=VARCHAR}, #{bradenMchjqlCod,jdbcType=VARCHAR}, #{bradenSco,jdbcType=DECIMAL}, 
+      #{memo,jdbcType=VARCHAR}, #{cratDat,jdbcType=TIMESTAMP}, #{crtUsrNo,jdbcType=VARCHAR}, 
+      #{crtUsrNme,jdbcType=VARCHAR}, #{updUsrNo,jdbcType=VARCHAR}, #{updUsrNme,jdbcType=VARCHAR}, 
+      #{updTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspBradenInf">
+    insert into HSP_BRADEN_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="xtpgSeq != null">
+        XTPG_SEQ,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="bradenGjCod != null">
+        BRADEN_GJ_COD,
+      </if>
+      <if test="bradenCsCod != null">
+        BRADEN_CS_COD,
+      </if>
+      <if test="bradenHdnlCod != null">
+        BRADEN_HDNL_COD,
+      </if>
+      <if test="bradenYdnlCod != null">
+        BRADEN_YDNL_COD,
+      </if>
+      <if test="bradenYyCod != null">
+        BRADEN_YY_COD,
+      </if>
+      <if test="bradenMchjqlCod != null">
+        BRADEN_MCHJQL_COD,
+      </if>
+      <if test="bradenSco != null">
+        BRADEN_SCO,
+      </if>
+      <if test="memo != null">
+        MEMO,
+      </if>
+      <if test="cratDat != null">
+        CRAT_DAT,
+      </if>
+      <if test="crtUsrNo != null">
+        CRT_USR_NO,
+      </if>
+      <if test="crtUsrNme != null">
+        CRT_USR_NME,
+      </if>
+      <if test="updUsrNo != null">
+        UPD_USR_NO,
+      </if>
+      <if test="updUsrNme != null">
+        UPD_USR_NME,
+      </if>
+      <if test="updTime != null">
+        UPD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="xtpgSeq != null">
+        #{xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenGjCod != null">
+        #{bradenGjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenCsCod != null">
+        #{bradenCsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenHdnlCod != null">
+        #{bradenHdnlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenYdnlCod != null">
+        #{bradenYdnlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenYyCod != null">
+        #{bradenYyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenMchjqlCod != null">
+        #{bradenMchjqlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenSco != null">
+        #{bradenSco,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="cratDat != null">
+        #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrNo != null">
+        #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNme != null">
+        #{crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNo != null">
+        #{updUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNme != null">
+        #{updUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updTime != null">
+        #{updTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspBradenInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_BRADEN_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_BRADEN_INF
+    <set>
+      <if test="record.xtpgSeq != null">
+        XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bradenGjCod != null">
+        BRADEN_GJ_COD = #{record.bradenGjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bradenCsCod != null">
+        BRADEN_CS_COD = #{record.bradenCsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bradenHdnlCod != null">
+        BRADEN_HDNL_COD = #{record.bradenHdnlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bradenYdnlCod != null">
+        BRADEN_YDNL_COD = #{record.bradenYdnlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bradenYyCod != null">
+        BRADEN_YY_COD = #{record.bradenYyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bradenMchjqlCod != null">
+        BRADEN_MCHJQL_COD = #{record.bradenMchjqlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bradenSco != null">
+        BRADEN_SCO = #{record.bradenSco,jdbcType=DECIMAL},
+      </if>
+      <if test="record.memo != null">
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cratDat != null">
+        CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUsrNo != null">
+        CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUsrNme != null">
+        CRT_USR_NME = #{record.crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updUsrNo != null">
+        UPD_USR_NO = #{record.updUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updUsrNme != null">
+        UPD_USR_NME = #{record.updUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updTime != null">
+        UPD_TIME = #{record.updTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_BRADEN_INF
+    set XTPG_SEQ = #{record.xtpgSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      BRADEN_GJ_COD = #{record.bradenGjCod,jdbcType=VARCHAR},
+      BRADEN_CS_COD = #{record.bradenCsCod,jdbcType=VARCHAR},
+      BRADEN_HDNL_COD = #{record.bradenHdnlCod,jdbcType=VARCHAR},
+      BRADEN_YDNL_COD = #{record.bradenYdnlCod,jdbcType=VARCHAR},
+      BRADEN_YY_COD = #{record.bradenYyCod,jdbcType=VARCHAR},
+      BRADEN_MCHJQL_COD = #{record.bradenMchjqlCod,jdbcType=VARCHAR},
+      BRADEN_SCO = #{record.bradenSco,jdbcType=DECIMAL},
+      MEMO = #{record.memo,jdbcType=VARCHAR},
+      CRAT_DAT = #{record.cratDat,jdbcType=TIMESTAMP},
+      CRT_USR_NO = #{record.crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NME = #{record.crtUsrNme,jdbcType=VARCHAR},
+      UPD_USR_NO = #{record.updUsrNo,jdbcType=VARCHAR},
+      UPD_USR_NME = #{record.updUsrNme,jdbcType=VARCHAR},
+      UPD_TIME = #{record.updTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspBradenInf">
+    update HSP_BRADEN_INF
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenGjCod != null">
+        BRADEN_GJ_COD = #{bradenGjCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenCsCod != null">
+        BRADEN_CS_COD = #{bradenCsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenHdnlCod != null">
+        BRADEN_HDNL_COD = #{bradenHdnlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenYdnlCod != null">
+        BRADEN_YDNL_COD = #{bradenYdnlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenYyCod != null">
+        BRADEN_YY_COD = #{bradenYyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenMchjqlCod != null">
+        BRADEN_MCHJQL_COD = #{bradenMchjqlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="bradenSco != null">
+        BRADEN_SCO = #{bradenSco,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null">
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="cratDat != null">
+        CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrNo != null">
+        CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUsrNme != null">
+        CRT_USR_NME = #{crtUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNo != null">
+        UPD_USR_NO = #{updUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="updUsrNme != null">
+        UPD_USR_NME = #{updUsrNme,jdbcType=VARCHAR},
+      </if>
+      <if test="updTime != null">
+        UPD_TIME = #{updTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspBradenInf">
+    update HSP_BRADEN_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      BRADEN_GJ_COD = #{bradenGjCod,jdbcType=VARCHAR},
+      BRADEN_CS_COD = #{bradenCsCod,jdbcType=VARCHAR},
+      BRADEN_HDNL_COD = #{bradenHdnlCod,jdbcType=VARCHAR},
+      BRADEN_YDNL_COD = #{bradenYdnlCod,jdbcType=VARCHAR},
+      BRADEN_YY_COD = #{bradenYyCod,jdbcType=VARCHAR},
+      BRADEN_MCHJQL_COD = #{bradenMchjqlCod,jdbcType=VARCHAR},
+      BRADEN_SCO = #{bradenSco,jdbcType=DECIMAL},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      CRAT_DAT = #{cratDat,jdbcType=TIMESTAMP},
+      CRT_USR_NO = #{crtUsrNo,jdbcType=VARCHAR},
+      CRT_USR_NME = #{crtUsrNme,jdbcType=VARCHAR},
+      UPD_USR_NO = #{updUsrNo,jdbcType=VARCHAR},
+      UPD_USR_NME = #{updUsrNme,jdbcType=VARCHAR},
+      UPD_TIME = #{updTime,jdbcType=TIMESTAMP}
+    where XTPG_SEQ = #{xtpgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

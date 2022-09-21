@@ -1,0 +1,222 @@
+@charset "utf-8";
+/**
+*  护理评估表单页面css
+*/
+img{border:0;vertical-align:top;}
+input{outline:0;border:1px solid #ddd;}
+input[type=text]{width:93px;height:24px;border:1px solid #ddd;font-size:9pt;line-height:24px;}
+.queryhlpgb {max-width:1075px;border:1px solid #9abce9;float:left;width:98%;margin-left:1%;/*margin-right: 2%;*/margin-top:4px;padding-bottom:14px;margin-bottom: 22px;display:none}
+.queryhlpgb .msg-Wrapper p{font-size:9pt;line-height:25px;}
+.queryhlpgb .content-ul{float:left;margin:0 auto;width:100%;}
+.queryhlpgb .content-ul li{float:left;margin:4px 0;width:50%;/*height:28px;*/font-size:9pt;}
+.queryhlpgb  li.fullli{width:100%;}
+.queryhlpgb  li.sixtyli{width:40%;}
+.queryhlpgb  li.thirtyli{width:60%;}
+.queryhlpgb  li.doubLi{height:60px;line-height: 30px}
+.queryhlpgb  li.spcli{margin-right:59px;}
+.queryhlpgb  li.basicli{width:90%;}
+.queryhlpgb  li label{display:inline-block;padding-right:5px;height:28px;color:#3b3836;font-weight:400;font-size:9pt;line-height:28px;}
+.queryhlpgb  li label.labtitle{float:left;display:inline-block;width:6em;color:#000;font-weight:bold;vertical-align:top;text-align:right;font-size:12px;line-height:23px;}
+.queryhlpgb  li label.doubLab{height: 60px}
+.queryhlpgb  li label.scoTitle{float:left;display:inline-block;margin-left:1em;color:#000;font-weight:bold;vertical-align:top;text-align:right;font-size:12px;line-height:23px;}
+.queryhlpgb  li label.scoTitleB{margin-left:0em;}
+.queryhlpgb  li span.twogrp{display:inline-block;}
+.queryhlpgb  li.nsli{width: 50%;height: 56px;}
+.queryhlpgb  li span.fitstpart{width: 60px;}
+.queryhlpgb  li span.secondpart{width: 84px;}
+.queryhlpgb  li span.thirdpart{width: 120px;}
+.queryhlpgb  li span.fourthpart{width: 48px;}
+/*.queryhlpgb  li span.fifthpart{width: 165px;}*/
+.queryhlpgb  li span.twogrp label:first-child{padding-bottom:4px;}
+.queryhlpgb  li span.twogrp label:nth-child(2){padding-top:4px;}
+.queryhlpgb .NSfirst{float:left;margin-top:-53px;} 
+.queryhlpgb  li label.checklabel{float:left;margin-right:2px;color:#2a00ff}
+.queryhlpgb .debtspan label,.queryhlpgb .twogrp label{color:#2a00ff}
+.queryhlpgb .checkspan{float:left;display:inline-block;margin-right:4px;}
+.queryhlpgb .spanNS{display:none;}
+.queryhlpgb .spanNS.active{display:inline-block;}
+.queryhlpgb .spanwth{display: inline-block;width: 185px;margin-left:12px}
+.queryhlpgb .spanwthB{margin-left:0}
+.queryhlpgb .spanwth label {display: inline-block;}
+.queryhlpgb .tkwidth {width:50px;}
+.queryhlpgb .readInput {cursor: pointer; width: 60px}
+.queryhlpgb .readInputB {cursor: pointer; width: 40px}
+.queryhlpgb .noClickInput{width: 60px}
+.queryhlpgb .extraspan{float:left;display:inline-block;margin-right:8px;}
+.queryhlpgb .form-control{width:80%;height:25px;min-width:93px;font-size:9pt;line-height:28px;}
+.queryhlpgb .centerdiv{float:left;padding:8px 0px;margin-left:25%;width:50%;text-align:center;}
+.queryhlpgb .marginSpan{margin-right:8px;}
+.queryhlpgb .content-wrapper{margin:0 auto;padding-top:8px;width:90%;min-width:1160px;}
+.queryhlpgb .Signinput{width:65px;}
+.queryhlpgb .spc-input{width:448px;}
+.queryhlpgb .spc-inputB{width:438px;}
+.queryhlpgb .spc-inputC{width:521px;}
+.queryhlpgb .spc-inputD{width:388px;}
+.queryhlpgb .disinb{display:inline-block;}
+.queryhlpgb .disnob{display:none;}
+.queryhlpgb .input-sdate{width:156px;}
+.queryhlpgb .spanfull{width:85%;display:inline-block;float:left;}
+.edithlpgb {max-width:1240px;width:98%;margin-left:1%;margin-right:1%;border-top:2px solid #80b9ff;}
+.edithlpgb .sub-title{width:120px;height:28px;float:left;margin-left:1px;line-height:28px;font-size:16px;background:#80b9ff;color:#fff;text-align:center;}
+.edithlpgb .edit-div{height:28px;float:right;text-align:center;color:#80b9ff;margin-right:28px;}
+.edithlpgb .edit-div img{vertical-align:top;margin-top:4px;}
+.edithlpgb .edit-div span{font-size:16px;cursor:pointer;}
+.queryhlpgb .sub-top{width:96%;margin-left:2%;margin-right:2%;float:left;padding-top:14px;padding-bottom:7px;}
+/* border-bottom:1px solid #444; */
+.queryhlpgb .sub-top .spanLeft{float:left;display:inline-block;}
+.queryhlpgb .sub-top .spanRight{float:right;display:inline-block;margin-right: 2%}
+.queryhlpgb .spanTitle{display:inline-block;color:#000;font-size:14px;font-weight:bold;width:8em;text-align:right;}
+.queryhlpgb .spanTitle2{color:#000;font-size:12px;font-weight:bold;}
+.queryhlpgb .spanTitle3{display:inline-block;color:#000;font-size:14px;font-weight:bold;width:8em;}
+.queryhlpgb .content-ul{width:100%;margin-top:5px;}
+.queryhlpgb .subtitle{float:left;margin-top:10px;width:80%;}
+.queryhlpgb .titleTop{width:100%;}
+.queryhlpgb .subtitle .spanSpc{text-align:left;text-indent:2em;}
+.edithlpgb .edit-div .isFinish{color:#d07815;font-size:16px;margin-right:2em;}
+.edithlpgb .edit-div .isFinish.active{color:#259606;}
+.queryhlpgb .span-wrapper,.queryhlpgb .extraspan{color:#3b3836}
+.queryhlpgb  li label.lablineheight{line-height:28px;}
+.queryhlpgb .spcWdate{width:140px;}
+.queryhlpgb .extraWth{width:200px;}
+.queryhlpgb .extraInput{width:175px;}
+.queryhlpgb .debtspan{margin-left: -20px;}
+.queryhlpgb .hlpgbTitle{
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+    padding: 10px 0;
+}
+.queryhlpgb .userList {
+    display: none;
+    position: absolute;
+    top: 19px;
+    left: 0px;
+    z-index: 3;
+    width: 100%;
+    max-height: 130px;
+    background: rgb(30, 144, 255);
+    border: 1px solid #ddd;
+    cursor: default;
+    overflow-y: scroll;
+}
+.queryhlpgb .userList li:hover{
+    background: rgb(30, 144, 255);
+    text-decoration: none;
+    color: #fff;
+    cursor: default
+}
+.queryhlpgb .userList li{
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    text-indent: 0.5em;
+}
+.buttonGrp {
+    text-align: center;
+}
+.queryhlpgb .bigDataHlpgDiv {
+    display: none;
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 4px;
+    font-size: 13px;
+    height: 40px;
+    line-height: 20px;
+    width: 95%;
+    margin-left: 1%;
+    border: 1px solid #d6d7dc;
+    background: #f9f9f9;
+}
+.queryhlpgb .maxLongInput {
+    width: 86%;
+}
+.queryhlpgb .maxLongInputGD {
+    width: 954px;
+}
+.queryhlpgb .scoDiv {
+    float: left;
+    margin-right: 1%;
+}
+@media screen and (min-device-width: 960px) and (max-device-width: 1280px) {
+    .queryhlpgb li label.checklabel {
+        margin-right: 0px !important;
+    }
+    .queryhlpgb li label {
+        padding-right: 0px !important;
+    }
+    .queryhlpgb input[type="text"] {
+        padding-left: 1px;
+    }
+}
+
+.queryhlpgb .input-min-date{
+    width: 126px;
+}
+.queryhlpgb li .my-linkbutton{
+    padding: 0;
+    height: 20px;
+    line-height: 20px;
+    float: left
+}
+.queryhlpgb li .input.readonly{
+    height: 24px;
+    line-height: 24px;
+    display: inline-block;
+    padding-left: 5px;
+}
+.queryhlpgb .mainDes{
+    width: 955px
+}
+.queryhlpgb .mainDgn{
+    width: 870px;
+    float: left
+}
+.queryhlpgb li .knowledgeBoxBtn{
+    height: 25px;
+    line-height: 25px
+}
+.queryhlpgb li .jbsBoxBtn{
+    height: 25px;
+    line-height: 25px;
+    width:58px
+}
+.queryhlpgb .clOtherLable{
+    margin-left: 6.5em
+}
+.queryhlpgb .span-undo{
+    line-height: 23px
+}
+.queryhlpgb .span-zgInfo{
+    color: #2a00ff;
+    margin-right: 5px
+}
+a.underLineText {
+    text-decoration: underline;
+    margin-left: 5px;
+}
+.form-text {
+    float: left;
+    height: 30px;
+    font-size: 12px;
+    line-height: 30px;
+}
+.queryhlpgb .notearea{
+    width: 950px;
+    height: 80px;
+    padding: 5px;
+    resize: none
+}
+.queryhlpgb .f-right{
+    float:right !important
+}
+.Signsel {
+    width: 100px;
+}
+.SignselB {
+    width: 65px;
+}

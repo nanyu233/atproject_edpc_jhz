@@ -1,0 +1,84 @@
+@charset "utf-8";
+.print-body {
+  display:block;
+  float:left;
+  width:210mm;
+  font-family:'微软雅黑';
+}
+.printUl {
+  float: left;
+  width: 90%;
+  font-size: 0.35cm;
+  margin: 0 5%;
+  padding: 0
+}
+.printUl span.basic-span {
+  display: inline-block;
+  margin-right: 3mm;
+}
+.printUl li {
+  float: left;
+}
+.printUl li.halfLi {
+  width: 50%;
+  text-indent: 4mm;
+  padding-bottom: 2mm;
+  list-style: none;
+  text-align: left;
+  line-height: 1.5;
+  margin-top: 2mm;
+}
+.printUl li.bordered {
+  width: 99%;
+  margin-left: 1%;
+  padding-bottom: 0mm;
+  list-style: none;
+  border-bottom: 1px solid #000;
+  margin-bottom: 1mm;
+  line-height: 1.5;
+}
+.printUl li.threeLi {
+  margin-left: 1%;
+  width: 30%;
+}
+.printUl li.fourLi {
+  margin-left: 1%;
+  margin-right: 2mm;
+}
+.centerWz {
+  float: left;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+.marginGap {
+  padding-top: 2mm;
+}
+.marginGaps {
+  padding-top: 1mm;
+}
+.tabWrapper {
+  width: 90%;
+  margin: 0 5%;
+  font-size: 0.35cm;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: 0;
+  cellspacing: 0;
+  cellpadding: 0;
+}
+.tabWrapper, .tabWrapper td, .tabWrapper th {
+  border: 1px solid #000;
+}
+.tabWrapper td {
+  padding: 1.1mm 0.5mm;
+}
+.tabWrapper td.centerTd {
+  text-align: center
+}
+.tabWrapper span {
+  text-align: center;
+}
+.tabWrapper .titleTr td {
+  font-weight: bold;
+}

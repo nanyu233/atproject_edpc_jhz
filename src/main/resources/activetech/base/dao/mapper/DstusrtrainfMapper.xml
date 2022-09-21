@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.DstusrtrainfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.base.pojo.domain.Dstusrtrainf" >
+    <result column="SEQNO" property="seqno" jdbcType="VARCHAR" />
+    <result column="USRNO" property="usrno" jdbcType="VARCHAR" />
+    <result column="USRNAME" property="usrname" jdbcType="VARCHAR" />
+    <result column="COMNO_A" property="comnoA" jdbcType="VARCHAR" />
+    <result column="COMCNAME_A" property="comcnameA" jdbcType="VARCHAR" />
+    <result column="COMNO_B" property="comnoB" jdbcType="VARCHAR" />
+    <result column="COMCNAME_B" property="comcnameB" jdbcType="VARCHAR" />
+    <result column="DUSRNO" property="dusrno" jdbcType="VARCHAR" />
+    <result column="DUSRNAME" property="dusrname" jdbcType="VARCHAR" />
+    <result column="DCOMNO" property="dcomno" jdbcType="VARCHAR" />
+    <result column="DCOMCNAME" property="dcomcname" jdbcType="VARCHAR" />
+    <result column="OPTDATE" property="optdate" jdbcType="TIMESTAMP" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SEQNO, USRNO, USRNAME, COMNO_A, COMCNAME_A, COMNO_B, COMCNAME_B, DUSRNO, DUSRNAME, 
+    DCOMNO, DCOMCNAME, OPTDATE, MEMO
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.base.pojo.domain.DstusrtrainfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DSTUSRTRAINF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.DstusrtrainfExample" >
+    delete from DSTUSRTRAINF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.base.pojo.domain.Dstusrtrainf" >
+    insert into DSTUSRTRAINF (SEQNO, USRNO, USRNAME, 
+      COMNO_A, COMCNAME_A, COMNO_B, 
+      COMCNAME_B, DUSRNO, DUSRNAME, 
+      DCOMNO, DCOMCNAME, OPTDATE, 
+      MEMO)
+    values (#{seqno,jdbcType=VARCHAR}, #{usrno,jdbcType=VARCHAR}, #{usrname,jdbcType=VARCHAR}, 
+      #{comnoA,jdbcType=VARCHAR}, #{comcnameA,jdbcType=VARCHAR}, #{comnoB,jdbcType=VARCHAR}, 
+      #{comcnameB,jdbcType=VARCHAR}, #{dusrno,jdbcType=VARCHAR}, #{dusrname,jdbcType=VARCHAR}, 
+      #{dcomno,jdbcType=VARCHAR}, #{dcomcname,jdbcType=VARCHAR}, #{optdate,jdbcType=TIMESTAMP}, 
+      #{memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.base.pojo.domain.Dstusrtrainf" >
+    insert into DSTUSRTRAINF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seqno != null" >
+        SEQNO,
+      </if>
+      <if test="usrno != null" >
+        USRNO,
+      </if>
+      <if test="usrname != null" >
+        USRNAME,
+      </if>
+      <if test="comnoA != null" >
+        COMNO_A,
+      </if>
+      <if test="comcnameA != null" >
+        COMCNAME_A,
+      </if>
+      <if test="comnoB != null" >
+        COMNO_B,
+      </if>
+      <if test="comcnameB != null" >
+        COMCNAME_B,
+      </if>
+      <if test="dusrno != null" >
+        DUSRNO,
+      </if>
+      <if test="dusrname != null" >
+        DUSRNAME,
+      </if>
+      <if test="dcomno != null" >
+        DCOMNO,
+      </if>
+      <if test="dcomcname != null" >
+        DCOMCNAME,
+      </if>
+      <if test="optdate != null" >
+        OPTDATE,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seqno != null" >
+        #{seqno,jdbcType=VARCHAR},
+      </if>
+      <if test="usrno != null" >
+        #{usrno,jdbcType=VARCHAR},
+      </if>
+      <if test="usrname != null" >
+        #{usrname,jdbcType=VARCHAR},
+      </if>
+      <if test="comnoA != null" >
+        #{comnoA,jdbcType=VARCHAR},
+      </if>
+      <if test="comcnameA != null" >
+        #{comcnameA,jdbcType=VARCHAR},
+      </if>
+      <if test="comnoB != null" >
+        #{comnoB,jdbcType=VARCHAR},
+      </if>
+      <if test="comcnameB != null" >
+        #{comcnameB,jdbcType=VARCHAR},
+      </if>
+      <if test="dusrno != null" >
+        #{dusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="dusrname != null" >
+        #{dusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="dcomno != null" >
+        #{dcomno,jdbcType=VARCHAR},
+      </if>
+      <if test="dcomcname != null" >
+        #{dcomcname,jdbcType=VARCHAR},
+      </if>
+      <if test="optdate != null" >
+        #{optdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.base.pojo.domain.DstusrtrainfExample" resultType="java.lang.Integer" >
+    select count(*) from DSTUSRTRAINF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DSTUSRTRAINF
+    <set >
+      <if test="record.seqno != null" >
+        SEQNO = #{record.seqno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrno != null" >
+        USRNO = #{record.usrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrname != null" >
+        USRNAME = #{record.usrname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comnoA != null" >
+        COMNO_A = #{record.comnoA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comcnameA != null" >
+        COMCNAME_A = #{record.comcnameA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comnoB != null" >
+        COMNO_B = #{record.comnoB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comcnameB != null" >
+        COMCNAME_B = #{record.comcnameB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dusrno != null" >
+        DUSRNO = #{record.dusrno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dusrname != null" >
+        DUSRNAME = #{record.dusrname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dcomno != null" >
+        DCOMNO = #{record.dcomno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dcomcname != null" >
+        DCOMCNAME = #{record.dcomcname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optdate != null" >
+        OPTDATE = #{record.optdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.memo != null" >
+        MEMO = #{record.memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DSTUSRTRAINF
+    set SEQNO = #{record.seqno,jdbcType=VARCHAR},
+      USRNO = #{record.usrno,jdbcType=VARCHAR},
+      USRNAME = #{record.usrname,jdbcType=VARCHAR},
+      COMNO_A = #{record.comnoA,jdbcType=VARCHAR},
+      COMCNAME_A = #{record.comcnameA,jdbcType=VARCHAR},
+      COMNO_B = #{record.comnoB,jdbcType=VARCHAR},
+      COMCNAME_B = #{record.comcnameB,jdbcType=VARCHAR},
+      DUSRNO = #{record.dusrno,jdbcType=VARCHAR},
+      DUSRNAME = #{record.dusrname,jdbcType=VARCHAR},
+      DCOMNO = #{record.dcomno,jdbcType=VARCHAR},
+      DCOMCNAME = #{record.dcomcname,jdbcType=VARCHAR},
+      OPTDATE = #{record.optdate,jdbcType=TIMESTAMP},
+      MEMO = #{record.memo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

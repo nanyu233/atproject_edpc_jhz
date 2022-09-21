@@ -1,0 +1,91 @@
+@charset "utf-8";
+/**
+*  所有弹出框表格通用样式
+*/
+table,
+td,
+th,
+tr {
+    font-size: 14px;
+}
+
+.form {
+    padding: 0px 2px;
+    margin: 5px auto 0;
+}
+
+.form table {
+    width: 100%;
+    margin-top: -2px;
+}
+.form table th {
+   background: rgb(243,249,255);
+}
+.form table td , .form table th{
+    padding: 3px;
+    border:1px solid #ddd;
+}
+.form table td {
+    width: 38%;
+    text-align: left;
+}
+.form table th {
+    width: 12%;
+    text-align: right;
+}
+ text-align: right;
+}
+.form table select {
+    padding-left: 5px;
+    width: 160px;
+    border: 1px solid #ddd;
+}
+.form table .btn_group{
+    position: absolute;
+    bottom: 10px;
+    left: 255px;
+}
+.form table .btn_group>div{
+    width: 170px;
+    margin: 0 auto;
+}
+/**
+*  出车登记等相似下拉框通用样式
+*/
+.abnScoList,.divselect,.doctorList {
+    position: absolute;
+    top: 26px;
+    left: 3px;
+    z-index: 3;
+    width: 158px;
+    max-height: 130px;
+    display: none;
+    background: rgb(30, 144, 255);
+    border: 1px solid #ddd;
+    cursor: default;
+    overflow-y: scroll;
+}
+.abnScoList ul li a:hover ,.divselect li a:hover,.doctorList li:hover {
+    background: rgb(30, 144, 255);
+    text-decoration: none;
+    color: #fff;
+    cursor: default
+}
+.abnScoList ul li a,.divselect li a ,.doctorList li{
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    text-indent: 0.5em;
+}
+.form table .last_td{
+    border: none;
+}
+div.grp_btn{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+.input-ssdate{
+    width: 163px;
+}

@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspCheckCaseInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspCheckCaseInf" >
+    <id column="EMG_SEQ_CHECK" property="emgSeqCheck" jdbcType="VARCHAR" />
+    <result column="CHECK_LGSY_COD" property="checkLgsyCod" jdbcType="CHAR" />
+    <result column="CHECK_LQBL_COD" property="checkLqblCod" jdbcType="CHAR" />
+    <result column="CHECK_BCJL_COD" property="checkBcjlCod" jdbcType="CHAR" />
+    <result column="CHECK_SSCZ_COD" property="checkSsczCod" jdbcType="CHAR" />
+    <result column="CHECK_HZJL_COD" property="checkHzjlCod" jdbcType="CHAR" />
+    <result column="CHECK_SWJL_COD" property="checkSwjlCod" jdbcType="CHAR" />
+    <result column="CHECK_CGJL_COD" property="checkCgjlCod" jdbcType="CHAR" />
+    <result column="CHECK_ZQTY_COD" property="checkZqtyCod" jdbcType="CHAR" />
+    <result column="CHECK_YZXX_COD" property="checkYzxxCod" jdbcType="CHAR" />
+    <result column="CHECK_JYXX_COD" property="checkJyxxCod" jdbcType="CHAR" />
+    <result column="CHECK_JCBG_COD" property="checkJcbgCod" jdbcType="CHAR" />
+    <result column="CHECK_TWD_COD" property="checkTwdCod" jdbcType="CHAR" />
+    <result column="CHECK_HLJL_COD" property="checkHljlCod" jdbcType="CHAR" />
+    <result column="CHECK_HLPG_COD" property="checkHlpgCod" jdbcType="CHAR" />
+    <result column="CHECK_DOCTOR" property="checkDoctor" jdbcType="VARCHAR" />
+    <result column="CHECK_NURSE" property="checkNurse" jdbcType="VARCHAR" />
+    <result column="CHECK_DOC_DAT" property="checkDocDat" jdbcType="TIMESTAMP" />
+    <result column="CHECK_NURSE_DAT" property="checkNurseDat" jdbcType="TIMESTAMP" />
+    <result column="CHECK_DOC_STATUS" property="checkDocStatus" jdbcType="CHAR" />
+    <result column="CHECK_NUR_STATUS" property="checkNurStatus" jdbcType="CHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_NBR" property="createNbr" jdbcType="VARCHAR" />
+    <result column="CHECK_DOC_FLG" property="checkDocFlg" jdbcType="CHAR" />
+    <result column="CHECK_NURSE_FLG" property="checkNurseFlg" jdbcType="CHAR" />
+    <result column="CHECK_PFB_COD" property="checkPfbCod" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMG_SEQ_CHECK, CHECK_LGSY_COD, CHECK_LQBL_COD, CHECK_BCJL_COD, CHECK_SSCZ_COD, CHECK_HZJL_COD, 
+    CHECK_SWJL_COD, CHECK_CGJL_COD, CHECK_ZQTY_COD, CHECK_YZXX_COD, CHECK_JYXX_COD, CHECK_JCBG_COD, 
+    CHECK_TWD_COD, CHECK_HLJL_COD, CHECK_HLPG_COD, CHECK_DOCTOR, CHECK_NURSE, CHECK_DOC_DAT, 
+    CHECK_NURSE_DAT, CHECK_DOC_STATUS, CHECK_NUR_STATUS, CREATE_DATE, CREATE_NBR, CHECK_DOC_FLG, 
+    CHECK_NURSE_FLG, CHECK_PFB_COD
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspCheckCaseInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CHECK_CASE_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_CHECK_CASE_INF
+    where EMG_SEQ_CHECK = #{emgSeqCheck,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_CHECK_CASE_INF
+    where EMG_SEQ_CHECK = #{emgSeqCheck,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspCheckCaseInfExample" >
+    delete from HSP_CHECK_CASE_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspCheckCaseInf" >
+    insert into HSP_CHECK_CASE_INF (EMG_SEQ_CHECK, CHECK_LGSY_COD, CHECK_LQBL_COD, 
+      CHECK_BCJL_COD, CHECK_SSCZ_COD, CHECK_HZJL_COD, 
+      CHECK_SWJL_COD, CHECK_CGJL_COD, CHECK_ZQTY_COD, 
+      CHECK_YZXX_COD, CHECK_JYXX_COD, CHECK_JCBG_COD, 
+      CHECK_TWD_COD, CHECK_HLJL_COD, CHECK_HLPG_COD, 
+      CHECK_DOCTOR, CHECK_NURSE, CHECK_DOC_DAT, 
+      CHECK_NURSE_DAT, CHECK_DOC_STATUS, CHECK_NUR_STATUS, 
+      CREATE_DATE, CREATE_NBR, CHECK_DOC_FLG, 
+      CHECK_NURSE_FLG, CHECK_PFB_COD)
+    values (#{emgSeqCheck,jdbcType=VARCHAR}, #{checkLgsyCod,jdbcType=CHAR}, #{checkLqblCod,jdbcType=CHAR}, 
+      #{checkBcjlCod,jdbcType=CHAR}, #{checkSsczCod,jdbcType=CHAR}, #{checkHzjlCod,jdbcType=CHAR}, 
+      #{checkSwjlCod,jdbcType=CHAR}, #{checkCgjlCod,jdbcType=CHAR}, #{checkZqtyCod,jdbcType=CHAR}, 
+      #{checkYzxxCod,jdbcType=CHAR}, #{checkJyxxCod,jdbcType=CHAR}, #{checkJcbgCod,jdbcType=CHAR}, 
+      #{checkTwdCod,jdbcType=CHAR}, #{checkHljlCod,jdbcType=CHAR}, #{checkHlpgCod,jdbcType=CHAR}, 
+      #{checkDoctor,jdbcType=VARCHAR}, #{checkNurse,jdbcType=VARCHAR}, #{checkDocDat,jdbcType=TIMESTAMP}, 
+      #{checkNurseDat,jdbcType=TIMESTAMP}, #{checkDocStatus,jdbcType=CHAR}, #{checkNurStatus,jdbcType=CHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createNbr,jdbcType=VARCHAR}, #{checkDocFlg,jdbcType=CHAR}, 
+      #{checkNurseFlg,jdbcType=CHAR}, #{checkPfbCod,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspCheckCaseInf" >
+    insert into HSP_CHECK_CASE_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emgSeqCheck != null" >
+        EMG_SEQ_CHECK,
+      </if>
+      <if test="checkLgsyCod != null" >
+        CHECK_LGSY_COD,
+      </if>
+      <if test="checkLqblCod != null" >
+        CHECK_LQBL_COD,
+      </if>
+      <if test="checkBcjlCod != null" >
+        CHECK_BCJL_COD,
+      </if>
+      <if test="checkSsczCod != null" >
+        CHECK_SSCZ_COD,
+      </if>
+      <if test="checkHzjlCod != null" >
+        CHECK_HZJL_COD,
+      </if>
+      <if test="checkSwjlCod != null" >
+        CHECK_SWJL_COD,
+      </if>
+      <if test="checkCgjlCod != null" >
+        CHECK_CGJL_COD,
+      </if>
+      <if test="checkZqtyCod != null" >
+        CHECK_ZQTY_COD,
+      </if>
+      <if test="checkYzxxCod != null" >
+        CHECK_YZXX_COD,
+      </if>
+      <if test="checkJyxxCod != null" >
+        CHECK_JYXX_COD,
+      </if>
+      <if test="checkJcbgCod != null" >
+        CHECK_JCBG_COD,
+      </if>
+      <if test="checkTwdCod != null" >
+        CHECK_TWD_COD,
+      </if>
+      <if test="checkHljlCod != null" >
+        CHECK_HLJL_COD,
+      </if>
+      <if test="checkHlpgCod != null" >
+        CHECK_HLPG_COD,
+      </if>
+      <if test="checkDoctor != null" >
+        CHECK_DOCTOR,
+      </if>
+      <if test="checkNurse != null" >
+        CHECK_NURSE,
+      </if>
+      <if test="checkDocDat != null" >
+        CHECK_DOC_DAT,
+      </if>
+      <if test="checkNurseDat != null" >
+        CHECK_NURSE_DAT,
+      </if>
+      <if test="checkDocStatus != null" >
+        CHECK_DOC_STATUS,
+      </if>
+      <if test="checkNurStatus != null" >
+        CHECK_NUR_STATUS,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createNbr != null" >
+        CREATE_NBR,
+      </if>
+      <if test="checkDocFlg != null" >
+        CHECK_DOC_FLG,
+      </if>
+      <if test="checkNurseFlg != null" >
+        CHECK_NURSE_FLG,
+      </if>
+      <if test="checkPfbCod != null" >
+        CHECK_PFB_COD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emgSeqCheck != null" >
+        #{emgSeqCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="checkLgsyCod != null" >
+        #{checkLgsyCod,jdbcType=CHAR},
+      </if>
+      <if test="checkLqblCod != null" >
+        #{checkLqblCod,jdbcType=CHAR},
+      </if>
+      <if test="checkBcjlCod != null" >
+        #{checkBcjlCod,jdbcType=CHAR},
+      </if>
+      <if test="checkSsczCod != null" >
+        #{checkSsczCod,jdbcType=CHAR},
+      </if>
+      <if test="checkHzjlCod != null" >
+        #{checkHzjlCod,jdbcType=CHAR},
+      </if>
+      <if test="checkSwjlCod != null" >
+        #{checkSwjlCod,jdbcType=CHAR},
+      </if>
+      <if test="checkCgjlCod != null" >
+        #{checkCgjlCod,jdbcType=CHAR},
+      </if>
+      <if test="checkZqtyCod != null" >
+        #{checkZqtyCod,jdbcType=CHAR},
+      </if>
+      <if test="checkYzxxCod != null" >
+        #{checkYzxxCod,jdbcType=CHAR},
+      </if>
+      <if test="checkJyxxCod != null" >
+        #{checkJyxxCod,jdbcType=CHAR},
+      </if>
+      <if test="checkJcbgCod != null" >
+        #{checkJcbgCod,jdbcType=CHAR},
+      </if>
+      <if test="checkTwdCod != null" >
+        #{checkTwdCod,jdbcType=CHAR},
+      </if>
+      <if test="checkHljlCod != null" >
+        #{checkHljlCod,jdbcType=CHAR},
+      </if>
+      <if test="checkHlpgCod != null" >
+        #{checkHlpgCod,jdbcType=CHAR},
+      </if>
+      <if test="checkDoctor != null" >
+        #{checkDoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNurse != null" >
+        #{checkNurse,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDocDat != null" >
+        #{checkDocDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkNurseDat != null" >
+        #{checkNurseDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkDocStatus != null" >
+        #{checkDocStatus,jdbcType=CHAR},
+      </if>
+      <if test="checkNurStatus != null" >
+        #{checkNurStatus,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createNbr != null" >
+        #{createNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDocFlg != null" >
+        #{checkDocFlg,jdbcType=CHAR},
+      </if>
+      <if test="checkNurseFlg != null" >
+        #{checkNurseFlg,jdbcType=CHAR},
+      </if>
+      <if test="checkPfbCod != null" >
+        #{checkPfbCod,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspCheckCaseInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_CHECK_CASE_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_CHECK_CASE_INF
+    <set >
+      <if test="record.emgSeqCheck != null" >
+        EMG_SEQ_CHECK = #{record.emgSeqCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkLgsyCod != null" >
+        CHECK_LGSY_COD = #{record.checkLgsyCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkLqblCod != null" >
+        CHECK_LQBL_COD = #{record.checkLqblCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkBcjlCod != null" >
+        CHECK_BCJL_COD = #{record.checkBcjlCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkSsczCod != null" >
+        CHECK_SSCZ_COD = #{record.checkSsczCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkHzjlCod != null" >
+        CHECK_HZJL_COD = #{record.checkHzjlCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkSwjlCod != null" >
+        CHECK_SWJL_COD = #{record.checkSwjlCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkCgjlCod != null" >
+        CHECK_CGJL_COD = #{record.checkCgjlCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkZqtyCod != null" >
+        CHECK_ZQTY_COD = #{record.checkZqtyCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkYzxxCod != null" >
+        CHECK_YZXX_COD = #{record.checkYzxxCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkJyxxCod != null" >
+        CHECK_JYXX_COD = #{record.checkJyxxCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkJcbgCod != null" >
+        CHECK_JCBG_COD = #{record.checkJcbgCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkTwdCod != null" >
+        CHECK_TWD_COD = #{record.checkTwdCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkHljlCod != null" >
+        CHECK_HLJL_COD = #{record.checkHljlCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkHlpgCod != null" >
+        CHECK_HLPG_COD = #{record.checkHlpgCod,jdbcType=CHAR},
+      </if>
+      <if test="record.checkDoctor != null" >
+        CHECK_DOCTOR = #{record.checkDoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkNurse != null" >
+        CHECK_NURSE = #{record.checkNurse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkDocDat != null" >
+        CHECK_DOC_DAT = #{record.checkDocDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkNurseDat != null" >
+        CHECK_NURSE_DAT = #{record.checkNurseDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkDocStatus != null" >
+        CHECK_DOC_STATUS = #{record.checkDocStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.checkNurStatus != null" >
+        CHECK_NUR_STATUS = #{record.checkNurStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createNbr != null" >
+        CREATE_NBR = #{record.createNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkDocFlg != null" >
+        CHECK_DOC_FLG = #{record.checkDocFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.checkNurseFlg != null" >
+        CHECK_NURSE_FLG = #{record.checkNurseFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.checkPfbCod != null" >
+        CHECK_PFB_COD = #{record.checkPfbCod,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_CHECK_CASE_INF
+    set EMG_SEQ_CHECK = #{record.emgSeqCheck,jdbcType=VARCHAR},
+      CHECK_LGSY_COD = #{record.checkLgsyCod,jdbcType=CHAR},
+      CHECK_LQBL_COD = #{record.checkLqblCod,jdbcType=CHAR},
+      CHECK_BCJL_COD = #{record.checkBcjlCod,jdbcType=CHAR},
+      CHECK_SSCZ_COD = #{record.checkSsczCod,jdbcType=CHAR},
+      CHECK_HZJL_COD = #{record.checkHzjlCod,jdbcType=CHAR},
+      CHECK_SWJL_COD = #{record.checkSwjlCod,jdbcType=CHAR},
+      CHECK_CGJL_COD = #{record.checkCgjlCod,jdbcType=CHAR},
+      CHECK_ZQTY_COD = #{record.checkZqtyCod,jdbcType=CHAR},
+      CHECK_YZXX_COD = #{record.checkYzxxCod,jdbcType=CHAR},
+      CHECK_JYXX_COD = #{record.checkJyxxCod,jdbcType=CHAR},
+      CHECK_JCBG_COD = #{record.checkJcbgCod,jdbcType=CHAR},
+      CHECK_TWD_COD = #{record.checkTwdCod,jdbcType=CHAR},
+      CHECK_HLJL_COD = #{record.checkHljlCod,jdbcType=CHAR},
+      CHECK_HLPG_COD = #{record.checkHlpgCod,jdbcType=CHAR},
+      CHECK_DOCTOR = #{record.checkDoctor,jdbcType=VARCHAR},
+      CHECK_NURSE = #{record.checkNurse,jdbcType=VARCHAR},
+      CHECK_DOC_DAT = #{record.checkDocDat,jdbcType=TIMESTAMP},
+      CHECK_NURSE_DAT = #{record.checkNurseDat,jdbcType=TIMESTAMP},
+      CHECK_DOC_STATUS = #{record.checkDocStatus,jdbcType=CHAR},
+      CHECK_NUR_STATUS = #{record.checkNurStatus,jdbcType=CHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      CREATE_NBR = #{record.createNbr,jdbcType=VARCHAR},
+      CHECK_DOC_FLG = #{record.checkDocFlg,jdbcType=CHAR},
+      CHECK_NURSE_FLG = #{record.checkNurseFlg,jdbcType=CHAR},
+      CHECK_PFB_COD = #{record.checkPfbCod,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspCheckCaseInf" >
+    update HSP_CHECK_CASE_INF
+    <set >
+      <if test="checkLgsyCod != null" >
+        CHECK_LGSY_COD = #{checkLgsyCod,jdbcType=CHAR},
+      </if>
+      <if test="checkLqblCod != null" >
+        CHECK_LQBL_COD = #{checkLqblCod,jdbcType=CHAR},
+      </if>
+      <if test="checkBcjlCod != null" >
+        CHECK_BCJL_COD = #{checkBcjlCod,jdbcType=CHAR},
+      </if>
+      <if test="checkSsczCod != null" >
+        CHECK_SSCZ_COD = #{checkSsczCod,jdbcType=CHAR},
+      </if>
+      <if test="checkHzjlCod != null" >
+        CHECK_HZJL_COD = #{checkHzjlCod,jdbcType=CHAR},
+      </if>
+      <if test="checkSwjlCod != null" >
+        CHECK_SWJL_COD = #{checkSwjlCod,jdbcType=CHAR},
+      </if>
+      <if test="checkCgjlCod != null" >
+        CHECK_CGJL_COD = #{checkCgjlCod,jdbcType=CHAR},
+      </if>
+      <if test="checkZqtyCod != null" >
+        CHECK_ZQTY_COD = #{checkZqtyCod,jdbcType=CHAR},
+      </if>
+      <if test="checkYzxxCod != null" >
+        CHECK_YZXX_COD = #{checkYzxxCod,jdbcType=CHAR},
+      </if>
+      <if test="checkJyxxCod != null" >
+        CHECK_JYXX_COD = #{checkJyxxCod,jdbcType=CHAR},
+      </if>
+      <if test="checkJcbgCod != null" >
+        CHECK_JCBG_COD = #{checkJcbgCod,jdbcType=CHAR},
+      </if>
+      <if test="checkTwdCod != null" >
+        CHECK_TWD_COD = #{checkTwdCod,jdbcType=CHAR},
+      </if>
+      <if test="checkHljlCod != null" >
+        CHECK_HLJL_COD = #{checkHljlCod,jdbcType=CHAR},
+      </if>
+      <if test="checkHlpgCod != null" >
+        CHECK_HLPG_COD = #{checkHlpgCod,jdbcType=CHAR},
+      </if>
+      <if test="checkDoctor != null" >
+        CHECK_DOCTOR = #{checkDoctor,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNurse != null" >
+        CHECK_NURSE = #{checkNurse,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDocDat != null" >
+        CHECK_DOC_DAT = #{checkDocDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkNurseDat != null" >
+        CHECK_NURSE_DAT = #{checkNurseDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkDocStatus != null" >
+        CHECK_DOC_STATUS = #{checkDocStatus,jdbcType=CHAR},
+      </if>
+      <if test="checkNurStatus != null" >
+        CHECK_NUR_STATUS = #{checkNurStatus,jdbcType=CHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createNbr != null" >
+        CREATE_NBR = #{createNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDocFlg != null" >
+        CHECK_DOC_FLG = #{checkDocFlg,jdbcType=CHAR},
+      </if>
+      <if test="checkNurseFlg != null" >
+        CHECK_NURSE_FLG = #{checkNurseFlg,jdbcType=CHAR},
+      </if>
+      <if test="checkPfbCod != null" >
+        CHECK_PFB_COD = #{checkPfbCod,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EMG_SEQ_CHECK = #{emgSeqCheck,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspCheckCaseInf" >
+    update HSP_CHECK_CASE_INF
+    set CHECK_LGSY_COD = #{checkLgsyCod,jdbcType=CHAR},
+      CHECK_LQBL_COD = #{checkLqblCod,jdbcType=CHAR},
+      CHECK_BCJL_COD = #{checkBcjlCod,jdbcType=CHAR},
+      CHECK_SSCZ_COD = #{checkSsczCod,jdbcType=CHAR},
+      CHECK_HZJL_COD = #{checkHzjlCod,jdbcType=CHAR},
+      CHECK_SWJL_COD = #{checkSwjlCod,jdbcType=CHAR},
+      CHECK_CGJL_COD = #{checkCgjlCod,jdbcType=CHAR},
+      CHECK_ZQTY_COD = #{checkZqtyCod,jdbcType=CHAR},
+      CHECK_YZXX_COD = #{checkYzxxCod,jdbcType=CHAR},
+      CHECK_JYXX_COD = #{checkJyxxCod,jdbcType=CHAR},
+      CHECK_JCBG_COD = #{checkJcbgCod,jdbcType=CHAR},
+      CHECK_TWD_COD = #{checkTwdCod,jdbcType=CHAR},
+      CHECK_HLJL_COD = #{checkHljlCod,jdbcType=CHAR},
+      CHECK_HLPG_COD = #{checkHlpgCod,jdbcType=CHAR},
+      CHECK_DOCTOR = #{checkDoctor,jdbcType=VARCHAR},
+      CHECK_NURSE = #{checkNurse,jdbcType=VARCHAR},
+      CHECK_DOC_DAT = #{checkDocDat,jdbcType=TIMESTAMP},
+      CHECK_NURSE_DAT = #{checkNurseDat,jdbcType=TIMESTAMP},
+      CHECK_DOC_STATUS = #{checkDocStatus,jdbcType=CHAR},
+      CHECK_NUR_STATUS = #{checkNurStatus,jdbcType=CHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_NBR = #{createNbr,jdbcType=VARCHAR},
+      CHECK_DOC_FLG = #{checkDocFlg,jdbcType=CHAR},
+      CHECK_NURSE_FLG = #{checkNurseFlg,jdbcType=CHAR},
+      CHECK_PFB_COD = #{checkPfbCod,jdbcType=VARCHAR}
+    where EMG_SEQ_CHECK = #{emgSeqCheck,jdbcType=VARCHAR}
+  </update>
+</mapper>

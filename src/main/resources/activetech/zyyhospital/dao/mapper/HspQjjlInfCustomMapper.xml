@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspQjjlInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspQjjlInfCustom" >
+    <id column="QJJL_SEQ" jdbcType="VARCHAR" property="qjjlSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="QJJL_DAT_START" jdbcType="TIMESTAMP" property="qjjlDatStart" />
+    <result column="DOC_SIGN" jdbcType="VARCHAR" property="docSign" />
+    <result column="CREATE_DAT" jdbcType="TIMESTAMP" property="createDat" />
+    <result column="UPDATE_DAT" jdbcType="TIMESTAMP" property="updateDat" />
+    <result column="UPDATE_NUM" jdbcType="VARCHAR" property="updateNum" />
+    <result column="UPDATE_NAM" jdbcType="VARCHAR" property="updateNam" />
+    <result column="QJJL_JLDAT" jdbcType="TIMESTAMP" property="qjjlJldat" />
+    <result column="QJJL_JLNAM" jdbcType="VARCHAR" property="qjjlJlnam" />
+    <result column="ISPRINT" jdbcType="VARCHAR" property="isprint" />
+    <result column="QJJL_DAT_END" jdbcType="TIMESTAMP" property="qjjlDatEnd" />
+    <result column="MANAGE_DOC" jdbcType="VARCHAR" property="manageDoc" />
+    <result column="SUPERIOR_DOC" jdbcType="VARCHAR" property="superiorDoc" />
+    <result column="comparatorVal" property="comparatorVal" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <!-- 区域是查询条件 通常情况，为了提高 sql片段可重用性，按单表创建sql片段 -->
+	<sql id="query_HspQjjlInf_where">
+		<if test="hspQjjlInfCustom!=null">
+			<if test="hspQjjlInfCustom.emgSeq!=null">
+					and EMG_SEQ = #{hspQjjlInfCustom.emgSeq}
+			</if>
+		</if>
+	</sql>
+  
+  <select id="findhspQjjlInfList" parameterType="activetech.zyyhospital.pojo.dto.HspLqbljlQueryDto"
+		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		 select QJJL_SEQ qjjlSeq,EMG_SEQ emgSeq,QJJL_DAT_START qjjlDatStart,QJJL_DAT_END qjjlDatEnd,
+		 nvl(to_char(QJJL_DAT_START,'yyyyMMddHH24miss'),0) comparatorVal,
+		  DOC_SIGN docSign,CREATE_DAT createDat,UPDATE_DAT updateDat,
+		  UPDATE_NUM updateNum,UPDATE_NAM updateNam,QJJL_CONTENT qjjlContent,
+		  QJJL_JLDAT qjjlJldat,QJJL_JLNAM qjjlJlnam,ISPRINT isprint,MANAGE_DOC manageDoc,SUPERIOR_DOC superiorDoc
+    	from HSP_QJJL_INF
+			<where>
+				<include refid="query_HspQjjlInf_where" />
+			</where>
+			order by ${sort} ${order}
+			<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	
+	<select id="findhspQjjlInfcount" parameterType="activetech.zyyhospital.pojo.dto.HspLqbljlQueryDto"
+					 resultType="int">
+		select count(*) from HSP_QJJL_INF
+		<where>
+				<include refid="query_HspQjjlInf_where" />
+			</where>
+	</select>
+	
+  	<update id="updQjjlAfterPrint" parameterType="activetech.zyyhospital.pojo.dto.HspDiseaseCourseQueryDto">
+  		  update HSP_QJJL_INF
+		   set isprint = '1'
+		 where QJJL_SEQ in
+		<foreach collection="qjjlSeqList" index="index" item="qjjlSeq" open="(" separator="," close=")">  
+           #{qjjlSeq}  
+       </foreach>
+  	</update>
+  
+  </mapper>

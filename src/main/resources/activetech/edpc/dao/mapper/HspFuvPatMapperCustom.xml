@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspFuvPatMapperCustom" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.dto.HspFuvPatCustom" >
+    <id column="PAT_ID" property="patId" jdbcType="VARCHAR" />
+    <result column="PAT_NAM" property="patNam" jdbcType="VARCHAR" />
+    <result column="CST_SEX_COD" property="cstSexCod" jdbcType="VARCHAR" />
+    <result column="BTH_DAT" property="bthDat" jdbcType="DATE" />
+    <result column="LNK_NBR" property="lnkNbr" jdbcType="VARCHAR" />
+    <result column="PAT_NAT_COD" property="patNatCod" jdbcType="VARCHAR" />
+    <result column="MAR_STA_COD" property="marStaCod" jdbcType="CHAR" />
+    <result column="PAT_JOB" property="patJob" jdbcType="VARCHAR" />
+    <result column="ID_NBR" property="idNbr" jdbcType="VARCHAR" />
+    <result column="PAT_ADR" property="patAdr" jdbcType="VARCHAR" />
+    <result column="PAT_TEL" property="patTel" jdbcType="VARCHAR" />
+    <result column="LST_FUV_TIM" property="lstFuvTim" jdbcType="TIMESTAMP" />
+    <result column="PLN_FUV_TIM" property="plnFuvTim" jdbcType="TIMESTAMP" />
+    <result column="FUV_STA" property="fuvSta" jdbcType="CHAR" />
+    <result column="LFT_NUM" property="lftNum" jdbcType="DECIMAL" />
+    <result column="XTF_FLG" property="xtfFlg" jdbcType="CHAR" />
+    <result column="CZF_FLG" property="czfFlg" jdbcType="CHAR" />
+    <result column="CSF_FLG" property="csfFlg" jdbcType="CHAR" />
+    <result column="LST_FUV_SEQ" property="lstFuvSeq" jdbcType="VARCHAR" />
+    <result column="PLN_FUV_SEQ" property="plnFuvSeq" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PAT_ID, PAT_NAM, CST_SEX_COD, BTH_DAT, LNK_NBR, PAT_NAT_COD, MAR_STA_COD, PAT_JOB, 
+    ID_NBR, PAT_ADR, PAT_TEL, LST_FUV_TIM, PLN_FUV_TIM, FUV_STA, LFT_NUM, XTF_FLG, CZF_FLG, 
+    CSF_FLG, LST_FUV_SEQ, PLN_FUV_SEQ
+  </sql>
+  <sql id="Base_Column_With_Translate_List" >
+    a.pat_id,
+    a.pat_nam,
+    a.cst_sex_cod,
+    (select info from dstdictinfo where typecode = 'CST_SEX_COD' and infocode = a.cst_sex_cod) cstSexCodStr,
+    a.bth_dat,
+    a.lnk_nbr,
+    a.pat_nat_cod,
+    (select info from dstdictinfo where typecode = 'XT_MZ_COD' and infocode = a.pat_nat_cod) patNatCodStr,
+    a.mar_sta_cod,
+    (select info from dstdictinfo where typecode = 'MARITAL_COD' and infocode = a.mar_sta_cod) marStaCodStr,
+    a.pat_job,
+    a.id_nbr,
+    a.pat_adr,
+    a.pat_tel,
+    a.lst_fuv_tim,
+    a.pln_fuv_tim,
+    a.fuv_sta,
+    (select info from dstdictinfo where typecode = 'PLN_STA' and infocode = a.fuv_sta) fuvStaStr,
+    a.lft_num,
+    a.xtf_flg,
+    a.czf_flg,
+    a.csf_flg,
+    a.lst_fuv_seq,
+    a.pln_fuv_seq
+  </sql>
+ <sql id="condition">
+    <where>
+        <if test="hspFuvPatCustom!=null">
+        	<if test="hspFuvPatCustom.patId != null and hspFuvPatCustom.patId != ''.toString() ">		
+				and a.pat_id = #{hspFuvPatCustom.patId}			
+			</if>
+            <if test="hspFuvPatCustom.patNam!=null">
+                and a.pat_nam like '%' || #{hspFuvPatCustom.patNam,jdbcType=VARCHAR} || '%'
+            </if>
+            <if test="hspFuvPatCustom.lnkNbr!=null">
+            	and a.lnk_nbr like '%' || #{hspFuvPatCustom.lnkNbr,jdbcType=VARCHAR} || '%'
+            </if>
+            <if test="hspFuvPatCustom.idNbr!=null">
+            	and a.id_nbr like '%' || #{hspFuvPatCustom.idNbr,jdbcType=VARCHAR} || '%'
+            </if>
+            <if test="hspFuvPatCustom.xtfFlg != null and hspFuvPatCustom.xtfFlg != ''.toString() ">	
+            	and a.xtf_flg = #{hspFuvPatCustom.xtfFlg}	
+			</if>
+			<if test="hspFuvPatCustom.csfFlg != null and hspFuvPatCustom.csfFlg != ''.toString() ">		
+				and a.csf_flg = #{hspFuvPatCustom.csfFlg}			
+			</if>
+			<if test="hspFuvPatCustom.czfFlg != null and hspFuvPatCustom.czfFlg != ''.toString() ">		
+				and a.czf_flg = #{hspFuvPatCustom.czfFlg}			
+			</if>
+            <if test="startDate != null and startDate != '' ">            	
+            	and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')	
+			</if>
+			<if test="endDate != null and endDate != '' ">				
+            	and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')	
+			</if>
+        </if>
+    </where>
+  </sql>
+ 
+  <select id="countByCondition" resultType="java.lang.Integer"
+            parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto">
+        select count(*)
+          from hsp_fuv_pat a
+        <include refid="condition"/>
+  </select>
+  
+  <select id="selectByCondition" resultType="activetech.edpc.pojo.dto.HspFuvPatCustom"
+      parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto" >
+    <include refid="activetech.base.CommonSql.page_start"/>
+      select <include refid="Base_Column_With_Translate_List"/>
+        from hsp_fuv_pat a
+    <include refid="condition"/>
+    order by a.pat_id desc
+    <include refid="activetech.base.CommonSql.page_end"/>
+  </select>
+  
+  <select id="selectOneByCondition" resultType="activetech.edpc.pojo.dto.HspFuvPatCustom"
+      parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto" >
+      select <include refid="Base_Column_With_Translate_List"/>
+        from hsp_fuv_pat a
+    <include refid="condition"/>
+  </select>
+</mapper>

@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspConsultationRecordsMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspConsultationRecords" >
+    <id column="CONSULTATION_RECORDS_SEQ" property="consultationRecordsSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ_CR" property="emgSeqCr" jdbcType="VARCHAR" />
+    <result column="APPLY_CREATE_DATE" property="applyCreateDate" jdbcType="TIMESTAMP" />
+    <result column="INVITATION_DATE" property="invitationDate" jdbcType="TIMESTAMP" />
+    <result column="INVITATION_DOC_NME" property="invitationDocNme" jdbcType="VARCHAR" />
+    <result column="INVITATION_DEP" property="invitationDep" jdbcType="VARCHAR" />
+    <result column="APPLY_DOC" property="applyDoc" jdbcType="VARCHAR" />
+    <result column="ILLNESS_STATE" property="illnessState" jdbcType="VARCHAR" />
+    <result column="OBJECTIVE" property="objective" jdbcType="VARCHAR" />
+    <result column="REPLY_CONTENT" property="replyContent" jdbcType="VARCHAR" />
+    <result column="CONSULTATION_DATE" property="consultationDate" jdbcType="TIMESTAMP" />
+    <result column="REPLY_DEP" property="replyDep" jdbcType="VARCHAR" />
+    <result column="REPLY_DOC" property="replyDoc" jdbcType="VARCHAR" />
+    <result column="REPLY_CREATE_DATE" property="replyCreateDate" jdbcType="TIMESTAMP" />
+    <result column="APPLY_UPDATE_DOC" property="applyUpdateDoc" jdbcType="VARCHAR" />
+    <result column="APPLY_UPDATE_DATE" property="applyUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="REPLY_UPDATE_DOC" property="replyUpdateDoc" jdbcType="VARCHAR" />
+    <result column="REPLY_UPDATE_DATE" property="replyUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="REPLY_SRC" property="replySrc" jdbcType="VARCHAR" />
+    <result column="INVITATION_DOC_COD" property="invitationDocCod" jdbcType="VARCHAR" />
+    <result column="APPLY_DOC_NAME" property="applyDocName" jdbcType="VARCHAR" />
+    <result column="REPLY_DOC_NAME" property="replyDocName" jdbcType="VARCHAR" />
+    <result column="QDHS_NAME" property="qdhsName" jdbcType="VARCHAR" />
+    <result column="QDHS_DATE" property="qdhsDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="activetech.zyyhospital.pojo.domain.HspConsultationRecords" extends="BaseResultMap" >
+    <result column="CONSULTATION_OPINION" property="consultationOpinion" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CONSULTATION_RECORDS_SEQ, EMG_SEQ_CR, APPLY_CREATE_DATE, INVITATION_DATE, INVITATION_DOC_NME, 
+    INVITATION_DEP, APPLY_DOC, ILLNESS_STATE, OBJECTIVE, REPLY_CONTENT, CONSULTATION_DATE, 
+    REPLY_DEP, REPLY_DOC, REPLY_CREATE_DATE, APPLY_UPDATE_DOC, APPLY_UPDATE_DATE, REPLY_UPDATE_DOC, 
+    REPLY_UPDATE_DATE, REPLY_SRC, INVITATION_DOC_COD, APPLY_DOC_NAME, REPLY_DOC_NAME, 
+    QDHS_NAME, QDHS_DATE
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONSULTATION_OPINION
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspConsultationRecordsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_CONSULTATION_RECORDS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.zyyhospital.pojo.domain.HspConsultationRecordsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_CONSULTATION_RECORDS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_CONSULTATION_RECORDS
+    where CONSULTATION_RECORDS_SEQ = #{consultationRecordsSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_CONSULTATION_RECORDS
+    where CONSULTATION_RECORDS_SEQ = #{consultationRecordsSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspConsultationRecordsExample" >
+    delete from HSP_CONSULTATION_RECORDS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspConsultationRecords" >
+    insert into HSP_CONSULTATION_RECORDS (CONSULTATION_RECORDS_SEQ, EMG_SEQ_CR, 
+      APPLY_CREATE_DATE, INVITATION_DATE, INVITATION_DOC_NME, 
+      INVITATION_DEP, APPLY_DOC, ILLNESS_STATE, 
+      OBJECTIVE, REPLY_CONTENT, CONSULTATION_DATE, 
+      REPLY_DEP, REPLY_DOC, REPLY_CREATE_DATE, 
+      APPLY_UPDATE_DOC, APPLY_UPDATE_DATE, REPLY_UPDATE_DOC, 
+      REPLY_UPDATE_DATE, REPLY_SRC, INVITATION_DOC_COD, 
+      APPLY_DOC_NAME, REPLY_DOC_NAME, QDHS_NAME, 
+      QDHS_DATE, CONSULTATION_OPINION)
+    values (#{consultationRecordsSeq,jdbcType=VARCHAR}, #{emgSeqCr,jdbcType=VARCHAR}, 
+      #{applyCreateDate,jdbcType=TIMESTAMP}, #{invitationDate,jdbcType=TIMESTAMP}, #{invitationDocNme,jdbcType=VARCHAR}, 
+      #{invitationDep,jdbcType=VARCHAR}, #{applyDoc,jdbcType=VARCHAR}, #{illnessState,jdbcType=VARCHAR}, 
+      #{objective,jdbcType=VARCHAR}, #{replyContent,jdbcType=VARCHAR}, #{consultationDate,jdbcType=TIMESTAMP}, 
+      #{replyDep,jdbcType=VARCHAR}, #{replyDoc,jdbcType=VARCHAR}, #{replyCreateDate,jdbcType=TIMESTAMP}, 
+      #{applyUpdateDoc,jdbcType=VARCHAR}, #{applyUpdateDate,jdbcType=TIMESTAMP}, #{replyUpdateDoc,jdbcType=VARCHAR}, 
+      #{replyUpdateDate,jdbcType=TIMESTAMP}, #{replySrc,jdbcType=VARCHAR}, #{invitationDocCod,jdbcType=VARCHAR}, 
+      #{applyDocName,jdbcType=VARCHAR}, #{replyDocName,jdbcType=VARCHAR}, #{qdhsName,jdbcType=VARCHAR}, 
+      #{qdhsDate,jdbcType=TIMESTAMP}, #{consultationOpinion,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspConsultationRecords" >
+    insert into HSP_CONSULTATION_RECORDS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="consultationRecordsSeq != null" >
+        CONSULTATION_RECORDS_SEQ,
+      </if>
+      <if test="emgSeqCr != null" >
+        EMG_SEQ_CR,
+      </if>
+      <if test="applyCreateDate != null" >
+        APPLY_CREATE_DATE,
+      </if>
+      <if test="invitationDate != null" >
+        INVITATION_DATE,
+      </if>
+      <if test="invitationDocNme != null" >
+        INVITATION_DOC_NME,
+      </if>
+      <if test="invitationDep != null" >
+        INVITATION_DEP,
+      </if>
+      <if test="applyDoc != null" >
+        APPLY_DOC,
+      </if>
+      <if test="illnessState != null" >
+        ILLNESS_STATE,
+      </if>
+      <if test="objective != null" >
+        OBJECTIVE,
+      </if>
+      <if test="replyContent != null" >
+        REPLY_CONTENT,
+      </if>
+      <if test="consultationDate != null" >
+        CONSULTATION_DATE,
+      </if>
+      <if test="replyDep != null" >
+        REPLY_DEP,
+      </if>
+      <if test="replyDoc != null" >
+        REPLY_DOC,
+      </if>
+      <if test="replyCreateDate != null" >
+        REPLY_CREATE_DATE,
+      </if>
+      <if test="applyUpdateDoc != null" >
+        APPLY_UPDATE_DOC,
+      </if>
+      <if test="applyUpdateDate != null" >
+        APPLY_UPDATE_DATE,
+      </if>
+      <if test="replyUpdateDoc != null" >
+        REPLY_UPDATE_DOC,
+      </if>
+      <if test="replyUpdateDate != null" >
+        REPLY_UPDATE_DATE,
+      </if>
+      <if test="replySrc != null" >
+        REPLY_SRC,
+      </if>
+      <if test="invitationDocCod != null" >
+        INVITATION_DOC_COD,
+      </if>
+      <if test="applyDocName != null" >
+        APPLY_DOC_NAME,
+      </if>
+      <if test="replyDocName != null" >
+        REPLY_DOC_NAME,
+      </if>
+      <if test="qdhsName != null" >
+        QDHS_NAME,
+      </if>
+      <if test="qdhsDate != null" >
+        QDHS_DATE,
+      </if>
+      <if test="consultationOpinion != null" >
+        CONSULTATION_OPINION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="consultationRecordsSeq != null" >
+        #{consultationRecordsSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeqCr != null" >
+        #{emgSeqCr,jdbcType=VARCHAR},
+      </if>
+      <if test="applyCreateDate != null" >
+        #{applyCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invitationDate != null" >
+        #{invitationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invitationDocNme != null" >
+        #{invitationDocNme,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationDep != null" >
+        #{invitationDep,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDoc != null" >
+        #{applyDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="illnessState != null" >
+        #{illnessState,jdbcType=VARCHAR},
+      </if>
+      <if test="objective != null" >
+        #{objective,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationDate != null" >
+        #{consultationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyDep != null" >
+        #{replyDep,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDoc != null" >
+        #{replyDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="replyCreateDate != null" >
+        #{replyCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUpdateDoc != null" >
+        #{applyUpdateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUpdateDate != null" >
+        #{applyUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyUpdateDoc != null" >
+        #{replyUpdateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUpdateDate != null" >
+        #{replyUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replySrc != null" >
+        #{replySrc,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationDocCod != null" >
+        #{invitationDocCod,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDocName != null" >
+        #{applyDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDocName != null" >
+        #{replyDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="qdhsName != null" >
+        #{qdhsName,jdbcType=VARCHAR},
+      </if>
+      <if test="qdhsDate != null" >
+        #{qdhsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consultationOpinion != null" >
+        #{consultationOpinion,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspConsultationRecordsExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_CONSULTATION_RECORDS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_CONSULTATION_RECORDS
+    <set >
+      <if test="record.consultationRecordsSeq != null" >
+        CONSULTATION_RECORDS_SEQ = #{record.consultationRecordsSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeqCr != null" >
+        EMG_SEQ_CR = #{record.emgSeqCr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyCreateDate != null" >
+        APPLY_CREATE_DATE = #{record.applyCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.invitationDate != null" >
+        INVITATION_DATE = #{record.invitationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.invitationDocNme != null" >
+        INVITATION_DOC_NME = #{record.invitationDocNme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invitationDep != null" >
+        INVITATION_DEP = #{record.invitationDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyDoc != null" >
+        APPLY_DOC = #{record.applyDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.illnessState != null" >
+        ILLNESS_STATE = #{record.illnessState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.objective != null" >
+        OBJECTIVE = #{record.objective,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyContent != null" >
+        REPLY_CONTENT = #{record.replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consultationDate != null" >
+        CONSULTATION_DATE = #{record.consultationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replyDep != null" >
+        REPLY_DEP = #{record.replyDep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyDoc != null" >
+        REPLY_DOC = #{record.replyDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyCreateDate != null" >
+        REPLY_CREATE_DATE = #{record.replyCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.applyUpdateDoc != null" >
+        APPLY_UPDATE_DOC = #{record.applyUpdateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyUpdateDate != null" >
+        APPLY_UPDATE_DATE = #{record.applyUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replyUpdateDoc != null" >
+        REPLY_UPDATE_DOC = #{record.replyUpdateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyUpdateDate != null" >
+        REPLY_UPDATE_DATE = #{record.replyUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replySrc != null" >
+        REPLY_SRC = #{record.replySrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invitationDocCod != null" >
+        INVITATION_DOC_COD = #{record.invitationDocCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyDocName != null" >
+        APPLY_DOC_NAME = #{record.applyDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyDocName != null" >
+        REPLY_DOC_NAME = #{record.replyDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qdhsName != null" >
+        QDHS_NAME = #{record.qdhsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qdhsDate != null" >
+        QDHS_DATE = #{record.qdhsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.consultationOpinion != null" >
+        CONSULTATION_OPINION = #{record.consultationOpinion,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update HSP_CONSULTATION_RECORDS
+    set CONSULTATION_RECORDS_SEQ = #{record.consultationRecordsSeq,jdbcType=VARCHAR},
+      EMG_SEQ_CR = #{record.emgSeqCr,jdbcType=VARCHAR},
+      APPLY_CREATE_DATE = #{record.applyCreateDate,jdbcType=TIMESTAMP},
+      INVITATION_DATE = #{record.invitationDate,jdbcType=TIMESTAMP},
+      INVITATION_DOC_NME = #{record.invitationDocNme,jdbcType=VARCHAR},
+      INVITATION_DEP = #{record.invitationDep,jdbcType=VARCHAR},
+      APPLY_DOC = #{record.applyDoc,jdbcType=VARCHAR},
+      ILLNESS_STATE = #{record.illnessState,jdbcType=VARCHAR},
+      OBJECTIVE = #{record.objective,jdbcType=VARCHAR},
+      REPLY_CONTENT = #{record.replyContent,jdbcType=VARCHAR},
+      CONSULTATION_DATE = #{record.consultationDate,jdbcType=TIMESTAMP},
+      REPLY_DEP = #{record.replyDep,jdbcType=VARCHAR},
+      REPLY_DOC = #{record.replyDoc,jdbcType=VARCHAR},
+      REPLY_CREATE_DATE = #{record.replyCreateDate,jdbcType=TIMESTAMP},
+      APPLY_UPDATE_DOC = #{record.applyUpdateDoc,jdbcType=VARCHAR},
+      APPLY_UPDATE_DATE = #{record.applyUpdateDate,jdbcType=TIMESTAMP},
+      REPLY_UPDATE_DOC = #{record.replyUpdateDoc,jdbcType=VARCHAR},
+      REPLY_UPDATE_DATE = #{record.replyUpdateDate,jdbcType=TIMESTAMP},
+      REPLY_SRC = #{record.replySrc,jdbcType=VARCHAR},
+      INVITATION_DOC_COD = #{record.invitationDocCod,jdbcType=VARCHAR},
+      APPLY_DOC_NAME = #{record.applyDocName,jdbcType=VARCHAR},
+      REPLY_DOC_NAME = #{record.replyDocName,jdbcType=VARCHAR},
+      QDHS_NAME = #{record.qdhsName,jdbcType=VARCHAR},
+      QDHS_DATE = #{record.qdhsDate,jdbcType=TIMESTAMP},
+      CONSULTATION_OPINION = #{record.consultationOpinion,jdbcType=CLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_CONSULTATION_RECORDS
+    set CONSULTATION_RECORDS_SEQ = #{record.consultationRecordsSeq,jdbcType=VARCHAR},
+      EMG_SEQ_CR = #{record.emgSeqCr,jdbcType=VARCHAR},
+      APPLY_CREATE_DATE = #{record.applyCreateDate,jdbcType=TIMESTAMP},
+      INVITATION_DATE = #{record.invitationDate,jdbcType=TIMESTAMP},
+      INVITATION_DOC_NME = #{record.invitationDocNme,jdbcType=VARCHAR},
+      INVITATION_DEP = #{record.invitationDep,jdbcType=VARCHAR},
+      APPLY_DOC = #{record.applyDoc,jdbcType=VARCHAR},
+      ILLNESS_STATE = #{record.illnessState,jdbcType=VARCHAR},
+      OBJECTIVE = #{record.objective,jdbcType=VARCHAR},
+      REPLY_CONTENT = #{record.replyContent,jdbcType=VARCHAR},
+      CONSULTATION_DATE = #{record.consultationDate,jdbcType=TIMESTAMP},
+      REPLY_DEP = #{record.replyDep,jdbcType=VARCHAR},
+      REPLY_DOC = #{record.replyDoc,jdbcType=VARCHAR},
+      REPLY_CREATE_DATE = #{record.replyCreateDate,jdbcType=TIMESTAMP},
+      APPLY_UPDATE_DOC = #{record.applyUpdateDoc,jdbcType=VARCHAR},
+      APPLY_UPDATE_DATE = #{record.applyUpdateDate,jdbcType=TIMESTAMP},
+      REPLY_UPDATE_DOC = #{record.replyUpdateDoc,jdbcType=VARCHAR},
+      REPLY_UPDATE_DATE = #{record.replyUpdateDate,jdbcType=TIMESTAMP},
+      REPLY_SRC = #{record.replySrc,jdbcType=VARCHAR},
+      INVITATION_DOC_COD = #{record.invitationDocCod,jdbcType=VARCHAR},
+      APPLY_DOC_NAME = #{record.applyDocName,jdbcType=VARCHAR},
+      REPLY_DOC_NAME = #{record.replyDocName,jdbcType=VARCHAR},
+      QDHS_NAME = #{record.qdhsName,jdbcType=VARCHAR},
+      QDHS_DATE = #{record.qdhsDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspConsultationRecords" >
+    update HSP_CONSULTATION_RECORDS
+    <set >
+      <if test="emgSeqCr != null" >
+        EMG_SEQ_CR = #{emgSeqCr,jdbcType=VARCHAR},
+      </if>
+      <if test="applyCreateDate != null" >
+        APPLY_CREATE_DATE = #{applyCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invitationDate != null" >
+        INVITATION_DATE = #{invitationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invitationDocNme != null" >
+        INVITATION_DOC_NME = #{invitationDocNme,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationDep != null" >
+        INVITATION_DEP = #{invitationDep,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDoc != null" >
+        APPLY_DOC = #{applyDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="illnessState != null" >
+        ILLNESS_STATE = #{illnessState,jdbcType=VARCHAR},
+      </if>
+      <if test="objective != null" >
+        OBJECTIVE = #{objective,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationDate != null" >
+        CONSULTATION_DATE = #{consultationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyDep != null" >
+        REPLY_DEP = #{replyDep,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDoc != null" >
+        REPLY_DOC = #{replyDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="replyCreateDate != null" >
+        REPLY_CREATE_DATE = #{replyCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUpdateDoc != null" >
+        APPLY_UPDATE_DOC = #{applyUpdateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUpdateDate != null" >
+        APPLY_UPDATE_DATE = #{applyUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyUpdateDoc != null" >
+        REPLY_UPDATE_DOC = #{replyUpdateDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="replyUpdateDate != null" >
+        REPLY_UPDATE_DATE = #{replyUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replySrc != null" >
+        REPLY_SRC = #{replySrc,jdbcType=VARCHAR},
+      </if>
+      <if test="invitationDocCod != null" >
+        INVITATION_DOC_COD = #{invitationDocCod,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDocName != null" >
+        APPLY_DOC_NAME = #{applyDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDocName != null" >
+        REPLY_DOC_NAME = #{replyDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="qdhsName != null" >
+        QDHS_NAME = #{qdhsName,jdbcType=VARCHAR},
+      </if>
+      <if test="qdhsDate != null" >
+        QDHS_DATE = #{qdhsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consultationOpinion != null" >
+        CONSULTATION_OPINION = #{consultationOpinion,jdbcType=CLOB},
+      </if>
+    </set>
+    where CONSULTATION_RECORDS_SEQ = #{consultationRecordsSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.zyyhospital.pojo.domain.HspConsultationRecords" >
+    update HSP_CONSULTATION_RECORDS
+    set EMG_SEQ_CR = #{emgSeqCr,jdbcType=VARCHAR},
+      APPLY_CREATE_DATE = #{applyCreateDate,jdbcType=TIMESTAMP},
+      INVITATION_DATE = #{invitationDate,jdbcType=TIMESTAMP},
+      INVITATION_DOC_NME = #{invitationDocNme,jdbcType=VARCHAR},
+      INVITATION_DEP = #{invitationDep,jdbcType=VARCHAR},
+      APPLY_DOC = #{applyDoc,jdbcType=VARCHAR},
+      ILLNESS_STATE = #{illnessState,jdbcType=VARCHAR},
+      OBJECTIVE = #{objective,jdbcType=VARCHAR},
+      REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR},
+      CONSULTATION_DATE = #{consultationDate,jdbcType=TIMESTAMP},
+      REPLY_DEP = #{replyDep,jdbcType=VARCHAR},
+      REPLY_DOC = #{replyDoc,jdbcType=VARCHAR},
+      REPLY_CREATE_DATE = #{replyCreateDate,jdbcType=TIMESTAMP},
+      APPLY_UPDATE_DOC = #{applyUpdateDoc,jdbcType=VARCHAR},
+      APPLY_UPDATE_DATE = #{applyUpdateDate,jdbcType=TIMESTAMP},
+      REPLY_UPDATE_DOC = #{replyUpdateDoc,jdbcType=VARCHAR},
+      REPLY_UPDATE_DATE = #{replyUpdateDate,jdbcType=TIMESTAMP},
+      REPLY_SRC = #{replySrc,jdbcType=VARCHAR},
+      INVITATION_DOC_COD = #{invitationDocCod,jdbcType=VARCHAR},
+      APPLY_DOC_NAME = #{applyDocName,jdbcType=VARCHAR},
+      REPLY_DOC_NAME = #{replyDocName,jdbcType=VARCHAR},
+      QDHS_NAME = #{qdhsName,jdbcType=VARCHAR},
+      QDHS_DATE = #{qdhsDate,jdbcType=TIMESTAMP},
+      CONSULTATION_OPINION = #{consultationOpinion,jdbcType=CLOB}
+    where CONSULTATION_RECORDS_SEQ = #{consultationRecordsSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspConsultationRecords" >
+    update HSP_CONSULTATION_RECORDS
+    set EMG_SEQ_CR = #{emgSeqCr,jdbcType=VARCHAR},
+      APPLY_CREATE_DATE = #{applyCreateDate,jdbcType=TIMESTAMP},
+      INVITATION_DATE = #{invitationDate,jdbcType=TIMESTAMP},
+      INVITATION_DOC_NME = #{invitationDocNme,jdbcType=VARCHAR},
+      INVITATION_DEP = #{invitationDep,jdbcType=VARCHAR},
+      APPLY_DOC = #{applyDoc,jdbcType=VARCHAR},
+      ILLNESS_STATE = #{illnessState,jdbcType=VARCHAR},
+      OBJECTIVE = #{objective,jdbcType=VARCHAR},
+      REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR},
+      CONSULTATION_DATE = #{consultationDate,jdbcType=TIMESTAMP},
+      REPLY_DEP = #{replyDep,jdbcType=VARCHAR},
+      REPLY_DOC = #{replyDoc,jdbcType=VARCHAR},
+      REPLY_CREATE_DATE = #{replyCreateDate,jdbcType=TIMESTAMP},
+      APPLY_UPDATE_DOC = #{applyUpdateDoc,jdbcType=VARCHAR},
+      APPLY_UPDATE_DATE = #{applyUpdateDate,jdbcType=TIMESTAMP},
+      REPLY_UPDATE_DOC = #{replyUpdateDoc,jdbcType=VARCHAR},
+      REPLY_UPDATE_DATE = #{replyUpdateDate,jdbcType=TIMESTAMP},
+      REPLY_SRC = #{replySrc,jdbcType=VARCHAR},
+      INVITATION_DOC_COD = #{invitationDocCod,jdbcType=VARCHAR},
+      APPLY_DOC_NAME = #{applyDocName,jdbcType=VARCHAR},
+      REPLY_DOC_NAME = #{replyDocName,jdbcType=VARCHAR},
+      QDHS_NAME = #{qdhsName,jdbcType=VARCHAR},
+      QDHS_DATE = #{qdhsDate,jdbcType=TIMESTAMP}
+    where CONSULTATION_RECORDS_SEQ = #{consultationRecordsSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

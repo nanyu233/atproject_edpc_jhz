@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspCsampInfMapperCustom" >
+
+
+	<update id="mergeAmpleSubmit" parameterType="activetech.edpc.pojo.domain.HspCsampInf">
+		merge into HSP_CSAMP_INF a
+				using (select #{emgSeq, jdbcType = VARCHAR} EMG_SEQ,
+							  #{itmAls, jdbcType = VARCHAR} ITM_ALS,
+				              #{itmAqt, jdbcType = VARCHAR} ITM_AQT,
+				              #{itmMls, jdbcType = VARCHAR} ITM_MLS,
+				              #{itmMqt, jdbcType = VARCHAR} ITM_MQT,
+				              #{itmPls, jdbcType = VARCHAR} ITM_PLS,
+				              #{itmPqt, jdbcType = VARCHAR} ITM_PQT,
+				              #{itmLtm, jdbcType = TIMESTAMP} ITM_LTM,
+				              #{itmLfd, jdbcType = VARCHAR} ITM_LFD,
+				              #{itmEme, jdbcType = VARCHAR} ITM_EME
+				         from dual) b
+				on (a.emg_seq = b.emg_seq)
+				when matched then
+				  update
+				     set a.ITM_ALS = b.ITM_ALS,
+				     	 a.ITM_AQT = b.ITM_AQT,
+				     	 a.ITM_MLS = b.ITM_MLS,
+				     	 a.ITM_MQT = b.ITM_MQT,
+				     	 a.ITM_PLS = b.ITM_PLS,
+				     	 a.ITM_PQT = b.ITM_PQT,
+				     	 a.ITM_LTM = b.ITM_LTM,
+				     	 a.ITM_LFD = b.ITM_LFD,
+				     	 a.ITM_EME = b.ITM_EME
+				when not matched then
+				  insert
+				    (EMG_SEQ,
+				     ITM_ALS,
+				     ITM_AQT,
+				     ITM_MLS,
+				     ITM_MQT,
+				     ITM_PLS,
+				     ITM_PQT,
+				     ITM_LTM,
+				     ITM_LFD,
+				     ITM_EME,
+				     USR_NO,
+				     CRT_TIM)
+				  values
+				    (#{emgSeq, jdbcType = VARCHAR},
+				     b.ITM_ALS,
+				     b.ITM_AQT,
+				     b.ITM_MLS,
+				     b.ITM_MQT,
+				     b.ITM_PLS,
+				     b.ITM_PQT,
+				     b.ITM_LTM,
+				     b.ITM_LFD,
+				     b.ITM_EME,
+				     #{usrNo,jdbcType=VARCHAR},
+				     #{crtTim, jdbcType = TIMESTAMP}
+				     )
+	
+	</update>
+ 	
+</mapper>

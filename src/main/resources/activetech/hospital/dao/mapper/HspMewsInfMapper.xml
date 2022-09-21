@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspMewsInfMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspMewsInf" >
+    <id column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="HRT_RTE" property="hrtRte" jdbcType="DECIMAL" />
+    <result column="SBPUP_NBR" property="sbpupNbr" jdbcType="DECIMAL" />
+    <result column="BRE_NBR" property="breNbr" jdbcType="DECIMAL" />
+    <result column="TMP_NBR" property="tmpNbr" jdbcType="DECIMAL" />
+    <result column="SEN_RCT_COD" property="senRctCod" jdbcType="VARCHAR" />
+    <result column="TOT_SCO" property="totSco" jdbcType="DECIMAL" />
+    <result column="CHK_LVL_COD" property="chkLvlCod" jdbcType="VARCHAR" />
+    <result column="MOD_LVL_COD" property="modLvlCod" jdbcType="VARCHAR" />
+    <result column="MOD_LVL_DES" property="modLvlDes" jdbcType="VARCHAR" />
+    <result column="SBPDOWN_NBR" property="sbpdownNbr" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EMG_SEQ, HRT_RTE, SBPUP_NBR, BRE_NBR, TMP_NBR, SEN_RCT_COD, TOT_SCO, CHK_LVL_COD, 
+    MOD_LVL_COD, MOD_LVL_DES, SBPDOWN_NBR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.hospital.pojo.domain.HspMewsInfExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_MEWS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_MEWS_INF
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from HSP_MEWS_INF
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.hospital.pojo.domain.HspMewsInfExample" >
+    delete from HSP_MEWS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.hospital.pojo.domain.HspMewsInf" >
+    insert into HSP_MEWS_INF (EMG_SEQ, HRT_RTE, SBPUP_NBR, 
+      BRE_NBR, TMP_NBR, SEN_RCT_COD, 
+      TOT_SCO, CHK_LVL_COD, MOD_LVL_COD, 
+      MOD_LVL_DES, SBPDOWN_NBR)
+    values (#{emgSeq,jdbcType=VARCHAR}, #{hrtRte,jdbcType=DECIMAL}, #{sbpupNbr,jdbcType=DECIMAL}, 
+      #{breNbr,jdbcType=DECIMAL}, #{tmpNbr,jdbcType=DECIMAL}, #{senRctCod,jdbcType=VARCHAR}, 
+      #{totSco,jdbcType=DECIMAL}, #{chkLvlCod,jdbcType=VARCHAR}, #{modLvlCod,jdbcType=VARCHAR}, 
+      #{modLvlDes,jdbcType=VARCHAR}, #{sbpdownNbr,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.hospital.pojo.domain.HspMewsInf" >
+    insert into HSP_MEWS_INF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        EMG_SEQ,
+      </if>
+      <if test="hrtRte != null" >
+        HRT_RTE,
+      </if>
+      <if test="sbpupNbr != null" >
+        SBPUP_NBR,
+      </if>
+      <if test="breNbr != null" >
+        BRE_NBR,
+      </if>
+      <if test="tmpNbr != null" >
+        TMP_NBR,
+      </if>
+      <if test="senRctCod != null" >
+        SEN_RCT_COD,
+      </if>
+      <if test="totSco != null" >
+        TOT_SCO,
+      </if>
+      <if test="chkLvlCod != null" >
+        CHK_LVL_COD,
+      </if>
+      <if test="modLvlCod != null" >
+        MOD_LVL_COD,
+      </if>
+      <if test="modLvlDes != null" >
+        MOD_LVL_DES,
+      </if>
+      <if test="sbpdownNbr != null" >
+        SBPDOWN_NBR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emgSeq != null" >
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="hrtRte != null" >
+        #{hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpupNbr != null" >
+        #{sbpupNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="breNbr != null" >
+        #{breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="tmpNbr != null" >
+        #{tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="senRctCod != null" >
+        #{senRctCod,jdbcType=VARCHAR},
+      </if>
+      <if test="totSco != null" >
+        #{totSco,jdbcType=DECIMAL},
+      </if>
+      <if test="chkLvlCod != null" >
+        #{chkLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="modLvlCod != null" >
+        #{modLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="modLvlDes != null" >
+        #{modLvlDes,jdbcType=VARCHAR},
+      </if>
+      <if test="sbpdownNbr != null" >
+        #{sbpdownNbr,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.hospital.pojo.domain.HspMewsInfExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_MEWS_INF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_MEWS_INF
+    <set >
+      <if test="record.emgSeq != null" >
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hrtRte != null" >
+        HRT_RTE = #{record.hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sbpupNbr != null" >
+        SBPUP_NBR = #{record.sbpupNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.breNbr != null" >
+        BRE_NBR = #{record.breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tmpNbr != null" >
+        TMP_NBR = #{record.tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.senRctCod != null" >
+        SEN_RCT_COD = #{record.senRctCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totSco != null" >
+        TOT_SCO = #{record.totSco,jdbcType=DECIMAL},
+      </if>
+      <if test="record.chkLvlCod != null" >
+        CHK_LVL_COD = #{record.chkLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modLvlCod != null" >
+        MOD_LVL_COD = #{record.modLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modLvlDes != null" >
+        MOD_LVL_DES = #{record.modLvlDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbpdownNbr != null" >
+        SBPDOWN_NBR = #{record.sbpdownNbr,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_MEWS_INF
+    set EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      HRT_RTE = #{record.hrtRte,jdbcType=DECIMAL},
+      SBPUP_NBR = #{record.sbpupNbr,jdbcType=DECIMAL},
+      BRE_NBR = #{record.breNbr,jdbcType=DECIMAL},
+      TMP_NBR = #{record.tmpNbr,jdbcType=DECIMAL},
+      SEN_RCT_COD = #{record.senRctCod,jdbcType=VARCHAR},
+      TOT_SCO = #{record.totSco,jdbcType=DECIMAL},
+      CHK_LVL_COD = #{record.chkLvlCod,jdbcType=VARCHAR},
+      MOD_LVL_COD = #{record.modLvlCod,jdbcType=VARCHAR},
+      MOD_LVL_DES = #{record.modLvlDes,jdbcType=VARCHAR},
+      SBPDOWN_NBR = #{record.sbpdownNbr,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.hospital.pojo.domain.HspMewsInf" >
+    update HSP_MEWS_INF
+    <set >
+      <if test="hrtRte != null" >
+        HRT_RTE = #{hrtRte,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpupNbr != null" >
+        SBPUP_NBR = #{sbpupNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="breNbr != null" >
+        BRE_NBR = #{breNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="tmpNbr != null" >
+        TMP_NBR = #{tmpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="senRctCod != null" >
+        SEN_RCT_COD = #{senRctCod,jdbcType=VARCHAR},
+      </if>
+      <if test="totSco != null" >
+        TOT_SCO = #{totSco,jdbcType=DECIMAL},
+      </if>
+      <if test="chkLvlCod != null" >
+        CHK_LVL_COD = #{chkLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="modLvlCod != null" >
+        MOD_LVL_COD = #{modLvlCod,jdbcType=VARCHAR},
+      </if>
+      <if test="modLvlDes != null" >
+        MOD_LVL_DES = #{modLvlDes,jdbcType=VARCHAR},
+      </if>
+      <if test="sbpdownNbr != null" >
+        SBPDOWN_NBR = #{sbpdownNbr,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.hospital.pojo.domain.HspMewsInf" >
+    update HSP_MEWS_INF
+    set HRT_RTE = #{hrtRte,jdbcType=DECIMAL},
+      SBPUP_NBR = #{sbpupNbr,jdbcType=DECIMAL},
+      BRE_NBR = #{breNbr,jdbcType=DECIMAL},
+      TMP_NBR = #{tmpNbr,jdbcType=DECIMAL},
+      SEN_RCT_COD = #{senRctCod,jdbcType=VARCHAR},
+      TOT_SCO = #{totSco,jdbcType=DECIMAL},
+      CHK_LVL_COD = #{chkLvlCod,jdbcType=VARCHAR},
+      MOD_LVL_COD = #{modLvlCod,jdbcType=VARCHAR},
+      MOD_LVL_DES = #{modLvlDes,jdbcType=VARCHAR},
+      SBPDOWN_NBR = #{sbpdownNbr,jdbcType=DECIMAL}
+    where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

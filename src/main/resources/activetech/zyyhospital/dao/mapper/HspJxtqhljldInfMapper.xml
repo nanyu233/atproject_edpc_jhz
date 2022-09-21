@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspJxtqhljldInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspJxtqhljldInf">
+    <id column="JXTQ_SEQ" jdbcType="VARCHAR" property="jxtqSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="MS_COD" jdbcType="CHAR" property="msCod" />
+    <result column="JXTQ_YND" jdbcType="VARCHAR" property="jxtqYnd" />
+    <result column="JXTQ_CQL" jdbcType="VARCHAR" property="jxtqCql" />
+    <result column="JXTQ_PL" jdbcType="VARCHAR" property="jxtqPl" />
+    <result column="JXTQ_PEEP" jdbcType="VARCHAR" property="jxtqPeep" />
+    <result column="JXTQ_HXB" jdbcType="VARCHAR" property="jxtqHxb" />
+    <result column="RECORD_DAT" jdbcType="TIMESTAMP" property="recordDat" />
+    <result column="CRT_DAT" jdbcType="TIMESTAMP" property="crtDat" />
+    <result column="CRT_NUR" jdbcType="VARCHAR" property="crtNur" />
+    <result column="CRT_NAME" jdbcType="VARCHAR" property="crtName" />
+    <result column="UP_DAT" jdbcType="TIMESTAMP" property="upDat" />
+    <result column="UP_NUR" jdbcType="VARCHAR" property="upNur" />
+    <result column="UP_NAME" jdbcType="VARCHAR" property="upName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    JXTQ_SEQ, EMG_SEQ, MS_COD, JXTQ_YND, JXTQ_CQL, JXTQ_PL, JXTQ_PEEP, JXTQ_HXB, RECORD_DAT, 
+    CRT_DAT, CRT_NUR, CRT_NAME, UP_DAT, UP_NUR, UP_NAME
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspJxtqhljldInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_JXTQHLJLD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_JXTQHLJLD_INF
+    where JXTQ_SEQ = #{jxtqSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_JXTQHLJLD_INF
+    where JXTQ_SEQ = #{jxtqSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspJxtqhljldInfExample">
+    delete from HSP_JXTQHLJLD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspJxtqhljldInf">
+    insert into HSP_JXTQHLJLD_INF (JXTQ_SEQ, EMG_SEQ, MS_COD, 
+      JXTQ_YND, JXTQ_CQL, JXTQ_PL, 
+      JXTQ_PEEP, JXTQ_HXB, RECORD_DAT, 
+      CRT_DAT, CRT_NUR, CRT_NAME, 
+      UP_DAT, UP_NUR, UP_NAME
+      )
+    values (#{jxtqSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{msCod,jdbcType=CHAR}, 
+      #{jxtqYnd,jdbcType=VARCHAR}, #{jxtqCql,jdbcType=VARCHAR}, #{jxtqPl,jdbcType=VARCHAR}, 
+      #{jxtqPeep,jdbcType=VARCHAR}, #{jxtqHxb,jdbcType=VARCHAR}, #{recordDat,jdbcType=TIMESTAMP}, 
+      #{crtDat,jdbcType=TIMESTAMP}, #{crtNur,jdbcType=VARCHAR}, #{crtName,jdbcType=VARCHAR}, 
+      #{upDat,jdbcType=TIMESTAMP}, #{upNur,jdbcType=VARCHAR}, #{upName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspJxtqhljldInf">
+    insert into HSP_JXTQHLJLD_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jxtqSeq != null">
+        JXTQ_SEQ,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="msCod != null">
+        MS_COD,
+      </if>
+      <if test="jxtqYnd != null">
+        JXTQ_YND,
+      </if>
+      <if test="jxtqCql != null">
+        JXTQ_CQL,
+      </if>
+      <if test="jxtqPl != null">
+        JXTQ_PL,
+      </if>
+      <if test="jxtqPeep != null">
+        JXTQ_PEEP,
+      </if>
+      <if test="jxtqHxb != null">
+        JXTQ_HXB,
+      </if>
+      <if test="recordDat != null">
+        RECORD_DAT,
+      </if>
+      <if test="crtDat != null">
+        CRT_DAT,
+      </if>
+      <if test="crtNur != null">
+        CRT_NUR,
+      </if>
+      <if test="crtName != null">
+        CRT_NAME,
+      </if>
+      <if test="upDat != null">
+        UP_DAT,
+      </if>
+      <if test="upNur != null">
+        UP_NUR,
+      </if>
+      <if test="upName != null">
+        UP_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jxtqSeq != null">
+        #{jxtqSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="msCod != null">
+        #{msCod,jdbcType=CHAR},
+      </if>
+      <if test="jxtqYnd != null">
+        #{jxtqYnd,jdbcType=VARCHAR},
+      </if>
+      <if test="jxtqCql != null">
+        #{jxtqCql,jdbcType=VARCHAR},
+      </if>
+      <if test="jxtqPl != null">
+        #{jxtqPl,jdbcType=VARCHAR},
+      </if>
+      <if test="jxtqPeep != null">
+        #{jxtqPeep,jdbcType=VARCHAR},
+      </if>
+      <if test="jxtqHxb != null">
+        #{jxtqHxb,jdbcType=VARCHAR},
+      </if>
+      <if test="recordDat != null">
+        #{recordDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtDat != null">
+        #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtNur != null">
+        #{crtNur,jdbcType=VARCHAR},
+      </if>
+      <if test="crtName != null">
+        #{crtName,jdbcType=VARCHAR},
+      </if>
+      <if test="upDat != null">
+        #{upDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upNur != null">
+        #{upNur,jdbcType=VARCHAR},
+      </if>
+      <if test="upName != null">
+        #{upName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspJxtqhljldInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_JXTQHLJLD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_JXTQHLJLD_INF
+    <set>
+      <if test="record.jxtqSeq != null">
+        JXTQ_SEQ = #{record.jxtqSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msCod != null">
+        MS_COD = #{record.msCod,jdbcType=CHAR},
+      </if>
+      <if test="record.jxtqYnd != null">
+        JXTQ_YND = #{record.jxtqYnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jxtqCql != null">
+        JXTQ_CQL = #{record.jxtqCql,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jxtqPl != null">
+        JXTQ_PL = #{record.jxtqPl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jxtqPeep != null">
+        JXTQ_PEEP = #{record.jxtqPeep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jxtqHxb != null">
+        JXTQ_HXB = #{record.jxtqHxb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordDat != null">
+        RECORD_DAT = #{record.recordDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtDat != null">
+        CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtNur != null">
+        CRT_NUR = #{record.crtNur,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtName != null">
+        CRT_NAME = #{record.crtName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upDat != null">
+        UP_DAT = #{record.upDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.upNur != null">
+        UP_NUR = #{record.upNur,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upName != null">
+        UP_NAME = #{record.upName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_JXTQHLJLD_INF
+    set JXTQ_SEQ = #{record.jxtqSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      MS_COD = #{record.msCod,jdbcType=CHAR},
+      JXTQ_YND = #{record.jxtqYnd,jdbcType=VARCHAR},
+      JXTQ_CQL = #{record.jxtqCql,jdbcType=VARCHAR},
+      JXTQ_PL = #{record.jxtqPl,jdbcType=VARCHAR},
+      JXTQ_PEEP = #{record.jxtqPeep,jdbcType=VARCHAR},
+      JXTQ_HXB = #{record.jxtqHxb,jdbcType=VARCHAR},
+      RECORD_DAT = #{record.recordDat,jdbcType=TIMESTAMP},
+      CRT_DAT = #{record.crtDat,jdbcType=TIMESTAMP},
+      CRT_NUR = #{record.crtNur,jdbcType=VARCHAR},
+      CRT_NAME = #{record.crtName,jdbcType=VARCHAR},
+      UP_DAT = #{record.upDat,jdbcType=TIMESTAMP},
+      UP_NUR = #{record.upNur,jdbcType=VARCHAR},
+      UP_NAME = #{record.upName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspJxtqhljldInf">
+    update HSP_JXTQHLJLD_INF
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="msCod != null">
+        MS_COD = #{msCod,jdbcType=CHAR},
+      </if>
+      <if test="jxtqYnd != null">
+        JXTQ_YND = #{jxtqYnd,jdbcType=VARCHAR},
+      </if>
+      <if test="jxtqCql != null">
+        JXTQ_CQL = #{jxtqCql,jdbcType=VARCHAR},
+      </if>
+      <if test="jxtqPl != null">
+        JXTQ_PL = #{jxtqPl,jdbcType=VARCHAR},
+      </if>
+      <if test="jxtqPeep != null">
+        JXTQ_PEEP = #{jxtqPeep,jdbcType=VARCHAR},
+      </if>
+      <if test="jxtqHxb != null">
+        JXTQ_HXB = #{jxtqHxb,jdbcType=VARCHAR},
+      </if>
+      <if test="recordDat != null">
+        RECORD_DAT = #{recordDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtDat != null">
+        CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtNur != null">
+        CRT_NUR = #{crtNur,jdbcType=VARCHAR},
+      </if>
+      <if test="crtName != null">
+        CRT_NAME = #{crtName,jdbcType=VARCHAR},
+      </if>
+      <if test="upDat != null">
+        UP_DAT = #{upDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upNur != null">
+        UP_NUR = #{upNur,jdbcType=VARCHAR},
+      </if>
+      <if test="upName != null">
+        UP_NAME = #{upName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where JXTQ_SEQ = #{jxtqSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspJxtqhljldInf">
+    update HSP_JXTQHLJLD_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      MS_COD = #{msCod,jdbcType=CHAR},
+      JXTQ_YND = #{jxtqYnd,jdbcType=VARCHAR},
+      JXTQ_CQL = #{jxtqCql,jdbcType=VARCHAR},
+      JXTQ_PL = #{jxtqPl,jdbcType=VARCHAR},
+      JXTQ_PEEP = #{jxtqPeep,jdbcType=VARCHAR},
+      JXTQ_HXB = #{jxtqHxb,jdbcType=VARCHAR},
+      RECORD_DAT = #{recordDat,jdbcType=TIMESTAMP},
+      CRT_DAT = #{crtDat,jdbcType=TIMESTAMP},
+      CRT_NUR = #{crtNur,jdbcType=VARCHAR},
+      CRT_NAME = #{crtName,jdbcType=VARCHAR},
+      UP_DAT = #{upDat,jdbcType=TIMESTAMP},
+      UP_NUR = #{upNur,jdbcType=VARCHAR},
+      UP_NAME = #{upName,jdbcType=VARCHAR}
+    where JXTQ_SEQ = #{jxtqSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

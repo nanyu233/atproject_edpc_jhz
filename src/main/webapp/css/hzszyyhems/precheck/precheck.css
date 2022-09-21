@@ -1,0 +1,603 @@
+@charset "utf-8";
+
+
+/**
+*  抢救室页面单独css
+*/
+
+body, html {
+    float: left;
+    width: 100%;
+    max-width: 1438px;
+    min-width: 1438px;
+    font-size: 625%;  /*100 ÷ 16 × 100% = 625%*/
+}
+input[type=text] {
+    padding-left: 5px;
+    height: 28px!important;
+    border: #ddd solid 1px;
+    line-height: 28px!important;
+    box-sizing: border-box;
+}
+select {
+    padding-left: 5px;
+    height: 28px!important;
+    min-width: 45px;
+    border: #ddd solid 1px;
+    line-height: 28px!important;
+}
+.content-form {
+    padding: 10px;
+    font-size: 12px;
+    display: block;
+}
+.page-btn {
+    float: left;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.font-btn {
+    color: #2a00ff;
+    font-size: 0.14rem;
+}
+.font-btn i {
+    margin-right: 2px;
+}
+.font-btn i.at-fa-mass {
+    font-size: 0.18rem;
+}
+.font-btn i.at-fa-register_hos {
+    font-size: 0.17rem;
+}
+.right-gap-btn {
+    margin-right: 10px;
+}
+.content-page {
+    float: left;
+    width: 100%;
+    height: 100%;
+    border-top: 1px dashed #ddd;
+}
+.content-page .half-div {
+    float: left;
+    width: 49%;
+    margin-right: 1%;
+}
+.half-item {
+   float: left;
+   width: 50%; 
+}
+.basic-item {
+    float: left;
+    width: 100%;
+}
+.basic-item .half-item {
+    width: 68%;
+}
+.normal-line {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+.padding-div {
+    float: left;
+    width: 100%;
+    margin: 1px 0;
+}
+.form-text {
+    float: left;
+    height: 30px;
+    font-size: 0.14rem;
+    line-height: 30px;
+}
+.middle-input-wth {
+    float: left;
+    width: 70%;
+    margin-right: 2%;
+    box-sizing: border-box;
+}
+.total-input-wth {
+    float: left;
+    width: 35%;
+    box-sizing: border-box;
+}
+.total-input {
+    width: 100%;
+    box-sizing: border-box;
+}
+.special-input-wth {
+    width: 85%;
+    box-sizing: border-box;
+}
+.total-item {
+   float: left;
+   width: 100%;  
+}
+.two-text {
+    width: 46px;
+}
+.four-text {
+    width: 70px;
+}
+.six-text {
+    width: 120px;
+}
+.two-gap-text {
+    width: 55px;
+}
+.five-text {
+    width: 105px;
+}
+.s-four-text {
+    width: 100px;
+}
+.part-title {
+    float: left;
+    margin: 8px 0;
+    width: 100%;
+}
+.part-title span {
+    padding-left: 4px;
+    display: inline-block;
+    color: #0152bd;
+    font-size: 0.16rem;
+    border-left: 4px solid #0152bd;
+}
+.check-btn {
+    float: left;
+    width: auto;
+    margin-top: 4px;
+    height: 22px;
+    line-height: 22px;
+    padding: 0 8px; 
+    color: #636363;
+    border: none;
+    background: #E0ECFF;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.check-btn.active {
+    background: #0152bd;
+    color: #fff;
+    box-sizing: border-box;
+    line-height: 20px;
+}
+input.age {
+    float: left;
+    width: 45px !important;   
+}
+input.sm-box {
+    width: 45px;
+}
+input.sm-input {
+    float: left;
+    width: 70px !important;
+}
+.age-type, .read-text {
+    float: left;
+    display: block;
+    width: 45px;
+    margin-left: 5px;
+    height: 23px;
+    line-height: 23px;
+}
+.search-wrap {
+  float: left;
+  width: 76%;
+  position: relative;
+}
+.search-wrap .first-impression {
+  width: 100%;
+}
+.middleLabel {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    vertical-align: middle;
+    height: 30px !important;
+    line-height: 30px !important;
+}
+.sign-div {
+    float: left;
+    width: 75px;
+}
+.gls-div{
+    width: 230px;
+}
+.long-div {
+    width: 160px;
+}
+.small-long-div {
+    width: 140px;
+}
+.sign-div p {
+    text-align: center;
+    font-weight: bold;
+}
+.sign-div .underline-input {
+    width: 40px;
+    padding-left: 0;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+.sign-div .underline-input:hover {
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid #ddd;
+}
+.sign-div div {
+    text-align: center;
+    color: gray;
+}
+a:hover {
+    text-decoration: none;
+}
+.RedwarningTw,
+.RedwarningXy,
+.RedwarningHx,
+.RedwarningSsy,
+.RedwarningXl, .red{
+    color: red;
+}
+.red {
+    font-weight: bolder;
+}
+.score-panel {
+    float: left;
+    width: 80px;
+    height: 60px;
+    background: #f2f2f2;
+    cursor: pointer;
+}
+.score-panel p {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 0.13rem;
+}
+.score-panel .score {
+    font-size: 0.15rem;
+    color: #f0791b;
+}
+.score-panel .num-score {
+    font-size: 0.18rem;
+}
+.span-wth {
+    width: 70%;
+}
+.topList {
+    top: 27px;
+}
+.save-btn-div {
+    float: left;
+    width: 100%;
+    margin: 10px 0;
+    text-align: center;
+}
+.left-gap {
+    float: left;
+    width: 93px;
+    margin-right: 8px;
+}
+.strong-point {
+    color: #2a00ff;
+    font-weight: bold;
+}
+.cbyxSearchList {
+    display: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    position: absolute;
+    max-height: 200px;
+    border: 1px solid #ddd;
+    border-top: none;
+    background-color: #fff;
+    font-size: 12px;
+    line-height: 1.5;
+    z-index: 999;
+    box-sizing: border-box;
+}
+.cbyxSearchList tr, .patient-msg-container .abnScoList li{
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    text-indent: 0.5em;
+    height: 20px;
+    line-height: 20px;
+}
+.cbyxSearchList tr.buddyListHighLight, .patient-msg-container .abnScoList li:hover{
+    background: rgb(30, 144, 255);
+    color: #fff;
+    text-decoration: none;
+    cursor: default;
+}
+.final-level {
+    float: right;
+    width: 70px;
+    height: 70px;
+    margin-right: 40px;
+    margin-top: -70px;
+    margin-bottom: 5px;
+    font-size: 0.18rem;
+    line-height: 24px;
+}
+.final-level .level {
+    height: 40px;
+}
+.final-level i {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 0.32rem;
+    line-height: 40px;
+    color: #f0791b;
+}
+.level-btn3, .level-btn4 {
+    border: 1px solid #44b548;
+    color: #44b548; 
+    background: #fff;
+}
+.level-btn2 {
+    border: 1px solid #f3d800;
+    color: #f3d800; 
+    background: #fff;
+}
+.level-btn1 {
+    border: 1px solid #ff9900;
+    color: #ff9900; 
+    background: #fff;
+}
+.level-btn0 {
+    border: 1px solid red;
+    color: red; 
+    background: #fff;
+}
+.level3, .level4, .level-btn3.active, .level-btn4.active {
+    background: #44b548;
+    border: 1px solid #44b548;
+    color: #fff;
+}
+.level2, .level-btn2.active {
+    background: #f3d800;
+    border: 1px solid #f3d800;
+    color: #fff;
+}
+.level1, .level-btn1.active {
+    background: #ff9900;
+    border: 1px solid #ff9900;
+    color: #fff;
+}
+.level0, .level-btn0.active {
+    background: red;
+    border: 1px solid red;
+    color: #fff;
+}
+.level-span {
+    font-size: 0.19rem;
+    line-height: 39px;
+}
+.level-area0 {
+    color: red;
+}
+.level-area1 {
+    color: #f3d800;
+}
+.level-area2 {
+    color: #44b548;
+}
+.eight-div {
+    float: left;
+    width: 80%;
+}
+.printBr {
+    display: none;
+}
+.printText {
+    font-size: 14px;
+    float:left;
+    width: 100%;
+}
+a.underLineText {
+    text-decoration: underline;
+    margin-left: 5px;
+}
+.up-down-px {
+    margin: 4px 0;
+}
+.normal-wth {
+    width: 100px;
+}
+.right-px {
+    margin-right: 2px;
+}
+.bottom-line {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    background: url(../../../images/hems/jsbrqjs/head_bg.png) right bottom;
+    background-repeat: repeat-x;
+}
+.sex-type {
+    width: auto;
+    padding-left: 0;
+}
+select.bed-pos {
+    width: 70%;
+}
+.left-img {
+    float: left;
+    width: 85px;
+}
+.avatar {
+    width: 80px;
+}
+.right-msg {
+    float: left;
+    width: 47%;
+}
+.left-line-part {
+    float: left;
+    width: 265px;
+    padding-left: 8px;
+    background: url(../../../images/hems/jsbrqjs/cut-line.png) left center no-repeat;
+    background-size: auto 48px
+}
+.left-line-div {
+    float: left;
+    width: 100%;
+}
+.left-line-div input {
+    width: 190px;
+}
+.left-line-gap {
+    margin-left: 85px;
+}
+.part-title .gray-span {
+    border-left: none;
+    color: #a2a3aa;
+    font-weight: normal;
+    font-size: 0.13rem;
+}
+.part-title .black {
+    color: #000 !important;
+}
+input[type="text"].no-line-input {
+    width: 140px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    color: #a2a3aa;
+}
+.spanRight {
+    color: #2a00ff;
+    margin-right: 5px;
+}
+.big-text {
+    height: 37px;
+    line-height: 45px;
+}
+.big-check-btn {
+    width: 75px;
+    font-size: 0.19rem;
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+    box-sizing: border-box;
+}
+.big-check-btn.active {
+    width: 75px;
+    line-height: 35px;
+}
+.min-select {
+    padding: 0;
+    min-width: 30px;
+}
+.fullSpanWth {
+    width: 100px;
+}
+.fullSpanWth input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+@media screen and (min-device-width:960px) and (max-device-width:1280px) {
+    body, html {
+        font-size: 500%;
+        min-width: 1258px;
+    }
+    .two-text {
+        width: 34px;
+    }
+    .four-text {
+        width: 65px;
+    }
+    .right-gap-btn {
+        margin-right: 6px;
+    }
+    .sign-div, .normal-wth {
+        width: 80px;
+    }
+    /* .sign-div .underline-input {
+        width: 45px;
+    } */
+    .small-long-div {
+        width: 130px;
+    }
+    .long-div {
+        width: 150px;
+    }
+    .right-msg {
+        float: left;
+        width: 50%;
+    }
+    .left-line-part {
+        width: 210px;
+        padding-left: 8px;
+    }
+    .left-line-div input {
+        width: 140px;
+    }
+    .input-date {
+        width: 92px;
+    }
+    input[type="text"] {
+        padding-left: 1px;
+    }
+    .small-input-wth {
+        width: 50px;
+    }
+    .knowledgeBoxBtn {
+        width: 48px;
+    }
+}
+@media screen and (min-device-width:1300px) and (max-device-width:1366px) {
+    body, html {
+        font-size: 600%;
+        min-width: 1350px;
+        overflow-x: hidden;
+    }
+    .two-text {
+        width: 42px;
+    }
+    .small-input-wth {
+        width: 50px;
+    }
+    .knowledgeBoxBtn {
+        width: 48px;
+    }
+    .normal-wth {
+        width: 90px;
+    }
+    .right-msg {
+        float: left;
+        width: 49%;
+    }
+    .left-line-part {
+        width: 235px;
+    }
+    .left-line-div input {
+        width: 165px;
+    }
+}
+.yjwsNum{
+    font-size: 0.13rem;
+    margin-left: -8px;
+    line-height: 0.14rem;
+}
+.big-link-btn {
+    width: 120px;
+    height: 30px;
+    margin-right: 20px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 0.14rem;
+    color: #636363;
+    background: #E0ECFF;
+    /* border: 1px solid red; */
+    cursor: pointer;
+    border-radius: 4px;
+}
+.big-link-btn.active {
+    background: red;
+    color: #fff;
+}

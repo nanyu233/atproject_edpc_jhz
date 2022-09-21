@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SysuserroleMapperCustom就是mapper接口 -->
+<mapper namespace="activetech.base.dao.mapper.DstuserroleCustomMapper">
+	<!-- 查询用户角色列表 -->
+	<select id="findUserroleList" parameterType="java.lang.String"
+		resultType="activetech.base.pojo.dto.DstuserroleCustom">
+			select id,
+			       usrno,
+			       roleid,
+			       (select rolename from dstrole where roleid = a.roleid) as rolename
+			  from dstuserrole a
+			 where a.usrno = #{usrno}
+	</select>
+	
+	<select id="findUserroleListOrderByVchar1" parameterType="java.lang.String"
+		resultType="activetech.base.pojo.dto.DstuserroleCustom">
+			select a.id,
+			       a.usrno,
+			       a.roleid,
+			       b.rolename
+			  from dstuserrole a , dstrole b
+			 where a.usrno = #{usrno}
+			   and a.roleid = b.roleid
+			 order by b.vchar1
+	</select>
+	
+	
+	<select id="findUserroleListCount" parameterType="java.lang.String"
+		resultType="activetech.base.pojo.dto.DstuserroleCustom">
+			select count(*)
+			  from dstuserrole a
+			 where a.usrno = #{usrno}
+	</select>
+	<delete id="deleteUserroleByUsrno" parameterType="java.lang.String" >
+    	delete from dstuserrole
+    	where usrno = #{usrno}
+  	</delete>
+</mapper>

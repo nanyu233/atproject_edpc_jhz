@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.IcuErInfoCustomMapper">
+	<resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.IcuErInfoCustom" >
+	    <id column="ER_SEQ" property="erSeq" jdbcType="VARCHAR" />
+	    <result column="ER_STAT" property="erStat" jdbcType="VARCHAR" />
+	    <result column="ER_TYPE" property="erType" jdbcType="VARCHAR" />
+	    <result column="ER_NAME" property="erName" jdbcType="VARCHAR" />
+	    <result column="ER_INFO" property="erInfo" jdbcType="VARCHAR" />
+	    <result column="LIVE_NO" property="liveNo" jdbcType="VARCHAR" />
+	    <result column="LINK_SEQ" property="linkSeq" jdbcType="VARCHAR" />
+	    <result column="LINK_TIME" property="linkTime" jdbcType="TIMESTAMP" />
+	    <result column="SKIP_URL" property="skipUrl" jdbcType="VARCHAR" />
+	    <result column="CRT_TIME" property="crtTime" jdbcType="TIMESTAMP" />
+	    <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+	    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+	    <result column="MOD_USER" property="modUser" jdbcType="VARCHAR" />	    
+	</resultMap>
+	<sql id="Base_Column_List" >
+	    ER_SEQ, ER_STAT, ER_TYPE, ER_NAME, ER_INFO, LIVE_NO, LINK_SEQ, LINK_TIME, SKIP_URL, 
+	    CRT_TIME, CRT_USER, MOD_TIME, MOD_USER
+	</sql>
+	<sql id="query_wjztx_where">
+		<if test="startdate!=null and startdate!=''">
+			and to_date(to_char(CRT_TIME,'yyyy/mm/dd'),'yyyy/mm/dd')<![CDATA[>=]]> to_date(to_char(#{startdate,jdbcType=DATE},'yyyy/mm/dd'),'yyyy/mm/dd')
+		</if>
+		<if test="enddate!=null and enddate!=''">
+			and to_date(to_char(CRT_TIME,'yyyy/mm/dd'),'yyyy/mm/dd')<![CDATA[<=]]> to_date(to_char(#{enddate,jdbcType=DATE},'yyyy/mm/dd'),'yyyy/mm/dd')
+		</if>
+		<if test="icuErInfoCustom!=null">
+			<if test="icuErInfoCustom.erType!=null and icuErInfoCustom.erType!=''">
+				and ER_TYPE = #{icuErInfoCustom.erType}
+			</if>
+			<if test="icuErInfoCustom.erStat!=null and icuErInfoCustom.erStat!=''">
+				and ER_STAT = #{icuErInfoCustom.erStat}
+			</if>
+		</if>
+	</sql>
+	
+	<select id="getErInfoList" parameterType="activetech.zyyhospital.pojo.dto.IcuErInfoQueryDto"
+		resultMap="BaseResultMap">
+		select ER_SEQ, ER_STAT, ER_TYPE, ER_NAME, ER_INFO, LIVE_NO, LINK_SEQ, LINK_TIME, SKIP_URL, 
+	    CRT_TIME, MOD_TIME,CRT_USER, MOD_USER,
+		to_char(CRT_TIME,'yyyy/MM/dd hh24:mi') crtTimeStr,
+		to_char(MOD_TIME,'yyyy/MM/dd hh24:mi') modTimeStr
+		from ICU_ER_INFO
+		<where>
+			<include refid="query_wjztx_where" />
+		</where>
+	</select>
+	
+	<select id="getErInfoListFy" parameterType="activetech.zyyhospital.pojo.dto.IcuErInfoQueryDto"
+		resultMap="BaseResultMap">
+		<!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+		select ER_SEQ, ER_STAT, ER_TYPE, ER_NAME, ER_INFO, LIVE_NO, LINK_SEQ, LINK_TIME, SKIP_URL, 
+	    CRT_TIME, MOD_TIME,CRT_USER, MOD_USER,
+		to_char(CRT_TIME,'yyyy/MM/dd hh24:mi') crtTimeStr,
+		to_char(MOD_TIME,'yyyy/MM/dd hh24:mi') modTimeStr
+		from ICU_ER_INFO
+		<where>
+			<include refid="query_wjztx_where" />
+		</where>
+		order by CRT_TIME
+		<!-- 分页尾 -->
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	
+	<select id="getErInfoListCount" parameterType="activetech.zyyhospital.pojo.dto.IcuErInfoQueryDto"
+		resultType="int">
+		select count(*) from ICU_ER_INFO
+		<where>
+			<include refid="query_wjztx_where" />
+		</where>
+	</select>
+</mapper>

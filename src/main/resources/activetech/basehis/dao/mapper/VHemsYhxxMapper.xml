@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.basehis.dao.mapper.VHemsYhxxMapper" >
+<select id="findUserByHis" resultType="activetech.base.pojo.dto.DstuserCustom">
+	select userno userid,
+		userno usrno,
+	    USERNAME usrname,
+	    SYSID sysid
+	from v_hems_yhxx
+	where userno = #{usrno}
+</select>
+	
+</mapper>

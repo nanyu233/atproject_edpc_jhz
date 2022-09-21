@@ -1,0 +1,654 @@
+@charset "utf-8";
+
+/**
+*  系统评估
+*/
+.queryxtpg {
+    width: 94%;
+    min-width:1080px;
+    max-width:1400px;
+    margin:0 auto;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.queryxtpg .topPart {
+    float: left;
+    width: 100%;
+    height: 80px;
+    padding-top: 10px;
+    /* border-bottom: 1px dashed #9abce9; */
+}
+.queryxtpg .subGrade .tiptitle{
+    margin-top:9px;
+    float:left;
+    width:100%;
+    margin-bottom:12px;
+}
+.queryxtpgls .subGrade .tiptitle{
+    margin-bottom:0px;
+}
+.queryxtpg .tiptitle .subtip{
+    font-size:18px;
+    color:#00529e;
+}
+.subGrade .tiptitle img{
+    vertical-align:top;
+    float:left;
+    margin-left:22px;
+    margin-right:10px;
+}
+.queryxtpg .subGrade .display-input {
+    float: left;
+    margin-right:64px;
+    text-indent:2em;
+    color:#3b3836;
+    font-size:14px;
+}
+.queryxtpg .subGrade .display-p{
+    float: left;
+    margin-right:64px;
+    text-indent:2em;
+    color:#3b3836;
+    font-size:14px;
+}
+.subGrade .display-input input ,.queryxtpg .subGrade .display-input select{
+    width:120px;
+}
+.queryxtpg .labtab{
+    display:inline-block;
+    width:100%;
+    height:32px;
+}
+.panelGde .paneltab{
+    margin-top:14px;
+    width:96%;
+    margin-left:2%;
+    margin-right:2%;
+}
+.panelGde table{
+    font-size:14px;
+}
+.panelGde table td,.panelGde table th{
+    border:1px solid #f1f1f1;
+}
+.panelGde table th{
+    background:rgb(243,249,255);
+}
+.panelGde table tr input{
+    text-indent:5%;
+}
+.queryxtpg .panelGde table .firsttr td{
+    background:rgb(243,249,255);
+    text-align:center;
+}
+.panelGde table .oddtr td{
+    background:#fff;
+}
+.panelGde table .eventr td{
+    background:#f2f4f6;
+}
+.panelGde table tr{
+    height:32px;
+}
+.DuctGde table{
+    font-size:14px;
+}
+.DuctGde table td,.DuctGde table th{
+    border:0;
+}
+.DuctGde table th{
+    background:none;
+}
+.DuctGde table tr{
+    height:32px;
+}
+.queryxtpg .scoreDiv,.queryxtpg .scoreCheckDiv{
+    float:left;
+    width:96%;
+    margin-left:2%;
+    font-size:14px;
+    margin-top:10px;
+    margin-bottom:8px;
+}
+.queryxtpg .NrsContent .scoreDiv{
+    float:left;
+    width:88%;
+    margin-left:10%;
+    font-size:14px;
+    margin-top:10px;
+    margin-bottom:8px;
+}
+.queryxtpg .scoreDiv input{
+    width:94%;
+/*    float:right;*/
+}
+.queryxtpg .paneltab .inputSpan{
+    display:inline-block;
+    width:50%;
+    margin-left:25%;
+    line-height:32px;
+}
+.queryxtpg .adltab .inputSpan{
+    width:30%;
+    margin-left:35%;
+}
+.queryxtpg .panelGde{
+    width:100%;
+    float:left;
+    margin-top: 10px;
+    background:#f6f6f6;
+}
+.queryxtpg .panelGde .panelBlock{
+    height:26px;
+    line-height:26px;
+    box-sizing:border-box;
+    border:1px solid #9abce9;
+    border-left:4px solid #9abce9;
+    border-right:4px solid #9abce9;
+}
+.queryxtpg .panelGde .tabtop{
+    width:90%;
+}
+.panelGde .tabtop .title{
+    float:left;
+    color:#000;
+    text-indent:1em;
+    font-size:16px;
+}
+.panelGde .edit img{
+    vertical-align:top;
+    margin-top:5px;
+}
+.queryxtpg .panelContent{
+    display:none;
+    width:100%;
+    float:left;
+    border:1px solid #d6d7dc;
+    border-top:none;
+    box-sizing:border-box;
+    background:#fff;
+}
+.queryxtpg .edit{
+    cursor:pointer;
+    float:right;
+    font-size:16px;
+    margin-right:2%;
+}
+.queryxtpg .edit span{
+    color:#80b9ff;
+}
+.queryxtpg .remarkInput{
+    width:300px;
+}
+.queryxtpg .AdlContent .topDiv,.queryxtpg .DangerContent .partA{
+    float:left;
+    width:86%;
+    margin:10px 2% 10px 2%;
+    padding-left:10%;
+    background:#f9f9f9;
+    padding-bottom:10px;
+}
+.queryxtpg .panelContent .nrsWrapper,.queryxtpg .panelContent .wrapperShadow{
+    float:left;
+    width:91%;
+    padding-top:10px;
+    margin:10px 2% 10px 2%;
+    padding-left:5%;
+    background:#f9f9f9;
+    padding-bottom:10px;
+}
+.queryxtpg .panelContent .nrsWrapper{
+    padding-top:0px;
+}
+.queryxtpg .XinxgContent .wrapperShadow {
+    padding-left:0px;
+    width:96%;
+    padding-top:10px;
+}
+.queryxtpg .XinxgContent li{
+    padding-left:5%;
+}
+.queryxtpg .AdlContent .titleP,.queryxtpg .nrsWrapper .nrstitle,.queryxtpg .DangerContent .title{
+    color:#3b3836;
+    font-size:14px;
+    font-weight:500;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.queryxtpg .AdlContent .titleP{
+    margin-bottom:0px;
+}
+.queryxtpg .AdlContent .labWrapper{
+    color:#666;
+}
+.AdlContent .labWrapper span{
+    float:left;
+    margin-top:10px;
+    display:inline-block;
+}
+.AdlContent .labWrapper ul{
+    width:96%;
+    float:left;
+    margin-top:10px;
+}
+.queryxtpg .FalloutbedContent ul{
+    width:86%;
+    margin:10px 2% 10px 2%;
+    padding-left:10%;
+    background:#f9f9f9;
+    color:#666;
+    padding-top:10px;
+}
+.queryxtpg .FalloutbedContent ul li{
+    margin-bottom:10px;
+}
+.queryxtpg .FalloutbedContent ul li.lastli{
+    color:#000;
+    font-size:14px;
+}
+.queryxtpg .panelGde .nrsDiv{
+    float:left;
+    width:88%;
+    margin-left:10%;
+    margin-right:2%;
+    margin-top:14px;
+}
+.queryxtpg .buttonGrp {
+    text-align:center;
+    width:100%;
+    float:left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.wrapperShadow li .titlelab{
+    display:inline-block;
+    color:#3b3836;
+    font-size:14px;
+    font-weight:500;
+    margin-bottom:8px;
+    width:7em;
+    text-align:right;
+}
+.XinxgContent .wrapperShadow li .titlelab{
+    width:8em;
+}
+.digestContent .wrapperShadow li .titlelab{
+    width:6em;
+}
+.queryxtpg .content_span,.queryxtpg .colorSix{
+    color: #666;
+}
+.queryxtpg .inputLth{
+    width:118px;
+    border:1px solid #e5e6e9;
+}
+.queryxtpg .labWrp{
+    display:inline-block;
+    margin-right: 18px;
+}
+.queryxtpg .nrsWrapper .labWrp{
+    margin-bottom:8px;
+}
+.queryxtpg .BreathContent .rightspan,.queryxtpg .NeuralContent .leftMargin{
+    display:inline-block;
+    margin-right: 18px;
+    color: #666;
+    margin-left:8.5em;
+}
+.queryxtpg .NeuralContent .leftMargin{
+    margin-bottom: 10px;
+}
+.queryxtpg .BreathContent li{
+    margin-bottom:8px;
+    width:80%;
+}
+.queryxtpg .BreathContent .remarkInput{
+    width:80%;
+}
+.queryxtpg .XinxgContent .remarkInput{
+    width:60%;
+}
+.queryxtpg .NrsContent .remarkInput{
+    width:80%;
+}
+.queryxtpg .digestContent .remarkInput,.queryxtpg .MxszContent .remarkInput,.queryxtpg .skinContent .remarkInput,.queryxtpg .NeuralContent .remarkInput{
+    width:70%;
+}
+.queryxtpg .BreathContent .spnBlk{
+    display:inline-block;
+    width:100%;
+}
+.queryxtpg .BreathContent .spcRemark{
+    display:inline-block;
+    margin-right: 18px;
+    margin-top: 8px;
+    color: #666;
+    margin-left:8.5em;
+    display:inline-block;
+    width:100%;
+}
+.queryxtpg .XinxgContent .showDiv{
+    width:589px;
+    height:80px;
+    border:1px solid #d6cdac;
+    background:#fff8cd;
+    border-radius:8px;
+    margin-top: -85px;
+    margin-left: 350px;
+    position: absolute;
+    display:none;
+}
+.queryxtpg .XinxgContent .showMsg{
+    margin:0 auto;
+    width:581px;
+    height: 70px;
+    font-size:12px;
+    color: #3b3836;
+}
+
+.queryxtpg .skinContent .showDiv{
+    width:50px;
+    height:22px;
+    border:1px solid #d6cdac;
+    background:#fff8cd;
+    border-radius:8px;
+    position: absolute;
+    margin-left: 110px;
+    margin-top: -25px;
+    display:none;
+}
+.queryxtpg .skinContent .showDivB{
+    width:50px;
+    height:22px;
+    border:1px solid #d6cdac;
+    background:#fff8cd;
+    border-radius:8px;
+    position: absolute;
+    margin-left: 168px;
+    margin-top: -25px;
+    display:none;
+}
+.queryxtpg .skinContent .showDivC{
+    width:50px;
+    height:22px;
+    border:1px solid #d6cdac;
+    background:#fff8cd;
+    border-radius:8px;
+    position: absolute;
+    margin-left: 226px;
+    margin-top: -25px;
+    display:none;
+}
+.queryxtpg .skinContent .showDivD{
+    width:56px;
+    height:22px;
+    border:1px solid #d6cdac;
+    background:#fff8cd;
+    border-radius:8px;
+    position: absolute;
+    margin-left: 284px;
+    margin-top: -25px;
+    display:none;
+}
+.queryxtpg .skinContent .showMsg{
+    margin:0 auto;
+    width:46px;
+    height: 20px;
+    font-size:12px;
+    color: #3b3836;
+    text-align: center;
+    line-height:20px;
+}
+.queryxtpg .showDivD .showMsg{
+    margin:0 auto;
+    width:50px;
+    height: 20px;
+    font-size:12px;
+    color: #3b3836;
+    text-align: center;
+    line-height:20px;
+}
+.skinContent .showDiv img,.skinContent .showDivB img,.skinContent .showDivC img{
+    float:left;
+    margin-left: 23px;
+    margin-top:2px;
+}
+.skinContent .showDivD img{
+    float:left;
+    margin-left: 26px;
+    margin-top:2px;
+}
+.XinxgContent .showDiv .triangle{
+    width: 0px;
+    height: 0px;
+    border: 20px solid white;
+    border-bottom: none;
+    border-top-color:#fff8cd;
+    transition:all 1s ease 0s;
+}
+.XinxgContent .showDiv img{
+    float:left;
+    margin-left: 240px;
+    margin-top:10px;
+}
+.queryxtpg .newlineDiv {
+    width:70%;
+    margin-left:8.5em;
+    margin-top:-25px;
+}
+.queryxtpg .skinlineDiv{
+    margin-left:8.5em;
+    margin-top:-25px;
+}
+.queryxtpg .ductDiv{
+    margin-left:8.5em;
+    margin-top:-30px;
+}
+.queryxtpg .newlineDiv .labWrp,.queryxtpg .ductDiv .labWrp,.queryxtpg .skinlineDiv .labWrp{
+    margin-bottom:8px;
+}
+.queryxtpg .entirelab{
+    width:100%;
+    font-size:16px;
+    color:#3b3836;
+    float:left;
+    margin-bottom:10px;
+}
+.queryxtpg .ductContent .wrapperShadow{
+    padding-bottom:0px;
+}
+.queryxtpg .selWth{
+    width:125px;
+}
+.queryxtpg .selRight{
+    width:65px;
+    margin-right:78px;
+}
+.queryxtpg .largeRight{
+    display:inline-block;
+    margin-right: 96px;
+}
+.queryxtpg .signp{
+    float:left;
+    position: relative;
+}
+.queryxtpg .marginbottom{
+    margin-bottom: 8px;
+    display: inline-block;
+}
+.queryxtpg .isFinish{
+    color:#d07815;
+    font-size:16px;
+    float:right;
+}
+.queryxtpg .panelBlock .scoSpn{
+    float:right;
+    font-size:16px;
+    color:#259606;
+}
+.queryxtpg .bigDataDiv {
+     display: none;
+     float: left;
+     margin-top: 10px;
+     padding: 4px;
+     font-size: 13px;
+     height: 70px;
+     line-height: 20px;
+     width: 100%;
+     border: 1px solid #d6d7dc;
+     background: #f9f9f9;
+}
+.queryxtpg .basicp .lineGap {
+    font-size:16px;
+}
+.queryxtpg .userList {
+    display: none;
+    position: absolute;
+    top: 19px;
+    left: 0px;
+    z-index: 3;
+    width: 100%;
+    max-height: 130px;
+    background: rgb(30, 144, 255);
+    border: 1px solid #ddd;
+    cursor: default;
+    overflow-y: scroll;
+}
+.queryxtpg .userList li:hover{
+    background: rgb(30, 144, 255);
+    text-decoration: none;
+    color: #fff;
+    cursor: default
+}
+.queryxtpg .userList li{
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    text-indent: 0.5em;
+}
+.queryxtpg .Listpos {
+    left: 58px;
+}
+.queryxtpg .bascilab{
+    font-size: 12px;
+    margin-right: 15px;
+}
+.queryxtpg .basicDiv {
+    float: left;
+    width: 100%;
+    margin-bottom: 2px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+.queryxtpg .basicInput{
+    width:100px;
+    border: none;
+    border-bottom:#DDD 1px solid;
+}
+.queryxtpg .basicInput:hover{
+    border: none;
+    box-shadow: none;
+    border-bottom:#DDD 1px solid;
+}
+.queryxtpg input[readonly].basicInput{
+    background: none;
+    color: #666;
+}
+.queryxtpg .headtitle{
+    width: 100%;
+    float: left;
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0px;
+}
+
+/**
+*  新增的丽水医院的跌倒危险评分样式
+**/
+.queryxtpg .DangerContent .partA {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+.DangerContent .partA div {
+    float: left;
+    width: 100%;
+    text-indent: 2em;
+    margin-bottom: 6px;
+    color: #666;
+}
+.DangerContent .labtab {
+    width: 60%;
+    float: left;
+    height: 32px;
+    line-height: 32px;
+    border-bottom: 1px solid #f1f1f1;
+    box-sizing: border-box;
+    background: #fff;
+}
+.DangerContent .labtab.evenLab {
+    background: #f2f4f6;
+}
+.DangerContent .tableUl{
+    float: left;
+    border: 1px solid #f1f1f1;
+    border-width: 1px 0px 0px 1px;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+.DangerContent .tableUl  li{
+    float: left;
+    width: 100%;
+    text-align: center;
+    height: 96px;
+    line-height: 32px;
+    box-sizing: border-box;
+    border: 1px solid #f1f1f1;
+    border-width: 1px 0px 0px 0px;
+}
+.DangerContent .tableUl  li.specialLi {
+    height: 32px;
+}
+.DangerContent .tableUl  li.fourLi {
+    height: 128px;
+}
+.DangerContent .titleSpan {
+    width: 40%;
+    height: 96px;
+    line-height: 96px;
+    float: left;
+    background: rgb(243,249,255);
+    display: inline-block;
+    box-sizing: border-box;
+}
+li.specialLi .titleSpan{
+    height: 32px;
+    line-height: 32px;
+}
+li.fourLi .titleSpan{
+    height: 128px;
+    line-height: 128px;
+}
+.DangerContent .spcLine{
+    line-height: 32px;
+    padding: 16px 20px;
+}
+.DangerContent .thirdSpan ,.DangerContent .fourthSpan {
+    float: left;
+    width: 30%;
+    height: 32px;
+    vertical-align: middle;
+    display: inline-block;
+    box-sizing: border-box;
+    border-right: 1px solid #f1f1f1;
+}
+.DangerContent .thirdSpan input[type="checkbox"]{
+    margin-top: 10px;
+}
+.DangerContent .fourthSpan {
+    width: 40%;
+}
+.queryxtpg .hiddenPanel{
+    display: none
+}

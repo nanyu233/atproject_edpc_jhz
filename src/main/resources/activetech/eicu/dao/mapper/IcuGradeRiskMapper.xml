@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.eicu.dao.mapper.IcuGradeRiskMapper" >
+  <resultMap id="BaseResultMap" type="activetech.eicu.pojo.domain.IcuGradeRisk" >
+    <id column="GRADE_TYPE" property="gradeType" jdbcType="VARCHAR" />
+    <id column="RISK_TYPE" property="riskType" jdbcType="VARCHAR" />
+    <result column="LOW_VALUE" property="lowValue" jdbcType="DECIMAL" />
+    <result column="UPP_VALUE" property="uppValue" jdbcType="DECIMAL" />
+    <result column="RISK_DESC" property="riskDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    GRADE_TYPE, RISK_TYPE, LOW_VALUE, UPP_VALUE, RISK_DESC
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.eicu.pojo.domain.IcuGradeRiskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ICU_GRADE_RISK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="activetech.eicu.pojo.domain.IcuGradeRiskKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ICU_GRADE_RISK
+    where GRADE_TYPE = #{gradeType,jdbcType=VARCHAR}
+      and RISK_TYPE = #{riskType,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="activetech.eicu.pojo.domain.IcuGradeRiskKey" >
+    delete from ICU_GRADE_RISK
+    where GRADE_TYPE = #{gradeType,jdbcType=VARCHAR}
+      and RISK_TYPE = #{riskType,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.eicu.pojo.domain.IcuGradeRiskExample" >
+    delete from ICU_GRADE_RISK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.eicu.pojo.domain.IcuGradeRisk" >
+    insert into ICU_GRADE_RISK (GRADE_TYPE, RISK_TYPE, LOW_VALUE, 
+      UPP_VALUE, RISK_DESC)
+    values (#{gradeType,jdbcType=VARCHAR}, #{riskType,jdbcType=VARCHAR}, #{lowValue,jdbcType=DECIMAL}, 
+      #{uppValue,jdbcType=DECIMAL}, #{riskDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.eicu.pojo.domain.IcuGradeRisk" >
+    insert into ICU_GRADE_RISK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gradeType != null" >
+        GRADE_TYPE,
+      </if>
+      <if test="riskType != null" >
+        RISK_TYPE,
+      </if>
+      <if test="lowValue != null" >
+        LOW_VALUE,
+      </if>
+      <if test="uppValue != null" >
+        UPP_VALUE,
+      </if>
+      <if test="riskDesc != null" >
+        RISK_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gradeType != null" >
+        #{gradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="riskType != null" >
+        #{riskType,jdbcType=VARCHAR},
+      </if>
+      <if test="lowValue != null" >
+        #{lowValue,jdbcType=DECIMAL},
+      </if>
+      <if test="uppValue != null" >
+        #{uppValue,jdbcType=DECIMAL},
+      </if>
+      <if test="riskDesc != null" >
+        #{riskDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.eicu.pojo.domain.IcuGradeRiskExample" resultType="java.lang.Integer" >
+    select count(*) from ICU_GRADE_RISK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ICU_GRADE_RISK
+    <set >
+      <if test="record.gradeType != null" >
+        GRADE_TYPE = #{record.gradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskType != null" >
+        RISK_TYPE = #{record.riskType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lowValue != null" >
+        LOW_VALUE = #{record.lowValue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.uppValue != null" >
+        UPP_VALUE = #{record.uppValue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.riskDesc != null" >
+        RISK_DESC = #{record.riskDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ICU_GRADE_RISK
+    set GRADE_TYPE = #{record.gradeType,jdbcType=VARCHAR},
+      RISK_TYPE = #{record.riskType,jdbcType=VARCHAR},
+      LOW_VALUE = #{record.lowValue,jdbcType=DECIMAL},
+      UPP_VALUE = #{record.uppValue,jdbcType=DECIMAL},
+      RISK_DESC = #{record.riskDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.eicu.pojo.domain.IcuGradeRisk" >
+    update ICU_GRADE_RISK
+    <set >
+      <if test="lowValue != null" >
+        LOW_VALUE = #{lowValue,jdbcType=DECIMAL},
+      </if>
+      <if test="uppValue != null" >
+        UPP_VALUE = #{uppValue,jdbcType=DECIMAL},
+      </if>
+      <if test="riskDesc != null" >
+        RISK_DESC = #{riskDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GRADE_TYPE = #{gradeType,jdbcType=VARCHAR}
+      and RISK_TYPE = #{riskType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.eicu.pojo.domain.IcuGradeRisk" >
+    update ICU_GRADE_RISK
+    set LOW_VALUE = #{lowValue,jdbcType=DECIMAL},
+      UPP_VALUE = #{uppValue,jdbcType=DECIMAL},
+      RISK_DESC = #{riskDesc,jdbcType=VARCHAR}
+    where GRADE_TYPE = #{gradeType,jdbcType=VARCHAR}
+      and RISK_TYPE = #{riskType,jdbcType=VARCHAR}
+  </update>
+</mapper>

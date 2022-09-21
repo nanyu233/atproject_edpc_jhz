@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspJzcsjlbInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.domain.HspJzcsjlbInf">
+    <id column="JZCS_ID" jdbcType="VARCHAR" property="jzcsId" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="CST_NAM" jdbcType="VARCHAR" property="cstNam" />
+    <result column="CST_SEX_COD" jdbcType="VARCHAR" property="cstSexCod" />
+    <result column="CST_AGE" jdbcType="VARCHAR" property="cstAge" />
+    <result column="CST_AGE_COD" jdbcType="VARCHAR" property="cstAgeCod" />
+    <result column="CST_ADR" jdbcType="VARCHAR" property="cstAdr" />
+    <result column="EMG_DAT" jdbcType="TIMESTAMP" property="emgDat" />
+    <result column="EMG_FK_COD" jdbcType="VARCHAR" property="emgFkCod" />
+    <result column="SQL_DCT_NBR" jdbcType="VARCHAR" property="sqlDctNbr" />
+    <result column="CSBW_T" jdbcType="DECIMAL" property="csbwT" />
+    <result column="CSBW_P" jdbcType="DECIMAL" property="csbwP" />
+    <result column="CSBW_R" jdbcType="DECIMAL" property="csbwR" />
+    <result column="SBP_UP_NBR" jdbcType="DECIMAL" property="sbpUpNbr" />
+    <result column="JBZD_DES" jdbcType="VARCHAR" property="jbzdDes" />
+    <result column="ALG_HON" jdbcType="CHAR" property="algHon" />
+    <result column="ALG_TYP_COD" jdbcType="VARCHAR" property="algTypCod" />
+    <result column="ALG_TYP_DES" jdbcType="VARCHAR" property="algTypDes" />
+    <result column="CSZSF_COD" jdbcType="VARCHAR" property="cszsfCod" />
+    <result column="CSYY_COD" jdbcType="VARCHAR" property="csyyCod" />
+    <result column="FSDD_COD" jdbcType="VARCHAR" property="fsddCod" />
+    <result column="HSFS_COD" jdbcType="VARCHAR" property="hsfsCod" />
+    <result column="HSR_COD" jdbcType="VARCHAR" property="hsrCod" />
+    <result column="LXR_NAM" jdbcType="VARCHAR" property="lxrNam" />
+    <result column="LXR_TEL" jdbcType="VARCHAR" property="lxrTel" />
+    <result column="QK_COD" jdbcType="CHAR" property="qkCod" />
+    <result column="RECORDER_NBR" jdbcType="VARCHAR" property="recorderNbr" />
+    <result column="RECORDER_NAM" jdbcType="VARCHAR" property="recorderNam" />
+    <result column="SBP_DOWN_NBR" jdbcType="DECIMAL" property="sbpDownNbr" />
+    <result column="CSZSF_OTHER" jdbcType="VARCHAR" property="cszsfOther" />
+    <result column="FSDD_OTHER" jdbcType="VARCHAR" property="fsddOther" />
+    <result column="CSYY_OTHER" jdbcType="VARCHAR" property="csyyOther" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    JZCS_ID, EMG_SEQ, CST_NAM, CST_SEX_COD, CST_AGE, CST_AGE_COD, CST_ADR, EMG_DAT, EMG_FK_COD, 
+    SQL_DCT_NBR, CSBW_T, CSBW_P, CSBW_R, SBP_UP_NBR, JBZD_DES, ALG_HON, ALG_TYP_COD, 
+    ALG_TYP_DES, CSZSF_COD, CSYY_COD, FSDD_COD, HSFS_COD, HSR_COD, LXR_NAM, LXR_TEL, 
+    QK_COD, RECORDER_NBR, RECORDER_NAM, SBP_DOWN_NBR, CSZSF_OTHER, FSDD_OTHER, CSYY_OTHER
+  </sql>
+  <select id="selectByExample" parameterType="activetech.zyyhospital.pojo.domain.HspJzcsjlbInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_JZCSJLB_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_JZCSJLB_INF
+    where JZCS_ID = #{jzcsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_JZCSJLB_INF
+    where JZCS_ID = #{jzcsId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.zyyhospital.pojo.domain.HspJzcsjlbInfExample">
+    delete from HSP_JZCSJLB_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.zyyhospital.pojo.domain.HspJzcsjlbInf">
+    insert into HSP_JZCSJLB_INF (JZCS_ID, EMG_SEQ, CST_NAM, 
+      CST_SEX_COD, CST_AGE, CST_AGE_COD, 
+      CST_ADR, EMG_DAT, EMG_FK_COD, 
+      SQL_DCT_NBR, CSBW_T, CSBW_P, 
+      CSBW_R, SBP_UP_NBR, JBZD_DES, 
+      ALG_HON, ALG_TYP_COD, ALG_TYP_DES, 
+      CSZSF_COD, CSYY_COD, FSDD_COD, 
+      HSFS_COD, HSR_COD, LXR_NAM, 
+      LXR_TEL, QK_COD, RECORDER_NBR, 
+      RECORDER_NAM, SBP_DOWN_NBR, CSZSF_OTHER, 
+      FSDD_OTHER, CSYY_OTHER)
+    values (#{jzcsId,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{cstNam,jdbcType=VARCHAR}, 
+      #{cstSexCod,jdbcType=VARCHAR}, #{cstAge,jdbcType=VARCHAR}, #{cstAgeCod,jdbcType=VARCHAR}, 
+      #{cstAdr,jdbcType=VARCHAR}, #{emgDat,jdbcType=TIMESTAMP}, #{emgFkCod,jdbcType=VARCHAR}, 
+      #{sqlDctNbr,jdbcType=VARCHAR}, #{csbwT,jdbcType=DECIMAL}, #{csbwP,jdbcType=DECIMAL}, 
+      #{csbwR,jdbcType=DECIMAL}, #{sbpUpNbr,jdbcType=DECIMAL}, #{jbzdDes,jdbcType=VARCHAR}, 
+      #{algHon,jdbcType=CHAR}, #{algTypCod,jdbcType=VARCHAR}, #{algTypDes,jdbcType=VARCHAR}, 
+      #{cszsfCod,jdbcType=VARCHAR}, #{csyyCod,jdbcType=VARCHAR}, #{fsddCod,jdbcType=VARCHAR}, 
+      #{hsfsCod,jdbcType=VARCHAR}, #{hsrCod,jdbcType=VARCHAR}, #{lxrNam,jdbcType=VARCHAR}, 
+      #{lxrTel,jdbcType=VARCHAR}, #{qkCod,jdbcType=CHAR}, #{recorderNbr,jdbcType=VARCHAR}, 
+      #{recorderNam,jdbcType=VARCHAR}, #{sbpDownNbr,jdbcType=DECIMAL}, #{cszsfOther,jdbcType=VARCHAR}, 
+      #{fsddOther,jdbcType=VARCHAR}, #{csyyOther,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.zyyhospital.pojo.domain.HspJzcsjlbInf">
+    insert into HSP_JZCSJLB_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jzcsId != null">
+        JZCS_ID,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="cstNam != null">
+        CST_NAM,
+      </if>
+      <if test="cstSexCod != null">
+        CST_SEX_COD,
+      </if>
+      <if test="cstAge != null">
+        CST_AGE,
+      </if>
+      <if test="cstAgeCod != null">
+        CST_AGE_COD,
+      </if>
+      <if test="cstAdr != null">
+        CST_ADR,
+      </if>
+      <if test="emgDat != null">
+        EMG_DAT,
+      </if>
+      <if test="emgFkCod != null">
+        EMG_FK_COD,
+      </if>
+      <if test="sqlDctNbr != null">
+        SQL_DCT_NBR,
+      </if>
+      <if test="csbwT != null">
+        CSBW_T,
+      </if>
+      <if test="csbwP != null">
+        CSBW_P,
+      </if>
+      <if test="csbwR != null">
+        CSBW_R,
+      </if>
+      <if test="sbpUpNbr != null">
+        SBP_UP_NBR,
+      </if>
+      <if test="jbzdDes != null">
+        JBZD_DES,
+      </if>
+      <if test="algHon != null">
+        ALG_HON,
+      </if>
+      <if test="algTypCod != null">
+        ALG_TYP_COD,
+      </if>
+      <if test="algTypDes != null">
+        ALG_TYP_DES,
+      </if>
+      <if test="cszsfCod != null">
+        CSZSF_COD,
+      </if>
+      <if test="csyyCod != null">
+        CSYY_COD,
+      </if>
+      <if test="fsddCod != null">
+        FSDD_COD,
+      </if>
+      <if test="hsfsCod != null">
+        HSFS_COD,
+      </if>
+      <if test="hsrCod != null">
+        HSR_COD,
+      </if>
+      <if test="lxrNam != null">
+        LXR_NAM,
+      </if>
+      <if test="lxrTel != null">
+        LXR_TEL,
+      </if>
+      <if test="qkCod != null">
+        QK_COD,
+      </if>
+      <if test="recorderNbr != null">
+        RECORDER_NBR,
+      </if>
+      <if test="recorderNam != null">
+        RECORDER_NAM,
+      </if>
+      <if test="sbpDownNbr != null">
+        SBP_DOWN_NBR,
+      </if>
+      <if test="cszsfOther != null">
+        CSZSF_OTHER,
+      </if>
+      <if test="fsddOther != null">
+        FSDD_OTHER,
+      </if>
+      <if test="csyyOther != null">
+        CSYY_OTHER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jzcsId != null">
+        #{jzcsId,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="cstNam != null">
+        #{cstNam,jdbcType=VARCHAR},
+      </if>
+      <if test="cstSexCod != null">
+        #{cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAge != null">
+        #{cstAge,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAgeCod != null">
+        #{cstAgeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAdr != null">
+        #{cstAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="emgDat != null">
+        #{emgDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emgFkCod != null">
+        #{emgFkCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlDctNbr != null">
+        #{sqlDctNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="csbwT != null">
+        #{csbwT,jdbcType=DECIMAL},
+      </if>
+      <if test="csbwP != null">
+        #{csbwP,jdbcType=DECIMAL},
+      </if>
+      <if test="csbwR != null">
+        #{csbwR,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpUpNbr != null">
+        #{sbpUpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="jbzdDes != null">
+        #{jbzdDes,jdbcType=VARCHAR},
+      </if>
+      <if test="algHon != null">
+        #{algHon,jdbcType=CHAR},
+      </if>
+      <if test="algTypCod != null">
+        #{algTypCod,jdbcType=VARCHAR},
+      </if>
+      <if test="algTypDes != null">
+        #{algTypDes,jdbcType=VARCHAR},
+      </if>
+      <if test="cszsfCod != null">
+        #{cszsfCod,jdbcType=VARCHAR},
+      </if>
+      <if test="csyyCod != null">
+        #{csyyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="fsddCod != null">
+        #{fsddCod,jdbcType=VARCHAR},
+      </if>
+      <if test="hsfsCod != null">
+        #{hsfsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="hsrCod != null">
+        #{hsrCod,jdbcType=VARCHAR},
+      </if>
+      <if test="lxrNam != null">
+        #{lxrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="lxrTel != null">
+        #{lxrTel,jdbcType=VARCHAR},
+      </if>
+      <if test="qkCod != null">
+        #{qkCod,jdbcType=CHAR},
+      </if>
+      <if test="recorderNbr != null">
+        #{recorderNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="recorderNam != null">
+        #{recorderNam,jdbcType=VARCHAR},
+      </if>
+      <if test="sbpDownNbr != null">
+        #{sbpDownNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="cszsfOther != null">
+        #{cszsfOther,jdbcType=VARCHAR},
+      </if>
+      <if test="fsddOther != null">
+        #{fsddOther,jdbcType=VARCHAR},
+      </if>
+      <if test="csyyOther != null">
+        #{csyyOther,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.zyyhospital.pojo.domain.HspJzcsjlbInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_JZCSJLB_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_JZCSJLB_INF
+    <set>
+      <if test="record.jzcsId != null">
+        JZCS_ID = #{record.jzcsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstNam != null">
+        CST_NAM = #{record.cstNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstSexCod != null">
+        CST_SEX_COD = #{record.cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstAge != null">
+        CST_AGE = #{record.cstAge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstAgeCod != null">
+        CST_AGE_COD = #{record.cstAgeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstAdr != null">
+        CST_ADR = #{record.cstAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgDat != null">
+        EMG_DAT = #{record.emgDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.emgFkCod != null">
+        EMG_FK_COD = #{record.emgFkCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sqlDctNbr != null">
+        SQL_DCT_NBR = #{record.sqlDctNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.csbwT != null">
+        CSBW_T = #{record.csbwT,jdbcType=DECIMAL},
+      </if>
+      <if test="record.csbwP != null">
+        CSBW_P = #{record.csbwP,jdbcType=DECIMAL},
+      </if>
+      <if test="record.csbwR != null">
+        CSBW_R = #{record.csbwR,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sbpUpNbr != null">
+        SBP_UP_NBR = #{record.sbpUpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.jbzdDes != null">
+        JBZD_DES = #{record.jbzdDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.algHon != null">
+        ALG_HON = #{record.algHon,jdbcType=CHAR},
+      </if>
+      <if test="record.algTypCod != null">
+        ALG_TYP_COD = #{record.algTypCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.algTypDes != null">
+        ALG_TYP_DES = #{record.algTypDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cszsfCod != null">
+        CSZSF_COD = #{record.cszsfCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.csyyCod != null">
+        CSYY_COD = #{record.csyyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fsddCod != null">
+        FSDD_COD = #{record.fsddCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsfsCod != null">
+        HSFS_COD = #{record.hsfsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hsrCod != null">
+        HSR_COD = #{record.hsrCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lxrNam != null">
+        LXR_NAM = #{record.lxrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lxrTel != null">
+        LXR_TEL = #{record.lxrTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qkCod != null">
+        QK_COD = #{record.qkCod,jdbcType=CHAR},
+      </if>
+      <if test="record.recorderNbr != null">
+        RECORDER_NBR = #{record.recorderNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recorderNam != null">
+        RECORDER_NAM = #{record.recorderNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbpDownNbr != null">
+        SBP_DOWN_NBR = #{record.sbpDownNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cszsfOther != null">
+        CSZSF_OTHER = #{record.cszsfOther,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fsddOther != null">
+        FSDD_OTHER = #{record.fsddOther,jdbcType=VARCHAR},
+      </if>
+      <if test="record.csyyOther != null">
+        CSYY_OTHER = #{record.csyyOther,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_JZCSJLB_INF
+    set JZCS_ID = #{record.jzcsId,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      CST_NAM = #{record.cstNam,jdbcType=VARCHAR},
+      CST_SEX_COD = #{record.cstSexCod,jdbcType=VARCHAR},
+      CST_AGE = #{record.cstAge,jdbcType=VARCHAR},
+      CST_AGE_COD = #{record.cstAgeCod,jdbcType=VARCHAR},
+      CST_ADR = #{record.cstAdr,jdbcType=VARCHAR},
+      EMG_DAT = #{record.emgDat,jdbcType=TIMESTAMP},
+      EMG_FK_COD = #{record.emgFkCod,jdbcType=VARCHAR},
+      SQL_DCT_NBR = #{record.sqlDctNbr,jdbcType=VARCHAR},
+      CSBW_T = #{record.csbwT,jdbcType=DECIMAL},
+      CSBW_P = #{record.csbwP,jdbcType=DECIMAL},
+      CSBW_R = #{record.csbwR,jdbcType=DECIMAL},
+      SBP_UP_NBR = #{record.sbpUpNbr,jdbcType=DECIMAL},
+      JBZD_DES = #{record.jbzdDes,jdbcType=VARCHAR},
+      ALG_HON = #{record.algHon,jdbcType=CHAR},
+      ALG_TYP_COD = #{record.algTypCod,jdbcType=VARCHAR},
+      ALG_TYP_DES = #{record.algTypDes,jdbcType=VARCHAR},
+      CSZSF_COD = #{record.cszsfCod,jdbcType=VARCHAR},
+      CSYY_COD = #{record.csyyCod,jdbcType=VARCHAR},
+      FSDD_COD = #{record.fsddCod,jdbcType=VARCHAR},
+      HSFS_COD = #{record.hsfsCod,jdbcType=VARCHAR},
+      HSR_COD = #{record.hsrCod,jdbcType=VARCHAR},
+      LXR_NAM = #{record.lxrNam,jdbcType=VARCHAR},
+      LXR_TEL = #{record.lxrTel,jdbcType=VARCHAR},
+      QK_COD = #{record.qkCod,jdbcType=CHAR},
+      RECORDER_NBR = #{record.recorderNbr,jdbcType=VARCHAR},
+      RECORDER_NAM = #{record.recorderNam,jdbcType=VARCHAR},
+      SBP_DOWN_NBR = #{record.sbpDownNbr,jdbcType=DECIMAL},
+      CSZSF_OTHER = #{record.cszsfOther,jdbcType=VARCHAR},
+      FSDD_OTHER = #{record.fsddOther,jdbcType=VARCHAR},
+      CSYY_OTHER = #{record.csyyOther,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.zyyhospital.pojo.domain.HspJzcsjlbInf">
+    update HSP_JZCSJLB_INF
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="cstNam != null">
+        CST_NAM = #{cstNam,jdbcType=VARCHAR},
+      </if>
+      <if test="cstSexCod != null">
+        CST_SEX_COD = #{cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAge != null">
+        CST_AGE = #{cstAge,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAgeCod != null">
+        CST_AGE_COD = #{cstAgeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAdr != null">
+        CST_ADR = #{cstAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="emgDat != null">
+        EMG_DAT = #{emgDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emgFkCod != null">
+        EMG_FK_COD = #{emgFkCod,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlDctNbr != null">
+        SQL_DCT_NBR = #{sqlDctNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="csbwT != null">
+        CSBW_T = #{csbwT,jdbcType=DECIMAL},
+      </if>
+      <if test="csbwP != null">
+        CSBW_P = #{csbwP,jdbcType=DECIMAL},
+      </if>
+      <if test="csbwR != null">
+        CSBW_R = #{csbwR,jdbcType=DECIMAL},
+      </if>
+      <if test="sbpUpNbr != null">
+        SBP_UP_NBR = #{sbpUpNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="jbzdDes != null">
+        JBZD_DES = #{jbzdDes,jdbcType=VARCHAR},
+      </if>
+      <if test="algHon != null">
+        ALG_HON = #{algHon,jdbcType=CHAR},
+      </if>
+      <if test="algTypCod != null">
+        ALG_TYP_COD = #{algTypCod,jdbcType=VARCHAR},
+      </if>
+      <if test="algTypDes != null">
+        ALG_TYP_DES = #{algTypDes,jdbcType=VARCHAR},
+      </if>
+      <if test="cszsfCod != null">
+        CSZSF_COD = #{cszsfCod,jdbcType=VARCHAR},
+      </if>
+      <if test="csyyCod != null">
+        CSYY_COD = #{csyyCod,jdbcType=VARCHAR},
+      </if>
+      <if test="fsddCod != null">
+        FSDD_COD = #{fsddCod,jdbcType=VARCHAR},
+      </if>
+      <if test="hsfsCod != null">
+        HSFS_COD = #{hsfsCod,jdbcType=VARCHAR},
+      </if>
+      <if test="hsrCod != null">
+        HSR_COD = #{hsrCod,jdbcType=VARCHAR},
+      </if>
+      <if test="lxrNam != null">
+        LXR_NAM = #{lxrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="lxrTel != null">
+        LXR_TEL = #{lxrTel,jdbcType=VARCHAR},
+      </if>
+      <if test="qkCod != null">
+        QK_COD = #{qkCod,jdbcType=CHAR},
+      </if>
+      <if test="recorderNbr != null">
+        RECORDER_NBR = #{recorderNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="recorderNam != null">
+        RECORDER_NAM = #{recorderNam,jdbcType=VARCHAR},
+      </if>
+      <if test="sbpDownNbr != null">
+        SBP_DOWN_NBR = #{sbpDownNbr,jdbcType=DECIMAL},
+      </if>
+      <if test="cszsfOther != null">
+        CSZSF_OTHER = #{cszsfOther,jdbcType=VARCHAR},
+      </if>
+      <if test="fsddOther != null">
+        FSDD_OTHER = #{fsddOther,jdbcType=VARCHAR},
+      </if>
+      <if test="csyyOther != null">
+        CSYY_OTHER = #{csyyOther,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where JZCS_ID = #{jzcsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.zyyhospital.pojo.domain.HspJzcsjlbInf">
+    update HSP_JZCSJLB_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      CST_NAM = #{cstNam,jdbcType=VARCHAR},
+      CST_SEX_COD = #{cstSexCod,jdbcType=VARCHAR},
+      CST_AGE = #{cstAge,jdbcType=VARCHAR},
+      CST_AGE_COD = #{cstAgeCod,jdbcType=VARCHAR},
+      CST_ADR = #{cstAdr,jdbcType=VARCHAR},
+      EMG_DAT = #{emgDat,jdbcType=TIMESTAMP},
+      EMG_FK_COD = #{emgFkCod,jdbcType=VARCHAR},
+      SQL_DCT_NBR = #{sqlDctNbr,jdbcType=VARCHAR},
+      CSBW_T = #{csbwT,jdbcType=DECIMAL},
+      CSBW_P = #{csbwP,jdbcType=DECIMAL},
+      CSBW_R = #{csbwR,jdbcType=DECIMAL},
+      SBP_UP_NBR = #{sbpUpNbr,jdbcType=DECIMAL},
+      JBZD_DES = #{jbzdDes,jdbcType=VARCHAR},
+      ALG_HON = #{algHon,jdbcType=CHAR},
+      ALG_TYP_COD = #{algTypCod,jdbcType=VARCHAR},
+      ALG_TYP_DES = #{algTypDes,jdbcType=VARCHAR},
+      CSZSF_COD = #{cszsfCod,jdbcType=VARCHAR},
+      CSYY_COD = #{csyyCod,jdbcType=VARCHAR},
+      FSDD_COD = #{fsddCod,jdbcType=VARCHAR},
+      HSFS_COD = #{hsfsCod,jdbcType=VARCHAR},
+      HSR_COD = #{hsrCod,jdbcType=VARCHAR},
+      LXR_NAM = #{lxrNam,jdbcType=VARCHAR},
+      LXR_TEL = #{lxrTel,jdbcType=VARCHAR},
+      QK_COD = #{qkCod,jdbcType=CHAR},
+      RECORDER_NBR = #{recorderNbr,jdbcType=VARCHAR},
+      RECORDER_NAM = #{recorderNam,jdbcType=VARCHAR},
+      SBP_DOWN_NBR = #{sbpDownNbr,jdbcType=DECIMAL},
+      CSZSF_OTHER = #{cszsfOther,jdbcType=VARCHAR},
+      FSDD_OTHER = #{fsddOther,jdbcType=VARCHAR},
+      CSYY_OTHER = #{csyyOther,jdbcType=VARCHAR}
+    where JZCS_ID = #{jzcsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.zyyhospital.dao.mapper.HspXtpgInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.zyyhospital.pojo.dto.HspXtpgInfCustom" >
+    <id column="XTPG_SEQ" property="xtpgSeq" jdbcType="VARCHAR" />
+    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+    <result column="XTPG_SX" property="xtpgSx" jdbcType="VARCHAR" />
+    <result column="XTPG_ST" property="xtpgSt" jdbcType="VARCHAR" />
+    <result column="XTPG_MX" property="xtpgMx" jdbcType="VARCHAR" />
+    <result column="XTPG_BM" property="xtpgBm" jdbcType="VARCHAR" />
+    <result column="XTPG_AQCS_COD" property="xtpgAqcsCod" jdbcType="VARCHAR" />
+    <result column="XTPG_HS" property="xtpgHs" jdbcType="VARCHAR" />
+    <result column="XTPG_SJHS" property="xtpgSjhs" jdbcType="VARCHAR" />
+    <result column="XTPG_MEMO" property="xtpgMemo" jdbcType="VARCHAR" />
+    <result column="xtpgHsNam" property="xtpgHsNam" jdbcType="VARCHAR" />
+    <result column="xtpgSjhsNam" property="xtpgSjhsNam" jdbcType="VARCHAR" />
+    <result column="XTPG_JLHZ" property="xtpgJlhz" jdbcType="CLOB" />
+    <result column="CRT_DAT" property="crtDat" jdbcType="TIMESTAMP" />
+    <result column="CRT_NUR" property="crtNur" jdbcType="VARCHAR" />
+    <result column="CRT_NAME" property="crtName" jdbcType="VARCHAR" />
+    <result column="UP_DAT" property="upDat" jdbcType="TIMESTAMP" />
+    <result column="UP_NUR" property="upNur" jdbcType="VARCHAR" />
+    <result column="UP_NAME" property="upName" jdbcType="VARCHAR" />
+    <result column="XTPG_SJ_FLG" jdbcType="VARCHAR" property="xtpgSjFlg" />
+    <result column="XTPG_HX_FLG" jdbcType="VARCHAR" property="xtpgHxFlg" />
+    <result column="XTPG_XXG_FLG" jdbcType="VARCHAR" property="xtpgXxgFlg" />
+    <result column="XTPG_XH_FLG" jdbcType="VARCHAR" property="xtpgXhFlg" />
+    <result column="XTPG_MN_FLG" jdbcType="VARCHAR" property="xtpgMnFlg" />
+    <result column="XTPG_GG_FLG" jdbcType="VARCHAR" property="xtpgGgFlg" />
+    <result column="XTPG_XL_FLG" jdbcType="VARCHAR" property="xtpgXlFlg" />
+    <result column="XTPG_DG_FLG" jdbcType="VARCHAR" property="xtpgDgFlg" />
+  </resultMap>
+  
+  <select id="findXtpgByXtpgSeq" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    XTPG_SEQ, EMG_SEQ, XTPG_SX, XTPG_ST, XTPG_MX, XTPG_BM, XTPG_AQCS_COD, XTPG_HS, XTPG_SJHS, 
+    XTPG_MEMO, CRT_DAT, CRT_NUR, CRT_NAME, UP_DAT, UP_NUR, UP_NAME, XTPG_SJ_FLG, XTPG_HX_FLG, 
+    XTPG_XXG_FLG, XTPG_XH_FLG, XTPG_MN_FLG, XTPG_GG_FLG, XTPG_XL_FLG, XTPG_DG_FLG,
+    (select usrname from dstuser where usrno = HSP_XTPG_INF.XTPG_HS)xtpgHsNam,
+    (select usrname from dstuser where usrno = HSP_XTPG_INF.XTPG_SJHS)xtpgSjhsNam,XTPG_JLHZ
+    from HSP_XTPG_INF
+    where XTPG_SEQ = #{xtpgSeq}
+  </select>
+  <select id="getXtpgListByemgseq" parameterType="activetech.zyyhospital.pojo.dto.HspXtpgInfQueryDto" 
+      resultType="activetech.zyyhospital.pojo.dto.HspXtpgInfCustom">
+      
+     <!-- 分页头 -->
+		<include refid="activetech.base.CommonSql.page_start" />
+	          select x.XTPG_SEQ xtpgSeq, x.EMG_SEQ emgSeq,
+      			(select info from dstdictinfo a where a.typecode='XTPG_SX' and a.infocode=x.XTPG_SX) as xtpgSx,
+      			(select info from dstdictinfo a where a.typecode='XTPG_ST' and a.infocode= x.XTPG_ST) as xtpgSt,
+      			(select info from dstdictinfo a where a.typecode='XTPG_MX' and a.infocode= x. XTPG_MX) as xtpgMx,
+      			(select info from dstdictinfo a where a.typecode='XTPG_BM' and a.infocode= x. XTPG_BM) as xtpgBm,
+                x. XTPG_AQCS_COD xtpgAqcsCod, x. XTPG_HS xtpgHs, x. XTPG_SJHS xtpgSjhs, 
+	          	x. XTPG_MEMO xtpgMemo,x.CRT_DAT crtDat,x.CRT_NUR crtNur ,x.CRT_NAME crtName ,
+	          	x.UP_DAT upDat,x.UP_NUR upNur , x.UP_NAME upName, x.XTPG_JLHZ xtpgJlhz,
+	         	 b.BRADEN_SCO bradenSco, ad.ADL_SCO adlSco, z.ZCDDEXPF_SCO zcddexpfSco, n.NRS_SCO nrsSco 
+				from HSP_XTPG_INF x 
+				left join  HSP_BRADEN_INF b on x.XTPG_SEQ = b.XTPG_SEQ  
+				left join  HSP_ADL_INF ad on x.XTPG_SEQ =ad.XTPG_SEQ  
+				left join  HSP_ZCDDEXPF_INF z  on x.XTPG_SEQ = z.XTPG_SEQ  
+				left join HSP_NRS_INF n on x.XTPG_SEQ = n.XTPG_SEQ 
+				where  x.emg_seq= #{hspXtpgInfCustom.emgSeq}
+           <if test="startdate!=null">
+				 and  x.CRT_DAT<![CDATA[>=]]> #{startdate,jdbcType=DATE}
+		</if>
+		<if test="enddate!=null">
+				and  x.CRT_DAT<![CDATA[<=]]> #{enddate,jdbcType=DATE}
+		</if>
+		order by x.CRT_DAT asc
+           
+	  <!-- 分页尾部 -->
+     <include refid="activetech.base.CommonSql.page_end" />
+  </select>
+  <!-- 查询护理记录单总数 -->
+  <select id="findXtpgCount" parameterType="activetech.zyyhospital.pojo.dto.HspXtpgInfQueryDto"
+ 		resultType="int">
+ 		 select count(*) from HSP_XTPG_INF x where x.emg_seq= #{hspXtpgInfCustom.emgSeq}
+		 <if test="startdate!=null">
+				 and  x.CRT_DAT<![CDATA[>=]]> #{startdate,jdbcType=DATE}
+		</if>
+		<if test="enddate!=null">
+				and  x.CRT_DAT<![CDATA[<=]]> #{enddate,jdbcType=DATE}
+		</if>
+		order by x.CRT_DAT desc
+ 	</select>
+ 	
+ 		<select id="findDictinfoSubd"  parameterType="activetech.base.pojo.dto.DstdictinfoQueryDto" 
+		resultType="activetech.base.pojo.dto.DstdictinfoCustom">
+		<include refid="activetech.base.CommonSql.page_start" />
+		select id,
+			   typecode,
+               info,
+               infocode,
+               dictsort,
+               (select info from dstdictinfo a where a.typecode='USERSTAT' and a.infocode=dstdictinfo.isenable) as isenable,
+               remark,
+               (select typename from dstdicttype a where a.typecode=dstdictinfo.typecode) as typename
+        from dstdictinfo 
+        where   typecode = 'YLG_DGMC_COD'
+		<if test="dstdictinfoCustom!=null">
+		 	<if test="dstdictinfoCustom.info!=null and dstdictinfoCustom.info!=''">
+				and (info like '%'|| #{dstdictinfoCustom.info}||'%' 
+					or  upper(remark) like upper(#{dstdictinfoCustom.info})||'%' 
+				)
+			</if>
+		</if>
+		order by dictsort
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	
+    <select id="findDictinfoSubdcount" parameterType="activetech.base.pojo.dto.DstdictinfoQueryDto"
+ 		resultType="int">
+ 		 select count(*) from dstdictinfo 
+        where   typecode = 'YLG_DGMC_COD'
+		 <if test="dstdictinfoCustom!=null">
+		 	<if test="dstdictinfoCustom.info!=null and dstdictinfoCustom.info!=''">
+				and (info like '%'|| #{dstdictinfoCustom.info}||'%' 
+					or  upper(remark) like upper(#{dstdictinfoCustom.info})||'%' 
+				)
+			</if>
+		</if>
+ 	</select>
+</mapper>

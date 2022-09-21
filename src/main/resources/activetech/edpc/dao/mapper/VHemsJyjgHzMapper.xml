@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.VHemsJyjgHzMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.VHemsJyjgHz" >
+    <result column="MPI" property="mpi" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SAMPLENO" property="sampleno" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="RESULT_DATE_TIME" property="resultDateTime" jdbcType="TIMESTAMP" />
+    <result column="UPPER_LIMIT" property="upperLimit" jdbcType="VARCHAR" />
+    <result column="LOWER_LIMIT" property="lowerLimit" jdbcType="VARCHAR" />
+    <result column="REPORT_ITEM_NAME" property="reportItemName" jdbcType="VARCHAR" />
+    <result column="UNITS" property="units" jdbcType="VARCHAR" />
+    <result column="EXAMINAIM" property="examinaim" jdbcType="VARCHAR" />
+    <result column="REPORT_DOC" property="reportDoc" jdbcType="VARCHAR" />
+    <result column="REPORT_DOC_NAME" property="reportDocName" jdbcType="VARCHAR" />
+    <result column="EXAMINE_DOC_NAME" property="examineDocName" jdbcType="VARCHAR" />
+    <result column="PATIENT_DEPT" property="patientDept" jdbcType="VARCHAR" />
+    <result column="INPATIENT_AREA" property="inpatientArea" jdbcType="VARCHAR" />
+    <result column="BED_NO" property="bedNo" jdbcType="VARCHAR" />
+    <result column="NURSING_UNIT" property="nursingUnit" jdbcType="VARCHAR" />
+    <result column="ATTENDING_DOC" property="attendingDoc" jdbcType="VARCHAR" />
+    <result column="ATTENDING_DOC_NAME" property="attendingDocName" jdbcType="VARCHAR" />
+    <result column="SEEK_MEDICAL_TIMES" property="seekMedicalTimes" jdbcType="VARCHAR" />
+    <result column="SERVICE_ORGANIZATION" property="serviceOrganization" jdbcType="VARCHAR" />
+    <result column="BE_HOSPITALIZED" property="beHospitalized" jdbcType="TIMESTAMP" />
+    <result column="ORDER_CODE" property="orderCode" jdbcType="VARCHAR" />
+    <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
+    <result column="EXAMINE_DEPT" property="examineDept" jdbcType="VARCHAR" />
+    <result column="EXAMINE_DEPT_CODE" property="examineDeptCode" jdbcType="VARCHAR" />
+    <result column="XH" property="xh" jdbcType="VARCHAR" />
+    <result column="APPLICATION_NO" property="applicationNo" jdbcType="VARCHAR" />
+    <result column="REPORT_NO" property="reportNo" jdbcType="VARCHAR" />
+    <result column="TREATMENT_CODE" property="treatmentCode" jdbcType="VARCHAR" />
+    <result column="RECEIVE_TIME" property="receiveTime" jdbcType="TIMESTAMP" />
+    <result column="SAMPLE_CODE" property="sampleCode" jdbcType="VARCHAR" />
+    <result column="SAMPLE_NAME" property="sampleName" jdbcType="VARCHAR" />
+    <result column="REPORT_STATUS" property="reportStatus" jdbcType="VARCHAR" />
+    <result column="REPORT_SHEET_NAME" property="reportSheetName" jdbcType="VARCHAR" />
+    <result column="ERROR_FLAG" property="errorFlag" jdbcType="VARCHAR" />
+    <result column="REPORT_TYPE" property="reportType" jdbcType="VARCHAR" />
+    <result column="EXAMINE_DOC" property="examineDoc" jdbcType="VARCHAR" />
+    <result column="JYJG_ID" property="jyjgId" jdbcType="VARCHAR" />
+    <result column="JYLX" property="jylx" jdbcType="VARCHAR" />
+    <result column="JYLXMC" property="jylxmc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MPI, NAME, SAMPLENO, RESULT, RESULT_DATE_TIME, UPPER_LIMIT, LOWER_LIMIT, REPORT_ITEM_NAME, 
+    UNITS, EXAMINAIM, REPORT_DOC, REPORT_DOC_NAME, EXAMINE_DOC_NAME, PATIENT_DEPT, INPATIENT_AREA, 
+    BED_NO, NURSING_UNIT, ATTENDING_DOC, ATTENDING_DOC_NAME, SEEK_MEDICAL_TIMES, SERVICE_ORGANIZATION, 
+    BE_HOSPITALIZED, ORDER_CODE, ORDER_TYPE, EXAMINE_DEPT, EXAMINE_DEPT_CODE, XH, APPLICATION_NO, 
+    REPORT_NO, TREATMENT_CODE, RECEIVE_TIME, SAMPLE_CODE, SAMPLE_NAME, REPORT_STATUS, 
+    REPORT_SHEET_NAME, ERROR_FLAG, REPORT_TYPE, EXAMINE_DOC, JYJG_ID, JYLX, JYLXMC
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.VHemsJyjgHzExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from V_HEMS_JYJG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.VHemsJyjgHzExample" >
+    delete from V_HEMS_JYJG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.VHemsJyjgHz" >
+    insert into V_HEMS_JYJG (MPI, NAME, SAMPLENO, 
+      RESULT, RESULT_DATE_TIME, UPPER_LIMIT, 
+      LOWER_LIMIT, REPORT_ITEM_NAME, UNITS, 
+      EXAMINAIM, REPORT_DOC, REPORT_DOC_NAME, 
+      EXAMINE_DOC_NAME, PATIENT_DEPT, INPATIENT_AREA, 
+      BED_NO, NURSING_UNIT, ATTENDING_DOC, 
+      ATTENDING_DOC_NAME, SEEK_MEDICAL_TIMES, SERVICE_ORGANIZATION, 
+      BE_HOSPITALIZED, ORDER_CODE, ORDER_TYPE, 
+      EXAMINE_DEPT, EXAMINE_DEPT_CODE, XH, 
+      APPLICATION_NO, REPORT_NO, TREATMENT_CODE, 
+      RECEIVE_TIME, SAMPLE_CODE, SAMPLE_NAME, 
+      REPORT_STATUS, REPORT_SHEET_NAME, ERROR_FLAG, 
+      REPORT_TYPE, EXAMINE_DOC, JYJG_ID, 
+      JYLX, JYLXMC)
+    values (#{mpi,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sampleno,jdbcType=VARCHAR}, 
+      #{result,jdbcType=VARCHAR}, #{resultDateTime,jdbcType=TIMESTAMP}, #{upperLimit,jdbcType=VARCHAR}, 
+      #{lowerLimit,jdbcType=VARCHAR}, #{reportItemName,jdbcType=VARCHAR}, #{units,jdbcType=VARCHAR}, 
+      #{examinaim,jdbcType=VARCHAR}, #{reportDoc,jdbcType=VARCHAR}, #{reportDocName,jdbcType=VARCHAR}, 
+      #{examineDocName,jdbcType=VARCHAR}, #{patientDept,jdbcType=VARCHAR}, #{inpatientArea,jdbcType=VARCHAR}, 
+      #{bedNo,jdbcType=VARCHAR}, #{nursingUnit,jdbcType=VARCHAR}, #{attendingDoc,jdbcType=VARCHAR}, 
+      #{attendingDocName,jdbcType=VARCHAR}, #{seekMedicalTimes,jdbcType=VARCHAR}, #{serviceOrganization,jdbcType=VARCHAR}, 
+      #{beHospitalized,jdbcType=TIMESTAMP}, #{orderCode,jdbcType=VARCHAR}, #{orderType,jdbcType=VARCHAR}, 
+      #{examineDept,jdbcType=VARCHAR}, #{examineDeptCode,jdbcType=VARCHAR}, #{xh,jdbcType=VARCHAR}, 
+      #{applicationNo,jdbcType=VARCHAR}, #{reportNo,jdbcType=VARCHAR}, #{treatmentCode,jdbcType=VARCHAR}, 
+      #{receiveTime,jdbcType=TIMESTAMP}, #{sampleCode,jdbcType=VARCHAR}, #{sampleName,jdbcType=VARCHAR}, 
+      #{reportStatus,jdbcType=VARCHAR}, #{reportSheetName,jdbcType=VARCHAR}, #{errorFlag,jdbcType=VARCHAR}, 
+      #{reportType,jdbcType=VARCHAR}, #{examineDoc,jdbcType=VARCHAR}, #{jyjgId,jdbcType=VARCHAR}, 
+      #{jylx,jdbcType=VARCHAR}, #{jylxmc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.VHemsJyjgHz" >
+    insert into V_HEMS_JYJG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mpi != null" >
+        MPI,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="sampleno != null" >
+        SAMPLENO,
+      </if>
+      <if test="result != null" >
+        RESULT,
+      </if>
+      <if test="resultDateTime != null" >
+        RESULT_DATE_TIME,
+      </if>
+      <if test="upperLimit != null" >
+        UPPER_LIMIT,
+      </if>
+      <if test="lowerLimit != null" >
+        LOWER_LIMIT,
+      </if>
+      <if test="reportItemName != null" >
+        REPORT_ITEM_NAME,
+      </if>
+      <if test="units != null" >
+        UNITS,
+      </if>
+      <if test="examinaim != null" >
+        EXAMINAIM,
+      </if>
+      <if test="reportDoc != null" >
+        REPORT_DOC,
+      </if>
+      <if test="reportDocName != null" >
+        REPORT_DOC_NAME,
+      </if>
+      <if test="examineDocName != null" >
+        EXAMINE_DOC_NAME,
+      </if>
+      <if test="patientDept != null" >
+        PATIENT_DEPT,
+      </if>
+      <if test="inpatientArea != null" >
+        INPATIENT_AREA,
+      </if>
+      <if test="bedNo != null" >
+        BED_NO,
+      </if>
+      <if test="nursingUnit != null" >
+        NURSING_UNIT,
+      </if>
+      <if test="attendingDoc != null" >
+        ATTENDING_DOC,
+      </if>
+      <if test="attendingDocName != null" >
+        ATTENDING_DOC_NAME,
+      </if>
+      <if test="seekMedicalTimes != null" >
+        SEEK_MEDICAL_TIMES,
+      </if>
+      <if test="serviceOrganization != null" >
+        SERVICE_ORGANIZATION,
+      </if>
+      <if test="beHospitalized != null" >
+        BE_HOSPITALIZED,
+      </if>
+      <if test="orderCode != null" >
+        ORDER_CODE,
+      </if>
+      <if test="orderType != null" >
+        ORDER_TYPE,
+      </if>
+      <if test="examineDept != null" >
+        EXAMINE_DEPT,
+      </if>
+      <if test="examineDeptCode != null" >
+        EXAMINE_DEPT_CODE,
+      </if>
+      <if test="xh != null" >
+        XH,
+      </if>
+      <if test="applicationNo != null" >
+        APPLICATION_NO,
+      </if>
+      <if test="reportNo != null" >
+        REPORT_NO,
+      </if>
+      <if test="treatmentCode != null" >
+        TREATMENT_CODE,
+      </if>
+      <if test="receiveTime != null" >
+        RECEIVE_TIME,
+      </if>
+      <if test="sampleCode != null" >
+        SAMPLE_CODE,
+      </if>
+      <if test="sampleName != null" >
+        SAMPLE_NAME,
+      </if>
+      <if test="reportStatus != null" >
+        REPORT_STATUS,
+      </if>
+      <if test="reportSheetName != null" >
+        REPORT_SHEET_NAME,
+      </if>
+      <if test="errorFlag != null" >
+        ERROR_FLAG,
+      </if>
+      <if test="reportType != null" >
+        REPORT_TYPE,
+      </if>
+      <if test="examineDoc != null" >
+        EXAMINE_DOC,
+      </if>
+      <if test="jyjgId != null" >
+        JYJG_ID,
+      </if>
+      <if test="jylx != null" >
+        JYLX,
+      </if>
+      <if test="jylxmc != null" >
+        JYLXMC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mpi != null" >
+        #{mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleno != null" >
+        #{sampleno,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="resultDateTime != null" >
+        #{resultDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upperLimit != null" >
+        #{upperLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="lowerLimit != null" >
+        #{lowerLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="reportItemName != null" >
+        #{reportItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="units != null" >
+        #{units,jdbcType=VARCHAR},
+      </if>
+      <if test="examinaim != null" >
+        #{examinaim,jdbcType=VARCHAR},
+      </if>
+      <if test="reportDoc != null" >
+        #{reportDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="reportDocName != null" >
+        #{reportDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="examineDocName != null" >
+        #{examineDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="patientDept != null" >
+        #{patientDept,jdbcType=VARCHAR},
+      </if>
+      <if test="inpatientArea != null" >
+        #{inpatientArea,jdbcType=VARCHAR},
+      </if>
+      <if test="bedNo != null" >
+        #{bedNo,jdbcType=VARCHAR},
+      </if>
+      <if test="nursingUnit != null" >
+        #{nursingUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="attendingDoc != null" >
+        #{attendingDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="attendingDocName != null" >
+        #{attendingDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="seekMedicalTimes != null" >
+        #{seekMedicalTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceOrganization != null" >
+        #{serviceOrganization,jdbcType=VARCHAR},
+      </if>
+      <if test="beHospitalized != null" >
+        #{beHospitalized,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCode != null" >
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="examineDept != null" >
+        #{examineDept,jdbcType=VARCHAR},
+      </if>
+      <if test="examineDeptCode != null" >
+        #{examineDeptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="xh != null" >
+        #{xh,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationNo != null" >
+        #{applicationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="reportNo != null" >
+        #{reportNo,jdbcType=VARCHAR},
+      </if>
+      <if test="treatmentCode != null" >
+        #{treatmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveTime != null" >
+        #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sampleCode != null" >
+        #{sampleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleName != null" >
+        #{sampleName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportStatus != null" >
+        #{reportStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reportSheetName != null" >
+        #{reportSheetName,jdbcType=VARCHAR},
+      </if>
+      <if test="errorFlag != null" >
+        #{errorFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="reportType != null" >
+        #{reportType,jdbcType=VARCHAR},
+      </if>
+      <if test="examineDoc != null" >
+        #{examineDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="jyjgId != null" >
+        #{jyjgId,jdbcType=VARCHAR},
+      </if>
+      <if test="jylx != null" >
+        #{jylx,jdbcType=VARCHAR},
+      </if>
+      <if test="jylxmc != null" >
+        #{jylxmc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.VHemsJyjgHzExample" resultType="java.lang.Integer" >
+    select count(*) from V_HEMS_JYJG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update V_HEMS_JYJG
+    <set >
+      <if test="record.mpi != null" >
+        MPI = #{record.mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sampleno != null" >
+        SAMPLENO = #{record.sampleno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.result != null" >
+        RESULT = #{record.result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resultDateTime != null" >
+        RESULT_DATE_TIME = #{record.resultDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.upperLimit != null" >
+        UPPER_LIMIT = #{record.upperLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lowerLimit != null" >
+        LOWER_LIMIT = #{record.lowerLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportItemName != null" >
+        REPORT_ITEM_NAME = #{record.reportItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.units != null" >
+        UNITS = #{record.units,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examinaim != null" >
+        EXAMINAIM = #{record.examinaim,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportDoc != null" >
+        REPORT_DOC = #{record.reportDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportDocName != null" >
+        REPORT_DOC_NAME = #{record.reportDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examineDocName != null" >
+        EXAMINE_DOC_NAME = #{record.examineDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientDept != null" >
+        PATIENT_DEPT = #{record.patientDept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inpatientArea != null" >
+        INPATIENT_AREA = #{record.inpatientArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bedNo != null" >
+        BED_NO = #{record.bedNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nursingUnit != null" >
+        NURSING_UNIT = #{record.nursingUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attendingDoc != null" >
+        ATTENDING_DOC = #{record.attendingDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attendingDocName != null" >
+        ATTENDING_DOC_NAME = #{record.attendingDocName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seekMedicalTimes != null" >
+        SEEK_MEDICAL_TIMES = #{record.seekMedicalTimes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceOrganization != null" >
+        SERVICE_ORGANIZATION = #{record.serviceOrganization,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beHospitalized != null" >
+        BE_HOSPITALIZED = #{record.beHospitalized,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderCode != null" >
+        ORDER_CODE = #{record.orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderType != null" >
+        ORDER_TYPE = #{record.orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examineDept != null" >
+        EXAMINE_DEPT = #{record.examineDept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examineDeptCode != null" >
+        EXAMINE_DEPT_CODE = #{record.examineDeptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xh != null" >
+        XH = #{record.xh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicationNo != null" >
+        APPLICATION_NO = #{record.applicationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportNo != null" >
+        REPORT_NO = #{record.reportNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treatmentCode != null" >
+        TREATMENT_CODE = #{record.treatmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveTime != null" >
+        RECEIVE_TIME = #{record.receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sampleCode != null" >
+        SAMPLE_CODE = #{record.sampleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sampleName != null" >
+        SAMPLE_NAME = #{record.sampleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportStatus != null" >
+        REPORT_STATUS = #{record.reportStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportSheetName != null" >
+        REPORT_SHEET_NAME = #{record.reportSheetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorFlag != null" >
+        ERROR_FLAG = #{record.errorFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportType != null" >
+        REPORT_TYPE = #{record.reportType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examineDoc != null" >
+        EXAMINE_DOC = #{record.examineDoc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jyjgId != null" >
+        JYJG_ID = #{record.jyjgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jylx != null" >
+        JYLX = #{record.jylx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jylxmc != null" >
+        JYLXMC = #{record.jylxmc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update V_HEMS_JYJG
+    set MPI = #{record.mpi,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      SAMPLENO = #{record.sampleno,jdbcType=VARCHAR},
+      RESULT = #{record.result,jdbcType=VARCHAR},
+      RESULT_DATE_TIME = #{record.resultDateTime,jdbcType=TIMESTAMP},
+      UPPER_LIMIT = #{record.upperLimit,jdbcType=VARCHAR},
+      LOWER_LIMIT = #{record.lowerLimit,jdbcType=VARCHAR},
+      REPORT_ITEM_NAME = #{record.reportItemName,jdbcType=VARCHAR},
+      UNITS = #{record.units,jdbcType=VARCHAR},
+      EXAMINAIM = #{record.examinaim,jdbcType=VARCHAR},
+      REPORT_DOC = #{record.reportDoc,jdbcType=VARCHAR},
+      REPORT_DOC_NAME = #{record.reportDocName,jdbcType=VARCHAR},
+      EXAMINE_DOC_NAME = #{record.examineDocName,jdbcType=VARCHAR},
+      PATIENT_DEPT = #{record.patientDept,jdbcType=VARCHAR},
+      INPATIENT_AREA = #{record.inpatientArea,jdbcType=VARCHAR},
+      BED_NO = #{record.bedNo,jdbcType=VARCHAR},
+      NURSING_UNIT = #{record.nursingUnit,jdbcType=VARCHAR},
+      ATTENDING_DOC = #{record.attendingDoc,jdbcType=VARCHAR},
+      ATTENDING_DOC_NAME = #{record.attendingDocName,jdbcType=VARCHAR},
+      SEEK_MEDICAL_TIMES = #{record.seekMedicalTimes,jdbcType=VARCHAR},
+      SERVICE_ORGANIZATION = #{record.serviceOrganization,jdbcType=VARCHAR},
+      BE_HOSPITALIZED = #{record.beHospitalized,jdbcType=TIMESTAMP},
+      ORDER_CODE = #{record.orderCode,jdbcType=VARCHAR},
+      ORDER_TYPE = #{record.orderType,jdbcType=VARCHAR},
+      EXAMINE_DEPT = #{record.examineDept,jdbcType=VARCHAR},
+      EXAMINE_DEPT_CODE = #{record.examineDeptCode,jdbcType=VARCHAR},
+      XH = #{record.xh,jdbcType=VARCHAR},
+      APPLICATION_NO = #{record.applicationNo,jdbcType=VARCHAR},
+      REPORT_NO = #{record.reportNo,jdbcType=VARCHAR},
+      TREATMENT_CODE = #{record.treatmentCode,jdbcType=VARCHAR},
+      RECEIVE_TIME = #{record.receiveTime,jdbcType=TIMESTAMP},
+      SAMPLE_CODE = #{record.sampleCode,jdbcType=VARCHAR},
+      SAMPLE_NAME = #{record.sampleName,jdbcType=VARCHAR},
+      REPORT_STATUS = #{record.reportStatus,jdbcType=VARCHAR},
+      REPORT_SHEET_NAME = #{record.reportSheetName,jdbcType=VARCHAR},
+      ERROR_FLAG = #{record.errorFlag,jdbcType=VARCHAR},
+      REPORT_TYPE = #{record.reportType,jdbcType=VARCHAR},
+      EXAMINE_DOC = #{record.examineDoc,jdbcType=VARCHAR},
+      JYJG_ID = #{record.jyjgId,jdbcType=VARCHAR},
+      JYLX = #{record.jylx,jdbcType=VARCHAR},
+      JYLXMC = #{record.jylxmc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

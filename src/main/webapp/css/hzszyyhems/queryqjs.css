@@ -1,0 +1,529 @@
+html,
+body {
+    overflow-y: hidden;
+}
+
+
+form {
+    width: 100%;
+
+    border-bottom: solid 1px #a2c1e8;
+}
+
+select,
+input[type=text] {
+    line-height: 24px;
+
+    height: 24px;
+}
+
+.form * {
+    display: block;
+    float: left;
+}
+
+.hzqk {
+    margin-top: 5px;
+}
+
+
+.at-panel {
+    margin-bottom: 0;
+}
+
+.at-panel .at-panel-heading {
+    height: 34px;
+}
+
+.at-panel .at-panel-heading .at-panel-title {
+    font-family: 'MicrosoftYaHei';
+    font-size: 14px;
+    line-height: 34px;
+    float: left;
+    height: 34px;
+    letter-spacing: 0;
+    color: #333;
+}
+
+.at-panel .at-panel-heading .dashed-line {
+    float: left;
+    width: 60%;
+    height: 0;
+    margin-top: 17px;
+    margin-left: 4%;
+    border: none;
+    border-top: 1px dashed #b8cfed;
+}
+
+.at-panel .at-panel-body {
+    padding: 5px;
+}
+
+.at-container-fluid {
+    overflow: hidden;
+    width: 100%;
+    background-color: #e6eef8;
+}
+
+.at-container-fluid .at-tabs-container {
+    float: left;
+    overflow: auto;
+    border-right: solid 1px #a2c1e8;
+    border-bottom: solid 1px #a2c1e8;
+    background-color: #fcfbff;
+}
+
+.at-container-fluid .at-tabs {
+    float: right;
+    width: 230px;
+    padding: 10px;
+    padding-right: 0px;
+    border: solid 1px #a2c1e8;
+    border-top: none;
+    background-color: #fcfbff;
+    overflow: auto;
+}
+
+.look-type {
+    float: left;
+    width: 100px;
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+}
+
+.commonbtn {
+    margin: 5px 10px;
+}
+
+.commonbtn:hover {
+    text-decoration: none;
+}
+
+.look {
+    font-size: 14px;
+    line-height: 30px;
+    display: block;
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+    color: #0c29b9;
+}
+
+.sickbed-container {
+    padding: 5px;
+}
+.patient-list {
+    background-color: #000;
+}
+.datagrid-wrap.panel-body.panel-body-noheader {
+    border: none !important;
+}
+
+.panel-body.panel-body-noborder.window-body {
+    overflow-y: hidden;
+}
+.tips {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    min-width: 100px;
+    max-width: 200px;
+    min-height: 100px;
+    padding: 10px;
+    pointer-events: none;
+    border: solid 1px #ddd;
+    border-radius: 3px;
+    background-color: #fff;
+}
+/* .tips:before {
+    position: absolute;
+    left: -12px;
+    content: url('../../images/hzszyyhems/queryqjs/arrows.png');
+} */
+.triangleCss {
+    margin-left: -30px;
+    float: left;
+    position: fixed;
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent #ddd transparent transparent;
+}
+.triangleCss:after{
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    left: -10px;
+    top: -11px;
+    border-width: 11px;
+    border-style: solid;
+    border-color: transparent #fff transparent transparent;
+    position: absolute;
+}
+.tips p {
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.tips p .text-info {
+    color: #2a00ff;
+}
+
+.rightMenu {
+    position: fixed;
+    left:0;
+    top:0;
+    width:125px;
+    padding: 0;
+    margin: 0;
+    display: none;
+    box-sizing: border-box;
+    background: #fff;
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, .08)
+}
+.rightMenu li{
+    list-style: none;
+    width: 125px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    color: #3275c1;
+    box-sizing: border-box;
+}
+.rightMenu li:hover{
+    cursor: pointer;
+    color: #000;
+    background: #e0ecff;
+}
+.sickbed-container .sickbed {
+    margin: 1px;
+}
+.left-msg {
+    float: left;
+    width: 100%;
+    height: 105px;
+}
+ .sickbed-container .sickbed {
+    margin: 0px;
+    width: 200px;
+    height: 125px;
+    text-align: left;
+    text-indent: 4px;
+}
+.sickbed-container .sickbed .sickbed-name {
+    height: 25px;
+    line-height: 25px;
+    color: #000;
+    font-size: 15px;
+}
+.sickbed-container .sickbed.level3, .sickbed-container .sickbed.level4,  .sickbed-container .sickbed.level2, .sickbed-container .sickbed.level1, .sickbed-container .sickbed.level0 {
+    background: #fff;
+}
+
+.topListWrap, .bottomListWrap {
+    overflow: auto;
+    float: left;
+    box-sizing: border-box
+}
+.betweenGap {
+    float: left;
+    width: 100%;
+    height: 6px;
+    border: 1px solid #a2c1e8;
+    border-width: 1px 0 1px 0;
+    background: #e5eef9;
+    box-sizing: border-box
+}
+.bed-box {
+    display: inline-block;
+    float: left;
+    padding: 5px;
+    background-color: transparent;
+}
+.bed-box.active {
+    background-color: #74b5de;
+}
+.sickbed-container .sickbed {
+    float: left;
+    overflow: hidden;
+    width: 230px;
+    height: 167px;
+    margin: 0;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    border: solid 1px #a2aebe;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.34);
+}
+.basicMsg {
+    float: left;
+    height: 100%;
+}
+.basicMsg .topMsgUl {
+    float: left;
+    height: 143px;
+    width: 230px;
+}
+.basicMsg .topMsgUl li {
+    float: left;
+    width: 99%;
+    text-align: left;
+    padding-left: 1%;
+    font-size: 13px;
+    color: #000;
+    height: 18px;
+    line-height: 18px;
+    margin: 2px 0px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.topMsgUl li.topLi img {
+    width: 25px;
+    margin-top: 2px;
+    vertical-align: middle;
+    float: left;
+}
+.topMsgUl li.topLi img.imgWth {
+    width: 30px;
+}
+.basicMsg .topMsgUl li.topLi {
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #a2aebe;
+    margin: 0px;
+    background:url(../../images/common/bigScreen/topBg.png);
+}
+.basicMsg .topMsgUl li.noContentLi {
+	height:137px;
+	text-align:center;
+	font-size:25px;
+    line-height:137px;
+    background: #fff;
+    margin: 0;
+    color: #848a92;
+}
+li.noContentLi img {
+    width: 87px;
+    vertical-align: middle;
+    margin-left: -10px;
+}
+.basicMsg .topMsgUl li.marginUp {
+    margin-top: 4px;
+}
+.basicMsg .topMsgUl li.marginDown {
+    margin-bottom: 4px;
+}
+.basicMsg .topLi span{
+    float: right;
+    margin-right: 4px;
+}
+.basicMsg .topLi .marginSpace {
+    float: left;
+    margin-left: 2px;
+    font-size: 18px;
+}
+.basicMsg  .marginGap {
+    margin: 0px 2px;
+}
+.basicMsg .topLi span.marginSmall {
+    float: left;
+    margin-left: 0px;
+    margin-right: 0px;
+    font-size: 15px;
+}
+.basicMsg .GradeUl {
+    float: left;
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    background: #d6d6d6;
+}
+.basicMsg .GradeUl li {
+    float: left;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    color: #000;
+}
+.basicMsg .GradeUl.level0 {
+    border-color: #ec361c;
+    background-color: red;
+}
+.basicMsg .GradeUl.level1 {
+    border-color: #bfb926;
+    background-color: #f90;
+}
+.basicMsg .GradeUl.level2 {
+    border-color: #ece532;
+    background-color: yellow;
+}
+.basicMsg .GradeUl.level3,
+.basicMsg .GradeUl.level4 {
+    border-color: #169a18;
+    background-color: #44b548;
+}
+.thinColor {
+    color: #8c9096;
+}
+.basicMsg a, .bottomMsgInfo {
+    color: #000;
+}
+.bottomMsgInfo {
+    float: left;
+}
+.basicMsg a.inlineA {
+    display: inline;
+}
+.inline-span {
+    display: inline-block;
+    float: none;
+    color: #000;
+}
+span.line-span {
+    margin-right: 4px;
+    font-size: 13px;
+    color:dimgray;
+}
+.hrSpace {
+    border: none;
+    margin: 5px 0 0 0;
+}
+.consultation .datagrid .panel-body {
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+}
+.consultation .panel-header {
+    border-left: none;
+}
+.consultation .panel-header,
+.consultation .datagrid-wrap.panel-body,
+.consultation .easyui-panel.panel-body,
+.consultation .datagrid-header{
+    width: 100% !important;
+}
+.centerLayout .patient-list .panel {
+    border-bottom: 1px solid #95B8E7 !important;
+}
+.small-box .sickbed {
+    float: left;
+    overflow: hidden;
+    width: 140px;
+    height: 110px;
+    margin: 2px;
+    cursor: pointer;
+    text-align: center;
+    border: solid 1px #ddd;
+    border-radius: 8px;
+    background-color: #d6d6d6;
+}
+.small-box .sickbed.level0 {
+    border-color: #ec361c;
+    background-color: red;
+}
+.small-box .sickbed.level1 {
+    border-color: #bfb926;
+    background-color: #f90;
+}
+.small-box .sickbed.level2 {
+    border-color: #ece532;
+    background-color: yellow;
+}
+.small-box .sickbed.level3,
+.small-box .sickbed.level4 {
+    border-color: #169a18;
+    background-color: #44b548;
+}
+.small-box .sickbed .sickbed-name {
+    font-size: 14px;
+    line-height: 30px;
+    box-sizing: border-box;
+    height: 30px;
+    color: #555;
+    border-bottom: solid 1px #ddd;
+    background-color: #fff;
+}
+.small-box .sickbed .patient-name {
+    font-size: 16px;
+    line-height: 80px;
+    height: 80px;
+}
+.small-box .sickbed .patient-name a {
+    line-height: 16px;
+    height: 16px;
+    color: #333;
+}
+.bottomQjs .smallList {
+    display: none;
+}
+.bottomQjs .smallList ul {
+    width: 100%;
+}
+@media screen and (min-device-width:960px) and (max-device-width:1366px){
+    .sickbed-box .sickbed {
+        width: 170px;
+        height: 147px;
+    }
+    .basicMsg .topMsgUl {
+        height: 123px;
+        width: 170px;
+    }
+    .basicMsg .topMsgUl li {
+        height: 15px;
+        line-height: 15px;
+        font-size: 12px;
+    }
+    .basicMsg .topMsgUl li.topLi {
+        font-size: 15px;
+        height: 24px;
+        line-height: 24px;
+    }
+    .topMsgUl li.topLi img {
+        width: 20px;
+    }
+    .topMsgUl li.topLi img.imgWth {
+        width: 25px;
+    }
+    .basicMsg .topMsgUl li.noContentLi {
+        width: 170px;
+        height: 123px;
+        line-height: 123px;
+    }
+    .basicMsg .topLi span {
+        margin-right: 2px;
+        font-size: 13px;
+    }
+    .basicMsg .topLi span.marginSmall {
+        font-size: 13px;
+    }
+    .basicMsg .topLi .marginSpace {
+        margin-left: 0px;
+        font-size: 14px;
+    }
+    .basicMsg .GradeUl li, .bottomMsgInfo {
+        width: 170px;
+        float: left;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .sickbed-container {
+        padding: 3px;
+    }
+    li.noContentLi img {
+        width: 67px;
+    }
+    span.line-span {
+        margin-right: 4px;
+        font-size: 12px;
+    }
+}

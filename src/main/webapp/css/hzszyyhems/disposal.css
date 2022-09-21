@@ -1,0 +1,64 @@
+@charset "utf-8";
+/**
+*  处置导入css
+*/
+.disposal{
+    padding: 10px;
+}
+.disposal .header{
+    float: left;
+    width: 100%;
+}
+.disposal .header label{
+    float:left;
+    font-size: 12px;
+}
+.disposal .Categories{
+    float: left;
+    width: 95%;
+    line-height: 25px;
+}
+.disposal .marginRight{
+    display: inline-block;
+    margin-right: 6px;
+}
+.clearBoth{
+    clear: both;
+}
+.disposal .disposalDiv{
+    float: left;
+    width: 100%;
+    padding: 10px 0px;
+}
+.disposal #fieldText{
+    width: 965px;
+    height: 80px;
+    border: 1px solid #dcdcdc;
+    background-color: #ececec;
+    margin-bottom:10px;
+}
+.disposal .grp_btn{
+    width: 965px;
+}
+.header .queryText{
+    width: 200px;
+    margin-right: 20px;
+}
+.queryModel .marginRight{
+    display: inline-block
+    ;margin-right: 6px;
+}
+.queryModel .header {
+    margin-top: 6px;
+    margin-left: 5px;
+}
+.queryModel .header label {
+    float:left;
+    font-size: 14px;
+}
+.queryModel .Categories {
+    font-size: 14px;
+    margin-right: 10px;
+    display: inline-block;
+    margin-bottom: 6px;
+}
