@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.aid.dao.mapper.AidEptGrpMapperCustom">
+
+
+    <select id="getExpertGroupList" resultType="activetech.aid.pojo.dto.AidEptGrpCustom">
+        select a.grp_seq,
+               (case a.grp_no when '0' then null else a.grp_no end) as "_parentId",
+               a.grp_no,
+               a.grp_nam,
+               a.ept_typ,
+               a.ept_no,
+               (select usrname from dstuser where usrno = a.ept_no) usrname,
+               (select phone from dstuser where usrno = a.ept_no) phone,
+               (select movephone from dstuser where usrno = a.ept_no) movephone,
+               a.ept_com,
+               a.wxp_flg,
+               a.crt_tim,
+               a.crt_usr,
+               a.mod_tim,
+               a.mod_usr
+        from AID_EPT_GRP a
+    </select>
+
+    <insert id="addExpertGroup" parameterType="activetech.aid.pojo.dto.AidEptGrpCustom">
+        insert into AID_EPT_GRP (GRP_SEQ, GRP_NO, GRP_NAM, EPT_TYP,
+                                 EPT_NO, EPT_COM, WXP_FLG,
+                                 CRT_TIM, CRT_USR, MOD_TIM,
+                                 MOD_USR)
+        values (aid_ept_grp_grp_seq.nextval,#{grpNo,jdbcType=VARCHAR}, #{grpNam,jdbcType=VARCHAR}, #{eptTyp,jdbcType=CHAR},
+                #{eptNo,jdbcType=VARCHAR}, #{eptCom,jdbcType=VARCHAR}, #{wxpFlg,jdbcType=CHAR},
+                #{crtTim,jdbcType=TIMESTAMP}, #{crtUsr,jdbcType=VARCHAR}, #{modTim,jdbcType=TIMESTAMP},
+                #{modUsr,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateByExample" parameterType="activetech.aid.pojo.dto.AidEptGrpCustom">
+         update AID_EPT_GRP
+            set GRP_NAM = #{grpNam,jdbcType=VARCHAR},
+                MOD_TIM = #{modTim,jdbcType=TIMESTAMP},
+                MOD_USR = #{modUsr,jdbcType=VARCHAR}
+          where GRP_SEQ = #{grpSeq,jdbcType=VARCHAR}
+             or GRP_NO = #{grpSeq,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

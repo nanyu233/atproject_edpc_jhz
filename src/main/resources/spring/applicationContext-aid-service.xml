@@ -15,5 +15,6 @@
 		
 	<!--院前信息 -->
 	<bean id="aidService" class="activetech.aid.service.impl.AidServiceImpl" />
-	
+	<!--专家组 -->
+	<bean id="OndutyService" class="activetech.aid.service.impl.OndutyServiceImpl" />
 </beans>
