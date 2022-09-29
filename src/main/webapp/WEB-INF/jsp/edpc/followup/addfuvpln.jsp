@@ -12,10 +12,50 @@
     <link rel="stylesheet" type="text/css" href="${baseurl}styles/hems/global.css">
     <script type="text/javascript" src="${baseurl}lib/validate/jquery.validate.js"></script>
     <script type="text/javascript" src="${baseurl}lib/avalon1.4.8/avalon.js"></script>
+    <style type="text/css">
+        .search-btn {
+            /*position: absolute;*/
+            /*top: 10px;*/
+            /*right: 10px;*/
+            width: 140px;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #428bca;
+            border-color: #357ebd;
+            height: 32px;
+            text-align: center;
+            line-height: 32px;
+            cursor: pointer;
+        }
+
+
+        .form table {
+            width: 100%;
+            margin-top: -2px;
+        }
+        .form table th {
+            background: rgb(243,249,255);
+        }
+        .form table td , .form table th{
+            padding: 3px;
+            border:1px solid #ddd;
+        }
+        .form table td {
+            width: 38%;
+            text-align: center;
+        }
+        .form table th {
+            width: 12%;
+            text-align: center;
+        }
+        .form table tr:hover {
+            background-color: #eaf2ff;
+        }
+    </style>
 </head>
 
 <body class="adddevice">
-    <form ms-controller="fuvPln" id="fuvplnform" action="${baseurl}followup/fuvplnsubmit.do" method="post">
+    <form ms-controller="fuvPln" class="form" id="fuvplnform" action="${baseurl}followup/fuvplnsubmit.do" method="post">
         <table style="margin:10px auto;">
             <colgroup>
                 <col width="100" />
@@ -24,64 +64,70 @@
             <tbody>
                 <tr>
                     <tr>
-                    <th>患者信息:</th>
-                    <td>
-                        {{fuvMsg.patNam}}|{{fuvMsg.patSex}}|{{fuvMsg.patAge}}
-                    </td>
-                </tr>
+                      <th>患者信息:</th>
+                      <td>
+                        {{fuvMsg.patNam}}  |  {{fuvMsg.patSex}}  |  {{fuvMsg.patAge}}
+                      </td>
+                    </tr>
                 </tr>
                 <tr>
                     <th>指定日期:</th>
                     <td>
-                        <input type="text" id="" ms-duplex-string="getMsg.designDate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})"/>
+                    <%--                        <input type="text" class="easyui-tooltip" title="选择指定日期来制定计划" ms-duplex-string="getMsg.designDate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})"/>--%>
+                        <input type="text" ms-duplex-string="getMsg.designDate" style="width: 100px" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})"/>
+                        <label><i class="red">选择指定日期来制定计划</i></label>
                         <select class="hidden" id="plnFuvTyp" ms-duplex-string="fuvMsg.plnFuvTyp">
                       		 <option value="">请选择</option>
                      	 	 <option ms-repeat="getMsg.plnFuvTypList" ms-attr-value="el.infocode">{{el.info}}</option>
                   		</select>
                     </td>
-                	<td>
-                	<label><i class="red">选择指定日期来制定计划</i></label>
-                	</td>
+<%--                	<td>--%>
+<%--                	<label><i class="red">选择指定日期来制定计划</i></label>--%>
+<%--                	</td>--%>
                 </tr>
                 <tr>
                     <th>待选周期</th>
                     <th>随访日期</th>
-                </tr><td><br/></td><tr>
                 </tr>
-                <tr ms-repeat="getMsg.periodList">
-                	<td><input type="checkbox" ms-click="periodClick($index)"/><label>{{el.period}}</label></th>
-                	<td><label>{{el.plnFuvTim}}</label></th>
-                	<td>
+<%--                <td><br/></td>--%>
+                <tr>
+                </tr>
+                <tr ms-repeat="getMsg.periodList" align="center" ms-click="periodClick($index,$index)">
+                	<td><input type="checkbox" class="checkbox" ms-click="periodClick($index,this)"  ms-attr-id="plnFuv{{$index}}"/><label>{{el.period}}</label></td>
+                	<td><label>{{el.plnFuvTim}}</label></td>
+                	<td style="display: none">
                 		<input style="display:none;" ms-attr-name="hspFuvPlnCustoms[{{$index}}].patId" ms-attr-id="patId{{el.period}}" type="text" ms-duplex-string="el.patId" ms-attr-disabled="el.disable">
                 		<input style="display:none;" ms-attr-name="hspFuvPlnCustoms[{{$index}}].plnFuvTim" ms-attr-id="plnFuvTim{{el.period}}" type="text" ms-duplex-string="el.plnFuvTim" ms-attr-disabled="el.disable">
                 		<input style="display:none;" ms-attr-name="hspFuvPlnCustoms[{{$index}}].plnSta" ms-attr-id="plnSta{{el.period}}" type="text" ms-duplex-string="el.plnSta" ms-attr-disabled="el.disable">
                 		<input style="display:none;" ms-attr-name="hspFuvPlnCustoms[{{$index}}].almUsrNo" ms-attr-id="almUsrNo{{el.period}}" type="text" ms-duplex-string="el.almUsrNo" ms-attr-disabled="el.disable">
                 		<input style="display:none;" ms-attr-name="hspFuvPlnCustoms[{{$index}}].almUsrNme" ms-attr-id="almUsrNme{{el.period}}" type="text" ms-duplex-string="el.almUsrNme" ms-attr-disabled="el.disable">
                 		<input style="display:none;" ms-attr-name="hspFuvPlnCustoms[{{$index}}].plnFuvTyp" ms-attr-id="plnFuvTyp{{el.period}}" type="text" ms-duplex-string="fuvMsg.plnFuvTyp" ms-attr-disabled="el.disable">
-                	</th>
+                	</td>
                 </tr>
                 <tr>
                 	<td colspan="3">
                     <i class="red">请勾选需要进行随访的日期来批量生成随访计划</i>
                     </td>
                 </tr>
-                    <tr>
-                        <td colspan="2" class="last_td">
-                            <div class="center grp_btn">
-                                <a class="easyui-linkbutton" iconCls="icon-add" id="submitbtn" onclick="insertSta()">确定</a>
-                                <a class="easyui-linkbutton" iconCls="icon-cancel" id="closebtn" onclick="parent.closemodalwindow()">关闭</a>
-                            </div>
-                        </td>
-                    </tr>
             </tbody>
         </table>
+        <%--                    <tr align="center">--%>
+        <%--                        <td colspan="2" class="last_td">--%>
+        <div class="center grp_btn" style="display: flex;justify-content: flex-end">
+            <%--                                <a class="easyui-linkbutton" iconCls="icon-add" id="submitbtn" onclick="insertSta()">确定</a>--%>
+            <%--                                <a class="easyui-linkbutton" iconCls="icon-cancel" id="closebtn" onclick="parent.closemodalwindow()">关闭</a>--%>
+            <div class="search-btn" id="submitbtn" onclick="insertSta()">确定</div>
+            <div class="search-btn" id="closebtn" style="margin-left: 10px" onclick="parent.closemodalwindow()">关闭</div>
+        </div>
+        <%--                        </td>--%>
+        <%--                    </tr>--%>
     </form>
     
     <script type="text/javascript">
     	var _patId = '${hspFuvPatCustom.patId}';
     	var _patNam = '${hspFuvPatCustom.patNam}';
     	var _patSex = '${hspFuvPatCustom.cstSexCodStr}';
-    	var _patAge = '${hspFuvPatCustom.bthDat}';    	
+    	var _patAge = '${hspFuvPatCustom.bthDat}';
     	var bthDat = publicFun.timeFormat(new Date(_patAge), 'yyyy/MM/dd');
 		_patAge = (publicFun.calculateAge(bthDat).Age+publicFun.calculateAge(bthDat).typeStr);
 		var _xtfFlg = '${hspFuvPatCustom.xtfFlg}';
@@ -128,8 +174,17 @@
 					vm.getMsg.periodList.push({'patId':_patId,'period':list[i]+'个月','plnFuvTim':plnFuvTim,'plnSta':'0','almUsrNo':_usrno,'almUsrNme':_usrname,'disable':true});
 	        	}
 	        },
-	        periodClick: function (idx) {
-	            vm.getMsg.periodList[idx]['disable'] = !vm.getMsg.periodList[idx]['disable'];
+	        periodClick: function (idx,typ) {
+                event.stopPropagation()
+                if (typeof typ == 'number') {
+                    let checkbox = document.querySelectorAll('.checkbox')
+                    let check = checkbox[idx].checked
+                    checkbox[idx].checked = !check
+                    vm.getMsg.periodList[idx]['disable'] = !vm.getMsg.periodList[idx]['disable'];
+                }else {
+                    vm.getMsg.periodList[idx]['disable'] = !vm.getMsg.periodList[idx]['disable'];
+                }
+
 	        }      
 	    });
         //随访计划新增

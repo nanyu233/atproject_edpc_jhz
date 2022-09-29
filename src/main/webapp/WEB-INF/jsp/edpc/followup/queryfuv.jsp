@@ -209,7 +209,7 @@
 						   {'hspFuvPlnCustom.patId' :checkData.patId},
 						   function(res) {
 						   		if(res.resultInfo.message=='0'){
-							   		createmodalwindow("创建计划-"+checkData.patNam, 550, 500, '${baseurl}followup/addfuvpln.do?hspFuvPatCustom.patId='+checkData.patId, 'no');
+							   		createmodalwindow("创建计划-"+checkData.patNam, 550, 350, '${baseurl}followup/addfuvpln.do?hspFuvPatCustom.patId='+checkData.patId, 'no');
 						   		}else{
 						   			publicFun.alert('请先完成或删除先前未完成计划');
 						   		}
