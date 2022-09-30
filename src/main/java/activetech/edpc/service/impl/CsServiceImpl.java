@@ -1,91 +1,24 @@
 package activetech.edpc.service.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import activetech.aid.pojo.domain.AidPatient;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.pojo.dto.PageQuery;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
-import activetech.edpc.dao.mapper.CpcMapper;
-import activetech.edpc.dao.mapper.HspBodyPartsDefMapper;
-import activetech.edpc.dao.mapper.HspCsabcDefMapper;
-import activetech.edpc.dao.mapper.HspCsabcInfMapper;
-import activetech.edpc.dao.mapper.HspCsabcInfMapperCustom;
-import activetech.edpc.dao.mapper.HspCsampInfMapper;
-import activetech.edpc.dao.mapper.HspCsampInfMapperCustom;
-import activetech.edpc.dao.mapper.HspCscpnDefMapper;
-import activetech.edpc.dao.mapper.HspCscpnInfMapper;
-import activetech.edpc.dao.mapper.HspCscpnInfMapperCustom;
-import activetech.edpc.dao.mapper.HspCsmicDefMapper;
-import activetech.edpc.dao.mapper.HspCsoaeDefMapper;
-import activetech.edpc.dao.mapper.HspCsoaeInfMapper;
-import activetech.edpc.dao.mapper.HspCspfDefMapperCustom;
-import activetech.edpc.dao.mapper.HspCspfDtlMapper;
-import activetech.edpc.dao.mapper.HspCspfResMapper;
-import activetech.edpc.dao.mapper.HspCszlInfMapper;
-import activetech.edpc.dao.mapper.HspCszlInfMapperCustom;
-import activetech.edpc.dao.mapper.HspSbarInfMapper;
-import activetech.edpc.pojo.domain.HspBodyPartsDef;
-import activetech.edpc.pojo.domain.HspBodyPartsDefExample;
-import activetech.edpc.pojo.domain.HspCsabcDef;
-import activetech.edpc.pojo.domain.HspCsabcDefExample;
-import activetech.edpc.pojo.domain.HspCsabcInf;
-import activetech.edpc.pojo.domain.HspCsabcInfExample;
-import activetech.edpc.pojo.domain.HspCsampInf;
-import activetech.edpc.pojo.domain.HspCscpnDef;
-import activetech.edpc.pojo.domain.HspCscpnDefExample;
-import activetech.edpc.pojo.domain.HspCscpnInf;
-import activetech.edpc.pojo.domain.HspCscpnInfExample;
-import activetech.edpc.pojo.domain.HspCsmicDef;
-import activetech.edpc.pojo.domain.HspCsmicDefExample;
-import activetech.edpc.pojo.domain.HspCsoaeDef;
-import activetech.edpc.pojo.domain.HspCsoaeDefExample;
-import activetech.edpc.pojo.domain.HspCsoaeInf;
-import activetech.edpc.pojo.domain.HspCsoaeInfExample;
-import activetech.edpc.pojo.domain.HspCspfDtl;
-import activetech.edpc.pojo.domain.HspCspfDtlExample;
-import activetech.edpc.pojo.domain.HspCspfRes;
-import activetech.edpc.pojo.domain.HspCszlInf;
-import activetech.edpc.pojo.domain.HspCszlInfExample;
-import activetech.edpc.pojo.domain.HspCzzlInf;
-import activetech.edpc.pojo.domain.HspSbarInf;
-import activetech.edpc.pojo.dto.HspCsabcInfCustom;
-import activetech.edpc.pojo.dto.HspCsabcInfQueryDto;
-import activetech.edpc.pojo.dto.HspCscpnInfCustom;
-import activetech.edpc.pojo.dto.HspCscpnInfQueryDto;
-import activetech.edpc.pojo.dto.HspCsoaeInfQueryDto;
-import activetech.edpc.pojo.dto.HspCspfDefCustom;
-import activetech.edpc.pojo.dto.HspCspfDtlQueryDto;
-import activetech.edpc.pojo.dto.HspCszlInfCustom;
-import activetech.edpc.pojo.dto.HspCszlInfQueryDto;
-import activetech.edpc.pojo.dto.HspCzzlInfCustom;
-import activetech.edpc.pojo.dto.HspCzzlInfQueryDto;
-import activetech.edpc.pojo.dto.ProCode;
-import activetech.edpc.pojo.dto.ProCodeDef;
-import activetech.edpc.pojo.dto.QueryDto;
+import activetech.edpc.dao.mapper.*;
+import activetech.edpc.pojo.domain.*;
+import activetech.edpc.pojo.dto.*;
 import activetech.edpc.service.CsService;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
 import activetech.hospital.dao.mapper.HspemginfCustomMapper;
-import activetech.hospital.pojo.domain.HspEmgInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
-import activetech.util.DateUtil;
 import activetech.util.UUIDBuild;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.*;
 
 public class CsServiceImpl implements CsService{
 	
@@ -183,7 +116,7 @@ public class CsServiceImpl implements CsService{
 			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 			Map<String,Object> result = new HashMap<>();
 			
-			Map<String ,JSONObject> map = new HashMap<>();
+			Map<String , JSONObject> map = new HashMap<>();
 			for(HspCsabcDef hspCsabcDef :list){
 				
 				String keyName = "";

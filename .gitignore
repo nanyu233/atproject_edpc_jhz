@@ -1,2 +1,4 @@
 /.idea/
 /atproject_edpc.iml
+/target/
+/src/main/resources/rebel.xml

@@ -13,8 +13,6 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
 
-<!-- 加载配置文件 -->
-<context:property-placeholder location="classpath:db.properties,classpath:redis.properties,classpath:sysParams.properties"/>
 
 <!-- 获取编码 服务器启动时加载 redis上传 -->
 <bean class="activetech.base.listener.InitAllDictinfo" id="initAllDictinfo"/> 
@@ -25,50 +23,57 @@
 <!-- Spring上下文工具 -->
 <bean class="activetech.base.service.SpringContextUtil"  id="springContextUtil"/>
 
-<!-- 数据库连接池 -->
-<bean id="dataSource_basedb" class="org.apache.commons.dbcp.BasicDataSource" >
-       <property name="driverClassName" value="${jdbc.driver}"/>
-		<property name="url" value="${jdbc.url}"/>
-		<property name="username" value="${jdbc.username}"/>
-		<property name="password" value="${jdbc.password}"/>
-		<!-- 开发阶段建议最大连接数据尽量少，够用即可 -->
-		<property name="maxActive" value="${jdbc.maxActive}"/>
-		<property name="maxIdle" value="${jdbc.maxIdle}"/>
+<!-- 试用下hikari 连接池，据说是java速度最快的数据库连接池 -->
+<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+    <property name="driverClassName" value="${jdbc.driver}" />
+    <property name="jdbcUrl" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+    <property name="maximumPoolSize" value="${jdbc.maxActive}" />
+    <property name="minimumIdle" value="10" />
+    <property name="dataSourceProperties">
+        <props>
+            <prop key="cachePrepStmts">true</prop>
+            <prop key="prepStmtCacheSize">250</prop>
+            <prop key="prepStmtCacheSqlLimit">2048</prop>
+            <prop key="useServerPrepStmts">true</prop>
+        </props>
+    </property>
 </bean>
 
 <!-- 关联数据库连接池Sqlserver -->
-<bean id="dataSource_hzszyy_mssql" class="org.apache.commons.dbcp.BasicDataSource" >
-       <property name="driverClassName" value="${jdbc.driver.hzszyy.mssql}"/>
-		<property name="url" value="${jdbc.url.hzszyy.mssql}"/>
-		<property name="username" value="${jdbc.username.hzszyy.mssql}"/>
-		<property name="password" value="${jdbc.password.hzszyy.mssql}"/>
-		<!-- 开发阶段建议最大连接数据尽量少，够用即可 -->
-		<property name="maxActive" value="${jdbc.maxActive.hzszyy.mssql}"/>
-		<property name="maxIdle" value="${jdbc.maxIdle.hzszyy.mssql}"/>
-</bean>
+<!--<bean id="dataSource_hzszyy_mssql" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">-->
+<!--       <property name="driverClassName" value="${jdbc.driver.hzszyy.mssql}"/>-->
+<!--		<property name="jdbcUrl" value="${jdbc.url.hzszyy.mssql}"/>-->
+<!--		<property name="username" value="${jdbc.username.hzszyy.mssql}"/>-->
+<!--		<property name="password" value="${jdbc.password.hzszyy.mssql}"/>-->
+<!--		&lt;!&ndash; 开发阶段建议最大连接数据尽量少，够用即可 &ndash;&gt;-->
+<!--		<property name="maximumPoolSize" value="${jdbc.maxActive.hzszyy.mssql}"/>-->
+<!--		<property name="minimumIdle" value="${jdbc.maxIdle.hzszyy.mssql}"/>-->
+<!--</bean>-->
 
-<!-- 关联卒中数据库连接池Sqlserver -->
-<bean id="dataSource_hzszyy_czmssql" class="org.apache.commons.dbcp.BasicDataSource" >
-       <property name="driverClassName" value="${jdbc.driver.hzszyy.czmssql}"/>
-		<property name="url" value="${jdbc.url.hzszyy.czmssql}"/>
-		<property name="username" value="${jdbc.username.hzszyy.czmssql}"/>
-		<property name="password" value="${jdbc.password.hzszyy.czmssql}"/>
-		<!-- 开发阶段建议最大连接数据尽量少，够用即可 -->
-		<property name="maxActive" value="${jdbc.maxActive.hzszyy.mssql}"/>
-		<property name="maxIdle" value="${jdbc.maxIdle.hzszyy.czmssql}"/>
-</bean>
+<!--&lt;!&ndash; 关联卒中数据库连接池Sqlserver &ndash;&gt;-->
+<!--<bean id="dataSource_hzszyy_czmssql" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">-->
+<!--       <property name="driverClassName" value="${jdbc.driver.hzszyy.czmssql}"/>-->
+<!--		<property name="jdbcUrl" value="${jdbc.url.hzszyy.czmssql}"/>-->
+<!--		<property name="username" value="${jdbc.username.hzszyy.czmssql}"/>-->
+<!--		<property name="password" value="${jdbc.password.hzszyy.czmssql}"/>-->
+<!--		&lt;!&ndash; 开发阶段建议最大连接数据尽量少，够用即可 &ndash;&gt;-->
+<!--		<property name="maximumPoolSize" value="${jdbc.maxActive.hzszyy.mssql}"/>-->
+<!--		<property name="minimumIdle" value="${jdbc.maxIdle.hzszyy.czmssql}"/>-->
+<!--</bean>-->
 
 <bean id="dynamicDataSource" class="activetech.base.core.DynamicDataSource">
         <property name="targetDataSources">  
             <map>  
             	<!--key  数据源别名，用来切换数据源的键；value-ref 数据源 id-->
-                <entry value-ref="dataSource_basedb" key="basedb"></entry>  
-                <entry value-ref="dataSource_hzszyy_mssql" key="hzszyy_mssql"></entry> 
-                <entry value-ref="dataSource_hzszyy_czmssql" key="hzszyy_czmssql"></entry> 
+                <entry value-ref="dataSource" key="basedb"></entry>
+<!--                <entry value-ref="dataSource_hzszyy_mssql" key="hzszyy_mssql"></entry> -->
+<!--                <entry value-ref="dataSource_hzszyy_czmssql" key="hzszyy_czmssql"></entry> -->
             </map>  
         </property>  
         <!-- 默认数据库 -->
-        <property name="defaultTargetDataSource" ref="dataSource_basedb">
+        <property name="defaultTargetDataSource" ref="dataSource">
         </property>
 </bean>
     
@@ -106,15 +111,5 @@
   pointcut="execution(* activetech.*.service.impl.*.*(..))"/>
 </aop:config>
 
-<!-- 多数据源
-<bean id="dataSourceAspect" class="activetech.base.aop.DataSourceAspect" /> 
-<aop:config proxy-target-class="false">
-	<aop:aspect ref="dataSourceAspect">
-		<aop:pointcut expression="execution(* activetech.basehis.service.impl.SqlServerHisServiceImpl.*(..) ))" id="sqlServerHisService"/>
-		<aop:around method="doAround"  pointcut-ref="sqlServerHisService"/>
-		<aop:pointcut expression="execution(* activetech.zyyhospital.service.impl.HisCzSqlServerServiceImpl.*(..) ))" id="czHisService"/>
-		<aop:around method="doCzAround"  pointcut-ref="czHisService"/>
-	</aop:aspect>
-</aop:config> 
- -->
+
 </beans>
