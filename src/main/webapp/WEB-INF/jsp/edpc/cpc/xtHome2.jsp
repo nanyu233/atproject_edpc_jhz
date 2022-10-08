@@ -1842,6 +1842,14 @@
         }
 	}
 
+    function tempIsFromTiny(tempno) {
+        if(tempno.indexOf('TEMP') === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //展示知情同意书
     function showTable() {
         $('#fileBox').window({
@@ -1864,6 +1872,7 @@
                     {code:'1034',name:'血管内介入治疗知情同意书'},
                     {code:'1013',name:'拒绝或放弃医学治疗告知书'},
                     {code:'1027',name:'自动出院或转院告知书'},
+                    {code:'TEMP10000000', name:'测试用'}
                 ],
                 columns:[[
                     {field:'code',title:'模板号',width:150,styler:function (value,row,index) {
@@ -1874,7 +1883,16 @@
                 onDblClickRow: function (rowIndex,rowData) {
                     // console.log("++++++++++++");
                     // console.log(rowData);
-                    var url = '${baseurl}zyyconsent/ConsentInfByTempno.do?tempno='+rowData.code+'&tempname='+rowData.name+'&refseqno='+vm.currPatientInfo.emgSeq;
+
+                    if(tempIsFromTiny(rowData.code)){
+                        var url = '${baseurl}zyyconsent/toXtPageEdit.do?tempno=' +  rowData.code + '&tempname=' + rowData.name
+                            + '&refseqno=' + vm.currPatientInfo.emgSeq + '&cstNam=' + vm.currPatientInfo.cstNam;
+                        url = encodeURI(url);
+                        // alert(url);
+                    }
+                    else{
+                        var url = '${baseurl}zyyconsent/ConsentInfByTempno.do?tempno='+rowData.code+'&tempname='+rowData.name+'&refseqno='+vm.currPatientInfo.emgSeq;
+                    }
                     window.top.addTab(rowData.name, url, 'icon icon-emergency-record');
                 }
             });

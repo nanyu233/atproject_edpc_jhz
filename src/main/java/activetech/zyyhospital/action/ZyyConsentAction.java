@@ -218,6 +218,35 @@ public class ZyyConsentAction {
 		     model.addAttribute("qmHash",qmHash);
 		     model.addAttribute("qmTag",qmTag);
 			 return "/hzszyyhospital/hzszyydoctor/consent/ConsentInfBase";
-		}
+	 	}
+
+	/**
+	 * 跳转胸痛编辑器页面
+	 *
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/toXtPageEdit")
+		public String toXtPageEdit(Model model, String tempno, String refseqno, String tempname, String qmHash,
+								   String qmTag, String caseno, String cstNam) throws Exception {
+			model.addAttribute("cstNam", cstNam);
+			model.addAttribute("tempno", tempno);
+			model.addAttribute("tempname", tempname);
+			model.addAttribute("refseqno", refseqno);
+			model.addAttribute("qmHash", qmHash);
+			model.addAttribute("qmTag", qmTag);
+			model.addAttribute("caseno", caseno);
+			return "/hzszyyhospital/hzszyydoctor/consent/xtPageEdit";
+	 	}
+
+	/**
+	 * 跳转编辑器定义页面
+	 */
+	 @RequestMapping("/toIndex")
+		public String toIndex() {
+			return "/structtext/index";
+			}
+
 	//结束
 }
