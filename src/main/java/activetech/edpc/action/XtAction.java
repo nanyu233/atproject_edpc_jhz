@@ -1,22 +1,5 @@
 package activetech.edpc.action;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import activetech.aid.service.AidService;
 import activetech.base.action.View;
 import activetech.base.pojo.dto.ActiveUser;
@@ -34,6 +17,22 @@ import activetech.edpc.pojo.dto.QueryDto;
 import activetech.edpc.pojo.dto.XtHspEmgInfQueryDto;
 import activetech.edpc.service.XtService;
 import activetech.external.service.EsbService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 胸痛中心控制器
@@ -657,6 +656,28 @@ public class XtAction {
 		}
 
 		ResultInfo resultInfo = xtService.getHspXtzlInfByEmgSeq(emgSeq);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
+	/**
+	 * 根据emgSeq 获取胸痛诊疗表的信息转换成编辑器所求格式
+	 * @param map emgSeq wayTyp
+	 * @return SubmitResultInfo
+	 */
+	@RequestMapping("/getHspXtzlInfByEmgSeqToEdit")
+	@ResponseBody
+	public SubmitResultInfo getHspXtzlInfByEmgSeqToEdit(@RequestBody(required=false) Map<String,Object> map){
+
+		String emgSeq = "";
+		String wayTyp = "";
+		if(map.containsKey("emgSeq")){
+			emgSeq = (String) map.get("emgSeq");
+		}
+		if(map.containsKey("wayTyp")){
+			wayTyp = (String) map.get("wayTyp");
+		}
+
+		ResultInfo resultInfo = xtService.getHspXtzlInfByEmgSeqToEdit(emgSeq,wayTyp);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	
