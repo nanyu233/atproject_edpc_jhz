@@ -6,8 +6,10 @@ import activetech.aid.pojo.domain.AidPatient;
 import activetech.aid.pojo.domain.AidPatientXt;
 import activetech.base.dao.mapper.DstarchivesMapper;
 import activetech.base.dao.mapper.DstcompctlCustomMapper;
+import activetech.base.dao.mapper.HspAddrPostMapper;
 import activetech.base.pojo.domain.Dstarchives;
 import activetech.base.pojo.domain.DstarchivesExample;
+import activetech.base.pojo.domain.HspAddrPost;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.pojo.dto.PageQuery;
 import activetech.base.process.context.Config;
@@ -114,6 +116,9 @@ public class XtServiceImpl implements XtService{
 	
 	@Autowired
 	private AidPatientXtMapper aidPatientXtMapper;
+
+	@Autowired
+	private HspAddrPostMapper hspAddrPostMapper;
 	
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
@@ -1114,10 +1119,15 @@ public class XtServiceImpl implements XtService{
 		COMP_MAP.put("COMP000000-1","ZYTS");
 		COMP_MAP.put("COMP0000002","invitationDate");
 		COMP_MAP.put("COMP0000003","consulationDate");
-		COMP_MAP.put("COMP0000004","cstNam");
+		COMP_MAP.put("TEST0000000","cstNam");
 		COMP_MAP.put("COMP0000005","XXGJBWXYS");
 		COMP_MAP.put("COMP0000006","XXGJBWXYS");
 		COMP_MAP.put("COMP000000-7","emgDat");
+		COMP_MAP.put("TEST0000001","sceAr0Cod");
+		COMP_MAP.put("TEST0000002","sceCtyCod");
+		COMP_MAP.put("TEST0000003","scePrvCod");
+
+
 	}
 
 	/**
@@ -1129,6 +1139,7 @@ public class XtServiceImpl implements XtService{
 	@SuppressWarnings("unchecked")
 	@Override
 	public ResultInfo getHspXtzlInfByEmgSeqToEdit(String emgSeq, String wayTyp) {
+		//测试调用
 		Map<String, String> COMP_MAP = new HashMap<>();
 		setCompMap(COMP_MAP);
 		//结果集
@@ -1141,8 +1152,7 @@ public class XtServiceImpl implements XtService{
 		if (resData.get("list") != null)
 			dataList = (List<HspXtzlInfCustom>) resData.get("list");
 		JSONObject jsonObj = jsonSerialize(resData);
-		// data >> hspGraceInf 数据 list<HspGraceInf>
-
+		// data >> hspGraceInf 数据 list<HspGraceInf> list对象，只能转换一个对象取值，暂时不处理
 		// data >> hspGraceInf 数据 list<HspCrivelInf>.get(0)
 		Object dataHspCrivelInf = null;
 		if (resData.get("HspCrivelInf") != null)
@@ -1164,12 +1174,20 @@ public class XtServiceImpl implements XtService{
 		JSONObject jsonAidPatientXt = null;
 		JSONObject jsonYnfb = null;
 		if ("0".equals(wayTyp) || "1".equals(wayTyp)) {
-			jsonAidPatient = jsonSerialize(resAidPatientData.get("aidPatient"));
+            AidPatient aidPatient= (AidPatient) resAidPatientData.get("aidPatient");
+            if (aidPatient != null)
+            	if (aidPatient.getSceAr0Cod() != null){
+            		//转义地区编码
+					 HspAddrPost hspAddrPost= hspAddrPostMapper.selectByPrimaryKey(aidPatient.getSceAr0Cod());
+					 aidPatient.setSceAr0Cod(hspAddrPost.getAddrName());
+					 aidPatient.setSceCtyCod(hspAddrPost.getSuprName());
+					 aidPatient.setScePrvCod(hspAddrPost.getProvName());
+				}
+			jsonAidPatient = jsonSerialize(aidPatient);
 			jsonAidPatientXt = jsonSerialize(resAidPatientData.get("aidPatientXt"));
 		}
-		if ("2".equals(wayTyp)) {
+		if ("2".equals(wayTyp))
 			jsonYnfb = jsonSerialize(resAidPatientData.get("ynfb"));
-		}
 		for (String key : COMP_MAP.keySet()) {
 			//data>>list数据
 			String field = COMP_MAP.get(key);

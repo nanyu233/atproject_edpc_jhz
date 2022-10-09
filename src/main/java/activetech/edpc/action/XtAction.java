@@ -81,14 +81,18 @@ public class XtAction {
 	}
 	
 	/**
-	 * 跳转胸痛中心流程数据打印页
+	 * 跳转胸痛中心流程数据打印页 | 改编辑器页面
 	 * @return
 	 */
 	@RequestMapping("/toXtzlPrintPage")
-	public String toXtzlPrintPage(String emgSeq,String wayTyp,Model model){
+	public String toXtzlPrintPage(String emgSeq,String wayTyp,String cstNam,String tempNo,Model model){
 		model.addAttribute("emgSeq", emgSeq);
 		model.addAttribute("wayTyp", wayTyp);
-		return View.toEDPC("/cpc/xthzdj");
+		model.addAttribute("cstNam", cstNam);
+		//前端传来的编号，也可以采用配置来传递编号
+		model.addAttribute("tempNo", tempNo);
+		return View.toEDPC("/cpc/xthzdjEditor");
+//		return View.toEDPC("/cpc/xthzdj");
 	}
 	
 	/**

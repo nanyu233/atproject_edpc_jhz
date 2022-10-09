@@ -724,7 +724,8 @@
     
     //跳转到胸痛登记页面
     function redirectToprint() {
-        var url = 'cpc/toXtzlPrintPage.do?emgSeq=' + vm.currPatientInfo.emgSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp;
+        var url = 'cpc/toXtzlPrintPage.do?emgSeq=' + vm.currPatientInfo.emgSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp
+        +'&cstNam='+vm.currPatientInfo.cstNam +'&tempNo=TEMP10000000';
         window.top.addTab('胸痛登记表-' + vm.currPatientInfo.cstNam, url, 'icon icon-emergency-record');
     }
   //跳转到胸痛随访页面
