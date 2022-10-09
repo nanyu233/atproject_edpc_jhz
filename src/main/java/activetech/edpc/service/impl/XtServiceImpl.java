@@ -1,85 +1,32 @@
 package activetech.edpc.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 import activetech.aid.dao.mapper.AidPatientMapper;
 import activetech.aid.dao.mapper.AidPatientXtMapper;
 import activetech.aid.pojo.domain.AidPatient;
 import activetech.aid.pojo.domain.AidPatientXt;
 import activetech.base.dao.mapper.DstarchivesMapper;
 import activetech.base.dao.mapper.DstcompctlCustomMapper;
-import activetech.base.dao.mapper.DstdictinfoMapper;
 import activetech.base.pojo.domain.Dstarchives;
 import activetech.base.pojo.domain.DstarchivesExample;
 import activetech.base.pojo.dto.ActiveUser;
-import activetech.base.pojo.dto.DstcompctlCustom;
 import activetech.base.pojo.dto.PageQuery;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
-import activetech.edpc.dao.mapper.CpcMapper;
-import activetech.edpc.dao.mapper.HspCrivelInfMapper;
-import activetech.edpc.dao.mapper.HspCrivelInfMapperCustom;
-import activetech.edpc.dao.mapper.HspFlowChartDefMapper;
-import activetech.edpc.dao.mapper.HspFlowChartInfMapper;
-import activetech.edpc.dao.mapper.HspGraceInfMapper;
-import activetech.edpc.dao.mapper.HspXtAddMapper;
-import activetech.edpc.dao.mapper.HspXtzlInfCustomMapper;
-import activetech.edpc.dao.mapper.HspXtzlInfMapper;
-import activetech.edpc.dao.mapper.VHemsJyjgHzMapper;
-import activetech.edpc.pojo.domain.HspCrivelInf;
-import activetech.edpc.pojo.domain.HspCrivelInfExample;
-import activetech.edpc.pojo.domain.HspFlowChartDef;
-import activetech.edpc.pojo.domain.HspFlowChartDefExample;
-import activetech.edpc.pojo.domain.HspFlowChartInf;
-import activetech.edpc.pojo.domain.HspFlowChartInfExample;
-import activetech.edpc.pojo.domain.HspGraceInf;
-import activetech.edpc.pojo.domain.HspGraceInfExample;
-import activetech.edpc.pojo.domain.HspXtAdd;
-import activetech.edpc.pojo.domain.HspXtzlInf;
-import activetech.edpc.pojo.domain.HspXtzlInfExample;
-import activetech.edpc.pojo.domain.VHemsJyjgHz;
-import activetech.edpc.pojo.domain.VHemsJyjgHzExample;
-import activetech.edpc.pojo.dto.FlowChartNodeDef;
-import activetech.edpc.pojo.dto.HspXtzlInfCustom;
-import activetech.edpc.pojo.dto.ProCodeDef;
-import activetech.edpc.pojo.dto.QueryDto;
-import activetech.edpc.pojo.dto.XtHspEmgInfQueryDto;
+import activetech.edpc.dao.mapper.*;
+import activetech.edpc.pojo.domain.*;
+import activetech.edpc.pojo.dto.*;
 import activetech.edpc.service.ExternalDataService;
 import activetech.edpc.service.XtService;
 import activetech.external.dao.mapper.HspEcgInfMapper;
 import activetech.external.dao.mapper.VHemsJcjgMapperCustom;
 import activetech.external.dao.mapper.VHemsJyjgMapper;
 import activetech.external.dao.mapper.VHemsJyjgMapperCustom;
-import activetech.external.pojo.domain.HspEcgInf;
-import activetech.external.pojo.domain.HspEcgInfExample;
-import activetech.external.pojo.domain.VHemsJcjg;
-import activetech.external.pojo.domain.VHemsJcjgExample;
-import activetech.external.pojo.domain.VHemsJyjg;
-import activetech.external.pojo.domain.VHemsJyjgExample;
+import activetech.external.pojo.domain.*;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
 import activetech.hospital.dao.mapper.HspMewsInfMapper;
 import activetech.hospital.pojo.domain.HspEmgInf;
-import activetech.hospital.pojo.domain.HspEmgInfExample;
 import activetech.hospital.pojo.domain.HspMewsInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.util.DateUtil;
@@ -87,6 +34,18 @@ import activetech.websocket.action.WebSocketXT;
 import activetech.zyyhospital.dao.mapper.HspConsultationRecordsMapper;
 import activetech.zyyhospital.pojo.domain.HspConsultationRecords;
 import activetech.zyyhospital.pojo.domain.HspConsultationRecordsExample;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
+import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class XtServiceImpl implements XtService{
 	
@@ -939,7 +898,7 @@ public class XtServiceImpl implements XtService{
 				mpi = hspXtAdd.getMpiNo();
 				jzxh = hspXtAdd.getSadId();
 			}
-			
+
 			object.put("cstNam", hspXtAdd.getCstNam());
 			object.put("cstSexCod", hspXtAdd.getCstSexCod());
 			object.put("cstAge", hspXtAdd.getCstAge());
@@ -1141,5 +1100,129 @@ public class XtServiceImpl implements XtService{
 		}
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
+	}
+
+//	private static final Map<String,String>  COMP_MAP =new HashMap<String, String>();
+//	//初始化对应关系 会有很多,不易维护和管理
+//	static {
+//		COMP_MAP.put("COMP0000001","ZYTS");
+//		COMP_MAP.put("COMP0000002","invitationDate");
+//		COMP_MAP.put("COMP0000003","consulationDate");
+//	}
+   //测试调用
+	public void setCompMap (Map<String,String> COMP_MAP){
+		COMP_MAP.put("COMP000000-1","ZYTS");
+		COMP_MAP.put("COMP0000002","invitationDate");
+		COMP_MAP.put("COMP0000003","consulationDate");
+		COMP_MAP.put("COMP0000004","cstNam");
+		COMP_MAP.put("COMP0000005","XXGJBWXYS");
+		COMP_MAP.put("COMP0000006","XXGJBWXYS");
+		COMP_MAP.put("COMP000000-7","emgDat");
+	}
+
+	/**
+	 * 根据emgSeq 获取胸痛诊疗表的信息转换成编辑器所求格式
+	 *
+	 * @param emgSeq emgSeq
+	 * @return ResultInfo
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public ResultInfo getHspXtzlInfByEmgSeqToEdit(String emgSeq, String wayTyp) {
+		Map<String, String> COMP_MAP = new HashMap<>();
+		setCompMap(COMP_MAP);
+		//结果集
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		Map<String, Object> result = new HashMap<>();
+		//获取诊疗表数据
+		ResultInfo resXtzlInfo = getHspXtzlInfByEmgSeq(emgSeq);
+		Map<String, Object> resData = resXtzlInfo.getSysdata();
+		List<HspXtzlInfCustom> dataList = new ArrayList<>();
+		if (resData.get("list") != null)
+			dataList = (List<HspXtzlInfCustom>) resData.get("list");
+		JSONObject jsonObj = jsonSerialize(resData);
+		// data >> hspGraceInf 数据 list<HspGraceInf>
+
+		// data >> hspGraceInf 数据 list<HspCrivelInf>.get(0)
+		Object dataHspCrivelInf = null;
+		if (resData.get("HspCrivelInf") != null)
+			dataHspCrivelInf= resData.get("HspCrivelInf");
+		JSONObject jsonHspCrivelInf = jsonSerialize(dataHspCrivelInf);
+
+		// hspEmgInf
+		ResultInfo resHspEmgInf = getHspEmgInfByEmgSeq(emgSeq, wayTyp);
+		Map<String, Object> hspEmgInfData = resHspEmgInf.getSysdata();
+		Object hspEmgInf = hspEmgInfData.get("hspEmgInf");
+		JSONObject jsonHspEmgIn = jsonSerialize(hspEmgInf);
+
+
+		// 院前胸痛数据 wayType =0|1  Map.get(aidPatient)  ||  Map.get(aidPatientXt)
+		// wayType=2 | ynfb {illDep fstTim lveTim illTim} JSON
+		ResultInfo resAidPatient = getAidPatientByEmgSeq(emgSeq, wayTyp);
+		Map<String, Object> resAidPatientData = resAidPatient.getSysdata();
+		JSONObject jsonAidPatient = null;
+		JSONObject jsonAidPatientXt = null;
+		JSONObject jsonYnfb = null;
+		if ("0".equals(wayTyp) || "1".equals(wayTyp)) {
+			jsonAidPatient = jsonSerialize(resAidPatientData.get("aidPatient"));
+			jsonAidPatientXt = jsonSerialize(resAidPatientData.get("aidPatientXt"));
+		}
+		if ("2".equals(wayTyp)) {
+			jsonYnfb = jsonSerialize(resAidPatientData.get("ynfb"));
+		}
+		for (String key : COMP_MAP.keySet()) {
+			//data>>list数据
+			String field = COMP_MAP.get(key);
+			for (HspXtzlInfCustom hspXtzlInfCustom : dataList) {
+				if (field.equals(hspXtzlInfCustom.getProCode())) {
+					if (!"checkbox".equals(hspXtzlInfCustom.getProType())) {
+						result.put(key, hspXtzlInfCustom.getProVal());
+					} else {
+						//多选值转成数组对象
+						String[] ValArr = hspXtzlInfCustom.getProVal().split(",");
+						result.put(key, ValArr);
+					}
+				}
+			}
+			// data >> hspGraceInf 数据 list<HspGraceInf> list对象，只能转换一个对象取值，暂时不处理
+			// data >> hspGraceInf 数据 list<HspCrivelInf>.get(0)
+			if (jsonHspCrivelInf.containsKey(field))
+				result.put(key,jsonHspCrivelInf.get(field));
+			//data 层数据
+			if (jsonObj.containsKey(field))
+				result.put(key, jsonObj.get(field));
+			//急诊预检
+			if (jsonHspEmgIn.containsKey(field))
+				result.put(key, jsonHspEmgIn.get(field));
+
+			//院前胸痛数据
+			if ("0".equals(wayTyp) || "1".equals(wayTyp)) {
+				if (jsonAidPatient.containsKey(field))
+					result.put(key, jsonAidPatient.get(field));
+				if (jsonAidPatientXt.containsKey(field))
+					result.put(key, jsonAidPatientXt.get(field));
+			}
+			if ("2".equals(wayTyp)) {
+				if (jsonYnfb.containsKey(field))
+					result.put(key, jsonYnfb.get(field));
+			}
+		}
+		resultInfo.setSysdata(result);
+		return resultInfo;
+	}
+	/**
+	 *   Object ==>转换成==> JSONObject
+	 *
+	 * @param obj Object
+	 * @return com.alibaba.fastjson.JSONObject
+	 * @date 2022/10/8 13:08
+	 */
+	public JSONObject jsonSerialize(Object obj) {
+		Object o = JSON.toJSON(obj);
+		JSONObject jsonObj = new JSONObject();
+		if (o instanceof JSONObject) {
+			jsonObj = (JSONObject) o;
+		}
+		return jsonObj;
 	}
 }
