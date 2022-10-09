@@ -48,36 +48,19 @@
     </p>
 </div>
 
-<form id="CaForm" class="hidden">
-    <select id="UserList" name="UserList"></select>
-    <input id="needId" type="text" />
-    <input id="UserImage" type="image" />
-</form>
-
-<script type="text/javascript" src="${baseurl}lib/bjcaUkey/XTXSAB.js" charset="UTF-8"></script>
 <script type="text/javascript">
     var _activeUserId = "${sessionScope.activeUser.usrno}" || "";
     var _activeUserName = "${sessionScope.activeUser.usrname}" || "";
     var _tempno = "${tempno}" || "";
     var _tempname = "${tempname}" || "";
     var _refseqno = "${refseqno}" || "";
-    var _qmHash = "${qmHash}" === "null" || "${qmHash}" === "" || "${qmHash}" == null ? "" : "${qmHash}";
-    var _qmTag = "${qmTag}" || "";
     var _caseno = "${caseno}" || "";
-
     var patientId = _refseqno;
     var patientName = "${cstNam}";
     var systemId = atEditorConfig.systemId || "emis";
     var showEditorToolbar = systemId === "emis" ? false : true
-    var needSign = !!_qmHash;
-    var autoSign = false;
     var _texthtml;
     var patient = patientName.replace(/\./g,'');
-
-    function handoverSheetLb() {
-        window.location = "${baseurl}zyyconsent/queryConsentInf.do?refseqno=${refseqno}";
-    }
-
     var atEditor = defineEditorFrame({
         id: "editor",
         page: "cases",
