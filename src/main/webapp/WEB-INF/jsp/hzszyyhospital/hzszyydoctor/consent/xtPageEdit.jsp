@@ -94,7 +94,9 @@
         // _caseno = data.caseSeq
     });
 
-
+    function handoverSheetLb() {
+        window.location = "${baseurl}zyyconsent/queryConsentInf.do?refseqno=${refseqno}";
+    }
 
     function setLayout() {
         var menuW = parent.$(".rightPanel")
