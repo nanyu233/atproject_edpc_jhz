@@ -82,6 +82,7 @@
             showEditorToolbar: false, // default false
             showCaseHistoryList: false, // default false
             showCaseTemplateTree: false, // default false
+            caseEditorFullScreen: true // default false 开启全屏展示
         },
     });
 
@@ -110,7 +111,6 @@
             atEditor.dispatch("insertCase", _caseno);
         } else if (_tempno) {
             atEditor.dispatch("insertCaseTemplate", _tempno)
-            atEditor.dispatch("SetInitData", _editData);
         }
     }
 
@@ -120,29 +120,25 @@
             wayTyp: _wayTyp
         }, {
             requestType: "json",
-            asyncFlag: true
+            asyncFlag: false
         }, function (res) {
             if (!res.resultInfo.success) {
                 alert_error("请求出错，请联系管理员");
                 return;
             }
             _editData = res.resultInfo.sysdata;
-            init()
+            atEditor.dispatch("SetInitData", _editData);
         })
     }
 
     function initEdit() {
-        if (!_caseno) {
+        if (!_caseno)
             initEditData();
-        } else {
-            init();
-        }
     }
 
-    $(function () {
-        setLayout()
-        initEdit()
-    })
+    setLayout()
+    initEdit()
+    init()
 </script>
 </body>
 </html>

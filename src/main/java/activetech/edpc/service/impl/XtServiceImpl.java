@@ -1126,6 +1126,7 @@ public class XtServiceImpl implements XtService{
 		COMP_MAP.put("TEST0000001","sceAr0Cod");
 		COMP_MAP.put("TEST0000002","sceCtyCod");
 		COMP_MAP.put("TEST0000003","scePrvCod");
+		COMP_MAP.put("arvChlCod","arvChlCod");
 
 
 	}
@@ -1152,8 +1153,8 @@ public class XtServiceImpl implements XtService{
 		if (resData.get("list") != null)
 			dataList = (List<HspXtzlInfCustom>) resData.get("list");
 		JSONObject jsonObj = jsonSerialize(resData);
-		// data >> hspGraceInf 数据 list<HspGraceInf> list对象，只能转换一个对象取值，暂时不处理
-		// data >> hspGraceInf 数据 list<HspCrivelInf>.get(0)
+		// data >> hspGraceInf GRACE 评分数据 list<HspGraceInf> list对象，只能转换一个对象取值，暂时不处理
+		// data >> hspCrivelInf 数据 list<HspCrivelInf>.get(0)
 		Object dataHspCrivelInf = null;
 		if (resData.get("HspCrivelInf") != null)
 			dataHspCrivelInf= resData.get("HspCrivelInf");
@@ -1162,7 +1163,29 @@ public class XtServiceImpl implements XtService{
 		// hspEmgInf
 		ResultInfo resHspEmgInf = getHspEmgInfByEmgSeq(emgSeq, wayTyp);
 		Map<String, Object> hspEmgInfData = resHspEmgInf.getSysdata();
-		Object hspEmgInf = hspEmgInfData.get("hspEmgInf");
+		//到院方式 编码转换
+		JSONObject  hspEmgInf = (JSONObject) hspEmgInfData.get("hspEmgInf");
+		if(hspEmgInf != null)
+			if(StringUtils.isNotBlank(hspEmgInf.get("arvChlCod").toString())){
+				String arvChlCod=null;
+				switch (hspEmgInf.getString("arvChlCod")){
+					case "0":
+					case "1":
+					case "2":
+					case "3":
+					case "4":
+						arvChlCod="3";
+						break;
+					case "5":
+					case "6":
+						arvChlCod="1";
+						break;
+					case "9":
+						arvChlCod="2";
+						break;
+				}
+				hspEmgInf.put("arvChlCod",arvChlCod);
+			}
 		JSONObject jsonHspEmgIn = jsonSerialize(hspEmgInf);
 
 
@@ -1203,7 +1226,7 @@ public class XtServiceImpl implements XtService{
 				}
 			}
 			// data >> hspGraceInf 数据 list<HspGraceInf> list对象，只能转换一个对象取值，暂时不处理
-			// data >> hspGraceInf 数据 list<HspCrivelInf>.get(0)
+			// data >> hspCrivelInf 数据 list<HspCrivelInf>.get(0)
 			if (jsonHspCrivelInf.containsKey(field))
 				result.put(key,jsonHspCrivelInf.get(field));
 			//data 层数据
