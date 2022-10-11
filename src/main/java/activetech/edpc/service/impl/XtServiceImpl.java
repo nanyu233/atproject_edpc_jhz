@@ -1159,6 +1159,13 @@ public class XtServiceImpl implements XtService{
 		if (resData.get("HspCrivelInf") != null)
 			dataHspCrivelInf= resData.get("HspCrivelInf");
 		JSONObject jsonHspCrivelInf = jsonSerialize(dataHspCrivelInf);
+		//支架个数减一处理 注释掉，直接显示数目
+//		if (jsonHspCrivelInf.size()!=0){
+//			if (StringUtils.isNotBlank(jsonHspCrivelInf.get("zrzjgs").toString())){
+//				String zrzjgs=jsonHspCrivelInf.getString("zrzjgs");
+//				jsonHspCrivelInf.put("zrzjgs",String.valueOf(Integer.parseInt(zrzjgs)-1));
+//			}
+//		}
 
 		// hspEmgInf
 		ResultInfo resHspEmgInf = getHspEmgInfByEmgSeq(emgSeq, wayTyp);
@@ -1197,15 +1204,21 @@ public class XtServiceImpl implements XtService{
 		JSONObject jsonAidPatientXt = null;
 		JSONObject jsonYnfb = null;
 		if ("0".equals(wayTyp) || "1".equals(wayTyp)) {
-            AidPatient aidPatient= (AidPatient) resAidPatientData.get("aidPatient");
-            if (aidPatient != null)
-            	if (aidPatient.getSceAr0Cod() != null){
-            		//转义地区编码
-					 HspAddrPost hspAddrPost= hspAddrPostMapper.selectByPrimaryKey(aidPatient.getSceAr0Cod());
-					 aidPatient.setSceAr0Cod(hspAddrPost.getAddrName());
-					 aidPatient.setSceCtyCod(hspAddrPost.getSuprName());
-					 aidPatient.setScePrvCod(hspAddrPost.getProvName());
-				}
+			Object aidPatientTemp = resAidPatientData.get("aidPatient");
+			AidPatient aidPatient =  aidPatientTemp != null ? (AidPatient) aidPatientTemp : new AidPatient();
+			if (aidPatient.getSceAr0Cod() != null) {
+				//转义地区编码
+				HspAddrPost hspAddrPost = hspAddrPostMapper.selectByPrimaryKey(aidPatient.getSceAr0Cod());
+				aidPatient.setSceAr0Cod(hspAddrPost.getAddrName());
+				aidPatient.setSceCtyCod(hspAddrPost.getSuprName());
+				aidPatient.setScePrvCod(hspAddrPost.getProvName());
+			}
+			if (hspEmgInf != null) {
+				//院前胸痛数据 性别 年龄 使用 急诊hspEmgInf 的数据
+				aidPatient.setPatname(hspEmgInf.get("cstNam").toString());
+				aidPatient.setPatsex(hspEmgInf.get("cstSexCod").toString());
+				aidPatient.setPatage(hspEmgInf.get("cstAge").toString());
+			}
 			jsonAidPatient = jsonSerialize(aidPatient);
 			jsonAidPatientXt = jsonSerialize(resAidPatientData.get("aidPatientXt"));
 		}
