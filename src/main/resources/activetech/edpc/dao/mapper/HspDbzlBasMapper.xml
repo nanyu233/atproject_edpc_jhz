@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspDbzlBasMapper">
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspDbzlBas">
+    <!--@mbg.generated-->
+    <!--@Table HSP_DBZL_BAS-->
+    <id column="REG_SEQ" jdbcType="VARCHAR" property="regSeq" />
+    <result column="REG_TIM" jdbcType="TIMESTAMP" property="regTim" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="MPI" jdbcType="VARCHAR" property="mpi" />
+    <result column="PAT_TYP" jdbcType="CHAR" property="patTyp" />
+    <result column="WAY_TYP" jdbcType="CHAR" property="wayTyp" />
+    <result column="CARD_TYPE" jdbcType="VARCHAR" property="cardType" />
+    <result column="VST_CAD" jdbcType="VARCHAR" property="vstCad" />
+    <result column="CST_NAM" jdbcType="VARCHAR" property="cstNam" />
+    <result column="CST_SEX_COD" jdbcType="VARCHAR" property="cstSexCod" />
+    <result column="ID_TYPE" jdbcType="VARCHAR" property="idType" />
+    <result column="ID_NBR" jdbcType="VARCHAR" property="idNbr" />
+    <result column="CST_AGE_COD" jdbcType="VARCHAR" property="cstAgeCod" />
+    <result column="CST_AGE" jdbcType="VARCHAR" property="cstAge" />
+    <result column="PAT_WGT" jdbcType="DECIMAL" property="patWgt" />
+    <result column="PAT_HGT" jdbcType="DECIMAL" property="patHgt" />
+    <result column="BTH_DAT" jdbcType="TIMESTAMP" property="bthDat" />
+    <result column="PHE_NBR" jdbcType="VARCHAR" property="pheNbr" />
+    <result column="CST_ADR" jdbcType="VARCHAR" property="cstAdr" />
+    <result column="NATION" jdbcType="VARCHAR" property="nation" />
+    <result column="EMG_JOB" jdbcType="VARCHAR" property="emgJob" />
+    <result column="MARITAL_STATUS" jdbcType="VARCHAR" property="maritalStatus" />
+    <result column="CST_EDU" jdbcType="VARCHAR" property="cstEdu" />
+    <result column="LNK_MAN" jdbcType="VARCHAR" property="lnkMan" />
+    <result column="LNK_WAY" jdbcType="VARCHAR" property="lnkWay" />
+    <result column="GRN_CHL" jdbcType="CHAR" property="grnChl" />
+    <result column="SW_CHL" jdbcType="CHAR" property="swChl" />
+    <result column="HSP_ARA" jdbcType="VARCHAR" property="hspAra" />
+    <result column="YQXH" jdbcType="VARCHAR" property="yqxh" />
+    <result column="JZXH" jdbcType="DECIMAL" property="jzxh" />
+    <result column="ZYXH" jdbcType="DECIMAL" property="zyxh" />
+    <result column="DOC_DAT" jdbcType="TIMESTAMP" property="docDat" />
+    <result column="JZYS" jdbcType="VARCHAR" property="jzys" />
+    <result column="YSXM" jdbcType="VARCHAR" property="ysxm" />
+    <result column="KSDM" jdbcType="VARCHAR" property="ksdm" />
+    <result column="CRT_TIM" jdbcType="TIMESTAMP" property="crtTim" />
+    <result column="CRT_NO" jdbcType="VARCHAR" property="crtNo" />
+    <result column="CRT_NAM" jdbcType="VARCHAR" property="crtNam" />
+    <result column="MOD_TIM" jdbcType="TIMESTAMP" property="modTim" />
+    <result column="MOD_NO" jdbcType="VARCHAR" property="modNo" />
+    <result column="MOD_NAM" jdbcType="VARCHAR" property="modNam" />
+    <result column="RCD_STA" jdbcType="CHAR" property="rcdSta" />
+    <result column="CHK_TIM" jdbcType="TIMESTAMP" property="chkTim" />
+    <result column="CHK_NO" jdbcType="VARCHAR" property="chkNo" />
+    <result column="CHK_NAM" jdbcType="VARCHAR" property="chkNam" />
+    <result column="CHK_MSG" jdbcType="VARCHAR" property="chkMsg" />
+    <result column="STP_FLG" jdbcType="CHAR" property="stpFlg" />
+    <result column="STP_TIM" jdbcType="TIMESTAMP" property="stpTim" />
+    <result column="STP_NO" jdbcType="VARCHAR" property="stpNo" />
+    <result column="STP_NAM" jdbcType="VARCHAR" property="stpNam" />
+    <result column="SMT_STA" jdbcType="CHAR" property="smtSta" />
+    <result column="SMT_SEQ" jdbcType="VARCHAR" property="smtSeq" />
+    <result column="SMT_MSG" jdbcType="VARCHAR" property="smtMsg" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    REG_SEQ, REG_TIM, EMG_SEQ, MPI, PAT_TYP, WAY_TYP, CARD_TYPE, VST_CAD, CST_NAM, CST_SEX_COD, 
+    ID_TYPE, ID_NBR, CST_AGE_COD, CST_AGE, PAT_WGT, PAT_HGT, BTH_DAT, PHE_NBR, CST_ADR, 
+    NATION, EMG_JOB, MARITAL_STATUS, CST_EDU, LNK_MAN, LNK_WAY, GRN_CHL, SW_CHL, HSP_ARA, 
+    YQXH, JZXH, ZYXH, DOC_DAT, JZYS, YSXM, KSDM, CRT_TIM, CRT_NO, CRT_NAM, MOD_TIM, MOD_NO, 
+    MOD_NAM, RCD_STA, CHK_TIM, CHK_NO, CHK_NAM, CHK_MSG, STP_FLG, STP_TIM, STP_NO, STP_NAM, 
+    SMT_STA, SMT_SEQ, SMT_MSG
+  </sql>
+  <select id="selectByExample" parameterType="activetech.edpc.pojo.domain.HspDbzlBasExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_DBZL_BAS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_DBZL_BAS
+    where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from HSP_DBZL_BAS
+    where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspDbzlBasExample">
+    <!--@mbg.generated-->
+    delete from HSP_DBZL_BAS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspDbzlBas">
+    <!--@mbg.generated-->
+    insert into HSP_DBZL_BAS (REG_SEQ, REG_TIM, EMG_SEQ, 
+      MPI, PAT_TYP, WAY_TYP, CARD_TYPE, 
+      VST_CAD, CST_NAM, CST_SEX_COD, 
+      ID_TYPE, ID_NBR, CST_AGE_COD, 
+      CST_AGE, PAT_WGT, PAT_HGT, 
+      BTH_DAT, PHE_NBR, CST_ADR, 
+      NATION, EMG_JOB, MARITAL_STATUS, 
+      CST_EDU, LNK_MAN, LNK_WAY, 
+      GRN_CHL, SW_CHL, HSP_ARA, YQXH, 
+      JZXH, ZYXH, DOC_DAT, 
+      JZYS, YSXM, KSDM, CRT_TIM, 
+      CRT_NO, CRT_NAM, MOD_TIM, 
+      MOD_NO, MOD_NAM, RCD_STA, 
+      CHK_TIM, CHK_NO, CHK_NAM, 
+      CHK_MSG, STP_FLG, STP_TIM, 
+      STP_NO, STP_NAM, SMT_STA, 
+      SMT_SEQ, SMT_MSG)
+    values (#{regSeq,jdbcType=VARCHAR}, #{regTim,jdbcType=TIMESTAMP}, #{emgSeq,jdbcType=VARCHAR}, 
+      #{mpi,jdbcType=VARCHAR}, #{patTyp,jdbcType=CHAR}, #{wayTyp,jdbcType=CHAR}, #{cardType,jdbcType=VARCHAR}, 
+      #{vstCad,jdbcType=VARCHAR}, #{cstNam,jdbcType=VARCHAR}, #{cstSexCod,jdbcType=VARCHAR}, 
+      #{idType,jdbcType=VARCHAR}, #{idNbr,jdbcType=VARCHAR}, #{cstAgeCod,jdbcType=VARCHAR}, 
+      #{cstAge,jdbcType=VARCHAR}, #{patWgt,jdbcType=DECIMAL}, #{patHgt,jdbcType=DECIMAL}, 
+      #{bthDat,jdbcType=TIMESTAMP}, #{pheNbr,jdbcType=VARCHAR}, #{cstAdr,jdbcType=VARCHAR}, 
+      #{nation,jdbcType=VARCHAR}, #{emgJob,jdbcType=VARCHAR}, #{maritalStatus,jdbcType=VARCHAR}, 
+      #{cstEdu,jdbcType=VARCHAR}, #{lnkMan,jdbcType=VARCHAR}, #{lnkWay,jdbcType=VARCHAR}, 
+      #{grnChl,jdbcType=CHAR}, #{swChl,jdbcType=CHAR}, #{hspAra,jdbcType=VARCHAR}, #{yqxh,jdbcType=VARCHAR}, 
+      #{jzxh,jdbcType=DECIMAL}, #{zyxh,jdbcType=DECIMAL}, #{docDat,jdbcType=TIMESTAMP}, 
+      #{jzys,jdbcType=VARCHAR}, #{ysxm,jdbcType=VARCHAR}, #{ksdm,jdbcType=VARCHAR}, #{crtTim,jdbcType=TIMESTAMP}, 
+      #{crtNo,jdbcType=VARCHAR}, #{crtNam,jdbcType=VARCHAR}, #{modTim,jdbcType=TIMESTAMP}, 
+      #{modNo,jdbcType=VARCHAR}, #{modNam,jdbcType=VARCHAR}, #{rcdSta,jdbcType=CHAR}, 
+      #{chkTim,jdbcType=TIMESTAMP}, #{chkNo,jdbcType=VARCHAR}, #{chkNam,jdbcType=VARCHAR}, 
+      #{chkMsg,jdbcType=VARCHAR}, #{stpFlg,jdbcType=CHAR}, #{stpTim,jdbcType=TIMESTAMP}, 
+      #{stpNo,jdbcType=VARCHAR}, #{stpNam,jdbcType=VARCHAR}, #{smtSta,jdbcType=CHAR}, 
+      #{smtSeq,jdbcType=VARCHAR}, #{smtMsg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspDbzlBas">
+    <!--@mbg.generated-->
+    insert into HSP_DBZL_BAS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="regSeq != null">
+        REG_SEQ,
+      </if>
+      <if test="regTim != null">
+        REG_TIM,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="mpi != null">
+        MPI,
+      </if>
+      <if test="patTyp != null">
+        PAT_TYP,
+      </if>
+      <if test="wayTyp != null">
+        WAY_TYP,
+      </if>
+      <if test="cardType != null">
+        CARD_TYPE,
+      </if>
+      <if test="vstCad != null">
+        VST_CAD,
+      </if>
+      <if test="cstNam != null">
+        CST_NAM,
+      </if>
+      <if test="cstSexCod != null">
+        CST_SEX_COD,
+      </if>
+      <if test="idType != null">
+        ID_TYPE,
+      </if>
+      <if test="idNbr != null">
+        ID_NBR,
+      </if>
+      <if test="cstAgeCod != null">
+        CST_AGE_COD,
+      </if>
+      <if test="cstAge != null">
+        CST_AGE,
+      </if>
+      <if test="patWgt != null">
+        PAT_WGT,
+      </if>
+      <if test="patHgt != null">
+        PAT_HGT,
+      </if>
+      <if test="bthDat != null">
+        BTH_DAT,
+      </if>
+      <if test="pheNbr != null">
+        PHE_NBR,
+      </if>
+      <if test="cstAdr != null">
+        CST_ADR,
+      </if>
+      <if test="nation != null">
+        NATION,
+      </if>
+      <if test="emgJob != null">
+        EMG_JOB,
+      </if>
+      <if test="maritalStatus != null">
+        MARITAL_STATUS,
+      </if>
+      <if test="cstEdu != null">
+        CST_EDU,
+      </if>
+      <if test="lnkMan != null">
+        LNK_MAN,
+      </if>
+      <if test="lnkWay != null">
+        LNK_WAY,
+      </if>
+      <if test="grnChl != null">
+        GRN_CHL,
+      </if>
+      <if test="swChl != null">
+        SW_CHL,
+      </if>
+      <if test="hspAra != null">
+        HSP_ARA,
+      </if>
+      <if test="yqxh != null">
+        YQXH,
+      </if>
+      <if test="jzxh != null">
+        JZXH,
+      </if>
+      <if test="zyxh != null">
+        ZYXH,
+      </if>
+      <if test="docDat != null">
+        DOC_DAT,
+      </if>
+      <if test="jzys != null">
+        JZYS,
+      </if>
+      <if test="ysxm != null">
+        YSXM,
+      </if>
+      <if test="ksdm != null">
+        KSDM,
+      </if>
+      <if test="crtTim != null">
+        CRT_TIM,
+      </if>
+      <if test="crtNo != null">
+        CRT_NO,
+      </if>
+      <if test="crtNam != null">
+        CRT_NAM,
+      </if>
+      <if test="modTim != null">
+        MOD_TIM,
+      </if>
+      <if test="modNo != null">
+        MOD_NO,
+      </if>
+      <if test="modNam != null">
+        MOD_NAM,
+      </if>
+      <if test="rcdSta != null">
+        RCD_STA,
+      </if>
+      <if test="chkTim != null">
+        CHK_TIM,
+      </if>
+      <if test="chkNo != null">
+        CHK_NO,
+      </if>
+      <if test="chkNam != null">
+        CHK_NAM,
+      </if>
+      <if test="chkMsg != null">
+        CHK_MSG,
+      </if>
+      <if test="stpFlg != null">
+        STP_FLG,
+      </if>
+      <if test="stpTim != null">
+        STP_TIM,
+      </if>
+      <if test="stpNo != null">
+        STP_NO,
+      </if>
+      <if test="stpNam != null">
+        STP_NAM,
+      </if>
+      <if test="smtSta != null">
+        SMT_STA,
+      </if>
+      <if test="smtSeq != null">
+        SMT_SEQ,
+      </if>
+      <if test="smtMsg != null">
+        SMT_MSG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="regSeq != null">
+        #{regSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="regTim != null">
+        #{regTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="mpi != null">
+        #{mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="patTyp != null">
+        #{patTyp,jdbcType=CHAR},
+      </if>
+      <if test="wayTyp != null">
+        #{wayTyp,jdbcType=CHAR},
+      </if>
+      <if test="cardType != null">
+        #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="vstCad != null">
+        #{vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="cstNam != null">
+        #{cstNam,jdbcType=VARCHAR},
+      </if>
+      <if test="cstSexCod != null">
+        #{cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null">
+        #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="idNbr != null">
+        #{idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAgeCod != null">
+        #{cstAgeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAge != null">
+        #{cstAge,jdbcType=VARCHAR},
+      </if>
+      <if test="patWgt != null">
+        #{patWgt,jdbcType=DECIMAL},
+      </if>
+      <if test="patHgt != null">
+        #{patHgt,jdbcType=DECIMAL},
+      </if>
+      <if test="bthDat != null">
+        #{bthDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pheNbr != null">
+        #{pheNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAdr != null">
+        #{cstAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="emgJob != null">
+        #{emgJob,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null">
+        #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cstEdu != null">
+        #{cstEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="lnkMan != null">
+        #{lnkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="lnkWay != null">
+        #{lnkWay,jdbcType=VARCHAR},
+      </if>
+      <if test="grnChl != null">
+        #{grnChl,jdbcType=CHAR},
+      </if>
+      <if test="swChl != null">
+        #{swChl,jdbcType=CHAR},
+      </if>
+      <if test="hspAra != null">
+        #{hspAra,jdbcType=VARCHAR},
+      </if>
+      <if test="yqxh != null">
+        #{yqxh,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxh != null">
+        #{jzxh,jdbcType=DECIMAL},
+      </if>
+      <if test="zyxh != null">
+        #{zyxh,jdbcType=DECIMAL},
+      </if>
+      <if test="docDat != null">
+        #{docDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jzys != null">
+        #{jzys,jdbcType=VARCHAR},
+      </if>
+      <if test="ysxm != null">
+        #{ysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="ksdm != null">
+        #{ksdm,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null">
+        #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtNo != null">
+        #{crtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtNam != null">
+        #{crtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null">
+        #{modTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modNo != null">
+        #{modNo,jdbcType=VARCHAR},
+      </if>
+      <if test="modNam != null">
+        #{modNam,jdbcType=VARCHAR},
+      </if>
+      <if test="rcdSta != null">
+        #{rcdSta,jdbcType=CHAR},
+      </if>
+      <if test="chkTim != null">
+        #{chkTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chkNo != null">
+        #{chkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="chkNam != null">
+        #{chkNam,jdbcType=VARCHAR},
+      </if>
+      <if test="chkMsg != null">
+        #{chkMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="stpFlg != null">
+        #{stpFlg,jdbcType=CHAR},
+      </if>
+      <if test="stpTim != null">
+        #{stpTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stpNo != null">
+        #{stpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="stpNam != null">
+        #{stpNam,jdbcType=VARCHAR},
+      </if>
+      <if test="smtSta != null">
+        #{smtSta,jdbcType=CHAR},
+      </if>
+      <if test="smtSeq != null">
+        #{smtSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="smtMsg != null">
+        #{smtMsg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspDbzlBasExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from HSP_DBZL_BAS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update HSP_DBZL_BAS
+    <set>
+      <if test="record.regSeq != null">
+        REG_SEQ = #{record.regSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regTim != null">
+        REG_TIM = #{record.regTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mpi != null">
+        MPI = #{record.mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patTyp != null">
+        PAT_TYP = #{record.patTyp,jdbcType=CHAR},
+      </if>
+      <if test="record.wayTyp != null">
+        WAY_TYP = #{record.wayTyp,jdbcType=CHAR},
+      </if>
+      <if test="record.cardType != null">
+        CARD_TYPE = #{record.cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vstCad != null">
+        VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstNam != null">
+        CST_NAM = #{record.cstNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstSexCod != null">
+        CST_SEX_COD = #{record.cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idType != null">
+        ID_TYPE = #{record.idType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idNbr != null">
+        ID_NBR = #{record.idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstAgeCod != null">
+        CST_AGE_COD = #{record.cstAgeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstAge != null">
+        CST_AGE = #{record.cstAge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patWgt != null">
+        PAT_WGT = #{record.patWgt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.patHgt != null">
+        PAT_HGT = #{record.patHgt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bthDat != null">
+        BTH_DAT = #{record.bthDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pheNbr != null">
+        PHE_NBR = #{record.pheNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstAdr != null">
+        CST_ADR = #{record.cstAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nation != null">
+        NATION = #{record.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgJob != null">
+        EMG_JOB = #{record.emgJob,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maritalStatus != null">
+        MARITAL_STATUS = #{record.maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cstEdu != null">
+        CST_EDU = #{record.cstEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lnkMan != null">
+        LNK_MAN = #{record.lnkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lnkWay != null">
+        LNK_WAY = #{record.lnkWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grnChl != null">
+        GRN_CHL = #{record.grnChl,jdbcType=CHAR},
+      </if>
+      <if test="record.swChl != null">
+        SW_CHL = #{record.swChl,jdbcType=CHAR},
+      </if>
+      <if test="record.hspAra != null">
+        HSP_ARA = #{record.hspAra,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yqxh != null">
+        YQXH = #{record.yqxh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jzxh != null">
+        JZXH = #{record.jzxh,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zyxh != null">
+        ZYXH = #{record.zyxh,jdbcType=DECIMAL},
+      </if>
+      <if test="record.docDat != null">
+        DOC_DAT = #{record.docDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jzys != null">
+        JZYS = #{record.jzys,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ysxm != null">
+        YSXM = #{record.ysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ksdm != null">
+        KSDM = #{record.ksdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTim != null">
+        CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtNo != null">
+        CRT_NO = #{record.crtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtNam != null">
+        CRT_NAM = #{record.crtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTim != null">
+        MOD_TIM = #{record.modTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modNo != null">
+        MOD_NO = #{record.modNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modNam != null">
+        MOD_NAM = #{record.modNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rcdSta != null">
+        RCD_STA = #{record.rcdSta,jdbcType=CHAR},
+      </if>
+      <if test="record.chkTim != null">
+        CHK_TIM = #{record.chkTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.chkNo != null">
+        CHK_NO = #{record.chkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chkNam != null">
+        CHK_NAM = #{record.chkNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chkMsg != null">
+        CHK_MSG = #{record.chkMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stpFlg != null">
+        STP_FLG = #{record.stpFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.stpTim != null">
+        STP_TIM = #{record.stpTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stpNo != null">
+        STP_NO = #{record.stpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stpNam != null">
+        STP_NAM = #{record.stpNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smtSta != null">
+        SMT_STA = #{record.smtSta,jdbcType=CHAR},
+      </if>
+      <if test="record.smtSeq != null">
+        SMT_SEQ = #{record.smtSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smtMsg != null">
+        SMT_MSG = #{record.smtMsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update HSP_DBZL_BAS
+    set REG_SEQ = #{record.regSeq,jdbcType=VARCHAR},
+      REG_TIM = #{record.regTim,jdbcType=TIMESTAMP},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      MPI = #{record.mpi,jdbcType=VARCHAR},
+      PAT_TYP = #{record.patTyp,jdbcType=CHAR},
+      WAY_TYP = #{record.wayTyp,jdbcType=CHAR},
+      CARD_TYPE = #{record.cardType,jdbcType=VARCHAR},
+      VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      CST_NAM = #{record.cstNam,jdbcType=VARCHAR},
+      CST_SEX_COD = #{record.cstSexCod,jdbcType=VARCHAR},
+      ID_TYPE = #{record.idType,jdbcType=VARCHAR},
+      ID_NBR = #{record.idNbr,jdbcType=VARCHAR},
+      CST_AGE_COD = #{record.cstAgeCod,jdbcType=VARCHAR},
+      CST_AGE = #{record.cstAge,jdbcType=VARCHAR},
+      PAT_WGT = #{record.patWgt,jdbcType=DECIMAL},
+      PAT_HGT = #{record.patHgt,jdbcType=DECIMAL},
+      BTH_DAT = #{record.bthDat,jdbcType=TIMESTAMP},
+      PHE_NBR = #{record.pheNbr,jdbcType=VARCHAR},
+      CST_ADR = #{record.cstAdr,jdbcType=VARCHAR},
+      NATION = #{record.nation,jdbcType=VARCHAR},
+      EMG_JOB = #{record.emgJob,jdbcType=VARCHAR},
+      MARITAL_STATUS = #{record.maritalStatus,jdbcType=VARCHAR},
+      CST_EDU = #{record.cstEdu,jdbcType=VARCHAR},
+      LNK_MAN = #{record.lnkMan,jdbcType=VARCHAR},
+      LNK_WAY = #{record.lnkWay,jdbcType=VARCHAR},
+      GRN_CHL = #{record.grnChl,jdbcType=CHAR},
+      SW_CHL = #{record.swChl,jdbcType=CHAR},
+      HSP_ARA = #{record.hspAra,jdbcType=VARCHAR},
+      YQXH = #{record.yqxh,jdbcType=VARCHAR},
+      JZXH = #{record.jzxh,jdbcType=DECIMAL},
+      ZYXH = #{record.zyxh,jdbcType=DECIMAL},
+      DOC_DAT = #{record.docDat,jdbcType=TIMESTAMP},
+      JZYS = #{record.jzys,jdbcType=VARCHAR},
+      YSXM = #{record.ysxm,jdbcType=VARCHAR},
+      KSDM = #{record.ksdm,jdbcType=VARCHAR},
+      CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      CRT_NO = #{record.crtNo,jdbcType=VARCHAR},
+      CRT_NAM = #{record.crtNam,jdbcType=VARCHAR},
+      MOD_TIM = #{record.modTim,jdbcType=TIMESTAMP},
+      MOD_NO = #{record.modNo,jdbcType=VARCHAR},
+      MOD_NAM = #{record.modNam,jdbcType=VARCHAR},
+      RCD_STA = #{record.rcdSta,jdbcType=CHAR},
+      CHK_TIM = #{record.chkTim,jdbcType=TIMESTAMP},
+      CHK_NO = #{record.chkNo,jdbcType=VARCHAR},
+      CHK_NAM = #{record.chkNam,jdbcType=VARCHAR},
+      CHK_MSG = #{record.chkMsg,jdbcType=VARCHAR},
+      STP_FLG = #{record.stpFlg,jdbcType=CHAR},
+      STP_TIM = #{record.stpTim,jdbcType=TIMESTAMP},
+      STP_NO = #{record.stpNo,jdbcType=VARCHAR},
+      STP_NAM = #{record.stpNam,jdbcType=VARCHAR},
+      SMT_STA = #{record.smtSta,jdbcType=CHAR},
+      SMT_SEQ = #{record.smtSeq,jdbcType=VARCHAR},
+      SMT_MSG = #{record.smtMsg,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspDbzlBas">
+    <!--@mbg.generated-->
+    update HSP_DBZL_BAS
+    <set>
+      <if test="regTim != null">
+        REG_TIM = #{regTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="mpi != null">
+        MPI = #{mpi,jdbcType=VARCHAR},
+      </if>
+      <if test="patTyp != null">
+        PAT_TYP = #{patTyp,jdbcType=CHAR},
+      </if>
+      <if test="wayTyp != null">
+        WAY_TYP = #{wayTyp,jdbcType=CHAR},
+      </if>
+      <if test="cardType != null">
+        CARD_TYPE = #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="vstCad != null">
+        VST_CAD = #{vstCad,jdbcType=VARCHAR},
+      </if>
+      <if test="cstNam != null">
+        CST_NAM = #{cstNam,jdbcType=VARCHAR},
+      </if>
+      <if test="cstSexCod != null">
+        CST_SEX_COD = #{cstSexCod,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null">
+        ID_TYPE = #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="idNbr != null">
+        ID_NBR = #{idNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAgeCod != null">
+        CST_AGE_COD = #{cstAgeCod,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAge != null">
+        CST_AGE = #{cstAge,jdbcType=VARCHAR},
+      </if>
+      <if test="patWgt != null">
+        PAT_WGT = #{patWgt,jdbcType=DECIMAL},
+      </if>
+      <if test="patHgt != null">
+        PAT_HGT = #{patHgt,jdbcType=DECIMAL},
+      </if>
+      <if test="bthDat != null">
+        BTH_DAT = #{bthDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pheNbr != null">
+        PHE_NBR = #{pheNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="cstAdr != null">
+        CST_ADR = #{cstAdr,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        NATION = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="emgJob != null">
+        EMG_JOB = #{emgJob,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null">
+        MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cstEdu != null">
+        CST_EDU = #{cstEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="lnkMan != null">
+        LNK_MAN = #{lnkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="lnkWay != null">
+        LNK_WAY = #{lnkWay,jdbcType=VARCHAR},
+      </if>
+      <if test="grnChl != null">
+        GRN_CHL = #{grnChl,jdbcType=CHAR},
+      </if>
+      <if test="swChl != null">
+        SW_CHL = #{swChl,jdbcType=CHAR},
+      </if>
+      <if test="hspAra != null">
+        HSP_ARA = #{hspAra,jdbcType=VARCHAR},
+      </if>
+      <if test="yqxh != null">
+        YQXH = #{yqxh,jdbcType=VARCHAR},
+      </if>
+      <if test="jzxh != null">
+        JZXH = #{jzxh,jdbcType=DECIMAL},
+      </if>
+      <if test="zyxh != null">
+        ZYXH = #{zyxh,jdbcType=DECIMAL},
+      </if>
+      <if test="docDat != null">
+        DOC_DAT = #{docDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jzys != null">
+        JZYS = #{jzys,jdbcType=VARCHAR},
+      </if>
+      <if test="ysxm != null">
+        YSXM = #{ysxm,jdbcType=VARCHAR},
+      </if>
+      <if test="ksdm != null">
+        KSDM = #{ksdm,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTim != null">
+        CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtNo != null">
+        CRT_NO = #{crtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="crtNam != null">
+        CRT_NAM = #{crtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="modTim != null">
+        MOD_TIM = #{modTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modNo != null">
+        MOD_NO = #{modNo,jdbcType=VARCHAR},
+      </if>
+      <if test="modNam != null">
+        MOD_NAM = #{modNam,jdbcType=VARCHAR},
+      </if>
+      <if test="rcdSta != null">
+        RCD_STA = #{rcdSta,jdbcType=CHAR},
+      </if>
+      <if test="chkTim != null">
+        CHK_TIM = #{chkTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chkNo != null">
+        CHK_NO = #{chkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="chkNam != null">
+        CHK_NAM = #{chkNam,jdbcType=VARCHAR},
+      </if>
+      <if test="chkMsg != null">
+        CHK_MSG = #{chkMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="stpFlg != null">
+        STP_FLG = #{stpFlg,jdbcType=CHAR},
+      </if>
+      <if test="stpTim != null">
+        STP_TIM = #{stpTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stpNo != null">
+        STP_NO = #{stpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="stpNam != null">
+        STP_NAM = #{stpNam,jdbcType=VARCHAR},
+      </if>
+      <if test="smtSta != null">
+        SMT_STA = #{smtSta,jdbcType=CHAR},
+      </if>
+      <if test="smtSeq != null">
+        SMT_SEQ = #{smtSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="smtMsg != null">
+        SMT_MSG = #{smtMsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspDbzlBas">
+    <!--@mbg.generated-->
+    update HSP_DBZL_BAS
+    set REG_TIM = #{regTim,jdbcType=TIMESTAMP},
+      EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      MPI = #{mpi,jdbcType=VARCHAR},
+      PAT_TYP = #{patTyp,jdbcType=CHAR},
+      WAY_TYP = #{wayTyp,jdbcType=CHAR},
+      CARD_TYPE = #{cardType,jdbcType=VARCHAR},
+      VST_CAD = #{vstCad,jdbcType=VARCHAR},
+      CST_NAM = #{cstNam,jdbcType=VARCHAR},
+      CST_SEX_COD = #{cstSexCod,jdbcType=VARCHAR},
+      ID_TYPE = #{idType,jdbcType=VARCHAR},
+      ID_NBR = #{idNbr,jdbcType=VARCHAR},
+      CST_AGE_COD = #{cstAgeCod,jdbcType=VARCHAR},
+      CST_AGE = #{cstAge,jdbcType=VARCHAR},
+      PAT_WGT = #{patWgt,jdbcType=DECIMAL},
+      PAT_HGT = #{patHgt,jdbcType=DECIMAL},
+      BTH_DAT = #{bthDat,jdbcType=TIMESTAMP},
+      PHE_NBR = #{pheNbr,jdbcType=VARCHAR},
+      CST_ADR = #{cstAdr,jdbcType=VARCHAR},
+      NATION = #{nation,jdbcType=VARCHAR},
+      EMG_JOB = #{emgJob,jdbcType=VARCHAR},
+      MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+      CST_EDU = #{cstEdu,jdbcType=VARCHAR},
+      LNK_MAN = #{lnkMan,jdbcType=VARCHAR},
+      LNK_WAY = #{lnkWay,jdbcType=VARCHAR},
+      GRN_CHL = #{grnChl,jdbcType=CHAR},
+      SW_CHL = #{swChl,jdbcType=CHAR},
+      HSP_ARA = #{hspAra,jdbcType=VARCHAR},
+      YQXH = #{yqxh,jdbcType=VARCHAR},
+      JZXH = #{jzxh,jdbcType=DECIMAL},
+      ZYXH = #{zyxh,jdbcType=DECIMAL},
+      DOC_DAT = #{docDat,jdbcType=TIMESTAMP},
+      JZYS = #{jzys,jdbcType=VARCHAR},
+      YSXM = #{ysxm,jdbcType=VARCHAR},
+      KSDM = #{ksdm,jdbcType=VARCHAR},
+      CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      CRT_NO = #{crtNo,jdbcType=VARCHAR},
+      CRT_NAM = #{crtNam,jdbcType=VARCHAR},
+      MOD_TIM = #{modTim,jdbcType=TIMESTAMP},
+      MOD_NO = #{modNo,jdbcType=VARCHAR},
+      MOD_NAM = #{modNam,jdbcType=VARCHAR},
+      RCD_STA = #{rcdSta,jdbcType=CHAR},
+      CHK_TIM = #{chkTim,jdbcType=TIMESTAMP},
+      CHK_NO = #{chkNo,jdbcType=VARCHAR},
+      CHK_NAM = #{chkNam,jdbcType=VARCHAR},
+      CHK_MSG = #{chkMsg,jdbcType=VARCHAR},
+      STP_FLG = #{stpFlg,jdbcType=CHAR},
+      STP_TIM = #{stpTim,jdbcType=TIMESTAMP},
+      STP_NO = #{stpNo,jdbcType=VARCHAR},
+      STP_NAM = #{stpNam,jdbcType=VARCHAR},
+      SMT_STA = #{smtSta,jdbcType=CHAR},
+      SMT_SEQ = #{smtSeq,jdbcType=VARCHAR},
+      SMT_MSG = #{smtMsg,jdbcType=VARCHAR}
+    where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

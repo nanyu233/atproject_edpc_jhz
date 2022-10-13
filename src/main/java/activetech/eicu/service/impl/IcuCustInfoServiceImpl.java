@@ -127,7 +127,10 @@ public class IcuCustInfoServiceImpl implements IcuCustInfoService{
 		HspDocadviceInfCustom hspDocadviceInfCustom = new HspDocadviceInfCustom();
 		hspDocadviceInfCustom.setStartdate(startDate);
 		hspDocadviceInfCustom.setEnddate(DateUtil.getNextDay(endDate));
-		hspDocadviceInfCustom.setVstCad(hspemginfCustom.getVstCad());
+		if(hspemginfCustom!=null){
+			hspDocadviceInfCustom.setVstCad(hspemginfCustom.getVstCad());
+		}
+
 		vHemsJyjgQueryDto.setHspDocadviceInfCustom(hspDocadviceInfCustom);		
 		List<HspDocadviceInfCustom> daExecList = new ArrayList<>();
 				//zyyLqblService.findvhemsypxxinfoanddocadviceList(vHemsJyjgQueryDto);	

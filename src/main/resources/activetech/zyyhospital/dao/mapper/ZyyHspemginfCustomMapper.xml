@@ -1035,7 +1035,7 @@
 	          sql.sql_des,(select COMCNAME from dstcompctl a where  a.COMNO=sql.sql_dep_cod) as SQL_DEP_COD,
 	          DEATH_DIAGNOSIS,
 	          (select bed_num b from HSP_BED_INF b where b.emg_seq = emg.emg_seq) bedNum,
-	          getjbzddata('13',#{emgSeq}) mzCbzd,getjbzddata('14',#{emgSeq}) mzZzzd,
+<!--	          getjbzddata('13',#{emgSeq}) mzCbzd,getjbzddata('14',#{emgSeq}) mzZzzd,-->
 	          sql.sql_dat
 	         from hsp_emg_inf emg ,HSP_MEWS_INF mews,hsp_sql_inf sql
 	        where 

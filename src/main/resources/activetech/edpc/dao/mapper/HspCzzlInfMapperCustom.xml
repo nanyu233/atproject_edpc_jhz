@@ -86,7 +86,7 @@
 				   a.vst_cad,
 				   (select bed_num from hsp_bed_inf where emg_seq = a.emg_seq) bed_num
 			  from hsp_emg_inf a, hsp_mews_inf b
-			 where a.emg_seq = b.emg_seq
+			 where a.emg_seq = b.emg_seq(+)
 			   and a.czlcflg = '1'
 			    <if test="cstNam !=null and cstNam.length()>0">
 		 			and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
