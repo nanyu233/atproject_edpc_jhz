@@ -520,12 +520,13 @@
     function getPatients(){
         publicFun.httpServ('post', 'cpc/getCpcPatientListInfo.do', {
             cstNam: vm.searchKey,
-            bhls: vm.showHis
+            bhls: vm.showHis,
+            patTyp : "1" // 1胸痛 2 卒中 3 创伤
         }, function (res) {
             var list = res.resultInfo.sysdata.list;
             if (list && list.length) {
                 for (var i = 0; i < list.length; i++) {
-                    list[i].emgDatStr = publicFun.timeFormat(list[i].emgDat, 'yyyy/MM/dd hh:mm');//格式化预检时间
+                    list[i].emgDatStr = publicFun.timeFormat(list[i].regTim, 'yyyy/MM/dd hh:mm');//格式化预检时间
                     list[i].hasUpdated = false; //设置信息更新的标志
                 }
                 vm.patientList = list;
@@ -725,7 +726,7 @@
     //跳转到胸痛登记页面
     function redirectToprint() {
         var url = 'cpc/toXtzlPrintPage.do?emgSeq=' + vm.currPatientInfo.emgSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp
-        +'&cstNam='+vm.currPatientInfo.cstNam +'&tempNo=TEMP10000000';
+        +'&cstNam='+vm.currPatientInfo.cstNam +'&tempNo=TEMP10000001';
         window.top.addTab('胸痛登记表-' + vm.currPatientInfo.cstNam, url, 'icon icon-emergency-record');
     }
   //跳转到胸痛随访页面

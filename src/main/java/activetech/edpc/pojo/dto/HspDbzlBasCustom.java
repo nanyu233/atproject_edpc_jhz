@@ -12,6 +12,17 @@ public class HspDbzlBasCustom extends HspDbzlBas {
 
     //心内诊断
     private String cbzd;
+    //病情评估
+    private String bqpg;
+    //病情评估明细
+    private String bqpgmx;
+    //lillip 心功能分级
+    private String killip;
+    //心率
+    private String xinl;
+    //血压
+    private String xuey;
+
 
     public String getFbsj() {
         return fbsj;
@@ -35,5 +46,45 @@ public class HspDbzlBasCustom extends HspDbzlBas {
 
     public void setCbzd(String cbzd) {
         this.cbzd = cbzd;
+    }
+
+    public String getBqpg() {
+        return bqpg;
+    }
+
+    public void setBqpg(String bqpg) {
+        this.bqpg = bqpg;
+    }
+
+    public String getBqpgmx() {
+        return bqpgmx;
+    }
+
+    public void setBqpgmx(String bqpgmx) {
+        this.bqpgmx = bqpgmx;
+    }
+
+    public String getKillip() {
+        return killip;
+    }
+
+    public void setKillip(String killip) {
+        this.killip = killip;
+    }
+
+    public String getXinl() {
+        return xinl;
+    }
+
+    public void setXinl(String xinl) {
+        this.xinl = xinl;
+    }
+
+    public String getXuey() {
+        return xuey;
+    }
+
+    public void setXuey(String xuey) {
+        this.xuey = xuey;
     }
 }

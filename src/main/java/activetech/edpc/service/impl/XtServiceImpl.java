@@ -123,7 +123,7 @@ public class XtServiceImpl implements XtService{
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
 		ResultInfo resultInfo = null;
-		List<HspemginfCustom> list = cpcMapper.getCpcPatientInfoList(queryDto);
+		List<HspDbzlBasCustom> list = cpcMapper.getCpcPatientInfoList(queryDto);
 		if(list.size()>0){
 			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 			Map<String,Object> map = new HashMap<>();
