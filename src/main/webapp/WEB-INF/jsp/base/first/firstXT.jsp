@@ -293,7 +293,8 @@
 	            }
 	          }
 	          var _menuName = _allDataMenuList[i].menuname, 
-	          notShowMenuList = ['预检分诊','护士站','医生站','统计报表','质控报表','电子大屏','PDA','门诊输液系统'];
+	          // notShowMenuList = ['预检分诊','护士站','医生站','统计报表','质控报表','电子大屏','PDA','门诊输液系统'];
+	          notShowMenuList = ['护士站','医生站','统计报表','质控报表','电子大屏','PDA','门诊输液系统'];
 	        	  //['胸痛质控', 'PDA', '卒中中心', '创伤中心', '胸痛中心'];
 	          if ($.inArray(_menuName, notShowMenuList) < 0) {
 	            _newMenus.push(_allDataMenuList[i])
