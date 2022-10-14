@@ -11,10 +11,7 @@ import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.domain.HspGraceInf;
 import activetech.edpc.pojo.domain.HspXtzlInf;
-import activetech.edpc.pojo.dto.HspEcg;
-import activetech.edpc.pojo.dto.HspXtzlInfCustom;
-import activetech.edpc.pojo.dto.QueryDto;
-import activetech.edpc.pojo.dto.XtHspEmgInfQueryDto;
+import activetech.edpc.pojo.dto.*;
 import activetech.edpc.service.XtService;
 import activetech.external.service.EsbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -416,13 +413,22 @@ public class XtAction {
 	 */
 	@RequestMapping("/getXtPatientList")
 	@ResponseBody
-	public DataGridResultInfo getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto,
-			int page,//当前页码
-			int rows//每页显示个数
-			){
-		DataGridResultInfo dataGridResultInfo = xtService.getXtPatientList(xtHspEmgInfQueryDto, page, rows);
+//	public DataGridResultInfo getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto,
+//			int page,//当前页码
+//			int rows//每页显示个数
+//			){
+//		DataGridResultInfo dataGridResultInfo = xtService.getXtPatientList(xtHspEmgInfQueryDto, page, rows);
+//		return dataGridResultInfo;
+//	}
+
+	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto,
+											   int page,//当前页码
+											   int rows//每页显示个数
+	){
+		DataGridResultInfo dataGridResultInfo = xtService.getXtPatientList(hspDbzlBasQueryDto, page, rows);
 		return dataGridResultInfo;
 	}
+
 	
 	/**
 	 * 获取诊疗时间线

@@ -2,6 +2,8 @@ package activetech.edpc.dao.mapper;
 
 import java.util.List;
 
+import activetech.edpc.pojo.dto.HspDbzlBasCustom;
+import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import org.apache.ibatis.annotations.Param;
 
 import activetech.edpc.pojo.domain.HspXtAdd;
@@ -25,9 +27,16 @@ public interface HspXtzlInfCustomMapper {
 	
 	List<HspXtzlInfCustom> findXtPatientWithCod(@Param(value="busSteps")List<String> busSteps,@Param(value="emgNo")String emgNo);
 	
-	int countXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto);
-	
-	List<XtHspEmgInfQueryDto> getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto);
+//	int countXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto);
+//
+//	List<XtHspEmgInfQueryDto> getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto);
+
+	/**
+	 * 查询hspDbzlBas的胸痛患者列表请求
+	 * @param hspDbzlBasQueryDto
+	 * @return
+	 */
+	List<HspDbzlBasCustom> getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 	
 	String getD2W(@Param(value="emgSeq")String emgSeq);
 	

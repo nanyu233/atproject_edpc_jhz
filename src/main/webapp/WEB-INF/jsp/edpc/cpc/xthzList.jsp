@@ -357,7 +357,8 @@
 					}
 				},
 				{
-					field : 'emgDat',
+					// field : 'emgDat',
+                    field : 'scyljcsj',
 					title : '首次医疗接触',
 					width : setWidth(0.1),
 					formatter : function(value, row, index) {

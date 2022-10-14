@@ -6,6 +6,7 @@ import activetech.base.process.result.ResultInfo;
 import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.domain.HspGraceInf;
 import activetech.edpc.pojo.domain.HspXtzlInf;
+import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.HspXtzlInfCustom;
 import activetech.edpc.pojo.dto.QueryDto;
 import activetech.edpc.pojo.dto.XtHspEmgInfQueryDto;
@@ -38,10 +39,19 @@ public interface XtService {
 	 */
 	public ResultInfo findXtPatientWithCod(XtHspEmgInfQueryDto xtHspEmgInfQueryDto);
 	
-	public DataGridResultInfo getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto,
-			int page,//当前页码
-			int rows//每页显示个数
-			);
+//	public DataGridResultInfo getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto,
+//			int page,//当前页码
+//			int rows//每页显示个数
+//			);
+
+	/**
+	 * 查询hspDbzlBas的胸痛患者列表
+	 * @param hspDbzlBasQueryDto
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows);
 	
 	public ResultInfo xtPatietSubmitBatch(List<HspXtzlInfCustom> xtzlInfs,String emgSeq,ActiveUser activeUser);
 	

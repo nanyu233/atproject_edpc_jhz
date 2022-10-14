@@ -119,6 +119,9 @@ public class XtServiceImpl implements XtService{
 
 	@Autowired
 	private HspAddrPostMapper hspAddrPostMapper;
+
+	@Autowired
+	private HspDbzlBasMapper hspDbzlBasMapper;
 	
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
@@ -471,20 +474,35 @@ public class XtServiceImpl implements XtService{
 		return resultInfo;
 	}
 
+//	@Override
+//	public DataGridResultInfo getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto,
+//			int page,//当前页码
+//			int rows//每页显示个数
+//			) {
+//		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+//		int total = hspXtzlInfCustomMapper.countXtPatientList(xtHspEmgInfQueryDto);
+//		PageQuery pageQuery = new PageQuery();
+//		pageQuery.setPageParams(total, rows, page);
+//		xtHspEmgInfQueryDto.setPageQuery(pageQuery);
+//		List<XtHspEmgInfQueryDto> list = hspXtzlInfCustomMapper.getXtPatientList(xtHspEmgInfQueryDto);
+//		dataGridResultInfo.setRows(list);
+//		dataGridResultInfo.setTotal(total);
+//
+//		return dataGridResultInfo;
+//	}
+
 	@Override
-	public DataGridResultInfo getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto,
-			int page,//当前页码
-			int rows//每页显示个数
-			) {
+	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows){
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		int total = hspXtzlInfCustomMapper.countXtPatientList(xtHspEmgInfQueryDto);
+		HspDbzlBasExample example = new HspDbzlBasExample();
+		example.createCriteria().andPatTypEqualTo("1");
+		int total = (int)hspDbzlBasMapper.countByExample(example);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, rows, page);
-		xtHspEmgInfQueryDto.setPageQuery(pageQuery);
-		List<XtHspEmgInfQueryDto> list = hspXtzlInfCustomMapper.getXtPatientList(xtHspEmgInfQueryDto);
+		hspDbzlBasQueryDto.setPageQuery(pageQuery);
+		List<HspDbzlBasCustom> list = hspXtzlInfCustomMapper.getXtPatientList(hspDbzlBasQueryDto);
 		dataGridResultInfo.setRows(list);
 		dataGridResultInfo.setTotal(total);
-		
 		return dataGridResultInfo;
 	}
 	
