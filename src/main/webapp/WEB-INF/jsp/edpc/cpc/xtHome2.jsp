@@ -236,7 +236,7 @@
                     <span ms-visible="!el.cstSexCod">性别无</span>
                     <span ms-visible="el.cstSexCod==0" class="male">男</span>
                     <span ms-visible="el.cstSexCod==1" class="female">女</span><span> | </span>
-                    <span ms-if="el.cstAge">{{el.cstAge}}岁</span>
+                    <span ms-if="el.cstAge">{{el.cstAge}}{{el.cstAgeCodInf || '岁'}}</span>
                     <span ms-if="!el.cstAge">年龄无</span>
                 </span>
                 <i ms-if="el.hasUpdated" class="iconfont icon-new-msg"
@@ -255,12 +255,13 @@
                 <span ms-visible="el.killip == 3" class="killip_4">Ⅳ级</span>
             </div>
             <div class="info_item">
-                <span class="iconfont icon-iconxyang" style="color: #44b548"></span>
-                <span>{{el.oxyNbr || '--'}}%</span>
+<%--                血氧取消显示--%>
+<%--                <span class="iconfont icon-iconxyang" style="color: #44b548"></span>--%>
+<%--                <span>{{el.oxyNbr || '--'}}%</span>--%>
                 <span class="iconfont icon-heartrate" style="color:red"></span>
-                <span>{{el.hrtRte || '--'}}次/分</span>
+                <span>{{el.xinl || '--'}}次/分</span>
                 <span class="iconfont icon-hamnatodynamometer" style="color: #f90"></span>
-                <span>{{el.sbpUpNbr || '--'}}/{{el.sbpDownNbr || '--'}}</span>
+                <span>{{el.xuey || '--/--'}}</span>
             </div>
         </li>
     </ul>
@@ -325,7 +326,7 @@
         	cstNam:'',
         	emgDat:'',
         	emgDatStr:'',
-        	xtCod:'',
+        	// xtCod:'',
         	xtSubCod:'',
         	bqpg:'',
         	scyljcsj:'', // 首次医疗接触时间
@@ -386,14 +387,14 @@
             clearWindow();
             vm.currPatientInfo.emgSeq = patient.emgSeq;
         	vm.currPatientInfo.cstNam = patient.cstNam;
-        	vm.currPatientInfo.emgDat = patient.emgDat;
+        	vm.currPatientInfo.emgDat = patient.regTim;
         	vm.currPatientInfo.emgDatStr = patient.emgDatStr;
         	// vm.currPatientInfo.scyljcsj = patient.emgDatStr;
         	// vm.currPatientInfo.xtCod = patient.xtCod;
         	// vm.currPatientInfo.xtSubCod = patient.xtSubCod;
         	vm.currPatientInfo.wayTyp = patient.wayTyp;
         	
-        	vm.currPatientInfo.bqpg = publicFun.codingEscape(publicFun.getDict('XT_BQPG_COD'),patient.xtCod)     ;
+        	vm.currPatientInfo.bqpg = publicFun.codingEscape(publicFun.getDict('XT_BQPG_COD'),patient.bqpg)     ;
         	
         	vm.currPatientInfo.mpi = patient.mpi;
             // 设置左侧流程图以及流程图上方的信息栏数据
@@ -549,7 +550,7 @@
                    	cstNam:'',
                    	emgDat:'',
                    	emgDatStr:'',
-                   	xtCod:'',
+                   	// xtCod:'',
                    	bqpg:'',
                    	scyljcsj:'', // 首次医疗接触时间
                    	ynsfxdtsj:'',  // 首份心电图时间

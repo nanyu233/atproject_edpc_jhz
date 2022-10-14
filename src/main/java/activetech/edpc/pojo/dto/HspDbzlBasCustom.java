@@ -22,6 +22,8 @@ public class HspDbzlBasCustom extends HspDbzlBas {
     private String xinl;
     //血压
     private String xuey;
+    //年龄类型
+    private String cstAgeCodInf;
 
 
     public String getFbsj() {
@@ -86,5 +88,13 @@ public class HspDbzlBasCustom extends HspDbzlBas {
 
     public void setXuey(String xuey) {
         this.xuey = xuey;
+    }
+
+    public String getCstAgeCodInf() {
+        return cstAgeCodInf;
+    }
+
+    public void setCstAgeCodInf(String cstAgeCodInf) {
+        this.cstAgeCodInf = cstAgeCodInf;
     }
 }
