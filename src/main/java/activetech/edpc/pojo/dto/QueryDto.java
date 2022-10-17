@@ -7,6 +7,8 @@ public class QueryDto {
 	private Boolean bhls;
     // 患者类型  1胸痛 2 卒中 3 创伤
 	private String patTyp;
+	//hspDbzlBas- 主键
+	private String regSeq;
 
 	public String getCstNam() {
 		return cstNam;
@@ -30,5 +32,13 @@ public class QueryDto {
 
 	public void setPatTyp(String patTyp) {
 		this.patTyp = patTyp;
+	}
+
+	public String getRegSeq() {
+		return regSeq;
+	}
+
+	public void setRegSeq(String regSeq) {
+		this.regSeq = regSeq;
 	}
 }

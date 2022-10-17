@@ -321,6 +321,7 @@
         patientGreenNodes: [],//单个病人已完成的流程节点
         ecgList:[],//心电图列表
         currPatientInfo: {
+            regSeq:'',
         	emgSeq:'',
         	mpi:'',
         	cstNam:'',
@@ -380,11 +381,13 @@
         // 点击右侧列表中的病人信息，根据emgSeq获取该病人已进行过的流程节点；
         // 根据获取到的节点判断需单独显示非ACS分支还是单独显示ACS分支；
         clickPatient: function (patient) {
+            console.log(patient)
             //hisSelPat保存当前选中的病人，目的是切回本tab页时展示之前正在浏览的病人数据
             hisSelPat = patient;
         	// 每次点击都要先重置流程图
         	resetFlowChart();
             clearWindow();
+            vm.currPatientInfo.regSeq = patient.regSeq;
             vm.currPatientInfo.emgSeq = patient.emgSeq;
         	vm.currPatientInfo.cstNam = patient.cstNam;
         	vm.currPatientInfo.emgDat = patient.regTim;
@@ -545,6 +548,7 @@
                 vm.patientList = [];
                 vm.patientGreenNodes = [];
                 vm.currPatientInfo ={
+                    regSeq:'',
                		emgSeq:'',
                    	mpi:'',
                    	cstNam:'',
@@ -753,11 +757,10 @@
     // 胸痛急救时间轴
     function toCpcTimeline() {
     	var patInfo = vm.currPatientInfo;
-//     	console.log(patInfo);
-    	var cstNam = patInfo.cstNam;
+        var cstNam = patInfo.cstNam;
         var openTabNam = '胸痛急救时间轴';
         openTabNam = cstNam ? openTabNam + '-' + cstNam : openTabNam;
-        var openTabUrl = '${baseurl}cpc/toCpcTimeline.do?emgSeq=' + patInfo.emgSeq + "&wayTyp=" + patInfo.wayTyp;
+        var openTabUrl = '${baseurl}cpc/toCpcTimeline.do?emgSeq=' + patInfo.emgSeq + "&wayTyp=" + patInfo.wayTyp +'&regSeq='+ patInfo.regSeq;
         parent.opentabwindow(openTabNam, openTabUrl, '1');
     }
 

@@ -362,10 +362,9 @@ public class XtAction {
 	 * @return
 	 */
 	@RequestMapping("/toXtxqPage")
-	public String toXtxqPage(String emgSeq,String wayTyp, String regSeq, Model model){
+	public String toXtxqPage(String emgSeq,String wayTyp,Model model){
 		model.addAttribute("emgSeq", emgSeq);
 		model.addAttribute("wayTyp", wayTyp);
-		model.addAttribute("regSeq", regSeq);
 		return View.toEDPC("/cpc/xtxq");
 	}
 	
@@ -456,31 +455,21 @@ public class XtAction {
 		
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
-	
-	/*
-	 * 病人基本信息详情
+
+	/**
+	 * 患者基础信息
+	 * @param map {regSeq : ''}
+	 * @return SubmitResultInfo
 	 */
 	@RequestMapping("/getXtPatientDetail")
 	@ResponseBody
-	public SubmitResultInfo getXtPatientDetail(@RequestBody(required=false) Map<String,Object> map){
-		
+	public SubmitResultInfo getXtPatientDetail(@RequestBody(required = false) Map<String, Object> map) {
 		ResultInfo resultInfo = null;
-		
-		String emgSeq = "";
-		String wayTyp = "";
-		if(map.containsKey("emgSeq")){
-			emgSeq = (String) map.get("emgSeq");
+		String regSeq = "";
+		if (map.containsKey("regSeq")) {
+			regSeq = (String) map.get("regSeq");
 		}
-		if(map.containsKey("wayTyp")){
-			wayTyp = (String) map.get("wayTyp");
-		}
-		
-		if("0".equals(wayTyp)){
-			resultInfo = xtService.queryXtPatientDetail(emgSeq);
-		}else{
-			resultInfo = xtService.queryHspXtAddDetail(emgSeq);
-		}
-	
+		resultInfo = xtService.queryHspDbzlBasinf(regSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	

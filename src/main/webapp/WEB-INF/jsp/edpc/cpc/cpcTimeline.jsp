@@ -416,12 +416,13 @@
             dataType: 'json',
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify({
-                emgSeq: "${emgSeq}",
-                wayTyp: "${wayTyp}"
+                <%--emgSeq: "${emgSeq}",--%>
+                <%--wayTyp: "${wayTyp}",--%>
+                regSeq: "${regSeq}"
             }),
             success: function (res) {
                 if(res.resultInfo.sysdata.hspEmgInf){
-                    vm.info = res.resultInfo.sysdata.hspEmgInf;
+                    vm.info = res.resultInfo.sysdata.hspDbzlBasCustom;
                 }
             }
         });

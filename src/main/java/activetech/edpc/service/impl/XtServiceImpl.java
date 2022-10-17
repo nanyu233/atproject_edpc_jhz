@@ -637,7 +637,7 @@ public class XtServiceImpl implements XtService{
 
 	}
 	
-	@Override
+//	@Override
 	public ResultInfo queryXtPatientDetail(String emgSeq){
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
@@ -822,7 +822,7 @@ public class XtServiceImpl implements XtService{
 		return resultInfo;
 	}
 
-	@Override
+//	@Override
 	public ResultInfo queryHspXtAddDetail(String emgSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
@@ -1294,5 +1294,17 @@ public class XtServiceImpl implements XtService{
 			jsonObj = (JSONObject) o;
 		}
 		return jsonObj;
+	}
+
+	@Override
+	public ResultInfo queryHspDbzlBasinf(String regSeq) {
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		Map<String, Object> sysdata = new HashMap<String, Object>();
+		QueryDto queryDto=new QueryDto();
+		queryDto.setRegSeq(regSeq);
+		HspDbzlBasCustom hspDbzlBasCustom=cpcMapper.getHspDbzlBasinf(queryDto);
+		sysdata.put("hspDbzlBasCustom",hspDbzlBasCustom);
+		resultInfo.setSysdata(sysdata);
+		return resultInfo;
 	}
 }

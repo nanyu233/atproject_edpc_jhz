@@ -59,7 +59,7 @@ public interface XtService {
 	
 	public ResultInfo getHspFlowChartDef(String flowType);
 
-	public ResultInfo queryXtPatientDetail(String emgSeq);
+//	public ResultInfo queryXtPatientDetail(String emgSeq);
 
 	ResultInfo getHspGraceInf(HspGraceInf hspGraceInf);
 	
@@ -83,7 +83,7 @@ public interface XtService {
 	 */
 	public ResultInfo updateHspCrivelInf(HspCrivelInf hspCrivelInf,ActiveUser activeUser);
 
-	public ResultInfo queryHspXtAddDetail(String emgSeq);
+//	public ResultInfo queryHspXtAddDetail(String emgSeq);
 	
 	/**
 	 * 获取手动上传的心电图信息
@@ -97,7 +97,9 @@ public interface XtService {
 	public ResultInfo getHspXtzlInfByEmgSeq(String emgSeq);
 	
 	public ResultInfo getAidPatientByEmgSeq(String emgSeq, String wayTyp);
-
-	ResultInfo getHspXtzlInfByEmgSeqToEdit(String emgSeq,String wayTyp);
+	//获取胸痛诊疗数据，格式化比编辑器所需数据
+	ResultInfo getHspXtzlInfByEmgSeqToEdit(String emgSeq, String wayTyp);
+	// 获取患者基础信息
+	ResultInfo queryHspDbzlBasinf(String regSeq);
 
 }

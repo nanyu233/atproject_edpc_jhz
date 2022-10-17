@@ -19,6 +19,12 @@ public interface CpcMapper {
 	 * @return list
 	 */
 	List<HspemginfCustom> getCsPatientInfoList(QueryDto queryDto);
+	/**
+	 * 急救时间轴 and 胸痛上报 获取胸痛患者基础信息
+	 * @param queryDto  regSeq
+	 * @return HspDbzlBasCustom hspDbzlBasCustom
+	 */
+	HspDbzlBasCustom getHspDbzlBasinf(QueryDto queryDto);
 	
 
 }
