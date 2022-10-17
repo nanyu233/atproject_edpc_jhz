@@ -589,7 +589,7 @@
             'line-height': '1.3',
             'font-weight': 'bolder'
         });
-        $('input').css({'border': 'none'});
+        $('#printCzhcb input').css({'border': 'none'});
         console.log(vm1.printMsg, 111111)
 
     })

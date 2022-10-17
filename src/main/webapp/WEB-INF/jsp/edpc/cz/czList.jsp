@@ -5,7 +5,6 @@
 
             <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
             <html>
-
             <head>
                 <base href="<%=basePath%>">
                 <title>卒中患者列表</title>
@@ -25,135 +24,105 @@
                     var _emgSeq='';
                 </script>
                 <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
-                    <style>
-                        .form {
-                            border: 1px solid #eeeeee;
-                            width: 100%;
-                            position: relative;
-                        }
-                        
-                        .form .row {
-                            margin: 10px 0;
-                            /*border: 1px solid red;*/
-                        }
-                        
-                        .form .row .form-item {
-                            width: 24%;
-                            display: inline-block;
-                            vertical-align: middle;
-                        }
-                        
-                        .form-item label {
-                            display: inline-block;
-                            width: 90px;
-                            text-align: right;
-                            margin-left: 10px;
-                            font-size: 14px;
-                        }
-                        
-                        .form-item input,
-                        .form-item select {
-                            width: calc(100% - 110px);
-                            height: 34px;
-                            padding: 3px 3px;
-                            font-size: 14px;
-                            line-height: 1.428571429;
-                            color: #555;
-                            vertical-align: middle;
-                            background-color: #fff;
-                            background-image: none;
-                            border: 1px solid #ccc;
-                            border-radius: 4px;
-                        }
-                        
-                        .form-item .btn-group {
-                            margin-left: 100px;
-                        }
-                        
-                        .form-item .btn-group .btn {
-                            padding: 6px 12px;
-                            border-radius: 4px;
-                            background: #eeeeee;
-                            color: #888888;
-                            cursor: pointer;
-                            float: right;
-                            margin: 0 5px;
-                            font-size: 14px;
-                        }
-                        
-                        .row .search-btn {
-                            position: absolute;
-                            top: 10px;
-                            right: 10px;
-                            width: 140px;
-                            border-radius: 5px;
-                            color: #fff;
-                            background-color: #428bca;
-                            border-color: #357ebd;
-                            height: 32px;
-                            text-align: center;
-                            line-height: 32px;
-                        }
-                        
-                        .active {
-                            background: #428bca !important;
-                            color: #ffffff !important;
-                        }
-                        
-                        table .btn {
-                            display: inline-block;
-                            padding: 2px 10px;
-                            /*border: 1px solid black;*/
-                            border-radius: 5px;
-                            margin: 3px;
-                            color: #ffffff;
-                        }
-                        
-                        table .detail {
-                            background: #428bca;
-                        }
-                        
-                        table .Timeline {
-                            background: #428bca;
-                            /* background:darkseagreen; */
-                        }
-                        
-                        table .del {
-                            background: red;
-                        }
-                        
-                        .pagination-page-list {
-                            width: 45px;
-                        }
-                        
-                        .datagrid-wrap {
-                            position: relative;
-                        }
-                        
-                        .datagrid-pager {
-                            /* position: fixed; */
-                            /* position: absolute; */
-                            height: auto;
-                            /* bottom: 0; */
-                            width: 100%;
-                        }
-                    </style>
-            </head>
-            <script type="text/javascript">
-            </script>
+                <style>
 
+                    .form {
+                        border: 1px solid #eeeeee;
+                        width: 100%;
+                        position: relative;
+                    }
+
+                    .form input,
+                    .form select {
+                        width: 120px;
+                        height: 34px;
+                        padding: 3px 3px;
+                        font-size: 14px;
+                        line-height: 1.428571429;
+                        color: #555;
+                        vertical-align: middle;
+                        background-color: #fff;
+                        background-image: none;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                    }
+
+                    .form .search-btn {
+                        cursor: pointer;
+                        width: 140px;
+                        border-radius: 5px;
+                        color: #fff;
+                        background-color: #428bca;
+                        border-color: #357ebd;
+                        height: 32px;
+
+                    }
+
+                    .form span {
+                        margin-right: 60px;
+                    }
+                    .active {
+                        background: #428bca !important;
+                        color: #ffffff !important;
+                    }
+
+                    table .btn {
+                        display: inline-block;
+                        padding: 2px 10px;
+                        /*border: 1px solid black;*/
+                        border-radius: 5px;
+                        margin: 3px;
+                        color: #ffffff;
+                    }
+
+                    table .detail {
+                        background: #428bca;
+                    }
+                    table .Timeline{
+                        background: #428bca;
+                        /* background:darkseagreen; */
+                    }
+                    table .del {
+                        background: red;
+                    }
+                    .pagination-page-list{
+                        width:45px;
+                    }
+                    .datagrid-wrap{
+                        position:relative;
+                    }
+                    .datagrid-pager{
+                        position:absolute;
+                        bottom:0;
+                        width:100%;
+                    }
+                </style>
+
+            </head>
             <body ms-controller="czlist" id="container">
                 <div class="form">
-                    <div>
-                        姓名： <input type="text" ms-duplex-string="searchParam.cstNam"> 预检时间：
-                        <input type="input" ms-duplex-string="searchParam.startdate" value="${startdate }" class="input-date Wdate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" />-
-                        <input type="text" ms-duplex-string="searchParam.enddate" value="${enddate }" class="input-date Wdate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" /> 诊断：
-                        <select name="zd" ms-duplex="searchParam.zd">
-							<option value="">全部</option>
-							<option ms-repeat="searchParam.czCbzdCodList" ms-attr-value="el.infocode">{{el.info}}
-							</option>
-						</select> 诊断医生：
-                        <input type="text" ms-duplex-string="searchParam.zdys"> <input type="button" onclick="search()" value="查询">
+                    <div style="padding: 10px">
+                        <span>
+                            姓名： <input type="text" placeholder="请输入姓名" ms-duplex-string="searchParam.cstNam">
+                        </span>
+                        <span>
+                            预检时间：
+                           <input type="input" ms-duplex-string="searchParam.startdate" value="${startdate }" class="input-date Wdate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" />-
+                           <input type="text" ms-duplex-string="searchParam.enddate" value="${enddate }" class="input-date Wdate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" />
+                        </span>
+                        <span>
+                            诊断：
+                           <select name="zd" ms-duplex="searchParam.zd">
+							 <option value="">全部</option>
+							 <option ms-repeat="searchParam.czCbzdCodList" ms-attr-value="el.infocode">{{el.info}}
+							 </option>
+						   </select>
+                        </span>
+                        <span>
+                            诊断医生：
+                            <input type="text" placeholder="请输入姓名" ms-duplex-string="searchParam.zdys">
+                        </span>
+                        <input type="button" class="search-btn" onclick="search()" value="查询">
 
                     </div>
                 </div>
@@ -219,7 +188,7 @@
 
                 $(function() {
                     var h3 = height - 56;
-                    $("#dg").height(h3);
+                    $("#cztable").height(h3);
                     $('.datagrid-wrap').height(h3)
                     vm.searchParam.czCbzdCodList = publicFun.getItem("allDict").CZ_CBZD_COD;
                     czCbzdCodList = publicFun.getItem("allDict").CZ_CBZD_COD;
