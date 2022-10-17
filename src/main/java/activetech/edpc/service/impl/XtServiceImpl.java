@@ -494,9 +494,7 @@ public class XtServiceImpl implements XtService{
 	@Override
 	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows){
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		HspDbzlBasExample example = new HspDbzlBasExample();
-		example.createCriteria().andPatTypEqualTo("1");
-		int total = (int)hspDbzlBasMapper.countByExample(example);
+		int total = hspXtzlInfCustomMapper.countXtPatientList(hspDbzlBasQueryDto);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, rows, page);
 		hspDbzlBasQueryDto.setPageQuery(pageQuery);

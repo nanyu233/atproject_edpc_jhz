@@ -32,6 +32,12 @@ public interface HspXtzlInfCustomMapper {
 //	List<XtHspEmgInfQueryDto> getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto);
 
 	/**
+	 * 统计胸痛患者数目
+	 * @param hspDbzlBasQueryDto
+	 * @return
+	 */
+	int countXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
+	/**
 	 * 查询hspDbzlBas的胸痛患者列表请求
 	 * @param hspDbzlBasQueryDto
 	 * @return
