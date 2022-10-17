@@ -258,16 +258,16 @@
         }
     }
 
-    function toDetail(emgSeq,cstNam,wayTyp) {
-        var url = 'cpc/toXtxqPage.do?emgSeq=' + emgSeq+'&wayTyp='+wayTyp;
+    function toDetail(emgSeq,cstNam,wayTyp,regSeq) {
+        var url = 'cpc/toXtxqPage.do?emgSeq=' + emgSeq+'&wayTyp='+wayTyp +'&regSeq=' +regSeq;
         if(cstNam=='null'){
         	cstNam = "";
         }
         window.top.addTab( cstNam +"-"+ '胸痛上报' , url, 'icon icon-emergency-record');
     }
 	//查看时间轴
-	function toCpcTimeline(emgSeq,cstNam,wayTyp) {
-		var url = 'cpc/toCpcTimeline.do?emgSeq=' + emgSeq+'&wayTyp='+wayTyp;
+	function toCpcTimeline(emgSeq,cstNam,wayTyp, regSeq) {
+		var url = 'cpc/toCpcTimeline.do?emgSeq=' + emgSeq+'&wayTyp='+wayTyp +'&regSeq=' +regSeq;
 		if(cstNam=='null'){
 			cstNam = "";
 		}
@@ -317,10 +317,15 @@
             rownumbers: true,
             pageList: [20, 30, 50],
             columns: [ [
+                {
+                    field : 'smtSeq',
+                    title : '填报编号',
+                    width : setWidth(0.1)
+                },
             	{
 					field : 'wayTyp',
 					title : '患者类型',
-					width : setWidth(0.1),
+					width : setWidth(0.05),
 					formatter : function(value, row, index) {
 						if (value == 0) {
 							return '分诊';
@@ -334,12 +339,12 @@
 				{
 					field : 'cstNam',	
 					title : '姓名',
-					width : setWidth(0.1)
+					width : setWidth(0.08)
 				},
 				{
 					field : 'cstSexCod',
 					title : '性别',
-					width : setWidth(0.11),
+					width : setWidth(0.05),
 					formatter : function(value, row, index) {
 						if (value == 0) {
 							return '男'
@@ -351,7 +356,7 @@
 				{
 					field : 'cstAge',
 					title : '年龄',
-					width : setWidth(0.1),
+					width : setWidth(0.05),
 					formatter : function(value, row, index) {
 						return value==null?'-':value + '岁';
 					}
@@ -373,23 +378,50 @@
 				{
 					field : 'cbzd',
 					title : '诊断',
-					width : setWidth(0.11),
+					width : setWidth(0.1),
 					formatter : function(value, row, index) {
 						return publicFun.codingEscape(cbzdArr,value);
 					}
 				},
+                {
+                    field : 'smtSta',
+                    title : '状态',
+                    width : setWidth(0.05),
+                    formatter : function(value, row, index) {
+                        if (value == 1) {
+                            return '未上报'
+                        } else if (value == 2) {
+                            return '上报中'
+                        } else if (value == 3) {
+                            return '上报失败'
+                        } else if (value == 4) {
+                            return '上报驳回'
+                        } else if (value == 5) {
+                            return '上报完成'
+                        }
+                    }
+                },
+                {
+                    field : 'crtTim',
+                    title : '建档时间',
+                    width : setWidth(0.1),
+                    formatter : function(value, row, index) {
+                        return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+                    }
+                },
 				{
 					field : 'repDoc',
 					title : '管床医生',
-					width : setWidth(0.11),
+					width : setWidth(0.08),
 				},
 				{
 					field : 'dd',
 					title : '操作',
-					width : setWidth(0.15),
+					width : setWidth(0.14),
 					formatter : function(value, row, index) {
-						var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">查看</span>' +
-						'<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">时间轴</span>';
+                        console.log('row', row);
+                        var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">查看</span>' +
+						'<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>';
 							// var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\')">查看</span>' +
 							// 	'<span class="btn del" onclick="delPatient(\'' + row.emgSeq + '\')">删除</span>';
 						return _html

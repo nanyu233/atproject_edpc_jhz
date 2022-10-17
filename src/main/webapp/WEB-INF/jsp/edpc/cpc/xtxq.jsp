@@ -3256,6 +3256,7 @@
 	<script type="text/javascript">
 		var _emgSeq = "${emgSeq}";
 		var _wayTyp = "${wayTyp}";
+		var _regSeq = "${regSeq}";
 
 		var addrInfoList = publicFun.getItem('addrInfoList');
 		var vm = avalon.define({
@@ -4868,6 +4869,7 @@
 		}
 		// 基础信息接口
 		function getXtbaseInfo(busStep) {
+			console.log('_regSeq', _regSeq);
 			$.ajax({
 				url: '${baseurl}cpc/getXtPatientDetail.do',
 				type: 'post',
@@ -4875,10 +4877,12 @@
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
 					emgSeq: _emgSeq,
-					wayTyp: _wayTyp
+					wayTyp: _wayTyp,
+					regSeq: _regSeq
 				}),
 				success: function(res) {
-					var _hspEmgInf = res.resultInfo.sysdata.hspEmgInf
+					// var _hspEmgInf = res.resultInfo.sysdata.hspEmgInf
+					var _hspEmgInf = res.resultInfo.sysdata.hspDbzlBas
 					for (var a in vm.baseInfo) {
 						if (_hspEmgInf && _hspEmgInf.hasOwnProperty(a) && _hspEmgInf[a]) {
 							vm.baseInfo[a] = _hspEmgInf[a];
