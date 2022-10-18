@@ -4869,9 +4869,8 @@
 		}
 		// 基础信息接口
 		function getXtbaseInfo(busStep) {
-			console.log('_regSeq', _regSeq);
 			$.ajax({
-				url: '${baseurl}cpc/getXtPatientDetail.do',
+					url: '${baseurl}cpc/getXtPatientDetail.do',
 				type: 'post',
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
@@ -4882,7 +4881,8 @@
 				}),
 				success: function(res) {
 					// var _hspEmgInf = res.resultInfo.sysdata.hspEmgInf
-					var _hspEmgInf = res.resultInfo.sysdata.hspDbzlBas
+					var _hspEmgInf = res.resultInfo.sysdata.hspDbzlBasCustom
+					console.log(_hspEmgInf);
 					for (var a in vm.baseInfo) {
 						if (_hspEmgInf && _hspEmgInf.hasOwnProperty(a) && _hspEmgInf[a]) {
 							vm.baseInfo[a] = _hspEmgInf[a];

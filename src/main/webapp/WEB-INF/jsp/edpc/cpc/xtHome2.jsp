@@ -751,7 +751,7 @@
     }
     //跳转到胸痛上报页面
     function toReport() {
-        var url = 'cpc/toXtxqPage.do?emgSeq=' + vm.currPatientInfo.emgSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp;
+        var url = 'cpc/toXtxqPage.do?emgSeq=' + vm.currPatientInfo.emgSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp + '&regSeq=' + vm.currPatientInfo.regSeq;
         window.top.addTab('胸痛上报-' + vm.currPatientInfo.cstNam, url, 'icon icon-emergency-record');
     }
     // 胸痛急救时间轴
@@ -1867,6 +1867,31 @@
         $('#dg').datagrid({
                 striped: true,
                 data:[
+                    // {code:'1030',name:'知情选择'},
+                    // {code:'1029',name:'患者授权书'},
+                    // {code:'1004',name:'病危(重)通知书'},
+                    // {code:'1020',name:'心导管诊疗知情同意书'},
+                    // {code:'1012',name:'静脉溶栓治疗同意书'},
+                    // {code:'1015',name:'气管插管和器械通气知情同意书'},
+                    // {code:'1024',name:'造影剂使用知情同意书'},
+                    // {code:'1040',name:'临时起搏器植入术谈话'},
+                    // {code:'1034',name:'血管内介入治疗知情同意书'},
+                    // {code:'1013',name:'拒绝或放弃医学治疗告知书'},
+                    // {code:'1027',name:'自动出院或转院告知书'},
+                    // {code:'TEMP10000000', name:'测试用'}
+
+                    {code:'TEMP10000009',name:'知情选择'},
+                    {code:'TEMP10000010',name:'患者授权书'},
+                    {code:'TEMP10000013',name:'病危(重)通知书'},
+                    {code:'TEMP10000002',name:'心导管诊疗知情同意书'},
+                    {code:'TEMP10000011',name:'静脉溶栓治疗同意书'},
+                    {code:'TEMP10000003',name:'气管插管和器械通气知情同意书'},
+                    {code:'TEMP10000004',name:'造影剂使用知情同意书'},
+                    {code:'TEMP10000006',name:'临时起搏器植入术谈话'},
+                    {code:'TEMP10000012',name:'血管内介入治疗知情同意书'},
+                    {code:'TEMP10000014',name:'拒绝或放弃医学治疗告知书'},
+                    {code:'TEMP10000005',name:'自动出院或转院告知书'},
+                    {code:'TEMP10000000',name:'测试用'},
                     {code:'1030',name:'知情选择'},
                     {code:'1029',name:'患者授权书'},
                     {code:'1004',name:'病危(重)通知书'},
@@ -1878,7 +1903,6 @@
                     {code:'1034',name:'血管内介入治疗知情同意书'},
                     {code:'1013',name:'拒绝或放弃医学治疗告知书'},
                     {code:'1027',name:'自动出院或转院告知书'},
-                    {code:'TEMP10000000', name:'测试用'}
                 ],
                 columns:[[
                     {field:'code',title:'模板号',width:150,styler:function (value,row,index) {

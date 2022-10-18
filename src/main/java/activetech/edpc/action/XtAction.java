@@ -362,9 +362,10 @@ public class XtAction {
 	 * @return
 	 */
 	@RequestMapping("/toXtxqPage")
-	public String toXtxqPage(String emgSeq,String wayTyp,Model model){
+	public String toXtxqPage(String emgSeq,String wayTyp, String regSeq ,Model model){
 		model.addAttribute("emgSeq", emgSeq);
 		model.addAttribute("wayTyp", wayTyp);
+		model.addAttribute("regSeq", regSeq);
 		return View.toEDPC("/cpc/xtxq");
 	}
 	
