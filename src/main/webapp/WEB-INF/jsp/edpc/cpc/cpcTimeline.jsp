@@ -83,12 +83,12 @@
         <div class="form_cat border-radius box-shadow">
             <div class="basic-info">
                 <span class="item">姓名：<span class="name">{{info.cstNam}}</span></span>
-                <span class="item">年龄：<span class="value">{{info.cstAge}}岁</span></span>
+                <span class="item">年龄：<span class="value">{{info.cstAge}}{{info.cstAgeCodInf || '岁'}}</span></span>
                 <span class="item">性别：<span class="value">{{info.cstSexCod == 0 ? '男' : '女'}}</span></span>
-                <span class="item">住院号：<span class="value"></span></span>
-                <span class="item">门诊号：<span class="value"></span></span>
-                <span class="item">呼救时间：<span class="value"></span></span>
-                <span class="item">诊断：<span class="value"></span></span>
+                <span class="item">住院号：<span class="value">{{info.zyxh}}</span></span>
+                <span class="item">门诊号：<span class="value">{{info.jzxh}}</span></span>
+<%--                <span class="item">呼救时间：<span class="value"></span></span>--%>
+                <span class="item">诊断：<span class="value">{{info.cbzd}}</span></span>
             </div>
             <table style='text-align:left;margin: 20px;' border='0' cellspacing='0' cellpadding='0'>
                 <tr>
@@ -384,9 +384,8 @@
         };
 //    		console.log("query cpc timeline data url: ", url);
 //    		console.log("request param: ", params);
-        publicFun.httpServ("post", url, params, function (res) {
-//         	console.log("res", res);
-            var data = res.resultInfo.sysdata.cpcTimeline || [];
+        publicFun.httpRequest( url, params,{requestType:'json'}, function (res) {
+            var data = res.resultInfo.sysdata.list || [];
 			(function(data){
 				if(data && data.length){
 					for(var m in data){
@@ -416,13 +415,14 @@
             dataType: 'json',
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify({
-                <%--emgSeq: "${emgSeq}",--%>
-                <%--wayTyp: "${wayTyp}",--%>
                 regSeq: "${regSeq}"
             }),
             success: function (res) {
-                if(res.resultInfo.sysdata.hspEmgInf){
-                    vm.info = res.resultInfo.sysdata.hspDbzlBasCustom;
+                if(res.resultInfo.sysdata.hspDbzlBasCustom){
+                    var  hspDbzlBasCustom=res.resultInfo.sysdata.hspDbzlBasCustom;
+                    vm.info = hspDbzlBasCustom;
+                    // console.log("cbzd", vm.info)
+                    vm.info.cbzd= publicFun.codingEscape(publicFun.getDict('XT_CBZD_COD'),hspDbzlBasCustom.cbzd);
                 }
             }
         });

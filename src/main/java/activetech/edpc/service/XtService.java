@@ -28,8 +28,8 @@ public interface XtService {
 	 * @return
 	 */
 	public ResultInfo getNodeInfoByEmgSeq(String emgSeq,String nodeId);
-	
-	public ResultInfo getCpcTimeline(String emgSeq);
+	// TODO 废弃待删除
+//	public ResultInfo getCpcTimeline(String emgSeq);
 	
 	/**
 	 * 根据busStep,emgNo获取数据
@@ -38,11 +38,6 @@ public interface XtService {
 	 * @return
 	 */
 	public ResultInfo findXtPatientWithCod(XtHspEmgInfQueryDto xtHspEmgInfQueryDto);
-	
-//	public DataGridResultInfo getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto,
-//			int page,//当前页码
-//			int rows//每页显示个数
-//			);
 
 	/**
 	 * 查询hspDbzlBas的胸痛患者列表
@@ -54,11 +49,16 @@ public interface XtService {
 	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows);
 	
 	public ResultInfo xtPatietSubmitBatch(List<HspXtzlInfCustom> xtzlInfs,String emgSeq,ActiveUser activeUser);
-	
-	public ResultInfo getXtTimeLine(XtHspEmgInfQueryDto xtHspEmgInfQueryDto);
+
+	/**
+	 * 获取诊疗表时间轴数据
+	 * @param emgSeq emgSeq
+	 * @return ResultInfo
+	 */
+	ResultInfo getXtTimeLine(String emgSeq);
 	
 	public ResultInfo getHspFlowChartDef(String flowType);
-
+	// TODO 废弃待删除
 //	public ResultInfo queryXtPatientDetail(String emgSeq);
 
 	ResultInfo getHspGraceInf(HspGraceInf hspGraceInf);
@@ -82,7 +82,7 @@ public interface XtService {
 	 * @return
 	 */
 	public ResultInfo updateHspCrivelInf(HspCrivelInf hspCrivelInf,ActiveUser activeUser);
-
+	// TODO 废弃待删除
 //	public ResultInfo queryHspXtAddDetail(String emgSeq);
 	
 	/**

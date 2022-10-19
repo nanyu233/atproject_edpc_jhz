@@ -336,48 +336,12 @@ public class XtServiceImpl implements XtService{
 		resultInfo.setSysdata(map);
 		return resultInfo;
 	}
-
-	@Override
+	// TODO 废弃---代码冗余过多-待删除
+//	@Override
 	public ResultInfo getCpcTimeline(String emgSeq) {
-		// TODO Auto-generated method stub
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
 		List<HspXtzlInfCustom> list = hspXtzlInfCustomMapper.getCpcTimeline(emgSeq);
-		
-		HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(emgSeq);
-		// 根据hspEmgInf 是否是null 判断是分诊的病人还是 hsp_xt_add 的病人
-		AidPatient aidPatient = null;
-		if(hspEmgInf!=null) {
-			// 分诊病人
-			aidPatient = aidPatientMapper.selectByPrimaryKey(hspEmgInf.getPatid());
-		}else {
-			aidPatient = aidPatientMapper.selectByPrimaryKey(emgSeq);
-		}
-		
-		//保险点判断下aidPatient是否为null
-		if(aidPatient!=null) {
-			//发病时间 FBSJ
-			if(aidPatient.getIllTim()!=null) {
-				HspXtzlInfCustom fbsj = new HspXtzlInfCustom();
-				fbsj.setEmgNo(emgSeq);
-				fbsj.setProName("发病时间");
-				fbsj.setProCode(ProCodeDef.FBSJ);
-				fbsj.setProVal(DateUtil.formatDateByFormat(aidPatient.getIllTim(), DateUtil.DATETIME_FORMAT) );
-				list.add(fbsj);
-			}
-			
-			//呼救时间 HJSJ
-			if(aidPatient.getAlmtime()!=null) {
-				HspXtzlInfCustom hjsj = new HspXtzlInfCustom();
-				hjsj.setEmgNo(emgSeq);
-				hjsj.setProName("呼救时间");
-				hjsj.setProCode(ProCodeDef.HJSJ);
-				hjsj.setProVal(DateUtil.formatDateByFormat(aidPatient.getAlmtime(), DateUtil.DATETIME_FORMAT) );
-				list.add(hjsj);
-			}
-		}
-		
-		
 		HspEcgInfExample ecgExample = new HspEcgInfExample();
 		HspEcgInfExample.Criteria ecgCriteria = ecgExample.createCriteria();
 		ecgExample.setOrderByClause("file_date");
@@ -474,23 +438,6 @@ public class XtServiceImpl implements XtService{
 		return resultInfo;
 	}
 
-//	@Override
-//	public DataGridResultInfo getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto,
-//			int page,//当前页码
-//			int rows//每页显示个数
-//			) {
-//		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-//		int total = hspXtzlInfCustomMapper.countXtPatientList(xtHspEmgInfQueryDto);
-//		PageQuery pageQuery = new PageQuery();
-//		pageQuery.setPageParams(total, rows, page);
-//		xtHspEmgInfQueryDto.setPageQuery(pageQuery);
-//		List<XtHspEmgInfQueryDto> list = hspXtzlInfCustomMapper.getXtPatientList(xtHspEmgInfQueryDto);
-//		dataGridResultInfo.setRows(list);
-//		dataGridResultInfo.setTotal(total);
-//
-//		return dataGridResultInfo;
-//	}
-
 	@Override
 	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows){
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
@@ -518,12 +465,10 @@ public class XtServiceImpl implements XtService{
 	}
 
 	@Override
-	public ResultInfo getXtTimeLine(XtHspEmgInfQueryDto xtHspEmgInfQueryDto) {
+	public ResultInfo getXtTimeLine(String emgSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		String emgSeq = xtHspEmgInfQueryDto.getEmgSeq();
 		Map<String, Object> sysdata = new HashMap<String, Object>();
-		List<HspXtzlInfCustom> list = hspXtzlInfCustomMapper.getCpcTimeline(xtHspEmgInfQueryDto.getEmgSeq());
-				//hspXtzlInfCustomMapper.getXtTimeLine(xtHspEmgInfQueryDto);
+		List<HspXtzlInfCustom> list = hspXtzlInfCustomMapper.getCpcTimeline(emgSeq);
 		for (HspXtzlInfCustom hspXtzlInfCustom:list) {
 			if(hspXtzlInfCustom.getProCode().equals("ASPLSJ")){
 				HspXtzlInfCustom hspXtzlInfCustom2=new HspXtzlInfCustom();
@@ -534,36 +479,7 @@ public class XtServiceImpl implements XtService{
 				break;
 			}
 		}
-		
-		HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(emgSeq);
-		AidPatient aidPatient = null;
-		if(hspEmgInf!=null) {
-			// 分诊病人
-			aidPatient = aidPatientMapper.selectByPrimaryKey(hspEmgInf.getPatid());
-		}else {
-			aidPatient = aidPatientMapper.selectByPrimaryKey(emgSeq);
-		}
-		if(aidPatient!=null) {
-			
-			//发病时间 FBSJ
-			HspXtzlInfCustom fbsj = new HspXtzlInfCustom();
-			fbsj.setEmgNo(emgSeq);
-			fbsj.setProName("发病时间");
-			fbsj.setProCode(ProCodeDef.FBSJ);
-			fbsj.setProVal(DateUtil.formatDateByFormat(aidPatient.getIllTim(), DateUtil.DATETIME_FORMAT) );
-			list.add(fbsj);
-			
-			
-			//呼救时间 HJSJ
-			HspXtzlInfCustom hjsj = new HspXtzlInfCustom();
-			hjsj.setEmgNo(emgSeq);
-			hjsj.setProName("呼救时间");
-			hjsj.setProCode(ProCodeDef.HJSJ);
-			hjsj.setProVal(DateUtil.formatDateByFormat(aidPatient.getAlmtime(), DateUtil.DATETIME_FORMAT) );
-			list.add(hjsj);
-		}
-		
-		
+		//创建院内心电图时间
 		HspEcgInfExample ecgExample = new HspEcgInfExample();
 		HspEcgInfExample.Criteria ecgCriteria = ecgExample.createCriteria();
 		ecgExample.setOrderByClause("file_date");
@@ -571,7 +487,6 @@ public class XtServiceImpl implements XtService{
 		// 11代表院内心电图
 		ecgCriteria.andEcgTypeEqualTo("11");
 		List<HspEcgInf> ecgList = hspEcgInfMapper.selectByExample(ecgExample);
-		
 		if(ecgList.size()>0) {
 			HspEcgInf hspEcgInf = ecgList.get(0);
 			if(hspEcgInf.getFileDate()!=null) {
@@ -591,7 +506,7 @@ public class XtServiceImpl implements XtService{
 				list.add(ynsfxdtqzsj);
 			}
 		}
-		
+		// FIXME 肌酐蛋白报告时间 || 暂未持久到诊疗表中，先保留后期持久化之后删除这段
 		String jgdbbgsj = vHemsJyjgMapperCustom.getJgdbDate(emgSeq);
 		if(jgdbbgsj!=null) {
 			HspXtzlInfCustom jgdbbgsjHspXtzlInf = new HspXtzlInfCustom();
@@ -601,7 +516,7 @@ public class XtServiceImpl implements XtService{
 			jgdbbgsjHspXtzlInf.setProVal(jgdbbgsj);
 			list.add(jgdbbgsjHspXtzlInf);
 		}
-		
+		// FIXME 结束
 		//排序
 		Collections.sort(list, new Comparator<HspXtzlInfCustom>() {
 			@Override
@@ -636,8 +551,7 @@ public class XtServiceImpl implements XtService{
 		return resultInfo;
 
 	}
-	
-//	@Override
+	// TODO 废弃待删除
 	public ResultInfo queryXtPatientDetail(String emgSeq){
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
@@ -822,7 +736,7 @@ public class XtServiceImpl implements XtService{
 		return resultInfo;
 	}
 
-//	@Override
+//	TODO 废弃---减少代码冗余 -- 待删除
 	public ResultInfo queryHspXtAddDetail(String emgSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();

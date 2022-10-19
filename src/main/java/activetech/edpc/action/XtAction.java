@@ -14,12 +14,12 @@ import activetech.edpc.pojo.domain.HspXtzlInf;
 import activetech.edpc.pojo.dto.*;
 import activetech.edpc.service.XtService;
 import activetech.external.service.EsbService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.FileInputStream;
@@ -163,12 +163,16 @@ public class XtAction {
 	
 	/**
 	 * 获取胸痛急救时间轴数据
-	 * @return
+	 * @return SubmitResultInfo
 	 */
 	@RequestMapping("/queryCpcTimeline")
 	@ResponseBody
-	public SubmitResultInfo queryCpcTimeline(@RequestParam(required=true)String emgSeq){
-		ResultInfo resultInfo = xtService.getCpcTimeline(emgSeq);
+	public SubmitResultInfo queryCpcTimeline(@RequestBody JSONObject jsonObject){
+		//急救时间轴数据 - 和胸痛中心的时间轴数据公用同一个方法
+		String emgSeq="";
+		if (jsonObject.containsKey("emgSeq"))
+			emgSeq=jsonObject.getString("emgSeq");
+		ResultInfo resultInfo = xtService.getXtTimeLine(emgSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	
@@ -434,13 +438,17 @@ public class XtAction {
 	
 	/**
 	 * 获取诊疗时间线
-	 * @param xtHspEmgInfQueryDto
-	 * @return
+	 * @param JSONObject emgSeq
+	 * @return SubmitResultInfo
 	 */
 	@RequestMapping("/xtTimeLine")
 	@ResponseBody
-	public SubmitResultInfo xtTimeLine(@RequestBody XtHspEmgInfQueryDto xtHspEmgInfQueryDto){
-		ResultInfo resultInfo = xtService.getXtTimeLine(xtHspEmgInfQueryDto);
+	public SubmitResultInfo xtTimeLine(@RequestBody JSONObject jsonObject){
+		//急救时间轴数据 - 和胸痛中心的时间轴数据公用同一个方法
+		String emgSeq="";
+		if (jsonObject.containsKey("emgSeq"))
+			emgSeq=jsonObject.getString("emgSeq");
+		ResultInfo resultInfo = xtService.getXtTimeLine(emgSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	
