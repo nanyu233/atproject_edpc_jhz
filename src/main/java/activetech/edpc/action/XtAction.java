@@ -690,5 +690,22 @@ public class XtAction {
 		ResultInfo resultInfo = xtService.getHspXtzlInfByEmgSeqToEdit(emgSeq,wayTyp);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
-	
+
+	/**
+	 * 根据emgSeq 获取胸痛诊疗表的信息
+	 * @param emgSeq
+	 * @return
+	 */
+	@RequestMapping("/queryHspXtzlInfByEmgSeq")
+	@ResponseBody
+	public SubmitResultInfo queryHspXtzlInfByEmgSeq(@RequestBody(required=false) Map<String,Object> map){
+
+		String emgSeq = "";
+		if(map.containsKey("emgSeq")){
+			emgSeq = (String) map.get("emgSeq");
+		}
+
+		ResultInfo resultInfo = xtService.queryHspXtzlInfByEmgSeq(emgSeq);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
 }

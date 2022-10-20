@@ -102,4 +102,10 @@ public interface XtService {
 	// 获取患者基础信息
 	ResultInfo queryHspDbzlBasinf(String regSeq);
 
+	/**
+	 * 根据emgSeq 获取胸痛诊疗表的信息
+	 * @param emgSeq
+	 * @return
+	 */
+	public ResultInfo queryHspXtzlInfByEmgSeq(String emgSeq);
 }

@@ -173,11 +173,13 @@
 						<div class="inputs">
 							<div class="input-group">
 								<div class="lb">住院ID</div>
-								<div class="input"><input type="text" ms-duplex-string="info.ZHUYH" /></div>
+<%--								<div class="input"><input type="text" ms-duplex-string="info.ZHUYH" /></div>--%>
+								<div class="input"><input type="text" ms-duplex-string="baseInfo.zyxh" /></div>
 							</div>
 							<div class="input-group">
 								<div class="lb">门诊ID</div>
-								<div class="input"><input type="text" ms-duplex-string="info.MENZH" /></div>
+<%--								<div class="input"><input type="text" ms-duplex-string="info.MENZH" /></div>--%>
+								<div class="input"><input type="text" ms-duplex-string="baseInfo.jzxh" /></div>
 							</div>
 						</div>
 						<div class="inputs">
@@ -185,19 +187,23 @@
 								<div class="lb">发病时间 <span class="required">*</span></div>
 								<div class="input">
 									<input type="text" class="input-date Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-									 ms-duplex-string="aidPatient.illTim" />
+<%--									 ms-duplex-string="aidPatient.illTim" />--%>
+									 ms-duplex-string="hspXtzlInf.FBSJ" />
 								</div>
 							</div>
 							<div class="input-group">
 								<div class="input">
-									<div class="btn" ms-class="{{aidPatient.illTimFlg ? 'active' : ''}}" ms-click="onToggleClick('illTimFlg')">发病时间无法精确到分钟
+<%--									<div class="btn" ms-class="{{aidPatient.illTimFlg ? 'active' : ''}}" ms-click="onToggleClick('illTimFlg')">发病时间无法精确到分钟--%>
+									<div class="btn" ms-class="{{hspXtzlInf.FBSJWFJQDFZ ? 'active' : ''}}" ms-click="onToggleClick('FBSJWFJQDFZ')">发病时间无法精确到分钟
 									</div>
 								</div>
 							</div>
-							<div class="input-group" ms-if="aidPatient.illTimFlg">
+<%--							<div class="input-group" ms-if="aidPatient.illTimFlg">--%>
+							<div class="input-group" ms-if="hspXtzlInf.FBSJWFJQDFZ">
 								<div class="lb">发病区间 <span class="required">*</span></div>
 								<div class="input">
-									<select name="" ms-duplex="aidPatient.illperd">
+<%--									<select name="" ms-duplex="aidPatient.illperd">--%>
+									<select name="" ms-duplex="hspXtzlInf.FBQJ">
 										<option value="">请选择</option>
 										<option ms-repeat="FBQJArr" ms-attr-value="el.infocode">{{el.info}}</option>
 									</select>
@@ -208,16 +214,19 @@
 							<div class="input-group">
 								<div class="lb">发病地址</div>
 								<div class="input">
-									<select name="" ms-duplex="aidPatient.scePrvCod">
+<%--									<select name="" ms-duplex="aidPatient.scePrvCod">--%>
+									<select name="" ms-duplex="hspXtzlInf.FBDZ01">
 										<!-- onchange="ReSelected()" -->
 										<option value="">请选择</option>
 										<option ms-repeat="provinceList" ms-attr-value="el.addrCode">{{el.addrName}}</option>
 									</select>
-									<select name="" ms-duplex="aidPatient.sceCtyCod">
+<%--									<select name="" ms-duplex="aidPatient.sceCtyCod">--%>
+									<select name="" ms-duplex="hspXtzlInf.FBDZ02">
 										<option value="">请选择</option>
 										<option ms-repeat="cityList" ms-attr-value="el.addrCode">{{el.addrName}}</option>
 									</select>
-									<select name="" ms-duplex="aidPatient.sceAr0Cod">
+<%--									<select name="" ms-duplex="aidPatient.sceAr0Cod">--%>
+									<select name="" ms-duplex="hspXtzlInf.FBDZ03">
 										<option value="">请选择</option>
 										<option ms-repeat="cntyList" ms-attr-value="el.addrCode">{{el.addrName}}</option>
 									</select>
@@ -226,7 +235,8 @@
 							<div class="input-group">
 								<div class="lb">详细地址</div>
 								<div class="input">
-									<input type="text" ms-duplex-string="aidPatient.sceAdr">
+<%--									<input type="text" ms-duplex-string="aidPatient.sceAdr">--%>
+									<input type="text" ms-duplex-string="hspXtzlInf.XXDZ">
 								</div>
 							</div>
 						</div>
@@ -234,7 +244,8 @@
 							<div class="input-group">
 								<div class="lb">医保类型</div>
 								<div class="input">
-									<select name="" ms-duplex="info.YBLX">
+<%--									<select name="" ms-duplex="info.YBLX">--%>
+									<select name="" ms-duplex="hspXtzlInf.YBLX">
 										<option value="">请选择</option>
 										<option ms-repeat="YBLXArr" ms-attr-value="el.infocode">{{el.info}}</option>
 									</select>
@@ -242,7 +253,8 @@
 							</div>
 							<div class="input-group">
 								<div class="lb">医保编号</div>
-								<div class="input"><input type="text" ms-duplex-string="info.YBBH" /></div>
+<%--								<div class="input"><input type="text" ms-duplex-string="info.YBBH" /></div>--%>
+								<div class="input"><input type="text" ms-duplex-string="hspXtzlInf.YBBH" /></div>
 							</div>
 						</div>
 						<div class="inputs">
@@ -250,7 +262,8 @@
 								<div class="lb">大病医保</div>
 								<div class="input">
 									<div class="radio-btns">
-										<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.DBYB==el.infocode ? 'active':''}}" ms-click="onRadioClick('DBYB',el.infocode)">
+<%--										<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.DBYB==el.infocode ? 'active':''}}" ms-click="onRadioClick('DBYB',el.infocode)">--%>
+										<div ms-repeat="RADIOArr" class="btn" ms-class="{{hspXtzlInf.DBYB==el.infocode ? 'active':''}}" ms-click="onRadioClick3('DBYB',el.infocode)">
 											{{el.info}}
 										</div>
 									</div>
@@ -265,7 +278,8 @@
 								<div class="lb">病情评估 <span class="required">*</span></div>
 								<div class="input">
 									<div class="radio-btns">
-										<div class="btn" ms-repeat="BQPGArr" ms-class="{{info.BQPG==el.infocode ? 'active':''}}" ms-click="onRadioClick('BQPG',el.infocode)">
+<%--										<div class="btn" ms-repeat="BQPGArr" ms-class="{{info.BQPG==el.infocode ? 'active':''}}" ms-click="onRadioClick('BQPG',el.infocode)">--%>
+										<div class="btn" ms-repeat="BQPGArr" ms-class="{{hspXtzlInf.BQPG==el.infocode ? 'active':''}}" ms-click="onRadioClick3('BQPG',el.infocode)">
 											{{el.info}}
 										</div>
 									</div>
@@ -289,20 +303,23 @@
 								<div class="lb">来院方式 <span class="required">*</span></div>
 								<div class="input">
 									<div class="radio-btns">
-										<div ms-repeat="ddfsArr" class="btn" ms-class="{{aidPatientXt.ddfs==el.infocode ? 'active':''}}" ms-click="onRadioClick2('ddfs',el.infocode)">
+<%--										<div ms-repeat="ddfsArr" class="btn" ms-class="{{aidPatientXt.ddfs==el.infocode ? 'active':''}}" ms-click="onRadioClick2('ddfs',el.infocode)">--%>
+										<div ms-repeat="ddfsArr" class="btn" ms-class="{{hspXtzlInf.DYFS==el.infocode ? 'active':''}}" ms-click="onRadioClick3('DYFS',el.infocode)">
 											{{el.info}}
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div ms-if="aidPatientXt.ddfs == 1">
+<%--						<div ms-if="aidPatientXt.ddfs == 1">--%>
+						<div ms-if="hspXtzlInf.DYFS == 1">
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb">出车单位 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div ms-repeat="ccdwArr" class="btn" ms-class="{{aidPatientXt.ccdw==el.infocode ? 'active':''}}" ms-click="onRadioClick2('ccdw',el.infocode)">
+<%--											<div ms-repeat="ccdwArr" class="btn" ms-class="{{aidPatientXt.ccdw==el.infocode ? 'active':''}}" ms-click="onRadioClick2('ccdw',el.infocode)">--%>
+											<div ms-repeat="ccdwArr" class="btn" ms-class="{{hspXtzlInf.CCDW==el.infocode ? 'active':''}}" ms-click="onRadioClick3('CCDW',el.infocode)">
 												{{el.info}}
 											</div>
 										</div>
@@ -313,7 +330,8 @@
 								<div class="input-group">
 									<div class="lb">呼救时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="aidPatient.almtime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="aidPatient.almtime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.HJSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 							</div>
@@ -322,17 +340,20 @@
 									<div class="lb">直接转送上级医院(转出患者时) <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.ZJZSSJYY==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZJZSSJYY',el.infocode)">
+<%--											<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.ZJZSSJYY==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZJZSSJYY',el.infocode)">--%>
+											<div ms-repeat="RADIOArr" class="btn" ms-class="{{hspXtzlInf.ZJZSSJYY==el.infocode ? 'active':''}}" ms-click="onRadioClick3('ZJZSSJYY',el.infocode)">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-visible="info.ZJZSSJYY == 1">
+<%--								<div class="input-group" ms-visible="info.ZJZSSJYY == 1">--%>
+								<div class="input-group" ms-visible="hspXtzlInf.ZJZSSJYY == 1">
 									<div class="lb">直达导管室<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.ZDDGS==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZDDGS',el.infocode)">
+<%--											<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.ZDDGS==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZDDGS',el.infocode)">--%>
+											<div ms-repeat="RADIOArr" class="btn" ms-class="{{hspXtzlInf.ZDDGS==el.infocode ? 'active':''}}" ms-click="onRadioClick3('ZDDGS',el.infocode)">
 												{{el.info}}
 											</div>
 										</div>
@@ -343,7 +364,8 @@
 								<div class="input-group">
 									<div class="lb">到达医院大门时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="aidPatientXt.ddyydmsj" />
+<%--										<input type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="aidPatientXt.ddyydmsj" />--%>
+										<input type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="hspXtzlInf.DDYYDMSJ01" />
 									</div>
 								</div>
 							</div>
@@ -351,28 +373,33 @@
 								<div class="input-group">
 									<div class="lb">首次医疗接触时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="aidPatientXt.scyljc" />
+<%--										<input type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="aidPatientXt.scyljc" />--%>
+										<input type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="hspXtzlInf.SCYLJCSJ" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">院内首诊医师接诊时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="baseInfo.emgDat" />
+<%--										<input type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="baseInfo.emgDat" />--%>
+										<input type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="hspXtzlInf.YNSZYSJZSJ" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">医护人员 </div>
-									<div class="input"><input type="text" ms-duplex="baseInfo.preUsrNam" /></div>
+<%--									<div class="input"><input type="text" ms-duplex="baseInfo.preUsrNam" /></div>--%>
+									<div class="input"><input type="text" ms-duplex="hspXtzlInf.YHRY" /></div>
 								</div>
 							</div>
 						</div>
-						<div ms-if="aidPatientXt.ddfs == 2">
+<%--						<div ms-if="aidPatientXt.ddfs == 2">--%>
+						<div ms-if="hspXtzlInf.DYFS == 2">
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb">转院类型 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div ms-repeat="ZYLXArr" class="btn" ms-class="{{info.ZYLX==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZYLX',el.infocode)">
+<%--											<div ms-repeat="ZYLXArr" class="btn" ms-class="{{info.ZYLX==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZYLX',el.infocode)">--%>
+											<div ms-repeat="ZYLXArr" class="btn" ms-class="{{hspXtzlInf.ZYLX==el.infocode ? 'active':''}}" ms-click="onRadioClick3('ZYLX',el.infocode)">
 												{{el.info}}
 											</div>
 										</div>
@@ -382,14 +409,16 @@
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb">医院名称</div>
-									<div class="input"><input type="text" ms-duplex-string="info.YYMC" /></div>
+<%--									<div class="input"><input type="text" ms-duplex-string="info.YYMC" /></div>--%>
+									<div class="input"><input type="text" ms-duplex-string="hspXtzlInf.YYMC" /></div>
 								</div>
 							</div>
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb">首次医疗接触时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="aidPatientXt.scyljc" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="aidPatientXt.scyljc" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.SCYLJCSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 							</div>
@@ -398,7 +427,8 @@
 									<div class="lb">直接转送上级医院(转出患者时) <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.ZJZSSJYY==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZJZSSJYY',el.infocode)">
+<%--											<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.ZJZSSJYY==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZJZSSJYY',el.infocode)">--%>
+											<div ms-repeat="RADIOArr" class="btn" ms-class="{{hspXtzlInf.ZJZSSJYY==el.infocode ? 'active':''}}" ms-click="onRadioClick3('ZJZSSJYY',el.infocode)">
 												{{el.info}}
 											</div>
 										</div>
@@ -408,7 +438,8 @@
 									<div class="lb">直达导管室<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.ZDDGS==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZDDGS',el.infocode)">
+<%--											<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.ZDDGS==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZDDGS',el.infocode)">--%>
+											<div ms-repeat="RADIOArr" class="btn" ms-class="{{hspXtzlInf.ZDDGS==el.infocode ? 'active':''}}" ms-click="onRadioClick3('ZDDGS',el.infocode)">
 												{{el.info}}
 											</div>
 										</div>
@@ -417,21 +448,26 @@
 							</div>
 							<div class="inputs">
 								<div class="input-group">
-									<div class="lb">转出医院入门时间 <span class="required" ms-if="info.ZYLX==1 || info.ZYLX ==''">*</span></div>
+<%--									<div class="lb">转出医院入门时间 <span class="required" ms-if="info.ZYLX==1 || info.ZYLX ==''">*</span></div>--%>
+									<div class="lb">转出医院入门时间 <span class="required" ms-if="hspXtzlInf.ZYLX==1 || hspXtzlInf.ZYLX ==''">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="info.ZCYYRMSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="info.ZCYYRMSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.ZCYYRMSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 								<div class="input-group">
-									<div class="lb">决定转院时间 <span class="required" ms-if="info.ZYLX==1 || info.ZYLX =='' ">*</span></div>
+<%--									<div class="lb">决定转院时间 <span class="required" ms-if="info.ZYLX==1 || info.ZYLX =='' ">*</span></div>--%>
+									<div class="lb">决定转院时间 <span class="required" ms-if="hspXtzlInf.ZYLX==1 || hspXtzlInf.ZYLX =='' ">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="info.JDZYSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="info.JDZYSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.JDZYSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 								<div class="input-group">
-									<div class="lb">转出医院出门时间 <span class="required" ms-if="info.ZYLX==1 || info.ZYLX =='' ">*</span></div>
+<%--									<div class="lb">转出医院出门时间 <span class="required" ms-if="info.ZYLX==1 || info.ZYLX =='' ">*</span></div>--%>
+									<div class="lb">转出医院出门时间 <span class="required" ms-if="hspXtzlInf.ZYLX==1 || hspXtzlInf.ZYLX =='' ">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="info.ZCYJCMSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.ZCYJCMSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 							</div>
@@ -439,39 +475,46 @@
 								<div class="input-group">
 									<div class="lb">到达本院大门时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="aidPatientXt.ddyydmsj" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="aidPatientXt.ddyydmsj" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.DDYYDMSJ02" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">院内接诊时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="info.YNJZSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="info.YNJZSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.YNJZSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">医护人员</div>
-									<div class="input"><input type="text" ms-duplex="baseInfo.preUsrNam" /></div>
+<%--									<div class="input"><input type="text" ms-duplex="baseInfo.preUsrNam" /></div>--%>
+									<div class="input"><input type="text" ms-duplex="hspXtzlInf.YHRY" /></div>
 								</div>
 							</div>
 						</div>
-						<div ms-if="aidPatientXt.ddfs == 3">
+<%--						<div ms-if="aidPatientXt.ddfs == 3">--%>
+						<div ms-if="hspXtzlInf.DYFS == 3">
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb">到达医院大门时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="aidPatientXt.ddyydmsj" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="aidPatientXt.ddyydmsj" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.DDYYDMSJ03" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">首次医疗接触时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="aidPatientXt.scyljc" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="aidPatientXt.scyljc" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.SCYLJCSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">院内首诊医师接诊时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="baseInfo.emgDat" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="baseInfo.emgDat" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.YNSZYSJZSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 							</div>
@@ -479,32 +522,38 @@
 								<div class="input-group">
 									<div class="lb">医护人员</div>
 									<div class="input">
-										<input type="text" ms-duplex-string="baseInfo.preUsrNam" />
+<%--										<input type="text" ms-duplex-string="baseInfo.preUsrNam" />--%>
+										<input type="text" ms-duplex-string="hspXtzlInf.YHRY" />
 									</div>
 								</div>
 							</div>
 						</div>
-						<div ms-if="aidPatientXt.ddfs == 4">
+<%--						<div ms-if="aidPatientXt.ddfs == 4">--%>
+						<div ms-if="hspXtzlInf.DYFS == 4">
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb">发病地点 <span class="required">*</span></div>
-									<div class="input"><input type="text" ms-duplex="ynfb.illDep" /></div>
+<%--									<div class="input"><input type="text" ms-duplex="ynfb.illDep" /></div>--%>
+									<div class="input"><input type="text" ms-duplex="hspXtzlInf.FBKS" /></div>
 								</div>
 								<div class="input-group">
 									<div class="lb">本次发病后首次医疗接触时间 <span class="required">*</span></div>
-									<input type="text" class="Wdate" ms-duplex-string="ynfb.fstTim" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--									<input type="text" class="Wdate" ms-duplex-string="ynfb.fstTim" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+									<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.SCYLJCSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 								</div>
 							</div>
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb">离开发病现场时间</div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="ynfb.lveTim" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="ynfb.lveTim" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.LKKSSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">本次发病后首次医疗接触人员</div>
-									<div class="input"><input type="text" ms-duplex="baseInfo.preUsrNam" /></div>
+<%--									<div class="input"><input type="text" ms-duplex="baseInfo.preUsrNam" /></div>--%>
+									<div class="input"><input type="text" ms-duplex="hspXtzlInf.YHRY" /></div>
 								</div>
 							</div>
 						</div>
@@ -515,7 +564,8 @@
 							<div class="input-group">
 								<div class="lb">意识 <span class="required">*</span></div>
 								<div class="input">
-									<select name="" ms-duplex="baseInfo.senRctCod">
+<%--									<select name="" ms-duplex="baseInfo.senRctCod">--%>
+									<select name="" ms-duplex="hspXtzlInf.YISHI">
 										<option value="">请选择</option>
 										<option ms-repeat="senRctCodArr" ms-attr-value="el.infocode">{{el.info}}</option>
 									</select>
@@ -524,14 +574,16 @@
 							<div class="input-group">
 								<div class="lb">呼吸 <span class="required">*</span></div>
 								<div class="input">
-									<input type="text" ms-duplex-string="baseInfo.breNbr" ms-keyup="limitInput(this,40)" />
+<%--									<input type="text" ms-duplex-string="baseInfo.breNbr" ms-keyup="limitInput(this,40)" />--%>
+									<input type="text" ms-duplex-string="hspXtzlInf.HUXI" ms-keyup="limitInput(this,40)" />
 									<div class="unit">次/分</div>
 								</div>
 							</div>
 							<div class="input-group">
 								<div class="lb">脉搏 <span class="required">*</span></div>
 								<div class="input">
-									<input type="text" ms-duplex-string="baseInfo.hrtRte" ms-keyup="limitInput(this,300)" />
+<%--									<input type="text" ms-duplex-string="baseInfo.hrtRte" ms-keyup="limitInput(this,300)" />--%>
+									<input type="text" ms-duplex-string="hspXtzlInf.MAIB" ms-keyup="limitInput(this,300)" />
 									<div class="unit">次/分</div>
 								</div>
 							</div>
@@ -540,69 +592,80 @@
 							<div class="input-group">
 								<div class="lb">心率 <span class="required">*</span></div>
 								<div class="input">
-									<input type="text" ms-keyup="limitInput(this,300)" />
+<%--									<input type="text" ms-keyup="limitInput(this,300)" />--%>
+									<input type="text" ms-duplex-string="hspXtzlInf.XINL" ms-keyup="limitInput(this,300)" />
 									<div class="unit">次/分</div>
 								</div>
 							</div>
 							<div class="input-group">
 								<div class="lb">血压 <span class="required">*</span></div>
 								<div class="input">
-									<input type="text" placeholder="--/--" ms-duplex="info.XUEYA" />
+<%--									<input type="text" placeholder="--/--" ms-duplex="info.XUEYA" />--%>
+									<input type="text" placeholder="--/--" ms-duplex="hspXtzlInf.XUEY" />
 									<div class="unit">mmHg</div>
 								</div>
 							</div>
 							<div class="input-group">
 								<div class="lb">体温</div>
 								<div class="input">
-									<input type="text" ms-duplex="baseInfo.tmpNbr" ms-keyup="NumberInput(this)" maxlength="5" />
+<%--									<input type="text" ms-duplex="baseInfo.tmpNbr" ms-keyup="NumberInput(this)" maxlength="5" />--%>
+									<input type="text" ms-duplex="hspXtzlInf.TIWEN" ms-keyup="NumberInput(this)" maxlength="5" />
 									<div class="unit">℃</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div ms-if="aidPatientXt.ddfs==1 || aidPatientXt.ddfs==2" class="block">
+<%--					<div ms-if="aidPatientXt.ddfs==1 || aidPatientXt.ddfs==2" class="block">--%>
+					<div ms-if="hspXtzlInf.DYFS==1 || hspXtzlInf.DYFS==2" class="block">
 						<div class="title">院前溶栓治疗</div>
 						<div class="inputs">
 							<div class="input-group">
 								<div class="lb">溶栓筛查 <span class="required">*</span></div>
 								<div class="input">
 									<div class="radio-btns">
-										<div class="btn" ms-class="{{aidPatientXt.yqrssc==el.infocode ? 'active':''}}" ms-click="onRadioClick2('yqrssc',el.infocode)"
+<%--										<div class="btn" ms-class="{{aidPatientXt.yqrssc==el.infocode ? 'active':''}}" ms-click="onRadioClick2('yqrssc',el.infocode)"--%>
+										<div class="btn" ms-class="{{hspXtzlInf.YQRSSC==el.infocode ? 'active':''}}" ms-click="onRadioClick3('YQRSSC',el.infocode)"
 										 ms-repeat="YQRSSCArr">
 											{{el.info}}
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="input-group" ms-if="aidPatientXt.yqrssc==1">
+<%--							<div class="input-group" ms-if="aidPatientXt.yqrssc==1">--%>
+							<div class="input-group" ms-if="hspXtzlInf.YQRSSC==1">
 								<div class="lb">溶栓治疗 <span class="required">*</span></div>
 								<div class="input">
 									<div class="radio-btns">
-										<div class="btn" ms-class="{{aidPatientXt.yqrs==el.infocode ? 'active':''}}" ms-click="onRadioClick2('yqrs',el.infocode)"
+<%--										<div class="btn" ms-class="{{aidPatientXt.yqrs==el.infocode ? 'active':''}}" ms-click="onRadioClick2('yqrs',el.infocode)"--%>
+										<div class="btn" ms-class="{{hspXtzlInf.YQRS==el.infocode ? 'active':''}}" ms-click="onRadioClick3('YQRS',el.infocode)"
 										 ms-repeat="YQRSZLArr">
 											{{el.info}}
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="input-group" ms-if="aidPatientXt.yqrssc==2">
+<%--							<div class="input-group" ms-if="aidPatientXt.yqrssc==2">--%>
+							<div class="input-group" ms-if="hspXtzlInf.YQRSSC==2">
 								<div class="lb">存在禁忌症 <span class="required">*</span></div>
 								<div class="input">
 									<div class="radio-btns">
-										<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.YQCZJJZ==el.infocode ? 'active':''}}" ms-click="onRadioClick('YQCZJJZ',el.infocode)">
+<%--										<div ms-repeat="RADIOArr" class="btn" ms-class="{{info.YQCZJJZ==el.infocode ? 'active':''}}" ms-click="onRadioClick('YQCZJJZ',el.infocode)">--%>
+										<div ms-repeat="RADIOArr" class="btn" ms-class="{{hspXtzlInf.YQCZJJZ==el.infocode ? 'active':''}}" ms-click="onRadioClick3('YQCZJJZ',el.infocode)">
 											{{el.info}}
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div ms-if="aidPatientXt.yqrs == 1 && aidPatientXt.yqrssc==1">
+<%--						<div ms-if="aidPatientXt.yqrs == 1 && aidPatientXt.yqrssc==1">--%>
+						<div ms-if="hspXtzlInf.YQRS == 1 && hspXtzlInf.YQRSSC==1">
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb">直达溶栓场所 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.YQZDRSCS==el.infocode ? 'active':''}}" ms-click="onRadioClick('YQZDRSCS',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.YQZDRSCS==el.infocode ? 'active':''}}" ms-click="onRadioClick('YQZDRSCS',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.YQZDRSCS==el.infocode ? 'active':''}}" ms-click="onRadioClick3('YQZDRSCS',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
@@ -613,7 +676,8 @@
 									<div class="lb">溶栓场所 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{aidPatientXt.rscs==el.infocode ? 'active':''}}" ms-click="onRadioClick2('rscs',el.infocode)"
+<%--											<div class="btn" ms-class="{{aidPatientXt.rscs==el.infocode ? 'active':''}}" ms-click="onRadioClick2('rscs',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.YQRSCS==el.infocode ? 'active':''}}" ms-click="onRadioClick3('YQRSCS',el.infocode)"
 											 ms-repeat="YQRSCSArr">
 												{{el.info}}
 											</div>
@@ -625,13 +689,15 @@
 								<div class="input-group">
 									<div class="lb">开始知情同意 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex-string="aidPatientXt.zqtyks" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" ms-duplex-string="aidPatientXt.zqtyks" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" ms-duplex-string="hspXtzlInf.YQKSZQTYSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">签署知情同意书 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex-string="aidPatientXt.qszqty" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" ms-duplex-string="aidPatientXt.qszqty" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" ms-duplex-string="hspXtzlInf.YQQSZQTYSSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 							</div>
@@ -639,13 +705,15 @@
 								<div class="input-group">
 									<div class="lb">开始溶栓时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex-string="aidPatientXt.rsks" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" ms-duplex-string="aidPatientXt.rsks" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" ms-duplex-string="hspXtzlInf.YQKSRSSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">溶栓结束时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex-string="aidPatientXt.rsjs" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" ms-duplex-string="aidPatientXt.rsjs" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" ms-duplex-string="hspXtzlInf.YQRSJSSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 							</div>
@@ -653,7 +721,8 @@
 								<div class="input-group">
 									<div class="lb">药物 <span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="aidPatientXt.rsyw">
+<%--										<select name="" ms-duplex="aidPatientXt.rsyw">--%>
+										<select name="" ms-duplex="hspXtzlInf.YQRSYW">
 											<option value="">请选择</option>
 											<option ms-repeat="RSYWArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -662,7 +731,8 @@
 								<div class="input-group">
 									<div class="lb">剂量 <span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="aidPatientXt.rsywjl">
+<%--										<select name="" ms-duplex="aidPatientXt.rsywjl">--%>
+										<select name="" ms-duplex="hspXtzlInf.YQRSYWJL">
 											<option value="">请选择</option>
 											<option ms-repeat="RSYWJLArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -674,40 +744,49 @@
 									<div class="lb">溶栓再通 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{aidPatientXt.rszt==el.infocode ? 'active':''}}" ms-click="onRadioClick2('rszt',el.infocode)"
+<%--											<div class="btn" ms-class="{{aidPatientXt.rszt==el.infocode ? 'active':''}}" ms-click="onRadioClick2('rszt',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.YQRSZT==el.infocode ? 'active':''}}" ms-click="onRadioClick3('YQRSZT',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="aidPatientXt.rszt==1">
+<%--								<div class="input-group" ms-if="aidPatientXt.rszt==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.YQRSZT==1">
 									<div class="lb">溶栓后造影时间</div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="aidPatientXt.rshzy" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="aidPatientXt.rshzy" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.YQRSHZYSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
-								<div class="input-group" ms-if="aidPatientXt.rszt==0">
+<%--								<div class="input-group" ms-if="aidPatientXt.rszt==0">--%>
+								<div class="input-group" ms-if="hspXtzlInf.YQRSZT==0">
 									<div class="lb">补救PCI <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.YQBJPCI==el.infocode ? 'active':''}}" ms-click="onRadioClick('YQBJPCI',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.YQBJPCI==el.infocode ? 'active':''}}" ms-click="onRadioClick('YQBJPCI',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.YQBJPCI==el.infocode ? 'active':''}}" ms-click="onRadioClick3('YQBJPCI',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="aidPatientXt.rszt==0 && info.YQBJPCI==1">
+<%--								<div class="input-group" ms-if="aidPatientXt.rszt==0 && info.YQBJPCI==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.YQRSZT==0 && hspXtzlInf.YQBJPCI==1">
 									<div class="lb">实际手术时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate" ms-duplex-string="info.YQSJSSSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+<%--										<input type="text" class="Wdate" ms-duplex-string="info.YQSJSSSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
+										<input type="text" class="Wdate" ms-duplex-string="hspXtzlInf.YQSJSSSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
-								<div class="input-group" ms-if="aidPatientXt.rszt==0 && info.YQBJPCI==1">
+<%--								<div class="input-group" ms-if="aidPatientXt.rszt==0 && info.YQBJPCI==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.YQRSZT==0 && hspXtzlInf.YQBJPCI==1">
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.YQSSDD==el.infocode ? 'active':''}}" ms-click="onRadioClick('YQSSDD',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.YQSSDD==el.infocode ? 'active':''}}" ms-click="onRadioClick('YQSSDD',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.YQSSDD==el.infocode ? 'active':''}}" ms-click="onRadioClick3('YQSSDD',el.infocode)"
 											 ms-repeat="YQSSDDArr">
 												{{el.info}}
 											</div>
@@ -722,7 +801,8 @@
 							<div class="input-group">
 								<div class="lb">患者情况备注</div>
 								<div class="input">
-									<input type="text" ms-duplex="info.YQHZQKBZ" style="width: 790px" />
+<%--									<input type="text" ms-duplex="info.YQHZQKBZ" style="width: 790px" />--%>
+									<input type="text" ms-duplex="hspXtzlInf.YQHZQKBZ" style="width: 790px" />
 								</div>
 							</div>
 						</div>
@@ -3273,50 +3353,122 @@
 				emgJob: '', //职业
 				maritalStatus: '', //婚姻状况
 				nation: '', //民族
-				senRctCod: '', //意识
-				breNbr: '', //呼吸
-				hrtRte: '', //脉搏
-				tmpNbr: '', //体温
-				sbpUpNbr: '', //血压
-				sbpDownNbr: '',
-				preUsrNam: '', //医护人员
-				emgDat: '', //院内首诊医师接诊时间
+				// senRctCod: '', //意识
+				// breNbr: '', //呼吸
+				// hrtRte: '', //脉搏
+				// tmpNbr: '', //体温
+				// sbpUpNbr: '', //血压
+				// sbpDownNbr: '',
+				// preUsrNam: '', //医护人员
+				// emgDat: '', //院内首诊医师接诊时间
+				zyxh: '', //住院ID
+				jzxh: '', //门诊ID（就诊ID）
 			},
-			info: {
-				ZHUYH: '', //住院ID
-				MENZH: '', //门诊ID
-				FBSJ: '', //时间轴发病时间
-				SFSWLYY: 0, //是否是网络医院
-				YBLX: '', //医保类型
-				YBBH: '', //医保编号
-				DBYB: null, //大病医保
+
+			hspXtzlInf:{
+				/*firstaidinfo -- 基本信息*/
+				FBSJ: '',  //发病时间
+				FBSJWFJQDFZ: null,  //发病时间无法精确到分钟
+				FBQJ: '',  //发病区间
+				FBDZ01: '',  //发病地址（省）
+				FBDZ02: '',  //发病地址（市）
+				FBDZ03: '',  //发病地址（区/县）
+				XXDZ: '',  //详细地址
+				YBLX: '',  //医保类型
+				YBBH: '',  //医保编号
+				DBYB: null,  //大病医保
+
+				/*firstaidinfo -- 病情现况*/
 				BQPG: '', //病情评估
 				BQPGMX: '', //病情评估明细
-				ZJZSSJYY: null, //直接转送上级医院
-				ZDDGS: null, //直达导管室
+
+				/*firstaidinfo -- 来院方式*/
+				DYFS: '', //来院方式
+				CCDW: '', //出车单位
+				HJSJ: '', //呼救时间
+				ZJZSSJYY: null,  //直接转送上级医院
+				ZDDGS: null,  //直达导管室
+				// FZSJ: '', //分诊时间
+				// JRQJSSJ: '', //进入抢救室时间
+				DDYYDMSJ01: '',  //到达医院大门时间  DYFS(来院方式)为1(呼叫120出车)
+				SCYLJCSJ: '',   //首次医疗接触时间
+				YNSZYSJZSJ: '',   //院内首诊医师接诊时间
+				YHRY: '',   //医护人员
+				ZYLX: '',   //转院类型
+				YYMC: '',   //医院名称
+				ZCYYRMSJ: '',  //转出医院入门时间
+				JDZYSJ: '',  //决定转院时间
+				ZCYJCMSJ: '', //转出医院出门时间
+				DDYYDMSJ02: '',  //到达医院大门时间  DYFS(来院方式)为2(转院)
+				YNJZSJ: '', //院内接诊时间
+				DDYYDMSJ03: '',  //到达医院大门时间  DYFS(来院方式)为3(自行来院)
+				FBKS: null,  //发病科室
+				// CWYSJCSJ: '',  //床位医生接触时间
+				LKKSSJ: '', //离开科室时间
+
+				/*firstaidinfo -- 基础生命体征*/
+				YISHI: '',   //意识
+				HUXI: '',    //呼吸
+				MAIB: '',    //脉搏
+				XINL: '',    //心率
+				XUEY: '',    //血压
+				TIWEN: '',    //体温
+
+				/*firstaidinfo -- 院前溶栓治疗*/
+				YQRSSC: null,   //溶栓筛查
+				YQRS: null,    //溶栓治疗
+				YQCZJJZ: null,  //存在禁忌症
+				YQZDRSCS: 0,  //直达溶栓场所
+				YQRSCS: null,  //溶栓场所
+				YQKSZQTYSJ: '',  //开始知情同意时间
+				YQQSZQTYSSJ: '',  //签署知情同意书时间
+				YQKSRSSJ: '',  //开始溶栓时间
+				YQRSJSSJ: '',  //溶栓结束时间
+				YQRSYW: null,  //溶栓药物
+				YQRSYWJL: null,  //溶栓药物剂量
+				YQRSZT: null,  //溶栓再通
+				YQRSHZYSJ: '',  //溶栓后造影时间（院前）
+				YQBJPCI: 0,  //补救PCI
+				YQSJSSSJ: '',  //实际手术时间
+				YQSSDD: '',  //手术地点
+				YQHZQKBZ: '', //患者情况备注(院前)
+			},
+
+			info: {
+				// ZHUYH: '', //住院ID
+				// MENZH: '', //门诊ID
+				// FBSJ: '', //时间轴发病时间
+				SFSWLYY: 0, //是否是网络医院
+				// YBLX: '', //医保类型
+				// YBBH: '', //医保编号
+				// DBYB: null, //大病医保
+				// BQPG: '', //病情评估
+				// BQPGMX: '', //病情评估明细
+				// ZJZSSJYY: null, //直接转送上级医院
+				// ZDDGS: null, //直达导管室
 				ZDDGS02: null,
 				YCXDTCS02: null, //远程心电图传输
 				//YNSZYSJZSJ: '',//院内首诊医师接诊时间
 				//YHRY: '',//医护人员
-				ZYLX: '', //转院类型
-				YYMC: '', //医院名称
-				ZCYYRMSJ: '', //转出医院入门时间
-				JDZYSJ: '', //决定转院时间
-				ZCYJCMSJ: '', //转出医院出门时间
-				YNJZSJ: '', //院内接诊时间
+				// ZYLX: '', //转院类型
+				// YYMC: '', //医院名称
+				// ZCYYRMSJ: '', //转出医院入门时间
+				// JDZYSJ: '', //决定转院时间
+				// ZCYJCMSJ: '', //转出医院出门时间
+				// YNJZSJ: '', //院内接诊时间
 				CWYSJCSJ: '', //床位医生接触时间
 				//XINL: '',//心率
-				XUEYA: '', //血压
-				YQHZQKBZ: '', //患者情况备注
+				// XUEYA: '', //血压
+				// YQHZQKBZ: '', //患者情况备注
 				YNHZQKBZ: '', //患者情况备注
 				ZGHZQKBZ: '',
-				YQZDRSCS: 0, //直达溶栓场所
+				// YQZDRSCS: 0, //直达溶栓场所
 				YNJL: '', //剂量
 				YNRSZT: null, //溶栓再通
-				YQBJPCI: 0, //补救PCI
-				YQSJSSSJ: '', //实际手术时间
-				YQSSDD: '', //手术地点
-				YQCZJJZ: null, //存在禁忌症
+				// YQBJPCI: 0, //补救PCI
+				// YQSJSSSJ: '', //实际手术时间
+				// YQSSDD: '', //手术地点
+				// YQCZJJZ: null, //存在禁忌症
 				XINDT: null, //心电图
 				WHDYY: '', //未获得原因
 				CXSJ: '', //抽血完成时间
@@ -3530,31 +3682,31 @@
 				PCSK9DCJL: '', //PCSK9单次剂量
 			},
 			aidPatient: {
-				scePrvCod: '', //发病地址--省
-				sceCtyCod: '', //发病地址--市
-				sceAr0Cod: '', //发病地址--县/区
-				almtime: '', //呼救时间
-				illTim: '', //发病时间
-				illTimFlg: null, //发病时间无法精确到分钟
-				illperd: '', //发病区间
-				sceAdr: '', //详细地址
+				// scePrvCod: '', //发病地址--省
+				// sceCtyCod: '', //发病地址--市
+				// sceAr0Cod: '', //发病地址--县/区
+				// almtime: '', //呼救时间
+				// illTim: '', //发病时间
+				// illTimFlg: null, //发病时间无法精确到分钟
+				// illperd: '', //发病区间
+				// sceAdr: '', //详细地址
 			},
 			aidPatientXt: {
-				ddfs: '', //到达方式
-				ccdw: '', //出车单位
-				ddyydmsj: '', //到达医院大门时间
-				scyljc: '', //首次医疗接触时间
-				yqrssc: null, //院前溶栓筛查
-				yqrs: null, //溶栓治疗
-				rscs: null, //溶栓场所
-				zqtyks: '', //开始知情同意
-				qszqty: '', //签署知情同意
-				rsks: '', //开始溶栓时间
-				rsjs: '', //溶栓结束时间 
-				rszt: null, //溶栓再通
-				rshzy: '', //溶栓后造影时间
-				rsyw: null, //院前溶栓药物
-				rsywjl: null, //院前溶栓药物剂量
+				// ddfs: '', //到达方式
+				// ccdw: '', //出车单位
+				// ddyydmsj: '', //到达医院大门时间
+				// scyljc: '', //首次医疗接触时间
+				// yqrssc: null, //院前溶栓筛查
+				// yqrs: null, //溶栓治疗
+				// rscs: null, //溶栓场所
+				// zqtyks: '', //开始知情同意
+				// qszqty: '', //签署知情同意
+				// rsks: '', //开始溶栓时间
+				// rsjs: '', //溶栓结束时间
+				// rszt: null, //溶栓再通
+				// rshzy: '', //溶栓后造影时间
+				// rsyw: null, //院前溶栓药物
+				// rsywjl: null, //院前溶栓药物剂量
 				ycxdtcs: null, //远程心电图传输
 				csfs: null, //心电图传输方式
 				cssj: '', //心电图传输时间
@@ -3562,8 +3714,8 @@
 			ynfb: {
 				illTim: '',
 				fstTim: '', //本次发病后首次医疗接触时间
-				illDep: null, //发病地点
-				lveTim: '', //离开发病现场时间
+				// illDep: null, //发病地点
+				// lveTim: '', //离开发病现场时间
 			},
 			hspEcgInf: {
 				fileDate: '', //首份心电图时间
@@ -3872,18 +4024,33 @@
 				return flag;
 			},
 			onToggleClick: function(prop) {
-				if (prop == 'illTimFlg') {
-					if (vm.aidPatient['illTimFlg'] == 0 || vm.aidPatient['illTimFlg'] == null) {
-						vm.aidPatient['illTimFlg'] = 1;
-						if (vm.aidPatient['illTim']) {
-							var time = vm.aidPatient['illTim'];
+				// if (prop == 'illTimFlg') {
+				// 	if (vm.aidPatient['illTimFlg'] == 0 || vm.aidPatient['illTimFlg'] == null) {
+				// 		vm.aidPatient['illTimFlg'] = 1;
+				// 		if (vm.aidPatient['illTim']) {
+				// 			var time = vm.aidPatient['illTim'];
+				// 			newTime = moment(new Date(time)).format('YYYY/MM/DD');
+				// 			vm.aidPatient['illTim'] = newTime;
+				// 		}
+				// 	} else if (vm.aidPatient['illTimFlg'] == 1) {
+				// 		vm.aidPatient['illTimFlg'] = 0;
+				// 		if (vm.aidPatient['illTim']) {
+				// 			vm.aidPatient['illTim'] = vm.aidPatient['illTim'] + ' 00:00'
+				// 		}
+				// 	}
+				// }
+				if (prop == 'FBSJWFJQDFZ') {
+					if (vm.hspXtzlInf['FBSJWFJQDFZ'] == 0 || vm.hspXtzlInf['FBSJWFJQDFZ'] == null) {
+						vm.hspXtzlInf['FBSJWFJQDFZ'] = 1;
+						if (vm.hspXtzlInf['FBQJ']) {
+							var time = vm.hspXtzlInf['FBQJ'];
 							newTime = moment(new Date(time)).format('YYYY/MM/DD');
-							vm.aidPatient['illTim'] = newTime;
+							vm.hspXtzlInf['FBQJ'] = newTime;
 						}
-					} else if (vm.aidPatient['illTimFlg'] == 1) {
-						vm.aidPatient['illTimFlg'] = 0;
-						if (vm.aidPatient['illTim']) {
-							vm.aidPatient['illTim'] = vm.aidPatient['illTim'] + ' 00:00'
+					} else if (vm.hspXtzlInf['FBSJWFJQDFZ'] == 1) {
+						vm.hspXtzlInf['FBSJWFJQDFZ'] = 0;
+						if (vm.hspXtzlInf['FBQJ']) {
+							vm.hspXtzlInf['FBQJ'] = vm.hspXtzlInf['FBQJ'] + ' 00:00'
 						}
 					}
 				} else {
@@ -3951,6 +4118,9 @@
 			},
 			onRadioClick2: function(prop, val) {
 				vm.aidPatientXt[prop] = val;
+			},
+			onRadioClick3: function(prop, val) {
+				vm.hspXtzlInf[prop] = val;
 			},
 			addItem: function(flag) {
 				if (vm.list.length < 2) {
@@ -4375,7 +4545,8 @@
 		  }
 		})
 		/* 监听省下拉选择框 */
-		vm.aidPatient.$watch('scePrvCod', function(newVal, oldVal, name) {
+		// vm.aidPatient.$watch('scePrvCod', function(newVal, oldVal, name) {
+		vm.hspXtzlInf.$watch('FBDZ01', function(newVal, oldVal, name) {
 			if (newVal == '') {
 				vm.cityList = [];
 			} else {
@@ -4384,10 +4555,12 @@
 					vm.cityList = addrInfoList.cityMap[newVal];
 				}
 			}
-			vm.aidPatient.sceCtyCod = '';
+			// vm.aidPatient.sceCtyCod = '';
+			vm.hspXtzlInf.FBDZ02 = '';
 		});
 		/* 监听市下拉选择框 */
-		vm.aidPatient.$watch('sceCtyCod', function(newVal, oldVal, name) {
+		// vm.aidPatient.$watch('sceCtyCod', function(newVal, oldVal, name) {
+		vm.hspXtzlInf.$watch('FBDZ02', function(newVal, oldVal, name) {
 			if (newVal == '') {
 				vm.cntyList = [];
 			} else {
@@ -4396,7 +4569,8 @@
 					vm.cntyList = addrInfoList.cntyMap[newVal];
 				}
 			}
-			vm.aidPatient.sceAr0Cod = '';
+			// vm.aidPatient.sceAr0Cod = '';
+			vm.hspXtzlInf.FBDZ03 = '';
 		});
 		//保存
 		function commit() {
@@ -4414,6 +4588,14 @@
 							proVal: vm.info[prop]
 						});
 					}
+				}
+			}
+			for (var prop in vm.hspXtzlInf) {
+				if(vm.hspXtzlInf.hasOwnProperty(prop)) {
+					list.push({
+						proCode: prop,
+						proVal: vm.hspXtzlInf[prop]
+					});
 				}
 			}
 			$.ajax({
@@ -5122,6 +5304,30 @@
 				}
 			});
 		}
+
+		//获取HspXtzlInf的信息
+		function queryHspXtzlInfByEmgSeq() {
+			$.ajax({
+				url: 'cpc/queryHspXtzlInfByEmgSeq.do',
+				type: 'post',
+				dataType: 'json',
+				contentType: 'application/json;charset=UTF-8',
+				data: JSON.stringify({
+					emgSeq: _emgSeq
+				}),
+				success: function (res) {
+					var tempJson = res.resultInfo.sysdata.hspXtzlInf;
+					if (tempJson) {
+						for (var a in vm.hspXtzlInf) {
+							if (tempJson.hasOwnProperty(a)) {
+								vm.hspXtzlInf[a] = tempJson[a];
+							}
+						}
+					}
+					console.log('hspXtzlInf', vm.hspXtzlInf);
+				}
+			})
+		}
 		
 		$(function() {
 			var obj = {
@@ -5150,6 +5356,7 @@
 			getTimeLineData();
 			getXtbaseInfo();
 			getPatientInfo();
+			queryHspXtzlInfByEmgSeq();
 			$.ajax({
 				url: '${baseurl}cpc/getXtPatient.do',
 				type: 'post',

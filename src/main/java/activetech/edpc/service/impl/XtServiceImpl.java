@@ -1221,4 +1221,21 @@ public class XtServiceImpl implements XtService{
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
 	}
+
+	@Override
+	public ResultInfo queryHspXtzlInfByEmgSeq(String emgSeq){
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		Map<String, Object> sysdata = new HashMap<>();
+		Map<String, String> map = new HashMap<>();
+		HspXtzlInfExample example = new HspXtzlInfExample();
+		example.createCriteria().andEmgNoEqualTo(emgSeq);
+		List<HspXtzlInf> hspXtzlInfs = hspXtzlInfMapper.selectByExample(example);
+		for (HspXtzlInf node : hspXtzlInfs) {
+			map.put(node.getProCode(), node.getProVal());
+		}
+		sysdata.put("hspXtzlInf", map);
+		resultInfo.setSysdata(sysdata);
+		return resultInfo;
+	}
+
 }
