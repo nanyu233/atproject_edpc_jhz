@@ -82,9 +82,9 @@ public class XtAction {
 	 * @return
 	 */
 	@RequestMapping("/toXtzlPrintPage")
-	public String toXtzlPrintPage(String emgSeq,String wayTyp,String cstNam,String tempNo,Model model){
+	public String toXtzlPrintPage(String emgSeq,String regSeq,String cstNam,String tempNo,Model model){
 		model.addAttribute("emgSeq", emgSeq);
-		model.addAttribute("wayTyp", wayTyp);
+		model.addAttribute("regSeq", regSeq);
 		model.addAttribute("cstNam", cstNam);
 		//前端传来的编号，也可以采用配置来传递编号
 		model.addAttribute("tempNo", tempNo);
@@ -671,23 +671,16 @@ public class XtAction {
 
 	/**
 	 * 根据emgSeq 获取胸痛诊疗表的信息转换成编辑器所求格式
-	 * @param map emgSeq wayTyp
+	 * @param jsonObject regSeq
 	 * @return SubmitResultInfo
 	 */
 	@RequestMapping("/getHspXtzlInfByEmgSeqToEdit")
 	@ResponseBody
-	public SubmitResultInfo getHspXtzlInfByEmgSeqToEdit(@RequestBody(required=false) Map<String,Object> map){
-
-		String emgSeq = "";
-		String wayTyp = "";
-		if(map.containsKey("emgSeq")){
-			emgSeq = (String) map.get("emgSeq");
-		}
-		if(map.containsKey("wayTyp")){
-			wayTyp = (String) map.get("wayTyp");
-		}
-
-		ResultInfo resultInfo = xtService.getHspXtzlInfByEmgSeqToEdit(emgSeq,wayTyp);
+	public SubmitResultInfo getHspXtzlInfByEmgSeqToEdit(@RequestBody JSONObject jsonObject){
+		String regSeq = "";
+		if (jsonObject.containsKey("regSeq"))
+			regSeq = jsonObject.getString("regSeq");
+		ResultInfo resultInfo = xtService.getHspXtzlInfByEmgSeqToEdit(regSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 

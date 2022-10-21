@@ -62,7 +62,7 @@
     var _patientName = "${cstNam}";
     var _systemId = atEditorConfig.systemId;
     var _patient = _patientName.replace(/\./g, '');
-    var _wayTyp = "${wayTyp}";
+    var _regSeq = "${regSeq}";
     var _editData = null;
     var _baseUrl = "${baseurl}"
     var atEditor = defineEditorFrame({
@@ -116,8 +116,7 @@
 
     function initEditData() {
         publicFun.httpRequest(_baseUrl + "cpc/getHspXtzlInfByEmgSeqToEdit.do", {
-            emgSeq: _patientId,
-            wayTyp: _wayTyp
+            regSeq: _regSeq,
         }, {
             requestType: "json",
             asyncFlag: false

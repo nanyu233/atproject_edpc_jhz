@@ -9,7 +9,6 @@ import activetech.base.dao.mapper.DstcompctlCustomMapper;
 import activetech.base.dao.mapper.HspAddrPostMapper;
 import activetech.base.pojo.domain.Dstarchives;
 import activetech.base.pojo.domain.DstarchivesExample;
-import activetech.base.pojo.domain.HspAddrPost;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.pojo.dto.PageQuery;
 import activetech.base.process.context.Config;
@@ -479,7 +478,7 @@ public class XtServiceImpl implements XtService{
 				break;
 			}
 		}
-		//创建院内心电图时间
+		//FIXME 重复次数太多 创建院内心电图时间
 		HspEcgInfExample ecgExample = new HspEcgInfExample();
 		HspEcgInfExample.Criteria ecgCriteria = ecgExample.createCriteria();
 		ecgExample.setOrderByClause("file_date");
@@ -517,14 +516,8 @@ public class XtServiceImpl implements XtService{
 			list.add(jgdbbgsjHspXtzlInf);
 		}
 		// FIXME 结束
-		//排序
-		Collections.sort(list, new Comparator<HspXtzlInfCustom>() {
-			@Override
-			public int compare(HspXtzlInfCustom o1, HspXtzlInfCustom o2) {
-				// TODO Auto-generated method stub
-				return  o1.getProVal().compareTo(o2.getProVal());
-			}
-        });
+		//排序 lambda优化
+		list.sort(Comparator.comparing(HspXtzlInf::getProVal));
 		sysdata.put("list", list);
 		resultInfo.setSysdata(sysdata); 
 		return resultInfo;
@@ -990,6 +983,7 @@ public class XtServiceImpl implements XtService{
 	}
 
 	@Override
+	// FIXME 异常 确定不需要可以删除
 	public ResultInfo getAidPatientByEmgSeq(String emgSeq, String wayTyp) {
 		
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
@@ -1036,131 +1030,85 @@ public class XtServiceImpl implements XtService{
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
 	}
-
-//	private static final Map<String,String>  COMP_MAP =new HashMap<String, String>();
-//	//初始化对应关系 会有很多,不易维护和管理
-//	static {
-//		COMP_MAP.put("COMP0000001","ZYTS");
-//		COMP_MAP.put("COMP0000002","invitationDate");
-//		COMP_MAP.put("COMP0000003","consulationDate");
-//	}
+/*
+	private static final Map<String,String>  COMP_MAP =new HashMap<String, String>();
+	//初始化对应关系 会有很多,不易维护和管理
+	static {
+		COMP_MAP.put("COMP.18.000000","jzxh");
+		COMP_MAP.put("COMP.18.000001","zyxh");
+		COMP_MAP.put("COMP.18.000002","YBLX");
+		COMP_MAP.put("COMP.18.000003","cstNam");
+		COMP_MAP.put("COMP.18.000004","cstSexCod");
+		COMP_MAP.put("COMP.18.000006","cstAge");
+		COMP_MAP.put("COMP.18.000007","FBDZ01");
+		COMP_MAP.put("COMP.18.000008","FBDZ02");
+		COMP_MAP.put("COMP.18.000009","FBDZ03");
+		COMP_MAP.put("COMP.18.000010","FBSJ");
+		COMP_MAP.put("COMP.18.000011","HJSJ");
+		COMP_MAP.put("COMP.18.000012","");
+		COMP_MAP.put("COMP.18.000013","");
+		COMP_MAP.put("COMP.18.000014","");
+		COMP_MAP.put("COMP.18.000015","");
+		COMP_MAP.put("COMP.18.000016","");
+		COMP_MAP.put("COMP.18.000017","");
+		COMP_MAP.put("COMP.18.000018","");
+		COMP_MAP.put("COMP.18.000019","");
+		COMP_MAP.put("COMP.18.000020","");
+		COMP_MAP.put("COMP.18.000021","");
+		COMP_MAP.put("COMP.18.000022","");
+		COMP_MAP.put("COMP.18.000023","");
+		COMP_MAP.put("COMP.18.000024","");
+		COMP_MAP.put("COMP.18.000025","");
+		COMP_MAP.put("COMP.18.000026","");
+		COMP_MAP.put("COMP.18.000027","");
+		COMP_MAP.put("COMP.18.000028","");
+		COMP_MAP.put("COMP.18.000029","");
+	}
+*/
    //测试调用
 	public void setCompMap (Map<String,String> COMP_MAP){
-		COMP_MAP.put("COMP000000-1","ZYTS");
-		COMP_MAP.put("COMP0000002","invitationDate");
-		COMP_MAP.put("COMP0000003","consulationDate");
-		COMP_MAP.put("TEST0000000","cstNam");
-		COMP_MAP.put("COMP0000005","XXGJBWXYS");
-		COMP_MAP.put("COMP0000006","XXGJBWXYS");
-		COMP_MAP.put("COMP000000-7","emgDat");
-		COMP_MAP.put("TEST0000001","sceAr0Cod");
-		COMP_MAP.put("TEST0000002","sceCtyCod");
-		COMP_MAP.put("TEST0000003","scePrvCod");
-		COMP_MAP.put("arvChlCod","arvChlCod");
-
-
+		COMP_MAP.put("COMP.18.000000","jzxh");
+		COMP_MAP.put("COMP.18.000001","zyxh");
+		COMP_MAP.put("COMP.18.000002","YBLX");
+		COMP_MAP.put("COMP.18.000003","cstNam");
+		COMP_MAP.put("COMP.18.000004","cstSexCod");
+		COMP_MAP.put("COMP.18.000006","cstAge");
+		COMP_MAP.put("COMP.18.000007","FBDZ01");
+		COMP_MAP.put("COMP.18.000008","FBDZ02");
+		COMP_MAP.put("COMP.18.000009","FBDZ03");
+		COMP_MAP.put("COMP.18.000010","FBSJ");
+		COMP_MAP.put("COMP.18.000011","HJSJ");
+		COMP_MAP.put("COMP.18.000012","SCYLJCSJ");
 	}
 
 	/**
 	 * 根据emgSeq 获取胸痛诊疗表的信息转换成编辑器所求格式
 	 *
-	 * @param emgSeq emgSeq
+	 * @param regSeq regSeq
 	 * @return ResultInfo
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public ResultInfo getHspXtzlInfByEmgSeqToEdit(String emgSeq, String wayTyp) {
-		//测试调用
+	public ResultInfo getHspXtzlInfByEmgSeqToEdit(String regSeq) {
+		// TODO 测试时来改变map的值，之后用static初始化或者每次都改变map的值
 		Map<String, String> COMP_MAP = new HashMap<>();
 		setCompMap(COMP_MAP);
 		//结果集
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> result = new HashMap<>();
+		//获取患者基本信息
+		QueryDto queryDto = new QueryDto(regSeq);
+		HspDbzlBasCustom hspDbzlBasCustom = cpcMapper.getHspDbzlBasinf(queryDto);
+		JSONObject jsonHspDbzlBasCustom = jsonSerialize(hspDbzlBasCustom);
 		//获取诊疗表数据
-		ResultInfo resXtzlInfo = getHspXtzlInfByEmgSeq(emgSeq);
-		Map<String, Object> resData = resXtzlInfo.getSysdata();
-		List<HspXtzlInfCustom> dataList = new ArrayList<>();
-		if (resData.get("list") != null)
-			dataList = (List<HspXtzlInfCustom>) resData.get("list");
-		JSONObject jsonObj = jsonSerialize(resData);
-		// data >> hspGraceInf GRACE 评分数据 list<HspGraceInf> list对象，只能转换一个对象取值，暂时不处理
-		// data >> hspCrivelInf 数据 list<HspCrivelInf>.get(0)
-		Object dataHspCrivelInf = null;
-		if (resData.get("HspCrivelInf") != null)
-			dataHspCrivelInf= resData.get("HspCrivelInf");
-		JSONObject jsonHspCrivelInf = jsonSerialize(dataHspCrivelInf);
-		//支架个数减一处理 注释掉，直接显示数目
-//		if (jsonHspCrivelInf.size()!=0){
-//			if (StringUtils.isNotBlank(jsonHspCrivelInf.get("zrzjgs").toString())){
-//				String zrzjgs=jsonHspCrivelInf.getString("zrzjgs");
-//				jsonHspCrivelInf.put("zrzjgs",String.valueOf(Integer.parseInt(zrzjgs)-1));
-//			}
-//		}
-
-		// hspEmgInf
-		ResultInfo resHspEmgInf = getHspEmgInfByEmgSeq(emgSeq, wayTyp);
-		Map<String, Object> hspEmgInfData = resHspEmgInf.getSysdata();
-		//到院方式 编码转换
-		JSONObject  hspEmgInf = (JSONObject) hspEmgInfData.get("hspEmgInf");
-		if(hspEmgInf != null)
-			if(StringUtils.isNotBlank(hspEmgInf.get("arvChlCod").toString())){
-				String arvChlCod=null;
-				switch (hspEmgInf.getString("arvChlCod")){
-					case "0":
-					case "1":
-					case "2":
-					case "3":
-					case "4":
-						arvChlCod="3";
-						break;
-					case "5":
-					case "6":
-						arvChlCod="1";
-						break;
-					case "9":
-						arvChlCod="2";
-						break;
-				}
-				hspEmgInf.put("arvChlCod",arvChlCod);
-			}
-		JSONObject jsonHspEmgIn = jsonSerialize(hspEmgInf);
-
-
-		// 院前胸痛数据 wayType =0|1  Map.get(aidPatient)  ||  Map.get(aidPatientXt)
-		// wayType=2 | ynfb {illDep fstTim lveTim illTim} JSON
-		ResultInfo resAidPatient = getAidPatientByEmgSeq(emgSeq, wayTyp);
-		Map<String, Object> resAidPatientData = resAidPatient.getSysdata();
-		JSONObject jsonAidPatient = null;
-		JSONObject jsonAidPatientXt = null;
-		JSONObject jsonYnfb = null;
-		if ("0".equals(wayTyp) || "1".equals(wayTyp)) {
-			Object aidPatientTemp = resAidPatientData.get("aidPatient");
-			AidPatient aidPatient =  aidPatientTemp != null ? (AidPatient) aidPatientTemp : new AidPatient();
-			if (aidPatient.getSceAr0Cod() != null) {
-				//转义地区编码
-				HspAddrPost hspAddrPost = hspAddrPostMapper.selectByPrimaryKey(aidPatient.getSceAr0Cod());
-				aidPatient.setSceAr0Cod(hspAddrPost.getAddrName());
-				aidPatient.setSceCtyCod(hspAddrPost.getSuprName());
-				aidPatient.setScePrvCod(hspAddrPost.getProvName());
-			}
-			if (hspEmgInf != null) {
-				//院前胸痛数据 性别 年龄 使用 急诊hspEmgInf 的数据
-				aidPatient.setPatname(hspEmgInf.get("cstNam").toString());
-				aidPatient.setPatsex(hspEmgInf.get("cstSexCod").toString());
-				aidPatient.setPatage(hspEmgInf.get("cstAge").toString());
-			}
-			jsonAidPatient = jsonSerialize(aidPatient);
-			jsonAidPatientXt = jsonSerialize(resAidPatientData.get("aidPatientXt"));
-		}
-		if ("2".equals(wayTyp))
-			jsonYnfb = jsonSerialize(resAidPatientData.get("ynfb"));
+		List<HspXtzlInfCustom> dataList = hspXtzlInfCustomMapper.getHspXtzlInfByEmgSeq(hspDbzlBasCustom.getEmgSeq());
+		// TODO 解析list
 		for (String key : COMP_MAP.keySet()) {
-			//data>>list数据
 			String field = COMP_MAP.get(key);
 			for (HspXtzlInfCustom hspXtzlInfCustom : dataList) {
 				if (field.equals(hspXtzlInfCustom.getProCode())) {
 					if (!"checkbox".equals(hspXtzlInfCustom.getProType())) {
-						result.put(key, hspXtzlInfCustom.getProVal());
+						// TODO 地址要返回中文，数据库保存的是编码，要转义
+						deCodeForEdit(result, key, field, hspXtzlInfCustom.getProVal());
 					} else {
 						//多选值转成数组对象
 						String[] ValArr = hspXtzlInfCustom.getProVal().split(",");
@@ -1168,28 +1116,9 @@ public class XtServiceImpl implements XtService{
 					}
 				}
 			}
-			// data >> hspGraceInf 数据 list<HspGraceInf> list对象，只能转换一个对象取值，暂时不处理
-			// data >> hspCrivelInf 数据 list<HspCrivelInf>.get(0)
-			if (jsonHspCrivelInf.containsKey(field))
-				result.put(key,jsonHspCrivelInf.get(field));
-			//data 层数据
-			if (jsonObj.containsKey(field))
-				result.put(key, jsonObj.get(field));
-			//急诊预检
-			if (jsonHspEmgIn.containsKey(field))
-				result.put(key, jsonHspEmgIn.get(field));
-
-			//院前胸痛数据
-			if ("0".equals(wayTyp) || "1".equals(wayTyp)) {
-				if (jsonAidPatient.containsKey(field))
-					result.put(key, jsonAidPatient.get(field));
-				if (jsonAidPatientXt.containsKey(field))
-					result.put(key, jsonAidPatientXt.get(field));
-			}
-			if ("2".equals(wayTyp)) {
-				if (jsonYnfb.containsKey(field))
-					result.put(key, jsonYnfb.get(field));
-			}
+			// 基础信息
+			if (jsonHspDbzlBasCustom.containsKey(field))
+				result.put(key, jsonHspDbzlBasCustom.get(field));
 		}
 		resultInfo.setSysdata(result);
 		return resultInfo;
@@ -1210,12 +1139,36 @@ public class XtServiceImpl implements XtService{
 		return jsonObj;
 	}
 
+	/**
+	 * 对需要进行解码的数据进行解码,或者进行修改val值
+	 *
+	 * @param result result
+	 * @param field  field
+	 * @param value  value
+	 * @author chenys
+	 * @date 2022/10/20 15:02
+	 */
+	private void deCodeForEdit(Map<String, Object> result, String key, String field, String value) {
+		switch (field) {
+			// 发病地址
+			case "FBDZ01":
+			case "FBDZ02":
+			case "FBDZ03":
+				String dVal = hspAddrPostMapper.selectByPrimaryKey(value).getAddrName();
+				result.put(key, dVal);
+				break;
+			default:
+				result.put(key, value);
+				break;
+		}
+
+	}
+
 	@Override
 	public ResultInfo queryHspDbzlBasinf(String regSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
-		QueryDto queryDto=new QueryDto();
-		queryDto.setRegSeq(regSeq);
+		QueryDto queryDto=new QueryDto(regSeq);
 		HspDbzlBasCustom hspDbzlBasCustom=cpcMapper.getHspDbzlBasinf(queryDto);
 		sysdata.put("hspDbzlBasCustom",hspDbzlBasCustom);
 		resultInfo.setSysdata(sysdata);
@@ -1228,7 +1181,7 @@ public class XtServiceImpl implements XtService{
 		Map<String, Object> sysdata = new HashMap<>();
 		Map<String, String> map = new HashMap<>();
 		HspXtzlInfExample example = new HspXtzlInfExample();
-		example.createCriteria().andEmgNoEqualTo(emgSeq);
+		example.createCriteria().andEmgNoEqualTo(emgSeq).andProValIsNotNull();
 		List<HspXtzlInf> hspXtzlInfs = hspXtzlInfMapper.selectByExample(example);
 		for (HspXtzlInf node : hspXtzlInfs) {
 			map.put(node.getProCode(), node.getProVal());

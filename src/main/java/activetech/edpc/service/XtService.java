@@ -98,7 +98,7 @@ public interface XtService {
 	
 	public ResultInfo getAidPatientByEmgSeq(String emgSeq, String wayTyp);
 	//获取胸痛诊疗数据，格式化比编辑器所需数据
-	ResultInfo getHspXtzlInfByEmgSeqToEdit(String emgSeq, String wayTyp);
+	ResultInfo getHspXtzlInfByEmgSeqToEdit(String regSeq);
 	// 获取患者基础信息
 	ResultInfo queryHspDbzlBasinf(String regSeq);
 

@@ -41,4 +41,11 @@ public class QueryDto {
 	public void setRegSeq(String regSeq) {
 		this.regSeq = regSeq;
 	}
+
+	public QueryDto(String regSeq) {
+		this.regSeq = regSeq;
+	}
+
+	public QueryDto() {
+	}
 }
