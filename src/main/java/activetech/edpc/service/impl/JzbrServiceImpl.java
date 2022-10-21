@@ -2,11 +2,12 @@ package activetech.edpc.service.impl;
 
 import activetech.base.service.SystemConfigService;
 import activetech.edpc.dao.mapper.HspDbzlBasMapper;
+import activetech.edpc.dao.mapper.HspXtzlInfCustomMapper;
 import activetech.edpc.dao.mapper.HspXtzlInfMapper;
 import activetech.edpc.pojo.domain.HspDbzlBas;
 import activetech.edpc.pojo.domain.HspXtzlInf;
+import activetech.edpc.pojo.dto.HspXtzlInfCustom;
 import activetech.edpc.service.JzbrService;
-import activetech.hospital.dao.mapper.HspMewsInfMapper;
 import activetech.hospital.pojo.domain.HspMewsInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
@@ -28,7 +29,7 @@ public class JzbrServiceImpl implements JzbrService {
     @Autowired
     private HspXtzlInfMapper hspXtzlInfMapper;
     @Autowired
-    private HspMewsInfMapper hspMewsInfMapper;
+    private HspXtzlInfCustomMapper hspXtzlInfCustomMapper;
 
     /**
      * 急诊病人进入多病种中心
@@ -87,19 +88,33 @@ public class JzbrServiceImpl implements JzbrService {
      * @throws Exception Exception
      */
     private void addMewsInfo(HspemginfCustom hspemginfCustom, String regSeq) {
-        HspMewsInf hspmewsinf = new HspMewsInf();
-        hspmewsinf.setEmgSeq(regSeq);
-        hspmewsinf.setHrtRte(hspemginfCustom.getHrtRte());
-        hspmewsinf.setSbpupNbr(hspemginfCustom.getSbpUpNbr());
-        hspmewsinf.setSbpdownNbr(hspemginfCustom.getSbpDownNbr());
-        hspmewsinf.setBreNbr(hspemginfCustom.getBreNbr());
-        hspmewsinf.setTmpNbr(hspemginfCustom.getTmpNbr());
-        hspmewsinf.setSenRctCod(hspemginfCustom.getSenRctCod());
-        hspmewsinf.setTotSco(hspemginfCustom.getMewsTotSco());
-        hspmewsinf.setChkLvlCod(hspemginfCustom.getChkLvlCod());
-        hspmewsinf.setModLvlCod(hspemginfCustom.getModLvlCod());
-        hspmewsinf.setModLvlDes(hspemginfCustom.getModLvlDes());
-        hspMewsInfMapper.insert(hspmewsinf);
+        HspXtzlInfCustom baseXtzlInf = new HspXtzlInfCustom();
+        baseXtzlInf.setEmgNo(regSeq);
+        //血压
+        if(hspemginfCustom.getSbpUpNbr() != null && hspemginfCustom.getSbpUpNbr() != null){
+            baseXtzlInf.setProCode("XUEY");
+            baseXtzlInf.setProVal(hspemginfCustom.getSbpUpNbr() + "/" + hspemginfCustom.getSbpUpNbr());
+            hspXtzlInfCustomMapper.mergeHspXtzlInf(baseXtzlInf);
+        }
+        //脉搏
+        if(hspemginfCustom.getHrtRte() != null) {
+            baseXtzlInf.setProCode("MAIB");
+            baseXtzlInf.setProVal(hspemginfCustom.getHrtRte().toString());
+            hspXtzlInfCustomMapper.mergeHspXtzlInf(baseXtzlInf);
+        }
+        //血氧
+//        if(hspemginfCustom.getOxyNbr() != null) {
+//            baseXtzlInf.setProCode("");
+//            baseXtzlInf.setProVal(hspemginfCustom.getOxyNbr().toString());
+//            hspXtzlInfCustomMapper.mergeHspXtzlInf(baseXtzlInf);
+//        }
+
+        //意识
+        if(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getSenStuCod())) {
+            baseXtzlInf.setProCode("YISHI");
+            baseXtzlInf.setProVal(hspemginfCustom.getSenStuCod());
+            hspXtzlInfCustomMapper.mergeHspXtzlInf(baseXtzlInf);
+        }
     }
 
     /**

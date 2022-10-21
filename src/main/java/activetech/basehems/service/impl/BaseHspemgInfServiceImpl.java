@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import activetech.edpc.service.JzbrService;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -114,6 +115,8 @@ public class BaseHspemgInfServiceImpl implements BaseHspemgInfService{
 	private HspDdfxpgbInfMapper hspDdfxpgbInfMapper;
 	@Autowired
 	private VHemsRczMapper vHemsRczMapper;
+	@Autowired
+	private JzbrService jzbrService;
 	
 	////////////接口开放方法公用方法Start/////////////////////////////////////////////////////////////////////////////
 
@@ -238,6 +241,9 @@ public class BaseHspemgInfServiceImpl implements BaseHspemgInfService{
 		submitHspDdfxpgbInf(hspemginfQueryDto,activeUser);
 		//12.跌倒评分
 		submitHspFallassinfCus(hspemginfQueryDto,activeUser);
+
+		jzbrService.enterDbzl(hspemginfQueryDto);
+
 		return hspsqlinfCustom;
 	}
 		
