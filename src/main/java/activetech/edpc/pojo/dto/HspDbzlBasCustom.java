@@ -24,6 +24,8 @@ public class HspDbzlBasCustom extends HspDbzlBas {
     private String xuey;
     //年龄类型
     private String cstAgeCodInf;
+    //诊断医生
+    private String zdys;
 
 
     public String getFbsj() {
@@ -96,5 +98,13 @@ public class HspDbzlBasCustom extends HspDbzlBas {
 
     public void setCstAgeCodInf(String cstAgeCodInf) {
         this.cstAgeCodInf = cstAgeCodInf;
+    }
+
+    public String getZdys() {
+        return zdys;
+    }
+
+    public void setZdys(String zdys) {
+        this.zdys = zdys;
     }
 }

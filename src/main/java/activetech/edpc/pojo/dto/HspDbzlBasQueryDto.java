@@ -30,6 +30,12 @@ public class HspDbzlBasQueryDto extends HspDbzlBas {
     //院前溶栓治疗
     private String yqrszl;
 
+    //诊断
+    private String zd;
+
+    //诊断医生
+    private String zdys;
+
     public PageQuery getPageQuery() {
         return pageQuery;
     }
@@ -92,5 +98,21 @@ public class HspDbzlBasQueryDto extends HspDbzlBas {
 
     public void setYqrszl(String yqrszl) {
         this.yqrszl = yqrszl;
+    }
+
+    public String getZd() {
+        return zd;
+    }
+
+    public void setZd(String zd) {
+        this.zd = zd;
+    }
+
+    public String getZdys() {
+        return zdys;
+    }
+
+    public void setZdys(String zdys) {
+        this.zdys = zdys;
     }
 }

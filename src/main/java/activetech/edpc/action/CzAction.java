@@ -3,6 +3,7 @@ package activetech.edpc.action;
 import java.util.Date;
 import java.util.Map;
 
+import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -200,14 +201,14 @@ public class CzAction {
 	 */
 	@RequestMapping("/getCzPatientList")
 	@ResponseBody
-	public DataGridResultInfo getCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto,
-			int page,//当前页码
-			int rows//每页显示个数
-			){
-		Date enddate = DateUtil.getDateAdd(hspCzzlInfQueryDto.getEnddate(), 24);
-		hspCzzlInfQueryDto.setEnddate(enddate);
-		DataGridResultInfo dataGridResultInfo = czService.getCzPatientList(hspCzzlInfQueryDto,page,rows);
-		return dataGridResultInfo;		
+	public DataGridResultInfo getCzPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto,
+											   int page,//当前页码
+											   int rows//每页显示个数
+	){
+		Date enddate = DateUtil.getDateAdd(hspDbzlBasQueryDto.getEndDate(), 24);
+		hspDbzlBasQueryDto.setEndDate(enddate);
+		DataGridResultInfo dataGridResultInfo = czService.getCzPatientList(hspDbzlBasQueryDto,page,rows);
+		return dataGridResultInfo;
 	}
 	
 	/**

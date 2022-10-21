@@ -160,8 +160,8 @@
                     queryParams['cstNam'] = vm.searchParam.cstNam;
                     queryParams['zd'] = vm.searchParam.zd;
                     queryParams['zdys'] = vm.searchParam.zdys;
-                    queryParams['startdate'] = vm.searchParam.startdate;
-                    queryParams['enddate'] = vm.searchParam.enddate;
+                    queryParams['startDate'] = vm.searchParam.startdate;
+                    queryParams['endDate'] = vm.searchParam.enddate;
                     $("#cztable").datagrid('reload');
                     console.log( vm.searchParam.cstNam,vm.searchParam.zd, vm.searchParam.zdys, queryParams['startdate'],queryParams['enddate'])
                 }
@@ -200,8 +200,8 @@
                             'cstNam': vm.searchParam.cstNam,
                             'zd': vm.searchParam.zd,
                             'zdys': vm.searchParam.zdys,
-                            'startdate': vm.searchParam.startdate,
-                            'enddate': vm.searchParam.enddate
+                            'startDate': vm.searchParam.startdate,
+                            'endDate': vm.searchParam.enddate
                         },
                         striped: true,
                         singleSelect: true,
@@ -210,13 +210,30 @@
                         pageList: [20, 30, 50],
                         columns: [
                             [{
+                                field : 'smtSeq',
+                                title : '填报编号',
+                                width : setWidth(0.1)
+                            }, {
+                                field : 'wayTyp',
+                                title : '患者类型',
+                                width : setWidth(0.05),
+                                formatter : function(value, row, index) {
+                                    if (value == 0) {
+                                        return '分诊';
+                                    } else if (value == 1) {
+                                        return '绕行';
+                                    } else if (value == 2) {
+                                        return '院内发病';
+                                    }
+                                }
+                            }, {
                                 field: 'cstNam',
                                 title: '姓名',
-                                width: setWidth(0.1)
+                                width: setWidth(0.08)
                             }, {
                                 field: 'cstSexCod',
                                 title: '性别',
-                                width: setWidth(0.11),
+                                width: setWidth(0.05),
                                 formatter: function(value, row, index) {
                                     if (value == 0) {
                                         return '男'
@@ -227,18 +244,9 @@
                             }, {
                                 field: 'cstAge',
                                 title: '年龄',
-                                width: setWidth(0.1),
+                                width: setWidth(0.05),
                                 formatter: function(value, row, index) {
                                     return value == null ? '-' : value + '岁';
-                                }
-                            }, {
-                                field: 'emgDat',
-                                title: '分诊时间',
-                                width: setWidth(0.1),
-                                formatter: function(value, row, index) {
-                                    if (value != null)
-                                        return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
-                                    return null;
                                 }
                             }, {
                                 field: 'fbsj',
@@ -252,14 +260,44 @@
                             }, {
                                 field: 'cbzd',
                                 title: '诊断',
-                                width: setWidth(0.11),
+                                width: setWidth(0.1),
                                 formatter: function(value, row, index) {
                                     return publicFun.codingEscape(czCbzdCodList, value);
                                 }
                             }, {
+                                field : 'smtSta',
+                                title : '状态',
+                                width : setWidth(0.05),
+                                formatter : function(value, row, index) {
+                                    if (value == 1) {
+                                        return '未上报'
+                                    } else if (value == 2) {
+                                        return '上报中'
+                                    } else if (value == 3) {
+                                        return '上报失败'
+                                    } else if (value == 4) {
+                                        return '上报驳回'
+                                    } else if (value == 5) {
+                                        return '上报完成'
+                                    }
+                                }
+                            },{
+                                field: 'crtTim',
+                                title: '建档时间',
+                                width: setWidth(0.1),
+                                formatter: function(value, row, index) {
+                                    if (value != null)
+                                        return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+                                    return null;
+                                }
+                            },{
+                                field : 'zdys',
+                                title : '诊断医生',
+                                width : setWidth(0.08),
+                            },{
                                 field: 'dd',
                                 title: '操作',
-                                width: setWidth(0.15),
+                                width: setWidth(0.24),
                                 formatter: function(value, row, index) {
                                     var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\')">查看</span>' +
                                         '<span class="btn Timeline" onclick="toCzTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\')">时间轴</span>'+'<span class="btn Timeline" onclick="printCzhcb(\'' + row.emgSeq + '\',\'' + row.cstNam + '\')">核查表</span>';

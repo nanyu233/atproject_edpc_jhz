@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import activetech.edpc.pojo.dto.*;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -41,12 +42,6 @@ import activetech.edpc.pojo.domain.HspBase64PicKey;
 import activetech.edpc.pojo.domain.HspCzzlInf;
 import activetech.edpc.pojo.domain.HspCzzlInfExample;
 import activetech.edpc.pojo.domain.HspFlowChartInf;
-import activetech.edpc.pojo.dto.HspCzzlInfCustom;
-import activetech.edpc.pojo.dto.HspCzzlInfQueryDto;
-import activetech.edpc.pojo.dto.HspFlowChartInfCustom;
-import activetech.edpc.pojo.dto.ProCode;
-import activetech.edpc.pojo.dto.ProCodeDef;
-import activetech.edpc.pojo.dto.QueryDto;
 import activetech.edpc.service.CzService;
 import activetech.external.dao.mapper.HspJyjgCustomMapper;
 import activetech.external.dao.mapper.VHemsJcjgMapper;
@@ -552,14 +547,27 @@ public class CzServiceImpl implements CzService{
 		return resultInfo;
 	}
 
+//	@Override
+//	public DataGridResultInfo getCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto,int page,int rows) {
+//		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+//		int total = hspCzzlInfMapperCustom.countCzPatientList(hspCzzlInfQueryDto);
+//		PageQuery pageQuery = new PageQuery();
+//		pageQuery.setPageParams(total, rows, page);
+//		hspCzzlInfQueryDto.setPageQuery(pageQuery);
+//		List<HspCzzlInfQueryDto> list = hspCzzlInfMapperCustom.getCzPatientList(hspCzzlInfQueryDto);
+//		dataGridResultInfo.setRows(list);
+//		dataGridResultInfo.setTotal(total);
+//		return dataGridResultInfo;
+//	}
+
 	@Override
-	public DataGridResultInfo getCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto,int page,int rows) {
+	public DataGridResultInfo getCzPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows) {
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		int total = hspCzzlInfMapperCustom.countCzPatientList(hspCzzlInfQueryDto);
+		int total = hspCzzlInfMapperCustom.countCzPatientList(hspDbzlBasQueryDto);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, rows, page);
-		hspCzzlInfQueryDto.setPageQuery(pageQuery);
-		List<HspCzzlInfQueryDto> list = hspCzzlInfMapperCustom.getCzPatientList(hspCzzlInfQueryDto);
+		hspDbzlBasQueryDto.setPageQuery(pageQuery);
+		List<HspDbzlBasCustom> list = hspCzzlInfMapperCustom.getCzPatientList(hspDbzlBasQueryDto);
 		dataGridResultInfo.setRows(list);
 		dataGridResultInfo.setTotal(total);
 		return dataGridResultInfo;

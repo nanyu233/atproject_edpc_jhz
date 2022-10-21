@@ -10,6 +10,7 @@ import activetech.edpc.pojo.domain.HspBase64Pic;
 import activetech.edpc.pojo.domain.HspCzzlInf;
 import activetech.edpc.pojo.dto.HspCzzlInfCustom;
 import activetech.edpc.pojo.dto.HspCzzlInfQueryDto;
+import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.QueryDto;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 
@@ -38,8 +39,17 @@ public interface CzService {
 	public ResultInfo getCzReportHelperData(String emgSeq);
 	
 	public ResultInfo getCzTimeline(String emgSeq);
-	
-	public DataGridResultInfo getCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto,int page,int rows);
+
+//	public DataGridResultInfo getCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto,int page,int rows);
+
+	/**
+	 * 查询hspDbzlBas的卒中患者列表
+	 * @param hspDbzlBasQueryDto
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	public DataGridResultInfo getCzPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows);
 	
 	public ResultInfo getCzhcbInfoByEmgSeq(String emgSeq);
 	

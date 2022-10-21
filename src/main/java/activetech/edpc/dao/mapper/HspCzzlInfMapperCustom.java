@@ -2,10 +2,7 @@ package activetech.edpc.dao.mapper;
 
 import activetech.edpc.pojo.domain.HspCzzlInf;
 import activetech.edpc.pojo.domain.HspCzzlInfExample;
-import activetech.edpc.pojo.dto.HspCzzlInfCustom;
-import activetech.edpc.pojo.dto.HspCzzlInfQueryDto;
-import activetech.edpc.pojo.dto.HspXtzlInfCustom;
-import activetech.edpc.pojo.dto.QueryDto;
+import activetech.edpc.pojo.dto.*;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 
 import java.util.List;
@@ -22,10 +19,24 @@ public interface HspCzzlInfMapperCustom {
     List<HspemginfCustom> getCzPatientInfoList(QueryDto queryDto);
     
     List<HspCzzlInfCustom> getCzTimeline(String emgSeq);
-    
-    Integer countCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto);
-    
-    List<HspCzzlInfQueryDto> getCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto);
+
+//    Integer countCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto);
+
+//    List<HspCzzlInfQueryDto> getCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto);
+
+    /**
+     * 统计hspDbzlBas的卒中患者数目
+     * @param hspDbzlBasQueryDto
+     * @return
+     */
+    Integer countCzPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
+
+    /**
+     * 查询hspDbzlBas的卒中患者列表
+     * @param hspDbzlBasQueryDto
+     * @return
+     */
+    List<HspDbzlBasCustom> getCzPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
     
     HspemginfCustom getCzhcbInfoByEmgseq(@Param(value="emgSeq")String emgSeq);
 }
