@@ -110,9 +110,9 @@ public class JzbrServiceImpl implements JzbrService {
 //        }
 
         //意识
-        if(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getSenStuCod())) {
+        if(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getSenRctCod())) {
             baseXtzlInf.setProCode("YISHI");
-            baseXtzlInf.setProVal(hspemginfCustom.getSenStuCod());
+            baseXtzlInf.setProVal(hspemginfCustom.getSenRctCod());
             hspXtzlInfCustomMapper.mergeHspXtzlInf(baseXtzlInf);
         }
     }
