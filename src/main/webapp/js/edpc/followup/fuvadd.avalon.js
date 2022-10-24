@@ -67,6 +67,24 @@ var vm = avalon.define({
 		patCoo: '',//患者配合度
 		hspFuvMedInfList:[]
 	},
+	aidEptGrp:{//专家组表
+		grpSeq:'',//专家组序号
+		grpNo:'',//专家组编号
+		grpTyp:'',//专家组类型;|
+		grpNam:'',//专家组名称; |
+		eptTyp:'',//专家类型;
+		eptNo:'',//专家编号;
+		eptCom:'',//归属站点;
+		wxpFlg:'',//小程序联系人
+		crtTim:'',//创建时间
+		crtTsr:'',//创建用户
+		modTim:'',//修改时间
+		modUsr:'',//修改用户
+		_parentId:'',//父id
+		usrname:'',//专家名称
+		phone:'',//电话
+		movephone:'',//移动电话
+	},
 	hideMsg:{
 		assExmCod:'',
 		patSymCod:'',
@@ -286,7 +304,7 @@ var vm = avalon.define({
 		for (var key in res.mapList) {
 	    	if(res.mapList[key]){ 
 				if(vm.getMsg.hasOwnProperty(key)){
-					vm.getMsg[key] = res.mapList[key];					
+					vm.getMsg[key] = res.mapList[key];
 				}
 			}
 	    }

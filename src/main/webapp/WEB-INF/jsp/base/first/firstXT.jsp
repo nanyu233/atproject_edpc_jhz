@@ -272,6 +272,10 @@
 			    if(afterUrl.split('=')[1] === 'cpcReport'){
 			      addTab('胸痛患者列表', 'cpc/toXthzListPage.do', 'icon icon-emergency-record');
 			    }
+			    //如果链接是跳转到胸痛随访管理
+				if(afterUrl.split('=')[1] === 'queryfuv'){
+					addTab('胸痛随访管理', 'followup/queryfuv.do', 'icon icon-emergency-record');
+				}
 	    	}
 	    };
 	    // 通过ajax请求菜单

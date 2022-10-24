@@ -33,6 +33,9 @@
 			<if test="hspPatInfCustom.czfFlg != null and hspPatInfCustom.czfFlg != ''.toString() ">		
 				and a.czf_flg = #{hspPatInfCustom.czfFlg}			
 			</if>
+            <if test="hspPatInfCustom.bthDat != null and hspPatInfCustom.bthDat != ''.toString() ">
+                and a.bth_dat = #{hspPatInfCustom.bthDat}
+            </if>
         </if>
     </where>
   </sql>
@@ -60,7 +63,10 @@
              a.pat_lng,
              a.pat_nat,
              a.bth_adr,
-             a.pat_rel
+             a.pat_rel,
+             a.xtf_flg,
+             a.czf_flg,
+             a.csf_flg
         from hsp_pat_inf a
     <include refid="condition"/>
     order by a.pat_id desc

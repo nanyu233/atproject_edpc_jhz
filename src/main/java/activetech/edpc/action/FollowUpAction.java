@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import activetech.aid.pojo.dto.AidEptGrpCustom;
+import activetech.aid.service.OndutyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +41,8 @@ public class FollowUpAction {
 
 	@Autowired
 	private FollowUpService followUpService;
+	@Autowired
+	private OndutyService ondutyService;
 	
 	/**************************hspFuvPat 随访患者**************************************/
 	
@@ -306,12 +310,17 @@ public class FollowUpAction {
 		HspFuvInfCustom hspFuvInfCustom = followUpService.selectInfOneByCondition(hspFuvInfQueryDto);
 		map.put("hspFuvInfCustom", hspFuvInfCustom);
 		Map<String, Object> mapList = new HashMap<String, Object>(70);
-		List<HspFuvDocInf> hspFuvDocInfs = followUpService.queryFuvDoc(hspFuvInfQueryDto);
-		List<HspFuvGrpInf> hspFuvGrpInfs = followUpService.queryFuvGrp(hspFuvInfQueryDto);
-		mapList.put("fuvDocArr", hspFuvDocInfs);
-		mapList.put("nxtFuvDocArr", hspFuvDocInfs);
-		mapList.put("fuvGrpArr", hspFuvGrpInfs);
-		mapList.put("nxtFuvGrpArr", hspFuvGrpInfs);
+//		List<HspFuvDocInf> hspFuvDocInfs = followUpService.queryFuvDoc(hspFuvInfQueryDto);
+		List<AidEptGrpCustom> list = ondutyService.getExpertGroupList();
+//		List<HspFuvGrpInf> hspFuvGrpInfs = followUpService.queryFuvGrp(hspFuvInfQueryDto);
+//		mapList.put("fuvDocArr", hspFuvDocInfs);
+//		mapList.put("nxtFuvDocArr", hspFuvDocInfs);
+//		mapList.put("fuvGrpArr", hspFuvGrpInfs);
+//		mapList.put("nxtFuvGrpArr", hspFuvGrpInfs);
+		mapList.put("fuvDocArr", list);
+		mapList.put("nxtFuvDocArr", list);
+		mapList.put("fuvGrpArr", list);
+		mapList.put("nxtFuvGrpArr", list);
 		map.put("mapList", mapList);
 		resultInfo.setSysdata(map);
 		return ResultUtil.createSubmitResult(resultInfo);

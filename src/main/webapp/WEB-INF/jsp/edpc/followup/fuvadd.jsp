@@ -300,18 +300,18 @@
 						<label>随访组：</label>
 					</td>
 					<td class="indentTd" colspan="1">
-						<select class="departments" id="fuvGrp" name="hspFuvInfCustom.fuvGrp" ms-duplex-string="hspFuvInfCustom.fuvGrp">
+						<select class="departments" id="fuvGrp" name="aidEptGrp.grpNam" ms-duplex-string="aidEptGrp.grpNam">
                       		 <option value="">请选择</option>
-                     	 	 <option ms-repeat="getMsg.fuvGrpArr" ms-attr-value="el.fuvGrpCod" >{{el.fuvGrpNam}}</option>
+                     	 	 <option ms-repeat="getMsg.fuvGrpArr" ms-attr-value="el._parentId" >{{el.grpNam}}</option>
                   		</select>
 					</td>
 					<td class="indentTd" colspan="1" style="text-align:right">
 						<label>本次随访医生：</label>
 					</td>
 					<td class="indentTd" colspan="1">
-						<select class="departments" id="fuvDoc" name="hspFuvInfCustom.fuvDoc" ms-duplex-string="hspFuvInfCustom.fuvDoc">
+						<select class="departments" id="fuvDoc" name="aidEptGrp.usrname" ms-duplex-string="aidEptGrp.usrname">
                       		 <option value="">请选择</option>
-                     	 	 <option ms-repeat="getMsg.fuvDocArr" ms-attr-value="el.docCod" ms-visible="(hspFuvInfCustom.fuvGrp==''||el.fuvGrpCod==hspFuvInfCustom.fuvGrp)">{{el.docNam}}</option>
+                     	 	 <option ms-repeat="getMsg.fuvDocArr" ms-attr-value="el._parentId" ms-visible="(aidEptGrp._parentId==''||aidEptGrp.grpSeq==el._parentId)">{{el.usrname}}</option>
                   		</select>
 					</td>
 					<td class="indentTd" colspan="1" style="text-align:center">
@@ -719,7 +719,9 @@
 	function getFuvInfBaseInfo(){
 		publicFun.httpServ('post', '${baseurl}followup/getFuv.do', 
 						   {'hspFuvPatCustom.patId' : _patId,'hspFuvInfCustom.fuvSeq' : _fuvSeq,'hspFuvInfCustom.plnSeq' : _plnSeq},
-						   function(res) {setFuvMsg(res.resultInfo.sysdata);},
+						   function(res) {
+			console.log(res,'33333')
+			setFuvMsg(res.resultInfo.sysdata);},
 						   function(err){},10000);
 	}
 	
