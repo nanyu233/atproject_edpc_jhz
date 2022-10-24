@@ -121,6 +121,9 @@ public class XtServiceImpl implements XtService{
 
 	@Autowired
 	private HspDbzlBasMapper hspDbzlBasMapper;
+
+	@Autowired
+	private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
 	
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
@@ -460,6 +463,14 @@ public class XtServiceImpl implements XtService{
 		hspXtzlInfCustom.setProVal(d2w);
 		hspXtzlInfCustom.setEmgNo(emgSeq);
 		hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+		return resultInfo;
+	}
+
+	@Override
+	public ResultInfo xtPatietBasicInfSubmit(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser){
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		hspDbzlBasQueryDto.setModNo(activeUser.getUsrno());
+		hspDbzlBasMapperCustom.updateHspDbzlBasByRegSeq(hspDbzlBasQueryDto);
 		return resultInfo;
 	}
 

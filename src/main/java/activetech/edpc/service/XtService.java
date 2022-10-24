@@ -47,8 +47,23 @@ public interface XtService {
 	 * @return
 	 */
 	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows);
-	
+
+	/**
+	 * 胸痛登记页面提交
+	 * @param xtzlInfs
+	 * @param emgSeq
+	 * @param activeUser
+	 * @return
+	 */
 	public ResultInfo xtPatietSubmitBatch(List<HspXtzlInfCustom> xtzlInfs,String emgSeq,ActiveUser activeUser);
+
+	/**
+	 * 胸痛登记页面基本信息提交
+	 * @param hspDbzlBasQueryDto
+	 * @param activeUser
+	 * @return
+	 */
+	public ResultInfo xtPatietBasicInfSubmit(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser);
 
 	/**
 	 * 获取诊疗表时间轴数据

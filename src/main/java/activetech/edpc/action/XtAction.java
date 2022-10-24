@@ -412,6 +412,20 @@ public class XtAction {
 				xtHspEmgInfQueryDto.getXtzlInfs(), xtHspEmgInfQueryDto.getEmgSeq(), activeUser);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
+
+	/**
+	 * 胸痛登记页面基本信息提交
+	 * @param hspDbzlBasQueryDto
+	 * @param activeUser
+	 * @return
+	 */
+	@RequestMapping("/xtPatietBasicInfSubmit")
+	@ResponseBody
+	public SubmitResultInfo xtPatietBasicInfSubmit(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser){
+		ResultInfo resultInfo = xtService.xtPatietBasicInfSubmit(hspDbzlBasQueryDto, activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
 	
 	/**
 	 * 获取胸痛列表

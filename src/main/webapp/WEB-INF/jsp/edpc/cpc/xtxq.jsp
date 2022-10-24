@@ -3343,6 +3343,7 @@
 			$id: 'report',
 			activeTab: 0,
 			baseInfo: {
+				regSeq: _regSeq,  //登记注册序列号
 				cstNam: '', //患者姓名
 				cstSexCod: '', //性别
 				cstAge: '', //年龄
@@ -4061,7 +4062,19 @@
 					}
 				}
 			},
+
 			//监听多选点击事件
+			// onCheckClick: function(prop, code) {
+			// 	var list = vm[prop + 'Sel'];
+			// 	if (list.indexOf(code) > -1) {
+			// 		list.splice(list.indexOf(code), 1);
+			// 	} else {
+			// 		list.push(code)
+			// 	}
+			// 	vm[prop + 'Sel'] = list;
+			// 	vm.info[prop] = list.join(',');
+			// 	console.log(vm.info[prop]);
+			// },
 			onCheckClick: function(prop, code) {
 				var list = vm[prop + 'Sel'];
 				if (list.indexOf(code) > -1) {
@@ -4070,8 +4083,11 @@
 					list.push(code)
 				}
 				vm[prop + 'Sel'] = list;
-				vm.info[prop] = list.join(',');
+				vm.hspXtzlInf[prop] = list.join(',');
+				console.log(vm.hspXtzlInf[prop]);
 			},
+
+
 			// 点击无 选中状态全部为未选中状态
 			onSelectClick: function(prop, code) {
 				var list = vm[prop + 'Sel'];
@@ -4598,20 +4614,37 @@
 					});
 				}
 			}
+			var count = 0;
 			$.ajax({
 				url: '${baseurl}cpc/xtPatietSubmit.do',
 				type: 'post',
 				dataType: 'json',
+				async: false,
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
 					emgSeq: _emgSeq,
 					xtzlInfs: list,
 				}),
-				success: function(res) {
-					console.log(res)
-					parent.publicFun.alert("保存成功");
+				success: function() {
+					count++;
+					console.log('xtPatietSubmit', count);
 				}
 			});
+			$.ajax({
+				url: '${baseurl}cpc/xtPatietBasicInfSubmit.do',
+				type: 'post',
+				dataType: 'json',
+				async: false,
+				contentType: 'application/json;charset=UTF-8',
+				data: JSON.stringify(vm.baseInfo),
+				success: function() {
+					count++;
+					console.log('xtPatietBasicInfSubmit', count);
+				},
+			});
+			if(count===2){
+				parent.publicFun.alert("保存成功");
+			}
 		}
 	
 		
@@ -5045,7 +5078,7 @@
 				getXtInspection();
 				getConsulationInf();
 				getHspGrace();
-				getPatientInfo();
+				// getPatientInfo();
 				getXtEcg();
 			}
 		}
@@ -5070,9 +5103,9 @@
 							vm.baseInfo[a] = _hspEmgInf[a];
 						}
 					}
-					if (vm.baseInfo.sbpDownNbr && vm.baseInfo.sbpUpNbr) {
-						vm.info.XUEYA = vm.baseInfo.sbpUpNbr + '/' + vm.baseInfo.sbpDownNbr;
-					}
+					// if (vm.baseInfo.sbpDownNbr && vm.baseInfo.sbpUpNbr) {
+					// 	vm.info.XUEYA = vm.baseInfo.sbpUpNbr + '/' + vm.baseInfo.sbpDownNbr;
+					// }
 					if (vm.baseInfo.emgDat) {
 						var time = vm.baseInfo.emgDat;
 						vm.baseInfo.emgDat = moment(parseInt(time)).format('YYYY-MM-DD HH:mm')
@@ -5220,68 +5253,68 @@
 			});
 		}
 		//院前信息
-		function getPatientInfo() {
-			$.ajax({
-				url: '${baseurl}cpc/getAidPatientByEmgSeq.do',
-				type: 'post',
-				dataType: 'json',
-				contentType: 'application/json;charset=UTF-8',
-				data: JSON.stringify({
-					emgSeq: _emgSeq,
-					wayTyp: _wayTyp
-				}),
-				success: function(res) {
-					var _aidPatientXt = res.resultInfo.sysdata.aidPatientXt;
-					var _aidPatient = res.resultInfo.sysdata.aidPatient;
-					var _ynfb = res.resultInfo.sysdata.ynfb;
-					if (_aidPatient) {
-						for (var a in vm.aidPatient) {
-							if (_aidPatient.hasOwnProperty(a)) {
-								vm.aidPatient[a] = _aidPatient[a];
-							}
-						}
-					}
-					if (_aidPatientXt) {
-						for (var a in vm.aidPatientXt) {
-							if (_aidPatientXt.hasOwnProperty(a)) {
-								vm.aidPatientXt[a] = _aidPatientXt[a];
-								if (a == 'ddfs' && _aidPatientXt[a] == 1) {
-									vm.aidPatientXt.ccdw = 1;
-								}
-							}
-						}
-					}
-					if (_ynfb) {
-						for (var a in vm.ynfb) {
-							if (_ynfb.hasOwnProperty(a)) {
-								vm.ynfb[a] = _ynfb[a];
-							}
-						}
-					}
-					if (vm.ynfb['illTim']) {
-						var time = moment(vm.ynfb['illTim']).format('YYYY/MM/DD HH:mm')
-						vm.aidPatient['illTim'] = time;
-					}
-					if (vm.ynfb['fstTim']) {
-						vm.ynfb['fstTim'] = moment(vm.ynfb['fstTim']).format('YYYY/MM/DD HH:mm');
-					}
-					if (vm.ynfb['lveTim']) {
-						vm.ynfb['lveTim'] = moment(vm.ynfb['lveTim']).format('YYYY/MM/DD HH:mm');
-					}
-					if (vm.aidPatient['illTim'] && vm.aidPatient['illTimFlg'] == 1) {
-						var timer = vm.aidPatient['illTim'];
-						var newTimer = moment(new Date(timer)).format('YYYY/MM/DD');
-						vm.aidPatient['illTim'] = newTimer;
-					}
-					if (_wayTyp == 2) {
-						vm.aidPatientXt.ddfs = 4;
-					}
-					if (_wayTyp == 1) {
-						vm.aidPatientXt.ddfs = 2;
-					}
-				}
-			});
-		}
+		<%--function getPatientInfo() {--%>
+		<%--	$.ajax({--%>
+		<%--		url: '${baseurl}cpc/getAidPatientByEmgSeq.do',--%>
+		<%--		type: 'post',--%>
+		<%--		dataType: 'json',--%>
+		<%--		contentType: 'application/json;charset=UTF-8',--%>
+		<%--		data: JSON.stringify({--%>
+		<%--			emgSeq: _emgSeq,--%>
+		<%--			wayTyp: _wayTyp--%>
+		<%--		}),--%>
+		<%--		success: function(res) {--%>
+		<%--			var _aidPatientXt = res.resultInfo.sysdata.aidPatientXt;--%>
+		<%--			var _aidPatient = res.resultInfo.sysdata.aidPatient;--%>
+		<%--			var _ynfb = res.resultInfo.sysdata.ynfb;--%>
+		<%--			if (_aidPatient) {--%>
+		<%--				for (var a in vm.aidPatient) {--%>
+		<%--					if (_aidPatient.hasOwnProperty(a)) {--%>
+		<%--						vm.aidPatient[a] = _aidPatient[a];--%>
+		<%--					}--%>
+		<%--				}--%>
+		<%--			}--%>
+		<%--			if (_aidPatientXt) {--%>
+		<%--				for (var a in vm.aidPatientXt) {--%>
+		<%--					if (_aidPatientXt.hasOwnProperty(a)) {--%>
+		<%--						vm.aidPatientXt[a] = _aidPatientXt[a];--%>
+		<%--						if (a == 'ddfs' && _aidPatientXt[a] == 1) {--%>
+		<%--							vm.aidPatientXt.ccdw = 1;--%>
+		<%--						}--%>
+		<%--					}--%>
+		<%--				}--%>
+		<%--			}--%>
+		<%--			if (_ynfb) {--%>
+		<%--				for (var a in vm.ynfb) {--%>
+		<%--					if (_ynfb.hasOwnProperty(a)) {--%>
+		<%--						vm.ynfb[a] = _ynfb[a];--%>
+		<%--					}--%>
+		<%--				}--%>
+		<%--			}--%>
+		<%--			if (vm.ynfb['illTim']) {--%>
+		<%--				var time = moment(vm.ynfb['illTim']).format('YYYY/MM/DD HH:mm')--%>
+		<%--				vm.aidPatient['illTim'] = time;--%>
+		<%--			}--%>
+		<%--			if (vm.ynfb['fstTim']) {--%>
+		<%--				vm.ynfb['fstTim'] = moment(vm.ynfb['fstTim']).format('YYYY/MM/DD HH:mm');--%>
+		<%--			}--%>
+		<%--			if (vm.ynfb['lveTim']) {--%>
+		<%--				vm.ynfb['lveTim'] = moment(vm.ynfb['lveTim']).format('YYYY/MM/DD HH:mm');--%>
+		<%--			}--%>
+		<%--			if (vm.aidPatient['illTim'] && vm.aidPatient['illTimFlg'] == 1) {--%>
+		<%--				var timer = vm.aidPatient['illTim'];--%>
+		<%--				var newTimer = moment(new Date(timer)).format('YYYY/MM/DD');--%>
+		<%--				vm.aidPatient['illTim'] = newTimer;--%>
+		<%--			}--%>
+		<%--			if (_wayTyp == 2) {--%>
+		<%--				vm.aidPatientXt.ddfs = 4;--%>
+		<%--			}--%>
+		<%--			if (_wayTyp == 1) {--%>
+		<%--				vm.aidPatientXt.ddfs = 2;--%>
+		<%--			}--%>
+		<%--		}--%>
+		<%--	});--%>
+		<%--}--%>
 		//心内科会诊
 		function getConsulationInf() {
 			$.ajax({
@@ -5355,7 +5388,7 @@
 			getDicts();
 			getTimeLineData();
 			getXtbaseInfo();
-			getPatientInfo();
+			// getPatientInfo();
 			queryHspXtzlInfByEmgSeq();
 			$.ajax({
 				url: '${baseurl}cpc/getXtPatient.do',
