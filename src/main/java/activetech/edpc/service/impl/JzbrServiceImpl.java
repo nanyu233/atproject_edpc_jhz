@@ -65,14 +65,14 @@ public class JzbrServiceImpl implements JzbrService {
         hspXtzlInf.setModTime(new Date());
         hspXtzlInf.setModUser(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getModUsrNbr()) ? hspemginfCustom.getModUsrNbr() : "admin");
         if(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getXtCod())) {
-            String seqNo = systemConfigService.findSequences("HSPXTZLINF_SEQ", "8", null);
+            String seqNo = systemConfigService.findSequences("HSPXTZLINF_SEQ", "6", null);
             hspXtzlInf.setSeqNo(seqNo);
             hspXtzlInf.setProCode("BQPG");
             hspXtzlInf.setProVal(hspemginfCustom.getXtCod());
             hspXtzlInfMapper.insert(hspXtzlInf);
         }
         if(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getXtSubCod())) {
-            String seqNo = systemConfigService.findSequences("HSPXTZLINF_SEQ", "8", null);
+            String seqNo = systemConfigService.findSequences("HSPXTZLINF_SEQ", "6", null);
             hspXtzlInf.setSeqNo(seqNo);
             hspXtzlInf.setProCode("BQPGMX");
             hspXtzlInf.setProVal(hspemginfCustom.getXtSubCod());
@@ -93,7 +93,7 @@ public class JzbrServiceImpl implements JzbrService {
         //血压
         if(hspemginfCustom.getSbpUpNbr() != null && hspemginfCustom.getSbpUpNbr() != null){
             baseXtzlInf.setProCode("XUEY");
-            baseXtzlInf.setProVal(hspemginfCustom.getSbpUpNbr() + "/" + hspemginfCustom.getSbpUpNbr());
+            baseXtzlInf.setProVal(hspemginfCustom.getSbpUpNbr() + "/" + hspemginfCustom.getSbpDownNbr());
             hspXtzlInfCustomMapper.mergeHspXtzlInf(baseXtzlInf);
         }
         //脉搏
