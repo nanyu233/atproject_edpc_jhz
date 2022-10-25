@@ -76,15 +76,15 @@
         debug: false,
     });
 
-    atEditor.dispatch({
-        type: "overwriteSettings",
-        payload: {
+    atEditor.dispatch(
+         "overwriteSettings",
+        {
             showEditorToolbar: false, // default false
             showCaseHistoryList: false, // default false
             showCaseTemplateTree: false, // default false
             caseEditorFullScreen: true // default false 开启全屏展示
-        },
-    });
+        }
+    )
 
     // atEditor.on("saveCase", function(event) {
     //     var data = event.data;

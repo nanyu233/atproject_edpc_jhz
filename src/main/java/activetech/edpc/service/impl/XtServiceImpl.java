@@ -47,6 +47,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class XtServiceImpl implements XtService{
 	
@@ -1056,24 +1057,32 @@ public class XtServiceImpl implements XtService{
 		COMP_MAP.put("COMP.18.000009","FBDZ03");
 		COMP_MAP.put("COMP.18.000010","FBSJ");
 		COMP_MAP.put("COMP.18.000011","HJSJ");
-		COMP_MAP.put("COMP.18.000012","");
-		COMP_MAP.put("COMP.18.000013","");
-		COMP_MAP.put("COMP.18.000014","");
-		COMP_MAP.put("COMP.18.000015","");
-		COMP_MAP.put("COMP.18.000016","");
-		COMP_MAP.put("COMP.18.000017","");
-		COMP_MAP.put("COMP.18.000018","");
-		COMP_MAP.put("COMP.18.000019","");
-		COMP_MAP.put("COMP.18.000020","");
-		COMP_MAP.put("COMP.18.000021","");
-		COMP_MAP.put("COMP.18.000022","");
-		COMP_MAP.put("COMP.18.000023","");
-		COMP_MAP.put("COMP.18.000024","");
-		COMP_MAP.put("COMP.18.000025","");
-		COMP_MAP.put("COMP.18.000026","");
-		COMP_MAP.put("COMP.18.000027","");
-		COMP_MAP.put("COMP.18.000028","");
-		COMP_MAP.put("COMP.18.000029","");
+		COMP_MAP.put("COMP.18.000012","SCYLJCSJ");
+		COMP_MAP.put("COMP.18.000013","");//网络医院入门时间
+		COMP_MAP.put("COMP.18.000014","");//转诊出门时间：
+		COMP_MAP.put("COMP.18.000015","");//院前首份心电图时间
+		COMP_MAP.put("COMP.18.000016","");//院前首份心电图确诊时间：
+		COMP_MAP.put("COMP.18.000017","");//远程传输心电图
+		COMP_MAP.put("COMP.18.000018","");//传输时间：
+		COMP_MAP.put("COMP.18.000019","");//传输方式
+		COMP_MAP.put("COMP.18.000020","");//双联抗血小板药物给药
+		COMP_MAP.put("COMP.18.000021","");//给药时间
+		COMP_MAP.put("COMP.18.000022","");//阿司匹林
+		COMP_MAP.put("COMP.18.000023","");//替格瑞洛
+		COMP_MAP.put("COMP.18.000024",""); //氯吡格雷
+		COMP_MAP.put("COMP.18.000025","");//院前溶栓筛查
+		COMP_MAP.put("COMP.18.000026","");//是否实施院前溶栓
+		COMP_MAP.put("COMP.18.000027","");//溶栓场所
+		COMP_MAP.put("COMP.18.000028","");//院前溶栓知情同意开始时间
+		COMP_MAP.put("COMP.18.000029","");//签署知情同意时间
+		COMP_MAP.put("COMP.18.000030","");//院前溶栓开始时间
+		COMP_MAP.put("COMP.18.000031","");//院前溶栓结束时间
+		COMP_MAP.put("COMP.18.000032","");//溶栓后造影时间
+		COMP_MAP.put("COMP.18.000033","");//院前溶栓药物
+		COMP_MAP.put("COMP.18.000034","");//院前溶栓药物剂量:
+		COMP_MAP.put("COMP.18.000035","");//溶栓再通
+		COMP_MAP.put("COMP.18.000036","");//诊断：
+		COMP_MAP.put("COMP.18.000037","");//转运至 CPC
 	}
 */
    //测试调用
@@ -1090,8 +1099,31 @@ public class XtServiceImpl implements XtService{
 		COMP_MAP.put("COMP.18.000010","FBSJ");
 		COMP_MAP.put("COMP.18.000011","HJSJ");
 		COMP_MAP.put("COMP.18.000012","SCYLJCSJ");
+		COMP_MAP.put("COMP.18.000013","ZCYYRMSJ");
+		COMP_MAP.put("COMP.18.000014","ZCYJCMSJ");
+		COMP_MAP.put("COMP.18.000015","fileDateYq");
+		COMP_MAP.put("COMP.18.000016","fileDiaDateYq");
+		COMP_MAP.put("COMP.18.000017","YCXDTCS");
+		COMP_MAP.put("COMP.18.000018","fileTrsDateYq");
+		COMP_MAP.put("COMP.18.000019","CSFS");
+		COMP_MAP.put("COMP.18.000020","KXXBZL");
+		COMP_MAP.put("COMP.18.000021","ASPLSJ");
+		COMP_MAP.put("COMP.18.000022","ASPLJL");
+		COMP_MAP.put("COMP.18.000023","TGRLJL");
+		COMP_MAP.put("COMP.18.000024","LBGLJL");
+		COMP_MAP.put("COMP.18.000025","YQRSSC");
+		COMP_MAP.put("COMP.18.000026","YQRS");
+		COMP_MAP.put("COMP.18.000027","YQRSCS");
+		COMP_MAP.put("COMP.18.000028","YQKSZQTYSJ");
+		COMP_MAP.put("COMP.18.000029","YQQSZQTYSSJ");
+		COMP_MAP.put("COMP.18.000030","YQKSRSSJ");
+		COMP_MAP.put("COMP.18.000031","YQRSJSSJ");
+		COMP_MAP.put("COMP.18.000032","YQRSHZYSJ");
+		COMP_MAP.put("COMP.18.000033","YQRSYW");
+		COMP_MAP.put("COMP.18.000034","YQRSYWJL");
+		COMP_MAP.put("COMP.18.000035","YQRSZT");
+		COMP_MAP.put("COMP.18.000036","YQZD");
 	}
-
 	/**
 	 * 根据emgSeq 获取胸痛诊疗表的信息转换成编辑器所求格式
 	 *
@@ -1112,6 +1144,13 @@ public class XtServiceImpl implements XtService{
 		JSONObject jsonHspDbzlBasCustom = jsonSerialize(hspDbzlBasCustom);
 		//获取诊疗表数据
 		List<HspXtzlInfCustom> dataList = hspXtzlInfCustomMapper.getHspXtzlInfByEmgSeq(hspDbzlBasCustom.getEmgSeq());
+		Map<String,Object> otherData= otherSourceForEdit(hspDbzlBasCustom.getEmgSeq());
+		JSONObject jsonHspCrivelInf=jsonSerialize(otherData.get("hspCrivelInf"));
+		JSONObject jsonHspEcgInfYq=jsonSerialize(otherData.get("hspEcgInfYq"));
+		JSONObject jsonHspEcgInfYn=jsonSerialize(otherData.get("hspEcgInfYn"));
+		JSONObject jsonHspGraceInfTypOne=jsonSerialize(otherData.get("hspGraceInfTypOne"));
+		JSONObject jsonHspGraceInfTypZero=jsonSerialize(otherData.get("hspGraceInfTypZero"));
+
 		// TODO 解析list
 		for (String key : COMP_MAP.keySet()) {
 			String field = COMP_MAP.get(key);
@@ -1130,6 +1169,22 @@ public class XtServiceImpl implements XtService{
 			// 基础信息
 			if (jsonHspDbzlBasCustom.containsKey(field))
 				result.put(key, jsonHspDbzlBasCustom.get(field));
+			// 犯罪血管
+			if (jsonHspCrivelInf.containsKey(field))
+				result.put(key,jsonHspCrivelInf.get(field));
+			//院前心电图 HspEcgInf.xxYq
+			if (jsonHspEcgInfYq.containsKey(field))
+				result.put(key,jsonHspEcgInfYq.get(field));
+			//院内心电图 HspEcgInf.xxYn
+			if (jsonHspEcgInfYn.containsKey(field))
+				result.put(key,jsonHspEcgInfYn.get(field));
+			//GRACE  评分  key suffix One
+			if (jsonHspGraceInfTypOne.containsKey(field))
+				result.put(key,jsonHspGraceInfTypOne.get(field));
+			//GRACE  评分  key suffix Zero
+			if (jsonHspGraceInfTypZero.containsKey(field))
+				result.put(key,jsonHspGraceInfTypZero.get(field));
+
 		}
 		resultInfo.setSysdata(result);
 		return resultInfo;
@@ -1173,6 +1228,80 @@ public class XtServiceImpl implements XtService{
 				break;
 		}
 
+	}
+
+	/**
+	 * 获取除诊疗表和基础信息之外的数据
+	 *
+	 * @param emgSeq emgSeq
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
+	 * @author chenys
+	 * @date 2022/10/24 15:37
+	 */
+	private Map<String, Object> otherSourceForEdit(String emgSeq) {
+		Map<String, Object> dataMap = new HashMap<>();
+		// GRACE 评分 两种类型数据个随机一条数据
+		HspGraceInfExample example = new HspGraceInfExample();
+		HspGraceInfExample.Criteria criteria = example.createCriteria();
+		criteria.andEmgSeqEqualTo(emgSeq);
+		List<HspGraceInf> hspGraceInfList = hspGraceInfMapper.selectByExample(example);
+		List<HspGraceInf> hspGraceInfTypOneList=hspGraceInfList.stream().filter(hspGraceInf -> hspGraceInf.getGraceType().equals("1")).collect(Collectors.toList());
+		List<HspGraceInf> hspGraceInfTypZeroList=hspGraceInfList.stream().filter(hspGraceInf -> hspGraceInf.getGraceType().equals("0")).collect(Collectors.toList());
+		JSONObject hspGraceInfTypOne = hspGraceInfTypOneList.size() > 0 ? jsonSerialize(hspGraceInfTypOneList.get(0)) : null;
+		// typ 1增加 危险分层
+		if (hspGraceInfTypOne != null && hspGraceInfTypOne.size() > 0) {
+			//判断危险分层
+			String live = "";
+			if (hspGraceInfTypOne.get("gracejgwtj") != null) {
+				live = "1";
+			} else {
+				if (hspGraceInfTypOne.containsKey("total")) {
+					int total = Integer.parseInt(hspGraceInfTypOne.getString("total"));
+					if (total >= 140) {
+						live = "2";
+					} else if (total >= 108) {
+						live = "3";
+					} else {
+						live = "4";
+					}
+				}
+			}
+			hspGraceInfTypOne.put("graceWXFC", live);
+		}
+		JSONObject hspGraceInfTypZero = hspGraceInfTypZeroList.size() > 0 ? jsonSerialize(hspGraceInfTypZeroList.get(0)) : null;
+		// 犯罪血管 随机一条数据
+		HspCrivelInfExample hspCrivelInfExample = new HspCrivelInfExample();
+		HspCrivelInfExample.Criteria hspCrivelInfCriteria = hspCrivelInfExample.createCriteria();
+		hspCrivelInfCriteria.andEmgSeqEqualTo(emgSeq);
+		List<HspCrivelInf> hspCrivelInfList = hspCrivelInfMapper.selectByExample(hspCrivelInfExample);
+		HspCrivelInf hspCrivelInf = hspCrivelInfList.size() > 0 ? hspCrivelInfList.get(0) : null;
+		// 院内首份心电图
+		HspEcgInfExample ecgExample = new HspEcgInfExample();
+		HspEcgInfExample.Criteria ecgCriteria = ecgExample.createCriteria();
+		ecgCriteria.andRefIdEqualTo(emgSeq);
+		List<HspEcgInf> ecgList = hspEcgInfMapper.selectByExample(ecgExample);
+		//分组排序 10 院前 11 院内 都只取第一条记录
+		List<HspEcgInf> ecgListYq = ecgList.stream().filter(hspEcgInf -> hspEcgInf.getEcgType().equals("10")).sorted(Comparator.comparing(HspEcgInf::getFileDate)).collect(Collectors.toList());
+		List<HspEcgInf> ecgListYn = ecgList.stream().filter(hspEcgInf -> hspEcgInf.getEcgType().equals("11")).sorted(Comparator.comparing(HspEcgInf::getFileDate)).collect(Collectors.toList());
+		JSONObject hspEcgInfYq = ecgListYq.size() > 0 ? jsonSerialize(ecgListYq.get(0)) : null;
+		JSONObject hspEcgInfYn = ecgListYn.size() > 0 ? jsonSerialize(ecgListYn.get(0)) : null;
+		dataMap.put("hspEcgInfYq", transObject(hspEcgInfYq, "Yq"));
+		dataMap.put("hspEcgInfYn", transObject(hspEcgInfYn, "Yn"));
+		dataMap.put("hspGraceInfTypOne", transObject(hspGraceInfTypOne, "One"));
+		dataMap.put("hspGraceInfTypZero", transObject(hspGraceInfTypZero, "Zero"));
+		dataMap.put("hspCrivelInf", hspCrivelInf);
+		return dataMap;
+	}
+
+	// 替换 JSONObject的key,统一加后缀
+	public static JSONObject transObject(JSONObject o1, String suffix) {
+		JSONObject o2 = new JSONObject();
+		if (o1 != null)
+			o1.forEach((key, value) -> {
+				o2.put(key + suffix, o1.get(key));
+
+			});
+		return o2;
 	}
 
 	@Override
