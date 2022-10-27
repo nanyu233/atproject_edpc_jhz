@@ -299,6 +299,7 @@ public class UserServiceImpl implements UserService {
 		   dstuser.setFax(dstuserCustom.getFax());
 		   dstuser.setGroupid(dstuserCustom.getGroupid());
 		   dstuser.setSysid(dstuserCustom.getSysid());
+		   dstuser.setExpDat(DateUtil.yesterday());
 		   dstuserMapper.updateByPrimaryKey(dstuser);
 		   return;
 	   }
