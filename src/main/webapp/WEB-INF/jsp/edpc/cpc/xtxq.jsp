@@ -1794,7 +1794,7 @@
 							</div>
 						</div>
 <%--						<div class="inputs" ms-visible="info.CLCL==1">--%>
-						<div class="inputs" ms-visible="hspXtzlInf.CLCL==1">
+						<div class="inputs" ms-visible="hspXtzlInf.CLCL==2">
 							<div class="input-group">
 								<div class="lb">侵入性策略 <span class="required">*</span></div>
 								<div class="input">
@@ -1809,7 +1809,7 @@
 							</div>
 						</div>
 <%--						<div class="inputs" ms-if=" info.CLCL==1 && info.QRXCL==1">--%>
-						<div class="inputs" ms-if=" hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1">
+						<div class="inputs" ms-if=" hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1">
 							<div class="input-group">
 								<div class="lb">决定医生</div>
 								<div class="input">
@@ -1832,7 +1832,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="inputs" ms-if="info.CLCL==1 && info.QRXCL==1">
+						<div class="inputs" ms-if="info.CLCL==2 && info.QRXCL==1">
 							<div class="input-group">
 								<div class="lb">开始知情同意时间<span class="required">*</span></div>
 								<div class="input">
@@ -1849,7 +1849,7 @@
 							</div>
 						</div>
 <%--						<div class="inputs" ms-visible=" info.CLCL==1 && info.QRXCL==2">--%>
-						<div class="inputs" ms-visible=" hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==2">
+						<div class="inputs" ms-visible=" hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==2">
 							<div class="input-group">
 								<div class="lb">实际介入治疗时间 <span class="required">*</span></div>
 								<div class="input">
@@ -2215,12 +2215,12 @@
 						</div>
 					</div>
 <%--					<div ms-if="(info.CBZD==1 && info.YWZGZCS==1 && (info.ZGZCS==1 || (info.ZGZCS==2 && (info.ZGZRSCS==1 || info.ZGZRSCS==2)))) || (info.CBZD==2 && info.CLCL==1 && info.QRXCL==1) || (info.CBZD==3 && info.CLCL==1 && info.QRXCL==1)">--%>
-					<div ms-if="(hspXtzlInf.CBZD==1 && hspXtzlInf.YWZGZCS==1 && (hspXtzlInf.ZGZCS==1 || (hspXtzlInf.ZGZCS==2 && (hspXtzlInf.ZGZRSCS==1 || hspXtzlInf.ZGZRSCS==2)))) || (hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1)">
+					<div ms-if="(hspXtzlInf.CBZD==1 && hspXtzlInf.YWZGZCS==1 && (hspXtzlInf.ZGZCS==1 || (hspXtzlInf.ZGZCS==2 && (hspXtzlInf.ZGZRSCS==1 || hspXtzlInf.ZGZRSCS==2)))) || (hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1)">
 						<div class="block">
 							<div class="bar">导管室</div>
 							<div class="title">基本信息</div>
 <%--							<div class="inputs" ms-if="info.ZGZCS == 1 || (info.CBZD==2 && info.CLCL==1 && info.QRXCL==1) || (info.CBZD==3 && info.CLCL==1 && info.QRXCL==1) ">--%>
-							<div class="inputs" ms-if="hspXtzlInf.ZGZCS == 1 || (hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1) ">
+							<div class="inputs" ms-if="hspXtzlInf.ZGZCS == 1 || (hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1) ">
 								<div class="input-group">
 									<div class="lb">导管室激活时间<span class="required">*</span></div>
 									<div class="input">
@@ -2245,7 +2245,7 @@
 							</div>
 							<div class="inputs">
 <%--								<div class="input-group" ms-if="info.ZGZCS == 1 || (info.CBZD==2 && info.CLCL==1 && info.QRXCL==1) || (info.CBZD==3 && info.CLCL==1 && info.QRXCL==1)">--%>
-								<div class="input-group" ms-if="hspXtzlInf.ZGZCS == 1 || (hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1)">
+								<div class="input-group" ms-if="hspXtzlInf.ZGZCS == 1 || (hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1)">
 									<div class="lb">开始穿刺时间</div>
 									<div class="input">
 <%--										<input type="text" class="Wdate" ms-duplex="info.KSCCSJ" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
@@ -2261,7 +2261,7 @@
 								</div>
 							</div>
 <%--							<div class="inputs" ms-if="info.ZGZCS == 1 ||(info.CBZD==2 && info.CLCL==1 && info.QRXCL==1) || (info.CBZD==3 && info.CLCL==1 && info.QRXCL==1)">--%>
-							<div class="inputs" ms-if="hspXtzlInf.ZGZCS == 1 ||(hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1)">
+							<div class="inputs" ms-if="hspXtzlInf.ZGZCS == 1 ||(hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1)">
 								<div class="input-group">
 									<div class="lb">术中抗凝给药时间</div>
 									<div class="input">
@@ -2290,7 +2290,7 @@
 								</div>
 							</div>
 <%--							<div class="inputs" ms-if="info.ZGZCS == 1 || (info.CBZD==2 && info.CLCL==1 && info.QRXCL==1) || (info.CBZD==3 && info.CLCL==1 && info.QRXCL==1)">--%>
-							<div class="inputs" ms-if="hspXtzlInf.ZGZCS == 1 || (hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1)">
+							<div class="inputs" ms-if="hspXtzlInf.ZGZCS == 1 || (hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1)">
 								<div class="input-group">
 									<div class="lb">手术结束时间<span class="required">*</span></div>
 									<div class="input">
@@ -2300,7 +2300,7 @@
 								</div>
 							</div>
 <%--							<div class="inputs" ms-if="info.ZGZCS == 1 || (info.CBZD==2 && info.CLCL==1 && info.QRXCL==1) || (info.CBZD==3 && info.CLCL==1 && info.QRXCL==1)">--%>
-							<div class="inputs" ms-if="hspXtzlInf.ZGZCS == 1 || (hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==1 && hspXtzlInf.QRXCL==1)">
+							<div class="inputs" ms-if="hspXtzlInf.ZGZCS == 1 || (hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1)">
 								<div class="input-group">
 									<div class="lb">D2W时间</div>
 									<div class="input">
@@ -2672,7 +2672,8 @@
 								<div class="lb">出院诊断 <span class="required">*</span></div>
 								<div class="input">
 									<div class="radio-btns">
-										<div class="btn" ms-class="{{info.CYZD==el.infocode ? 'active':''}}" ms-click="onRadioClick('CYZD',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.CYZD==el.infocode ? 'active':''}}" ms-click="onRadioClick('CYZD',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.CYZD==el.infocode ? 'active':''}}" ms-click="onRadioClick3('CYZD',el.infocode)"
 										 ms-repeat="CYZDArr">
 											{{el.info}}
 										</div>
@@ -2680,7 +2681,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="inputs" ms-if="info.CYZD==6">
+<%--						<div class="inputs" ms-if="info.CYZD==6">--%>
+						<div class="inputs" ms-if="hspXtzlInf.CYZD==6">
 							<div class="input-group">
 								<div class="lb lb_check">非ACS心源性胸痛类型 <span class="required">*</span></div>
 								<div class="input">
@@ -2693,7 +2695,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="inputs" ms-if="info.CYZD==9">
+<%--						<div class="inputs" ms-if="info.CYZD==9">--%>
+						<div class="inputs" ms-if="hspXtzlInf.CYZD==9">
 							<div class="input-group">
 								<div class="lb lb_check">其它非心源性胸痛类型 <span class="required">*</span></div>
 								<div class="input">
@@ -3793,6 +3796,11 @@
 				CLCL: null,   //处理策略
 				QRXCL: null,   //侵入性策略
 				SJJRZLSJ: '',   //实际介入治疗时间
+
+				/*cpctreat -- 出院信息*/
+				CYZD: '',    //出院诊断
+				ZGFACSXYXXTLX: '',
+
 			},
 
 			info: {
