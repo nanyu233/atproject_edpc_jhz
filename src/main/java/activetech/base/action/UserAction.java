@@ -256,7 +256,13 @@ public class UserAction {
 	 * @throws Exception
 	 */
 	@RequestMapping("/updatepwd")
-	public String updatepwd(Model model) throws Exception{
+	public String updatepwd(Model model,String usrno,String usrname,ActiveUser activeUser) throws Exception{
+		if(org.apache.commons.lang3.StringUtils.isEmpty(usrno)){
+			usrno = activeUser.getUsrno();
+			usrname = activeUser.getUsrname();
+		}
+		model.addAttribute("usrno",usrno);
+		model.addAttribute("usrname",usrname);
 		return View.toBase("/user/updatepwd");
 	}
 	
@@ -279,9 +285,8 @@ public class UserAction {
 	 * @throws Exception
 	 */
 	@RequestMapping("/saveapwd")
-	public @ResponseBody SubmitResultInfo saveapwd(String usrno,DstuserQueryDto dstuserQueryDto) throws Exception{
-		usrno = dstuserQueryDto.getDstuserCustom().getUsrno();
-		userService.updatePwd(usrno, dstuserQueryDto.getDstuserCustom());
+	public @ResponseBody SubmitResultInfo saveapwd(DstuserQueryDto dstuserQueryDto) throws Exception{
+		userService.updatePwd(dstuserQueryDto);
 		return ResultUtil.createSubmitResult(ResultUtil.createSuccess(Config.MESSAGE, 906,null));
 	}
 	

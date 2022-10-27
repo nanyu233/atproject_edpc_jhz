@@ -22,8 +22,43 @@ public class DstuserQueryDto {
 	private PageQuery pageQuery;
 	String sort;
 	String order;
-	
-	
+	/**
+	 * 原密码加密
+	 */
+	private String usrpass1;
+	/**
+	 * 新密码加密
+	 */
+	private String updatepwd11;
+	/**
+	 * 新密码加密
+	 */
+	private String updatepwd21;
+
+	public String getUsrpass1() {
+		return usrpass1;
+	}
+
+	public void setUsrpass1(String usrpass1) {
+		this.usrpass1 = usrpass1;
+	}
+
+	public String getUpdatepwd11() {
+		return updatepwd11;
+	}
+
+	public void setUpdatepwd11(String updatepwd11) {
+		this.updatepwd11 = updatepwd11;
+	}
+
+	public String getUpdatepwd21() {
+		return updatepwd21;
+	}
+
+	public void setUpdatepwd21(String updatepwd21) {
+		this.updatepwd21 = updatepwd21;
+	}
+
 	public String getSort() {
 		return sort;
 	}

@@ -1,5 +1,7 @@
 package activetech.base.pojo.domain;
 
+import java.util.Date;
+
 public class Dstuser {
     private String userid;
 
@@ -38,6 +40,8 @@ public class Dstuser {
     private String emgsysid;
 
     private String ysh;
+
+    private Date expDat;
 
     public String getUserid() {
         return userid;
@@ -189,5 +193,13 @@ public class Dstuser {
 
     public void setYsh(String ysh) {
         this.ysh = ysh == null ? null : ysh.trim();
+    }
+
+    public Date getExpDat() {
+        return expDat;
+    }
+
+    public void setExpDat(Date expDat) {
+        this.expDat = expDat;
     }
 }

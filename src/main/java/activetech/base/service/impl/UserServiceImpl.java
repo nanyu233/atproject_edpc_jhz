@@ -1,8 +1,7 @@
 package activetech.base.service.impl;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+import activetech.base.process.result.ResultInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -41,6 +40,7 @@ import activetech.util.MD5;
 import activetech.util.ResourcesUtil;
 import activetech.util.StringUtils;
 import activetech.util.UUIDBuild;
+import cn.hutool.core.date.DateUtil;
 /**
  * 
  * <p>Title:UserServiceImpl</p>
@@ -114,6 +114,24 @@ public class UserServiceImpl implements UserService {
 	    // 用户名或密码错误
 		ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE, 114,null));
 	   }
+		//密码是否过期
+		Dstappoption pwd_expired_switch = systemConfigService.findAppoptionByOptkey("PWD_EXPIRED_SWITCH");
+		if(pwd_expired_switch!=null&&"1".equals(pwd_expired_switch.getOptvalue())){
+			Date expDat = dstuser.getExpDat();
+			if(expDat!=null){
+				int compare = DateUtil.compare(new Date(), expDat);
+				if (compare == 1) {
+					ResultInfo fail = ResultUtil.createFail(Config.MESSAGE, 115, null);
+					Map<String, Object> sysdata = new HashMap<>(16);
+					Dstuser ret = new Dstuser();
+					ret.setUsrno(dstuser.getUsrno());
+					ret.setUsrname(dstuser.getUsrname());
+					sysdata.put("dstuser", ret);
+					fail.setSysdata(sysdata);
+					ResultUtil.throwExcepion(fail);
+				}
+			}
+		}
 	   // 构建用户身份信息
 	   ActiveUser activeUser = new ActiveUser();
 	   List<Dstappoption> list = appoptionService.findAppoptionList();
@@ -358,37 +376,33 @@ public class UserServiceImpl implements UserService {
 	 	
 	/**
 	 * 修改密码
-	 * @param userid
-	 * @param dstuserCustom
 	 * @throws Exception
 	 */
-	public void updatePwd(String usrno, DstuserCustom dstuserCustom)throws Exception{
+	@Override
+	public void updatePwd(DstuserQueryDto dstuserQueryDto) throws Exception {
 		//参数校验
 		//1、非空校验
-		String nullstr = this.updatePwdisNotNullAndEmptyByTrim(dstuserCustom);
-		if(StringUtils.isNotNullAndEmptyByTrim(nullstr)){
-			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE, 911, new Object[] { nullstr }));
-		}
-			//2、校验旧密码输入是否正确
-			Dstuser dstuser = this.findUserByUsrno(usrno);
-			String pwd_db = dstuser.getUsrpass();// md5密文
-			String pwd_md5 = new MD5().getMD5ofStr(dstuserCustom.getUsrpass());
-			if (!pwd_db.equalsIgnoreCase(pwd_md5)) {
-				//旧密码输入错误
-				ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE, 124,null));
-			}
+		DstuserCustom dstuserCustom = dstuserQueryDto.getDstuserCustom();
 
-		//3、校验新密码与新密码确认是否相同
-		String pwd1 = new MD5().getMD5ofStr(dstuserCustom.getUpdatepwd1());
-		String pwd2 = new MD5().getMD5ofStr(dstuserCustom.getUpdatepwd2());
-		if(!pwd1.equalsIgnoreCase(pwd2)) {
-			//两次输入的新密码不一致
-			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE, 123, null));
+		// 3、校验旧密码输入是否正确
+		Dstuser dstuser = this.findUserByUsrno(dstuserCustom.getUsrno());
+		// md5密文
+		String pwd_db = dstuser.getUsrpass();
+
+		if (!pwd_db.equalsIgnoreCase(dstuserQueryDto.getUsrpass1())) {
+			// 旧密码输入错误
+			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE, 124, null));
 		}
+
 		//数据操作
-		Dstuser pwd_update = this.findUserByUsrno(usrno);
-		pwd_update.setUsrpass(pwd1);
-		int n = dstuserMapper.updateByPrimaryKey(pwd_update);
+		dstuser.setUsrpass(dstuserQueryDto.getUpdatepwd11());
+		int expired_days = 90;
+		Dstappoption pwd_expired_days = systemConfigService.findAppoptionByOptkey("PWD_EXPIRED_DAYS");
+		if(pwd_expired_days!=null){
+			expired_days = Integer.valueOf(pwd_expired_days.getOptvalue());
+		}
+		dstuser.setExpDat(DateUtil.offsetDay(DateUtil.beginOfDay(new Date()),expired_days));
+		int n = dstuserMapper.updateByPrimaryKey(dstuser);
 	}
 	/**
 	 * 修改用户密码

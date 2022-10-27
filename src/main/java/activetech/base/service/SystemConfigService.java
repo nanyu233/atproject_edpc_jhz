@@ -1,11 +1,13 @@
 package activetech.base.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import activetech.base.pojo.domain.Dstappoption;
 import activetech.base.pojo.domain.Dstdictinfo;
 import activetech.base.pojo.dto.DstdictinfoQueryDto;
+import activetech.base.process.result.ResultInfo;
 
 /**
  * 
@@ -65,4 +67,10 @@ public interface SystemConfigService {
 	  * @return
 	  */
 	public Map<String, List<Dstdictinfo>> findDstdictinfos(Map<String, String> params) throws Exception;
+
+	/**
+	 * 获取密码规则
+	 * @return
+	 */
+	public ResultInfo getPasswordRule() throws IOException;
 }

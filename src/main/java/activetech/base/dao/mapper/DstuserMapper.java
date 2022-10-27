@@ -2,8 +2,9 @@ package activetech.base.dao.mapper;
 
 import activetech.base.pojo.domain.Dstuser;
 import activetech.base.pojo.domain.DstuserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface DstuserMapper {
     int countByExample(DstuserExample example);

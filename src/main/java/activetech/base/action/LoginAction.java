@@ -3,6 +3,7 @@ package activetech.base.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import activetech.base.process.result.ResultInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,8 @@ import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.base.service.SystemConfigService;
 import activetech.base.service.UserService;
+
+import java.io.IOException;
 
 /**
  * 
@@ -96,5 +99,12 @@ public class LoginAction {
 		}
 		System.out.println("Ip="+ip);
 		return ip;
+	}
+
+	@RequestMapping("/getPasswordRule")
+	@ResponseBody
+	public SubmitResultInfo getPasswordRule() throws IOException {
+		ResultInfo resultInfo = systemConfigService.getPasswordRule();
+		return ResultUtil.createSubmitResult(resultInfo);
 	}
 }

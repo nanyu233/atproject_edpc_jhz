@@ -129,7 +129,14 @@
                             vm.toFirst();
                         })
 
-                    } else {
+                    }else if (data.resultInfo.messageCode === 115) {
+                        let usrno = data.resultInfo.sysdata.dstuser.usrno
+                        let usrname = data.resultInfo.sysdata.dstuser.usrno
+                        vm.showCheckMsg(data.resultInfo.message);
+                        setTimeout(() => {
+                            createmodalwindow("修改密码", 510, 240, '${baseurl}user/updatepwd.do?usrno=' + usrno + '&usrname=' + usrname);
+                        }, 1000)
+                    }  else {
                         vm.showCheckMsg(data.resultInfo.message);
                     }
                 })

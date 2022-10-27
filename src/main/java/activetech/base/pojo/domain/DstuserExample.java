@@ -1,6 +1,8 @@
 package activetech.base.pojo.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class DstuserExample {
@@ -102,6 +104,32 @@ public class DstuserExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andUseridIsNull() {
@@ -1431,6 +1459,66 @@ public class DstuserExample {
 
         public Criteria andYshNotBetween(String value1, String value2) {
             addCriterion("YSH not between", value1, value2, "ysh");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatIsNull() {
+            addCriterion("EXP_DAT is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatIsNotNull() {
+            addCriterion("EXP_DAT is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatEqualTo(Date value) {
+            addCriterionForJDBCDate("EXP_DAT =", value, "expDat");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatNotEqualTo(Date value) {
+            addCriterionForJDBCDate("EXP_DAT <>", value, "expDat");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatGreaterThan(Date value) {
+            addCriterionForJDBCDate("EXP_DAT >", value, "expDat");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("EXP_DAT >=", value, "expDat");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatLessThan(Date value) {
+            addCriterionForJDBCDate("EXP_DAT <", value, "expDat");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("EXP_DAT <=", value, "expDat");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatIn(List<Date> values) {
+            addCriterionForJDBCDate("EXP_DAT in", values, "expDat");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatNotIn(List<Date> values) {
+            addCriterionForJDBCDate("EXP_DAT not in", values, "expDat");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("EXP_DAT between", value1, value2, "expDat");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpDatNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("EXP_DAT not between", value1, value2, "expDat");
             return (Criteria) this;
         }
     }

@@ -1,10 +1,17 @@
 package activetech.base.service.impl;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import activetech.base.process.context.Config;
+import activetech.base.process.result.ResultInfo;
+import activetech.base.process.result.ResultUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import activetech.base.pojo.domain.Dstappoption;
@@ -133,5 +140,15 @@ public class SystemConfigServiceImpl  implements SystemConfigService{
 			  }
 		}
 		return map;
+	}
+	@Override
+	public ResultInfo getPasswordRule() throws IOException {
+		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("password-rule.json");
+		JSONObject passwordRule = JSON.parseObject(is,Object.class);
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE,906,null);
+		Map<String,Object> sysdata = new HashMap<>(16);
+		sysdata.put("passwordRule",passwordRule);
+		resultInfo.setSysdata(sysdata);
+		return resultInfo;
 	}
 }

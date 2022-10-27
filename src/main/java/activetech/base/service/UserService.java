@@ -103,7 +103,7 @@ public interface UserService {
 	 * @param dstuserCustom
 	 * @throws Exception
 	 */
-	public void updatePwd(String usrno, DstuserCustom dstuserCustom)throws Exception;
+	public void updatePwd(DstuserQueryDto dstuserQueryDto)throws Exception;
 	/**
 	 * 修改用户密码密码
 	 * @param userid
