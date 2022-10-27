@@ -1331,4 +1331,14 @@ public class XtServiceImpl implements XtService{
 		return resultInfo;
 	}
 
+	@Override
+	public int getCpcPatientInfoListCount(QueryDto queryDto) {
+		return cpcMapper.getCpcPatientInfoListCount(queryDto);
+	}
+
+	@Override
+	public List<HspDbzlBasCustom> getCpcPatientInfoListByPage(QueryDto queryDto) {
+		return cpcMapper.getCpcPatientInfoList(queryDto);
+	}
+
 }

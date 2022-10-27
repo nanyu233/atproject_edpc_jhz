@@ -25,6 +25,7 @@ public interface CpcMapper {
 	 * @return HspDbzlBasCustom hspDbzlBasCustom
 	 */
 	HspDbzlBasCustom getHspDbzlBasinf(QueryDto queryDto);
-	
 
+
+	int getCpcPatientInfoListCount(QueryDto queryDto);
 }

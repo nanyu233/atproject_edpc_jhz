@@ -16,5 +16,39 @@
       sysdate, #{crtUser,jdbcType=VARCHAR}, #{fileCon,jdbcType=BLOB}
       )
   </insert>
-  
+
+  <update id="addOrUpdateEcgInf" parameterType="activetech.external.pojo.domain.HspEcgInf">
+    merge into hsp_ecg_inf a
+      using (select #{ecgSeq, jdbcType = VARCHAR}      ecg_seq,
+                    #{refId, jdbcType = VARCHAR}       ref_id,
+                    #{fileDate, jdbcType = TIMESTAMP} file_date,
+                    #{filePath, jdbcType = VARCHAR}    file_path,
+                    #{fileDiaDate, jdbcType = TIMESTAMP} file_dia_date
+             from dual) b
+      on (a.ecg_seq = b.ecg_seq and a.ref_id = b.ref_id)
+      when matched then
+        update
+          set
+            a.file_date     = b.file_date,
+            a.file_path      = b.file_path,
+            a.file_dia_date = b.file_dia_date
+      when not matched then
+        insert
+          (ecg_seq,
+           ref_id,
+           file_date,
+           file_path,
+           file_dia_date,
+           crt_date,
+           crt_user)
+          values
+          (HSPECGINF_SEQ.nextval,
+           b.ref_id,
+           b.file_date,
+           b.file_path,
+           b.file_dia_date,
+           sysdate,
+           #{crtUser,jdbcType = VARCHAR})
+  </update>
+
 </mapper>

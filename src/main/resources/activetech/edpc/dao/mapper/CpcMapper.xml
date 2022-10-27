@@ -162,5 +162,22 @@
 		where a.reg_seq = #{regSeq, jdbcType = VARCHAR}
 	</select>
 	
-	
+	<select id="getCpcPatientInfoListCount" parameterType="activetech.edpc.pojo.dto.QueryDto"
+			resultType="int">
+		select count(*) from hsp_dbzl_bas a
+		<where>
+			<if test="patTyp != null and patTyp.length()>0">
+				and a.pat_typ = #{patTyp,jdbcType = VARCHAR}
+			</if>
+			<if test="cstNam !=null and cstNam.length()>0">
+				and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
+				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+				)
+			</if>
+			<if test="bhls == false ">
+				and a.crt_tim >= sysdate - 1
+			</if>
+		</where>
+		order by reg_tim desc nulls last
+	</select>
 </mapper>

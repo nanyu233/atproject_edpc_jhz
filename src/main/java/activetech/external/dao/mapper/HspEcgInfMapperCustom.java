@@ -9,4 +9,10 @@ public interface HspEcgInfMapperCustom {
    
     int insert(HspEcgInf record);
 
+    /**
+     * 添加或修改EngInf
+     * @param hspEcgInf
+     */
+    void addOrUpdateEcgInf(HspEcgInf hspEcgInf);
+
 }

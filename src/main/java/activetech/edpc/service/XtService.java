@@ -6,10 +6,7 @@ import activetech.base.process.result.ResultInfo;
 import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.domain.HspGraceInf;
 import activetech.edpc.pojo.domain.HspXtzlInf;
-import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
-import activetech.edpc.pojo.dto.HspXtzlInfCustom;
-import activetech.edpc.pojo.dto.QueryDto;
-import activetech.edpc.pojo.dto.XtHspEmgInfQueryDto;
+import activetech.edpc.pojo.dto.*;
 
 import java.util.List;
 
@@ -123,4 +120,8 @@ public interface XtService {
 	 * @return
 	 */
 	public ResultInfo queryHspXtzlInfByEmgSeq(String emgSeq);
+
+	int getCpcPatientInfoListCount(QueryDto queryDto);
+
+	List<HspDbzlBasCustom> getCpcPatientInfoListByPage(QueryDto queryDto);
 }

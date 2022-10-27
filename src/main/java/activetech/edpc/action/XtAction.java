@@ -3,6 +3,7 @@ package activetech.edpc.action;
 import activetech.aid.service.AidService;
 import activetech.base.action.View;
 import activetech.base.pojo.dto.ActiveUser;
+import activetech.base.pojo.dto.PageQuery;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
@@ -13,7 +14,10 @@ import activetech.edpc.pojo.domain.HspGraceInf;
 import activetech.edpc.pojo.domain.HspXtzlInf;
 import activetech.edpc.pojo.dto.*;
 import activetech.edpc.service.XtService;
+import activetech.external.pojo.domain.HspEcgInf;
 import activetech.external.service.EsbService;
+import activetech.zyyhospital.pojo.dto.HspConsentInfCustom;
+import activetech.zyyhospital.pojo.dto.HspConsentInfCustomDto;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -182,10 +186,29 @@ public class XtAction {
 	 */
 	@RequestMapping("/getCpcPatientListInfo")
 	@ResponseBody
-	public SubmitResultInfo getCpcPatientListInfo(QueryDto queryDto){
+	public DataGridResultInfo getCpcPatientListInfo(QueryDto queryDto,
+												  int page,//当前页码
+												  int rows//每页显示个数
+													 ){
+
+		int total = xtService.getCpcPatientInfoListCount(queryDto);
+		PageQuery pageQuery = new PageQuery();
+		pageQuery.setPageParams(total, rows, page);
+		queryDto.setPageQuery(pageQuery);
+		List<HspDbzlBasCustom> list =xtService.getCpcPatientInfoListByPage(queryDto);
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		//填充total
+		dataGridResultInfo.setTotal(total);
+		//填充rows
+		dataGridResultInfo.setRows(list);
+		return dataGridResultInfo;
+	}
+
+	/*public SubmitResultInfo getCpcPatientListInfo(QueryDto queryDto){
 		ResultInfo resultInfo = xtService.getCpcPatientInfoList(queryDto);
 		return ResultUtil.createSubmitResult(resultInfo);
-	}
+	}*/
+
 	
 	
 	/**
@@ -542,7 +565,21 @@ public class XtAction {
 		
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
-	
+
+	/**
+	 * 更新心电图信息
+	 * @param hspEcgInf
+	 * @param activeUser
+	 * @return
+	 */
+	@RequestMapping("/addOrUpdateEcgInf")
+	@ResponseBody
+	public SubmitResultInfo addOrUpdateEcgInf(@RequestBody HspEcgInf hspEcgInf, ActiveUser activeUser){
+		ResultInfo resultInfo = esbService.addOrUpdateEcgInf(hspEcgInf, activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
+
 	/**
 	 * 获取GRACE评分信息
 	 * @param hspGraceInf

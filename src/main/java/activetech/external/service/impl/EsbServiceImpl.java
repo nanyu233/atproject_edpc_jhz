@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import activetech.base.pojo.dto.ActiveUser;
+import activetech.external.dao.mapper.HspEcgInfMapperCustom;
+import com.th.supcom.eif.webservice.AcceptAppointMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,6 +48,9 @@ public class EsbServiceImpl implements EsbService{
 	
 	@Autowired
 	private HspEmgInfMapper hspEmgInfMapper;
+
+	@Autowired
+	private HspEcgInfMapperCustom hspEcgInfMapperCustom;
 
 	@Override
 	public ResultInfo getJyjcInfo(String emgSeq, String wayTyp) {
@@ -207,6 +213,14 @@ public class EsbServiceImpl implements EsbService{
 		
 		return resultInfo;
 	
+	}
+
+	@Override
+	public ResultInfo addOrUpdateEcgInf(HspEcgInf hspEcgInf, ActiveUser activeUser){
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		hspEcgInf.setCrtUser(activeUser.getUsrno());
+		hspEcgInfMapperCustom.addOrUpdateEcgInf(hspEcgInf);
+		return resultInfo;
 	}
 
 }

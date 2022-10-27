@@ -1,5 +1,7 @@
 package activetech.edpc.pojo.dto;
 
+import activetech.base.pojo.dto.PageQuery;
+
 public class QueryDto {
 	//搜素患者姓名 模糊
 	private String cstNam;
@@ -9,6 +11,16 @@ public class QueryDto {
 	private String patTyp;
 	//hspDbzlBas- 主键
 	private String regSeq;
+
+	private PageQuery pageQuery;
+
+	public PageQuery getPageQuery() {
+		return pageQuery;
+	}
+
+	public void setPageQuery(PageQuery pageQuery) {
+		this.pageQuery = pageQuery;
+	}
 
 	public String getCstNam() {
 		return cstNam;
