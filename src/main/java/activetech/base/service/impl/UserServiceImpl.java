@@ -308,6 +308,7 @@ public class UserServiceImpl implements UserService {
 	   dstuserCustom.setUsrpass(new MD5().getMD5ofStr(ResourcesUtil.getValue(Config.SYSCONFIG, "defautpassword")));
 	   //默认不出诊
 	   dstuserCustom.setOutCall("2");
+	   dstuserCustom.setExpDat(DateUtil.yesterday());
 	   dstuserMapper.insert(dstuserCustom);
 	       
 	}
