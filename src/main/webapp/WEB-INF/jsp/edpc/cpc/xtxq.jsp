@@ -2572,7 +2572,7 @@
 									<div class="lb">数值<span class="required">*</span></div>
 									<div class="input">
 <%--										<input type="text" ms-duplex="info.GNJCSZ" ms-keyup="limitInput(this,1)" />--%>
-										<input type="text" ms-duplex="hspXtzlInf.GNJCSZ" ms-keyup="limitInput(this,1)" />
+										<input type="text" ms-duplex="hspXtzlInf.GNJCSZ" data-duplex-event="change" ms-keyup="limitInputFloat(this,1)" />
 									</div>
 								</div>
 							</div>
@@ -2713,7 +2713,8 @@
 							<div class="input-group">
 								<div class="lb">确诊时间 <span class="required">*</span></div>
 								<div class="input">
-									<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.QZSJ" />
+<%--									<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.QZSJ" />--%>
+									<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="hspXtzlInf.QZSJ" />
 								</div>
 							</div>
 						</div>
@@ -2722,7 +2723,8 @@
 								<div class="lb">COVID-19</div>
 								<div class="input">
 									<div class="radio-btns">
-										<div class="btn" ms-class="{{info.COVID19==el.infocode ? 'active':''}}" ms-click="onRadioClick('COVID19',el.infocode)"
+<%--										<div class="btn" ms-class="{{info.COVID19==el.infocode ? 'active':''}}" ms-click="onRadioClick('COVID19',el.infocode)"--%>
+										<div class="btn" ms-class="{{hspXtzlInf.COVID19==el.infocode ? 'active':''}}" ms-click="onRadioClick3('COVID19',el.infocode)"
 										 ms-repeat="COVID19Arr">
 											{{el.info}}
 										</div>
@@ -2730,12 +2732,13 @@
 								</div>
 							</div>
 						</div>
-						<div class="inputs" ms-if="info.CYZD==1 || info.CYZD==2 || info.CYZD==3">
+						<div class="inputs" ms-if="hspXtzlInf.CYZD==1 || hspXtzlInf.CYZD==2 || hspXtzlInf.CYZD==3">
 							<div class="input-group">
 								<div class="lb">院内新发心力衰竭 <span class="required">*</span></div>
 								<div class="input">
 									<div class="radio-btns">
-										<div class="btn" ms-class="{{info.YNXFXLSJ==el.infocode ? 'active':''}}" ms-click="onRadioClick('YNXFXLSJ',el.infocode)"
+<%--										<div class="btn" ms-class="{{info.YNXFXLSJ==el.infocode ? 'active':''}}" ms-click="onRadioClick('YNXFXLSJ',el.infocode)"--%>
+										<div class="btn" ms-class="{{hspXtzlInf.YNXFXLSJ==el.infocode ? 'active':''}}" ms-click="onRadioClick3('YNXFXLSJ',el.infocode)"
 										 ms-repeat="RADIOArr">
 											{{el.info}}
 										</div>
@@ -2743,36 +2746,43 @@
 								</div>
 							</div>
 						</div>
-						<div class="inputs" ms-if="info.CYZD==1 || info.CYZD==2 || info.CYZD==3">
+<%--						<div class="inputs" ms-if="info.CYZD==1 || info.CYZD==2 || info.CYZD==3">--%>
+						<div class="inputs" ms-if="hspXtzlInf.CYZD==1 || hspXtzlInf.CYZD==2 || hspXtzlInf.CYZD==3">
 							<div class="input-group">
 								<div class="lb">ARNI<span class="required">*</span></div>
 								<div class="input">
 									<div class="radio-btns">
-										<div class="btn" ms-class="{{info.SFARNI==el.infocode ? 'active':''}}" ms-click="onRadioClick('SFARNI',el.infocode)"
+<%--										<div class="btn" ms-class="{{info.SFARNI==el.infocode ? 'active':''}}" ms-click="onRadioClick('SFARNI',el.infocode)"--%>
+										<div class="btn" ms-class="{{hspXtzlInf.SFARNI==el.infocode ? 'active':''}}" ms-click="onRadioClick3('SFARNI',el.infocode)"
 										 ms-repeat="RADIOArr">
 											{{el.info}}
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="input-group" ms-if="info.SFARNI == 1">
+<%--							<div class="input-group" ms-if="info.SFARNI == 1">--%>
+							<div class="input-group" ms-if="hspXtzlInf.SFARNI == 1">
 								<div class="lb">服用频次<span class="required">*</span></div>
 								<div class="input">
-									<select name="" ms-duplex="info.ARNI">
+<%--									<select name="" ms-duplex="info.ARNI">--%>
+									<select name="" ms-duplex="hspXtzlInf.ARNI">
 										<option value="">请选择</option>
 										<option ms-repeat="ARNIPCArr" ms-attr-value="el.infocode">{{el.info}}</option>
 									</select>
 								</div>
 							</div>
-							<div class="input-group" ms-if="info.SFARNI == 1">
+<%--							<div class="input-group" ms-if="info.SFARNI == 1">--%>
+							<div class="input-group" ms-if="hspXtzlInf.SFARNI == 1">
 								<div class="lb">单次剂量<span class="required">*</span></div>
 								<div class="input">
-									<input type="text" ms-duplex-string="info.ARNIDCJL" ms-keyup="NumberInput(this)" maxlength="8" />
+<%--									<input type="text" ms-duplex-string="info.ARNIDCJL" ms-keyup="NumberInput(this)" maxlength="8" />--%>
+									<input type="text" ms-duplex-string="hspXtzlInf.ARNIDCJL" ms-keyup="NumberInput(this)" maxlength="8" />
 									<div class="unit">mg</div>
 								</div>
 							</div>
 						</div>
-						<div class="inputs" ms-if="info.CYZD==1 || info.CYZD==2 || info.CYZD==3">
+<%--						<div class="inputs" ms-if="info.CYZD==1 || info.CYZD==2 || info.CYZD==3">--%>
+						<div class="inputs" ms-if="hspXtzlInf.CYZD==1 || hspXtzlInf.CYZD==2 || hspXtzlInf.CYZD==3">
 							<div class="input-group">
 								<div class="lb">住院期间并发症 <span class="required">*</span></div>
 								<div class="input">
@@ -2785,7 +2795,8 @@
 								</div>
 							</div>
 						</div>
-						<div ms-if="info.CYZD==1 || info.CYZD==2 || info.CYZD==3">
+<%--						<div ms-if="info.CYZD==1 || info.CYZD==2 || info.CYZD==3">--%>
+						<div ms-if="hspXtzlInf.CYZD==1 || hspXtzlInf.CYZD==2 || hspXtzlInf.CYZD==3">
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb lb_check">危险因素 <span class="required">*</span></div>
@@ -2804,7 +2815,8 @@
 									<div class="lb">吸烟状态 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.XYZT==el.infocode ? 'active':''}}" ms-click="onRadioClick('XYZT',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.XYZT==el.infocode ? 'active':''}}" ms-click="onRadioClick('XYZT',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.XYZT==el.infocode ? 'active':''}}" ms-click="onRadioClick3('XYZT',el.infocode)"
 											 ms-repeat="XYZTArr">
 												{{el.info}}
 											</div>
@@ -2813,7 +2825,8 @@
 								</div>
 							</div>
 						</div>
-						<div ms-if="info.CYZD==1 || info.CYZD==2 || info.CYZD==3">
+<%--						<div ms-if="info.CYZD==1 || info.CYZD==2 || info.CYZD==3">--%>
+						<div ms-if="hspXtzlInf.CYZD==1 || hspXtzlInf.CYZD==2 || hspXtzlInf.CYZD==3">
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb lb_check">合并疾病 <span class="required">*</span></div>
@@ -2831,7 +2844,8 @@
 									<div class="lb">血运重建史 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.XYCJS==el.infocode ? 'active':''}}" ms-click="onRadioClick('XYCJS',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.XYCJS==el.infocode ? 'active':''}}" ms-click="onRadioClick('XYCJS',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.XYCJS==el.infocode ? 'active':''}}" ms-click="onRadioClick3('XYCJS',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
@@ -2844,7 +2858,8 @@
 									<div class="lb">分型 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.XFCDFX==el.infocode ? 'active':''}}" ms-click="onRadioClick('XFCDFX',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.XFCDFX==el.infocode ? 'active':''}}" ms-click="onRadioClick('XFCDFX',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.XFCDFX==el.infocode ? 'active':''}}" ms-click="onRadioClick3('XFCDFX',el.infocode)"
 											 ms-repeat="XFCDFXArr">
 												{{el.info}}
 											</div>
@@ -2857,7 +2872,8 @@
 									<div class="lb">NYHA分级 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.ZGNYHA==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZGNYHA',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.ZGNYHA==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZGNYHA',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.ZGNYHA==el.infocode ? 'active':''}}" ms-click="onRadioClick3('ZGNYHA',el.infocode)"
 											 ms-repeat="ZGNYHAArr">
 												{{el.info}}
 											</div>
@@ -2870,7 +2886,8 @@
 									<div class="lb">描述 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.NXGJBMS==el.infocode ? 'active':''}}" ms-click="onRadioClick('NXGJBMS',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.NXGJBMS==el.infocode ? 'active':''}}" ms-click="onRadioClick('NXGJBMS',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.NXGJBMS==el.infocode ? 'active':''}}" ms-click="onRadioClick3('NXGJBMS',el.infocode)"
 											 ms-repeat="NXGJBMSArr">
 												{{el.info}}
 											</div>
@@ -3801,7 +3818,23 @@
 
 				/*cpctreat -- 出院信息*/
 				CYZD: '',    //出院诊断
-				ZGFACSXYXXTLX: '',
+				ZGFACSXYXXTLX: '',    //非ACS心源性胸痛类型
+				ZGQTFXYXXTLX: '',    //其它非心源性胸痛类型
+				QZSJ: '',    //确诊时间
+				COVID19: '',    //确诊时间
+				YNXFXLSJ: '',    //院内新发心力衰竭
+				SFARNI: '',    //是否ARNI
+				ARNI: '',      //ARNI频次
+				ARNIDCJL: '',    //ARNI单次剂量
+				ZYQJBFZ: '',    //住院期间并发症
+				XXGJBWXYS: '',    //心血管疾病危险因素
+				XYZT: '',    //吸烟状态
+				HEBZ: '',    //合并疾病
+				XYCJS: '',    //血运重建史
+				XFCDFX: '',    //心房颤动分型
+				ZGNYHA: '',    //NYHA分级
+				NXGJBMS: '',    //脑血管疾病描述
+
 
 			},
 
@@ -4379,6 +4412,22 @@
 					}
 				}
 			},
+			//限制大小 保留两位小数的浮点数
+			limitInputFloat: function (obj, max) {
+
+				obj.value = obj.value.replace(/[^\d.]/g, ""); //清除“数字”和“.”以外的字符
+				obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
+				// obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+				obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
+				var data = parseFloat(obj.value);
+				if (data != "") {
+					if (data > max) {
+						alert('数值不能超过' + max);
+						obj.value = '';
+						return;
+					}
+				}
+			},
 			//数值
 			NumberInput: function(obj) {
 				obj.value = obj.value.replace(/[^\d.]/g, ""); //清除“数字”和“.”以外的字符
@@ -4446,17 +4495,6 @@
 			},
 
 			//监听多选点击事件
-			// onCheckClick: function(prop, code) {
-			// 	var list = vm[prop + 'Sel'];
-			// 	if (list.indexOf(code) > -1) {
-			// 		list.splice(list.indexOf(code), 1);
-			// 	} else {
-			// 		list.push(code)
-			// 	}
-			// 	vm[prop + 'Sel'] = list;
-			// 	vm.info[prop] = list.join(',');
-			// 	console.log(vm.info[prop]);
-			// },
 			onCheckClick: function(prop, code) {
 				var list = vm[prop + 'Sel'];
 				if (list.indexOf(code) > -1) {
@@ -4465,10 +4503,9 @@
 					list.push(code)
 				}
 				vm[prop + 'Sel'] = list;
+				// vm.info[prop] = list.join(',');
 				vm.hspXtzlInf[prop] = list.join(',');
-				console.log(vm.hspXtzlInf[prop]);
 			},
-
 
 			// 点击无 选中状态全部为未选中状态
 			onSelectClick: function(prop, code) {
@@ -4491,7 +4528,8 @@
 					list.push(code)
 				}
 				vm[prop + 'Sel'] = list;
-				vm.info[prop] = list.join(',');
+				// vm.info[prop] = list.join(',');
+				vm.hspXtzlInf[prop] = list.join(',');
 			},
 			
 			//影像学检查点击未做

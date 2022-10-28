@@ -665,7 +665,7 @@ public class XtServiceImpl implements XtService{
 		   *   导丝通过时间是否是最小值，如果是的话，推送消息给页面
 		 */
 		String emgSeq = hspCrivelInf.getEmgSeq();
-		
+
 		// 入参的导丝通过时间
 		Date argDstgsj = hspCrivelInf.getDstgsj();
 		boolean isMinDstgsj = false;
@@ -706,8 +706,7 @@ public class XtServiceImpl implements XtService{
 				}
 			}
 		}
-		
-		
+
 		int ret = hspCrivelInfMapper.updateByPrimaryKeySelective(hspCrivelInf);
 		
 		if (ret == 1) {
@@ -715,25 +714,52 @@ public class XtServiceImpl implements XtService{
 			
 			if(isMinDstgsj) {
 				// 更新D2W 时间
-			
-				HspemginfCustom hspemginfCustomArg = new HspemginfCustom();
-				hspemginfCustomArg.setEmgSeq(emgSeq);
-				HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(emgSeq);
-				Date emgDat = hspEmgInf.getEmgDat();
-				
-				HspXtzlInfCustom hspXtzlInfCustom = new HspXtzlInfCustom();
-				hspXtzlInfCustom.setCrtUser(activeUser.getUsrno());
-				hspXtzlInfCustom.setModUser(activeUser.getUsrno());
-				hspXtzlInfCustom.setEmgNo(emgSeq);
-				hspXtzlInfCustom.setProCode(ProCodeDef.D2WSJ);
-				String d2wsj = DateUtil.getDateDiff_Minute(emgDat,argDstgsj).toString();
-				hspXtzlInfCustom.setProVal(d2wsj);
-				hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
-				
-				Map<String,Object> sysdata = new HashMap<>();
-				sysdata.put("dstgsj", argDstgsj);
-				sysdata.put("d2wsj", d2wsj);
-				resultInfo.setSysdata(sysdata);
+
+				HspXtzlInfExample hspXtzlInfExample = new HspXtzlInfExample();
+				hspXtzlInfExample.createCriteria().andEmgNoEqualTo(emgSeq);
+				List<HspXtzlInf> hspXtzlInfs = hspXtzlInfMapper.selectByExample(hspXtzlInfExample);
+				Map<String, String> mapXtzlInf = new HashMap();
+				Date emgDat = new Date();
+				emgDat = null;
+				for(HspXtzlInf node : hspXtzlInfs){
+					mapXtzlInf.put(node.getProCode(), node.getProVal());
+				}
+				//根据到达方式不同来区分时间
+				if(!StringUtils.isEmpty(mapXtzlInf.get("DYFS"))){
+					if("1".equals(mapXtzlInf.get("DYFS"))){
+						emgDat = DateUtil.parseDate(mapXtzlInf.get("DDYYDMSJ01"), "yyyy-MM-dd HH:mm");
+					}
+					if("2".equals(mapXtzlInf.get("DYFS"))){
+						emgDat = DateUtil.parseDate(mapXtzlInf.get("DDYYDMSJ02"), "yyyy-MM-dd HH:mm");
+					}
+					if("3".equals(mapXtzlInf.get("DYFS"))){
+						emgDat = DateUtil.parseDate(mapXtzlInf.get("DDYYDMSJ03"), "yyyy-MM-dd HH:mm");
+					}
+					if("4".equals(mapXtzlInf.get("DYFS"))){
+						emgDat = DateUtil.parseDate(mapXtzlInf.get("SCYLJCSJ"), "yyyy-MM-dd HH:mm");
+					}
+				}
+
+//				HspemginfCustom hspemginfCustomArg = new HspemginfCustom();
+//				hspemginfCustomArg.setEmgSeq(emgSeq);
+//				HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(emgSeq);
+//				Date emgDat = hspEmgInf.getEmgDat();
+//
+				if(emgDat != null){
+					HspXtzlInfCustom hspXtzlInfCustom = new HspXtzlInfCustom();
+					hspXtzlInfCustom.setCrtUser(activeUser.getUsrno());
+					hspXtzlInfCustom.setModUser(activeUser.getUsrno());
+					hspXtzlInfCustom.setEmgNo(emgSeq);
+					hspXtzlInfCustom.setProCode(ProCodeDef.D2WSJ);
+					String d2wsj = DateUtil.getDateDiff_Minute(emgDat,argDstgsj).toString();
+					hspXtzlInfCustom.setProVal(d2wsj);
+					hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+
+					Map<String,Object> sysdata = new HashMap<>();
+					sysdata.put("dstgsj", argDstgsj);
+					sysdata.put("d2wsj", d2wsj);
+					resultInfo.setSysdata(sysdata);
+				}
 			}
 		} else {
 			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 900, null);
