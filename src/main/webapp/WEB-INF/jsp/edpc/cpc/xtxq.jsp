@@ -3536,6 +3536,7 @@
 				</div>
 			</div>
 			<div class="save-btn" onclick="commit()">保存</div>
+		</div>
 	</body>
 	<script type="text/javascript">
 		var _emgSeq = "${emgSeq}";
@@ -3546,6 +3547,7 @@
 		var vm = avalon.define({
 			$id: 'report',
 			activeTab: 0,
+			count: 0,
 			baseInfo: {
 				regSeq: _regSeq,  //登记注册序列号
 				cstNam: '', //患者姓名
@@ -4978,38 +4980,43 @@
 			vm.hspXtzlInf.FBDZ03 = '';
 		});
 		//保存
-		function commit() {
-			var count = 0;
-			count += commitBaseInfo();
-			count += commitXtzlInfo();
-			count += commitEcgInfo();
-			if(count===3){
-				parent.publicFun.alert("保存成功");
-			}
-		}
-
+		var commit =  publicFun.debounce(function (){
+			vm.count = 0
+			parent.publicFun.ajaxLoading('保存中 请稍等。。。')
+			commitBaseInfo();
+			commitXtzlInfo();
+			commitEcgInfo();
+		},500)
+		// function commit() {
+		// 	return console.log(13)
+		// 	var count = 0;
+		// 	count += commitBaseInfo();
+		// 	count += commitXtzlInfo();
+		// 	count += commitEcgInfo();
+		// 	if(count===3){
+		// 		parent.publicFun.alert("保存成功");
+		// 	}
+		// }
 		//提交基本信息
 		function commitBaseInfo(){
-			var count = 0;
 			$.ajax({
 				url: '${baseurl}cpc/xtPatietBasicInfSubmit.do',
 				type: 'post',
 				dataType: 'json',
-				async: false,
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify(vm.baseInfo),
-				success: function() {
-					count++
+				success: function(res) {
+					if (res.resultInfo.success) {
+						vm.count++
+					}
 				},
 			});
-			return count;
 		}
 
 		//提交表单信息
 		function commitXtzlInfo(){
 			// console.log("@@@@@@@@@", vm.info);
 			var list = [];
-			var count = 0;
 			for (var prop in vm.info) {
 				if (vm.info.hasOwnProperty(prop)) {
 					if (prop == 'GMZY01' || prop == 'GMZY02' || prop == 'GMZY03' || prop == 'GMZY04' || prop == 'GMZY05' || prop ==
@@ -5036,28 +5043,32 @@
 				url: '${baseurl}cpc/xtPatietSubmit.do',
 				type: 'post',
 				dataType: 'json',
-				async: false,
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
 					emgSeq: _emgSeq,
 					xtzlInfs: list,
 				}),
-				success: function() {
-					count++;
+				success: function(res) {
+					parent.publicFun.ajaxLoadEnd()
+					if (res.resultInfo.success) {
+						vm.count++
+					}
+					if (vm.count === 3) {
+						parent.publicFun.successalert("保存成功");
+					}else {
+						parent.publicFun.alert("保存失败");
+					}
 				},
 			});
-			return count;
 		}
 		//提交心电图信息
 		function commitEcgInfo(){
-			var count = 0;
 			var timestampFileDate = moment(vm.hspEcgInf.fileDate).valueOf();
 			var timestampFileDiaDate = moment(vm.hspEcgInf.fileDiaDate).valueOf();
 			$.ajax({
 				url: '${baseurl}cpc/addOrUpdateEcgInf.do',
 				type: 'post',
 				dataType: 'json',
-				async: false,
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
 					fileDate: timestampFileDate,
@@ -5066,11 +5077,12 @@
 					filePath: vm.hspEcgInf.filePath,
 					refId: vm.hspEcgInf.refId,
 				}),
-				success: function() {
-					count++
+				success: function(res) {
+					if (res.resultInfo.success) {
+						vm.count++
+					}
 				},
 			});
-			return count;
 		}
 	
 		

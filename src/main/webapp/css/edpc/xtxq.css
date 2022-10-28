@@ -313,6 +313,7 @@ h4 .ranking_time{
     border-radius: 5px;
     background: #0d478f;
     color: #ffffff;
+    cursor: pointer;
 }
 .treatment .block .listStyle{
 	width:40%;

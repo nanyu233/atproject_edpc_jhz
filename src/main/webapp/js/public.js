@@ -62,6 +62,9 @@ var publicFun = {
 	alert : function(msg) {
 		$.messager.alert("提示信息", msg, "warning");
 	},
+	successalert : function(msg) {
+		$.messager.alert("提示信息", msg, "success");
+	},
 	handleTimeNum : function(_num) {
 		var returnNum;
 		returnNum = _num > 9 ? _num.toString() : "0" + _num;
@@ -185,6 +188,27 @@ var publicFun = {
 			return false
 		}
 	},
+	// 防抖
+	debounce: function (fn,delay) {
+		var timer
+		return function () {
+			var that = this
+			if (timer) {
+				clearTimeout(timer)
+			}
+			timer = setTimeout(function () {
+              fn.call(that)
+			},delay)
+		}
+	},
+	ajaxLoading: function(msg) {
+		$("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$(window).height()}).appendTo("body");
+		$("<div class=\"datagrid-mask-msg\"></div>").html(msg).appendTo("body").css({display:"block",left:($(document.body).outerWidth(true) - 190) / 2,top:($(window).height - 200) / 2});
+	},
+	ajaxLoadEnd: function (){
+	    $(".datagrid-mask").remove();
+	    $(".datagrid-mask-msg").remove();
+    },
 	/**
 	 * @@httpServer 封装的http服务
 	 * @param  {object}     baseParam   url type timeout isAsync requestDataType returnType isNoLoad crossMsg[是否cors跨域]
