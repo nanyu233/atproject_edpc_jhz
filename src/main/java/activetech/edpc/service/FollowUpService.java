@@ -10,14 +10,7 @@ import activetech.edpc.pojo.domain.HspFuvGrpInf;
 import activetech.edpc.pojo.domain.HspFuvPln;
 import activetech.edpc.pojo.domain.HspPatInf;
 import activetech.edpc.pojo.domain.HspXtzlInf;
-import activetech.edpc.pojo.dto.HspFuvInfCustom;
-import activetech.edpc.pojo.dto.HspFuvInfQueryDto;
-import activetech.edpc.pojo.dto.HspFuvPatCustom;
-import activetech.edpc.pojo.dto.HspFuvPatQueryDto;
-import activetech.edpc.pojo.dto.HspFuvPlnCustom;
-import activetech.edpc.pojo.dto.HspFuvPlnQueryDto;
-import activetech.edpc.pojo.dto.HspPatInfCustom;
-import activetech.edpc.pojo.dto.HspPatInfQueryDto;
+import activetech.edpc.pojo.dto.*;
 
 public interface FollowUpService {	
 
@@ -27,6 +20,7 @@ public interface FollowUpService {
 	 * @return
 	 */
 	List<HspPatInfCustom> queryfuvResult(HspPatInfQueryDto hspPatInfQueryDto);
+	List<HspDbzlBasCustom> selectHspDbzlBasPatient(String patTyp);
 	public int queryCountfuvResult(HspPatInfQueryDto hspPatInfQueryDto);   
       
 	/**
@@ -49,7 +43,9 @@ public interface FollowUpService {
 	 * @param hspPatInfQueryDto
 	 * @return
 	 */
-	List<HspFuvPatCustom> queryfuvResult(HspFuvPatQueryDto hspFuvPatQueryDto);
+	List<HspFuvPatCustom> queryfuvResultXt(HspFuvPatQueryDto hspFuvPatQueryDto);
+	List<HspFuvPatCustom> queryfuvResultCz(HspFuvPatQueryDto hspFuvPatQueryDto);
+	List<HspFuvPatCustom> queryfuvResultCs(HspFuvPatQueryDto hspFuvPatQueryDto);
 	public int queryCountfuvResult(HspFuvPatQueryDto hspFuvPatQueryDto);
 
 	HspFuvPatCustom selectOneByCondition(HspFuvPatQueryDto hspFuvPatQueryDto);
@@ -81,5 +77,5 @@ public interface FollowUpService {
 	
 	void submitFuvPat(HspFuvPatQueryDto hspFuvPatQueryDto, ActiveUser activeUser) throws Exception;
 	Integer checkUnFinishPln(HspFuvPlnQueryDto hspFuvPlnQueryDto);
-	
+	int queryCountfuvResult(String patTyp);
 }

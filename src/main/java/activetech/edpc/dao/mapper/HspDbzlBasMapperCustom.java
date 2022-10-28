@@ -1,6 +1,9 @@
 package activetech.edpc.dao.mapper;
 
+import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
+
+import java.util.List;
 
 public interface HspDbzlBasMapperCustom {
     /**
@@ -8,5 +11,11 @@ public interface HspDbzlBasMapperCustom {
      * @param hspDbzlBasQueryDto
      */
     public void updateHspDbzlBasByRegSeq(HspDbzlBasQueryDto hspDbzlBasQueryDto);
+
+    public List<HspDbzlBasCustom> selectHspDbzlBasPatient(String patTyp);
+
+    int countByCondition(String hspPatInfQueryDto);
+
+
 
 }

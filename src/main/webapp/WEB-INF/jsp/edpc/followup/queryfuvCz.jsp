@@ -198,7 +198,7 @@
 	
   //新增
     function cmdadd() {
-      createmodalwindow("新增患者", 750, 500, '${baseurl}followup/addfuv.do', 'no');
+      createmodalwindow("新增患者", 750, 500, '${baseurl}followup/addfuvCz.do', 'no');
     }
   //新增创建计划
     function cmdaddpln() {
@@ -255,7 +255,7 @@
 			$('.datagrid-wrap').height(h3)
 		}
         $('#dg').datagrid({
-            url: 'followup/queryfuv_result.do',
+            url: 'followup/queryfuv_resultCz.do',
             queryParams: {
                 'czfFlg': vm.condition.czfFlg,
                 'csfFlg': vm.condition.csfFlg,

@@ -134,7 +134,7 @@
     </div>
     <div class="row">
         <div class="form-item">
-            <input type="text" placeholder="请输入患者编号|姓名|联系方式|证件号码" ms-duplex-string="hspPatInfCustom.mpi" style="width:300px;"/>
+            <input type="text" placeholder="请输入患者编号|姓名|联系方式|证件号码" ms-duplex-string="hspDbzlBasCustom.mpi" style="width:300px;"/>
         </div>
     </div>
 </div>
@@ -150,14 +150,14 @@
 	var height = $('#container').height();
     var vm = avalon.define({
         $id: 'list',
-        hspPatInfCustom:{
+        hspDbzlBasCustom:{
         	mpi: '',//患者编号|姓名|联系方式|证件号码
         }
     });
 
     function search() {
         var queryParams = $('#dg').datagrid('options').queryParams;
-        queryParams['hspPatInfCustom.mpi'] = vm.hspPatInfCustom.mpi;
+        queryParams['hspDbzlBasCustom.mpi'] = vm.hspDbzlBasCustom.mpi;
         $("#dg").datagrid('reload');
     }   
 
@@ -185,9 +185,9 @@
 		$("#dg").height(h3);
 		$('.datagrid-wrap').height(h3);
         $('#dg').datagrid({
-        	url: 'followup/querypat_result.do',
+        	url: 'followup/querypat_resultByType.do',
           queryParams: {
-              'hspPatInfCustom.mpi':vm.hspPatInfCustom.mpi
+              'patTyp': '3'
           },
             striped: true,
             singleSelect: true,
@@ -196,12 +196,12 @@
             pageList: [20, 30, 50],
             columns: [ [
             	{
-					field : 'patId',	
+					field : 'regSeq',
 					title : '患者编号',
 					width : setWidth(0.15)
 				},
 				{
-					field : 'patNam',	
+					field : 'cstNam',
 					title : '患者姓名',
 					width : setWidth(0.10)
 				},
@@ -235,47 +235,61 @@
 					width: setWidth(0.18),
 				},
 				{
-					field : 'lnkNbr',
+					field : 'pheNbr',
 					title : '联系电话',
 					width : setWidth(0.10),
-				},
-				{
-					field : 'xt',
-					title : '胸痛',
-					width : setWidth(0.08),
-				},
-				{
-					field : 'cz',
-					title : '卒中',
-					width : setWidth(0.08),
-				},
-				{
-					field : 'cs',
-					title : '创伤',
-					width : setWidth(0.08),
-				}
+				},{
+                    field : 'nation',
+                    title : '民族',
+                    width : setWidth(0.10),
+                },{
+                    field : 'marStaCod',
+                    title : '婚姻状况',
+                    width : setWidth(0.10),
+                },
+                {
+                    field : 'emgJob',
+                    title : '职业',
+                    width : setWidth(0.10),
+                }
+				// {
+				// 	field : 'xt',
+				// 	title : '胸痛',
+				// 	width : setWidth(0.08),
+				// },
+				// {
+				// 	field : 'cz',
+				// 	title : '卒中',
+				// 	width : setWidth(0.08),
+				// },
+				// {
+				// 	field : 'cs',
+				// 	title : '创伤',
+				// 	width : setWidth(0.08),
+				// }
 			]]
         });
     });
     
     function addFuvPat(){
     	var checkData = $('#dg').datagrid('getSelected');
+    	console.log(checkData,333)
+        // var btnDat = publicFun.timeFormat(new Date(checkData.bthDat), 'yyyy/MM/dd')
+        // var btnDatE = publicFun.calculateAge(btnDat)
 	    if (checkData) {
-		    publicFun.httpServ('post', '${baseurl}followup/submitFuvPat.do', 
-						   {'hspFuvPatCustom.patId' :     checkData.patId,
-						    'hspFuvPatCustom.patNam' :    checkData.patNam,
+		    publicFun.httpServ('post', '${baseurl}followup/submitFuvPat.do',
+						   {'hspFuvPatCustom.patId' :     checkData.regSeq,
+						    'hspFuvPatCustom.patNam' :    checkData.cstNam,
 						    'hspFuvPatCustom.cstSexCod' : checkData.cstSexCod,
 						    'hspFuvPatCustom.bthDat' :    checkData.bthDat,
-						    'hspFuvPatCustom.lnkNbr' :    checkData.lnkNbr,
-						    'hspFuvPatCustom.patNatCod' : checkData.patNatCod,
+						    'hspFuvPatCustom.lnkNbr' :    checkData.pheNbr,
+						    'hspFuvPatCustom.patNatCod' : checkData.nation,
 						    'hspFuvPatCustom.marStaCod' : checkData.marStaCod,
-						    'hspFuvPatCustom.patJob' :    checkData.patJob,
+						    'hspFuvPatCustom.patJob' :    checkData.emgJob,
 						    'hspFuvPatCustom.idNbr' :     checkData.idNbr,
-						    'hspFuvPatCustom.patAdr' :    checkData.patAdr,
-						    'hspFuvPatCustom.patTel' :    checkData.patTel,
-						    'hspFuvPatCustom.xtfFlg' :    checkData.xtfFlg,
-						    'hspFuvPatCustom.czfFlg' :    checkData.czfFlg,
-						    'hspFuvPatCustom.csfFlg' :    checkData.csfFlg
+						    // 'hspFuvPatCustom.patAdr' :    checkData.cstAdr,
+						    // 'hspFuvPatCustom.patTel' :    checkData.patTel
+						    'hspFuvPatCustom.csfFlg' :    '1'
 						   },
 						   function(res) {
 						   		message_alert(res);

@@ -95,15 +95,39 @@
         <include refid="condition"/>
   </select>
   
-  <select id="selectByCondition" resultType="activetech.edpc.pojo.dto.HspFuvPatCustom"
+  <select id="selectByConditionXt" resultType="activetech.edpc.pojo.dto.HspFuvPatCustom"
       parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto" >
     <include refid="activetech.base.CommonSql.page_start"/>
       select <include refid="Base_Column_With_Translate_List"/>
         from hsp_fuv_pat a
+        where
+          a.xtf_flg = 1
     <include refid="condition"/>
     order by a.pat_id desc
     <include refid="activetech.base.CommonSql.page_end"/>
   </select>
+    <select id="selectByConditionCz" resultType="activetech.edpc.pojo.dto.HspFuvPatCustom"
+            parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto" >
+        <include refid="activetech.base.CommonSql.page_start"/>
+        select <include refid="Base_Column_With_Translate_List"/>
+        from hsp_fuv_pat a
+        where
+        a.czf_flg = 1
+        <include refid="condition"/>
+        order by a.pat_id desc
+        <include refid="activetech.base.CommonSql.page_end"/>
+    </select>
+    <select id="selectByConditionCs" resultType="activetech.edpc.pojo.dto.HspFuvPatCustom"
+            parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto" >
+        <include refid="activetech.base.CommonSql.page_start"/>
+        select <include refid="Base_Column_With_Translate_List"/>
+        from hsp_fuv_pat a
+        where
+        a.csf_flg = 1
+        <include refid="condition"/>
+        order by a.pat_id desc
+        <include refid="activetech.base.CommonSql.page_end"/>
+    </select>
   
   <select id="selectOneByCondition" resultType="activetech.edpc.pojo.dto.HspFuvPatCustom"
       parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto" >

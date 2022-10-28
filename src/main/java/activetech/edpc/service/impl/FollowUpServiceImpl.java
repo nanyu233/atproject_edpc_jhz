@@ -7,8 +7,9 @@ import java.util.List;
 
 
 import activetech.base.pojo.dto.ActiveUser;
-import activetech.edpc.pojo.dto.HspPatInfCustom;
-import activetech.edpc.pojo.dto.HspPatInfQueryDto;
+import activetech.edpc.dao.mapper.*;
+import activetech.edpc.pojo.domain.*;
+import activetech.edpc.pojo.dto.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,32 +17,6 @@ import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.service.SystemConfigService;
-import activetech.edpc.dao.mapper.HspFuvDocInfMapper;
-import activetech.edpc.dao.mapper.HspFuvGrpInfMapper;
-import activetech.edpc.dao.mapper.HspFuvInfMapper;
-import activetech.edpc.dao.mapper.HspFuvInfMapperCustom;
-import activetech.edpc.dao.mapper.HspFuvMedInfMapper;
-import activetech.edpc.dao.mapper.HspFuvPatMapper;
-import activetech.edpc.dao.mapper.HspFuvPatMapperCustom;
-import activetech.edpc.dao.mapper.HspFuvPlnMapper;
-import activetech.edpc.dao.mapper.HspFuvPlnMapperCustom;
-import activetech.edpc.dao.mapper.HspPatInfMapperCustom;
-import activetech.edpc.pojo.domain.HspFuvDocInf;
-import activetech.edpc.pojo.domain.HspFuvDocInfExample;
-import activetech.edpc.pojo.domain.HspFuvGrpInf;
-import activetech.edpc.pojo.domain.HspFuvGrpInfExample;
-import activetech.edpc.pojo.domain.HspFuvInfExample;
-import activetech.edpc.pojo.domain.HspFuvMedInf;
-import activetech.edpc.pojo.domain.HspFuvMedInfExample;
-import activetech.edpc.pojo.domain.HspFuvPat;
-import activetech.edpc.pojo.domain.HspFuvPln;
-import activetech.edpc.pojo.domain.HspFuvPlnExample;
-import activetech.edpc.pojo.dto.HspFuvInfCustom;
-import activetech.edpc.pojo.dto.HspFuvInfQueryDto;
-import activetech.edpc.pojo.dto.HspFuvPatCustom;
-import activetech.edpc.pojo.dto.HspFuvPatQueryDto;
-import activetech.edpc.pojo.dto.HspFuvPlnCustom;
-import activetech.edpc.pojo.dto.HspFuvPlnQueryDto;
 import activetech.edpc.service.FollowUpService;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
@@ -79,6 +54,12 @@ public class FollowUpServiceImpl implements FollowUpService {
 	
 	@Autowired
 	private HspFuvGrpInfMapper hspFuvGrpInfMapper;
+
+	@Autowired
+	private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
+
+	@Autowired
+	private HspDbzlBasMapper hspDbzlBasMapper;
 	
 	@Override
 	public int queryCountfuvResult(HspPatInfQueryDto hspPatInfQueryDto) {
@@ -91,6 +72,13 @@ public class FollowUpServiceImpl implements FollowUpService {
 	@Override
 	public List<HspPatInfCustom> queryfuvResult(HspPatInfQueryDto hspPatInfQueryDto) {
 		return hspPatInfMapperCustom.selectByCondition(hspPatInfQueryDto);
+	}
+	/**
+	 * 随访患者列表(改
+	 */
+	@Override
+	public List<HspDbzlBasCustom> selectHspDbzlBasPatient(String patTyp) {
+		return hspDbzlBasMapperCustom.selectHspDbzlBasPatient(patTyp);
 	}
 	
 	@Override
@@ -223,9 +211,18 @@ public class FollowUpServiceImpl implements FollowUpService {
 	}
 
 	@Override
-	public List<HspFuvPatCustom> queryfuvResult(HspFuvPatQueryDto hspFuvPatQueryDto) {
-		return hspFuvPatMapperCustom.selectByCondition(hspFuvPatQueryDto);
+	public List<HspFuvPatCustom> queryfuvResultXt(HspFuvPatQueryDto hspFuvPatQueryDto) {
+		return hspFuvPatMapperCustom.selectByConditionXt(hspFuvPatQueryDto);
 	}
+	@Override
+	public List<HspFuvPatCustom> queryfuvResultCz(HspFuvPatQueryDto hspFuvPatQueryDto) {
+		return hspFuvPatMapperCustom.selectByConditionCz(hspFuvPatQueryDto);
+	}
+	@Override
+	public List<HspFuvPatCustom> queryfuvResultCs(HspFuvPatQueryDto hspFuvPatQueryDto) {
+		return hspFuvPatMapperCustom.selectByConditionCs(hspFuvPatQueryDto);
+	}
+
 	@Override
 	public int queryCountfuvResult(HspFuvPatQueryDto hspFuvPatQueryDto) {
 		return hspFuvPatMapperCustom.countByCondition(hspFuvPatQueryDto);
@@ -385,6 +382,11 @@ public class FollowUpServiceImpl implements FollowUpService {
 	@Override
 	public Integer checkUnFinishPln(HspFuvPlnQueryDto hspFuvPlnQueryDto) {
 		return hspFuvPlnMapperCustom.checkUnFinishPln(hspFuvPlnQueryDto);
+	}
+
+	@Override
+	public int queryCountfuvResult(String patTyp) {
+		return hspDbzlBasMapperCustom.countByCondition(patTyp);
 	}
 
 }

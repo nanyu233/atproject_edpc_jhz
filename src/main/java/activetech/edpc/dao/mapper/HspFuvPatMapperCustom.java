@@ -19,7 +19,10 @@ public interface HspFuvPatMapperCustom {
      * 查询具体数据
      * @return
      */
-    List<HspFuvPatCustom> selectByCondition(HspFuvPatQueryDto hspFuvPatQueryDto);
+    List<HspFuvPatCustom> selectByConditionXt(HspFuvPatQueryDto hspFuvPatQueryDto);
+    List<HspFuvPatCustom> selectByConditionCz(HspFuvPatQueryDto hspFuvPatQueryDto);
+    List<HspFuvPatCustom> selectByConditionCs(HspFuvPatQueryDto hspFuvPatQueryDto);
+
     
     HspFuvPatCustom selectOneByCondition(HspFuvPatQueryDto hspFuvPatQueryDto);
 

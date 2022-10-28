@@ -6,6 +6,7 @@ import java.util.Map;
 
 import activetech.aid.pojo.dto.AidEptGrpCustom;
 import activetech.aid.service.OndutyService;
+import activetech.edpc.pojo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,14 +24,6 @@ import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspFuvDocInf;
 import activetech.edpc.pojo.domain.HspFuvGrpInf;
-import activetech.edpc.pojo.dto.HspFuvInfCustom;
-import activetech.edpc.pojo.dto.HspFuvInfQueryDto;
-import activetech.edpc.pojo.dto.HspFuvPatCustom;
-import activetech.edpc.pojo.dto.HspFuvPatQueryDto;
-import activetech.edpc.pojo.dto.HspFuvPlnCustom;
-import activetech.edpc.pojo.dto.HspFuvPlnQueryDto;
-import activetech.edpc.pojo.dto.HspPatInfCustom;
-import activetech.edpc.pojo.dto.HspPatInfQueryDto;
 import activetech.edpc.service.FollowUpService;
 import activetech.util.StringUtils;
 
@@ -47,26 +40,76 @@ public class FollowUpAction {
 	/**************************hspFuvPat 随访患者**************************************/
 	
 	/**
-	 * 跳转随访信息管理列表
+	 * 跳转胸痛随访信息管理列表
 	 * @param model
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/queryfuv")
-	public String queryksjh(Model model, String moduleid) throws Exception {
+	@RequestMapping("/queryfuvXt")
+	public String queryksjhXt(Model model, String moduleid,String patTyp) throws Exception {
 		model.addAttribute("moduleid", moduleid);
-		return View.toEDPC("/followup/queryfuv");
+		model.addAttribute("patTyp", patTyp);
+		return View.toEDPC("/followup/queryfuvXt");
 	}
 	/**
-	 * 跳转随访信息管理列表
+	 * 跳转卒中随访信息管理列表
 	 * @param model
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/addfuv")
-	public String queryadd(Model model,String moduleid) throws Exception{
+	@RequestMapping("/queryfuvCz")
+	public String queryksjhCz(Model model, String moduleid,String patTyp) throws Exception {
 		model.addAttribute("moduleid", moduleid);
-		return View.toEDPC("/followup/addfuv");
+		model.addAttribute("patTyp", patTyp);
+		return View.toEDPC("/followup/queryfuvCz");
+	}
+	/**
+	 * 跳转创伤随访信息管理列表
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryfuvCs")
+	public String queryksjhCs(Model model, String moduleid,String patTyp) throws Exception {
+		model.addAttribute("moduleid", moduleid);
+		model.addAttribute("patTyp", patTyp);
+		return View.toEDPC("/followup/queryfuvCs");
+	}
+	/**
+	 * 添加跳转胸痛随访信息管理列表
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/addfuvXt")
+	public String queryaddXt(Model model,String moduleid,String patTyp) throws Exception{
+		model.addAttribute("moduleid", moduleid);
+		model.addAttribute("patTyp", patTyp);
+		return View.toEDPC("/followup/addfuvXt");
+	}
+	/**
+	 * 添加跳转卒中随访信息管理列表
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/addfuvCz")
+	public String queryaddCz(Model model,String moduleid,String patTyp) throws Exception{
+		model.addAttribute("moduleid", moduleid);
+		model.addAttribute("patTyp", patTyp);
+		return View.toEDPC("/followup/addfuvCz");
+	}
+	/**
+	 * 添加跳转创伤随访信息管理列表
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/addfuvCs")
+	public String queryaddCs(Model model,String moduleid,String patTyp) throws Exception{
+		model.addAttribute("moduleid", moduleid);
+		model.addAttribute("patTyp", patTyp);
+		return View.toEDPC("/followup/addfuvCs");
 	}
 	
 	/**
@@ -95,7 +138,23 @@ public class FollowUpAction {
 		hspPatInfQueryDto.setPageQuery(pageQuery);
 		List<HspPatInfCustom> hspPatInfCustomList = followUpService.queryfuvResult(hspPatInfQueryDto);
 		//填充rows
-		dataGridResultInfo.setRows(hspPatInfCustomList);	
+		dataGridResultInfo.setRows(hspPatInfCustomList);
+		//填充total
+		dataGridResultInfo.setTotal(total);
+		return dataGridResultInfo;
+	}
+
+	@RequestMapping("/querypat_resultByType")
+	@ResponseBody
+	public DataGridResultInfo querypat_resultByType(String patTyp) throws Exception{
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		int total = followUpService.queryCountfuvResult(patTyp);
+//		PageQuery pageQuery = new PageQuery();
+//		pageQuery.setPageParams(total, rows, page);
+//		.setPageQuery(pageQuery);
+		List<HspDbzlBasCustom> hspPatInfCustomList = followUpService.selectHspDbzlBasPatient(patTyp);
+		//填充rows
+		dataGridResultInfo.setRows(hspPatInfCustomList);
 		//填充total
 		dataGridResultInfo.setTotal(total);
 		return dataGridResultInfo;
@@ -128,9 +187,9 @@ public class FollowUpAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/queryfuv_result")
+	@RequestMapping("/queryfuv_resultXt")
 	@ResponseBody
-	public DataGridResultInfo queryfuv_result(HspFuvPatQueryDto hspFuvPatQueryDto
+	public DataGridResultInfo queryfuv_resultXt(HspFuvPatQueryDto hspFuvPatQueryDto
 			,int page,//当前页码
 			int rows//每页显示个数
 			) throws Exception{
@@ -139,9 +198,57 @@ public class FollowUpAction {
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, rows, page);
 		hspFuvPatQueryDto.setPageQuery(pageQuery);
-		List<HspFuvPatCustom> hspPatInfCustomList = followUpService.queryfuvResult(hspFuvPatQueryDto);
+		List<HspFuvPatCustom> hspPatInfCustomList = followUpService.queryfuvResultXt(hspFuvPatQueryDto);
 		//填充rows
 		dataGridResultInfo.setRows(hspPatInfCustomList);	
+		//填充total
+		dataGridResultInfo.setTotal(total);
+		return dataGridResultInfo;
+	}
+	/**
+	 * 卒中患者信息列表加载
+	 * @param hspPatInfQueryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryfuv_resultCz")
+	@ResponseBody
+	public DataGridResultInfo queryfuv_resultCz(HspFuvPatQueryDto hspFuvPatQueryDto
+			,int page,//当前页码
+											  int rows//每页显示个数
+	) throws Exception{
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		int total = followUpService.queryCountfuvResult(hspFuvPatQueryDto);
+		PageQuery pageQuery = new PageQuery();
+		pageQuery.setPageParams(total, rows, page);
+		hspFuvPatQueryDto.setPageQuery(pageQuery);
+		List<HspFuvPatCustom> hspPatInfCustomList = followUpService.queryfuvResultCz(hspFuvPatQueryDto);
+		//填充rows
+		dataGridResultInfo.setRows(hspPatInfCustomList);
+		//填充total
+		dataGridResultInfo.setTotal(total);
+		return dataGridResultInfo;
+	}
+	/**
+	 * 创伤患者信息列表加载
+	 * @param hspPatInfQueryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryfuv_resultCs")
+	@ResponseBody
+	public DataGridResultInfo queryfuv_resultCs(HspFuvPatQueryDto hspFuvPatQueryDto
+			,int page,//当前页码
+											  int rows//每页显示个数
+	) throws Exception{
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		int total = followUpService.queryCountfuvResult(hspFuvPatQueryDto);
+		PageQuery pageQuery = new PageQuery();
+		pageQuery.setPageParams(total, rows, page);
+		hspFuvPatQueryDto.setPageQuery(pageQuery);
+		List<HspFuvPatCustom> hspPatInfCustomList = followUpService.queryfuvResultCs(hspFuvPatQueryDto);
+		//填充rows
+		dataGridResultInfo.setRows(hspPatInfCustomList);
 		//填充total
 		dataGridResultInfo.setTotal(total);
 		return dataGridResultInfo;

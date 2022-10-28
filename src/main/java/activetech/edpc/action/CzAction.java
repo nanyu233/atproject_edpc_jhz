@@ -314,15 +314,4 @@ public class CzAction {
 		
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
-	/**
-	 * 跳转随访信息管理列表
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/queryfuv")
-	public String queryksjh(Model model, String moduleid) throws Exception {
-		model.addAttribute("moduleid", moduleid);
-		return View.toEDPC("/followup/queryfuv");
-	}
 }

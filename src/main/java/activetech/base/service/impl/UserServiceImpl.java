@@ -2,6 +2,7 @@ package activetech.base.service.impl;
 import java.util.*;
 
 import activetech.base.process.result.ResultInfo;
+import cn.hutool.core.date.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,7 +41,9 @@ import activetech.util.MD5;
 import activetech.util.ResourcesUtil;
 import activetech.util.StringUtils;
 import activetech.util.UUIDBuild;
-import cn.hutool.core.date.DateUtil;
+
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.cn;
+
 /**
  * 
  * <p>Title:UserServiceImpl</p>
