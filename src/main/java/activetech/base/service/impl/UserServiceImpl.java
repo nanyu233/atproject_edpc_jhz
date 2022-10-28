@@ -308,7 +308,6 @@ public class UserServiceImpl implements UserService {
 	   dstuserCustom.setUsrpass(new MD5().getMD5ofStr(ResourcesUtil.getValue(Config.SYSCONFIG, "defautpassword")));
 	   //默认不出诊
 	   dstuserCustom.setOutCall("2");
-	   dstuserCustom.setExpDat(new Date());
 	   dstuserMapper.insert(dstuserCustom);
 	       
 	}
@@ -423,6 +422,7 @@ public class UserServiceImpl implements UserService {
 		//数据操作
 		Dstuser pwd_update = this.findUserByUsrno(usrno);
 		pwd_update.setUsrpass(pwd1);
+		pwd_update.setExpDat(DateUtil.yesterday());
 		int n = dstuserMapper.updateByPrimaryKey(pwd_update);
 	}
 	/**
