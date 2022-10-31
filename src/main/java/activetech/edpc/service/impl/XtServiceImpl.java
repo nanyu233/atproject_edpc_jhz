@@ -1068,87 +1068,173 @@ public class XtServiceImpl implements XtService{
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
 	}
-/*
+
 	private static final Map<String,String>  COMP_MAP =new HashMap<String, String>();
 	//初始化对应关系 会有很多,不易维护和管理
 	static {
-		COMP_MAP.put("COMP.18.000000","jzxh");
-		COMP_MAP.put("COMP.18.000001","zyxh");
-		COMP_MAP.put("COMP.18.000002","YBLX");
-		COMP_MAP.put("COMP.18.000003","cstNam");
-		COMP_MAP.put("COMP.18.000004","cstSexCod");
-		COMP_MAP.put("COMP.18.000006","cstAge");
-		COMP_MAP.put("COMP.18.000007","FBDZ01");
-		COMP_MAP.put("COMP.18.000008","FBDZ02");
-		COMP_MAP.put("COMP.18.000009","FBDZ03");
-		COMP_MAP.put("COMP.18.000010","FBSJ");
-		COMP_MAP.put("COMP.18.000011","HJSJ");
-		COMP_MAP.put("COMP.18.000012","SCYLJCSJ");
-		COMP_MAP.put("COMP.18.000013","");//网络医院入门时间
-		COMP_MAP.put("COMP.18.000014","");//转诊出门时间：
-		COMP_MAP.put("COMP.18.000015","");//院前首份心电图时间
-		COMP_MAP.put("COMP.18.000016","");//院前首份心电图确诊时间：
-		COMP_MAP.put("COMP.18.000017","");//远程传输心电图
-		COMP_MAP.put("COMP.18.000018","");//传输时间：
-		COMP_MAP.put("COMP.18.000019","");//传输方式
-		COMP_MAP.put("COMP.18.000020","");//双联抗血小板药物给药
-		COMP_MAP.put("COMP.18.000021","");//给药时间
-		COMP_MAP.put("COMP.18.000022","");//阿司匹林
-		COMP_MAP.put("COMP.18.000023","");//替格瑞洛
-		COMP_MAP.put("COMP.18.000024",""); //氯吡格雷
-		COMP_MAP.put("COMP.18.000025","");//院前溶栓筛查
-		COMP_MAP.put("COMP.18.000026","");//是否实施院前溶栓
-		COMP_MAP.put("COMP.18.000027","");//溶栓场所
-		COMP_MAP.put("COMP.18.000028","");//院前溶栓知情同意开始时间
-		COMP_MAP.put("COMP.18.000029","");//签署知情同意时间
-		COMP_MAP.put("COMP.18.000030","");//院前溶栓开始时间
-		COMP_MAP.put("COMP.18.000031","");//院前溶栓结束时间
-		COMP_MAP.put("COMP.18.000032","");//溶栓后造影时间
-		COMP_MAP.put("COMP.18.000033","");//院前溶栓药物
-		COMP_MAP.put("COMP.18.000034","");//院前溶栓药物剂量:
-		COMP_MAP.put("COMP.18.000035","");//溶栓再通
-		COMP_MAP.put("COMP.18.000036","");//诊断：
-		COMP_MAP.put("COMP.18.000037","");//转运至 CPC
+		initCompMap(COMP_MAP);
 	}
-*/
-   //测试调用
-	public void setCompMap (Map<String,String> COMP_MAP){
-		COMP_MAP.put("COMP.18.000000","jzxh");
-		COMP_MAP.put("COMP.18.000001","zyxh");
-		COMP_MAP.put("COMP.18.000002","YBLX");
-		COMP_MAP.put("COMP.18.000003","cstNam");
-		COMP_MAP.put("COMP.18.000004","cstSexCod");
-		COMP_MAP.put("COMP.18.000006","cstAge");
-		COMP_MAP.put("COMP.18.000007","FBDZ01");
-		COMP_MAP.put("COMP.18.000008","FBDZ02");
-		COMP_MAP.put("COMP.18.000009","FBDZ03");
-		COMP_MAP.put("COMP.18.000010","FBSJ");
-		COMP_MAP.put("COMP.18.000011","HJSJ");
-		COMP_MAP.put("COMP.18.000012","SCYLJCSJ");
-		COMP_MAP.put("COMP.18.000013","ZCYYRMSJ");
-		COMP_MAP.put("COMP.18.000014","ZCYJCMSJ");
-		COMP_MAP.put("COMP.18.000015","fileDateYq");
-		COMP_MAP.put("COMP.18.000016","fileDiaDateYq");
-		COMP_MAP.put("COMP.18.000017","YCXDTCS");
-		COMP_MAP.put("COMP.18.000018","fileTrsDateYq");
-		COMP_MAP.put("COMP.18.000019","CSFS");
-		COMP_MAP.put("COMP.18.000020","KXXBZL");
-		COMP_MAP.put("COMP.18.000021","ASPLSJ");
-		COMP_MAP.put("COMP.18.000022","ASPLJL");
-		COMP_MAP.put("COMP.18.000023","TGRLJL");
-		COMP_MAP.put("COMP.18.000024","LBGLJL");
-		COMP_MAP.put("COMP.18.000025","YQRSSC");
-		COMP_MAP.put("COMP.18.000026","YQRS");
-		COMP_MAP.put("COMP.18.000027","YQRSCS");
-		COMP_MAP.put("COMP.18.000028","YQKSZQTYSJ");
-		COMP_MAP.put("COMP.18.000029","YQQSZQTYSSJ");
-		COMP_MAP.put("COMP.18.000030","YQKSRSSJ");
-		COMP_MAP.put("COMP.18.000031","YQRSJSSJ");
-		COMP_MAP.put("COMP.18.000032","YQRSHZYSJ");
-		COMP_MAP.put("COMP.18.000033","YQRSYW");
-		COMP_MAP.put("COMP.18.000034","YQRSYWJL");
-		COMP_MAP.put("COMP.18.000035","YQRSZT");
-		COMP_MAP.put("COMP.18.000036","YQZD");
+
+   // TODO 初始化对应关系 字段修改，或者新增映射
+	@SuppressWarnings("SpellCheckingInspection")
+	public static void initCompMap (Map<String,String> COMP_MAP){
+		//院前 120 网络医院
+		COMP_MAP.put("COMP.18.000000","jzxh");//就诊id
+		COMP_MAP.put("COMP.18.000001","zyxh");//住院id
+		COMP_MAP.put("COMP.18.000002","YBLX");//医保类型
+		COMP_MAP.put("COMP.18.000003","cstNam");//姓名
+		COMP_MAP.put("COMP.18.000004","cstSexCod");//性别
+		COMP_MAP.put("COMP.18.000006","cstAge");//年龄
+		COMP_MAP.put("COMP.18.000007","FBDZ01");//发病地址-省
+		COMP_MAP.put("COMP.18.000008","FBDZ02");//发病地址-市
+		COMP_MAP.put("COMP.18.000009","FBDZ03");//发病地址-县
+		COMP_MAP.put("COMP.18.000010","FBSJ");//发病时间
+		COMP_MAP.put("COMP.18.000011","HJSJ");//呼救时间
+		COMP_MAP.put("COMP.18.000012","SCYLJCSJ");//首次医疗接触时间
+		COMP_MAP.put("COMP.18.000013","ZCYYRMSJ");//网络医院入门时间
+		COMP_MAP.put("COMP.18.000014","ZCYJCMSJ");//转诊出门时间：
+		COMP_MAP.put("COMP.18.000015","fileDateYq");//院前首份心电图时间
+		COMP_MAP.put("COMP.18.000016","fileDiaDateYq");//院前首份心电图确诊时间
+		COMP_MAP.put("COMP.18.000017","YCXDTCS");//远程传输心电图
+		COMP_MAP.put("COMP.18.000018","fileTrsDateYq");//传输时间
+		COMP_MAP.put("COMP.18.000019","CSFS");//传输方式
+		COMP_MAP.put("COMP.18.000020","KXXBZL");//双联抗血小板药物给药
+		COMP_MAP.put("COMP.18.000021","ASPLSJ");//给药时间
+		COMP_MAP.put("COMP.18.000022","ASPLJL");//阿司匹林
+		COMP_MAP.put("COMP.18.000023","TGRLJL");//替格瑞洛
+		COMP_MAP.put("COMP.18.000024","LBGLJL"); //氯吡格雷
+		COMP_MAP.put("COMP.18.000025","YQRSSC");//院前溶栓筛查
+		COMP_MAP.put("COMP.18.000026","YQRSZL");//是否实施院前溶栓
+		COMP_MAP.put("COMP.18.000027","YQRSCS");//溶栓场所
+		COMP_MAP.put("COMP.18.000028","YQKSZQTYSJ");//院前溶栓知情同意开始时间
+		COMP_MAP.put("COMP.18.000029","YQQSZQTYSSJ");//签署知情同意时间
+		COMP_MAP.put("COMP.18.000030","YQKSRSSJ");//院前溶栓开始时间
+		COMP_MAP.put("COMP.18.000031","YQRSJSSJ");//院前溶栓结束时间
+		COMP_MAP.put("COMP.18.000032","YQRSHZYSJ");//溶栓后造影时间
+		COMP_MAP.put("COMP.18.000033","YQRSYW");//院前溶栓药物
+		COMP_MAP.put("COMP.18.000034","YQRSYWJL");//院前溶栓药物剂量:
+		COMP_MAP.put("COMP.18.000035","YQRSZT");//溶栓再通
+		COMP_MAP.put("COMP.18.000036","YQZD");//诊断
+		//急诊预检
+		COMP_MAP.put("COMP.19.000001","cstNam");//姓名
+		COMP_MAP.put("COMP.19.000002","cstSexCod");//性别
+		COMP_MAP.put("COMP.19.000003","cstAge");//年龄
+		COMP_MAP.put("COMP.19.000004","FBDZ01");//发病地址-省
+		COMP_MAP.put("COMP.19.000005","FBDZ02");//发病地址-市
+		COMP_MAP.put("COMP.19.000006","FBDZ03");//发病地址-县
+		COMP_MAP.put("COMP.18.000039","FBSJ");//发病时间
+		COMP_MAP.put("COMP.18.000040","FBSJEDIT");//到达医院大门时间 --字段是虚拟字段，不在定义表里面
+		COMP_MAP.put("COMP.18.000041","regTim");//院内接诊时间|分诊时间
+		COMP_MAP.put("COMP.18.000042","DYFS");//到达方式
+		COMP_MAP.put("COMP.18.000043","FBKS");//发病科室
+		COMP_MAP.put("COMP.18.000044","CWYSJCSJ");//床位医生会诊时间
+		COMP_MAP.put("COMP.18.000045","LKKSSJ");//离开科室时间
+		COMP_MAP.put("COMP.18.000046","YISHI");//意识
+		COMP_MAP.put("COMP.18.000047","HUXI");//呼吸
+		COMP_MAP.put("COMP.18.000048","MAIB");//脉搏
+		COMP_MAP.put("COMP.18.000049","XINL");//心率
+		COMP_MAP.put("COMP.18.000050","XUEY");//血压
+		//胸痛诊室
+		COMP_MAP.put("COMP.18.000051","fileDateYn");//院内首份心电图时间
+		COMP_MAP.put("COMP.18.000052","fileDiaDateYn");//院内首份心电图确诊时间
+		COMP_MAP.put("COMP.18.000053","BQPG");//病情评估
+		COMP_MAP.put("COMP.18.000054","BQPGMX");//病情评估情况
+		COMP_MAP.put("COMP.18.000055","CXSJ");//肌钙蛋白抽血时间
+		COMP_MAP.put("COMP.18.000056","POCTSJ");//肌钙蛋报告时间
+		COMP_MAP.put("COMP.18.000057","JGDBSZ");//肌钙蛋数值
+		COMP_MAP.put("COMP.18.000058","XQJGSZ");//血清肌酐
+		COMP_MAP.put("COMP.18.000059","DEJTSZ");//D-二聚体
+		COMP_MAP.put("COMP.18.000060","BNPNTPROBNPEDIT");//BNP/NT-proBNP --字段是虚拟字段，不在定义表里面
+		COMP_MAP.put("COMP.18.000061","TZXCSJ");//通知心超时间
+		COMP_MAP.put("COMP.18.000062","XCWCSJ");//心超完成时间
+		COMP_MAP.put("COMP.18.000063","TZCTSJ");//通知CT时间
+		COMP_MAP.put("COMP.18.000064","ZQCTKSSJ");//增强CT开始时间
+		COMP_MAP.put("COMP.18.000065","JZZD");//初步诊断 | 急诊诊断
+		COMP_MAP.put("COMP.18.000066","JZZDSJ");//初步诊断 | 急诊诊断 时间
+		COMP_MAP.put("COMP.18.000067","XNKHZ");//是否呼叫心内科会诊
+		COMP_MAP.put("COMP.18.000068","TZHZSJ");//通知会诊时间
+		//心内科
+		COMP_MAP.put("COMP.18.000069","HZLX");//会诊时间
+		COMP_MAP.put("COMP.18.000070","CBZD");//心内科诊断
+		COMP_MAP.put("COMP.18.000071","JDJRSSSJ");//决定介入手术时间
+		COMP_MAP.put("COMP.18.000072","QDDGSSJ");//启动导管室时间
+		COMP_MAP.put("COMP.18.000073","KSZQTYSJ");//开始知情同意时间
+		COMP_MAP.put("COMP.18.000074","QSZQTYSJ");//签署知情同意书时间
+		COMP_MAP.put("COMP.18.000075","YNRSSC");//院内溶栓筛查
+		COMP_MAP.put("COMP.18.000076","YNRSZL");//是否实施院前溶栓
+		COMP_MAP.put("COMP.18.000077","YNKSRSSJ");//溶栓开始时间
+		COMP_MAP.put("COMP.18.000078","YNRSJSSJ");//溶栓结束时间
+		COMP_MAP.put("COMP.18.000079","YNRSHZYSJ");//溶栓后造影时间
+		COMP_MAP.put("COMP.18.000080","YNYW");//溶栓药物
+		COMP_MAP.put("COMP.18.000081","YNJL");//溶栓剂量
+		COMP_MAP.put("COMP.18.000082","YNRSZT");//溶栓再通
+		//留观
+		COMP_MAP.put("COMP.18.000083","YNXDTSJ02");//复测心电图时间
+		COMP_MAP.put("COMP.18.000084","JGDBFCJG");//肌钙蛋白复测结果
+		COMP_MAP.put("COMP.18.000085","FCJGDBSJ");//复测肌钙蛋白抽血完成时间
+		COMP_MAP.put("COMP.18.000086","FCJGDBBGSJ");//复测肌钙蛋白报告时间
+		COMP_MAP.put("COMP.18.000087","graceWXFCOne");//Grace危险分层
+		COMP_MAP.put("COMP.18.000088","gracejgwtjOne");//具备以下任意一条，即为极高危
+		COMP_MAP.put("COMP.18.000089","LGZD");//诊 断
+		// 胸痛诊疗（胸痛诊室、心内科、留观）
+		COMP_MAP.put("COMP.18.000090","KILLIP");//心功能分级
+		COMP_MAP.put("COMP.18.000091","ZGNYHA");//NYHA分级
+		COMP_MAP.put("COMP.18.000092","YWZGZCS");//STEMI 有无再灌注措施：
+		COMP_MAP.put("COMP.18.000093","ZGZCS");//STEMI 再灌注措施：
+		COMP_MAP.put("COMP.18.000094","CLCL");//NSTE-ACS 血运重建措施|处理策略
+		COMP_MAP.put("COMP.18.000095","QRXCL");//NSTE-ACS 血运重建措施|侵入性策略
+		COMP_MAP.put("COMP.18.000096","SJJRZLSJ");//实际介入时间
+		COMP_MAP.put("COMP.18.000097","ASPLSJ");//双联抗血小板药物给药时间
+		COMP_MAP.put("COMP.18.000098","ASPLJL");//阿司匹林
+		COMP_MAP.put("COMP.18.000099","TGRLJL");//替格瑞洛
+		COMP_MAP.put("COMP.18.000100","LBGLJL"); //氯吡格雷
+		COMP_MAP.put("COMP.18.000101","TTZL"); //他汀治疗
+		COMP_MAP.put("COMP.18.000102","BSTZZJ"); //β受体阻滞剂使用
+		//导管室
+		COMP_MAP.put("COMP.18.000103","JZPCI");//急诊PCI启动方式
+		COMP_MAP.put("COMP.18.000104","JRYS");//介入医生
+		COMP_MAP.put("COMP.18.000105","DGSJHSJ");//导管室激活时间
+		COMP_MAP.put("COMP.18.000106","RULU");//PCI血管路径
+		COMP_MAP.put("COMP.18.000107","KSCCSJ");//开始穿刺时间
+		COMP_MAP.put("COMP.18.000108","ZYKSSJ");//造影开始时间
+		COMP_MAP.put("COMP.18.000109","dstgsj");//导丝通过时间
+		COMP_MAP.put("COMP.18.000110","PCISSWCSJ");//PCI 手术完成时间
+		COMP_MAP.put("COMP.18.000111","xzcd");//罪犯血管狭窄程度
+		COMP_MAP.put("COMP.18.000112","zystimixl");//术前 TIMI
+		COMP_MAP.put("COMP.18.000113","shtimixl");//术后 TIMI
+		COMP_MAP.put("COMP.18.000114","zjnxs");//支架内血栓
+		COMP_MAP.put("COMP.18.000115","sffcbb");//分叉病变
+		COMP_MAP.put("COMP.18.000116","zrzjgs");//植入支架个数
+		COMP_MAP.put("COMP.18.000117","SZKNYW");//首次抗凝
+		COMP_MAP.put("COMP.18.000118","SZKNYWJLANDDW");//首次抗凝-剂量+单位 --字段是虚拟字段，不在定义表里面
+		COMP_MAP.put("COMP.18.000119","SZKNGYSJ");//首次抗凝-时间
+		COMP_MAP.put("COMP.18.000120","QNYX");//腔内影像
+		COMP_MAP.put("COMP.18.000121","GNJC");//功能检测
+		COMP_MAP.put("COMP.18.000122","IABP");//IABP植入
+		COMP_MAP.put("COMP.18.000123","xscjEdit");//血栓抽吸  -字段是虚拟字段，不在定义表里面
+		COMP_MAP.put("COMP.18.000124","LSQBQ");//临时起搏器植入
+		COMP_MAP.put("COMP.18.000125","ECMO");//ECMO
+		COMP_MAP.put("COMP.18.000126","ZXSFZZZ");//左心室辅助装置
+		COMP_MAP.put("COMP.18.000127","SZBFZ");//术中并发症
+		COMP_MAP.put("COMP.18.000128","DSTGSJ");//D2B 时间
+		COMP_MAP.put("COMP.18.000129","SFYW");//是否延误
+		//出院转归
+		COMP_MAP.put("COMP.18.000130","HZZG");//转归
+		COMP_MAP.put("COMP.18.000131","CYZD");//出院诊断
+		COMP_MAP.put("COMP.18.000132","QZSJ");//确诊时间
+		COMP_MAP.put("COMP.18.000133","JGDB72LX");//72h 内肌钙蛋白最高值
+		COMP_MAP.put("COMP.18.000134","NNTLX");//脑钠肽类型
+		COMP_MAP.put("COMP.18.000135","NNTZGZ");//最高值
+		COMP_MAP.put("COMP.18.000136","LVEF");//超声心动图-LVEF
+		COMP_MAP.put("COMP.18.000137","ZYQJBFZ");//住院期间并发症
+		COMP_MAP.put("COMP.18.000138","XXGJBWXYS");//心血管疾病危险因素
+		COMP_MAP.put("COMP.18.000139","YNXFXLSJ");//院内新发心力衰竭
+		COMP_MAP.put("COMP.18.000140","CYSJ");//出院时间
+		COMP_MAP.put("COMP.18.000141","ZYTS");//住院天数
+		COMP_MAP.put("COMP.18.000142","FEIY");//总费用
+		COMP_MAP.put("COMP.18.000143","ZLJG");//出院治疗结果
+		//出院带药 --字段是虚拟字段，不在定义表里面 DAPT 1 ACEI/ARB 2  β-受体阻滞剂  3  他汀4
+		COMP_MAP.put("COMP.18.000144","CYDYFNEDIT");
 	}
 	/**
 	 * 根据emgSeq 获取胸痛诊疗表的信息转换成编辑器所求格式
@@ -1157,10 +1243,11 @@ public class XtServiceImpl implements XtService{
 	 * @return ResultInfo
 	 */
 	@Override
+	@SuppressWarnings("SpellCheckingInspection")
 	public ResultInfo getHspXtzlInfByEmgSeqToEdit(String regSeq) {
 		// TODO 测试时来改变map的值，之后用static初始化或者每次都改变map的值
-		Map<String, String> COMP_MAP = new HashMap<>();
-		setCompMap(COMP_MAP);
+//		Map<String, String> COMP_MAP = new HashMap<>();
+//		initCompMap(COMP_MAP);
 		//结果集
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> result = new HashMap<>();
@@ -1170,46 +1257,50 @@ public class XtServiceImpl implements XtService{
 		JSONObject jsonHspDbzlBasCustom = jsonSerialize(hspDbzlBasCustom);
 		//获取诊疗表数据
 		List<HspXtzlInfCustom> dataList = hspXtzlInfCustomMapper.getHspXtzlInfByEmgSeq(hspDbzlBasCustom.getEmgSeq());
-		Map<String,Object> otherData= otherSourceForEdit(hspDbzlBasCustom.getEmgSeq());
-		JSONObject jsonHspCrivelInf=jsonSerialize(otherData.get("hspCrivelInf"));
-		JSONObject jsonHspEcgInfYq=jsonSerialize(otherData.get("hspEcgInfYq"));
-		JSONObject jsonHspEcgInfYn=jsonSerialize(otherData.get("hspEcgInfYn"));
-		JSONObject jsonHspGraceInfTypOne=jsonSerialize(otherData.get("hspGraceInfTypOne"));
-		JSONObject jsonHspGraceInfTypZero=jsonSerialize(otherData.get("hspGraceInfTypZero"));
+		//添加一个or多个虚拟对象，用来转换值
+		addNewHspXtzlInfCustomFroEdit(dataList, "FBSJEDIT", "BNPNTPROBNPEDIT", "SZKNYWJLANDDW", "CYDYFNEDIT");
+		Map<String, Object> otherData = otherSourceForEdit(hspDbzlBasCustom.getEmgSeq());
+		JSONObject jsonHspCrivelInf = jsonSerialize(otherData.get("hspCrivelInf"));
+		JSONObject jsonHspEcgInfYq = jsonSerialize(otherData.get("hspEcgInfYq"));
+		JSONObject jsonHspEcgInfYn = jsonSerialize(otherData.get("hspEcgInfYn"));
+		JSONObject jsonHspGraceInfTypOne = jsonSerialize(otherData.get("hspGraceInfTypOne"));
+		JSONObject jsonHspGraceInfTypZero = jsonSerialize(otherData.get("hspGraceInfTypZero"));
 
 		// TODO 解析list
 		for (String key : COMP_MAP.keySet()) {
 			String field = COMP_MAP.get(key);
 			for (HspXtzlInfCustom hspXtzlInfCustom : dataList) {
 				if (field.equals(hspXtzlInfCustom.getProCode())) {
-					if (!"checkbox".equals(hspXtzlInfCustom.getProType())) {
-						// TODO 地址要返回中文，数据库保存的是编码，要转义
-						deCodeForEdit(result, key, field, hspXtzlInfCustom.getProVal());
-					} else {
-						//多选值转成数组对象
-						String[] ValArr = hspXtzlInfCustom.getProVal().split(",");
-						result.put(key, ValArr);
-					}
+					if (StringUtils.isNotBlank(hspXtzlInfCustom.getProVal()))
+						if (!"checkbox".equals(hspXtzlInfCustom.getProType())) {
+							// TODO 地址要返回中文，数据库保存的是编码，要转义
+							deCodeForEdit(result, key, field, hspXtzlInfCustom.getProVal());
+						} else {
+							//多选值转成数组对象
+							String[] valArr = hspXtzlInfCustom.getProVal().split(",");
+							result.put(key, valArr);
+						}
 				}
 			}
 			// 基础信息
 			if (jsonHspDbzlBasCustom.containsKey(field))
-				result.put(key, jsonHspDbzlBasCustom.get(field));
+				if (StringUtils.isNotBlank(jsonHspDbzlBasCustom.getString(field)))
+					result.put(key, jsonHspDbzlBasCustom.get(field));
 			// 犯罪血管
 			if (jsonHspCrivelInf.containsKey(field))
-				result.put(key,jsonHspCrivelInf.get(field));
+				deCodeForEdit(result, key, field, jsonHspCrivelInf.get(field));
 			//院前心电图 HspEcgInf.xxYq
 			if (jsonHspEcgInfYq.containsKey(field))
-				result.put(key,jsonHspEcgInfYq.get(field));
+				result.put(key, jsonHspEcgInfYq.get(field));
 			//院内心电图 HspEcgInf.xxYn
 			if (jsonHspEcgInfYn.containsKey(field))
-				result.put(key,jsonHspEcgInfYn.get(field));
+				result.put(key, jsonHspEcgInfYn.get(field));
 			//GRACE  评分  key suffix One
 			if (jsonHspGraceInfTypOne.containsKey(field))
-				result.put(key,jsonHspGraceInfTypOne.get(field));
+				deCodeForEdit(result, key, field, jsonHspGraceInfTypOne.get(field));
 			//GRACE  评分  key suffix Zero
 			if (jsonHspGraceInfTypZero.containsKey(field))
-				result.put(key,jsonHspGraceInfTypZero.get(field));
+				deCodeForEdit(result, key, field, jsonHspGraceInfTypZero.get(field));
 
 		}
 		resultInfo.setSysdata(result);
@@ -1233,6 +1324,7 @@ public class XtServiceImpl implements XtService{
 
 	/**
 	 * 对需要进行解码的数据进行解码,或者进行修改val值
+	 * if "".equals 太多了,不想优化了
 	 *
 	 * @param result result
 	 * @param field  field
@@ -1240,22 +1332,132 @@ public class XtServiceImpl implements XtService{
 	 * @author chenys
 	 * @date 2022/10/20 15:02
 	 */
-	private void deCodeForEdit(Map<String, Object> result, String key, String field, String value) {
+	@SuppressWarnings("SpellCheckingInspection")
+	private void deCodeForEdit(Map<String, Object> result, String key, String field, Object value) {
 		switch (field) {
 			// 发病地址
 			case "FBDZ01":
 			case "FBDZ02":
 			case "FBDZ03":
-				String dVal = hspAddrPostMapper.selectByPrimaryKey(value).getAddrName();
+				String dVal = hspAddrPostMapper.selectByPrimaryKey(value.toString()).getAddrName();
 				result.put(key, dVal);
+				break;
+			//阿司匹林剂量
+			case "ASPLJL":
+				String asplJl = "";
+				if ("1".equals(value))
+					asplJl = "0";
+				if ("2".equals(value))
+					asplJl = "100";
+				if ("3".equals(value))
+					asplJl = "300";
+				result.put(key, asplJl);
+				break;
+			//替格瑞洛计量
+			case "TGRLJL":
+				String tgrlJl = "";
+				if ("1".equals(value))
+					tgrlJl = "0";
+				if ("2".equals(value))
+					tgrlJl = "300";
+				if ("3".equals(value))
+					tgrlJl = "600";
+				result.put(key, tgrlJl);
+				break;
+			//氯吡格雷计量
+			case "LBGLJL":
+				String lbglJl = "";
+				if ("1".equals(value))
+					lbglJl = "0";
+				if ("2".equals(value))
+					lbglJl = "90";
+				if ("3".equals(value))
+					lbglJl = "180";
+				result.put(key, lbglJl);
+				break;
+			//极高危条件
+			case "gracejgwtjOne":
+			case "gracejgwtjZero":
+				String[] valArr = value.toString().split(",");
+				result.put(key, valArr);
+				break;
+			//支架个数
+			case "zrzjgs":
+				String zjgs = "";
+				if ("1".equals(value))
+					zjgs = "0";
+				if ("2".equals(value))
+					zjgs = "1";
+				if ("3".equals(value))
+					zjgs = "2";
+				if ("4".equals(value))
+					zjgs = ">=3";
+				result.put(key, zjgs);
 				break;
 			default:
 				result.put(key, value);
 				break;
 		}
-
 	}
 
+	/**
+	 * 添加一个或者多个新的对象,根据HspXtzlInfCustom proCode值来创建
+	 * @param list list
+	 * @param proCode proCode
+	 */
+	@SuppressWarnings("SpellCheckingInspection")
+	private void addNewHspXtzlInfCustomFroEdit(List<HspXtzlInfCustom> list, String... proCode) {
+		Map<String, String> map = list.stream().collect(Collectors.toMap(HspXtzlInfCustom::getProCode, HspXtzlInfCustom::getProVal, (key1, key2) -> key2));
+		for (String code : proCode) {
+			// new HspXtzlInfCustom proVal
+			String tempVal = "";
+			String proType= "";
+			switch (code) {
+				case "FBSJEDIT":
+					String tagVal = map.get("DYFS");
+					if ("1".equals(tagVal))
+						tempVal = map.get("DDYYDMSJ01");
+					if ("2".equals(tagVal))
+						tempVal = map.get("DDYYDMSJ02");
+					if ("3".equals(tagVal))
+						tempVal = map.get("DDYYDMSJ03");
+					break;
+				case "BNPNTPROBNPEDIT":
+					String nbp=map.get("BNPSZ")!=null?map.get("BNPSZ"):"无";
+					String ntProBNP=map.get("NTPROBNPSZ")!=null?map.get("NTPROBNPSZ"):"无";
+					tempVal= nbp+"/"+ntProBNP;
+					break;
+				case "SZKNYWJLANDDW":
+					String nOACJL=map.get("SZKNYWJL")!=null?map.get("SZKNYWJL"):"";
+					String nOACDW=map.get("SZKNYWDW")!=null?map.get("SZKNYWDW"):"";
+					tempVal= nOACJL+" "+nOACDW;
+					break;
+				case "CYDYFNEDIT":
+					proType="checkbox";
+					//是否抗血小板药物
+					String dATP=map.get("CYDYSFKXXBYW");
+					//ACEI/ARB
+					String aCEOrARB=map.get("CYDYSFACEI");
+					//是否β受体阻滞剂
+					String betaBlocker=map.get("CYDYSFSTZZJ");
+					//是否调脂药物 | 他汀
+					String lipidDrug=map.get("CYDYSFTZYW");
+					JSONArray array=new JSONArray();
+					if ("1".equals(dATP))
+						array.add("1");
+					if ("1".equals(aCEOrARB))
+						array.add("2");
+					if ("1".equals(betaBlocker))
+						array.add("3");
+					if ("1".equals(lipidDrug))
+						array.add("4");
+					tempVal=StringUtils.join(array,",");;
+					break;
+			}
+			list.add(new HspXtzlInfCustom(code, proType,tempVal));
+		}
+
+	}
 	/**
 	 * 获取除诊疗表和基础信息之外的数据
 	 *
@@ -1264,6 +1466,7 @@ public class XtServiceImpl implements XtService{
 	 * @author chenys
 	 * @date 2022/10/24 15:37
 	 */
+	@SuppressWarnings("SpellCheckingInspection")
 	private Map<String, Object> otherSourceForEdit(String emgSeq) {
 		Map<String, Object> dataMap = new HashMap<>();
 		// GRACE 评分 两种类型数据个随机一条数据
@@ -1301,6 +1504,15 @@ public class XtServiceImpl implements XtService{
 		hspCrivelInfCriteria.andEmgSeqEqualTo(emgSeq);
 		List<HspCrivelInf> hspCrivelInfList = hspCrivelInfMapper.selectByExample(hspCrivelInfExample);
 		HspCrivelInf hspCrivelInf = hspCrivelInfList.size() > 0 ? hspCrivelInfList.get(0) : null;
+		JSONObject jsonHspCrivelInf=jsonSerialize(hspCrivelInf);
+		//判断血栓抽吸是否执行
+		if (jsonHspCrivelInf.containsKey("szcl"))
+			if (StringUtils.isNotBlank(jsonHspCrivelInf.getString("szcl")))
+				if (jsonHspCrivelInf.getString("szcl").contains("3")){
+					jsonHspCrivelInf.put("xscjEdit","1");
+				}else {
+					jsonHspCrivelInf.put("xscjEdit","0");
+				}
 		// 院内首份心电图
 		HspEcgInfExample ecgExample = new HspEcgInfExample();
 		HspEcgInfExample.Criteria ecgCriteria = ecgExample.createCriteria();
@@ -1315,7 +1527,7 @@ public class XtServiceImpl implements XtService{
 		dataMap.put("hspEcgInfYn", transObject(hspEcgInfYn, "Yn"));
 		dataMap.put("hspGraceInfTypOne", transObject(hspGraceInfTypOne, "One"));
 		dataMap.put("hspGraceInfTypZero", transObject(hspGraceInfTypZero, "Zero"));
-		dataMap.put("hspCrivelInf", hspCrivelInf);
+		dataMap.put("hspCrivelInf", jsonHspCrivelInf);
 		return dataMap;
 	}
 

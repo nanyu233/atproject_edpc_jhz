@@ -1,10 +1,11 @@
 package activetech.edpc.pojo.dto;
 
-import java.util.List;
-
 import activetech.base.pojo.domain.Dstdictinfo;
 import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.domain.HspXtzlInf;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 public class HspXtzlInfCustom extends HspXtzlInf{
 	
@@ -21,8 +22,16 @@ public class HspXtzlInfCustom extends HspXtzlInf{
 	private String busStep;
 	
 	private HspCrivelInf hspCrivelInf;
-	
-	
+
+	public HspXtzlInfCustom() {
+	}
+	public HspXtzlInfCustom(String proCode,String proType,String proVal ) {
+		this.setProCode(proCode);
+		if (StringUtils.isNotBlank(proType.trim()))
+			this.proType=proType;
+		this.setProVal(proVal);
+	}
+
 	public HspCrivelInf getHspCrivelInf() {
 		return hspCrivelInf;
 	}
