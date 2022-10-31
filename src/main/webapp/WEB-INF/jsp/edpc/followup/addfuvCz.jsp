@@ -274,14 +274,14 @@
     function addFuvPat(){
     	var checkData = $('#dg').datagrid('getSelected');
     	console.log(checkData,333)
-        // var btnDat = publicFun.timeFormat(new Date(checkData.bthDat), 'yyyy/MM/dd')
-        // var btnDatE = publicFun.calculateAge(btnDat)
+        var btnDat = publicFun.timeFormat(new Date(checkData.bthDat), 'yyyy/MM/dd')
+        var btnDatE = publicFun.calculateAge(btnDat)
 	    if (checkData) {
 		    publicFun.httpServ('post', '${baseurl}followup/submitFuvPat.do',
 						   {'hspFuvPatCustom.patId' :     checkData.regSeq,
 						    'hspFuvPatCustom.patNam' :    checkData.cstNam,
 						    'hspFuvPatCustom.cstSexCod' : checkData.cstSexCod,
-						    'hspFuvPatCustom.bthDat' :    checkData.bthDat,
+						    'hspFuvPatCustom.bthDat' :    bthDat,
 						    'hspFuvPatCustom.lnkNbr' :    checkData.pheNbr,
 						    'hspFuvPatCustom.patNatCod' : checkData.nation,
 						    'hspFuvPatCustom.marStaCod' : checkData.marStaCod,
