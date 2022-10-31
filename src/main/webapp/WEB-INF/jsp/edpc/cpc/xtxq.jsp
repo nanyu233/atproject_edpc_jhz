@@ -86,7 +86,7 @@
 						<div class="input-wrapper w23">
 							<div class="lb">年龄<span class="required">*</span></div>
 							<div class="input">
-								<input type="text" class="input" ms-duplex-string="baseInfo.cstAge" ms-keyup="limitInput(this)" maxlength="3"
+								<input type="text" class="input" ms-duplex-string="baseInfo.cstAge" data-duplex-event="change" ms-keyup="limitInput(this)" maxlength="3"
 								 disabled="disabled" />
 							</div>
 						</div>
@@ -109,7 +109,7 @@
 						<div class="input-wrapper w23">
 							<div class="lb">联系电话</div>
 							<div class="input">
-								<input type="text" class="input" ms-duplex-string="baseInfo.pheNbr" ms-keyup="limitInput(this)" disabled="disabled" />
+								<input type="text" class="input" ms-duplex-string="baseInfo.pheNbr" data-duplex-event="change" ms-keyup="limitInput(this)" disabled="disabled" />
 							</div>
 						</div>
 					</div>
@@ -575,7 +575,7 @@
 								<div class="lb">呼吸 <span class="required">*</span></div>
 								<div class="input">
 <%--									<input type="text" ms-duplex-string="baseInfo.breNbr" ms-keyup="limitInput(this,40)" />--%>
-									<input type="text" ms-duplex-string="hspXtzlInf.HUXI" ms-keyup="limitInput(this,40)" />
+									<input type="text" ms-duplex-string="hspXtzlInf.HUXI" data-duplex-event="change" ms-keyup="limitInput(this,40)" />
 									<div class="unit">次/分</div>
 								</div>
 							</div>
@@ -583,7 +583,7 @@
 								<div class="lb">脉搏 <span class="required">*</span></div>
 								<div class="input">
 <%--									<input type="text" ms-duplex-string="baseInfo.hrtRte" ms-keyup="limitInput(this,300)" />--%>
-									<input type="text" ms-duplex-string="hspXtzlInf.MAIB" ms-keyup="limitInput(this,300)" />
+									<input type="text" ms-duplex-string="hspXtzlInf.MAIB" data-duplex-event="change" ms-keyup="limitInput(this,300)" />
 									<div class="unit">次/分</div>
 								</div>
 							</div>
@@ -593,7 +593,7 @@
 								<div class="lb">心率 <span class="required">*</span></div>
 								<div class="input">
 <%--									<input type="text" ms-keyup="limitInput(this,300)" />--%>
-									<input type="text" ms-duplex-string="hspXtzlInf.XINL" ms-keyup="limitInput(this,300)" />
+									<input type="text" ms-duplex-string="hspXtzlInf.XINL" data-duplex-event="change" ms-keyup="limitInput(this,300)" />
 									<div class="unit">次/分</div>
 								</div>
 							</div>
@@ -609,7 +609,7 @@
 								<div class="lb">体温</div>
 								<div class="input">
 <%--									<input type="text" ms-duplex="baseInfo.tmpNbr" ms-keyup="NumberInput(this)" maxlength="5" />--%>
-									<input type="text" ms-duplex="hspXtzlInf.TIWEN" ms-keyup="NumberInput(this)" maxlength="5" />
+									<input type="text" ms-duplex="hspXtzlInf.TIWEN" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="5" />
 									<div class="unit">℃</div>
 								</div>
 							</div>
@@ -968,7 +968,7 @@
 								<div class="lb">数值 <span class="required">*</span></div>
 								<div class="input">
 <%--									<input type="text" ms-duplex="info.XQJGSZ" ms-keyup="NumberInput(this)" maxlength="10" />--%>
-									<input type="text" ms-duplex="hspXtzlInf.XQJGSZ" ms-keyup="NumberInput(this)" maxlength="10" />
+									<input type="text" ms-duplex="hspXtzlInf.XQJGSZ" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="10" />
 									<div class="unit">umol/L</div>
 								</div>
 							</div>
@@ -991,7 +991,7 @@
 								<div class="lb">数值 <span class="required">*</span></div>
 								<div class="input">
 <%--									<input type="text" ms-duplex="info.DEJTSZ" ms-keyup="NumberInput(this)" maxlength="10" />--%>
-									<input type="text" ms-duplex="hspXtzlInf.DEJTSZ" ms-keyup="NumberInput(this)" maxlength="10" />
+									<input type="text" ms-duplex="hspXtzlInf.DEJTSZ" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="10" />
 <%--									<select name="" ms-duplex="info.DEJTDW" style="width: 70px">--%>
 									<select name="" ms-duplex="hspXtzlInf.DEJTDW" style="width: 70px">
 										<option value="">请选择</option>
@@ -1018,7 +1018,7 @@
 								<div class="lb">数值 <span class="required">*</span></div>
 								<div class="input">
 <%--									<input type="text" ms-duplex="info.BNPSZ" ms-keyup="NumberInput(this)" maxlength="10" />--%>
-									<input type="text" ms-duplex="hspXtzlInf.BNPSZ" ms-keyup="NumberInput(this)" maxlength="10" />
+									<input type="text" ms-duplex="hspXtzlInf.BNPSZ" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="10" />
 									<div class="unit">pg/mL</div>
 								</div>
 							</div>
@@ -1041,7 +1041,7 @@
 								<div class="lb">数值 <span class="required">*</span></div>
 								<div class="input">
 <%--									<input type="text" ms-duplex="info.NTPROBNPSZ" ms-keyup="NumberInput(this)" maxlength="10" />--%>
-									<input type="text" ms-duplex="hspXtzlInf.NTPROBNPSZ" ms-keyup="NumberInput(this)" maxlength="10" />
+									<input type="text" ms-duplex="hspXtzlInf.NTPROBNPSZ" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="10" />
 									<div class="unit">pg/mL</div>
 								</div>
 							</div>
@@ -1064,7 +1064,7 @@
 								<div class="lb">数值 <span class="required">*</span></div>
 								<div class="input">
 <%--									<input type="text" ms-duplex="info.MYOSZ" ms-keyup="NumberInput(this)" maxlength="10" />--%>
-									<input type="text" ms-duplex="hspXtzlInf.MYOSZ" ms-keyup="NumberInput(this)" maxlength="10" />
+									<input type="text" ms-duplex="hspXtzlInf.MYOSZ" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="10" />
 <%--									<select name="" ms-duplex="info.MYODW" style="width: 70px">--%>
 									<select name="" ms-duplex="hspXtzlInf.MYODW" style="width: 70px">
 										<option value="">请选择</option>
@@ -1091,7 +1091,7 @@
 								<div class="lb">数值 <span class="required">*</span></div>
 								<div class="input">
 <%--									<input type="text" ms-duplex="info.CKMBSZ" ms-keyup="NumberInput(this)" maxlength="10" />--%>
-									<input type="text" ms-duplex="hspXtzlInf.CKMBSZ" ms-keyup="NumberInput(this)" maxlength="10" />
+									<input type="text" ms-duplex="hspXtzlInf.CKMBSZ" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="10" />
 <%--									<select name="" ms-duplex="info.CKMBDW" style="width: 70px">--%>
 									<select name="" ms-duplex="hspXtzlInf.CKMBDW" style="width: 70px">
 										<option value="">请选择</option>
@@ -1611,7 +1611,7 @@
 								<div class="lb">剂量</div>
 								<div class="input">
 <%--									<input type="text" ms-duplex="info.KNYWJL" ms-keyup="NumberInput(this)" maxlength="6" />--%>
-									<input type="text" ms-duplex="hspXtzlInf.KNYWJL" ms-keyup="NumberInput(this)" maxlength="6" />
+									<input type="text" ms-duplex="hspXtzlInf.KNYWJL" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="6" />
 <%--									<select name="" ms-duplex="info.KNYWDW" style="width: 70px">--%>
 									<select name="" ms-duplex="hspXtzlInf.KNYWDW" style="width: 70px">
 										<option value="">请选择</option>
@@ -2283,7 +2283,7 @@
 									<div class="lb">术中抗凝药物剂量</div>
 									<div class="input">
 <%--										<input type="text" ms-duplex="info.SZKNYWJL" ms-keyup="NumberInput(this)" />--%>
-										<input type="text" ms-duplex="hspXtzlInf.SZKNYWJL" ms-keyup="NumberInput(this)" />
+										<input type="text" ms-duplex="hspXtzlInf.SZKNYWJL" data-duplex-event="change" ms-keyup="limitInputFloat(this)" />
 <%--										<input type="text" style="width: 60px" placeholder="单位" ms-duplex="info.SZKNYWDW" maxlength="6" />--%>
 										<input type="text" style="width: 60px" placeholder="单位" ms-duplex="hspXtzlInf.SZKNYWDW" maxlength="6" />
 									</div>
@@ -2776,7 +2776,7 @@
 								<div class="lb">单次剂量<span class="required">*</span></div>
 								<div class="input">
 <%--									<input type="text" ms-duplex-string="info.ARNIDCJL" ms-keyup="NumberInput(this)" maxlength="8" />--%>
-									<input type="text" ms-duplex-string="hspXtzlInf.ARNIDCJL" ms-keyup="NumberInput(this)" maxlength="8" />
+									<input type="text" ms-duplex-string="hspXtzlInf.ARNIDCJL" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="8" />
 									<div class="unit">mg</div>
 								</div>
 							</div>
@@ -2903,7 +2903,8 @@
 									<div class="lb">降糖药物<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.SFJTYW==el.infocode ? 'active':''}}" ms-click="onRadioClick('SFJTYW',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.SFJTYW==el.infocode ? 'active':''}}" ms-click="onRadioClick('SFJTYW',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.SFJTYW==el.infocode ? 'active':''}}" ms-click="onRadioClick3('SFJTYW',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
@@ -2911,11 +2912,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.SFJTYW == 1">
+<%--							<div class="inputs" ms-if="info.SFJTYW == 1">--%>
+							<div class="inputs" ms-if="hspXtzlInf.SFJTYW == 1">
 								<div class="input-group">
 									<div class="lb lb_check">药物名称 <span class="required">*</span></div>
 									<div class="input">
 										<div class="checkbox-group">
+<%--											<div ms-repeat="JTYWArr" class="btn" ms-class="{{isChecked('JTYW',el.infocode) ? 'active':''}}" ms-click="onCheckClick('JTYW',el.infocode)">--%>
 											<div ms-repeat="JTYWArr" class="btn" ms-class="{{isChecked('JTYW',el.infocode) ? 'active':''}}" ms-click="onCheckClick('JTYW',el.infocode)">
 												{{el.info}}
 											</div>
@@ -2928,17 +2931,20 @@
 									<div class="lb">口服抗凝药物<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.SFKFKYYW==el.infocode ? 'active':''}}" ms-click="onRadioClick('SFKFKYYW',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.SFKFKYYW==el.infocode ? 'active':''}}" ms-click="onRadioClick('SFKFKYYW',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.SFKFKYYW==el.infocode ? 'active':''}}" ms-click="onRadioClick3('SFKFKYYW',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.SFKFKYYW == 1">
+<%--								<div class="input-group" ms-if="info.SFKFKYYW == 1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.SFKFKYYW == 1">
 									<div class="lb">药物名称<span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="info.KFKYYW">
+<%--										<select name="" ms-duplex="info.KFKYYW">--%>
+										<select name="" ms-duplex="hspXtzlInf.KFKYYW">
 											<option value="">请选择</option>
 											<option ms-repeat="KFKYYWArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -2950,56 +2956,67 @@
 									<div class="lb">PCSK9<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.SFPCSK9==el.infocode ? 'active':''}}" ms-click="onRadioClick('SFPCSK9',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.SFPCSK9==el.infocode ? 'active':''}}" ms-click="onRadioClick('SFPCSK9',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.SFPCSK9==el.infocode ? 'active':''}}" ms-click="onRadioClick3('SFPCSK9',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.SFPCSK9 == 1">
+<%--								<div class="input-group" ms-if="info.SFPCSK9 == 1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.SFPCSK9 == 1">
 									<div class="lb">药物名称<span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="info.PCSK9">
+<%--										<select name="" ms-duplex="info.PCSK9">--%>
+										<select name="" ms-duplex="hspXtzlInf.PCSK9">
 											<option value="">请选择</option>
 											<option ms-repeat="PCSK9Arr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.SFPCSK9 == 1">
+<%--								<div class="input-group" ms-if="info.SFPCSK9 == 1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.SFPCSK9 == 1">
 									<div class="lb">单次剂量<span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex-string="info.PCSK9DCJL" ms-keyup="NumberInput(this)" maxlength="8" />
+<%--										<input type="text" ms-duplex-string="info.PCSK9DCJL" ms-keyup="NumberInput(this)" maxlength="8" />--%>
+										<input type="text" ms-duplex-string="hspXtzlInf.PCSK9DCJL" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="8" />
 										<div class="unit">mg</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="block" ms-if="info.CYZD==1 || info.CYZD==2 || info.CYZD==3">
+<%--						<div class="block" ms-if="info.CYZD==1 || info.CYZD==2 || info.CYZD==3">--%>
+						<div class="block" ms-if="hspXtzlInf.CYZD==1 || hspXtzlInf.CYZD==2 || hspXtzlInf.CYZD==3">
 							<div class="title">检查结果</div>
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb">72h内肌钙蛋白 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.JGDB72==el.infocode ? 'active':''}}" ms-click="onRadioClick('JGDB72',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.JGDB72==el.infocode ? 'active':''}}" ms-click="onRadioClick('JGDB72',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.JGDB72==el.infocode ? 'active':''}}" ms-click="onRadioClick3('JGDB72',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.JGDB72==1">
+<%--								<div class="input-group" ms-if="info.JGDB72==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.JGDB72==1">
 									<div class="lb">72h内肌钙蛋白最高值 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns fl">
-											<div class="btn" ms-class="{{info.JGDB72LX==el.infocode ? 'active':''}}" ms-click="onRadioClick('JGDB72LX',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.JGDB72LX==el.infocode ? 'active':''}}" ms-click="onRadioClick('JGDB72LX',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.JGDB72LX==el.infocode ? 'active':''}}" ms-click="onRadioClick3('JGDB72LX',el.infocode)"
 											 ms-repeat="JGDB72LXArr">
 												{{el.info}}
 											</div>
 										</div>
-										<input type="text" ms-duplex="info.JGDB72ZGZ" />
-										<select name="" ms-duplex="info.JGDB72DW">
+<%--										<input type="text" ms-duplex="info.JGDB72ZGZ" />--%>
+										<input type="text" ms-duplex="hspXtzlInf.JGDB72ZGZ" />
+<%--										<select name="" ms-duplex="info.JGDB72DW">--%>
+										<select name="" ms-duplex="hspXtzlInf.JGDB72DW">
 											<option value="">请选择</option>
 											<option ms-repeat="JGDB72DWArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -3011,28 +3028,33 @@
 									<div class="lb">脑钠肽 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.NNT==el.infocode ? 'active':''}}" ms-click="onRadioClick('NNT',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.NNT==el.infocode ? 'active':''}}" ms-click="onRadioClick('NNT',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.NNT==el.infocode ? 'active':''}}" ms-click="onRadioClick3('NNT',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.NNT==1">
+<%--								<div class="input-group" ms-if="info.NNT==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.NNT==1">
 									<div class="lb">脑钠肽类型<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.NNTLX==el.infocode ? 'active':''}}" ms-click="onRadioClick('NNTLX',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.NNTLX==el.infocode ? 'active':''}}" ms-click="onRadioClick('NNTLX',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.NNTLX==el.infocode ? 'active':''}}" ms-click="onRadioClick3('NNTLX',el.infocode)"
 											 ms-repeat="NNTLXArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.NNT==1">
+<%--								<div class="input-group" ms-if="info.NNT==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.NNT==1">
 									<div class="fl">最高值</div>
 									<div class="input">
-										<input type="text" ms-duplex="info.NNTZGZ" />
+<%--										<input type="text" ms-duplex="info.NNTZGZ" />--%>
+										<input type="text" ms-duplex="hspXtzlInf.NNTZGZ" />
 										<div class="unit">pg/mL</div>
 									</div>
 								</div>
@@ -3042,17 +3064,20 @@
 									<div class="lb">总胆固醇(TC) <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.ZDGC==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZDGC',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.ZDGC==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZDGC',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.ZDGC==el.infocode ? 'active':''}}" ms-click="onRadioClick3('ZDGC',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.ZDGC==1">
+<%--								<div class="input-group" ms-if="info.ZDGC==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.ZDGC==1">
 									<div class="lb">数值 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex="info.ZDGCSZ" />
+<%--										<input type="text" ms-duplex="info.ZDGCSZ" />--%>
+										<input type="text" ms-duplex="hspXtzlInf.ZDGCSZ" />
 										<div class="unit">mmol/L</div>
 									</div>
 								</div>
@@ -3062,17 +3087,20 @@
 									<div class="lb">甘油三酯(TG) <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.GYSZ==el.infocode ? 'active':''}}" ms-click="onRadioClick('GYSZ',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.GYSZ==el.infocode ? 'active':''}}" ms-click="onRadioClick('GYSZ',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.GYSZ==el.infocode ? 'active':''}}" ms-click="onRadioClick3('GYSZ',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.GYSZ==1">
+<%--								<div class="input-group" ms-if="info.GYSZ==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.GYSZ==1">
 									<div class="lb">数值<span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex="info.GYSZSZ" />
+<%--										<input type="text" ms-duplex="info.GYSZSZ" />--%>
+										<input type="text" ms-duplex="hspXtzlInf.GYSZSZ" />
 										<div class="unit">mmol/L</div>
 									</div>
 								</div>
@@ -3082,17 +3110,20 @@
 									<div class="lb">高密度脂蛋白(HDL-C)<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.GMDZDB==el.infocode ? 'active':''}}" ms-click="onRadioClick('GMDZDB',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.GMDZDB==el.infocode ? 'active':''}}" ms-click="onRadioClick('GMDZDB',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.GMDZDB==el.infocode ? 'active':''}}" ms-click="onRadioClick3('GMDZDB',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.GMDZDB==1">
+<%--								<div class="input-group" ms-if="info.GMDZDB==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.GMDZDB==1">
 									<div class="lb">数值<span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex="info.GMDZDBSZ" />
+<%--										<input type="text" ms-duplex="info.GMDZDBSZ" />--%>
+										<input type="text" ms-duplex="hspXtzlInf.GMDZDBSZ" />
 										<div class="unit">mmol/L</div>
 									</div>
 								</div>
@@ -3102,17 +3133,20 @@
 									<div class="lb">低密度脂蛋白(LDL-C)<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.DMDZDB==el.infocode ? 'active':''}}" ms-click="onRadioClick('DMDZDB',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.DMDZDB==el.infocode ? 'active':''}}" ms-click="onRadioClick('DMDZDB',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.DMDZDB==el.infocode ? 'active':''}}" ms-click="onRadioClick3('DMDZDB',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.DMDZDB==1">
+<%--								<div class="input-group" ms-if="info.DMDZDB==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.DMDZDB==1">
 									<div class="lb">数值<span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex="info.DMDZDBSZ" />
+<%--										<input type="text" ms-duplex="info.DMDZDBSZ" />--%>
+										<input type="text" ms-duplex="hspXtzlInf.DMDZDBSZ" />
 										<div class="unit">mmol/L</div>
 									</div>
 								</div>
@@ -3122,7 +3156,8 @@
 									<div class="lb">超声心动图<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.CSXDT==el.infocode ? 'active':''}}" ms-click="onRadioClick('CSXDT',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.CSXDT==el.infocode ? 'active':''}}" ms-click="onRadioClick('CSXDT',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.CSXDT==el.infocode ? 'active':''}}" ms-click="onRadioClick3('CSXDT',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
@@ -3130,18 +3165,21 @@
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.CSXDT==1">
+<%--							<div class="inputs" ms-if="info.CSXDT==1">--%>
+							<div class="inputs" ms-if="hspXtzlInf.CSXDT==1">
 								<div class="input-group">
 									<div class="lb">LVEF</div>
 									<div class="input">
-										<input type="text" ms-duplex="info.LVEF" />%(治疗过程中最低值)
+<%--										<input type="text" ms-duplex="info.LVEF" />%(治疗过程中最低值)--%>
+										<input type="text" ms-duplex="hspXtzlInf.LVEF" />%(治疗过程中最低值)
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">室壁瘤</div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.SHIBL==el.infocode ? 'active':''}}" ms-click="onRadioClick('SHIBL',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.SHIBL==el.infocode ? 'active':''}}" ms-click="onRadioClick('SHIBL',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.SHIBL==el.infocode ? 'active':''}}" ms-click="onRadioClick3('SHIBL',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
@@ -3152,7 +3190,8 @@
 									<div class="lb">局部室壁活动异常</div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.JBSBHDYC==el.infocode ? 'active':''}}" ms-click="onRadioClick('JBSBHDYC',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.JBSBHDYC==el.infocode ? 'active':''}}" ms-click="onRadioClick('JBSBHDYC',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.JBSBHDYC==el.infocode ? 'active':''}}" ms-click="onRadioClick3('JBSBHDYC',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
@@ -3167,14 +3206,16 @@
 								<div class="input-group">
 									<div class="lb">住院天数 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex="info.ZYTS" ms-keyup="limitInput(this)" maxlength="8" />
+<%--										<input type="text" ms-duplex="info.ZYTS" ms-keyup="limitInput(this)" maxlength="8" />--%>
+										<input type="text" ms-duplex="hspXtzlInf.ZYTS" data-duplex-event="change" ms-keyup="limitInput(this)" maxlength="8" />
 										<div class="unit">天</div>
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">总费用 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex="info.FEIY" ms-keyup="NumberInput(this)" maxlength="12" />
+<%--										<input type="text" ms-duplex="info.FEIY" ms-keyup="NumberInput(this)" maxlength="12" />--%>
+										<input type="text" ms-duplex="hspXtzlInf.FEIY" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="12" />
 										<div class="unit">元</div>
 									</div>
 								</div>
@@ -3184,7 +3225,8 @@
 									<div class="lb">患者转归 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.HZZG==el.infocode ? 'active':''}}" ms-click="onRadioClick('HZZG',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.HZZG==el.infocode ? 'active':''}}" ms-click="onRadioClick('HZZG',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.HZZG==el.infocode ? 'active':''}}" ms-click="onRadioClick3('HZZG',el.infocode)"
 											 ms-repeat="HZZGArr">
 												{{el.info}}
 											</div>
@@ -3192,7 +3234,8 @@
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.HZZG==1 || info.HZZG==2 || info.HZZG==3">
+<%--							<div class="inputs" ms-if="info.HZZG==1 || info.HZZG==2 || info.HZZG==3">--%>
+							<div class="inputs" ms-if="hspXtzlInf.HZZG==1 || hspXtzlInf.HZZG==2 || hspXtzlInf.HZZG==3">
 								<div class="input-group">
 									<div class="lb lb_check">离院宣教 <span class="required">*</span></div>
 									<div class="input">
@@ -3204,18 +3247,21 @@
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.HZZG==1">
+<%--							<div class="inputs" ms-if="info.HZZG==1">--%>
+							<div class="inputs" ms-if="hspXtzlInf.HZZG==1">
 								<div class="input-group">
 									<div class="lb">出院时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.CYSJ" />
+<%--										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.CYSJ" />--%>
+										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="hspXtzlInf.CYSJ" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">治疗结果 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.ZLJG==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZLJG',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.ZLJG==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZLJG',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.ZLJG==el.infocode ? 'active':''}}" ms-click="onRadioClick3('ZLJG',el.infocode)"
 											 ms-repeat="ZLJGArr">
 												{{el.info}}
 											</div>
@@ -3223,63 +3269,75 @@
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.HZZG==2">
+<%--							<div class="inputs" ms-if="info.HZZG==2">--%>
+							<div class="inputs" ms-if="hspXtzlInf.HZZG==2">
 								<div class="input-group">
 									<div class="lb">离开本院大门时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.LKBYDMSJ" />
+<%--										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.LKBYDMSJ" />--%>
+										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="hspXtzlInf.LKBYDMSJ" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">医院名称</div>
 									<div class="input">
-										<input type="text" ms-duplex="info.YYMC02" />
+<%--										<input type="text" ms-duplex="info.YYMC02" />--%>
+										<input type="text" ms-duplex="hspXtzlInf.YYMC02" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="input">
 										<div class="checkbox-groupk">
-											<div class="btn" ms-class="{{info.SFSWLYY ? 'active' : ''}}" ms-click="onToggleClick('SFSWLYY')">是否是网络医院</div>
+<%--											<div class="btn" ms-class="{{info.SFSWLYY ? 'active' : ''}}" ms-click="onToggleClick('SFSWLYY')">是否是网络医院</div>--%>
+											<div class="btn" ms-class="{{hspXtzlInf.SFSWLYY ? 'active' : ''}}" ms-click="onToggleClick('SFSWLYY')">是否是网络医院</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.HZZG==2">
+<%--							<div class="inputs" ms-if="info.HZZG==2">--%>
+							<div class="inputs" ms-if="hspXtzlInf.HZZG==2">
 								<div class="input-group">
 									<div class="lb">转运PCI</div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.ZYPCI02==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZYPCI02',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.ZYPCI02==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZYPCI02',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.ZYPCI02==el.infocode ? 'active':''}}" ms-click="onRadioClick3('ZYPCI02',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.ZYPCI02==1">
+<%--								<div class="input-group" ms-if="info.ZYPCI02==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.ZYPCI02==1">
 									<div class="lb">直达导管室</div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.ZDDGS02==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZDDGS02',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.ZDDGS02==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZDDGS02',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.ZDDGS02==el.infocode ? 'active':''}}" ms-click="onRadioClick3('ZDDGS02',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="input-group" ms-if="info.ZYPCI02==1">
+<%--								<div class="input-group" ms-if="info.ZYPCI02==1">--%>
+								<div class="input-group" ms-if="hspXtzlInf.ZYPCI02==1">
 									<div class="lb">实际介入手术开始时间</div>
 									<div class="input">
-										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.SJJRSSKSSJ" />
+<%--										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.SJJRSSKSSJ" />--%>
+										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="hspXtzlInf.SJJRSSKSSJ" />
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.HZZG==2">
+<%--							<div class="inputs" ms-if="info.HZZG==2">--%>
+							<div class="inputs" ms-if="hspXtzlInf.HZZG==2">
 								<div class="input-group">
 									<div class="lb">远程心电图传输 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.YCXDTCS02==el.infocode ? 'active':''}}" ms-click="onRadioClick('YCXDTCS02',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.YCXDTCS02==el.infocode ? 'active':''}}" ms-click="onRadioClick('YCXDTCS02',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.YCXDTCS02==el.infocode ? 'active':''}}" ms-click="onRadioClick3('YCXDTCS02',el.infocode)"
 											 ms-repeat="YCXDTCS02Arr">
 												{{el.info}}
 											</div>
@@ -3287,57 +3345,68 @@
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.YCXDTCS02==1 && info.HZZG==2">
+<%--							<div class="inputs" ms-if="info.YCXDTCS02==1 && info.HZZG==2">--%>
+							<div class="inputs" ms-if="hspXtzlInf.YCXDTCS02==1 && hspXtzlInf.HZZG==2">
 								<div class="input-group">
 									<div class="lb">传输心电图至协作单位时间</div>
 									<div class="input">
-										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.CSXDTZXZDWSJ" />
+<%--										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.CSXDTZXZDWSJ" />--%>
+										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="hspXtzlInf.CSXDTZXZDWSJ" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">传输方式</div>
 									<div class="input">
-										<select name="" ms-duplex="info.ZGCSFS">
+<%--										<select name="" ms-duplex="info.ZGCSFS">--%>
+										<select name="" ms-duplex="hspXtzlInf.ZGCSFS">
 											<option value="">请选择</option>
 											<option ms-repeat="CSFSArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.HZZG==3">
+<%--							<div class="inputs" ms-if="info.HZZG==3">--%>
+							<div class="inputs" ms-if="hspXtzlInf.HZZG==3">
 								<div class="input-group">
 									<div class="lb">转科时间</div>
 									<div class="input">
-										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.ZKSJ" />
+<%--										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.ZKSJ" />--%>
+										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="hspXtzlInf.ZKSJ" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">接诊科室</div>
 									<div class="input">
-										<input type="text" ms-duplex="info.JZKS" />
+<%--										<input type="text" ms-duplex="info.JZKS" />--%>
+										<input type="text" ms-duplex="hspXtzlInf.JZKS" />
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.HZZG==3">
+<%--							<div class="inputs" ms-if="info.HZZG==3">--%>
+							<div class="inputs" ms-if="hspXtzlInf.HZZG==3">
 								<div class="input-group">
 									<div class="lb">转科原因描述</div>
 									<div class="input">
-										<input type="text" style="width: 790px" ms-duplex="info.ZKYYMS" />
+<%--										<input type="text" style="width: 790px" ms-duplex="info.ZKYYMS" />--%>
+										<input type="text" style="width: 790px" ms-duplex="hspXtzlInf.ZKYYMS" />
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.HZZG==4">
+<%--							<div class="inputs" ms-if="info.HZZG==4">--%>
+							<div class="inputs" ms-if="hspXtzlInf.HZZG==4">
 								<div class="input-group">
 									<div class="lb">死亡时间 <span class="required">*</span></div>
 									<div class="input">
-										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.SWSJ" />
+<%--										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="info.SWSJ" />--%>
+										<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex="hspXtzlInf.SWSJ" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">死亡原因 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.SWYY==$index ? 'active':''}}" ms-click="onRadioClick('SWYY',$index)"
+<%--											<div class="btn" ms-class="{{info.SWYY==$index ? 'active':''}}" ms-click="onRadioClick('SWYY',$index)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.SWYY==$index ? 'active':''}}" ms-click="onRadioClick3('SWYY',$index)"
 											 ms-repeat="SWYYArr">
 												{{el.info}}
 											</div>
@@ -3345,31 +3414,37 @@
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.HZZG==4">
+<%--							<div class="inputs" ms-if="info.HZZG==4">--%>
+							<div class="inputs" ms-if="hspXtzlInf.HZZG==4">
 								<div class="input-group">
 									<div class="lb">描述</div>
 									<div class="input">
-										<input type="text" style="width: 790px" ms-duplex="info.SWMS" />
+<%--										<input type="text" style="width: 790px" ms-duplex="info.SWMS" />--%>
+										<input type="text" style="width: 790px" ms-duplex="hspXtzlInf.SWMS" />
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="!((info.CYZD==1 || info.CYZD==2 || info.CYZD==3) && info.HZZG==1)">
+<%--							<div class="inputs" ms-if="!((info.CYZD==1 || info.CYZD==2 || info.CYZD==3) && info.HZZG==1)">--%>
+							<div class="inputs" ms-if="!((hspXtzlInf.CYZD==1 || hspXtzlInf.CYZD==2 || hspXtzlInf.CYZD==3) && hspXtzlInf.HZZG==1)">
 								<div class="input-group">
 									<div class="lb">患者情况备注</div>
 									<div class="input">
-										<input type="text" style="width: 790px" ms-duplex="info.ZGHZQKBZ" />
+<%--										<input type="text" style="width: 790px" ms-duplex="info.ZGHZQKBZ" />--%>
+										<input type="text" style="width: 790px" ms-duplex="hspXtzlInf.ZGHZQKBZ" />
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="block" ms-if="(info.CYZD==1 || info.CYZD==2 || info.CYZD==3) && info.HZZG==1">
+<%--						<div class="block" ms-if="(info.CYZD==1 || info.CYZD==2 || info.CYZD==3) && info.HZZG==1">--%>
+						<div class="block" ms-if="(hspXtzlInf.CYZD==1 || hspXtzlInf.CYZD==2 || hspXtzlInf.CYZD==3) && hspXtzlInf.HZZG==1">
 							<div class="title">出院药物方案</div>
 							<div class="inputs">
 								<div class="input-group">
 									<div class="lb">抗血小板药物<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.CYDYSFKXXBYW==el.infocode ? 'active':''}}" ms-click="onRadioClick('CYDYSFKXXBYW',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.CYDYSFKXXBYW==el.infocode ? 'active':''}}" ms-click="onRadioClick('CYDYSFKXXBYW',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.CYDYSFKXXBYW==el.infocode ? 'active':''}}" ms-click="onRadioClick3('CYDYSFKXXBYW',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
@@ -3377,11 +3452,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.CYDYSFKXXBYW==1">
+<%--							<div class="inputs" ms-if="info.CYDYSFKXXBYW==1">--%>
+							<div class="inputs" ms-if="hspXtzlInf.CYDYSFKXXBYW==1">
 								<div class="input-group">
 									<div class="lb">药物名称<span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="info.CYDYKXXBYW">
+<%--										<select name="" ms-duplex="info.CYDYKXXBYW">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYKXXBYW">
 											<option value="">请选择</option>
 											<option ms-repeat="KXXBYWArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -3390,11 +3467,13 @@
 								<div class="input-group">
 									<div class="lb">服用频次<span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="info.CYDYKXXBYWYYPC">
+<%--										<select name="" ms-duplex="info.CYDYKXXBYWYYPC">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYKXXBYWYYPC">
 											<option value="">请选择</option>
 											<option ms-repeat="YYPCArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
-										<select name="" ms-duplex="info.CYDYKXXBYWYYZQ">
+<%--										<select name="" ms-duplex="info.CYDYKXXBYWYYZQ">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYKXXBYWYYZQ">
 											<option value="">请选择</option>
 											<option ms-repeat="YYZQArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -3403,7 +3482,8 @@
 								<div class="input-group">
 									<div class="lb">单次剂量<span class="required">*</span></div>
 									<div class="input" style="padding-right: 0;">
-										<input type="text" ms-duplex-string="info.CYDYKXXBYWDCJL" ms-keyup="NumberInput(this)" maxlength="8" />
+<%--										<input type="text" ms-duplex-string="info.CYDYKXXBYWDCJL" ms-keyup="NumberInput(this)" maxlength="8" />--%>
+										<input type="text" ms-duplex-string="hspXtzlInf.CYDYKXXBYWDCJL" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="8" />
 										<div class="unit">mg</div>
 									</div>
 								</div>
@@ -3413,7 +3493,8 @@
 									<div class="lb">ACEI/ARB<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.CYDYSFACEI==el.infocode ? 'active':''}}" ms-click="onRadioClick('CYDYSFACEI',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.CYDYSFACEI==el.infocode ? 'active':''}}" ms-click="onRadioClick('CYDYSFACEI',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.CYDYSFACEI==el.infocode ? 'active':''}}" ms-click="onRadioClick3('CYDYSFACEI',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
@@ -3421,11 +3502,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.CYDYSFACEI==1">
+<%--							<div class="inputs" ms-if="info.CYDYSFACEI==1">--%>
+							<div class="inputs" ms-if="hspXtzlInf.CYDYSFACEI==1">
 								<div class="input-group">
 									<div class="lb">药物名称<span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="info.CYDYACEI">
+<%--										<select name="" ms-duplex="info.CYDYACEI">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYACEI">
 											<option value="">请选择</option>
 											<option ms-repeat="ACEIArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -3434,11 +3517,13 @@
 								<div class="input-group">
 									<div class="lb">服用频次<span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="info.CYDYACEIYYPC">
+<%--										<select name="" ms-duplex="info.CYDYACEIYYPC">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYACEIYYPC">
 											<option value="">请选择</option>
 											<option ms-repeat="YYPCArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
-										<select name="" ms-duplex="info.CYDYACEIYYZQ">
+<%--										<select name="" ms-duplex="info.CYDYACEIYYZQ">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYACEIYYZQ">
 											<option value="">请选择</option>
 											<option ms-repeat="YYZQArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -3447,7 +3532,8 @@
 								<div class="input-group">
 									<div class="lb">单次剂量<span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex-string="info.CYDYACEIDCJL" ms-keyup="NumberInput(this)" maxlength="8" />
+<%--										<input type="text" ms-duplex-string="info.CYDYACEIDCJL" ms-keyup="NumberInput(this)" maxlength="8" />--%>
+										<input type="text" ms-duplex-string="hspXtzlInf.CYDYACEIDCJL" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="8" />
 										<div class="unit">mg</div>
 									</div>
 								</div>
@@ -3457,7 +3543,8 @@
 									<div class="lb">调脂药物<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.CYDYSFTZYW==el.infocode ? 'active':''}}" ms-click="onRadioClick('CYDYSFTZYW',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.CYDYSFTZYW==el.infocode ? 'active':''}}" ms-click="onRadioClick('CYDYSFTZYW',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.CYDYSFTZYW==el.infocode ? 'active':''}}" ms-click="onRadioClick3('CYDYSFTZYW',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
@@ -3465,11 +3552,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.CYDYSFTZYW==1">
+<%--							<div class="inputs" ms-if="info.CYDYSFTZYW==1">--%>
+							<div class="inputs" ms-if="hspXtzlInf.CYDYSFTZYW==1">
 								<div class="input-group">
 									<div class="lb">药物名称<span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="info.CYDYTZYW">
+<%--										<select name="" ms-duplex="info.CYDYTZYW">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYTZYW">
 											<option value="">请选择</option>
 											<option ms-repeat="TZYWArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -3478,11 +3567,13 @@
 								<div class="input-group">
 									<div class="lb">服用频次<span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="info.CYDYTZYWYYPC">
+<%--										<select name="" ms-duplex="info.CYDYTZYWYYPC">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYTZYWYYPC">
 											<option value="">请选择</option>
 											<option ms-repeat="YYPCArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
-										<select name="" ms-duplex="info.CYDYTZYWYYZQ">
+<%--										<select name="" ms-duplex="info.CYDYTZYWYYZQ">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYTZYWYYZQ">
 											<option value="">请选择</option>
 											<option ms-repeat="YYZQArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -3491,7 +3582,8 @@
 								<div class="input-group">
 									<div class="lb">单次剂量<span class="required">*</span></div>
 									<div class="input" style="padding-right:0;">
-										<input type="text" ms-duplex-string="info.CYDYTZYWDCJL" ms-keyup="NumberInput(this)" maxlength="8" />
+<%--										<input type="text" ms-duplex-string="info.CYDYTZYWDCJL" ms-keyup="NumberInput(this)" maxlength="8" />--%>
+										<input type="text" ms-duplex-string="hspXtzlInf.CYDYTZYWDCJL" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="8" />
 										<div class="unit">mg</div>
 									</div>
 								</div>
@@ -3501,7 +3593,8 @@
 									<div class="lb">β受体阻滞剂<span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
-											<div class="btn" ms-class="{{info.CYDYSFSTZZJ==el.infocode ? 'active':''}}" ms-click="onRadioClick('CYDYSFSTZZJ',el.infocode)"
+<%--											<div class="btn" ms-class="{{info.CYDYSFSTZZJ==el.infocode ? 'active':''}}" ms-click="onRadioClick('CYDYSFSTZZJ',el.infocode)"--%>
+											<div class="btn" ms-class="{{hspXtzlInf.CYDYSFSTZZJ==el.infocode ? 'active':''}}" ms-click="onRadioClick3('CYDYSFSTZZJ',el.infocode)"
 											 ms-repeat="RADIOArr">
 												{{el.info}}
 											</div>
@@ -3509,11 +3602,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="inputs" ms-if="info.CYDYSFSTZZJ==1">
+<%--							<div class="inputs" ms-if="info.CYDYSFSTZZJ==1">--%>
+							<div class="inputs" ms-if="hspXtzlInf.CYDYSFSTZZJ==1">
 								<div class="input-group">
 									<div class="lb">药物名称<span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="info.CYDYSTZZJ">
+<%--										<select name="" ms-duplex="info.CYDYSTZZJ">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYSTZZJ">
 											<option value="">请选择</option>
 											<option ms-repeat="STZZJArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -3522,11 +3617,13 @@
 								<div class="input-group">
 									<div class="lb">服用频次<span class="required">*</span></div>
 									<div class="input">
-										<select name="" ms-duplex="info.CYDYSTZZJYYPC">
+<%--										<select name="" ms-duplex="info.CYDYSTZZJYYPC">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYSTZZJYYPC">
 											<option value="">请选择</option>
 											<option ms-repeat="YYPCArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
-										<select name="" ms-duplex="info.CYDYSTZZJYYZQ">
+<%--										<select name="" ms-duplex="info.CYDYSTZZJYYZQ">--%>
+										<select name="" ms-duplex="hspXtzlInf.CYDYSTZZJYYZQ">
 											<option value="">请选择</option>
 											<option ms-repeat="YYZQArr" ms-attr-value="el.infocode">{{el.info}}</option>
 										</select>
@@ -3535,7 +3632,8 @@
 								<div class="input-group">
 									<div class="lb">单次剂量<span class="required">*</span></div>
 									<div class="input">
-										<input type="text" ms-duplex-string="info.CYDYSTZZJDCJL" ms-keyup="NumberInput(this)" maxlength="8" />
+<%--										<input type="text" ms-duplex-string="info.CYDYSTZZJDCJL" ms-keyup="NumberInput(this)" maxlength="8" />--%>
+										<input type="text" ms-duplex-string="hspXtzlInf.CYDYSTZZJDCJL" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="8" />
 										<div class="unit">mg</div>
 									</div>
 								</div>
@@ -3544,7 +3642,8 @@
 								<div class="input-group">
 									<div class="lb">患者情况备注</div>
 									<div class="input">
-										<input type="text" style="width: 790px" ms-duplex="info.ZGHZQKBZ" />
+<%--										<input type="text" style="width: 790px" ms-duplex="info.ZGHZQKBZ" />--%>
+										<input type="text" style="width: 790px" ms-duplex="hspXtzlInf.ZGHZQKBZ" />
 									</div>
 								</div>
 							</div>
@@ -3816,33 +3915,107 @@
 				QRXCL: null,   //侵入性策略
 				SJJRZLSJ: '',   //实际介入治疗时间
 
-				/*cpctreat -- 出院信息*/
-				CYZD: '',    //出院诊断
+				/*cpctreat -- 转归信息*/
+				CYZD: null,    //出院诊断
 				ZGFACSXYXXTLX: '',    //非ACS心源性胸痛类型
 				ZGQTFXYXXTLX: '',    //其它非心源性胸痛类型
 				QZSJ: '',    //确诊时间
-				COVID19: '',    //确诊时间
-				YNXFXLSJ: '',    //院内新发心力衰竭
-				SFARNI: '',    //是否ARNI
+				COVID19: null,    //确诊时间
+				YNXFXLSJ: null,    //院内新发心力衰竭
+				SFARNI: null,    //是否ARNI
 				ARNI: '',      //ARNI频次
 				ARNIDCJL: '',    //ARNI单次剂量
 				ZYQJBFZ: '',    //住院期间并发症
 				XXGJBWXYS: '',    //心血管疾病危险因素
-				XYZT: '',    //吸烟状态
+				XYZT: null,    //吸烟状态
 				HEBZ: '',    //合并疾病
-				XYCJS: '',    //血运重建史
-				XFCDFX: '',    //心房颤动分型
-				ZGNYHA: '',    //NYHA分级
-				NXGJBMS: '',    //脑血管疾病描述
+				XYCJS: null,    //血运重建史
+				XFCDFX: null,    //心房颤动分型
+				ZGNYHA: null,    //NYHA分级
+				NXGJBMS: null,    //脑血管疾病描述
 
+				/*cpctreat -- 住院期间用药*/
+				SFJTYW: null,  //是否降糖药物
+				JTYW: '',   //降糖药物名称
+				SFKFKYYW: null,   //是否口服抗凝药物
+				KFKYYW: '',   //口服抗凝药物
+				SFPCSK9: null,   //是否PCSK9
+				PCSK9: '',   //PCSK9
+				PCSK9DCJL: '',   //PCSK9单次剂量
 
+				/*cpctreat -- 检查结果*/
+				JGDB72: null,    //72小时内积钙蛋白
+				JGDB72LX: null,    //72小时内积钙蛋白类型
+				JGDB72ZGZ: '',    //72小时内积钙蛋白最高值
+				JGDB72DW: '',    //72小时内积钙蛋白单位
+				NNT: null,    //脑钠肽
+				NNTLX: null,    //脑钠肽类型
+				NNTZGZ: '',    //脑钠肽最高值
+				ZDGC: null,    //总胆固醇(TC)
+				ZDGCSZ: '',    //总胆固醇数值
+				GYSZ: null,    //甘油三酯(TG)
+				GYSZSZ: '',    //甘油三酯数值
+				GMDZDB: null,    //高密度脂蛋白(HDL-C)
+				GMDZDBSZ: '',    //高密度脂蛋白数值
+				DMDZDB: null,    //低密度脂蛋白(LDL-C)
+				DMDZDBSZ: '',    //低密度脂蛋白数值
+				CSXDT: null,    //超声心动图
+				LVEF: '',    //LVEF%(诊疗过程中最低值)
+				SHIBL: null,    //室壁瘤
+				JBSBHDYC: null,    //局部室壁活动异常
+
+				/*cpctreat -- 出院信息*/
+				ZYTS: '',    //住院天数
+				FEIY: '',    //总费用
+				HZZG: null,    //患者转归
+				LYXJ: '',    //离院宣教
+				CYSJ: '',    //出院时间
+				ZLJG: null,    //治疗结果
+				LKBYDMSJ: '',    //离开本院大门时间
+				YYMC02: '',    //医院名称
+				SFSWLYY: 0,    //是否是网络医院
+				ZYPCI02: null,    //转运PCI
+				ZDDGS02: null,    //直达导管室
+				SJJRSSKSSJ: '',    //实际介入手术开始时间
+				YCXDTCS02: null,    //远程心电图传输
+				CSXDTZXZDWSJ: '',    //传输心电图至协作单位时间
+				ZGCSFS: '',    //传输方式
+				ZKSJ: '',    //转科时间
+				JZKS: '',    //接诊科室
+				ZKYYMS: '',    //转科原因描述
+				SWSJ: '',    //死亡时间
+				SWYY: null,    //死亡原因
+				SWMS: '',    //死亡描述
+				ZGHZQKBZ: '',    //患者情况备注
+
+				/*cpctreat -- 出院药物方案*/
+				CYDYSFKXXBYW: null,    //是否抗血小板药物
+				CYDYKXXBYW: '',    //抗血小板药物-药物名称
+				CYDYKXXBYWYYPC: '',    //抗血小板药物-服用频次
+				CYDYKXXBYWYYZQ: '',    //抗血小板药物-用药周期
+				CYDYKXXBYWDCJL: '',    //抗血小板药物-单次剂量
+				CYDYSFACEI: null,    //是否ACEI/ARB
+				CYDYACEI: '',    //ACEI/ARB-药物名称
+				CYDYACEIYYPC: '',    //ACEI/ARB-服用频次
+				CYDYACEIYYZQ: '',    //ACEI/ARB-用药周期
+				CYDYACEIDCJL: '',    //ACEI/ARB-单次剂量
+				CYDYSFTZYW: null,    //是否调脂药物
+				CYDYTZYW: '',    //调脂药物-药物名称
+				CYDYTZYWYYPC: '',    //调脂药物-服用频次
+				CYDYTZYWYYZQ: '',    //调脂药物-用药周期
+				CYDYTZYWDCJL: '',    //调脂药物-单次剂量
+				CYDYSFSTZZJ: null,    //是否β受体阻滞剂
+				CYDYSTZZJ: '',    //β受体阻滞剂-药物名称
+				CYDYSTZZJYYPC: '',    //β受体阻滞剂-服用频次
+				CYDYSTZZJYYZQ: '',    //β受体阻滞剂-用药周期
+				CYDYSTZZJDCJL: '',    //β受体阻滞剂-单次剂量
 			},
 
 			info: {
 				// ZHUYH: '', //住院ID
 				// MENZH: '', //门诊ID
 				// FBSJ: '', //时间轴发病时间
-				SFSWLYY: 0, //是否是网络医院
+				// SFSWLYY: 0, //是否是网络医院
 				// YBLX: '', //医保类型
 				// YBBH: '', //医保编号
 				// DBYB: null, //大病医保
@@ -3850,8 +4023,8 @@
 				// BQPGMX: '', //病情评估明细
 				// ZJZSSJYY: null, //直接转送上级医院
 				// ZDDGS: null, //直达导管室
-				ZDDGS02: null,
-				YCXDTCS02: null, //远程心电图传输
+				// ZDDGS02: null,
+				// YCXDTCS02: null, //远程心电图传输
 				//YNSZYSJZSJ: '',//院内首诊医师接诊时间
 				//YHRY: '',//医护人员
 				// ZYLX: '', //转院类型
@@ -3865,7 +4038,7 @@
 				// XUEYA: '', //血压
 				// YQHZQKBZ: '', //患者情况备注
 				// YNHZQKBZ: '', //患者情况备注
-				ZGHZQKBZ: '',
+				// ZGHZQKBZ: '',
 				// YQZDRSCS: 0, //直达溶栓场所
 				// YNJL: '', //剂量
 				// YNRSZT: null, //溶栓再通
@@ -3878,8 +4051,8 @@
 				// CXSJ: '', //抽血完成时间
 				// POCTSJ: '', //获得报告时间
 				XDT: '', //心电图
-				ZGCSFS: '',
-				CSXDTZXZDWSJ: '', //传输心电图至协作单位时间
+				// ZGCSFS: '',
+				// CSXDTZXZDWSJ: '', //传输心电图至协作单位时间
 				// ISJGDB: null, //肌钙蛋白
 				// ISXQJG: null, //血清肌酐
 				// XQJGSZ: '', //血清肌酐数值
@@ -3926,7 +4099,7 @@
 				// WZGZCSYY: '', //无灌注措施原因
 				// ZGZCS: null, //措施
 				// ZYPCI: null, //转运PCI
-				ZYPCI02: null,
+				// ZYPCI02: null,
 				// ZGZRSCS: null, //溶栓措施（补充）
 				// YNRSSC: null, //院内溶栓筛查（补充）
 				// YNRSZL: null, //院内溶栓治疗（补充）
@@ -3955,7 +4128,7 @@
 				// SZKNYW: '', //术中抗凝药物
 				// SZKNYWJL: '', //术中抗凝药物剂量
 				// SZKNYWDW: '', //术中抗凝药物单位
-				PCISSWCSJ: '', //手术结束时间
+				// PCISSWCSJ: '', //手术结束时间
 				// D2WSJ: '', //D2W时间
 				// SFYW: null, //是否延误
 				// RULU: null, //入路
@@ -3975,7 +4148,7 @@
 				// CLCL: null, //处理策略
 				// QRXCL: null, //侵入性策略
 				// SJJRZLSJ: '', //实际介入治疗时间
-				CYZD: null, //初步诊断
+				// CYZD: null, //初步诊断
 				// YXXJC: null, //影像学检查
 				// WXFC: null, //危险分层（补充）
 				// TZCTSSJ: '', //通知CT室时间
@@ -3990,100 +4163,100 @@
 				// ZLCL: null, //治疗策略
 				// KSKNZLSJ: '', //开始抗凝时间
 				// FACSXYXXTLX: '', //非ACS心源性胸痛类型
-				ZGFACSXYXXTLX: '',
+				// ZGFACSXYXXTLX: '',
 				// CLCS: null, //处理措施
 				// QTFXYXXTLX: '', //其它非心源性胸痛类型
-				ZGQTFXYXXTLX: '',
-				LYXJ: '', //离院宣教
+				// ZGQTFXYXXTLX: '',
+				// LYXJ: '', //离院宣教
 				// JCLX: null, //夹层类型
-				ZYQJBFZ: '', //住院期间并发症
-				YNXFXLSJ: null, //院内新发心力衰竭
-				XXGJBWXYS: '', //患者转归危险因素
-				HEBZ: '', //合并疾病
-				XYCJS: null, //血运重建史
-				JGDB72: null, //72小时内积钙蛋白
+				// ZYQJBFZ: '', //住院期间并发症
+				// YNXFXLSJ: null, //院内新发心力衰竭
+				// XXGJBWXYS: '', //患者转归危险因素
+				// HEBZ: '', //合并疾病
+				// XYCJS: null, //血运重建史
+				// JGDB72: null, //72小时内积钙蛋白
 				JGDB72SZ: '',
-				NNT: null, //脑钠肽
-				NNTZGZ: '', //脑钠肽最高值
-				ZDGC: null, //总胆固醇
-				ZDGCSZ: '', //总胆固醇数值
-				GYSZ: null, //甘油三酯
-				GYSZSZ: '', //甘油三酯数值
-				GMDZDB: null, //高密度脂蛋白
-				GMDZDBSZ: '', //高密度脂蛋白数值
-				DMDZDB: null, //低密度脂蛋白
-				DMDZDBSZ: '', //低密度脂蛋白数值
-				CSXDT: null, //超声心动图
-				LVEF: '', //LVEF
-				SHIBL: null, //室壁瘤
-				JBSBHDYC: null, //局部室壁活动异常
-				COVID19: null, //COVID-19
-				XYZT: null, //吸烟状态
-				XFCDFX: null, //心房颤动分型
-				ZGNYHA: null, //NYHA分级
-				NXGJBMS: null, //脑血管疾病描述
-				JGDB72ZGZ: '', //72h内肌钙蛋白最高值
-				JGDB72LX: null, //72h肌钙蛋白类型
+				// NNT: null, //脑钠肽
+				// NNTZGZ: '', //脑钠肽最高值
+				// ZDGC: null, //总胆固醇
+				// ZDGCSZ: '', //总胆固醇数值
+				// GYSZ: null, //甘油三酯
+				// GYSZSZ: '', //甘油三酯数值
+				// GMDZDB: null, //高密度脂蛋白
+				// GMDZDBSZ: '', //高密度脂蛋白数值
+				// DMDZDB: null, //低密度脂蛋白
+				// DMDZDBSZ: '', //低密度脂蛋白数值
+				// CSXDT: null, //超声心动图
+				// LVEF: '', //LVEF
+				// SHIBL: null, //室壁瘤
+				// JBSBHDYC: null, //局部室壁活动异常
+				// COVID19: null, //COVID-19
+				// XYZT: null, //吸烟状态
+				// XFCDFX: null, //心房颤动分型
+				// ZGNYHA: null, //NYHA分级
+				// NXGJBMS: null, //脑血管疾病描述
+				// JGDB72ZGZ: '', //72h内肌钙蛋白最高值
+				// JGDB72LX: null, //72h肌钙蛋白类型
 				// SCJGDB: null, //首次肌钙蛋白
-				JGDB72DW: '',
+				// JGDB72DW: '',
 				JGDB02: null,
 				JGDB03: null,
-				NNTLX: null, //脑钠肽类型
-				HZZG: null, //患者转归
-				ZLJG: null, //治疗结果
-				SWYY: null, //死亡原因
+				// NNTLX: null, //脑钠肽类型
+				// HZZG: null, //患者转归
+				// ZLJG: null, //治疗结果
+				// SWYY: null, //死亡原因
 				// YWYY: '', //是否延误
-				LKBYDMSJ: '', //离开本院大门时间
-				YYMC02: '', //医院名称
-				ZKYYMS: '', //转科原因描述
-				SWMS: '', //死亡描述
+				// LKBYDMSJ: '', //离开本院大门时间
+				// YYMC02: '', //医院名称
+				// ZKYYMS: '', //转科原因描述
+				// SWMS: '', //死亡描述
 
-				SJJRSSKSSJ: '', //实际介入手术开始时间
-				CYSJ: '', //出院时间
-				ZYTS: '', //住院天数
-				FEIY: '', //费用
-				QZSJ: '', //确诊时间
-				ZKSJ: '', //转科时间
-				JZKS: '', //接诊科室
-				SWSJ: '', //死亡时间
+				// SJJRSSKSSJ: '', //实际介入手术开始时间
+				// CYSJ: '', //出院时间
+				// ZYTS: '', //住院天数
+				// FEIY: '', //费用
+				// QZSJ: '', //确诊时间
+				// ZKSJ: '', //转科时间
+				// JZKS: '', //接诊科室
+				// SWSJ: '', //死亡时间
 				GMZY: '', //冠脉造影
-				CYDYSFKXXBYW: null, //是否抗血小板药物
-				CYDYSFACEI: null, //是否ACEI/ARB
-				CYDYSFTZYW: null, //是否调脂药物
-				CYDYSFSTZZJ: null, //是否β受体阻滞剂
-				CYDYKXXBYW: '', //抗血小板药物-药物名称
-				CYDYACEI: '', //ACEI/ARB-药物名称
-				CYDYTZYW: '', //调脂药物-药物名称
-				CYDYSTZZJ: '', //β受体阻滞剂-药物名称
-				CYDYKXXBYWYYPC: '', //抗血小板药物-服用频次
-				CYDYACEIYYPC: '', //ACEI/ARB-服用频次
-				CYDYTZYWYYPC: '', //调脂药物-服用频次
-				CYDYSTZZJYYPC: '', //β受体阻滞剂-服用频次
-				CYDYKXXBYWYYZQ: '', //抗血小板药物-用药周期
-				CYDYACEIYYZQ: '', //ACEI/ARB-用药周期
-				CYDYTZYWYYZQ: '', //调脂药物-用药周期
-				CYDYSTZZJYYZQ: '', //β受体阻滞剂-用药周期
-				CYDYKXXBYWDCJL: '', //抗血小板药物-单次剂量
-				CYDYACEIDCJL: '', //ACEI/ARB-单次剂量
-				CYDYTZYWDCJL: '', //调脂药物-单次剂量
-				CYDYSTZZJDCJL: '', //β受体阻滞剂-单次剂量
-				JGDBSZ: '', //肌钙蛋白数值
-				JGDBXZ: '', //肌钙蛋白性质
+				// CYDYSFKXXBYW: null, //是否抗血小板药物
+				// CYDYSFACEI: null, //是否ACEI/ARB
+				// CYDYSFTZYW: null, //是否调脂药物
+				// CYDYSFSTZZJ: null, //是否β受体阻滞剂
+				// CYDYKXXBYW: '', //抗血小板药物-药物名称
+				// CYDYACEI: '', //ACEI/ARB-药物名称
+				// CYDYTZYW: '', //调脂药物-药物名称
+				// CYDYSTZZJ: '', //β受体阻滞剂-药物名称
+				// CYDYKXXBYWYYPC: '', //抗血小板药物-服用频次
+				// CYDYACEIYYPC: '', //ACEI/ARB-服用频次
+				// CYDYTZYWYYPC: '', //调脂药物-服用频次
+				// CYDYSTZZJYYPC: '', //β受体阻滞剂-服用频次
+				// CYDYKXXBYWYYZQ: '', //抗血小板药物-用药周期
+				// CYDYACEIYYZQ: '', //ACEI/ARB-用药周期
+				// CYDYTZYWYYZQ: '', //调脂药物-用药周期
+				// CYDYSTZZJYYZQ: '', //β受体阻滞剂-用药周期
+				// CYDYKXXBYWDCJL: '', //抗血小板药物-单次剂量
+				// CYDYACEIDCJL: '', //ACEI/ARB-单次剂量
+				// CYDYTZYWDCJL: '', //调脂药物-单次剂量
+				// CYDYSTZZJDCJL: '', //β受体阻滞剂-单次剂量
+				// JGDBSZ: '', //肌钙蛋白数值
+				// JGDBXZ: '', //肌钙蛋白性质
 				jyxm: 0,
 				jcxm: 0,
 				// gracefz: '', //grace分值
 				pfxx: false, //grace评分细项
-				SFARNI: null, //是否ARNI
+				// SFARNI: null, //是否ARNI
 				ARNIQJ: '', //ARNI频次区间
-				ARNI: '', //ARNI频次
-				ARNIDCJL: '', //ARNI单次剂量
-				SFJTYW: null, //是否降糖药物
-				JTYW: '', //降糖药物
-				SFKFKYYW: null, //是否口服抗凝药物
-				KFKYYW: '', //口服抗凝药物
-				SFPCSK9: null, //是否PCSK9
-				PCSK9: '', //PCSK9
-				PCSK9DCJL: '', //PCSK9单次剂量
+				// ARNI: '', //ARNI频次
+				// ARNIDCJL: '', //ARNI单次剂量
+				// SFJTYW: null, //是否降糖药物
+				// JTYW: '', //降糖药物
+				// SFKFKYYW: null, //是否口服抗凝药物
+				// KFKYYW: '', //口服抗凝药物
+				// SFPCSK9: null, //是否PCSK9
+				// PCSK9: '', //PCSK9
+				// PCSK9DCJL: '', //PCSK9单次剂量
 			},
 			aidPatient: {
 				// scePrvCod: '', //发病地址--省
@@ -4414,10 +4587,9 @@
 			},
 			//限制大小 保留两位小数的浮点数
 			limitInputFloat: function (obj, max) {
-
 				obj.value = obj.value.replace(/[^\d.]/g, ""); //清除“数字”和“.”以外的字符
 				obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
-				// obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+				obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
 				obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
 				var data = parseFloat(obj.value);
 				if (data != "") {
@@ -4427,17 +4599,18 @@
 						return;
 					}
 				}
+				console.log('value', obj.value);
 			},
 			//数值
-			NumberInput: function(obj) {
-				obj.value = obj.value.replace(/[^\d.]/g, ""); //清除“数字”和“.”以外的字符
-				obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
-				obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
-				obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
-				if (obj.value.indexOf(".") < 0 && obj.value != "") {
-					obj.value = parseFloat(obj.value);
-				}
-			},
+			// NumberInput: function(obj) {
+			// 	obj.value = obj.value.replace(/[^\d.]/g, ""); //清除“数字”和“.”以外的字符
+			// 	obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
+			// 	obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+			// 	obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
+			// 	if (obj.value.indexOf(".") < 0 && obj.value != "") {
+			// 		obj.value = parseFloat(obj.value);
+			// 	}
+			// },
 			//点击tab页
 			onTabClick: function(busStep, index) {
 				vm.activeTab = index;
@@ -5071,6 +5244,13 @@
 			}
 			for (var prop in vm.hspXtzlInf) {
 				if(vm.hspXtzlInf.hasOwnProperty(prop)) {
+					if(prop == 'TIWEN' || prop == 'XQJGSZ' || prop == 'DEJTSZ' || prop == 'BNPSZ' || prop == 'NTPROBNPSZ' || prop == 'MYOSZ'
+							|| prop == 'CKMBSZ' || prop == 'KNYWJL' || prop == 'SZKNYWJL' || prop == 'GNJCSZ' || prop == 'ARNIDCJL' || prop == 'PCSK9DCJL'
+							|| prop == 'FEIY' || prop == 'CYDYKXXBYWDCJL' || prop == 'CYDYACEIDCJL' || prop == 'CYDYTZYWDCJL' || prop == 'CYDYSTZZJDCJL'){
+						if(vm.hspXtzlInf[prop] != ''){
+							vm.hspXtzlInf[prop] = parseFloat(vm.hspXtzlInf[prop])
+						}
+					}
 					list.push({
 						proCode: prop,
 						proVal: vm.hspXtzlInf[prop]
