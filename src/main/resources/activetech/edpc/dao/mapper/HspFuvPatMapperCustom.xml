@@ -79,6 +79,12 @@
 				and a.czf_flg = #{hspFuvPatCustom.czfFlg}			
 			</if>
         </if>
+        <if test="startDate != null and startDate != '' ">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
+        </if>
     </where>
   </sql>
  
@@ -88,12 +94,6 @@
           from hsp_fuv_pat a
           where
           a.xtf_flg = 1
-          <if test="startDate != null and startDate != '' ">
-              and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
-          </if>
-          <if test="endDate != null and endDate != '' ">
-              and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
-          </if>
         <include refid="condition"/>
   </select>
     <select id="countByConditionCz" resultType="java.lang.Integer"
@@ -102,12 +102,6 @@
         from hsp_fuv_pat a
         where
         a.czf_flg = 1
-        <if test="startDate != null and startDate != '' ">
-            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
-        </if>
-        <if test="endDate != null and endDate != '' ">
-            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
-        </if>
         <include refid="condition"/>
     </select>
     <select id="countByConditionCs" resultType="java.lang.Integer"
@@ -116,12 +110,6 @@
         from hsp_fuv_pat a
         where
         a.csf_flg = 1
-        <if test="startDate != null and startDate != '' ">
-            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
-        </if>
-        <if test="endDate != null and endDate != '' ">
-            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
-        </if>
         <include refid="condition"/>
     </select>
   
@@ -132,12 +120,6 @@
         from hsp_fuv_pat a
         where
           a.xtf_flg = 1
-      <if test="startDate != null and startDate != '' ">
-          and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
-      </if>
-      <if test="endDate != null and endDate != '' ">
-          and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
-      </if>
     <include refid="condition"/>
     order by a.pat_id desc
     <include refid="activetech.base.CommonSql.page_end"/>
@@ -149,12 +131,6 @@
         from hsp_fuv_pat a
         where
         a.czf_flg = 1
-        <if test="startDate != null and startDate != '' ">
-            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
-        </if>
-        <if test="endDate != null and endDate != '' ">
-            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
-        </if>
         <include refid="condition"/>
         order by a.pat_id desc
         <include refid="activetech.base.CommonSql.page_end"/>
@@ -166,12 +142,6 @@
         from hsp_fuv_pat a
         where
         a.csf_flg = 1
-        <if test="startDate != null and startDate != '' ">
-            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
-        </if>
-        <if test="endDate != null and endDate != '' ">
-            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
-        </if>
         <include refid="condition"/>
         order by a.pat_id desc
         <include refid="activetech.base.CommonSql.page_end"/>

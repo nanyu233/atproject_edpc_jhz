@@ -234,24 +234,25 @@
 					title: '证件号码',
 					width: setWidth(0.18),
 				},
-				{
-					field : 'pheNbr',
-					title : '联系电话',
-					width : setWidth(0.10),
-				},{
-                    field : 'nation',
-                    title : '民族',
-                    width : setWidth(0.10),
-                },{
-                    field : 'marStaCod',
-                    title : '婚姻状况',
-                    width : setWidth(0.10),
-                },
                 {
-                    field : 'emgJob',
-                    title : '职业',
-                    width : setWidth(0.10),
+                    field: 'pheNbr',
+                    title: '联系电话',
+                    width: setWidth(0.12),
                 }
+				// },{
+                //     field : 'nation',
+                //     title : '民族',
+                //     width : setWidth(0.10),
+                // },{
+                //     field : 'marStaCod',
+                //     title : '婚姻状况',
+                //     width : setWidth(0.10),
+                // },
+                // {
+                //     field : 'emgJob',
+                //     title : '职业',
+                //     width : setWidth(0.10),
+                // }
 				// {
 				// 	field : 'xt',
 				// 	title : '胸痛',
