@@ -294,8 +294,10 @@
 						    // 'hspFuvPatCustom.csfFlg' :    checkData.csfFlg || ''
 						   },
 						   function(res) {
-						   		message_alert(res);
-						   },
+                               message_alert(res);
+                               parent.queryfuv();
+                               parent.closemodalwindow();
+                           },
 						   function(err){},10000);
 	    }else{
 	    	publicFun.alert('未选中记录');
