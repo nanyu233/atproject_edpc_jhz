@@ -129,6 +129,8 @@
                SMT_MSG
         FROM hsp_dbzl_bas
         where pat_typ = #{patTyp,jdbcType = VARCHAR}
+        and
+        reg_seq not in ( SELECT pat_id FROM hsp_fuv_pat)
     </select>
 
     <select id="countByCondition" resultType="java.lang.Integer"
@@ -136,5 +138,7 @@
         select count(*)
         from hsp_dbzl_bas
         where pat_typ = #{patTyp,jdbcType = VARCHAR}
+          and
+            reg_seq not in ( SELECT pat_id FROM hsp_fuv_pat)
     </select>
 </mapper>
