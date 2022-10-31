@@ -224,9 +224,17 @@ public class FollowUpServiceImpl implements FollowUpService {
 	}
 
 	@Override
-	public int queryCountfuvResult(HspFuvPatQueryDto hspFuvPatQueryDto) {
-		return hspFuvPatMapperCustom.countByCondition(hspFuvPatQueryDto);
-	}	
+	public int queryCountfuvResultXt(HspFuvPatQueryDto hspFuvPatQueryDto) {
+		return hspFuvPatMapperCustom.countByConditionXt(hspFuvPatQueryDto);
+	}
+	@Override
+	public int queryCountfuvResultCz(HspFuvPatQueryDto hspFuvPatQueryDto) {
+		return hspFuvPatMapperCustom.countByConditionCz(hspFuvPatQueryDto);
+	}
+	@Override
+	public int queryCountfuvResultCs(HspFuvPatQueryDto hspFuvPatQueryDto) {
+		return hspFuvPatMapperCustom.countByConditionCs(hspFuvPatQueryDto);
+	}
 	
 	@Override
 	public HspFuvPatCustom selectOneByCondition(HspFuvPatQueryDto hspFuvPatQueryDto) {

@@ -46,7 +46,10 @@ public interface FollowUpService {
 	List<HspFuvPatCustom> queryfuvResultXt(HspFuvPatQueryDto hspFuvPatQueryDto);
 	List<HspFuvPatCustom> queryfuvResultCz(HspFuvPatQueryDto hspFuvPatQueryDto);
 	List<HspFuvPatCustom> queryfuvResultCs(HspFuvPatQueryDto hspFuvPatQueryDto);
-	public int queryCountfuvResult(HspFuvPatQueryDto hspFuvPatQueryDto);
+	public int queryCountfuvResultXt(HspFuvPatQueryDto hspFuvPatQueryDto);
+	public int queryCountfuvResultCz(HspFuvPatQueryDto hspFuvPatQueryDto);
+	public int queryCountfuvResultCs(HspFuvPatQueryDto hspFuvPatQueryDto);
+
 
 	HspFuvPatCustom selectOneByCondition(HspFuvPatQueryDto hspFuvPatQueryDto);
 

@@ -13,7 +13,9 @@ public interface HspFuvPatMapperCustom {
      * 查询条数
      * @return
      */
-    int countByCondition(HspFuvPatQueryDto hspFuvPatQueryDto);
+    int countByConditionXt(HspFuvPatQueryDto hspFuvPatQueryDto);
+    int countByConditionCz(HspFuvPatQueryDto hspFuvPatQueryDto);
+    int countByConditionCs(HspFuvPatQueryDto hspFuvPatQueryDto);
 
     /**
      * 查询具体数据

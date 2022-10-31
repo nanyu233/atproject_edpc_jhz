@@ -78,22 +78,52 @@
 			<if test="hspFuvPatCustom.czfFlg != null and hspFuvPatCustom.czfFlg != ''.toString() ">		
 				and a.czf_flg = #{hspFuvPatCustom.czfFlg}			
 			</if>
-            <if test="startDate != null and startDate != '' ">            	
-            	and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')	
-			</if>
-			<if test="endDate != null and endDate != '' ">				
-            	and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')	
-			</if>
         </if>
     </where>
   </sql>
  
-  <select id="countByCondition" resultType="java.lang.Integer"
+  <select id="countByConditionXt" resultType="java.lang.Integer"
             parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto">
         select count(*)
           from hsp_fuv_pat a
+          where
+          a.xtf_flg = 1
+          <if test="startDate != null and startDate != '' ">
+              and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
+          </if>
+          <if test="endDate != null and endDate != '' ">
+              and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
+          </if>
         <include refid="condition"/>
   </select>
+    <select id="countByConditionCz" resultType="java.lang.Integer"
+            parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto">
+        select count(*)
+        from hsp_fuv_pat a
+        where
+        a.czf_flg = 1
+        <if test="startDate != null and startDate != '' ">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
+        </if>
+        <include refid="condition"/>
+    </select>
+    <select id="countByConditionCs" resultType="java.lang.Integer"
+            parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto">
+        select count(*)
+        from hsp_fuv_pat a
+        where
+        a.csf_flg = 1
+        <if test="startDate != null and startDate != '' ">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
+        </if>
+        <include refid="condition"/>
+    </select>
   
   <select id="selectByConditionXt" resultType="activetech.edpc.pojo.dto.HspFuvPatCustom"
       parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto" >
@@ -102,6 +132,12 @@
         from hsp_fuv_pat a
         where
           a.xtf_flg = 1
+      <if test="startDate != null and startDate != '' ">
+          and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
+      </if>
+      <if test="endDate != null and endDate != '' ">
+          and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
+      </if>
     <include refid="condition"/>
     order by a.pat_id desc
     <include refid="activetech.base.CommonSql.page_end"/>
@@ -113,6 +149,12 @@
         from hsp_fuv_pat a
         where
         a.czf_flg = 1
+        <if test="startDate != null and startDate != '' ">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
+        </if>
         <include refid="condition"/>
         order by a.pat_id desc
         <include refid="activetech.base.CommonSql.page_end"/>
@@ -124,6 +166,12 @@
         from hsp_fuv_pat a
         where
         a.csf_flg = 1
+        <if test="startDate != null and startDate != '' ">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
+        </if>
+        <if test="endDate != null and endDate != '' ">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
+        </if>
         <include refid="condition"/>
         order by a.pat_id desc
         <include refid="activetech.base.CommonSql.page_end"/>

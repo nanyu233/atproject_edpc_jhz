@@ -194,7 +194,7 @@ public class FollowUpAction {
 			int rows//每页显示个数
 			) throws Exception{
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		int total = followUpService.queryCountfuvResult(hspFuvPatQueryDto);		
+		int total = followUpService.queryCountfuvResultXt(hspFuvPatQueryDto);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, rows, page);
 		hspFuvPatQueryDto.setPageQuery(pageQuery);
@@ -218,7 +218,7 @@ public class FollowUpAction {
 											  int rows//每页显示个数
 	) throws Exception{
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		int total = followUpService.queryCountfuvResult(hspFuvPatQueryDto);
+		int total = followUpService.queryCountfuvResultCz(hspFuvPatQueryDto);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, rows, page);
 		hspFuvPatQueryDto.setPageQuery(pageQuery);
@@ -242,7 +242,7 @@ public class FollowUpAction {
 											  int rows//每页显示个数
 	) throws Exception{
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		int total = followUpService.queryCountfuvResult(hspFuvPatQueryDto);
+		int total = followUpService.queryCountfuvResultCs(hspFuvPatQueryDto);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, rows, page);
 		hspFuvPatQueryDto.setPageQuery(pageQuery);
