@@ -27,17 +27,6 @@ public class HspDbzlBasCustom extends HspDbzlBas {
     //诊断医生
     private String zdys;
 
-    private String mpi;
-
-    public String getMpi() {
-        return mpi;
-    }
-
-    public void setMpi(String mpi) {
-        this.mpi = mpi;
-    }
-
-
     public String getFbsj() {
         return fbsj;
     }
