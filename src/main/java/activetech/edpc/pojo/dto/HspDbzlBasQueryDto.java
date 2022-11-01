@@ -1,48 +1,63 @@
 package activetech.edpc.pojo.dto;
 
+import activetech.base.pojo.domain.PageCond;
 import activetech.base.pojo.dto.PageQuery;
 import activetech.edpc.pojo.domain.HspDbzlBas;
 
 import java.util.Date;
 
-public class HspDbzlBasQueryDto extends HspDbzlBas {
+public class HspDbzlBasQueryDto extends PageCond {
 
-    //分页
-    private PageQuery pageQuery;
-    //开始时间
+    private HspDbzlBasCustom hspDbzlBasCustom;
+
+    public HspDbzlBasCustom getHspDbzlBasCustom() {
+        return hspDbzlBasCustom;
+    }
+
+    public void setHspDbzlBasCustom(HspDbzlBasCustom hspDbzlBasCustom) {
+        this.hspDbzlBasCustom = hspDbzlBasCustom;
+    }
+//开始时间
+
     private Date startDate;
-
     //结束时间
+
     private Date endDate;
-
     //初步诊断
+
     private String cbzd;
-
     //到院方式
+
     private String dyfs;
-
     //出车单位
+
     private String ccdw;
-
     //院前溶栓场所
+
     private	String yqrscs;
-
     //院前溶栓治疗
+
     private String yqrszl;
-
     //诊断
+
     private String zd;
-
     //诊断医生
+
     private String zdys;
+    //患者类型
+    private String patTyp;
 
-    public PageQuery getPageQuery() {
-        return pageQuery;
+
+
+    public String getPatTyp() {
+        return patTyp;
     }
 
-    public void setPageQuery(PageQuery pageQuery) {
-        this.pageQuery = pageQuery;
+    public void setPatTyp(String patTyp) {
+        this.patTyp = patTyp;
     }
+
+
 
     public Date getStartDate() {
         return startDate;

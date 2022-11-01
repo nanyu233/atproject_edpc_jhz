@@ -470,7 +470,7 @@ public class XtServiceImpl implements XtService{
 	@Override
 	public ResultInfo xtPatietBasicInfSubmit(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser){
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		hspDbzlBasQueryDto.setModNo(activeUser.getUsrno());
+		hspDbzlBasQueryDto.getHspDbzlBasCustom().setModNo(activeUser.getUsrno());
 		hspDbzlBasMapperCustom.updateHspDbzlBasByRegSeq(hspDbzlBasQueryDto);
 		return resultInfo;
 	}

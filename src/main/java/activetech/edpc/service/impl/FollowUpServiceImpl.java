@@ -77,8 +77,8 @@ public class FollowUpServiceImpl implements FollowUpService {
 	 * 随访患者列表(改
 	 */
 	@Override
-	public List<HspDbzlBasCustom> selectHspDbzlBasPatient(String patTyp) {
-		return hspDbzlBasMapperCustom.selectHspDbzlBasPatient(patTyp);
+	public List<HspDbzlBasCustom> selectHspDbzlBasPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto) {
+		return hspDbzlBasMapperCustom.selectHspDbzlBasPatient(hspDbzlBasQueryDto);
 	}
 	
 	@Override
@@ -393,8 +393,8 @@ public class FollowUpServiceImpl implements FollowUpService {
 	}
 
 	@Override
-	public int queryCountfuvResult(String patTyp) {
-		return hspDbzlBasMapperCustom.countByCondition(patTyp);
+	public int queryCountfuvResult(HspDbzlBasQueryDto hspDbzlBasQueryDto) {
+		return hspDbzlBasMapperCustom.countByCondition(hspDbzlBasQueryDto);
 	}
 
 }

@@ -146,17 +146,20 @@ public class FollowUpAction {
 
 	@RequestMapping("/querypat_resultByType")
 	@ResponseBody
-	public DataGridResultInfo querypat_resultByType(String patTyp) throws Exception{
+	public DataGridResultInfo querypat_resultByType(HspDbzlBasQueryDto hspDbzlBasQueryDto
+		)throws Exception{
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		int total = followUpService.queryCountfuvResult(patTyp);
-//		PageQuery pageQuery = new PageQuery();
-//		pageQuery.setPageParams(total, rows, page);
-//		.setPageQuery(pageQuery);
-		List<HspDbzlBasCustom> hspPatInfCustomList = followUpService.selectHspDbzlBasPatient(patTyp);
-		//填充rows
-		dataGridResultInfo.setRows(hspPatInfCustomList);
-		//填充total
-		dataGridResultInfo.setTotal(total);
+		int total = followUpService.queryCountfuvResult(hspDbzlBasQueryDto);
+		if(total>0) {
+			PageQuery pageQuery = new PageQuery();
+			pageQuery.setPageParams(total, hspDbzlBasQueryDto.getRows(), hspDbzlBasQueryDto.getPage());
+			hspDbzlBasQueryDto.setPageQuery(pageQuery);
+			List<HspDbzlBasCustom> hspPatInfCustomList = followUpService.selectHspDbzlBasPatient(hspDbzlBasQueryDto);
+			//填充rows
+			dataGridResultInfo.setRows(hspPatInfCustomList);
+			//填充total
+			dataGridResultInfo.setTotal(total);
+		}
 		return dataGridResultInfo;
 	}
 	

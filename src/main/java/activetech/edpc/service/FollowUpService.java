@@ -20,7 +20,7 @@ public interface FollowUpService {
 	 * @return
 	 */
 	List<HspPatInfCustom> queryfuvResult(HspPatInfQueryDto hspPatInfQueryDto);
-	List<HspDbzlBasCustom> selectHspDbzlBasPatient(String patTyp);
+	List<HspDbzlBasCustom> selectHspDbzlBasPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 	public int queryCountfuvResult(HspPatInfQueryDto hspPatInfQueryDto);   
       
 	/**
@@ -80,5 +80,5 @@ public interface FollowUpService {
 	
 	void submitFuvPat(HspFuvPatQueryDto hspFuvPatQueryDto, ActiveUser activeUser) throws Exception;
 	Integer checkUnFinishPln(HspFuvPlnQueryDto hspFuvPlnQueryDto);
-	int queryCountfuvResult(String patTyp);
+	int queryCountfuvResult(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 }

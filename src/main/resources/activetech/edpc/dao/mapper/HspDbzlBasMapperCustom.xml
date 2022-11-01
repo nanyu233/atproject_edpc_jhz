@@ -1,64 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="activetech.edpc.dao.mapper.HspDbzlBasMapperCustom">
-    <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspDbzlBas">
-        <!--@mbg.generated-->
-        <!--@Table HSP_DBZL_BAS-->
-        <id column="REG_SEQ" jdbcType="VARCHAR" property="regSeq" />
-        <result column="REG_TIM" jdbcType="TIMESTAMP" property="regTim" />
-        <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
-        <result column="MPI" jdbcType="VARCHAR" property="mpi" />
-        <result column="PAT_TYP" jdbcType="CHAR" property="patTyp" />
-        <result column="WAY_TYP" jdbcType="CHAR" property="wayTyp" />
-        <result column="CARD_TYPE" jdbcType="VARCHAR" property="cardType" />
-        <result column="VST_CAD" jdbcType="VARCHAR" property="vstCad" />
-        <result column="CST_NAM" jdbcType="VARCHAR" property="cstNam" />
-        <result column="CST_SEX_COD" jdbcType="VARCHAR" property="cstSexCod" />
-        <result column="ID_TYPE" jdbcType="VARCHAR" property="idType" />
-        <result column="ID_NBR" jdbcType="VARCHAR" property="idNbr" />
-        <result column="CST_AGE_COD" jdbcType="VARCHAR" property="cstAgeCod" />
-        <result column="CST_AGE" jdbcType="VARCHAR" property="cstAge" />
-        <result column="PAT_WGT" jdbcType="DECIMAL" property="patWgt" />
-        <result column="PAT_HGT" jdbcType="DECIMAL" property="patHgt" />
-        <result column="BTH_DAT" jdbcType="TIMESTAMP" property="bthDat" />
-        <result column="PHE_NBR" jdbcType="VARCHAR" property="pheNbr" />
-        <result column="CST_ADR" jdbcType="VARCHAR" property="cstAdr" />
-        <result column="NATION" jdbcType="VARCHAR" property="nation" />
-        <result column="EMG_JOB" jdbcType="VARCHAR" property="emgJob" />
-        <result column="MARITAL_STATUS" jdbcType="VARCHAR" property="maritalStatus" />
-        <result column="CST_EDU" jdbcType="VARCHAR" property="cstEdu" />
-        <result column="LNK_MAN" jdbcType="VARCHAR" property="lnkMan" />
-        <result column="LNK_WAY" jdbcType="VARCHAR" property="lnkWay" />
-        <result column="GRN_CHL" jdbcType="CHAR" property="grnChl" />
-        <result column="SW_CHL" jdbcType="CHAR" property="swChl" />
-        <result column="HSP_ARA" jdbcType="VARCHAR" property="hspAra" />
-        <result column="YQXH" jdbcType="VARCHAR" property="yqxh" />
-        <result column="JZXH" jdbcType="DECIMAL" property="jzxh" />
-        <result column="ZYXH" jdbcType="DECIMAL" property="zyxh" />
-        <result column="DOC_DAT" jdbcType="TIMESTAMP" property="docDat" />
-        <result column="JZYS" jdbcType="VARCHAR" property="jzys" />
-        <result column="YSXM" jdbcType="VARCHAR" property="ysxm" />
-        <result column="KSDM" jdbcType="VARCHAR" property="ksdm" />
-        <result column="CRT_TIM" jdbcType="TIMESTAMP" property="crtTim" />
-        <result column="CRT_NO" jdbcType="VARCHAR" property="crtNo" />
-        <result column="CRT_NAM" jdbcType="VARCHAR" property="crtNam" />
-        <result column="MOD_TIM" jdbcType="TIMESTAMP" property="modTim" />
-        <result column="MOD_NO" jdbcType="VARCHAR" property="modNo" />
-        <result column="MOD_NAM" jdbcType="VARCHAR" property="modNam" />
-        <result column="RCD_STA" jdbcType="CHAR" property="rcdSta" />
-        <result column="CHK_TIM" jdbcType="TIMESTAMP" property="chkTim" />
-        <result column="CHK_NO" jdbcType="VARCHAR" property="chkNo" />
-        <result column="CHK_NAM" jdbcType="VARCHAR" property="chkNam" />
-        <result column="CHK_MSG" jdbcType="VARCHAR" property="chkMsg" />
-        <result column="STP_FLG" jdbcType="CHAR" property="stpFlg" />
-        <result column="STP_TIM" jdbcType="TIMESTAMP" property="stpTim" />
-        <result column="STP_NO" jdbcType="VARCHAR" property="stpNo" />
-        <result column="STP_NAM" jdbcType="VARCHAR" property="stpNam" />
-        <result column="SMT_STA" jdbcType="CHAR" property="smtSta" />
-        <result column="SMT_SEQ" jdbcType="VARCHAR" property="smtSeq" />
-        <result column="SMT_MSG" jdbcType="VARCHAR" property="smtMsg" />
-    </resultMap>
-
+    <sql id="condition">
+        <if test="hspDbzlBasCustom!=null">
+            <if test="hspDbzlBasCustom.regSeq != null and hspDbzlBasCustom.regSeq != ''.toString() ">
+                and (a.reg_seq like '%' || #{hspDbzlBasCustom.regSeq,jdbcType=VARCHAR} || '%'
+                or a.cst_nam like '%' || #{hspDbzlBasCustom.regSeq,jdbcType=VARCHAR} || '%'
+                or a.phe_nbr like '%' || #{hspDbzlBasCustom.regSeq,jdbcType=VARCHAR} || '%'
+                or a.id_nbr like '%' || #{hspDbzlBasCustom.regSeq,jdbcType=VARCHAR} || '%')
+            </if>
+        </if>
+    </sql>
     <update id="updateHspDbzlBasByRegSeq" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto">
         update hsp_dbzl_bas a
         set a.id_nbr         = #{idNbr, jdbcType = VARCHAR},
@@ -67,78 +19,85 @@
             a.marital_status = #{maritalStatus, jdbcType = VARCHAR},
             a.jzxh           = #{jzxh, jdbcType = VARCHAR},
             a.zyxh           = #{zyxh, jdbcType = VARCHAR},
-            a.mod_no         = #{modNo, jdbcType = VARCHAR},
+            a.mod_no         = #{hspDbzlBasCustom.modNo, jdbcType = VARCHAR},
             a.mod_tim        = sysdate
         where a.reg_seq = #{regSeq, jdbcType = VARCHAR}
     </update>
-    
-    <select id="selectHspDbzlBasPatient" parameterType="java.lang.String" resultMap="BaseResultMap">
-           select
-                REG_SEQ,
-               REG_TIM,
-               EMG_SEQ,
-               MPI,
-               PAT_TYP,
-               WAY_TYP,
-               CARD_TYPE,
-               VST_CAD,
-               CST_NAM,
-               CST_SEX_COD,
-               ID_TYPE,
-               ID_NBR,
-               CST_AGE_COD,
-               CST_AGE,
-               PAT_WGT,
-               PAT_HGT,
-               BTH_DAT,
-               PHE_NBR,
-               CST_ADR,
-               NATION,
-               EMG_JOB,
-               MARITAL_STATUS,
-               CST_EDU,
-               LNK_MAN,
-               LNK_WAY,
-               GRN_CHL,
-               SW_CHL,
-               HSP_ARA,
-               YQXH,
-               JZXH,
-               ZYXH,
-               DOC_DAT,
-               JZYS,
-               YSXM,
-               KSDM,
-               CRT_TIM,
-               CRT_NO,
-               CRT_NAM,
-               MOD_TIM,
-               MOD_NO,
-               MOD_NAM,
-               RCD_STA,
-               CHK_TIM,
-               CHK_NO,
-               CHK_NAM,
-               CHK_MSG,
-               STP_FLG,
-               STP_TIM,
-               STP_NO,
-               STP_NAM,
-               SMT_STA,
-               SMT_SEQ,
-               SMT_MSG
-        FROM hsp_dbzl_bas
-        where pat_typ = #{patTyp,jdbcType = VARCHAR}
+
+    <select id="selectHspDbzlBasPatient" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto"
+            resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom">
+        <include refid="activetech.base.CommonSql.page_start"/>
+        select
+        REG_SEQ,
+        REG_TIM,
+        EMG_SEQ,
+        MPI,
+        PAT_TYP,
+        WAY_TYP,
+        CARD_TYPE,
+        VST_CAD,
+        CST_NAM,
+        CST_SEX_COD,
+        ID_TYPE,
+        ID_NBR,
+        CST_AGE_COD,
+        CST_AGE,
+        PAT_WGT,
+        PAT_HGT,
+        BTH_DAT,
+        PHE_NBR,
+        CST_ADR,
+        NATION,
+        EMG_JOB,
+        MARITAL_STATUS,
+        CST_EDU,
+        LNK_MAN,
+        LNK_WAY,
+        GRN_CHL,
+        SW_CHL,
+        HSP_ARA,
+        YQXH,
+        JZXH,
+        ZYXH,
+        DOC_DAT,
+        JZYS,
+        YSXM,
+        KSDM,
+        CRT_TIM,
+        CRT_NO,
+        CRT_NAM,
+        MOD_TIM,
+        MOD_NO,
+        MOD_NAM,
+        RCD_STA,
+        CHK_TIM,
+        CHK_NO,
+        CHK_NAM,
+        CHK_MSG,
+        STP_FLG,
+        STP_TIM,
+        STP_NO,
+        STP_NAM,
+        SMT_STA,
+        SMT_SEQ,
+        SMT_MSG
+        FROM hsp_dbzl_bas a
+        where
+        a.pat_typ = #{patTyp,jdbcType = VARCHAR}
         and
-        reg_seq not in ( SELECT pat_id FROM hsp_fuv_pat)
+        not exists ( select 1 FROM hsp_fuv_pat where pat_id = a.reg_seq)
+        <include refid="condition"/>
+        <include refid="activetech.base.CommonSql.page_end"/>
     </select>
 
     <select id="countByCondition" resultType="java.lang.Integer"
-            parameterType="activetech.edpc.pojo.domain.HspDbzlBas">
+            parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto">
         select count(*)
-        from hsp_dbzl_bas
-        where pat_typ = #{patTyp,jdbcType = VARCHAR}
-          and
-            reg_seq not in ( SELECT pat_id FROM hsp_fuv_pat)
+        from hsp_dbzl_bas a
+        where
+        a.pat_typ = #{patTyp,jdbcType = VARCHAR}
+        and
+        not exists ( select 1 FROM hsp_fuv_pat where pat_id = a.reg_seq)
+        <include refid="condition"/>
     </select>
 </mapper>

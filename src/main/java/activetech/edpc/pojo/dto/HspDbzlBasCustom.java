@@ -27,6 +27,20 @@ public class HspDbzlBasCustom extends HspDbzlBas {
     //诊断医生
     private String zdys;
 
+    //患者类型
+    private String patTyp;
+
+    @Override
+    public String getPatTyp() {
+        return patTyp;
+    }
+
+    @Override
+    public void setPatTyp(String patTyp) {
+        this.patTyp = patTyp;
+    }
+
+
     public String getFbsj() {
         return fbsj;
     }

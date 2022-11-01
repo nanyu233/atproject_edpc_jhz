@@ -55,10 +55,10 @@
     a.pln_fuv_seq
   </sql>
  <sql id="condition">
-    <where>
+
         <if test="hspFuvPatCustom!=null">
         	<if test="hspFuvPatCustom.patId != null and hspFuvPatCustom.patId != ''.toString() ">		
-				and a.pat_id = #{hspFuvPatCustom.patId}			
+				 a.pat_id = #{hspFuvPatCustom.patId,jdbcType=VARCHAR}
 			</if>
             <if test="hspFuvPatCustom.patNam!=null">
                 and a.pat_nam like '%' || #{hspFuvPatCustom.patNam,jdbcType=VARCHAR} || '%'
@@ -80,12 +80,12 @@
 			</if>
         </if>
         <if test="startDate != null and startDate != '' ">
-            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
+            and a.pln_fuv_tim <![CDATA[>=]]> #{startDate}
         </if>
         <if test="endDate != null and endDate != '' ">
-            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
+            and a.pln_fuv_tim <![CDATA[<=]]> #{endDate}
         </if>
-    </where>
+
   </sql>
  
   <select id="countByConditionXt" resultType="java.lang.Integer"
@@ -151,6 +151,7 @@
       parameterType="activetech.edpc.pojo.dto.HspFuvPatQueryDto" >
       select <include refid="Base_Column_With_Translate_List"/>
         from hsp_fuv_pat a
+        where
     <include refid="condition"/>
   </select>
 </mapper>

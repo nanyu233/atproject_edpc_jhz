@@ -12,9 +12,9 @@ public interface HspDbzlBasMapperCustom {
      */
     public void updateHspDbzlBasByRegSeq(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 
-    public List<HspDbzlBasCustom> selectHspDbzlBasPatient(String patTyp);
+    public List<HspDbzlBasCustom> selectHspDbzlBasPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 
-    int countByCondition(String hspPatInfQueryDto);
+    int countByCondition(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 
 
 

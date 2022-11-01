@@ -134,7 +134,7 @@
     </div>
     <div class="row">
         <div class="form-item">
-            <input type="text" placeholder="请输入患者编号|姓名|联系方式|证件号码" ms-duplex-string="hspDbzlBasCustom.mpi" style="width:300px;"/>
+            <input type="text" placeholder="请输入患者编号|姓名|联系方式|证件号码" ms-duplex-string="hspDbzlBasCustom.regSeq" style="width:300px;"/>
         </div>
     </div>
 </div>
@@ -151,13 +151,13 @@
     var vm = avalon.define({
         $id: 'list',
         hspDbzlBasCustom:{
-        	mpi: '',//患者编号|姓名|联系方式|证件号码
+        	regSeq: '',//患者编号|姓名|联系方式|证件号码
         }
     });
 
     function search() {
         var queryParams = $('#dg').datagrid('options').queryParams;
-        queryParams['hspDbzlBasCustom.mpi'] = vm.hspDbzlBasCustom.mpi;
+        queryParams['hspDbzlBasCustom.regSeq'] = vm.hspDbzlBasCustom.regSeq;
         $("#dg").datagrid('reload');
     }   
 
