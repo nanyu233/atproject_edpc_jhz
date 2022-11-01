@@ -2156,7 +2156,7 @@
 									<div class="lb">签署知情同意书 <span class="required">*</span></div>
 									<div class="input">
 <%--										<input type="text" ms-duplex-string="info.YNQSZQTYSSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
-										<input type="text" ms-duplex-string="hspXtzlInf.QSZQTYSSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+										<input type="text" ms-duplex-string="hspXtzlInf.QSZQTYSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 							</div>
@@ -4295,8 +4295,8 @@
 				// lveTim: '', //离开发病现场时间
 			},
 			hspEcgInf: {
-				ecgSeq: '',
-				refId: '',
+				ecgSeq: '',   //心电图序号
+				refId: '',    //关联id
 				fileDate: '', //首份心电图时间
 				filePath: '',  //心电图路径
 				fileDiaDate: '', //心电图诊断时间
@@ -4720,7 +4720,8 @@
 					list.push(code)
 				}
 				vm[prop + 'Sel'] = list;
-				vm.info[prop] = list.join(',');
+				// vm.info[prop] = list.join(',');
+				vm.hspXtzlInf[prop] = list.join(',');
 			},
 			onRadioClick: function(prop, val) {
 				vm.info[prop] = val;
