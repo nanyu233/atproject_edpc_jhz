@@ -909,12 +909,42 @@
 			   nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,
 			   nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 			   nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
-		from (select a.emg_seq, a.crtyarmon, a.flowtime2, b.flowtime1
-			  from (select emg_seq,
-						   to_char(reg_tim, 'YYYY/MM') crtyarmon,
-						   (reg_tim + 0) flowtime2
-					from hsp_dbzl_bas
-					where pat_typ = '1') a,
+		from (select a.emg_seq, a.crtyarmon, to_date(a.flowtime2, 'yyyy-MM-dd hh24:mi') flowtime2, b.flowtime1
+			  from (select temp.emg_seq, temp.crtyarmon, temp.dyfs,
+						   (case
+								when temp.DYFS = '1' then
+									temp.DDYYDMSJ01
+								when temp.DYFS = '2' then
+									temp.DDYYDMSJ02
+								when temp.DYFS = '3' then
+									temp.DDYYDMSJ03
+								when temp.DYFS = '4' then
+									temp.SCYLJCSJ
+							   end) as flowtime2
+					from (select emg_seq,
+								 to_char(reg_tim, 'YYYY/MM') crtyarmon,
+								 (select pro_val
+								  from hsp_xtzl_inf
+								  where hsp_xtzl_inf.pro_code = 'DYFS'
+									and hsp_xtzl_inf.emg_no = emg_seq) dyfs,
+								 (select pro_val
+								  from hsp_xtzl_inf
+								  where hsp_xtzl_inf.pro_code = 'DDYYDMSJ01'
+									and hsp_xtzl_inf.emg_no = emg_seq) DDYYDMSJ01,
+								 (select pro_val
+								  from hsp_xtzl_inf
+								  where hsp_xtzl_inf.pro_code = 'DDYYDMSJ02'
+									and hsp_xtzl_inf.emg_no = emg_seq) DDYYDMSJ02,
+								 (select pro_val
+								  from hsp_xtzl_inf
+								  where hsp_xtzl_inf.pro_code = 'DDYYDMSJ03'
+									and hsp_xtzl_inf.emg_no = emg_seq) DDYYDMSJ03,
+								 (select pro_val
+								  from hsp_xtzl_inf
+								  where hsp_xtzl_inf.pro_code = 'SCYLJCSJ'
+									and hsp_xtzl_inf.emg_no = emg_seq) scyljcsj
+						  from hsp_dbzl_bas
+						  where pat_typ = '1') temp) a,
 				   (select emg_seq, (min(dstgsj) + 0) as flowtime1
 					from hsp_crivel_inf
 					where exists (select 1
