@@ -47,6 +47,12 @@ public class HspDbzlBasQueryDto extends PageCond {
     //患者类型
     private String patTyp;
 
+    //患者姓名
+    private String cstNam;
+
+    //注册序号
+    private String regSeq;
+
 
 
     public String getPatTyp() {
@@ -129,5 +135,21 @@ public class HspDbzlBasQueryDto extends PageCond {
 
     public void setZdys(String zdys) {
         this.zdys = zdys;
+    }
+
+    public String getCstNam() {
+        return cstNam;
+    }
+
+    public void setCstNam(String cstNam) {
+        this.cstNam = cstNam;
+    }
+
+    public String getRegSeq() {
+        return regSeq;
+    }
+
+    public void setRegSeq(String regSeq) {
+        this.regSeq = regSeq;
     }
 }

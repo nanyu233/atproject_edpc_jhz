@@ -3903,7 +3903,7 @@
 				/*cpctreat -- Grace评估*/
 				WXYS: '',   //危险因素
 				GRACEJGWTJ: '',   //Grace极高危条件
-				GRACEFZ: '',    //Grace分值   未定义
+				GRACEFZ: '',    //Grace分值
 				GRACEWXFC: null,   //Grace危险分层
 
 				/*cpctreat -- 再次危险分层*/
@@ -5211,12 +5211,14 @@
 		// }
 		//提交基本信息
 		function commitBaseInfo(){
+			var dataSubmit = {};
+			dataSubmit.hspDbzlBasCustom = vm.baseInfo;
 			$.ajax({
 				url: '${baseurl}cpc/xtPatietBasicInfSubmit.do',
 				type: 'post',
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
-				data: JSON.stringify(vm.baseInfo),
+				data: JSON.stringify(dataSubmit),
 				success: function(res) {
 					if (res.resultInfo.success) {
 						vm.count++

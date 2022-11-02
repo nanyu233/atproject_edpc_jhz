@@ -13,12 +13,12 @@
     </sql>
     <update id="updateHspDbzlBasByRegSeq" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto">
         update hsp_dbzl_bas a
-        set a.id_nbr         = #{idNbr, jdbcType = VARCHAR},
-            a.nation         = #{nation, jdbcType = VARCHAR},
-            a.emg_job        = #{emgJob, jdbcType = VARCHAR},
-            a.marital_status = #{maritalStatus, jdbcType = VARCHAR},
-            a.jzxh           = #{jzxh, jdbcType = VARCHAR},
-            a.zyxh           = #{zyxh, jdbcType = VARCHAR},
+        set a.id_nbr         = #{hspDbzlBasCustom.idNbr, jdbcType = VARCHAR},
+            a.nation         = #{hspDbzlBasCustom.nation, jdbcType = VARCHAR},
+            a.emg_job        = #{hspDbzlBasCustom.emgJob, jdbcType = VARCHAR},
+            a.marital_status = #{hspDbzlBasCustom.maritalStatus, jdbcType = VARCHAR},
+            a.jzxh           = #{hspDbzlBasCustom.jzxh, jdbcType = VARCHAR},
+            a.zyxh           = #{hspDbzlBasCustom.zyxh, jdbcType = VARCHAR},
             a.mod_no         = #{hspDbzlBasCustom.modNo, jdbcType = VARCHAR},
             a.mod_tim        = sysdate
         where a.reg_seq = #{regSeq, jdbcType = VARCHAR}
