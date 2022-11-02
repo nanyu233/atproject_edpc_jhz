@@ -616,27 +616,16 @@
 		       nvl(round(max(c.flowtime1 - c.flowtime2)*24*60,2),0) maxMin,
 		       nvl(round(min(c.flowtime1 - c.flowtime2)*24*60,2),0) minMin
 		  from (select b.emg_seq,
-		               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
+		               to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 		               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
 		                  from hsp_xtzl_inf
 		                 where emg_no = a.emg_no
 		                   and pro_code = #{endProCode,jdbcType = VARCHAR}) flowtime1,
-		               
-		               <choose>
-		               		<when test="startProCode == 'FZSJ'.toString()">
-		               			(select to_date(to_char(emg_dat,'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS') 
-		               			   from hsp_emg_inf 
-		               			  where emg_seq = a.emg_no)
-		               		</when>
-		               		<otherwise>
-		               		   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-				                  from hsp_xtzl_inf
-				                 where emg_no = a.emg_no
-				                   and pro_code = #{startProCode,jdbcType = VARCHAR} ) 
-		               		</otherwise>
-		               </choose>
+		               		(select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
+				                from hsp_xtzl_inf
+				                where emg_no = a.emg_no
+				                and pro_code = #{startProCode,jdbcType = VARCHAR} )
 		                   flowtime2
-		                   
 		          from (select emg_no
 		                  from hsp_xtzl_inf
 		                 where pro_code in (#{endProCode,jdbcType = VARCHAR}, #{startProCode,jdbcType = VARCHAR})
@@ -673,9 +662,9 @@
 		                 </choose>
 		               
 		                ) a,
-		               hsp_emg_inf b
+					    hsp_dbzl_bas b
 		         where a.emg_no = b.emg_seq
-		           and b.xtlcflg = '1') c,
+		           and b.pat_typ = '1') c,
 		       (select to_char(add_months(to_date(#{startDate,
 		                                          jdbcType = VARCHAR},
 		                                          'YYYY/MM'),

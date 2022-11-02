@@ -53,9 +53,9 @@ public class ProCode {
 	public final static String POCTSJ = "POCTSJ";
 	
 	/**
-	 * 抗血小板给药时间
+	 * 抗血小板给药时间 | 阿司匹林给药时间
 	 */
-	public final static String KXXBYWGYSJ = "KXXBYWGYSJ";
+	public final static String KXXBYWGYSJ = "ASPLSJ";
 	
 	/**
 	 * 导丝通过时间

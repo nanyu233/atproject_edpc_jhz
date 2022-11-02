@@ -1,26 +1,5 @@
 package activetech.edpc.action;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import activetech.base.action.View;
 import activetech.base.dbconfig.ApplicationConfig;
 import activetech.base.process.context.Config;
@@ -35,6 +14,24 @@ import activetech.edpc.service.CzService;
 import activetech.edpc.service.EDPCReportService;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import activetech.util.ExcelExportSXXSSF;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/edpcReport")
@@ -378,10 +375,7 @@ public class EDPCReportAction {
 	@RequestMapping("/xtReport_result")
 	@ResponseBody
 	public DataGridResultInfo dtob_result(ReportCondition reportCondition){
-		
-		DataGridResultInfo dataGridResultInfo = eDPCReportService.getXtReport(reportCondition);
-		
-		return dataGridResultInfo;
+		return eDPCReportService.getXtReport(reportCondition);
 	}
 
 	/**

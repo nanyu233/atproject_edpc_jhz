@@ -1,28 +1,21 @@
 package activetech.edpc.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.httpclient.util.DateUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 import activetech.base.process.context.Config;
 import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.edpc.dao.mapper.EDPCReportMapperCustom;
-import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.dto.HomePageResult;
 import activetech.edpc.pojo.dto.ProCode;
 import activetech.edpc.pojo.dto.ReportCondition;
 import activetech.edpc.pojo.dto.ReportDataResult;
 import activetech.edpc.service.EDPCReportService;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.httpclient.util.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.*;
 
 public class EDPCReportServiceImpl implements EDPCReportService{
 	
@@ -177,11 +170,11 @@ public class EDPCReportServiceImpl implements EDPCReportService{
 			reportCondition.setEndProCode(ProCode.DGSJHSJ);
 		}else if("KXXB".equals(flag)){
 			// 抗血小板
-			reportCondition.setStartProCode("FZSJ");
+			reportCondition.setStartProCode("CBZDSJ");
 			reportCondition.setEndProCode(ProCode.KXXBYWGYSJ);
 		}else if("KN".equals(flag)){
 			// 抗凝
-			reportCondition.setStartProCode("FZSJ");
+			reportCondition.setStartProCode("CBZDSJ");
 			reportCondition.setEndProCode(ProCode.KNYWSJ);
 		}
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
