@@ -11,6 +11,10 @@ public interface OndutyService {
 //	public List<HspOndutyCustom> getOndutyList(String date);
 	
 	public List<AidEptGrpCustom> getExpertGroupList();
+
+	public List<AidEptGrpCustom> getExpertGrpList();
+
+	public List<AidEptGrpCustom> getExpertDocList();
 	
 	public ResultInfo addExpertGroupSubmit(AidEptGrpCustom aidEptGrpCustom);
 	

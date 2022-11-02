@@ -22,6 +22,48 @@
         from AID_EPT_GRP a
     </select>
 
+    <select id="getExpertGrpList" resultType="activetech.aid.pojo.dto.AidEptGrpCustom">
+        select a.grp_seq,
+               (case a.grp_no when '0' then null else a.grp_no end) as "_parentId",
+               a.grp_no,
+               a.grp_nam,
+               a.ept_typ,
+               a.ept_no,
+               (select usrname from dstuser where usrno = a.ept_no) usrname,
+               (select phone from dstuser where usrno = a.ept_no) phone,
+               (select movephone from dstuser where usrno = a.ept_no) movephone,
+               a.ept_com,
+               a.wxp_flg,
+               a.crt_tim,
+               a.crt_usr,
+               a.mod_tim,
+               a.mod_usr
+        from AID_EPT_GRP a
+        where
+            a.ept_typ=0
+    </select>
+
+    <select id="getExpertDocList" resultType="activetech.aid.pojo.dto.AidEptGrpCustom">
+        select a.grp_seq,
+               (case a.grp_no when '0' then null else a.grp_no end) as "_parentId",
+               a.grp_no,
+               a.grp_nam,
+               a.ept_typ,
+               a.ept_no,
+               (select usrname from dstuser where usrno = a.ept_no) usrname,
+               (select phone from dstuser where usrno = a.ept_no) phone,
+               (select movephone from dstuser where usrno = a.ept_no) movephone,
+               a.ept_com,
+               a.wxp_flg,
+               a.crt_tim,
+               a.crt_usr,
+               a.mod_tim,
+               a.mod_usr
+        from AID_EPT_GRP a
+        where
+            a.ept_typ!=0
+    </select>
+
     <insert id="addExpertGroup" parameterType="activetech.aid.pojo.dto.AidEptGrpCustom">
         insert into AID_EPT_GRP (GRP_SEQ, GRP_NO, GRP_NAM, EPT_TYP,
                                  EPT_NO, EPT_COM, WXP_FLG,

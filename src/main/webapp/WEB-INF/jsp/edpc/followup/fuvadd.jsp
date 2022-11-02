@@ -300,18 +300,18 @@
 						<label>随访组：</label>
 					</td>
 					<td class="indentTd" colspan="1">
-						<select class="departments" id="fuvGrp" name="aidEptGrp.grpNam" ms-duplex-string="aidEptGrp.grpNam">
+						<select class="departments" id="fuvGrp" name="hspFuvInfCustom.fuvGrp" ms-duplex-string="hspFuvInfCustom.fuvGrp">
                       		 <option value="">请选择</option>
-                     	 	 <option ms-repeat="getMsg.fuvGrpArr" ms-attr-value="el._parentId" >{{el.grpNam}}</option>
+                     	 	 <option ms-repeat="getMsg.fuvGrpArr" ms-attr-value="el.grpNam" >{{el.grpNam}}</option>
                   		</select>
 					</td>
 					<td class="indentTd" colspan="1" style="text-align:right">
 						<label>本次随访医生：</label>
 					</td>
 					<td class="indentTd" colspan="1">
-						<select class="departments" id="fuvDoc" name="aidEptGrp.usrname" ms-duplex-string="aidEptGrp.usrname">
+						<select class="departments" id="fuvDoc" name="hspFuvInfCustom.fuvDoc" ms-duplex-string="hspFuvInfCustom.fuvDoc">
                       		 <option value="">请选择</option>
-                     	 	 <option ms-repeat="getMsg.fuvDocArr" ms-attr-value="el._parentId" ms-visible="(aidEptGrp._parentId==''||aidEptGrp.grpSeq==el._parentId)">{{el.usrname}}</option>
+                     	 	 <option ms-repeat="getMsg.fuvDocArr" ms-attr-value="el.usrname" ms-visible="(aidEptGrp._parentId==''||aidEptGrp.grpSeq==el._parentId)">{{el.usrname}}</option>
                   		</select>
 					</td>
 					<td class="indentTd" colspan="1" style="text-align:center">
@@ -596,22 +596,23 @@
 			          	</label>
 						
 						
-						<label style="margin-left:30px;" >下次</label>
+						<label style="margin-left:30px;" >下次随访时间</label>
 						<input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})"
 						name="hspFuvInfCustom.nxtFuvTim" id="fuv_nxtFuvTim" ms-duplex-string="hspFuvInfCustom.nxtFuvTim" value="${hspFuvInfCustom.nxtFuvTim}"/> 
 						
 						
-						<label style="margin-left:30px;">组</label>
+						<label style="margin-left:30px;">随访组</label>
 						<select class="departments" id="nxtFuvGrp" name="hspFuvInfCustom.nxtFuvGrp" ms-duplex-string="hspFuvInfCustom.nxtFuvGrp">
                       		 <option value="">请选择</option>
-                     	 	 <option ms-repeat="getMsg.nxtFuvGrpArr" ms-attr-value="el.fuvGrpCod">{{el.fuvGrpNam}}</option>
+                     	 	 <option ms-repeat="getMsg.nxtFuvGrpArr" ms-attr-value="el.grpNam">{{el.grpNam}}</option>
                   		</select>
-						
+
 						<label style="margin-left:30px;">随访医生</label>
 						<select class="departments" id="nxtFuvDoc" name="hspFuvInfCustom.nxtFuvDoc" ms-duplex-string="hspFuvInfCustom.nxtFuvDoc">
                       		 <option value="">请选择</option>
-                     	 	 <option ms-repeat="getMsg.nxtFuvDocArr" ms-attr-value="el.docCod" ms-visible="(hspFuvInfCustom.nxtFuvGrp==''||el.fuvGrpCod==hspFuvInfCustom.nxtFuvGrp)">{{el.docNam}}</option>
+                     	 	 <option ms-repeat="getMsg.nxtFuvDocArr" ms-attr-value="el.usrname" ms-visible="(aidEptGrp._parentId==''||aidEptGrp.grpSeq==el._parentId)">{{el.usrname}}</option>
                   		</select>
+
                   		<input type="text" class="hidden" name="hspFuvInfCustom.nxtFuvDocNme"  ms-duplex-string="hspFuvInfCustom.nxtFuvDocNme"/> 
 					</td>
 				</tr>
@@ -638,7 +639,7 @@
 					<td class="indentTd" colspan="8" style="text-align:center">
 						<div class="btns" ms-visible="hideMsg.showSaveButton!='0'">
 							<a style="color:white" onclick="saveMsg()">保存</a>
-							<b id="cancel" onclick="parent.closemodalwindow()">取消</b>
+<%--							<b id="cancel" onclick="parent.closemodalwindow()">取消</b>--%>
 						</div>
 					</td>
 				</tr>
@@ -729,6 +730,7 @@
        getDicts();
        getFuvInfBaseInfo();
    })
+
    
 </script>
    

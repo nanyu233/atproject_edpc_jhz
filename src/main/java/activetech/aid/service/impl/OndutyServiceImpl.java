@@ -44,6 +44,15 @@ public class OndutyServiceImpl implements OndutyService{
 	}
 
 	@Override
+	public List<AidEptGrpCustom> getExpertGrpList() {
+		return aidEptGrpMapperCustom.getExpertGrpList();
+	}
+	@Override
+	public List<AidEptGrpCustom> getExpertDocList() {
+		return aidEptGrpMapperCustom.getExpertDocList();
+	}
+
+	@Override
 	public ResultInfo addExpertGroupSubmit(AidEptGrpCustom aidEptGrpCustom) {
 		ResultInfo resultInfo = null;
 		//插入组节点

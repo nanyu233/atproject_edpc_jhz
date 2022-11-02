@@ -8,6 +8,10 @@ public interface AidEptGrpMapperCustom {
 
     public List<AidEptGrpCustom> getExpertGroupList();
 
+    public List<AidEptGrpCustom> getExpertGrpList();
+
+    public List<AidEptGrpCustom> getExpertDocList();
+
     public Integer addExpertGroup(AidEptGrpCustom aidEptGrpCustom);
 
     public Integer updateByExample(AidEptGrpCustom aidEptGrpCustom);
