@@ -1359,9 +1359,17 @@
 									<div class="lb lb_check">影像学检查 <span class="required">*</span></div>
 									<div class="input">
 										<div class="checkbox-group">
-											<div class="btn" ms-class="{{isChecked('YXXJC',el.infocode) ? 'active':''}}" ms-click="onDoneClick('YXXJC',el.infocode)"
-											 ms-repeat="YXXJCArr">
-												{{el.info}}
+											<div ms-if="hspXtzlInf.CBZD==4">
+												<div class="btn" ms-class="{{isChecked('YXXJC',el.infocode) ? 'active':''}}" ms-click="onDoneClick('YXXJC',el.infocode)"
+													 ms-repeat="YXXJCArr">
+													{{el.info}}
+												</div>
+											</div>
+											<div ms-if="hspXtzlInf.CBZD==5">
+												<div class="btn" ms-class="{{isChecked('YXXJC',el.infocode) ? 'active':''}}" ms-click="onDoneClick('YXXJC',el.infocode)"
+													 ms-repeat="YXXJCArrFDMSS">
+													{{el.info}}
+												</div>
 											</div>
 										</div>
 									</div>
@@ -1767,7 +1775,7 @@
 								</div>
 							</div>
 <%--							<div class="input-group" ms-visible="info.ZCWXFC && info.ZCWXFC!=1">--%>
-							<div class="input-group" ms-visible="hspXtzlInf.ZCWXFC && hspXtzlInf.ZCWXFC!=1">
+							<div class="input-group" ms-visible="hspXtzlInf.ZCWXFC && hspXtzlInf.ZCWXFC!=0">
 								<div class="lb">再次危险分层时间</div>
 								<div class="input">
 <%--									<input type="text" ms-duplex="info.ZCWXFCSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
@@ -1777,7 +1785,7 @@
 						</div>
 					</div>
 <%--					<div class="block" ms-if="(info.CBZD==2 || info.CBZD==3) && info.ZCWXFC!=2">--%>
-					<div class="block" ms-if="(hspXtzlInf.CBZD==2 || hspXtzlInf.CBZD==3) && hspXtzlInf.ZCWXFC!=2">
+					<div class="block" ms-if="(hspXtzlInf.CBZD==2 || hspXtzlInf.CBZD==3) && hspXtzlInf.ZCWXFC!=1">
 						<div class="title">处理策略</div>
 						<div class="inputs">
 							<div class="input-group">
@@ -1861,7 +1869,7 @@
 
 					</div>
 <%--					<div class="block" ms-if="((info.CBZD==2||info.CBZD==3) && info.ZCWXFC==2) || info.CBZD==1">--%>
-					<div class="block" ms-if="((hspXtzlInf.CBZD==2||hspXtzlInf.CBZD==3) && hspXtzlInf.ZCWXFC==2) || hspXtzlInf.CBZD==1">
+					<div class="block" ms-if="((hspXtzlInf.CBZD==2||hspXtzlInf.CBZD==3) && hspXtzlInf.ZCWXFC==1) || hspXtzlInf.CBZD==1">
 						<div class="title">再灌注措施<span class="required">*</span></div>
 						<div class="inputs">
 							<div class="input-group">
@@ -2062,7 +2070,7 @@
 						</div>
 					</div>
 <%--					<div class="block" ms-if="(info.CBZD==1 && info.YWZGZCS==1 && info.ZGZCS==2)||((info.CBZD==2||info.CBZD==3) && info.ZCWXFC==2 && info.YWZGZCS==1 && info.ZGZCS==2)||info.CBZD==5">--%>
-					<div class="block" ms-if="(hspXtzlInf.CBZD==1 && hspXtzlInf.YWZGZCS==1 && hspXtzlInf.ZGZCS==2)||((hspXtzlInf.CBZD==2||hspXtzlInf.CBZD==3) && hspXtzlInf.ZCWXFC==2 && hspXtzlInf.YWZGZCS==1 && hspXtzlInf.ZGZCS==2)||hspXtzlInf.CBZD==5">
+					<div class="block" ms-if="(hspXtzlInf.CBZD==1 && hspXtzlInf.YWZGZCS==1 && hspXtzlInf.ZGZCS==2)||((hspXtzlInf.CBZD==2||hspXtzlInf.CBZD==3) && hspXtzlInf.ZCWXFC==1 && hspXtzlInf.YWZGZCS==1 && hspXtzlInf.ZGZCS==2)||hspXtzlInf.CBZD==5">
 						<div class="title">院内溶栓治疗</div>
 						<div class="inputs">
 							<div class="input-group">
@@ -2305,7 +2313,7 @@
 									<div class="lb">D2W时间</div>
 									<div class="input">
 <%--										<input type="text" ms-duplex="info.D2WSJ" />--%>
-										<input type="text" ms-duplex="hspXtzlInf.D2WSJ" />
+										<input type="text" data-duplex-event="change" ms-duplex="hspXtzlInf.D2WSJ" disabled="disabled"/>
 										<div class="unit">min</div>
 									</div>
 								</div>
@@ -2661,7 +2669,7 @@
 						</div>
 					</div>
 <%--					<div class="block" ms-if="info.HZZYFQHXZL==1">--%>
-					<div class="block" ms-if="hspXtzlInf.HZZYFQHXZL==1">
+					<div class="block" ms-if="hspXtzlInf.CBZD==6 || hspXtzlInf.CBZD==7 || hspXtzlInf.CBZD==8">
 						<div class="title" style="color:red;">此选择表示胸痛诊疗结束，不再继续跟踪患者的救治情况！</div>
 					</div>
 				</div>
@@ -4429,10 +4437,10 @@
 			}], //远程心电图传输列表
 			hzlxArr: [{
 				info: '现场会诊',
-				infocode: '0'
+				infocode: '1'
 			}, {
 				info: '远程会诊',
-				infocode: '1'
+				infocode: '2'
 			}], //会诊类型列表
 			ASPLJLArr: [{
 				info: '0mg',
@@ -4534,6 +4542,13 @@
 				info: '无',
 				infocode: '2'
 			}], //远程心电图传输表
+			YXXJCArrFDMSS:[{
+				info: '急诊CT',
+				infocode: '1'
+			},{
+				info: '未作',
+				infocode: '4'
+			}],
 			QNYXArr: [], //腔内影像列表
 			GNJCArr: [], //功能检测列表
 			
@@ -5685,7 +5700,9 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify(item.hspCrivelInf),
-				success: function(res) {}
+				success: function(res) {
+					vm.hspXtzlInf.D2WSJ = res.resultInfo.sysdata.d2wsj;
+				}
 			})
 		}
 		// 点击tab页请求接口

@@ -743,7 +743,7 @@
 		       nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 		       nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
 		  from (select b.emg_seq,
-		               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
+		               to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 		               a.file_dia_date+0 flowtime1,
 		               a.file_date+0 flowtime2
 		          from (select distinct ref_id as ref_id,
@@ -759,9 +759,9 @@
 		                                 and pro_code = 'CBZD'
 		                                 and pro_val = '1')	
 		                 ) a,
-		               hsp_emg_inf b
+					   hsp_dbzl_bas b
 		         where a.ref_id = b.emg_seq
-		           and b.xtlcflg = '1') c,
+		           and b.pat_typ = '1') c,
 		       (select to_char(add_months(to_date(#{startDate,
 		                                              jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),
 		                       'YYYY/MM') yarmon

@@ -184,8 +184,8 @@ public class EDPCReportServiceImpl implements EDPCReportService{
 		}else if("FIRST_ECG".equals(flag)) {
 			list = eDPCReportMapperCustom.getSfxdtsj(reportCondition);
 		}else if("D2W".equals(flag)) {
-			reportCondition.setStartProCode("FZSJ");
-			reportCondition.setEndProCode(ProCode.DSTGSJ);
+//			reportCondition.setStartProCode("FZSJ");
+//			reportCondition.setEndProCode(ProCode.DSTGSJ);
 			list = eDPCReportMapperCustom.getD2Wsj(reportCondition);
 		}else if("XHY".equals(flag)) {
 			reportCondition.setStartProCode(ProCode.CXSJ);

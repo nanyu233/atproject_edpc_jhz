@@ -719,8 +719,7 @@ public class XtServiceImpl implements XtService{
 				hspXtzlInfExample.createCriteria().andEmgNoEqualTo(emgSeq);
 				List<HspXtzlInf> hspXtzlInfs = hspXtzlInfMapper.selectByExample(hspXtzlInfExample);
 				Map<String, String> mapXtzlInf = new HashMap();
-				Date emgDat = new Date();
-				emgDat = null;
+				Date emgDat = null;
 				for(HspXtzlInf node : hspXtzlInfs){
 					mapXtzlInf.put(node.getProCode(), node.getProVal());
 				}
