@@ -750,8 +750,7 @@
 		                       file_dia_date,
 		                       file_date
 		                  from hsp_ecg_inf
-		                 where ecg_type = '11'
-		                   and file_date is not null
+		                 where file_date is not null
 		                   and file_dia_date is not null
 		                   and exists(select 1 
 		                                from hsp_xtzl_inf 
@@ -822,84 +821,7 @@
 		 group by d.yarmon
 		 order by d.yarmon
 	</select>
-	
-	
-<!--	<select id="getD2Wsj" parameterType="activetech.edpc.pojo.dto.ReportCondition" -->
-<!--		resultType="activetech.edpc.pojo.dto.ReportDataResult" >-->
-<!--		-->
-<!--		select d.yarmon,-->
-<!--		       count(c.emg_seq) patNumb,-->
-<!--		       nvl(round(sum(c.flowtime1 - c.flowtime2) * 24 * 60 /-->
-<!--		                 count(c.emg_seq),-->
-<!--		                 2),-->
-<!--		           0) avgtime,-->
-<!--		       nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,-->
-<!--		       nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,-->
-<!--		       nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin-->
-<!--		  from (select b.emg_seq,-->
-<!--		               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,-->
-<!--		               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')-->
-<!--		                  from hsp_xtzl_inf-->
-<!--		                 where emg_no = a.emg_no-->
-<!--		                   and pro_code = #{endProCode,jdbcType = VARCHAR}) flowtime1,-->
-<!--		               (select emg_dat + 0 from hsp_emg_inf where emg_seq = a.emg_no) flowtime2-->
-<!--		          from (select emg_no-->
-<!--		                  from hsp_xtzl_inf-->
-<!--		                 where pro_code = #{endProCode,jdbcType = VARCHAR}-->
-<!--		                   and exists ( select 1-->
-<!--						                  from hsp_xtzl_inf-->
-<!--						                 where pro_code = 'CBZD'-->
-<!--						                   and pro_val = '1'-->
-<!--						                   and emg_no = hsp_xtzl_inf.emg_no)-->
-<!--				           and exists ( select 1-->
-<!--						                  from hsp_xtzl_inf-->
-<!--						                 where pro_code = 'ZGZCS'-->
-<!--						                   and pro_val = '1'-->
-<!--						                   and emg_no = hsp_xtzl_inf.emg_no)-->
-<!--					   ) a,-->
-<!--		               hsp_emg_inf b-->
-<!--		         where a.emg_no = b.emg_seq-->
-<!--		           and b.xtlcflg = '1'-->
 
-<!--		        union-->
-
-<!--		        select f.xt_seq emg_seq,-->
-<!--		               to_char(f.reg_tim, 'YYYY/MM') crtyarmon,-->
-<!--		               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')-->
-<!--		                  from hsp_xtzl_inf-->
-<!--		                 where emg_no = f.xt_seq-->
-<!--		                   and pro_code = #{endProCode,jdbcType = VARCHAR}) flowtime1,-->
-<!--		               (select wlyyry + 0 from aid_patient_xt where xt_seq = f.xt_seq) flowtime2-->
-<!--		          from (select emg_no-->
-<!--		                  from hsp_xtzl_inf-->
-<!--		                 where pro_code = #{endProCode,jdbcType = VARCHAR}-->
-<!--		                   and exists ( select 1-->
-<!--						                  from hsp_xtzl_inf-->
-<!--						                 where pro_code = 'CBZD'-->
-<!--						                   and pro_val = '1'-->
-<!--						                   and emg_no = hsp_xtzl_inf.emg_no)-->
-<!--				           and exists ( select 1-->
-<!--						                  from hsp_xtzl_inf-->
-<!--						                 where pro_code = 'ZGZCS'-->
-<!--						                   and pro_val = '1'-->
-<!--						                   and emg_no = hsp_xtzl_inf.emg_no)-->
-<!--		               ) e,-->
-<!--		               hsp_xt_add f-->
-<!--		         where e.emg_no = f.xt_seq-->
-<!--		           and f.way_typ = '1'-->
-
-<!--		        ) c,-->
-
-<!--		       (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),-->
-<!--		                       'YYYY/MM') yarmon-->
-<!--		          from dual-->
-<!--		        connect by rownum <![CDATA[ <= ]]>-->
-<!--		                   months_between(to_date(#{endDate,jdbcType = VARCHAR}, 'YYYY/MM'),-->
-<!--		                                  to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM')) + 1) d-->
-<!--		 where c.crtyarmon(+) = d.yarmon-->
-<!--		 group by d.yarmon-->
-<!--		 order by d.yarmon-->
-<!--	</select>-->
 
 	<select id="getD2Wsj" parameterType="activetech.edpc.pojo.dto.ReportCondition"
 			resultType="activetech.edpc.pojo.dto.ReportDataResult" >

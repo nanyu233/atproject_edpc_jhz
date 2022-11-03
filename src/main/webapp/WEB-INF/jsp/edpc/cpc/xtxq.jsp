@@ -1840,7 +1840,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="inputs" ms-if="info.CLCL==2 && info.QRXCL==1">
+<%--						<div class="inputs" ms-if="info.CLCL==2 && info.QRXCL==1">--%>
+						<div class="inputs" ms-if="hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1">
 							<div class="input-group">
 								<div class="lb">开始知情同意时间<span class="required">*</span></div>
 								<div class="input">
@@ -2157,14 +2158,14 @@
 									<div class="lb">开始知情同意 <span class="required">*</span></div>
 									<div class="input">
 <%--										<input type="text" ms-duplex-string="info.KSZQTYSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
-										<input type="text" ms-duplex-string="hspXtzlInf.KSZQTYSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+										<input type="text" ms-duplex-string="hspXtzlInf.YNKSZQTYSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 								<div class="input-group">
 									<div class="lb">签署知情同意书 <span class="required">*</span></div>
 									<div class="input">
 <%--										<input type="text" ms-duplex-string="info.YNQSZQTYSSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />--%>
-										<input type="text" ms-duplex-string="hspXtzlInf.QSZQTYSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
+										<input type="text" ms-duplex-string="hspXtzlInf.YNQSZQTYSSJ" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 									</div>
 								</div>
 							</div>
@@ -2334,7 +2335,7 @@
 								</div>
 							</div>
 <%--							<div class="inputs" ms-if="info.SFYW == 1">--%>
-							<div class="inputs" ms-if="hspXtzlInf.SFYW == 1">
+							<div class="inputs" ms-if="hspXtzlInf.ZGZCS == 1 && hspXtzlInf.SFYW == 1">
 								<div style="margin-left: 130px">
 									<div class="checkbox-group">
 										<div ms-repeat="YWYYArr" class="btn" ms-class="{{isChecked('YWYY',el.infocode) ? 'active':''}}" ms-click="onCheckClick('YWYY',el.infocode)">
@@ -2669,7 +2670,7 @@
 						</div>
 					</div>
 <%--					<div class="block" ms-if="info.HZZYFQHXZL==1">--%>
-					<div class="block" ms-if="hspXtzlInf.CBZD==6 || hspXtzlInf.CBZD==7 || hspXtzlInf.CBZD==8">
+					<div class="block" ms-if="(hspXtzlInf.HZZYFQHXZL==1) || (hspXtzlInf.HZZYFQHXZL==0 && (hspXtzlInf.CBZD==6 || hspXtzlInf.CBZD==7 || hspXtzlInf.CBZD==8))">
 						<div class="title" style="color:red;">此选择表示胸痛诊疗结束，不再继续跟踪患者的救治情况！</div>
 					</div>
 				</div>
@@ -3878,6 +3879,8 @@
 				YNYW: '',   //药物(院内)
 				YNJL: '',   //剂量(院内)
 				YNRSZT: null,   //溶栓再通
+				YNKSZQTYSJ: '',   //开始知情同意时间
+				YNQSZQTYSSJ: '',   //签署知情同意书时间
 
 				/*cpctreat -- 导管室 - 基本信息*/
 				DGSJHSJ: '',  //导管室激活时间
