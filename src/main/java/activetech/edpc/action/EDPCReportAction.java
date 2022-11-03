@@ -1194,17 +1194,14 @@ public class EDPCReportAction {
 	
 	
 	/**
-	 * STEMI患者发病后2小时内获得首次医疗接触的比例/  查询
-	 * @param reportCondition
-	 * @return
+	 * STEMI患者发病后3小时内获得首次医疗接触的比例/  查询 改3小时
+	 * @param reportCondition reportCondition
+	 * @return dataGridResultInfo
 	 */
 	@RequestMapping("/getStemi2Hdyljc_result")
 	@ResponseBody
 	public DataGridResultInfo getStemi2Hdyljc_result(ReportCondition reportCondition){
-		
-		DataGridResultInfo dataGridResultInfo = eDPCReportService.getStemi2HdyljcReport(reportCondition);
-		
-		return dataGridResultInfo;
+		return eDPCReportService.getStemi2HdyljcReport(reportCondition);
 	}
 	
 	/**
@@ -1219,7 +1216,7 @@ public class EDPCReportAction {
 		String filePath = ApplicationConfig.getConfig().get("XNML_PATH");
 		
 		// 导出文件的前缀
-		String filePrefix = "STEMI患者发病后2小时内获得首次医疗接触的比例";
+		String filePrefix = "STEMI患者发病后3小时内获得首次医疗接触的比例";
 		// -1表示关闭自动刷新，手动控制写磁盘的时机，其它数据表示多少数据在内存保存，超过的则写入磁盘
 		int flushRows = 100;
 		// 定义导出数据的title
@@ -1241,7 +1238,7 @@ public class EDPCReportAction {
 		gd = gd + "时间：" + startdateStr;
 		String enddateStr = reportCondition.getEndDate();
 		gd = gd + " 至 " + enddateStr;
-		String hb = "STEMI患者发病后2小时内获得首次医疗接触的比例";
+		String hb = "STEMI患者发病后3小时内获得首次医疗接触的比例";
 		// 开始导出，执行一些workbook及sheet等对象的初始创建
 		ExcelExportSXXSSF excelExportSXXSSF = ExcelExportSXXSSF.startHbGd(filePath,
 				"export/", filePrefix, fieldNames, fieldCodes, flushRows,hb,gd);
@@ -1274,7 +1271,7 @@ public class EDPCReportAction {
 		String webpath = excelExportSXXSSF.exportFile();
 		return ResultUtil.createSubmitResult(ResultUtil.createSuccess(
 				Config.MESSAGE, 914, new Object[] {
-						"STEMI患者发病后2小时内获得首次医疗接触的比例",
+						"STEMI患者发病后3小时内获得首次医疗接触的比例",
 						list.size(),
 						webpath//下载地址
 				}));
@@ -1300,10 +1297,7 @@ public class EDPCReportAction {
 	@RequestMapping("/ynswl_result")
 	@ResponseBody
 	public DataGridResultInfo ynswl_result(ReportCondition reportCondition){
-		
-		DataGridResultInfo dataGridResultInfo = eDPCReportService.getYnswlReport(reportCondition);
-		
-		return dataGridResultInfo;
+		return eDPCReportService.getYnswlReport(reportCondition);
 	}
 	
 	
@@ -1542,16 +1536,13 @@ public class EDPCReportAction {
 	
 	/**
 	 * 发病12小时内STEMI患者接收再灌注治疗的比例 / 获取数据
-	 * @param reportCondition
-	 * @return
+	 * @param reportCondition reportCondition
+	 * @return DataGridResultInfo DataGridResultInfo
 	 */
 	@RequestMapping("/zgzbl_result")
 	@ResponseBody
 	public DataGridResultInfo zgzbl_result(ReportCondition reportCondition){
-		
-		DataGridResultInfo dataGridResultInfo = eDPCReportService.getZgzblReport(reportCondition);
-		
-		return dataGridResultInfo;
+		return eDPCReportService.getZgzblReport(reportCondition);
 	}
 	
 	/**

@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 
 <head>
-	<title>STEMI患者发病后2小时内获得首次医疗接触的比例</title>
+	<title>STEMI患者发病后3小时内获得首次医疗接触的比例</title>
 	<base href="<%=basePath%>" >
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</form>
 	<div class="chart_grp chartbox">
 		<div class="form_cat border-radius box-shadow">
-			<p class="chart_title">STEMI患者发病后2小时内获得首次医疗接触的比例</p>
+			<p class="chart_title">STEMI患者发病后3小时内获得首次医疗接触的比例</p>
 			<div id="container" class="chart_div"></div>
 		</div>
 		<!-- 查询列表 -->
@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     type: 'image/png',
                     url: 'report/exportChart.do',
                     width: 1200, //导出报表的宽度  
-                    filename: 'STEMI患者发病后2小时内获得首次医疗接触的比例',
+                    filename: 'STEMI患者发病后3小时内获得首次医疗接触的比例',
                     buttons: {
                         contextButton: {
                             // 自定义导出菜单项目及顺序
@@ -182,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 width: getWidth(0.2)
             }, {
                 field: 'tnumb',
-                title: 'STEMI患者发病后2小时内获得首次医疗接触的人数',
+                title: 'STEMI患者发病后3小时内获得首次医疗接触的人数',
                 width: getWidth(0.2)
             },  {
                 field: 'patNumb',
@@ -218,7 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             var start = $("#emg_startdate").val();
             var end = $("#emg_enddate").val();
             $('#dtoblist').datagrid({
-                title: "STEMI患者发病后2小时内获得首次医疗接触的比例",
+                title: "STEMI患者发病后3小时内获得首次医疗接触的比例",
                 nowrap: true,
                 //view: transposedview,
                 striped: true,

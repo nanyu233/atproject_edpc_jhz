@@ -779,47 +779,41 @@
 	<select id="getSfxdtsj"  parameterType="activetech.edpc.pojo.dto.ReportCondition" 
 		resultType="activetech.edpc.pojo.dto.ReportDataResult" >
 		select d.yarmon,
-		       count(c.emg_seq) patNumb,
-		       nvl(round(sum(c.flowtime1 - c.flowtime2) * 24 * 60 /
-		                 count(c.emg_seq),
-		                 2),
-		           0) avgtime,
-		       nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,
-		       nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
-		       nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
-		  from (select b.emg_seq,
-		               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-		               a.file_date+0 flowtime1,
-		               e.scyljc+0 flowtime2
-		          from (
-		          		select ref_id, min(file_date) as file_date
-						  from hsp_ecg_inf
-						 where ecg_type = '11'
-						   and file_date is not null
-						 group by ref_id
-		                 ) a,
-		               hsp_emg_inf b,
-		               (
-		               	select xt_seq, scyljc 
-						  from aid_patient_xt 
-						 where ddfs in ('1', '3')
-		               ) e
-		         where a.ref_id = b.emg_seq
-		           and b.patid = e.xt_seq
-		           and b.xtlcflg = '1') c,
-		       (select to_char(add_months(to_date(#{startDate,
-		                                              jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),
-		                       'YYYY/MM') yarmon
-		          from dual
-		        connect by rownum <![CDATA[ <= ]]> months_between(to_date(#{endDate,
-		                                              jdbcType = VARCHAR},
-		                                              'YYYY/MM'),
-		                                      to_date(#{startDate,
-		                                              jdbcType = VARCHAR},
-		                                              'YYYY/MM')) + 1) d
-		 where c.crtyarmon(+) = d.yarmon
-		 group by d.yarmon
-		 order by d.yarmon
+			   count(c.emg_seq)                                                patNumb,
+			   nvl(round(sum(c.flowtime1 - c.flowtime2) * 24 * 60 /
+						 count(c.emg_seq),
+						 2),
+				   0)                                                          avgtime,
+			   nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,
+			   nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0)      maxMin,
+			   nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0)      minMin
+		from (select emg_seq,
+					 to_char(reg_tim, 'YYYY/MM') crtyarmon,
+					 file_date + 0 flowtime1,
+					 scyljc + 0 flowtime2
+			  from (select a.emg_seq, a.reg_tim, b.file_date, c.scyljc
+					from hsp_dbzl_bas a,
+						 (SELECT ref_id, file_date
+						  FROM (SELECT ref_id,
+									   file_date,
+									   row_number() over(partition by REF_ID order by FILE_DATE) rn
+								FROM hsp_ecg_inf
+								WHERE file_date is not null
+								  and ref_id is not null)
+						  where rn = 1) b,
+						 (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS') scyljc,
+								 emg_no
+						  FROM hsp_xtzl_inf
+						  WHERE pro_code = 'SCYLJCSJ') c
+					where a.emg_seq = b.ref_id
+					  and a.emg_seq = c.emg_no)) c,
+			 (select to_char(add_months(to_date(#{startDate, jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),'YYYY/MM') yarmon
+			  from dual
+			  connect by rownum <![CDATA[ <= ]]> months_between(to_date(#{endDate, jdbcType = VARCHAR}, 'YYYY/MM'),
+			    to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM')) + 1) d
+		where c.crtyarmon(+) = d.yarmon
+		group by d.yarmon
+		order by d.yarmon
 	</select>
 
 
@@ -943,22 +937,22 @@
 		   select d.yarmon,
 		          count(c.emg_seq) patNumb,
 		          sum(case
-		                when c.zg = '3' then
+		                when c.zg = '4' then
 		                 1 else 0
 		              end) tnumb
 		     from (select b.emg_seq,
-		                  to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-		                  (select pro_val
-		                     from hsp_xtzl_inf
-		                    where emg_no = a.emg_no
-		                      and pro_code = 'ACSHZZG') zg
-		             from (select emg_no
-		                     from hsp_xtzl_inf
-		                    where pro_code = 'CBZD'
-		                      and pro_val = '1') a,
-		                  hsp_emg_inf b
-		            where a.emg_no = b.emg_seq
-		              and b.xtlcflg = '1') c,
+						  to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
+						  (select pro_val
+						   FROM hsp_xtzl_inf
+						   WHERE emg_no = a.emg_no
+							 and pro_code = 'HZZG')     zg
+				   FROM (select emg_no
+						 FROM hsp_xtzl_inf
+						 WHERE pro_code = 'CBZD'
+						   and pro_val = '1') a,
+						HSP_DBZL_BAS b
+				   WHERE a.emg_no = b.emg_seq
+					 and b.PAT_TYP = '1') c,
 		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
 		                          'YYYY/MM') yarmon
@@ -979,19 +973,18 @@
 		                when c.tatin = '1' then
 		                 1 else 0 end) tnumb
 		     from (select b.emg_seq,
-		                  to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-		                  (select pro_val
-		                     from hsp_xtzl_inf
-		                    where emg_no = a.emg_no
-		                      and pro_code = 'QHTTZL') tatin
-		             from (select emg_no
-		                     from hsp_xtzl_inf
-		                    where pro_code = 'CBZD'
-		                      <!-- XT_BYZD_COD 1 2 3 为ACS -->
-		                      and pro_val in ('1','2','3')) a,
-		                  hsp_emg_inf b
-		            where a.emg_no = b.emg_seq
-		              and b.xtlcflg = '1') c,
+						  to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
+						  (select pro_val
+						   FROM hsp_xtzl_inf
+						   WHERE emg_no = a.emg_no
+							 and pro_code = 'TTZL')     tatin
+				   FROM (select emg_no
+						 FROM hsp_xtzl_inf
+						 WHERE pro_code = 'CBZD'
+						   and pro_val in ('1', '2', '3')) a,
+						HSP_DBZL_BAS b
+				   WHERE a.emg_no = b.emg_seq
+					 and b.PAT_TYP = '1') c,
 		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
 		                          'YYYY/MM') yarmon
@@ -1156,42 +1149,46 @@
 	
 	<select id="getStemi2HdyljcReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
-		   select d.yarmon,
-		          count(c.emg_seq) patNumb,
-		          sum(case
-		                when c.fbsj is null then
-		                 0
-		                when nvl(round(( c.emg_dat - c.fbsj) * 24 * 60, 2), 0) <![CDATA[ <= ]]> 120 then
-		                 1
-		                else
-		                 0
-		              end) tnumb
-		     from (select b.emg_seq,
-		                  to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-		                  cast(b.emg_dat as date) emg_dat,
-		                  (select cast(ill_tim as date) fbsj
-		                     from aid_patient
-		                    where patid = (select patid
-		                                     from hsp_emg_inf
-		                                    where emg_seq = a.emg_no)) fbsj
-		             from (select emg_no
-		                     from hsp_xtzl_inf
-		                    where pro_code = 'CBZD'
-		                      <!-- XT_CBZD_COD 1 为STEMI -->
-		                      and pro_val = '1') a,
-		                  hsp_emg_inf b
-		            where a.emg_no = b.emg_seq
-		              and b.xtlcflg = '1') c,
-		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
-		                                     rownum - 1),
-		                          'YYYY/MM') yarmon
-		             from dual
-		           connect by rownum <![CDATA[ <= ]]>
-		                      months_between(to_date(#{endDate,jdbcType = VARCHAR}, 'YYYY/MM'),
-		                                     to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM')) + 1) d
-		    where c.crtyarmon(+) = d.yarmon
-		    group by d.yarmon
-		    order by d.yarmon
+		select d.yarmon,
+			   count(c.emg_seq)    patNumb,
+			   sum(case
+					   when c.fbsj is null then 0
+					   when nvl(round(round((c.scyljc - c.fbsj) * 24 * 60, 2)), 0) <![CDATA[ < ]]> 0 then
+						   0
+					   when nvl(round(round((c.scyljc - c.fbsj) * 24 * 60, 2)), 0)<![CDATA[ <= ]]> 180 then
+						   1
+					   else 0 end) tnumb
+		from (select b.emg_seq,
+					 to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
+					 cast(c.scyljc as date)        scyljc,
+					 (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss') fbsj
+					  FROM HSP_XTZL_INF
+					  WHERE emg_no = a.emg_no
+						and pro_code = 'FBSJ')     fbsj
+			  FROM (select emg_no
+					FROM hsp_xtzl_inf
+					WHERE pro_code = 'CBZD'
+					  and pro_val = '1') a,
+				   HSP_DBZL_BAS b,
+				   (
+					   select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss') scyljc, emg_no
+					   FROM hsp_xtzl_inf
+					   WHERE pro_code = 'SCYLJCSJ'
+				   ) c
+			  WHERE a.emg_no = b.emg_seq
+				and c.EMG_NO = b.EMG_SEQ
+				and b.PAT_TYP = '1') c,
+			 (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
+										rownum - 1),
+							 'YYYY/MM') yarmon
+			  from dual connect by rownum <![CDATA[ <= ]]>
+		                      months_between(to_date(#{endDate,jdbcType = VARCHAR}
+				 , 'YYYY/MM')
+				 , to_date(#{startDate,jdbcType = VARCHAR}
+				 , 'YYYY/MM')) + 1) d
+		where c.crtyarmon(+) = d.yarmon
+		group by d.yarmon
+		order by d.yarmon
 	</select>
 	
 	<select id="getRshzyblReport"  parameterType="activetech.edpc.pojo.dto.ReportCondition"  
@@ -1265,118 +1262,78 @@
 	
 	<select id="getZgzblReport"  parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
-		
-			select d.yarmon, count(emg_seq) patNumb, sum(nvl(c.ywzgzcs, 0)) tnumb
-			  from (
-			        select *
-			          from (select b.emg_seq,
-			                        to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-			                        (select (case
-			                                  when ill_tim_flg = '1' then
-			                                   (ill_tim + 0 +
-			                                   decode(illperd,'1',0,
-			                                                  '2',6,
-			                                                  '3',8,
-			                                                  '4',12,
-			                                                  '5',14,
-			                                                  '6',17,
-			                                                  '7',19,
-			                                                       0) / 24)
-			                                  else
-			                                   ill_tim + 0
-			                                end)
-			                           from aid_patient
-			                          where patid = b.emg_seq) fbsj,
-			                        (select scyljc + 0
-			                           from aid_patient_xt
-			                          where xt_seq = b.emg_seq) scyljcsj,
-			                        (select 1
-			                           from hsp_xtzl_inf
-			                          where emg_no = b.emg_seq
-			                            and pro_code = 'YWZGZCS') ywzgzcs
-			                   from hsp_emg_inf b
-			                  where b.xtlcflg = '1'
-			                    and exists (select 1
-			                           from hsp_xtzl_inf
-			                          where pro_code = 'CBZD'
-			                            and pro_val = '1'
-			                            and emg_no = b.emg_seq)
-			                 union
-			                 select e.xt_seq as emg_seq,
-			                        to_char(e.fst_tim, 'YYYY/MM') crtyarmon,
-			                        (select (case
-			                                  when ill_tim_flg = '1' then
-			                                   (ill_tim + 0 +
-			                                   decode(illperd,'1',0,
-			                                                  '2',6,
-			                                                  '3',8,
-			                                                  '4',12,
-			                                                  '5',14,
-			                                                  '6',17,
-			                                                  '7',19,
-			                                                       0) / 24)
-			                                  else
-			                                   ill_tim + 0
-			                                end)
-			                           from aid_patient
-			                          where patid = e.xt_seq) fbsj,
-			                        (select scyljc + 0
-			                           from aid_patient_xt
-			                          where xt_seq = e.xt_seq) scyljcsj,
-			                        (select 1
-			                           from hsp_xtzl_inf
-			                          where emg_no = e.xt_seq
-			                            and pro_code = 'YWZGZCS') ywzgzcs
-			                   from hsp_xt_add e
-			                  where e.way_typ = '1'
-			                    and e.fst_tim is not null
-			                    and exists (select 1
-			                           from hsp_xtzl_inf
-			                          where pro_code = 'CBZD'
-			                            and pro_val = '1'
-			                            and emg_no = e.xt_seq)
-			                 union
-			                 select h.xt_seq as emg_seq,
-			                        to_char(h.fst_tim, 'YYYY/MM') crtyarmon,
-			                        (case
-			                          when h.cbp_flg = '1' then
-			                           (h.ill_tim + 0 +
-			                           decode(h.ill_prd,'1',0,
-			                                                  '2',6,
-			                                                  '3',8,
-			                                                  '4',12,
-			                                                  '5',14,
-			                                                  '6',17,
-			                                                  '7',19,
-			                                                       0) / 24)
-			                          else
-			                           h.ill_tim + 0
-			                        end) fbsj,
-			                        h.fst_tim + 0 scyljcsj,
-			                        (select 1
-			                           from hsp_xtzl_inf
-			                          where emg_no = h.xt_seq
-			                            and pro_code = 'YWZGZCS') ywzgzcs
-			                   from hsp_xt_add h
-			                  where h.way_typ = '2'
-			                    and h.fst_tim is not null
-			                    and exists (select 1
-			                           from hsp_xtzl_inf
-			                          where pro_code = 'CBZD'
-			                            and pro_val = '1'
-			                            and emg_no = h.xt_seq))
-			         where scyljcsj - fbsj <![CDATA[ < ]]> 0.5) c,
-			       
-			       (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
-		                                     rownum - 1),
-		                          'YYYY/MM') yarmon
-		             from dual
-		           connect by rownum <![CDATA[ <= ]]>
-		                      months_between(to_date(#{endDate,jdbcType = VARCHAR}, 'YYYY/MM'),
-		                                     to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM')) + 1) d
-			 where c.crtyarmon(+) = d.yarmon
-			 group by d.yarmon
-			 order by d.yarmon
+		with temp as (
+			select b.emg_seq,
+				   to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
+				   (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
+					FROM HSP_XTZL_INF
+					WHERE emg_no = b.EMG_SEQ
+					  and pro_code = 'FBSJ')     fbsj,
+				   (select PRO_VAL
+					from HSP_XTZL_INF
+					where EMG_NO = b.EMG_SEQ
+					  and PRO_CODE = 'ZGZCS')    zgzcs,
+				   (select PRO_VAL
+					from HSP_XTZL_INF
+					where EMG_NO = b.EMG_SEQ
+					  and PRO_CODE = 'YNRSSC')   rnrssc,
+				   (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
+					from HSP_XTZL_INF
+					where EMG_NO = b.EMG_SEQ
+					  and PRO_CODE = 'YNKSRSSJ') rnksrssj,
+				   (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
+					from HSP_XTZL_INF
+					where EMG_NO = b.EMG_SEQ
+					  and PRO_CODE = 'KSCCSJ')   ksccsj,
+				   (select PRO_VAL
+					FROM hsp_xtzl_inf
+					WHERE emg_no = b.emg_seq
+					  and pro_code = 'YWZGZCS')  ywzgzcs
+			FROM HSP_DBZL_BAS b
+			WHERE b.PAT_TYP = '1'
+			  and exists(select 1
+						 FROM hsp_xtzl_inf
+						 WHERE pro_code = 'CBZD'
+						   and pro_val = '1'
+						   and emg_no = b.emg_seq)
+		)
+		select d.yarmon, count(emg_seq) patNumb, sum(nvl(c.fhtj, 0)) tnumb
+		from (
+				 select EMG_SEQ,
+						fbsj,
+						zgzsj,
+						crtyarmon,
+						(case
+							 when ywzgzcs = '1' and zgzsj - fbsj <![CDATA[ < ]]>  0.5 then
+								 1
+							 else 0
+							end) fhtj
+				 from (select EMG_SEQ,
+							  crtyarmon,
+							  fbsj,
+							  (case
+								   when zgzcs = '1' then
+									   ksccsj
+								   when zgzcs = '2' and rnrssc = '1' then
+									   rnksrssj
+								  end)
+								  zgzsj,
+							  ywzgzcs
+					   from temp
+					  )
+				 where case when ywzgzcs = '1' and zgzsj is null then 0 else 1 end = 1
+			 ) c,
+			 (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
+										rownum - 1),
+							 'YYYY/MM') yarmon
+			  from dual connect by rownum <![CDATA[ <= ]]>
+		                      months_between(to_date(#{endDate,jdbcType = VARCHAR}
+				 , 'YYYY/MM')
+				 , to_date(#{startDate,jdbcType = VARCHAR}
+				 , 'YYYY/MM')) + 1) d
+		where c.crtyarmon(+) = d.yarmon
+		group by d.yarmon
+		order by d.yarmon
 	</select>
 	
 	<select id="getS2fmcReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
