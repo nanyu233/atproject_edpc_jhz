@@ -2026,11 +2026,11 @@
 								<div class="input">
 									<div class="radio-btns">
 <%--										<div class="btn" ms-class="{{info.ZYPCI==0 ? 'active':''}}" ms-click="onRadioClick('ZYPCI','0')">--%>
-										<div class="btn" ms-class="{{hspXtzlInf.ZYPCI==0 ? 'active':''}}" ms-click="onRadioClick3('ZYPCI','0')">
+										<div class="btn" ms-class="{{hspXtzlInf.ZYPCI==1 ? 'active':''}}" ms-click="onRadioClick3('ZYPCI','1')">
 											转出患者
 										</div>
 <%--										<div class="btn" ms-class="{{info.ZYPCI==1 ? 'active':''}}" ms-click="onRadioClick('ZYPCI','1')">--%>
-										<div class="btn" ms-class="{{hspXtzlInf.ZYPCI==1 ? 'active':''}}" ms-click="onRadioClick3('ZYPCI','1')">
+										<div class="btn" ms-class="{{hspXtzlInf.ZYPCI==0 ? 'active':''}}" ms-click="onRadioClick3('ZYPCI','0')">
 											接收患者
 										</div>
 									</div>
@@ -2229,7 +2229,7 @@
 								|| (hspXtzlInf.CBZD==3 && hspXtzlInf.YWZGZCS==1 && hspXtzlInf.ZCWXFC==1 &&  (hspXtzlInf.ZGZCS==1 || (hspXtzlInf.ZGZCS==2 && (hspXtzlInf.ZGZRSCS==1 || hspXtzlInf.ZGZRSCS==2))))
 								|| (hspXtzlInf.CBZD==2 && hspXtzlInf.ZCWXFC!=1 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1)
 								|| (hspXtzlInf.CBZD==3 && hspXtzlInf.ZCWXFC!=1 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1)
-								|| ((hspXtzlInf.CBZD==1 || hspXtzlInf.CBZD==2 || hspXtzlInf.CBZD==3) && hspXtzlInf.YWZGZCS==1 && hspXtzlInf.ZGZCS==5 && hspXtzlInf.ZYPCI==1)">
+								|| ((hspXtzlInf.CBZD==1 || hspXtzlInf.CBZD==2 || hspXtzlInf.CBZD==3) && hspXtzlInf.YWZGZCS==1 && hspXtzlInf.ZGZCS==5 && hspXtzlInf.ZYPCI==0)">
 						<div class="block">
 							<div class="bar">导管室</div>
 							<div class="title">基本信息</div>
