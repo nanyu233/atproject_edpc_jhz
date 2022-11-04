@@ -2224,7 +2224,12 @@
 						</div>
 					</div>
 <%--					<div ms-if="(info.CBZD==1 && info.YWZGZCS==1 && (info.ZGZCS==1 || (info.ZGZCS==2 && (info.ZGZRSCS==1 || info.ZGZRSCS==2)))) || (info.CBZD==2 && info.CLCL==1 && info.QRXCL==1) || (info.CBZD==3 && info.CLCL==1 && info.QRXCL==1)">--%>
-					<div ms-if="(hspXtzlInf.CBZD==1 && hspXtzlInf.YWZGZCS==1 && (hspXtzlInf.ZGZCS==1 || (hspXtzlInf.ZGZCS==2 && (hspXtzlInf.ZGZRSCS==1 || hspXtzlInf.ZGZRSCS==2)))) || (hspXtzlInf.CBZD==2 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1) || (hspXtzlInf.CBZD==3 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1)">
+					<div ms-if="(hspXtzlInf.CBZD==1 && hspXtzlInf.YWZGZCS==1 && (hspXtzlInf.ZGZCS==1 || (hspXtzlInf.ZGZCS==2 && (hspXtzlInf.ZGZRSCS==1 || hspXtzlInf.ZGZRSCS==2))))
+								|| (hspXtzlInf.CBZD==2 && hspXtzlInf.YWZGZCS==1 && hspXtzlInf.ZCWXFC==1 && (hspXtzlInf.ZGZCS==1 || (hspXtzlInf.ZGZCS==2 && (hspXtzlInf.ZGZRSCS==1 || hspXtzlInf.ZGZRSCS==2))))
+								|| (hspXtzlInf.CBZD==3 && hspXtzlInf.YWZGZCS==1 && hspXtzlInf.ZCWXFC==1 &&  (hspXtzlInf.ZGZCS==1 || (hspXtzlInf.ZGZCS==2 && (hspXtzlInf.ZGZRSCS==1 || hspXtzlInf.ZGZRSCS==2))))
+								|| (hspXtzlInf.CBZD==2 && hspXtzlInf.ZCWXFC!=1 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1)
+								|| (hspXtzlInf.CBZD==3 && hspXtzlInf.ZCWXFC!=1 && hspXtzlInf.CLCL==2 && hspXtzlInf.QRXCL==1)
+								|| ((hspXtzlInf.CBZD==1 || hspXtzlInf.CBZD==2 || hspXtzlInf.CBZD==3) && hspXtzlInf.YWZGZCS==1 && hspXtzlInf.ZGZCS==5 && hspXtzlInf.ZYPCI==1)">
 						<div class="block">
 							<div class="bar">导管室</div>
 							<div class="title">基本信息</div>
@@ -2797,7 +2802,7 @@
 								<div class="input">
 									<div class="checkbox-group">
 										<div class="btn" ms-repeat="ZYQJBFZArr" ms-class="{{isChecked('ZYQJBFZ',el.infocode) ? 'active':''}}"
-										 ms-click="onSelectClick('ZYQJBFZ',el.infocode)">
+										 ms-click="onSelectClick3('ZYQJBFZ',el.infocode)">
 											{{el.info}}
 										</div>
 									</div>
@@ -3249,7 +3254,7 @@
 									<div class="lb lb_check">离院宣教 <span class="required">*</span></div>
 									<div class="input">
 										<div class="checkbox-group">
-											<div class="btn" ms-repeat="LYXJArr" ms-class="{{isChecked('LYXJ',el.infocode) ? 'active':''}}" ms-click="onSelectClick('LYXJ',el.infocode)">
+											<div class="btn" ms-repeat="LYXJArr" ms-class="{{isChecked('LYXJ',el.infocode) ? 'active':''}}" ms-click="onSelectClick3('LYXJ',el.infocode)">
 												{{el.info}}
 											</div>
 										</div>
@@ -4677,10 +4682,10 @@
 						}
 					}
 				} else {
-					if (vm.info[prop]) {
-						vm.info[prop] = 0;
+					if (vm.hspXtzlInf[prop]) {
+						vm.hspXtzlInf[prop] = 0;
 					} else {
-						vm.info[prop] = 1;
+						vm.hspXtzlInf[prop] = 1;
 					}
 				}
 			},
@@ -4698,7 +4703,7 @@
 				vm.hspXtzlInf[prop] = list.join(',');
 			},
 
-			// 点击无 选中状态全部为未选中状态
+			// 点击无 选中状态全部为未选中状态 （当字典中00或者0代表无的时候）
 			onSelectClick: function(prop, code) {
 				var list = vm[prop + 'Sel'];
 				if (list.indexOf(code) > -1) {
@@ -4715,6 +4720,31 @@
 						list.splice(list.indexOf('00'), 1)
 					} else if (list[0] == '0') {
 						list.splice(list.indexOf('0'), 1)
+					}
+					list.push(code)
+				}
+				vm[prop + 'Sel'] = list;
+				// vm.info[prop] = list.join(',');
+				vm.hspXtzlInf[prop] = list.join(',');
+			},
+
+			// 点击无 选中状态全部为未选中状态 （当字典中99或者9代表无的时候）
+			onSelectClick3: function(prop, code) {
+				var list = vm[prop + 'Sel'];
+				if (list.indexOf(code) > -1) {
+					list.splice(list.indexOf(code), 1)
+				} else if (code == '99' || code == '9') {
+					list = [];
+					if (code == '99') {
+						list.push('99');
+					} else {
+						list.push('9');
+					}
+				} else {
+					if (list[0] == '99') {
+						list.splice(list.indexOf('99'), 1)
+					} else if (list[0] == '9') {
+						list.splice(list.indexOf('9'), 1)
 					}
 					list.push(code)
 				}
@@ -4741,9 +4771,9 @@
 				// vm.info[prop] = list.join(',');
 				vm.hspXtzlInf[prop] = list.join(',');
 			},
-			onRadioClick: function(prop, val) {
-				vm.info[prop] = val;
-			},
+			// onRadioClick: function(prop, val) {
+			// 	vm.info[prop] = val;
+			// },
 			onRadioClick2: function(prop, val) {
 				vm.aidPatientXt[prop] = val;
 			},
