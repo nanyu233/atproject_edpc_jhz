@@ -123,15 +123,15 @@
 								</select>
 							</div>
 						</div>
-						<!-- <div class="input-wrapper w23">
-                    <div class="lb">文化程度</div>
-                    <div class="input">
-                        <select name="" ms-duplex="baseInfo.WHCD">
-                            <option value="">请选择</option>
-                            <option ms-repeat="WHCDArr" ms-attr-value="el.infocode">{{el.info}}</option>
-                        </select>
-                    </div>
-                </div> -->
+						<div class="input-wrapper w23">
+                  		  	<div class="lb">文化程度</div>
+                    		<div class="input">
+                    	    	<select name="" ms-duplex="baseInfo.cstEdu">
+                    	        	<option value="" ms-attr-selected="!baseInfo.cstEdu">请选择</option>
+                    	        	<option ms-repeat="WHCDArr" ms-attr-value="el.infocode">{{el.info}}</option>
+                    	    	</select>
+                    		</div>
+						</div>
 						<div class="input-wrapper w23">
 							<div class="lb">婚姻状况</div>
 							<div class="input">
@@ -3688,6 +3688,7 @@
 				bthDat: '', //出生日期
 				pheNbr: '', //联系电话
 				emgJob: '', //职业
+				cstEdu: '', //文化程度
 				maritalStatus: '', //婚姻状况
 				nation: '', //民族
 				// senRctCod: '', //意识
@@ -5374,7 +5375,8 @@
 				key: 'XT_WHCD_COD'
 			}, {
 				prop: 'maritalStatusArr',
-				key: 'XT_HYZK_COD'
+				// key: 'XT_HYZK_COD'
+				key: 'MARITAL_STATUS'
 			}, {
 				prop: 'BQPGArr',
 				key: 'XT_BQPG_COD'

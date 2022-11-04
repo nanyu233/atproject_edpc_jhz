@@ -16,12 +16,13 @@
         set a.id_nbr         = #{hspDbzlBasCustom.idNbr, jdbcType = VARCHAR},
             a.nation         = #{hspDbzlBasCustom.nation, jdbcType = VARCHAR},
             a.emg_job        = #{hspDbzlBasCustom.emgJob, jdbcType = VARCHAR},
+            a.cst_edu        = #{hspDbzlBasCustom.cstEdu, jdbcType = VARCHAR},
             a.marital_status = #{hspDbzlBasCustom.maritalStatus, jdbcType = VARCHAR},
             a.jzxh           = #{hspDbzlBasCustom.jzxh, jdbcType = VARCHAR},
             a.zyxh           = #{hspDbzlBasCustom.zyxh, jdbcType = VARCHAR},
             a.mod_no         = #{hspDbzlBasCustom.modNo, jdbcType = VARCHAR},
             a.mod_tim        = sysdate
-        where a.reg_seq = #{regSeq, jdbcType = VARCHAR}
+        where a.reg_seq = #{hspDbzlBasCustom.regSeq, jdbcType = VARCHAR}
     </update>
 
     <select id="selectHspDbzlBasPatient" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto"
