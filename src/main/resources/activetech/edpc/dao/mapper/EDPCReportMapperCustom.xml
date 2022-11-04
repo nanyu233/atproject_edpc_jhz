@@ -694,25 +694,29 @@
 			   nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,
 			   nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 			   nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
-		  from (select f.xt_seq emg_seq,
+		  from (select f.emg_seq emg_seq,
 					   to_char(f.reg_tim, 'YYYY/MM') crtyarmon,
+					   flowtime1,
 					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-						  from hsp_xtzl_inf
-						 where emg_no = f.xt_seq
-						   and pro_code = #{endProCode,jdbcType = VARCHAR}) flowtime1,
-					   f.fst_tim + 0 flowtime2
-				  from (select emg_no
-						  from hsp_xtzl_inf
-						 where pro_code = #{endProCode,jdbcType = VARCHAR}
-						   and exists
-						 (select 1
-								  from hsp_xtzl_inf
-								 where pro_code = 'ZGZCS'
-								   and pro_val = '1'
-								   and emg_no = hsp_xtzl_inf.emg_no)) e,
-					   hsp_xt_add f
-				 where e.emg_no = f.xt_seq
-				   and f.way_typ = '1') c,
+						from hsp_xtzl_inf
+						where emg_no = f.emg_seq
+						  and pro_code = 'SCYLJCSJ') flowtime2
+				from (select emg_seq, (min(dstgsj) + 0) as flowtime1
+					  from hsp_crivel_inf
+					  where exists (select 1
+									from hsp_xtzl_inf
+									where pro_code = 'CBZD'
+									  and pro_val = '1'
+									  and emg_seq = hsp_xtzl_inf.emg_no)
+						and exists (select 1
+									from hsp_xtzl_inf
+									where pro_code = 'ZGZCS'
+									  and pro_val = '1'
+									  and emg_seq = hsp_xtzl_inf.emg_no)
+					  group by emg_seq) e,
+					 hsp_dbzl_bas f
+				where e.emg_seq = f.emg_seq
+				  and f.pat_typ = '1') c,
 		       (select to_char(add_months(to_date(#{startDate,
 		                                          jdbcType = VARCHAR},
 		                                          'YYYY/MM'),
@@ -1003,7 +1007,7 @@
 		          count(c.emg_seq) patNumb,
 		          sum(case when c.rxccu = '1' then 1 else 0 end) tnumb
 		     from ( select b.emg_seq,
-			               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
+			               to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 			               (select pro_val
 			                  from hsp_xtzl_inf
 			                 where emg_no = a.emg_no
@@ -1019,9 +1023,9 @@
 			                           and pro_code = 'ZGZCS'
 			                           and pro_val = '1')
 			                ) a,
-			               hsp_emg_inf b
+			               hsp_dbzl_bas b
 			         where a.emg_no = b.emg_seq
-			           and b.xtlcflg = '1'
+			           and b.pat_typ = '1'
 		              ) c,
 		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
@@ -1041,51 +1045,28 @@
 			       count(c.emg_seq) patNumb,
 			       sum(case when c.pcisswcsj is not null then 1 else 0 end) tnumb
 			  from (select b.emg_seq,
-			               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-			               (select pro_val
-			                  from hsp_xtzl_inf
-			                 where emg_no = a.emg_no
-			                   and pro_code = 'PCISSWCSJ') pcisswcsj
-			          from (
-			                select emg_no
-			                  from hsp_xtzl_inf
-			                 where pro_code = 'CBZD'
-			                   and pro_val = '1'
-			                   and exists (select 1
-			                          from hsp_xtzl_inf
-			                         where emg_no = hsp_xtzl_inf.emg_no
-			                           and pro_code = 'ZGZCS'
-			                           and pro_val = '1')
-			                ) a,
-			               hsp_emg_inf b
-			         where a.emg_no = b.emg_seq
-			           and b.xtlcflg = '1' 
-			           and exists(select 1 from aid_patient_xt where DDFS IN('1','2'))
-			
-			        union
-			        
-			        select f.xt_seq as emg_seq,
-			               to_char(f.fst_tim, 'YYYY/MM') crtyarmon,
-			               (select pro_val
-			                  from hsp_xtzl_inf
-			                 where emg_no = e.emg_no
-			                   and pro_code = 'PCISSWCSJ') pcisswcsj
-			          from (
-			                select emg_no
-			                  from hsp_xtzl_inf
-			                 where pro_code = 'CBZD'
-			                   and pro_val = '1'
-			                   and exists (select 1
-			                          from hsp_xtzl_inf
-			                         where emg_no = hsp_xtzl_inf.emg_no
-			                           and pro_code = 'ZGZCS'
-			                           and pro_val = '1')
-			                ) e,
-			               hsp_xt_add f
-			         where e.emg_no = f.xt_seq
-			           and f.way_typ = '1' 
-			           and f.fst_tim is not null
-			           and exists(select 1 from aid_patient_xt where DDFS IN('1','2'))
+						   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
+						   (select pro_val
+							from hsp_xtzl_inf
+							where emg_no = a.emg_no
+							  and pro_code = 'PCISSWCSJ') pcisswcsj
+					from (select emg_no
+						  from hsp_xtzl_inf
+						  where pro_code = 'CBZD'
+							and pro_val = '1'
+							and exists (select 1
+										from hsp_xtzl_inf
+										where emg_no = hsp_xtzl_inf.emg_no
+										  and pro_code = 'ZGZCS'
+										  and pro_val = '1')) a,
+						 hsp_dbzl_bas b
+					where a.emg_no = b.emg_seq
+					  and b.pat_typ = '1'
+					  and exists (select 1
+								  from hsp_xtzl_inf
+								  where emg_no = b.emg_seq
+									and pro_code = 'DYFS'
+									and pro_val in ('1', '2'))
 			           ) c, 
 		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
@@ -1103,38 +1084,24 @@
 		resultType="activetech.edpc.pojo.dto.ReportDataResult" >
 		select d.yarmon, count(c.emg_seq) patNumb, sum(nvl(c.ycxdtcs, 0)) tnumb
 		  from (select b.emg_seq,
-		               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-		               (select 1
-		                  from hsp_xtzl_inf
-		                 where emg_no = a.emg_no
-		                   and pro_code = 'YCXDTCS') ycxdtcs
-		          from (select emg_no
-		                  from hsp_xtzl_inf
-		                 where pro_code = 'CBZD'
-		                   and pro_val = '1') a,
-		               hsp_emg_inf b
-		         where a.emg_no = b.emg_seq
-		           and b.xtlcflg = '1'
-		           and exists
-		         (select 1 from aid_patient_xt where DDFS IN ('1', '2'))
-		        
-		        union
-		        
-		        select f.xt_seq as emg_seq,
-		               to_char(f.fst_tim, 'YYYY/MM') crtyarmon,
-		               (select 1
-		                  from hsp_xtzl_inf
-		                 where emg_no = e.emg_no
-		                   and pro_code = 'YCXDTCS') ycxdtcs
-		          from (select emg_no
-		                  from hsp_xtzl_inf
-		                 where pro_code = 'CBZD'
-		                   and pro_val = '1') e,
-		               hsp_xt_add f
-		         where e.emg_no = f.xt_seq
-		           and f.way_typ = '1'
-		           and exists
-		         (select 1 from aid_patient_xt where DDFS IN ('1', '2'))) c,
+					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
+					   (select 1
+						from hsp_xtzl_inf
+						where emg_no = a.emg_no
+						  and pro_code = 'YCXDTCS'
+						  and pro_val = '1') ycxdtcs
+				from (select emg_no
+					  from hsp_xtzl_inf
+					  where pro_code = 'CBZD'
+						and pro_val = '1') a,
+					 hsp_dbzl_bas b
+				where a.emg_no = b.emg_seq
+				  and b.pat_typ = '1'
+				  and exists (select 1
+							  from hsp_xtzl_inf
+							  where emg_no = b.emg_seq
+								and pro_code = 'DYFS'
+								and pro_val in ('1', '2'))) c,
 		       (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
 		                          'YYYY/MM') yarmon
@@ -1201,53 +1168,22 @@
 			             else
 			              0
 			           end) tnumb
-			  from (
-			        select b.emg_seq,
-			                to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-			                nvl((select rsjs + 0 from AID_PATIENT_XT where xt_seq = b.patid),
-			                    (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-			                       from hsp_xtzl_inf
-			                      where emg_no = b.emg_seq
-			                        and pro_code = 'YNRSKSSJ')) rssj,
-			                (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-			                   from hsp_xtzl_inf
-			                  where emg_no = b.emg_seq
-			                    and pro_code = 'ZYKSSJ') zykssj
-			          from hsp_emg_inf b
-			         where b.xtlcflg = '1'
-			           and exists((select 1
-			                         from AID_PATIENT_XT
-			                        where xt_seq = b.patid
-			                          and yqrs = '1') union
-			                      (select 1
-			                         from hsp_xtzl_inf
-			                        where emg_no = b.emg_seq
-			                          and pro_code = 'YNRSKSSJ'))
-			        union
-			        select a.xt_seq as emg_seq,
-			                to_char(a.fst_tim, 'YYYY/MM') crtyarmon,
-			                nvl((select rsjs + 0
-			                      from AID_PATIENT_XT
-			                     where xt_seq = a.xt_seq),
-			                    (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-			                       from hsp_xtzl_inf
-			                      where emg_no = a.xt_seq
-			                        and pro_code = 'YNRSKSSJ')) rssj,
-			                (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-			                   from hsp_xtzl_inf
-			                  where emg_no = a.xt_seq
-			                    and pro_code = 'ZYKSSJ') zykssj
-			          from hsp_xt_add a
-			         where a.way_typ = '1'
-			           and exists((select 1
-			                         from AID_PATIENT_XT
-			                        where xt_seq = a.xt_seq
-			                          and yqrs = '1') union
-			                      (select 1
-			                         from hsp_xtzl_inf
-			                        where emg_no = a.xt_seq
-			                          and pro_code = 'YNRSKSSJ'))
-			        ) c,
+			  from (select b.emg_seq,
+						   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
+						   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
+							from hsp_xtzl_inf
+							where emg_no = b.emg_seq
+							  and pro_code = 'YNKSRSSJ') rssj,
+						   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
+							from hsp_xtzl_inf
+							where emg_no = b.emg_seq
+							  and pro_code = 'ZYKSSJ') zykssj
+					from hsp_dbzl_bas b
+					where b.pat_typ = '1'
+					  and exists (select 1
+								  from hsp_xtzl_inf
+								  where emg_no = b.emg_seq
+									and pro_code = 'YNKSRSSJ')) c,
 			        (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
 		                          'YYYY/MM') yarmon
@@ -1348,24 +1284,22 @@
 		       nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 		       nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
 		  from (select b.emg_seq,
-		               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-		                   
-		               (select cast(ill_tim as date) fbsj
-		                     from aid_patient
-		                    where patid = (select patid
-		                                     from hsp_emg_inf
-		                                    where emg_seq = a.emg_no)) flowtime2,
-		                                    
-		               (select cast(emg_dat as date) emg_dat
-		                  from hsp_emg_inf
-		                 where emg_seq = a.emg_no) flowtime1
-		          from (select emg_no
-		                  from hsp_xtzl_inf
-		                 where pro_code = 'CBZD'
-		                   and pro_val = '1') a,
-		               hsp_emg_inf b
-		         where a.emg_no = b.emg_seq
-		           and b.xtlcflg = '1') c,
+					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
+					   (select to_date(pro_val,'yyyy-MM-dd hh24:mi')
+						from hsp_xtzl_inf
+						where pro_code = 'FBSJ'
+						and emg_no = a.emg_no) flowtime2,
+					   (select to_date(pro_val,'yyyy-MM-dd hh24:mi')
+						from hsp_xtzl_inf
+						where pro_code = 'SCYLJCSJ'
+						and emg_no = a.emg_no) flowtime1
+				from (select emg_no
+					  from hsp_xtzl_inf
+					  where pro_code = 'CBZD'
+						and pro_val = '1') a,
+					 hsp_dbzl_bas b
+				where a.emg_no = b.emg_seq
+				  and b.pat_typ = '1') c,
 		       (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),
 		                       'YYYY/MM') yarmon
 		          from dual
@@ -1744,31 +1678,32 @@
 	<select id="getStemi12HdyljcReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
 		   select d.yarmon,
-		          count(c.emg_seq) patNumb,
-		          sum(case
-		                when c.fbsj is null then
-		                 0
-		                when nvl(round(( c.emg_dat - c.fbsj) * 24 * 60, 2), 0) <![CDATA[ <= ]]> 720 then
-		                 1
-		                else
-		                 0
-		              end) tnumb
-		     from (select b.emg_seq,
-		                  to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-		                  cast(b.emg_dat as date) emg_dat,
-		                  (select cast(ill_tim as date) fbsj
-		                     from aid_patient
-		                    where patid = (select patid
-		                                     from hsp_emg_inf
-		                                    where emg_seq = a.emg_no)) fbsj
-		             from (select emg_no
-		                     from hsp_xtzl_inf
-		                    where pro_code = 'CBZD'
-		                      <!-- XT_CBZD_COD 1 为STEMI -->
-		                      and pro_val = '1') a,
-		                  hsp_emg_inf b
-		            where a.emg_no = b.emg_seq
-		              and b.xtlcflg = '1') c,
+       				count(c.emg_seq) patNumb,
+       				sum(case
+             			when c.fbsj is null then
+              			0
+             			when nvl(round((to_date(c.emg_dat, 'yyyy-MM-dd hh24:mi') - to_date(c.fbsj, 'yyyy-MM-dd hh24:mi')) * 24 * 60, 2),0) <![CDATA[ <= ]]> 720 then
+              			1
+             			else
+              			0
+           			end) tnumb
+		     from (select a.emg_seq,
+						  to_char(a.reg_tim, 'YYYY/MM') crtyarmon,
+						  (select pro_val
+						   from hsp_xtzl_inf
+						   where pro_code = 'SCYLJCSJ'
+							 and emg_no = a.emg_seq) emg_dat,
+						  (select pro_val
+						   from hsp_xtzl_inf
+						   where pro_code = 'FBSJ'
+							 and emg_no = a.emg_seq) fbsj
+				   from hsp_dbzl_bas a,
+						(select emg_no
+						 from hsp_xtzl_inf
+						 where pro_code = 'CBZD'
+						   and pro_val = '1') b
+				   where a.emg_seq = b.emg_no
+					 and a.pat_typ = '1') c,
 		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
 		                          'YYYY/MM') yarmon
