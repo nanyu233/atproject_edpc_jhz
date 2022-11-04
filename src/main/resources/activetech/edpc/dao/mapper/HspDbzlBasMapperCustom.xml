@@ -100,4 +100,13 @@
         not exists ( select 1 FROM hsp_fuv_pat where pat_id = a.reg_seq)
         <include refid="condition"/>
     </select>
+
+
+     <select id="selectByPrimaryByEmgSeq" resultType="activetech.edpc.pojo.domain.HspDbzlBas"
+             parameterType="activetech.edpc.pojo.domain.HspDbzlBas">
+        select *
+        from hsp_dbzl_bas
+        where
+        emg_seq = #{emgSeq,jdbcType = VARCHAR}
+    </select>
 </mapper>

@@ -38,4 +38,6 @@
 	<!-- 急诊接口实现类 -->
 	<bean id="JzbrService" class="activetech.edpc.service.impl.JzbrServiceImpl"/>
 
+	<bean id="CpcCrfplaneService" class="activetech.edpc.service.impl.CpcCrfplaneServiceImpl"/>
+
 </beans>

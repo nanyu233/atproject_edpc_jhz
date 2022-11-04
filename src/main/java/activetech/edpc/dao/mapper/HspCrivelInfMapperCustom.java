@@ -9,4 +9,5 @@ public interface HspCrivelInfMapperCustom {
 
     int insertSelective(HspCrivelInf record);
 
+    List<HspCrivelInf> selectByPrimaryKeyList(String emgNo);
 }

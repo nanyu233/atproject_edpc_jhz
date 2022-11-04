@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="activetech.edpc.dao.mapper.HspCrivelInfMapperCustom" >
-
+<resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspCrivelInf" >
+		    <id column="VEL_SEQ" property="velSeq" jdbcType="VARCHAR" />
+		    <result column="EMG_SEQ" property="emgSeq" jdbcType="VARCHAR" />
+		    <result column="XZCD" property="xzcd" jdbcType="VARCHAR" />
+		    <result column="ZYSTIMIXL" property="zystimixl" jdbcType="VARCHAR" />
+		    <result column="ZJNXS" property="zjnxs" jdbcType="VARCHAR" />
+		    <result column="SFFCBB" property="sffcbb" jdbcType="VARCHAR" />
+		    <result column="SFCTO" property="sfcto" jdbcType="VARCHAR" />
+		    <result column="GHBB" property="ghbb" jdbcType="VARCHAR" />
+		    <result column="ZFBB" property="zfbb" jdbcType="VARCHAR" />
+		    <result column="PCI" property="pci" jdbcType="VARCHAR" />
+		    <result column="SZCL" property="szcl" jdbcType="VARCHAR" />
+		    <result column="DSTGSJ" property="dstgsj" jdbcType="TIMESTAMP" />
+		    <result column="SHTIMIXL" property="shtimixl" jdbcType="VARCHAR" />
+		    <result column="ZRZJGS" property="zrzjgs" jdbcType="VARCHAR" />
+		    <result column="ZJZL" property="zjzl" jdbcType="VARCHAR" />
+		  </resultMap>
+	 <sql id="Base_Column_List" >
+		    VEL_SEQ, EMG_SEQ, XZCD, ZYSTIMIXL, ZJNXS, SFFCBB, SFCTO, GHBB, ZFBB, PCI, SZCL, DSTGSJ,
+		    SHTIMIXL, ZRZJGS, ZJZL
+		 </sql>
   		<insert id="insertSelective"  parameterType="activetech.edpc.pojo.domain.HspCrivelInf"
   				useGeneratedKeys="true" keyColumn ="velSeq">
 	  		 <selectKey keyProperty="velSeq" resultType="java.lang.String" order="BEFORE">
@@ -99,4 +119,11 @@
 		      </if>
 		    </trim>
 		  </insert>
+
+	<select id="selectByPrimaryKeyList" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspCrivelInf" >
+	   select
+		   *
+	   from HSP_CRIVEL_INF
+	   where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
+  	</select>
 </mapper>

@@ -1,5 +1,6 @@
 package activetech.edpc.dao.mapper;
 
+import activetech.edpc.pojo.domain.HspDbzlBas;
 import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 
@@ -16,6 +17,5 @@ public interface HspDbzlBasMapperCustom {
 
     int countByCondition(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 
-
-
+    HspDbzlBas selectByPrimaryByEmgSeq(String emgNo);
 }

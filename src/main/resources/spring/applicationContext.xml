@@ -23,7 +23,9 @@
 <!-- Spring上下文工具 -->
 <bean class="activetech.base.service.SpringContextUtil"  id="springContextUtil"/>
 
-<!-- 试用下hikari 连接池，据说是java速度最快的数据库连接池 -->
+<bean id="minIoUtil" class="activetech.base.util.MinIoUtil"></bean>
+
+    <!-- 试用下hikari 连接池，据说是java速度最快的数据库连接池 -->
 <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
     <property name="driverClassName" value="${jdbc.driver}" />
     <property name="jdbcUrl" value="${jdbc.url}" />
