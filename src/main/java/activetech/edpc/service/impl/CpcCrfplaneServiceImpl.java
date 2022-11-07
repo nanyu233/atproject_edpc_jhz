@@ -140,7 +140,7 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 		JSONObject registerInfoMap = new JSONObject();
 
         //registerInfoMap  start ----------------------------------------------------------
-		registerInfoMap.put("REGISTER_ID", "ad8c313d-b74a-46c0-aa77-5c5b221dbaf4"); ////注册编号  fei  上报填写后返回  id 用于后续 修改提交等操作
+		registerInfoMap.put("REGISTER_ID", hspDbzlBas.getSmtSeq() == null ?"": hspDbzlBas.getSmtSeq()); ////注册编号  fei  上报填写后返回  id 用于后续 修改提交等操作
 		registerInfoMap.put("HOSPITAL_ID", CpcConfig.HOSPITAL_ID);//医院 ID  bi
 		registerInfoMap.put("NAME", hspDbzlBas.getCstNam());//姓名 bi
 		registerInfoMap.put("GENDER", "0".equals(hspDbzlBas.getCstSexCod()) ? "1" : "2"); //性别 bi
@@ -832,9 +832,9 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 			}
 
 			//抗凝
-			treatmentInfoMap.put("NSTEMI_IS_ANTICOAGULATION", xtzlMap.get("ISKN"));
-			if (isnot(xtzlMap.get("ISKN"))) {
-				treatmentInfoMap.put("NSTEMI_ANTICOAGULATION_DRUG", xtzlMap.get("KANGN"));
+			treatmentInfoMap.put("NSTEMI_IS_ANTICOAGULATION", xtzlMap.get("KANGN"));
+			if (isnot(xtzlMap.get("KANGN"))) {
+				treatmentInfoMap.put("NSTEMI_ANTICOAGULATION_DRUG", xtzlMap.get("KNYW"));
 				treatmentInfoMap.put("NSTEMI_ANTICOAGULATION_DOSE", xtzlMap.get("KNYWJL"));
 				treatmentInfoMap.put("NSTEMI_ANTICOAGULATION_TIME", xtzlMap.get("KNYWSJ"));
 				treatmentInfoMap.put("NSTEMI_ANTICOAGULATION_UNIT", xtzlMap.get("KNYWDW"));
@@ -845,6 +845,7 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 			treatmentInfoMap.put("NSTEMI_IS_BETA_BLOCKER", xtzlMap.get("BSTZZJ"));
 
 			//grace
+			treatmentInfoMap.put("NSTEMI_GRACE_ESTIMATE","");
 			if(xtzlMap.get("WXYS") != null){
 				treatmentInfoMap.put("NSTEMI_GRACE_ESTIMATE", ("" + xtzlMap.get("WXYS")).replaceAll(",", "|"));//Grace 评估
 			}
@@ -939,9 +940,9 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 				}
 			}
 			//抗凝
-			treatmentInfoMap.put("UA_IS_ANTICOAGULATION", xtzlMap.get("ISKN"));
-			if (isnot(xtzlMap.get("ISKN"))) {
-				treatmentInfoMap.put("UA_ANTICOAGULATION_DRUG", xtzlMap.get("KANGN"));
+			treatmentInfoMap.put("UA_IS_ANTICOAGULATION", xtzlMap.get("KANGN"));
+			if (isnot(xtzlMap.get("KANGN"))) {
+				treatmentInfoMap.put("UA_ANTICOAGULATION_DRUG", xtzlMap.get("KNYW"));
 				treatmentInfoMap.put("UA_ANTICOAGULATION_DOSE", xtzlMap.get("KNYWJL"));
 				treatmentInfoMap.put("UA_ANTICOAGULATION_TIME", xtzlMap.get("KNYWSJ"));
 				treatmentInfoMap.put("UA_ANTICOAGULATION_UNIT", xtzlMap.get("KNYWDW"));
@@ -951,6 +952,7 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 			treatmentInfoMap.put("UA_RECEPTOR_RETARDANT_USING", xtzlMap.get("BSTZZJ"));
 
 			//grace
+			treatmentInfoMap.put("UA_GRACE_ESTIMATE","");
 			if(xtzlMap.get("WXYS") != null){
 				treatmentInfoMap.put("UA_GRACE_ESTIMATE", ("" + xtzlMap.get("WXYS")).replaceAll(",", "|"));//Grace 评估
 			}
@@ -990,8 +992,8 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 
 							//导管室 end
 						} else if ("2".equals(xtzlMap.get("QRXCL"))) {
-							if(xtzlMap.get("SJJRZLSJ") != null) {
-								treatmentInfoMap.put("UA_ACTUAL_INTERVENT_TIME", xtzlMap.get("SJJRZLSJ"));
+							if(xtzlMap.get("SJJRZLSJ") != null) {//UA_ACTUAL_INTERVENT_TIME
+								treatmentInfoMap.put("UA_ACTUAL_INTERVENTION_TIME", xtzlMap.get("SJJRZLSJ"));
 							}
 						}
 					}
@@ -1099,7 +1101,7 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 			}
 
 			//治疗信息-危险分层-开始抗凝治疗时间
-			treatmentInfoMap.put("PE_RISK_LAMINATION", xtzlMap.get("WXFC"));
+			treatmentInfoMap.put("PE_RISK_LAMINATION", xtzlMap.get("WXFC"));//
 			if(xtzlMap.get("KSKNZLSJ") != null) {
 				treatmentInfoMap.put("PE_ANTI_TREATMENT_TIME", xtzlMap.get("KSKNZLSJ"));
 			}
@@ -1480,22 +1482,24 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 			OutComeInfo.put("OBESITY", XXGJBWXYS.indexOf("5") > 0 ? "1" : "0");//肥胖
 			OutComeInfo.put("FAMILY_DISEASE", XXGJBWXYS.indexOf("6") > 0 ? "1" : "0");//早发 CVD 家族史(男<55 岁， 女<60 岁)
 			//合并疾病1 冠心病|2 心房颤动|3 慢性心力衰竭|4 心脏瓣膜病|5 脑血管疾病|6 外周动脉疾病|7 主动脉瘤|8 COPD|9 慢性肾病|10 贫血|11 消化性溃疡|12 甲状腺功能异常|13 恶性肿瘤
+			OutComeInfo.put("CHD", "0");
+			OutComeInfo.put("AF", "0");
+			OutComeInfo.put("SLOW_HEART_FAILURE", "0");
+			OutComeInfo.put("AVHD", "0"); //心脏瓣膜病
+			OutComeInfo.put("BRIAN_VASCELLUM", "0");
+			OutComeInfo.put("PERIPHERAL_ARTERY_DISEASE",  "0");//外周动脉疾病
+			OutComeInfo.put("AORTIC_ANEURYSM",  "0");//主动脉瘤
+			OutComeInfo.put("COPD", "0");//COPD
+			OutComeInfo.put("CHRONIC_KIDNEY_DISEASE",  "0");//慢性肾病
+			OutComeInfo.put("ANEMIA", "0");//贫血
+			OutComeInfo.put("PEPTIC_ULCER",  "0");//消化性溃疡
+			OutComeInfo.put("THYROID_DISEASE", "0");//甲状腺功能异常
+			OutComeInfo.put("THERIOMA", "0");//恶性肿瘤
+
 			String HEBZ = xtzlMap.get("HEBZ");
 			if(HEBZ != null){
 				String[] hebzArr = HEBZ.split(",") ;
-				OutComeInfo.put("CHD", "0");
-				OutComeInfo.put("AF", "0");
-				OutComeInfo.put("SLOW_HEART_FAILURE", "0");
-				OutComeInfo.put("AVHD", "0"); //心脏瓣膜病
-				OutComeInfo.put("BRIAN_VASCELLUM", "0");
-				OutComeInfo.put("PERIPHERAL_ARTERY_DISEASE",  "0");//外周动脉疾病
-				OutComeInfo.put("AORTIC_ANEURYSM",  "0");//主动脉瘤
-				OutComeInfo.put("COPD", "0");//COPD
-				OutComeInfo.put("CHRONIC_KIDNEY_DISEASE",  "0");//慢性肾病
-				OutComeInfo.put("ANEMIA", "0");//贫血
-				OutComeInfo.put("PEPTIC_ULCER",  "0");//消化性溃疡
-				OutComeInfo.put("THYROID_DISEASE", "0");//甲状腺功能异常
-				OutComeInfo.put("THERIOMA", "0");//恶性肿瘤
+
 				for (String hbz : hebzArr) {
 					if ("1".equals(hbz)) {
 						OutComeInfo.put("CHD", "1");//冠心病
@@ -1693,10 +1697,17 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 		// }
 		JSONArray OutDrugDetailList = new JSONArray();
 
+		OutComeInfo.put("OUT_DRUG_IS_DAPT", "");//抗血小板治疗
+		OutComeInfo.put("OUT_DRUG_IS_ACEIORARB", "");//ACEI/ARB
+		OutComeInfo.put("OUT_DRUG_IS_STATINS", "");//调脂药物
+		OutComeInfo.put("OUT_DRUG_IS_RETARDANT", "");//β受体阻滞剂
 		//出院带药
 		if ("1".equals(cyzd) || "2".equals(cyzd) || "3".equals(cyzd)) {
 			//OutComeInfo.put("TYPE", xtzlMap.get("COVID19"));
-
+			OutComeInfo.put("OUT_DRUG_IS_DAPT", xtzlMap.get("CYDYSFKXXBYW"));//抗血小板治疗
+			OutComeInfo.put("OUT_DRUG_IS_ACEIORARB", xtzlMap.get("CYDYSFACEI"));//ACEI/ARB
+			OutComeInfo.put("OUT_DRUG_IS_STATINS", xtzlMap.get("CYDYSFTZYW"));//调脂药物
+			OutComeInfo.put("OUT_DRUG_IS_RETARDANT", xtzlMap.get("CYDYSFSTZZJ"));//β受体阻滞剂
 			//抗血小板治疗
 			if (isnot(xtzlMap.get("CYDYSFKXXBYW"))) {
 				JSONObject OutDrugDetailMap1 = new JSONObject();
@@ -1735,7 +1746,6 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 			}
 			//β受体阻滞剂
 			if (isnot(xtzlMap.get("CYDYSFSTZZJ"))) {
-				String numb = "4";
 				JSONObject OutDrugDetailMap4 = new JSONObject();
 				OutDrugDetailMap4.put("ID", null);
 				OutDrugDetailMap4.put("TYPE", "4");
@@ -1798,20 +1808,23 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 			if (entityResponse != null) {
 				String result = EntityUtils.toString(entityResponse);
 				System.out.println("result" + "--------------------" +result);
-/*				JSONObject result_1 = JSONObject.parseObject(result);
+				//插入数据库 这块没写
+				/*JSONObject result_1 = JSONObject.parseObject(result);
 				Object  ResultCode = result_1.get("ResultCode");
 				Object  Message = result_1.get("Message");
 				Object  Error = result_1.get("Error");
-				Object  Data = result_1.get("Data");
-				String Data_1 = JSON.toJSONString(Data);
-				JSONObject Data_2 = JSONObject.parseObject(Data_1);
-				Object  id=  Data_2.get("REGISTER_ID");
-				System.out.println("Data" + "--------------------" +id);
-				Map<String, Object> sysdata = new HashMap<>();
-				sysdata.put("REGISTER_ID",id);
-				System.out.println("sysdata" + "--------------------" +id);
+				if(result_1.get("Data") != null){
+					Object  Data = result_1.get("Data");
+					String Data_1 = JSON.toJSONString(Data);
+					JSONObject Data_2 = JSONObject.parseObject(Data_1);
+					Object  id=  Data_2.get("REGISTER_ID");
+					System.out.println("Data" + "--------------------" +id);
+					Map<String, Object> sysdata = new HashMap<>();
+					sysdata.put("REGISTER_ID",id);
+					System.out.println("sysdata" + "--------------------" +id);
+					resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 920, new Object[] {result_1.get("Data")});
+				}*/
 
-				resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 920, new Object[] {result_1.get("Data")});*/
 			}
 
 		} finally {
