@@ -45,13 +45,13 @@
 		  </div>
 	  </div>
 	  <div class="left_center">
-	    <form id="hceptform" name="hceptform" action="${baseurl}report/exporthspemgSubmit.do" method="post" class="blform">
+	    <form id="diacrisis" name="hceptform" action="${baseurl}report/exporthspemgSubmit.do" method="post" class="blform">
 	      <p><img src="images/hems/index/pie.png" class="titleimg" />诊断统计</p>
 	      <div id="container_pie_zdtj" class="blimg"></div>
 	    </form>
 	  </div>
 	  <div class="left_bottom">
-	    <form id="hceptform" name="hceptform" action="${baseurl}report/exporthspemgSubmit.do" method="post" class="blform">
+	    <form id="patOutcome" name="hceptform" action="${baseurl}report/exporthspemgSubmit.do" method="post" class="blform">
 	      <p><img src="images/hems/index/pie.png" class="titleimg" />转归情况</p>
 	      <div id="container_pie_zgqk" class="blimg"></div>
 	    </form>

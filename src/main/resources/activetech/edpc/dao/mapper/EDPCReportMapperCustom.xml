@@ -312,7 +312,7 @@
 	
 	<select id="getCpcPieData" parameterType="activetech.edpc.pojo.dto.ReportCondition"
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
-		
+
 			with temp as
 			 (select t.seq_no,
 			         t.emg_no,
@@ -322,8 +322,10 @@
 			         t.crt_user,
 			         t.mod_time,
 			         t.mod_user
-			    from hsp_xtzl_inf t
-			   where t.pro_code = 'CBZD')
+				FROM hsp_xtzl_inf t, hsp_dbzl_bas d
+				WHERE t.emg_no = d.emg_seq
+				and d.pat_typ = '1'
+				and t.pro_code = 'CBZD')
 			select d.infocode,
 			       d.info,
 			       (select count(1)
@@ -333,9 +335,9 @@
 				 			and temp.crt_time > to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy/mm')
 				 	   </if>
 				 	   <if test = "endDate !=null ">
-				 	   	
+
 				 			and temp.crt_time <![CDATA[<]]> add_months(to_date(#{endDate, jdbcType=VARCHAR}, 'yyyy/mm'), 1)
-				 			
+
 				 	   </if>
 				   ) total
 			  from dstdictinfo d
@@ -1312,42 +1314,28 @@
 	</select>
 	
 	<select id="getBlsltjData" resultType="activetech.edpc.pojo.dto.HomePageResult">
-		select
-		
-		 (select ((select count(*)
-		             from hsp_emg_inf
-		            where xtlcflg = '1' and emg_dat >= (select trunc(sysdate) from dual)) +
-		         (select count(*)
-		             from hsp_xt_add
-		            where crt_tim >= (select trunc(sysdate) from dual)))
-		    from dual) as thisDay,
-		 
-		 (select ((select count(*)
-		             from hsp_emg_inf
-		            where xtlcflg = '1' and emg_dat >= (select trunc(sysdate, 'd') from dual)) +
-		         (select count(*)
-		             from hsp_xt_add
-		            where crt_tim >= (select trunc(sysdate, 'd') from dual)))
-		    from dual) as thisWeek,
-		 
-		 (select ((select count(*)
-		             from hsp_emg_inf
-		            where xtlcflg = '1' and emg_dat >= (select trunc(sysdate, 'mm') from dual)) +
-		         (select count(*)
-		             from hsp_xt_add
-		            where crt_tim >= (select trunc(sysdate, 'mm') from dual)))
-		    from dual) as thisMonth,
-		 
-		 (select ((select count(*)
-		             from hsp_emg_inf
-		            where xtlcflg = '1' and emg_dat >= (select trunc(sysdate, 'yyyy') from dual)) +
-		         (select count(*)
-		             from hsp_xt_add
-		            where crt_tim >= (select trunc(sysdate, 'yyyy') from dual)))
-		    from dual) as thisYear
-		
-		  from dual
-	
+		select (select count(*)
+				from hsp_dbzl_bas
+				where pat_typ = '1'
+				  and reg_tim >= (select trunc(sysdate) from dual))
+				   as thisDay,
+			   (select count(*)
+				from hsp_dbzl_bas
+				where pat_typ = '1'
+				  and reg_tim >= (select trunc(sysdate, 'd') from dual))
+				   as thisWeek,
+			   (select count(*)
+				from hsp_dbzl_bas
+				where pat_typ = '1'
+				  and reg_tim >= (select trunc(sysdate, 'mm') from dual))
+				   as thisMonth,
+			   (select count(*)
+				from hsp_dbzl_bas
+				where pat_typ = '1'
+				  and reg_tim >= (select trunc(sysdate, 'yyyy') from dual))
+				   as thisYear
+		from dual
+
 	</select>
 	
 	<select id="getBllstjData" resultType="activetech.edpc.pojo.dto.HomePageResult">
@@ -1379,14 +1367,19 @@
 	</select>
 	
 	<select id="getZgqktjData" resultType="activetech.edpc.pojo.dto.HomePageResult">
-		 select a.cst_dsp_cod as infocode, b.info, a.total as
-		  from (select cst_dsp_cod, count(*) as total
-		          from hsp_emg_inf
-		         where xtlcflg = '1'
-		         group by cst_dsp_cod) a,
-		       dstdictinfo b
-		 where b.typecode = 'CST_DSP_COD'
-		   AND a.cst_dsp_cod = b.infocode
+		select b.infocode, info, nvl(total, 0) total
+		FROM (select PRO_VAL, count(*) total
+			  from HSP_XTZL_INF a,
+				   HSP_DBZL_BAS b
+			  where a.EMG_NO = b.EMG_SEQ
+				and b.PAT_TYP = '1'
+				and a.PRO_CODE = 'HZZG'
+			  group by a.PRO_VAL
+			 ) a,
+			 dstdictinfo b
+		WHERE b.typecode = 'XT_HZZG_COD'
+		  AND a.PRO_VAL(+) = b.infocode
+		  and b.ISENABLE = '1'
 	</select>
 	
 	<select id="getGjzkData" parameterType="activetech.edpc.pojo.dto.ReportCondition" 

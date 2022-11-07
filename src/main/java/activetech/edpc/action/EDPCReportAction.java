@@ -618,8 +618,7 @@ public class EDPCReportAction {
 	 */
 	@RequestMapping("/querycpcpie_result.do")
 	public @ResponseBody DataGridResultInfo querycpcpie_result(ReportCondition reportCondition) throws Exception  {
-		DataGridResultInfo dataGridResultInfo = eDPCReportService.getCpcPieData(reportCondition);
-		return dataGridResultInfo;
+		return eDPCReportService.getCpcPieData(reportCondition);
 	}
 	
 	/**
