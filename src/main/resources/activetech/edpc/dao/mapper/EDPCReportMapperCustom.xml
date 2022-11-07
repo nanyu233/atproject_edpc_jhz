@@ -1339,31 +1339,38 @@
 	</select>
 	
 	<select id="getBllstjData" resultType="activetech.edpc.pojo.dto.HomePageResult">
-	select way_typ, count(*) as total
-	  from hsp_xt_add
-	 group by way_typ
-	
-	union
-	select '0', count(*)
-	  from hsp_emg_inf
-	 where xtlcflg = '1'
-	
-	union
-	select '3', count(*)
-	  from hsp_emg_inf
-	 where xtlcflg = '1'
-	   and arv_chl_cod IN ('0', '1', '2', '3', '4')
+		select '2' as way_typ, count(*) as total
+		from hsp_dbzl_bas
+		where pat_typ = '1'
+		union
+		select '0', count(*)
+		from hsp_dbzl_bas
+		where pat_typ = '1'
+		  and way_typ = '0'
+		union
+		select '1', count(*)
+		from hsp_dbzl_bas
+		where pat_typ = '1'
+		  and way_typ = '1'
+		union
+		select '3', count(*)
+		from hsp_dbzl_bas a, hsp_xtzl_inf b
+		where a.emg_seq = b.emg_no(+)
+		  and b.pro_code = 'DYFS'
+		  and b.pro_val = '3'
+		  and a.pat_typ = '1'
 	</select>
 	
 	<select id="getLyfstjData" resultType="activetech.edpc.pojo.dto.HomePageResult">
-		select a.arv_chl_cod as infocode, b.info, a.total as
-		  from (select arv_chl_cod, count(*) as total
-		          from hsp_emg_inf
-		         where xtlcflg = '1'
-		         group by arv_chl_cod) a,
-		       dstdictinfo b
-		 where b.typecode = 'ARV_CHL_COD'
-		   AND a.arv_chl_cod = b.infocode
+		select pro_val as infocode, info, count(*) as total
+		from (select b.pro_val, c.info, a.emg_seq
+			  from hsp_dbzl_bas a, hsp_xtzl_inf b, dstdictinfo c
+			  where a.emg_seq = b.emg_no(+)
+				and b.pro_val = c.infocode(+)
+				and b.pro_code = 'DYFS'
+				and a.pat_typ = '1'
+				and c.typecode = 'XT_DDFS_COD')
+		group by pro_val, info
 	</select>
 	
 	<select id="getZgqktjData" resultType="activetech.edpc.pojo.dto.HomePageResult">
@@ -1496,16 +1503,30 @@
 	
 	
 	<select id="getWlyyData" resultType="activetech.edpc.pojo.dto.HomePageResult">
-	   select wlyy infocode,
-              (select info
-                 from dstdictinfo
-                where typecode = 'XT_WLYY_COD'
-                  and infocode = a.wlyy) info,
-              total
-         from (select wlyy, count(*) total 
-         		 from aid_patient_xt 
-         		where wlyy is not null
-         		group by wlyy) a
+		select YYMC as infocode,
+			   (select info
+				from dstdictinfo
+				where typecode = 'XT_WLYY_COD'
+				  and infocode = b.YYMC) info,
+			   count(*) as total
+		from (select a.*,
+					 (select pro_val
+					  from hsp_xtzl_inf
+					  where pro_code = 'DYFS'
+						and emg_no = a.emg_seq) as DYFS,
+					 (select pro_val
+					  from hsp_xtzl_inf
+					  where pro_code = 'ZYLX'
+						and emg_no = a.emg_seq) as ZYLX,
+					 (select pro_val
+					  from hsp_xtzl_inf
+					  where pro_code = 'YYMC'
+						and emg_no = a.emg_seq) as YYMC
+			  from hsp_dbzl_bas a
+			  where pat_typ = '1') b
+		where DYFS = '2'
+		  and ZYLX = '1'
+		group by YYMC
 	</select>
 	
 	<select id="getLyfstCz" parameterType="activetech.edpc.pojo.dto.ReportCondition" 
