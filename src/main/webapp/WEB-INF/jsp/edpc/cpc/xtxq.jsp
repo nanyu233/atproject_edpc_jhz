@@ -399,7 +399,7 @@
 									<div class="input">
 										<div class="radio-btns">
 <%--											<div ms-repeat="ZYLXArr" class="btn" ms-class="{{info.ZYLX==el.infocode ? 'active':''}}" ms-click="onRadioClick('ZYLX',el.infocode)">--%>
-											<div ms-repeat="ZYLXArr" class="btn" ms-class="{{hspXtzlInf.ZYLX==el.infocode ? 'active':''}}" ms-click="onRadioClick3('ZYLX',el.infocode)">
+											<div ms-repeat="ZYLXArr" class="btn" ms-class="{{hspXtzlInf.ZYLX==el.infocode ? 'active':''}}" ms-click="onRadioClickZYLX('ZYLX',el.infocode)">
 												{{el.info}}
 											</div>
 										</div>
@@ -408,9 +408,20 @@
 							</div>
 							<div class="inputs">
 								<div class="input-group">
-									<div class="lb">医院名称</div>
 <%--									<div class="input"><input type="text" ms-duplex-string="info.YYMC" /></div>--%>
-									<div class="input"><input type="text" ms-duplex-string="hspXtzlInf.YYMC" /></div>
+									<div class="input">
+										<div class="input-group" ms-visible="hspXtzlInf.ZYLX == 1">
+											<div class="lb">医院名称</div>
+											<select name="" ms-duplex="hspXtzlInf.YYMC">
+												<option value="">请选择</option>
+												<option ms-repeat="WLYYArr" ms-attr-value="el.infocode">{{el.info}}</option>
+											</select>
+										</div>
+									</div>
+									<div class="input-group" ms-visible="hspXtzlInf.ZYLX == 2">
+										<div class="lb">医院名称</div>
+										<div class="input"><input type="text" ms-duplex-string="hspXtzlInf.YYMC" /></div>
+									</div>
 								</div>
 							</div>
 							<div class="inputs">
@@ -2043,20 +2054,12 @@
 						<div class="title">治疗信息</div>
 						<div class="inputs">
 							<div class="input-group">
-								<div class="lb lb_check">危险分层</div>
+								<div class="lb">危险分层</div>
 								<div class="input">
-									<div class="checkbox-group">
-<%--										<div class="btn" ms-class="{{info.WXFC==2 ? 'active':''}}" ms-click="onRadioClick('WXFC',2)">--%>
-										<div class="btn" ms-class="{{hspXtzlInf.WXFC==2 ? 'active':''}}" ms-click="onRadioClick3('WXFC',2)">
-											高危
-										</div>
-<%--										<div class="btn" ms-class="{{info.WXFC==3 ? 'active':''}}" ms-click="onRadioClick('WXFC',3)">--%>
-										<div class="btn" ms-class="{{hspXtzlInf.WXFC==3 ? 'active':''}}" ms-click="onRadioClick3('WXFC',3)">
-											中危
-										</div>
-<%--										<div class="btn" ms-class="{{info.WXFC==4 ? 'active':''}}" ms-click="onRadioClick('WXFC',4)">--%>
-										<div class="btn" ms-class="{{hspXtzlInf.WXFC==4 ? 'active':''}}" ms-click="onRadioClick3('WXFC',4)">
-											低危
+									<div class="radio-btns">
+										<div class="btn" ms-class="{{hspXtzlInf.WXFC==el.infocode ? 'active':''}}" ms-click="onRadioClick3('WXFC',el.infocode)"
+											 ms-repeat="WXFCArr">
+											{{el.info}}
 										</div>
 									</div>
 								</div>
@@ -2675,7 +2678,7 @@
 						</div>
 					</div>
 <%--					<div class="block" ms-if="info.HZZYFQHXZL==1">--%>
-					<div class="block" ms-if="(hspXtzlInf.HZZYFQHXZL==1) || (hspXtzlInf.HZZYFQHXZL==0 && (hspXtzlInf.CBZD==6 || hspXtzlInf.CBZD==7 || hspXtzlInf.CBZD==8))">
+					<div class="block" ms-if="(hspXtzlInf.ZJZSSJYY==1) || (hspXtzlInf.HZZYFQHXZL==1) || (hspXtzlInf.HZZYFQHXZL==0 && (hspXtzlInf.CBZD==6 || hspXtzlInf.CBZD==7 || hspXtzlInf.CBZD==8))">
 						<div class="title" style="color:red;">此选择表示胸痛诊疗结束，不再继续跟踪患者的救治情况！</div>
 					</div>
 				</div>
@@ -2701,7 +2704,7 @@
 								<div class="lb lb_check">非ACS心源性胸痛类型 <span class="required">*</span></div>
 								<div class="input">
 									<div class="checkbox-group">
-										<div class="btn" ms-repeat="FACSXYXXTLXArr" ms-class="{{isChecked('ZGFACSXYXXTLX',el.infocode) ? 'active':''}}"
+										<div class="btn" ms-repeat="ZGFACSXYXXTLXArr" ms-class="{{isChecked('ZGFACSXYXXTLX',el.infocode) ? 'active':''}}"
 										 ms-click="onCheckClick('ZGFACSXYXXTLX',el.infocode)">
 											{{el.info}}
 										</div>
@@ -2715,7 +2718,7 @@
 								<div class="lb lb_check">其它非心源性胸痛类型 <span class="required">*</span></div>
 								<div class="input">
 									<div class="checkbox-group">
-										<div class="btn" ms-repeat="QTFXYXXTLXArr" ms-class="{{isChecked('ZGQTFXYXXTLX',el.infocode) ? 'active':''}}"
+										<div class="btn" ms-repeat="ZGQTFXYXXTLXArr" ms-class="{{isChecked('ZGQTFXYXXTLX',el.infocode) ? 'active':''}}"
 										 ms-click="onCheckClick('ZGQTFXYXXTLX',el.infocode)">
 											{{el.info}}
 										</div>
@@ -2752,7 +2755,7 @@
 								<div class="input">
 									<div class="radio-btns">
 <%--										<div class="btn" ms-class="{{info.YNXFXLSJ==el.infocode ? 'active':''}}" ms-click="onRadioClick('YNXFXLSJ',el.infocode)"--%>
-										<div class="btn" ms-class="{{hspXtzlInf.YNXFXLSJ==el.infocode ? 'active':''}}" ms-click="onRadioClick3('YNXFXLSJ',el.infocode)"
+										<div class="btn" ms-class="{{hspXtzlInf.YNXFXLSJ==el.infocode ? 'active':''}}" ms-click="onRadioClickYNXFXLSJ('YNXFXLSJ',el.infocode)"
 										 ms-repeat="RADIOArr">
 											{{el.info}}
 										</div>
@@ -2845,9 +2848,16 @@
 								<div class="input-group">
 									<div class="lb lb_check">合并疾病 <span class="required">*</span></div>
 									<div class="input">
-										<div class="checkbox-group">
-											<div ms-repeat="HEBZArr" class="btn" ms-class="{{isChecked('HEBZ',el.infocode) ? 'active':''}}" ms-click="onCheckClick('HEBZ',el.infocode)">
-												{{el.info}}
+										<div id="HEBZ" class="checkbox-group">
+											<div ms-if="hspXtzlInf.YNXFXLSJ==0">
+												<div ms-repeat="HEBZArr" class="btn" ms-class="{{isChecked('HEBZ',el.infocode) ? 'active':''}}" ms-click="onCheckClick('HEBZ',el.infocode)">
+													{{el.info}}
+												</div>
+											</div>
+											<div ms-if="hspXtzlInf.YNXFXLSJ==1">
+												<div ms-repeat="HEBZArrExceptMXXNSJ" class="btn" ms-class="{{isChecked('HEBZ',el.infocode) ? 'active':''}}" ms-click="onCheckClick('HEBZ',el.infocode)">
+													{{el.info}}
+												</div>
 											</div>
 										</div>
 									</div>
@@ -2882,7 +2892,7 @@
 								</div>
 							</div>
 							<div class="inputs">
-								<div class="input-group" ms-if="(HEBZSel.$model).indexOf('3') > -1">
+								<div class="input-group" ms-if="(HEBZSel.$model).indexOf('3') > -1 || hspXtzlInf.YNXFXLSJ==1">
 									<div class="lb">NYHA分级 <span class="required">*</span></div>
 									<div class="input">
 										<div class="radio-btns">
@@ -3938,7 +3948,7 @@
 				ZGQTFXYXXTLX: '',    //其它非心源性胸痛类型
 				QZSJ: '',    //确诊时间
 				COVID19: null,    //确诊时间
-				YNXFXLSJ: null,    //院内新发心力衰竭
+					YNXFXLSJ: null,    //院内新发心力衰竭
 				SFARNI: null,    //是否ARNI
 				ARNI: '',      //ARNI频次
 				ARNIDCJL: '',    //ARNI单次剂量
@@ -4351,6 +4361,7 @@
 			BQPGMXSel: [], //病情评估多选
 			XXGJBWXYSSel: [], //患者转归危险因素多选表
 			HEBZArr: [], //合并疾病
+			HEBZArrExceptMXXNSJ: [],  //合并疾病(少‘慢性心力衰竭’)
 			HEBZSel: [], //合并症多选表
 			ddfsArr: [], //到院方式列表
 			ccdwArr: [], //出车单位列表
@@ -4359,6 +4370,8 @@
 			YWYYArr: [], //是否延误列表
 			FACSXYXXTLXArr: [], //非ACS心源性胸痛
 			QTFXYXXTLXArr: [], //其它非心源性胸痛
+			ZGFACSXYXXTLXArr: [], //非ACS心源性胸痛(转归)
+			ZGQTFXYXXTLXArr: [], //其它非心源性胸痛(转归)
 			ZYQJBFZArr: [], //住院期间并发症
 			LYXJArr: [], //离院宣教
 			LYXJSel: [], //离院宣教选中项
@@ -4369,6 +4382,7 @@
 			cntyList: [], //区
 			FBQJArr: [], //发病区间
 			YBLXArr: [], //医保类型
+			WLYYArr: [], //网络医院
 			senRctCodArr: [], //意识
 			SZBFZArr: [], //术中并发症列表
 			RSYWArr: [], //药物
@@ -4504,7 +4518,8 @@
 			WXYSSel: [], //危险因素选中项
 			GRACEJGWTJArr: [], //Grace极高危条件列表
 			GRACEJGWTJSel: [], //Grace极高危条件选中项
-			GRACEWXFCArr: [], //Grace危险分层
+			// GRACEWXFCArr: [], //Grace危险分层
+			WXFCArr: [], //危险分层列表
 			// ZCWXFCArr: [{info: '未做', infocode: '1'}, {info: '转为STEMI', infocode: '2'}, {info: '极高危', infocode: '3'},
 			//     {info: '高危', infocode: '4'}, {info: '中危', infocode: '5'}, {info: '低危', infocode: '6'}],//再次危险分层列表
 			ZCWXFCArr: [], //再次危险分层
@@ -4694,14 +4709,19 @@
 			//监听多选点击事件
 			onCheckClick: function(prop, code) {
 				var list = vm[prop + 'Sel'];
+				console.log('list1', list);
 				if (list.indexOf(code) > -1) {
 					list.splice(list.indexOf(code), 1);
+					console.log('listDel', list);
 				} else {
 					list.push(code)
+					console.log('listAdd', list);
 				}
 				vm[prop + 'Sel'] = list;
 				// vm.info[prop] = list.join(',');
 				vm.hspXtzlInf[prop] = list.join(',');
+				console.log('list2', list);
+				console.log('prop', vm.hspXtzlInf[prop]);
 			},
 
 			// 点击无 选中状态全部为未选中状态 （当字典中00或者0代表无的时候）
@@ -4780,6 +4800,26 @@
 			},
 			onRadioClick3: function(prop, val) {
 				vm.hspXtzlInf[prop] = val;
+			},
+			//转院类型专用radio
+			onRadioClickZYLX: function(prop, val) {
+				vm.hspXtzlInf[prop] = val;
+				if(val == '2'){
+					vm.hspXtzlInf.YYMC = '';
+				}
+			},
+			//院内新发心力衰竭联动合并疾病专用radio
+			onRadioClickYNXFXLSJ: function(prop, val) {
+				vm.hspXtzlInf[prop] = val;
+				if(val == '1'){
+					var pos = vm.hspXtzlInf.HEBZ.indexOf('3');
+					if(pos == vm.hspXtzlInf.HEBZ.length - 1){
+						vm.hspXtzlInf.HEBZ = vm.hspXtzlInf.HEBZ.replace(",3","");
+					}else{
+						vm.hspXtzlInf.HEBZ = vm.hspXtzlInf.HEBZ.replace("3,","");
+					}
+					vm.HEBZSel.splice(vm.HEBZSel.indexOf('3'), 1);
+				}
 			},
 			addItem: function(flag) {
 				if (vm.list.length < 2) {
@@ -5404,6 +5444,12 @@
 			}, {
 				prop: 'QTFXYXXTLXArr',
 				key: 'XT_QTFXYXXTLX_COD'
+			},{
+				prop: 'ZGFACSXYXXTLXArr',
+				key: 'XT_ZGFACSXYXXTLX_COD'
+			}, {
+				prop: 'ZGQTFXYXXTLXArr',
+				key: 'XT_ZGQTFXYXXTLX_COD'
 			}, {
 				prop: 'XXGJBWXYSArr',
 				key: 'XT_XXGJBWXYS_COD'
@@ -5428,6 +5474,9 @@
 			}, {
 				prop: 'YBLXArr',
 				key: 'XT_YBLX_COD'
+			}, {
+				prop: 'WLYYArr',
+				key: 'XT_WLYY_COD'
 			}, {
 				prop: 'senRctCodArr',
 				key: 'XT_AVPU_COD'
@@ -5510,7 +5559,8 @@
 				prop: 'WXYSArr',
 				key: 'XT_WXYS_COD'
 			}, {
-				prop: 'GRACEWXFCArr',
+				// prop: 'GRACEWXFCArr',
+				prop: 'WXFCArr',
 				key: 'XT_WXFC_COD'
 			}, {
 				prop: 'ZYSTIMIXLArr',
@@ -5590,6 +5640,16 @@
 					vn[el.prop] = publicFun.getDict(el.key) || [];
 				}else{
 					vm[el.prop] = publicFun.getDict(el.key) || [];
+					if(el.prop == 'HEBZArr'){
+						vm.HEBZArrExceptMXXNSJ = vm.HEBZArr;
+						var position = 0;
+						for(var i = 0; i < vm.HEBZArr.length; i++){
+							if(vm.HEBZArr[i].info == "慢性心力衰竭"){
+								position = i;
+							}
+						}
+						vm.HEBZArrExceptMXXNSJ.splice(position,1);
+					}
 				}
 			})
 		}
