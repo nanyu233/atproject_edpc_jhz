@@ -221,8 +221,10 @@
 		         t.crt_user,
 		         t.mod_time,
 		         t.mod_user
-		    from hsp_xtzl_inf t
-		   where t.pro_code = 'CBZD')
+		  FROM hsp_xtzl_inf t, hsp_dbzl_bas d
+		  WHERE t.emg_no = d.emg_seq
+			and d.pat_typ = '1'
+			and t.pro_code = 'CBZD')
 		select m.month yarmon,
 		       d.infocode,
 		       d.info,

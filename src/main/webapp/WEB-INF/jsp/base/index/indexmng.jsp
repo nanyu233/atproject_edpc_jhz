@@ -100,13 +100,13 @@
 		  </div>
 	  </div>
 	  <div class="right_center">
-	    <form id="hceptform" name="hceptform" action="${baseurl}report/exporthspemgSubmit.do" method="post" class="blform">
+	    <form id="wayToHospital" name="hceptform" action="${baseurl}report/exporthspemgSubmit.do" method="post" class="blform">
 	      <p><img src="images/hems/index/pie.png" class="titleimg" />来院方式</p>
 	      <div id="container_pie_lyfs" class="blimg"></div>
 	    </form>
 	  </div>
 	  <div class="right_bottom">
-	    <form id="hceptform" name="hceptform" action="${baseurl}report/exporthspemgSubmit.do" method="post" class="blform">
+	    <form id="networkHospital" name="hceptform" action="${baseurl}report/exporthspemgSubmit.do" method="post" class="blform">
 	      <p><img src="images/hems/index/pie.png" class="titleimg" />网络医院</p>
 	      <div id="container_pie_wlyy" class="blimg"></div>
 	    </form>

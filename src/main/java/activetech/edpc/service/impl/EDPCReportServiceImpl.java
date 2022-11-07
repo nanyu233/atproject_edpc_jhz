@@ -351,40 +351,34 @@ public class EDPCReportServiceImpl implements EDPCReportService{
 
 	@Override
 	public ResultInfo getGjzktjData() {
-		
 		ResultInfo resultInfo = null;
-		
-		Calendar c = Calendar.getInstance();
-
 		ReportCondition reportCondition = new ReportCondition();
+		Calendar c = Calendar.getInstance();
 		Date date = c.getTime();
 		reportCondition.setEndDate(DateUtil.formatDate(date, "yyyy/MM"));
-		
 		c.add(Calendar.YEAR, -1);
-		reportCondition.setStartDate(DateUtil.formatDate(c.getTime() , "yyyy/MM"));
-		
+		reportCondition.setStartDate(DateUtil.formatDate(c.getTime(), "yyyy/MM"));
+		//心电图确诊
+		List<ReportDataResult> xdtqzlist = eDPCReportMapperCustom.getAvgXdtqzsj(reportCondition);
+		//导丝通过
+		List<ReportDataResult> dstglist = eDPCReportMapperCustom.getD2Wsj(reportCondition);
+		//血化验报告
+		reportCondition.setStartProCode(ProCode.CXSJ);
 		reportCondition.setEndProCode(ProCode.POCTSJ);
-		List<ReportDataResult> poctlist = eDPCReportMapperCustom.getGjzkData(reportCondition);
-		
+		List<ReportDataResult> poctlist = eDPCReportMapperCustom.getXhysj(reportCondition);
+		//血小板给药
+		reportCondition.setStartProCode("CBZDSJ");
 		reportCondition.setEndProCode(ProCode.KXXBYWGYSJ);
-		List<ReportDataResult> kxxblist = eDPCReportMapperCustom.getGjzkData(reportCondition);
-		
-		reportCondition.setEndProCode(ProCode.DSTGSJ);
-		List<ReportDataResult> dstglist = eDPCReportMapperCustom.getGjzkData(reportCondition);
-		
-		
-		reportCondition.setEndProCode(ProCode.DGSJHSJ);
+		reportCondition.setReportTypeFlag("KXXB");
+		List<ReportDataResult> kxxblist = eDPCReportMapperCustom.getXtReport(reportCondition);
+		//导管室激活
 		reportCondition.setStartProCode(ProCode.QDDGSSJ);
-		List<ReportDataResult> dgsjhlist = eDPCReportMapperCustom.getDgsjhData(reportCondition);
-		
-		List<ReportDataResult> xdtqzlist = eDPCReportMapperCustom.getXdtqzData(reportCondition);
-		
+		reportCondition.setEndProCode(ProCode.DGSJHSJ);
+		reportCondition.setReportTypeFlag("DGSJH");
+		List<ReportDataResult> dgsjhlist = eDPCReportMapperCustom.getXtReport(reportCondition);
 		JSONArray jsonArray = new JSONArray();
-		
-		for(int i=0;i<poctlist.size();i++) {
-			
+		for (int i = 0; i < poctlist.size(); i++) {
 			JSONObject json = new JSONObject();
-			
 			ReportDataResult poctResult = poctlist.get(i);
 			ReportDataResult kxxbResult = kxxblist.get(i);
 			ReportDataResult dstgResult = dstglist.get(i);
@@ -396,9 +390,7 @@ public class EDPCReportServiceImpl implements EDPCReportService{
 			json.put("dstg", dstgResult.getAvgTime());
 			json.put("dgsjh", dgsjhResult.getAvgTime());
 			json.put("xdtqz", xdtqzResult.getAvgTime());
-			
 			jsonArray.add(json);
-			
 		}
 		Map<String, Object> sysdata = new HashMap<>();
 		sysdata.put("list", jsonArray);

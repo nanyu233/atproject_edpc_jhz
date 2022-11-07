@@ -497,8 +497,7 @@ public class EDPCReportAction {
 	 */
 	@RequestMapping("/querycpctrend_result.do")
 	public @ResponseBody DataGridResultInfo querycpctrend_result(ReportCondition reportCondition) throws Exception  {
-		DataGridResultInfo dataGridResultInfo = eDPCReportService.getCpcTrendData(reportCondition);
-		return dataGridResultInfo;
+		return eDPCReportService.getCpcTrendData(reportCondition);
 	}
 	/**
 	 * 获取胸痛患者趋势图datagrid列表数据
