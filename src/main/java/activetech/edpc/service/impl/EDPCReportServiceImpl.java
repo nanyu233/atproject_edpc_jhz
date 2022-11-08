@@ -188,13 +188,17 @@ public class EDPCReportServiceImpl implements EDPCReportService{
 //			reportCondition.setEndProCode(ProCode.DSTGSJ);
 			list = eDPCReportMapperCustom.getD2Wsj(reportCondition);
 		}else if("XHY".equals(flag)) {
+			// TODO 未用到
 			reportCondition.setStartProCode(ProCode.CXSJ);
 			reportCondition.setEndProCode(ProCode.POCTSJ);
 			list = eDPCReportMapperCustom.getXhysj(reportCondition);
+		}else if ("DSTGSJ".equals(flag)) {
+			reportCondition.setStartProCode("FZSJ");
+			reportCondition.setEndProCode(ProCode.DSTGSJ);
+			list = eDPCReportMapperCustom.getXtReport02(reportCondition);
 		}else {
 			list = eDPCReportMapperCustom.getXtReport(reportCondition);
 		}
-
 		dataGridResultInfo.setRows(list);
 		dataGridResultInfo.setTotal(list.size());
 		return dataGridResultInfo;
@@ -203,17 +207,7 @@ public class EDPCReportServiceImpl implements EDPCReportService{
 	//转诊STEMI患者F2W时间getXtReport02
 	@Override
 	public DataGridResultInfo getXtReport02(ReportCondition reportCondition) {
-		String flag = reportCondition.getReportTypeFlag();
-		List<ReportDataResult> list = null;
-		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		if ("DSTGSJ".equals(flag)) {
-			reportCondition.setStartProCode("FZSJ");
-			reportCondition.setEndProCode(ProCode.DSTGSJ);
-			list = eDPCReportMapperCustom.getXtReport02(reportCondition);
-		}
-		dataGridResultInfo.setRows(list);
-		dataGridResultInfo.setTotal(list.size());
-		return dataGridResultInfo;
+		return this.getXtReport(reportCondition);
 	}
 
 	@Override

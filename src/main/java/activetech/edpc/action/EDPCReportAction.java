@@ -423,7 +423,8 @@ public class EDPCReportAction {
 			filePrefix = "抗凝药给药时间报表";
 		}else if("CTA".equals(flag)){
 			filePrefix = "CTA激活时间报表";
-		}
+		}else if ("DSTGSJ".equals(flag))
+			filePrefix = "转诊STEMI患者F2W时间报表";
 		
 		// -1表示关闭自动刷新，手动控制写磁盘的时机，其它数据表示多少数据在内存保存，超过的则写入磁盘
 		int flushRows = 100;
