@@ -31,10 +31,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="m-t10 div_h">
 				<ul class="querylist-ul form_hc">
 					<li><input type="text" class="input-base short-right Wdate"
-						id="emg_startdate" name="startdate"
+						id="emg_startdate" name="startDate"
 						onfocus="new WdatePicker({dateFmt:'yyyy/MM'})"> 至 <input
 						type="text" class="input-base short-right Wdate" id="emg_enddate"
-						name="enddate" onfocus="new WdatePicker({dateFmt:'yyyy/MM'})" />
+						name="endDate" onfocus="new WdatePicker({dateFmt:'yyyy/MM'})" />
 						<span class="f-left">&nbsp;查询时间：</span></li>
 					<li class="queryuser-btn m-l5">
 						<a class="easyui-linkbutton" iconCls="icon-search" id="btn"
@@ -44,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="c"></div>
 			</div>
 		</div>
+		<input type="hidden" name="reportTypeFlag" value="KN">
 	</form>
 	<div class="chart_grp chartbox">
 		<div class="form_cat border-radius box-shadow">
