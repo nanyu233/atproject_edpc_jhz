@@ -1178,6 +1178,7 @@ public class XtServiceImpl implements XtService{
 		// 胸痛诊疗（胸痛诊室、心内科、留观）
 		COMP_MAP.put("COMP.18.000090","KILLIP");//心功能分级
 		COMP_MAP.put("COMP.18.000091","ZGNYHA");//NYHA分级
+		COMP_MAP.put("COMP.18.000091_1","gracejgwtjZero");//具备以下任意一条，即为极高危
 		COMP_MAP.put("COMP.18.000092","YWZGZCS");//STEMI 有无再灌注措施：
 		COMP_MAP.put("COMP.18.000093","ZGZCS");//STEMI 再灌注措施：
 		COMP_MAP.put("COMP.18.000094","CLCL");//NSTE-ACS 血运重建措施|处理策略
@@ -1203,6 +1204,7 @@ public class XtServiceImpl implements XtService{
 		COMP_MAP.put("COMP.18.000113","shtimixl");//术后 TIMI
 		COMP_MAP.put("COMP.18.000114","zjnxs");//支架内血栓
 		COMP_MAP.put("COMP.18.000115","sffcbb");//分叉病变
+		COMP_MAP.put("COMP.18.000115_1","sfcto");//是否CTO
 		COMP_MAP.put("COMP.18.000116","zrzjgs");//植入支架个数
 		COMP_MAP.put("COMP.18.000117","SZKNYW");//首次抗凝
 		COMP_MAP.put("COMP.18.000118","SZKNYWJLANDDW");//首次抗凝-剂量+单位 --字段是虚拟字段，不在定义表里面
