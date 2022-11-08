@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body class="Overtime">
-	<form id="querymqform" action="edpcReport/zgzbl_export.do"
+	<form id="querymqform" action="edpcReport/xtReportExport.do"
 		method="post">
 		<!-- html的静态布局 -->
 		<!-- 查询条件 -->
@@ -41,6 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="c"></div>
 			</div>
 		</div>
+		<input type="hidden" name="reportTypeFlag" value="YCXDTBL">
 	</form>
 	<div class="chart_grp chartbox">
 		<div class="form_cat border-radius box-shadow">

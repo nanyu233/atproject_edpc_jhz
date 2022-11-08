@@ -2162,6 +2162,112 @@ public class EDPCReportAction {
 						webpath//下载地址
 				}));
 	}
+
+	@RequestMapping("/xtReportExport")
+	@ResponseBody
+	public SubmitResultInfo XtReportExport(ReportCondition reportCondition) throws Exception {
+		//获取虚拟目录指向实际路径
+		String filePath = ApplicationConfig.getConfig().get("XNML_PATH");
+
+		//设置映射fieldNames的list和临时存放报表对象
+		List<String> fieldNames = new ArrayList<String>();
+		fieldNames.add("年月  ");
+		DataGridResultInfo tempReport = new DataGridResultInfo();
+
+		// 导出文件的前缀
+		String filePrefix = "";
+		String flag = reportCondition.getReportTypeFlag();
+		switch(flag){
+			case "ZXLYDR":
+				filePrefix = "自行来院单绕";
+				fieldNames.add("绕行CCU的患者数");
+				fieldNames.add("自行来院且接受PPCI治疗的STEMI患者数");
+				tempReport = eDPCReportService.getRxccublReport(reportCondition);
+				break;
+			case "JHCSR":
+				filePrefix = "救护车双绕";
+				fieldNames.add("绕行急诊科CCU的患者数");
+				fieldNames.add("经救护车入院且接受PPCI治疗的STEMI患者数");
+				tempReport = eDPCReportService.getRxjzkccublReport(reportCondition);
+				break;
+			case "YCXDTBL":
+				filePrefix = "远程心电图传输";
+				fieldNames.add("传输心电图的患者数");
+				fieldNames.add("120来院的STEMI患者总数 ");
+				tempReport = eDPCReportService.getYccsxdtblReport(reportCondition);
+				break;
+			case "RSHZYBL":
+				filePrefix = "溶栓后造影";
+				fieldNames.add("溶栓后24小时内造影患者数");
+				fieldNames.add("溶栓患者总数");
+				tempReport = eDPCReportService.getRshzyblReport(reportCondition);
+				break;
+		}
+
+		// -1表示关闭自动刷新，手动控制写磁盘的时机，其它数据表示多少数据在内存保存，超过的则写入磁盘
+		int flushRows = 100;
+		// 定义导出数据的title
+		fieldNames.add("比例      ");
+
+		//导出类数据list中对象的属性，让ExcelExportSXXSSF通过反射获取对象的值
+		//fieldCodes和fieldNames个数必须相同且属性和title顺序一一对应
+		List<String> fieldCodes = new ArrayList<String>();
+		fieldCodes.add("yarmon");
+		fieldCodes.add("tnumb");
+		fieldCodes.add("patNumb");
+		fieldCodes.add("rate");
+
+		String hb = filePrefix;
+		String gd="";
+		StringBuilder sb = new StringBuilder();
+		sb.append("查询时间：");
+		sb.append(reportCondition.getStartDate());
+		sb.append(" - ");
+		sb.append(reportCondition.getEndDate());
+		gd+=sb.toString();
+		// 开始导出，执行一些workbook及sheet等对象的初始创建
+		ExcelExportSXXSSF excelExportSXXSSF = ExcelExportSXXSSF.startHbGd(filePath,
+				"/export/", filePrefix, fieldNames, fieldCodes, flushRows,hb,gd);
+
+		// 导出的数据通过service取出
+		if(reportCondition.getStartDate()!=null)
+			reportCondition.setStartDate(reportCondition.getStartDate().replaceAll("-", ""));
+		if(reportCondition.getEndDate()!=null)
+			reportCondition.setEndDate(reportCondition.getEndDate().replaceAll("-", ""));
+
+		DataGridResultInfo dataGridResultInfo = tempReport;
+
+		@SuppressWarnings("unchecked")
+		List<ReportDataResult> list = dataGridResultInfo.getRows();
+		int tnumb = 0, patNumb = 0;
+		double rate = 0.0d;
+
+		for(ReportDataResult reportDataResult : list) {
+			tnumb = reportDataResult.getTnumb();
+			patNumb = reportDataResult.getPatNumb();
+
+			if(patNumb > 0) {
+				rate = (double) tnumb / (double) patNumb * 100;
+				BigDecimal d = new BigDecimal(rate);
+				reportDataResult.setRate(String.valueOf(d.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()) + "%");
+			} else {
+				reportDataResult.setRate("-");
+			}
+
+		}
+
+		// 执行导出
+		excelExportSXXSSF.writeDatasByObject(list);
+		// 输出文件，返回下载文件的http地址，已经包括虚拟目录
+		String webpath = excelExportSXXSSF.exportFile();
+		System.out.println(webpath);
+		return ResultUtil.createSubmitResult(ResultUtil.createSuccess(
+				Config.MESSAGE, 914, new Object[] {
+						filePrefix+" ",
+						list.size()+"条数据 ",
+						webpath//下载地址
+				}));
+	}
 	
 //	/**
 //	 * 胸痛诊断为急性心肌梗死发病时间12小时内的病人/ 跳转     
