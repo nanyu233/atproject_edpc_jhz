@@ -409,8 +409,8 @@ public class EDPCReportAction {
 		// 导出文件的前缀
 		String filePrefix = "";
 		String flag = reportCondition.getReportTypeFlag();
-		if("D2B".equals(flag)){
-			filePrefix = "D2B时间统计报表";
+		if("D2W".equals(flag)){
+			filePrefix = "D2W时间统计报表";
 		}else if("DGSJH".equals(flag)){
 			filePrefix = "导管室启动时间报表";
 		}else if("ECG_QZ".equals(flag)){
@@ -1242,7 +1242,7 @@ public class EDPCReportAction {
 				"export/", filePrefix, fieldNames, fieldCodes, flushRows,hb,gd);
 		// 首次查询时默认赋值系统当天日期
 		
-		DataGridResultInfo dataGridResultInfo = eDPCReportService.getYnswlReport(reportCondition);
+		DataGridResultInfo dataGridResultInfo = eDPCReportService.getStemi2HdyljcReport(reportCondition);
 		
 		@SuppressWarnings("unchecked")
 		List<ReportDataResult> list = dataGridResultInfo.getRows();
@@ -1637,7 +1637,7 @@ public class EDPCReportAction {
 				"export/", filePrefix, fieldNames, fieldCodes, flushRows,hb,gd);
 		// 首次查询时默认赋值系统当天日期
 		
-		DataGridResultInfo dataGridResultInfo = eDPCReportService.getACS24tatinReport(reportCondition);
+		DataGridResultInfo dataGridResultInfo = eDPCReportService.getZgzblReport(reportCondition);
 		
 		@SuppressWarnings("unchecked")
 		List<ReportDataResult> list = dataGridResultInfo.getRows();

@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="c"></div>
 			</div>
 		</div>
-		<input type="hidden" name="reportTypeFlag" value="D2B">
+		<input type="hidden" name="reportTypeFlag" value="D2W">
 	</form>
 	<div class="chart_grp chartbox">
 		<div class="form_cat border-radius box-shadow">
