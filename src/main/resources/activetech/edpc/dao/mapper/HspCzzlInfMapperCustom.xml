@@ -76,9 +76,9 @@
 				   a.cst_nam,
 				   a.cst_age,
 				   a.cst_sex_cod,
-				   a.oxy_nbr, 
+				   a.oxy_nbr,
 				   b.sbpup_nbr,
-				   b.sbpdown_nbr,  
+				   b.sbpdown_nbr,
 				   b.hrt_rte,
 				   a.id_nbr,
 				   a.phe_nbr,
@@ -98,6 +98,7 @@
 		 		</if>
 		  order by emg_dat desc
   		</select>
+
   		
   		<!-- 卒中急救时间轴 -->
   <select id="getCzTimeline" parameterType="java.lang.String" resultType="activetech.edpc.pojo.dto.HspCzzlInfCustom">
@@ -293,5 +294,33 @@
 		 where emg.emg_seq = hlpgb.emg_seq(+)
 		   and emg.emg_seq = #{emgSeq, jdbcType = VARCHAR}
   </select>
-  		
+
+
+  <select id="getCzPatientInfoListForDbzlBas" resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom"
+		parameterType="activetech.edpc.pojo.dto.QueryDto">
+		select a.emg_seq,
+		   a.reg_tim,
+		   a.cst_nam,
+		   a.cst_age,
+		   a.cst_sex_cod,
+		   (select pro_val FROM hsp_czzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XUEYANG') xueyang,
+		   (select pro_val FROM hsp_czzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XUEY') xuey,
+		   (select pro_val FROM hsp_czzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XINL') xinl,
+		   a.id_nbr,
+		   a.phe_nbr,
+		   (select pro_val FROM hsp_czzl_inf WHERE emg_no = a.emg_seq and pro_code = 'CBYX') cbyx,
+		   a.vst_cad,
+		   (select bed_num from hsp_bed_inf where emg_seq = a.emg_seq) bed_num
+		  from HSP_DBZL_BAS a
+		where a.pat_typ = '2'
+			<if test="cstNam !=null and cstNam.length()>0">
+				and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
+					or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+				)
+			</if>
+			<if test = "bhls == false ">
+				and a.reg_tim >= sysdate - 1
+			</if>
+	   order by reg_tim desc
+	</select>
 </mapper>

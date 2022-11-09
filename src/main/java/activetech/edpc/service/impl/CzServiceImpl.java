@@ -132,7 +132,8 @@ public class CzServiceImpl implements CzService{
 	@Override
 	public ResultInfo getCzPatientInfoList(QueryDto queryDto) {
 		ResultInfo resultInfo = null;
-		List<HspemginfCustom> list = hspCzzlInfMapperCustom.getCzPatientInfoList(queryDto);
+		//List<HspemginfCustom> list = hspCzzlInfMapperCustom.getCzPatientInfoList(queryDto);
+		List<HspDbzlBasCustom> list = hspCzzlInfMapperCustom.getCzPatientInfoListForDbzlBas(queryDto);
 		if(list.size()>0){
 			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 			Map<String,Object> map = new HashMap<>();
