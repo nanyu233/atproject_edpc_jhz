@@ -1289,7 +1289,8 @@ public class XtServiceImpl implements XtService{
 					result.put(key, jsonHspDbzlBasCustom.get(field));
 			// 犯罪血管
 			if (jsonHspCrivelInf.containsKey(field))
-				deCodeForEdit(result, key, field, jsonHspCrivelInf.get(field));
+				if (StringUtils.isNotBlank(jsonHspCrivelInf.getString(field)))
+					deCodeForEdit(result, key, field, jsonHspCrivelInf.get(field));
 			//院前心电图 HspEcgInf.xxYq
 			if (jsonHspEcgInfYq.containsKey(field))
 				result.put(key, jsonHspEcgInfYq.get(field));
@@ -1298,10 +1299,12 @@ public class XtServiceImpl implements XtService{
 				result.put(key, jsonHspEcgInfYn.get(field));
 			//GRACE  评分  key suffix One
 			if (jsonHspGraceInfTypOne.containsKey(field))
-				deCodeForEdit(result, key, field, jsonHspGraceInfTypOne.get(field));
+				if (StringUtils.isNotBlank(jsonHspGraceInfTypOne.getString(field)))
+					deCodeForEdit(result, key, field, jsonHspGraceInfTypOne.get(field));
 			//GRACE  评分  key suffix Zero
 			if (jsonHspGraceInfTypZero.containsKey(field))
-				deCodeForEdit(result, key, field, jsonHspGraceInfTypZero.get(field));
+				if (StringUtils.isNotBlank(jsonHspGraceInfTypZero.getString(field)))
+					deCodeForEdit(result, key, field, jsonHspGraceInfTypZero.get(field));
 
 		}
 		resultInfo.setSysdata(result);
