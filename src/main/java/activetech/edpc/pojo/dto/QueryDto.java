@@ -1,8 +1,9 @@
 package activetech.edpc.pojo.dto;
 
+import activetech.base.pojo.domain.PageCond;
 import activetech.base.pojo.dto.PageQuery;
 
-public class QueryDto {
+public class QueryDto  extends PageCond {
 	//搜素患者姓名 模糊
 	private String cstNam;
 	//是否展示全部患者 false 一天 ，true | '' 全部
