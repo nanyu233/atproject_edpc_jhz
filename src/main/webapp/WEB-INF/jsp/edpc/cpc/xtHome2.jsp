@@ -61,6 +61,9 @@
             color: #ffffff;
             display: inline-block;
         }
+        #pp .pagination-page-list {
+            width: 45px;
+        }
     </style>
 </head>
 <body ms-controller="flowChart" class="flowChart">
@@ -264,6 +267,7 @@
                 <span>{{el.xuey || '--/--'}}</span>
             </div>
         </li>
+        <div id="pp" style="background:#efefef;border:1px solid #ccc;position: fixed;bottom: 0;"></div>
     </ul>
     <div class="no-patient" ms-if="!patientList.length">暂无相关病人数据</div>
 </div>
@@ -363,6 +367,11 @@
         showFiles: false,
         hasAcsNode: false,//ACS节点是否变绿
         hasNonAcsNode:false,//非ACS节点是否变绿
+        pageInfo: {
+            total: 0,
+            pageNumber: 1, //当前页
+            pageSize: 5 //当前页数量
+        },//分页参数
         // "包含历史"的按钮点击事件
         showHisToggle:function(){
             vm.showHis = !vm.showHis;
@@ -525,9 +534,12 @@
         publicFun.httpServ('post', 'cpc/getCpcPatientListInfo.do', {
             cstNam: vm.searchKey,
             bhls: vm.showHis,
-            patTyp : "1" // 1胸痛 2 卒中 3 创伤
+            patTyp : "1",// 1胸痛 2 卒中 3 创伤
+            page: vm.pageInfo.pageNumber,
+            rows: vm.pageInfo.pageSize
         }, function (res) {
-            var list = res.resultInfo.sysdata.list;
+            var list = res.rows;
+            vm.pageInfo.total = res.total
             if (list && list.length) {
                 for (var i = 0; i < list.length; i++) {
                     list[i].emgDatStr = publicFun.timeFormat(list[i].regTim, 'yyyy/MM/dd hh:mm');//格式化预检时间
@@ -543,7 +555,7 @@
                     //左侧流程图立即渲染右侧列表的第一个病人的数据
                     vm.clickPatient(list[0]);
                 }
-
+                setPagination()
             }else {
                 vm.patientList = [];
                 vm.patientGreenNodes = [];
@@ -1971,12 +1983,29 @@
         });
     }
     */
+    //分页
+    function setPagination() {
+        $('#pp').pagination({
+            total:vm.pageInfo.total,
+            pageSize:vm.pageInfo.pageSize,
+            loading: true,
+            pageNumber: vm.pageInfo.pageNumber,
+            pageList: [5,10,15],
+            onSelectPage:function(pageNumber, pageSize){
+                $(this).pagination('loading');
+                vm.pageInfo.pageNumber = pageNumber
+                vm.pageInfo.pageSize = pageSize
+                getPatients()
+                $(this).pagination('loaded');
+            },
+        });
+        $('#pp').pagination('loaded');
+    }
 
     $(function () {
         getPatients();
         websocketConnect();
         validateNodeId();
-
     });
     function reload() {
         // console.log('刷新局部');
