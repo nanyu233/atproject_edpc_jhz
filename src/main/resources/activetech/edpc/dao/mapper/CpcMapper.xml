@@ -4,6 +4,7 @@
   
   	<select id="getCpcPatientInfoList" resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom"
   		parameterType="activetech.edpc.pojo.dto.QueryDto">
+       <include refid="activetech.base.CommonSql.page_start"/>
 		select
 		    a.reg_seq,
 			a.emg_seq,
@@ -52,6 +53,7 @@
 			</if>
 		</where>
 		order by reg_tim desc nulls last
+      <include refid="activetech.base.CommonSql.page_end"/>
   	</select>
   	
   	<select id="getCsPatientInfoList" resultType="activetech.hospital.pojo.dto.HspemginfCustom"
@@ -180,4 +182,40 @@
 		</where>
 		order by reg_tim desc nulls last
 	</select>
+
+
+	<select id="getCsPatientInfoListForDbzlBas" resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom"
+			parameterType="activetech.edpc.pojo.dto.QueryDto">
+
+		 select a.emg_seq,
+			   a.reg_tim,
+			   a.cst_nam,
+			   a.cst_age,
+			   a.cst_sex_cod,
+			   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XTZBNH') xtzbnh,
+			   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XUEYANG') xueyang,
+				   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XUEY') xuey,
+				   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XINL') xinl,
+			   a.id_nbr,
+			   a.phe_nbr,
+			   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'CBYX') cbyx,
+				   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'BRZSZZ') brzszz,
+			   (select bed_num from hsp_bed_inf where emg_seq = a.emg_seq) bed_num,
+			   (select pro_val
+				  from hsp_xtzl_inf
+				 where emg_no = a.emg_seq
+				   and pro_code = 'KILLIP') killip,
+			   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'FBSJ') fbsj
+		   from HSP_DBZL_BAS a
+		   where a.pat_typ = '3'
+	   		<if test="cstNam !=null and cstNam.length()>0">
+	 			and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
+	 				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+	 			)
+	 		</if>
+	 		<if test = "bhls == false ">
+	 			and a.reg_tim >= sysdate - 1
+	 		</if>
+	  order by reg_tim desc
+  	</select>
 </mapper>

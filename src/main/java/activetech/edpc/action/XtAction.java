@@ -11,8 +11,10 @@ import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.domain.HspGraceInf;
+import activetech.edpc.pojo.domain.HspSbarInf;
 import activetech.edpc.pojo.domain.HspXtzlInf;
 import activetech.edpc.pojo.dto.*;
+import activetech.edpc.service.CpcCrfplaneService;
 import activetech.edpc.service.XtService;
 import activetech.external.pojo.domain.HspEcgInf;
 import activetech.external.service.EsbService;
@@ -52,8 +54,11 @@ public class XtAction {
 	
 	@Autowired
 	private AidService aidService;
-	
-	
+
+	@Autowired
+	private CpcCrfplaneService cpcCrfplaneService;
+
+
 	/**
 	 * 跳转胸痛中心首页
 	 * @return
@@ -186,14 +191,11 @@ public class XtAction {
 	 */
 	@RequestMapping("/getCpcPatientListInfo")
 	@ResponseBody
-	public DataGridResultInfo getCpcPatientListInfo(QueryDto queryDto,
-												  int page,//当前页码
-												  int rows//每页显示个数
-													 ){
+	public DataGridResultInfo getCpcPatientListInfo(QueryDto queryDto){
 
 		int total = xtService.getCpcPatientInfoListCount(queryDto);
 		PageQuery pageQuery = new PageQuery();
-		pageQuery.setPageParams(total, rows, page);
+		pageQuery.setPageParams(total, queryDto.getRows(), queryDto.getPage());
 		queryDto.setPageQuery(pageQuery);
 		List<HspDbzlBasCustom> list =xtService.getCpcPatientInfoListByPage(queryDto);
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
@@ -758,10 +760,29 @@ public class XtAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/queryfuv")
+/*	@RequestMapping("/queryfuv")
 	public String queryksjh(Model model, String moduleid) throws Exception {
 		model.addAttribute("moduleid", moduleid);
 		return View.toEDPC("/followup/queryfuv");
-	}
+	}*/
 
+     /**
+	 * 胸痛登记页面上报提交
+	 * @param xtzlInfs
+	 * @param emgSeq
+	 * @param activeUser
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryfuv")
+	@ResponseBody
+	//public SubmitResultInfo xtPatietSbSubmit(@RequestBody(required=false) Map<String,Object> map) throws Exception{
+	public SubmitResultInfo xtPatietSbSubmit(@RequestBody HspSbarInf hspSbarInf) throws Exception{
+		String emgSeq = hspSbarInf.getEmgSeq();
+		/*if(map.containsKey("emgSeq")){
+			emgSeq = (String) map.get("emgSeq");
+		}*/
+		ResultInfo resultInfo = cpcCrfplaneService.registerInfoCrfplane(emgSeq);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
 }
