@@ -298,6 +298,7 @@
 
   <select id="getCzPatientInfoListForDbzlBas" resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom"
 		parameterType="activetech.edpc.pojo.dto.QueryDto">
+        <include refid="activetech.base.CommonSql.page_start"/>
 		select a.emg_seq,
 		   a.reg_tim,
 		   a.cst_nam,
@@ -322,5 +323,21 @@
 				and a.reg_tim >= sysdate - 1
 			</if>
 	   order by reg_tim desc
+     <include refid="activetech.base.CommonSql.page_end"/>
+	</select>
+
+	<select id="getCzPatientInfoListCount" parameterType="activetech.edpc.pojo.dto.QueryDto"
+			resultType="int">
+		select count(*) from hsp_dbzl_bas a
+            where a.pat_typ = '2'
+			<if test="cstNam !=null and cstNam.length()>0">
+				and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
+				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+				)
+			</if>
+			<if test="bhls == false ">
+				and a.crt_tim >= sysdate - 1
+			</if>
+		order by reg_tim desc nulls last
 	</select>
 </mapper>

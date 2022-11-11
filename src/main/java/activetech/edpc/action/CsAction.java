@@ -1,7 +1,10 @@
 package activetech.edpc.action;
 
 import java.util.Date;
+import java.util.List;
 
+import activetech.base.pojo.dto.PageQuery;
+import activetech.edpc.pojo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +21,6 @@ import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspCsampInf;
 import activetech.edpc.pojo.domain.HspSbarInf;
-import activetech.edpc.pojo.dto.HspCsabcInfQueryDto;
-import activetech.edpc.pojo.dto.HspCscpnInfQueryDto;
-import activetech.edpc.pojo.dto.HspCsoaeInfQueryDto;
-import activetech.edpc.pojo.dto.HspCspfDtlQueryDto;
-import activetech.edpc.pojo.dto.HspCszlInfQueryDto;
-import activetech.edpc.pojo.dto.HspCzzlInfQueryDto;
-import activetech.edpc.pojo.dto.QueryDto;
 import activetech.edpc.service.CsService;
 import activetech.hospital.pojo.domain.HspEmgInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
@@ -117,10 +113,24 @@ public class CsAction {
 	 */
 	@RequestMapping("/getCsPatientInfoList")
 	@ResponseBody
-	public SubmitResultInfo getCsPatientInfoList(QueryDto queryDto){
+	public DataGridResultInfo getCsPatientInfoList(QueryDto queryDto){
+
+		int total = csService.getCsPatientInfoListCount(queryDto);
+		PageQuery pageQuery = new PageQuery();
+		pageQuery.setPageParams(total, queryDto.getRows(), queryDto.getPage());
+		queryDto.setPageQuery(pageQuery);
+		List<HspDbzlBasCustom> list =csService.getCsPatientInfoListByPage(queryDto);
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		//填充total
+		dataGridResultInfo.setTotal(total);
+		//填充rows
+		dataGridResultInfo.setRows(list);
+		return dataGridResultInfo;
+	}
+	/*public SubmitResultInfo getCsPatientInfoList(QueryDto queryDto){
 		ResultInfo resultInfo = csService.getCsPatientInfoList(queryDto);
 		return ResultUtil.createSubmitResult(resultInfo);
-	}
+	}*/
 	
 	
 	

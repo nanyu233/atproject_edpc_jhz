@@ -878,4 +878,14 @@ public class CzServiceImpl implements CzService{
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
 	}
+
+	@Override
+	public int getCzPatientInfoListCount(QueryDto queryDto) {
+		return hspCzzlInfMapperCustom.getCzPatientInfoListCount(queryDto);
+	}
+
+	@Override
+	public List<HspDbzlBasCustom> getCzPatientInfoListByPage(QueryDto queryDto) {
+		return hspCzzlInfMapperCustom.getCzPatientInfoListForDbzlBas(queryDto);
+	}
 }

@@ -181,11 +181,11 @@
                 </div>
                 <div class="info_item">
                     <span class="iconfont icon-iconxyang" style="color: #44b548"></span>
-                    <span>{{el.oxyNbr}}%</span>
+                    <span>{{el.xueyang}}%</span><%--{{el.oxyNbr}}--%>
                     <span class="iconfont icon-heartrate" style="color:red"></span>
-                    <span>{{el.hrtRte}}次/分</span>
+                    <span>{{el.xinl}}次/分</span><%--{{el.hrtRte}}--%>
                     <span class="iconfont icon-hamnatodynamometer" style="color: #f90"></span>
-                    <span>{{el.sbpUpNbr}}/{{el.sbpDownNbr}}</span>
+                    <span>{{el.xuey}}</span><%--{{el.sbpUpNbr}}/{{el.sbpDownNbr}}--%>
                 </div>
             </li>
         </ul>

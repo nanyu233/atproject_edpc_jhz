@@ -7,13 +7,7 @@ import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
 import activetech.edpc.pojo.domain.HspCsampInf;
 import activetech.edpc.pojo.domain.HspSbarInf;
-import activetech.edpc.pojo.dto.HspCsabcInfQueryDto;
-import activetech.edpc.pojo.dto.HspCscpnInfQueryDto;
-import activetech.edpc.pojo.dto.HspCsoaeInfQueryDto;
-import activetech.edpc.pojo.dto.HspCspfDtlQueryDto;
-import activetech.edpc.pojo.dto.HspCszlInfCustom;
-import activetech.edpc.pojo.dto.HspCszlInfQueryDto;
-import activetech.edpc.pojo.dto.QueryDto;
+import activetech.edpc.pojo.dto.*;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 
 public interface CsService {
@@ -90,6 +84,9 @@ public interface CsService {
 	public ResultInfo getHspCsfDef(String emgSeq);
 	
 	public ResultInfo addHspCspfDtl(HspCspfDtlQueryDto hspCspfDtlQueryDto,ActiveUser activeUser);
-	
-	
+
+
+	int getCsPatientInfoListCount(QueryDto queryDto);
+
+	List<HspDbzlBasCustom> getCsPatientInfoListByPage(QueryDto queryDto);
 }

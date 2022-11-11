@@ -9,10 +9,7 @@ import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspBase64Pic;
 import activetech.edpc.pojo.domain.HspCzzlInf;
-import activetech.edpc.pojo.dto.HspCzzlInfCustom;
-import activetech.edpc.pojo.dto.HspCzzlInfQueryDto;
-import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
-import activetech.edpc.pojo.dto.QueryDto;
+import activetech.edpc.pojo.dto.*;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -71,4 +68,7 @@ public interface CzService {
 	
 	ResultInfo getCzFirstPageInfo();
 
+    int getCzPatientInfoListCount(QueryDto queryDto);
+
+	List<HspDbzlBasCustom> getCzPatientInfoListByPage(QueryDto queryDto);
 }

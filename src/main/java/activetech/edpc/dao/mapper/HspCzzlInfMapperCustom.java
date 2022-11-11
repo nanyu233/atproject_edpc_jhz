@@ -41,4 +41,6 @@ public interface HspCzzlInfMapperCustom {
     HspemginfCustom getCzhcbInfoByEmgseq(@Param(value="emgSeq")String emgSeq);
 
     List<HspDbzlBasCustom> getCzPatientInfoListForDbzlBas(QueryDto queryDto);
+
+    int getCzPatientInfoListCount(QueryDto queryDto);
 }

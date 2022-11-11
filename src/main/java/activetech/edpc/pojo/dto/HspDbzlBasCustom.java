@@ -30,6 +30,47 @@ public class HspDbzlBasCustom extends HspDbzlBas {
     //患者类型
     private String patTyp;
 
+    //血氧
+    private String xueyang;
+    //初步印象
+    private String cbyx;
+    //病人主诉症状
+    private String brzszz;
+    //胸痛指标内涵
+    private String xtzbnh;
+
+    public String getXueyang() {
+        return xueyang;
+    }
+
+    public void setXueyang(String xueyang) {
+        this.xueyang = xueyang;
+    }
+
+    public String getCbyx() {
+        return cbyx;
+    }
+
+    public void setCbyx(String cbyx) {
+        this.cbyx = cbyx;
+    }
+
+    public String getBrzszz() {
+        return brzszz;
+    }
+
+    public void setBrzszz(String brzszz) {
+        this.brzszz = brzszz;
+    }
+
+    public String getXtzbnh() {
+        return xtzbnh;
+    }
+
+    public void setXtzbnh(String xtzbnh) {
+        this.xtzbnh = xtzbnh;
+    }
+
     @Override
     public String getPatTyp() {
         return patTyp;

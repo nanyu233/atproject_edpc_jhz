@@ -28,4 +28,8 @@ public interface CpcMapper {
 
 
 	int getCpcPatientInfoListCount(QueryDto queryDto);
+
+    List<HspDbzlBasCustom> getCsPatientInfoListForDbzlBas(QueryDto queryDto);
+
+    int getCsPatientInfoListCount(QueryDto queryDto);
 }

@@ -646,7 +646,7 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 				}
 				BASE64Encoder encoder = new BASE64Encoder();
 				String base64 = "data:image/jpeg;base64,"+encoder.encode(IOUtils.toByteArray(fileInputStream));
-				//     System.out.print("aa"+"--------------------"+base64);
+				     System.out.print("aa"+"--------------------"+base64);
 
 				JSONObject subecgMap = new JSONObject();
 				if(dstarchives.getCrtDate() != null){

@@ -437,7 +437,8 @@ public class CsServiceImpl implements CsService{
 	@Override
 	public ResultInfo getCsPatientInfoList(QueryDto queryDto) {
 		ResultInfo resultInfo = null;
-		List<HspemginfCustom> list = cpcMapper.getCsPatientInfoList(queryDto);
+		//List<HspemginfCustom> list = cpcMapper.getCsPatientInfoList(queryDto);
+		List<HspDbzlBasCustom> list = cpcMapper.getCsPatientInfoListForDbzlBas(queryDto);
 		if(list.size()>0){
 			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 			Map<String,Object> map = new HashMap<>();
@@ -824,5 +825,15 @@ public class CsServiceImpl implements CsService{
 		resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		
 		return resultInfo;
+	}
+
+	@Override
+	public int getCsPatientInfoListCount(QueryDto queryDto) {
+		return cpcMapper.getCsPatientInfoListCount(queryDto);
+	}
+
+	@Override
+	public List<HspDbzlBasCustom> getCsPatientInfoListByPage(QueryDto queryDto) {
+		return cpcMapper.getCsPatientInfoListForDbzlBas(queryDto);
 	}
 }

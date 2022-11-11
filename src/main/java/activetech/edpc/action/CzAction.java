@@ -2,6 +2,7 @@ package activetech.edpc.action;
 
 import activetech.base.action.View;
 import activetech.base.pojo.dto.ActiveUser;
+import activetech.base.pojo.dto.PageQuery;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
@@ -9,6 +10,7 @@ import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspBase64Pic;
 import activetech.edpc.pojo.dto.HspCzzlInfQueryDto;
+import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.QueryDto;
 import activetech.edpc.service.CzService;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -156,10 +159,24 @@ public class CzAction {
 	 */
 	@RequestMapping("/getCzPatientInfoList")
 	@ResponseBody
-	public SubmitResultInfo getCzPatientListInfo(QueryDto queryDto){
+	public DataGridResultInfo getCzPatientListInfo(QueryDto queryDto){
+
+		int total = czService.getCzPatientInfoListCount(queryDto);
+		PageQuery pageQuery = new PageQuery();
+		pageQuery.setPageParams(total, queryDto.getRows(), queryDto.getPage());
+		queryDto.setPageQuery(pageQuery);
+		List<HspDbzlBasCustom> list =czService.getCzPatientInfoListByPage(queryDto);
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		//填充total
+		dataGridResultInfo.setTotal(total);
+		//填充rows
+		dataGridResultInfo.setRows(list);
+		return dataGridResultInfo;
+	}
+	/*public SubmitResultInfo getCzPatientListInfo(QueryDto queryDto){
 		ResultInfo resultInfo = czService.getCzPatientInfoList(queryDto);
 		return ResultUtil.createSubmitResult(resultInfo);
-	}
+	}*/
 	
 	/**
 	 * 保存卒中患者的分诊和护理记录单溶栓时候的页面截图base64编码数据
