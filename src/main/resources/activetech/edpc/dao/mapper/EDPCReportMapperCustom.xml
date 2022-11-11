@@ -53,20 +53,23 @@
 		       nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 		       nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
 		  from (select b.emg_seq,
-		               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-		               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		                  from hsp_czzl_inf
-		                 where emg_no = a.emg_no
-		                   and pro_code = 'KSCCSJ') flowtime1,
-		               (select cast(emg_dat as date) emg_dat
-		                  from hsp_emg_inf
-		                 where emg_seq = a.emg_no) flowtime2
-		          from (select emg_no
-		                  from hsp_czzl_inf
-		                 where pro_code = 'KSCCSJ') a,
-		               hsp_emg_inf b
-		         where a.emg_no = b.emg_seq
-		           and b.czlcflg = '1') c,
+					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
+					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
+						from hsp_czzl_inf
+						where emg_no = a.emg_no
+						  and pro_code = 'KSCCSJ') flowtime1,
+					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
+						from hsp_czzl_inf
+						where emg_no = a.emg_no
+						  and pro_code = 'DYSJ') flowtime2
+				from (select emg_no
+					  from hsp_czzl_inf
+					  where pro_code = 'ISQS'
+						and pro_val = '0') a,
+					 hsp_dbzl_bas b
+				where a.emg_no = b.emg_seq
+				  and b.pat_typ = '2'
+			   ) c,
 		       (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),
 		                       'YYYY/MM') yarmon
 		          from dual
@@ -91,20 +94,19 @@
 		       nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 		       nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
 		  from (select b.emg_seq,
-		               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-		               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		                  from hsp_czzl_inf
-		                 where emg_no = a.emg_no
-		                   and pro_code = 'YXXJCSJ') flowtime1,
-		               (select cast(emg_dat as date) emg_dat
-		                  from hsp_emg_inf
-		                 where emg_seq = a.emg_no) flowtime2
-		          from (select emg_no
-		                  from hsp_czzl_inf
-		                 where pro_code = 'YXXJCSJ') a,
-		               hsp_emg_inf b
-		         where a.emg_no = b.emg_seq
-		           and b.czlcflg = '1') c,
+					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
+					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
+						from hsp_czzl_inf
+						where emg_no = a.emg_no
+						  and pro_code = 'TLYXSJ') flowtime1,
+					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
+						from hsp_czzl_inf
+						where emg_no = a.emg_no
+						  and pro_code = 'DYSJ') flowtime2
+				from (select emg_no from hsp_czzl_inf where pro_code = 'TLYXSJ') a,
+					 hsp_dbzl_bas b
+				where a.emg_no = b.emg_seq
+				  and b.pat_typ = '2') c,
 		       (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),
 		                       'YYYY/MM') yarmon
 		          from dual
@@ -1659,26 +1661,28 @@
 		          sum(case
 		                when c.fbsj is null then
 		                 0
-		                when nvl(round(( c.emg_dat - c.fbsj) * 24 * 60, 2), 0) <![CDATA[ >= ]]> 360 then
+		                when nvl(round((to_date(c.rszlkssj, 'yyyy-MM-dd hh24:mi') - to_date(c.fbsj, 'yyyy-MM-dd hh24:mi')) * 24 * 60, 2), 0) <![CDATA[ >= ]]> 360 then
 		                 1
 		                else
 		                 0
 		              end) tnumb
 		     from (select b.emg_seq,
-		                  to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
-		                  cast(b.emg_dat as date) emg_dat,
-		                  (select cast(ill_tim as date) fbsj
-		                     from aid_patient
-		                    where patid = (select patid
-		                                     from hsp_emg_inf
-		                                    where emg_seq = a.emg_no)) fbsj
-		             from (select emg_no
-		                     from hsp_czzl_inf
-		                    where pro_code = 'ISRS'
-		                      and pro_val = '1') a,
-		                  hsp_emg_inf b
-		            where a.emg_no = b.emg_seq
-		              and b.czlcflg = '1') c,
+						  to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
+						  (select pro_val
+						   from hsp_czzl_inf
+						   where pro_code = 'RSZLKSSJ'
+							 and emg_no = b.emg_seq) rszlkssj,
+						  (select pro_val
+						   from hsp_czzl_inf
+						   where pro_code = 'FBSJ'
+							 and emg_no = b.emg_seq) fbsj
+				   from (select emg_no
+						 from hsp_czzl_inf
+						 where pro_code = 'ISRS'
+						   and pro_val = '0') a,
+						hsp_dbzl_bas b
+				   where a.emg_no = b.emg_seq
+					 and b.pat_typ = '2') c,
 		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
 		                          'YYYY/MM') yarmon
