@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
-	<link rel="stylesheet" href="styles/common/highcharts.css" type="text/css" />
+	<link rel="stylesheet" href="css/common/highcharts.css" type="text/css" />
 	<%@ include file="/WEB-INF/jsp/base/common_js.jsp"%>
 	<script src="lib/highcharts5.0.7/code/highcharts.js" type="text/javascript"></script>
 	<script src="lib/highcharts5.0.7/code/modules/exporting.js" type="text/javascript"></script> 
@@ -300,7 +300,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$('#dtoblist').datagrid('load', {
 					"startDate" : start,
 					"endDate" : end,
-					"reportTypeFlag" : 'DGSJH'
+					// "reportTypeFlag" : 'DGSJH'
 				});
 			}
 		}

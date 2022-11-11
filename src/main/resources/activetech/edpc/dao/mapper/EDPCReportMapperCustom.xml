@@ -19,9 +19,9 @@
 	            end) as tnumb
 	   from (select a.yarmon, a.emg_seq, b.cou
 	           from (select d.yarmon, c.emg_seq
-	                   from (select emg_seq, to_char(emg_dat, 'yyyy/mm') yarmon
-	                           from hsp_emg_inf
-	                          where czlcflg = '1') c,
+	                   from (select emg_seq, to_char(reg_tim, 'yyyy/mm') yarmon
+	                           from hsp_dbzl_bas
+	                          where pat_typ = '2') c,
 	                        (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR},
 	                                                           'YYYY/MM'),
 	                                                   rownum - 1),

@@ -223,15 +223,16 @@ public class EDPCReportAction {
 	public String toCzNIHSSRatePage(Model model) throws Exception {
 		return "/edpc/report/czReport/czNIHSSRate";
 	}
-	
-	
+
+	/**
+	 * 卒中患者抵达急诊接受NIHSS评分的比例 获取结果
+	 * @param reportCondition reportCondition
+	 * @return DataGridResultInfo
+	 */
 	@RequestMapping("/czNIHSSRate_result")
 	@ResponseBody
 	public DataGridResultInfo czNIHSSRate_result(ReportCondition reportCondition){
-		
-		DataGridResultInfo dataGridResultInfo = eDPCReportService.getCzNIHSSRate(reportCondition);
-		
-		return dataGridResultInfo;
+		return eDPCReportService.getCzNIHSSRate(reportCondition);
 	}
 	
 	/**
