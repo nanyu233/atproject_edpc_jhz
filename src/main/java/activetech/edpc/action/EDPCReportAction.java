@@ -2171,7 +2171,7 @@ public class EDPCReportAction {
 
 		//设置映射fieldNames的list和临时存放报表对象
 		List<String> fieldNames = new ArrayList<String>();
-		fieldNames.add("年月  ");
+		fieldNames.add("年月");
 		DataGridResultInfo tempReport = new DataGridResultInfo();
 
 		// 导出文件的前缀
@@ -2207,7 +2207,7 @@ public class EDPCReportAction {
 		// -1表示关闭自动刷新，手动控制写磁盘的时机，其它数据表示多少数据在内存保存，超过的则写入磁盘
 		int flushRows = 100;
 		// 定义导出数据的title
-		fieldNames.add("比例      ");
+		fieldNames.add("比例");
 
 		//导出类数据list中对象的属性，让ExcelExportSXXSSF通过反射获取对象的值
 		//fieldCodes和fieldNames个数必须相同且属性和title顺序一一对应
@@ -2230,10 +2230,10 @@ public class EDPCReportAction {
 				"/export/", filePrefix, fieldNames, fieldCodes, flushRows,hb,gd);
 
 		// 导出的数据通过service取出
-		if(reportCondition.getStartDate()!=null)
-			reportCondition.setStartDate(reportCondition.getStartDate().replaceAll("-", ""));
-		if(reportCondition.getEndDate()!=null)
-			reportCondition.setEndDate(reportCondition.getEndDate().replaceAll("-", ""));
+//		if(reportCondition.getStartDate()!=null)
+//			reportCondition.setStartDate(reportCondition.getStartDate().replaceAll("-", ""));
+//		if(reportCondition.getEndDate()!=null)
+//			reportCondition.setEndDate(reportCondition.getEndDate().replaceAll("-", ""));
 
 		DataGridResultInfo dataGridResultInfo = tempReport;
 

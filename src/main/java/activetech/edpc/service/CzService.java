@@ -6,6 +6,7 @@ import java.util.Map;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
+import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspBase64Pic;
 import activetech.edpc.pojo.domain.HspCzzlInf;
 import activetech.edpc.pojo.dto.HspCzzlInfCustom;
@@ -13,6 +14,7 @@ import activetech.edpc.pojo.dto.HspCzzlInfQueryDto;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.QueryDto;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
+import org.springframework.web.bind.annotation.RequestBody;
 
 public interface CzService {
 	
@@ -54,10 +56,14 @@ public interface CzService {
 	public ResultInfo getCzhcbInfoByEmgSeq(String emgSeq);
 	
 	public ResultInfo getCzPatientDetail(String emgSeq);
+
+	public ResultInfo czPatietBasicInfSubmit(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser);
 	
 	public ResultInfo czPatientSubmit(List<HspCzzlInfCustom> czzlInfList,String emgSeq,ActiveUser activeUser);
 	
 	public Map<Integer,String> getYljgczzlqkdcb(HspemginfQueryDto hspemginfQueryDto);
+
+	ResultInfo getCzPatientBasicInfo(String regSeq);
 
 	ResultInfo getAidPatientByEmgSeq(String emgSeq);
 

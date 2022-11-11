@@ -64,8 +64,10 @@
                                 <li class="item">
                                     <div class="item_name">性别:</div>
                                     <div class="input">
-                                        <input class="item_input" type="text" ms-duplex-string=" baseInfo.cstSexCod"
-                                            disabled="disabled">
+                                        <select name="" ms-duplex="baseInfo.cstSexCod" data-duplex-changed="selectchange" disabled="disabled">
+                                            <option value="">请选择</option>
+                                            <option ms-repeat="cstSexCodArr" ms-attr-value="el.infocode">{{el.info}}</option>
+                                        </select>
                                     </div>
                                 </li>
                                 <li class="item">
@@ -115,7 +117,8 @@
                                     <div class="input">
 									 <div class="input">
                                             <input class="Wdate" type="text" class="input-date Wdate" 
-                                            onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="aidPatient.illTim" />
+<%--                                            onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="aidPatient.illTim" />--%>
+                                            onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" ms-duplex-string="czzlInfo.FBSJ" />
                                         </div>
                                 </div>
                                 <!-- 最后正常时间 -->
@@ -123,7 +126,8 @@
                                     <div class="lb">最后正常时间:</div>
                                     <div class="input"><input class="Wdate" type="text"
                                             onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                            ms-duplex-string="info.ZHZCSJ" /></div>
+<%--                                            ms-duplex-string="info.ZHZCSJ" /></div>--%>
+                                            ms-duplex-string="czzlInfo.ZHZCSJ" /></div>
                                 </div>
                             </div>
                             <!-- 发病地址 -->
@@ -131,18 +135,21 @@
                                 <div class="input-group">
                                     <div class="lb">发病地址:</div>
                                     <div class="input">
-                                        <select name="" class="area" ms-duplex="aidPatient.scePrvCod">
+<%--                                        <select name="" class="area" ms-duplex="aidPatient.scePrvCod">--%>
+                                        <select name="" class="area" ms-duplex="czzlInfo.FBDZ01">
                                             <!-- onchange="ReSelected()" -->
                                             <option value="">请选择</option>
                                             <option ms-repeat="provinceList" ms-attr-value="el.addrCode">{{el.addrName}}
                                             </option>
                                         </select>
-                                        <select name="" class="area" ms-duplex="aidPatient.sceCtyCod">
+<%--                                        <select name="" class="area" ms-duplex="aidPatient.sceCtyCod">--%>
+                                        <select name="" class="area" ms-duplex="czzlInfo.FBDZ02">
                                             <option value="">请选择</option>
                                             <option ms-repeat="cityList" ms-attr-value="el.addrCode">{{el.addrName}}
                                             </option>
                                         </select>
-                                        <select name="" class="area" ms-duplex="aidPatient.sceAr0Cod">
+<%--                                        <select name="" class="area" ms-duplex="aidPatient.sceAr0Cod">--%>
+                                        <select name="" class="area" ms-duplex="czzlInfo.FBDZ03">
                                             <option value="">请选择</option>
                                             <option ms-repeat="cntyList" ms-attr-value="el.addrCode">{{el.addrName}}
                                             </option>
@@ -156,12 +163,14 @@
                                     <div class="lb">预检时间:</div>
                                     <div class="input"><input class="Wdate" type="text"
                                             onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                            ms-duplex-string="baseInfo.emgDat" /></div>
+<%--                                            ms-duplex-string="baseInfo.emgDat" /></div>--%>
+                                            ms-duplex-string="baseInfo.regTim" /></div>
                                 </div>
                                 <div class="input-group">
                                     <div class="lb">意识:</div>
                                     <div class="input">
-                                        <select name="" ms-duplex="baseInfo.senStuCod">
+<%--                                        <select name="" ms-duplex="baseInfo.senStuCod">--%>
+                                        <select name="" ms-duplex="czzlInfo.YISHI">
                                             <option value="">请选择</option>
                                             <option ms-repeat="senRctCodArr" ms-attr-value="el.infocode">{{el.info}}
                                             </option>
@@ -173,21 +182,24 @@
                                 <div class="input-group">
                                     <div class="lb">呼吸:</div>
                                     <div class="input">
-                                        <input type="text" ms-duplex-string="baseInfo.breNbr" ms-keyup="limitInput(this,40)"/>
+<%--                                        <input type="text" ms-duplex-string="baseInfo.breNbr" ms-keyup="limitInput(this,40)"/>--%>
+                                        <input type="text" ms-duplex-string="czzlInfo.HUXI" data-duplex-event="change" ms-keyup="limitInput(this,40)"/>
                                         <div class="unit1">次/分</div>
 
                                     </div>
                                 </div>
                                 <div class="input-group">
                                     <div class="lb">心率:</div>
-                                    <div class="input"><input type="text" ms-duplex-string="baseInfo.hrtRte" ms-keyup="limitInput(this,300)"/>
+<%--                                    <div class="input"><input type="text" ms-duplex-string="baseInfo.hrtRte" ms-keyup="limitInput(this,300)"/>--%>
+                                    <div class="input"><input type="text" ms-duplex-string="czzlInfo.XINL" data-duplex-event="change" ms-keyup="limitInput(this,300)"/>
                                         <div class="unit1">次/分</div>
 
                                     </div>
                                 </div>
                                 <div class="input-group">
                                     <div class="lb">血氧:</div>
-                                    <div class="input"><input type="text" ms-duplex-string="baseInfo.oxyNbr" ms-keyup="limitInput(this,300)"/>
+<%--                                    <div class="input"><input type="text" ms-duplex-string="baseInfo.oxyNbr" ms-keyup="limitInput(this,300)"/>--%>
+                                    <div class="input"><input type="text" ms-duplex-string="czzlInfo.XUEYANG" data-duplex-event="change" ms-keyup="limitInput(this,300)"/>
                                         <div class="unit1">%</div>
                                     </div>
                                 </div>
@@ -195,20 +207,23 @@
                             <div class="inputs">
                                 <div class="input-group">
                                     <div class="lb">体温:</div>
-                                    <div class="input"><input type="text" ms-duplex="baseInfo.tmpNbr" ms-keyup="NumberInput(this)" maxlength="5"/>
+<%--                                    <div class="input"><input type="text" ms-duplex="baseInfo.tmpNbr" ms-keyup="NumberInput(this)" maxlength="5"/>--%>
+                                    <div class="input"><input type="text" ms-duplex="czzlInfo.TIWEN" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="5"/>
                                         <div class="unit1">℃</div>
 
                                     </div>
                                 </div>
                                 <div class="input-group">
                                     <div class="lb">血压:</div>
-                                    <div class="input"><input type="text" placeholder="--/--" ms-duplex="info.XUEYA"/>
+<%--                                    <div class="input"><input type="text" placeholder="--/--" ms-duplex="info.XUEYA"/>--%>
+                                    <div class="input"><input type="text" placeholder="--/--" data-duplex-event="change" ms-duplex="czzlInfo.XUEY"/>
                                         <div class="unit1">mmHg</div>
                                     </div>
                                 </div>
                                 <div class="input-group">
                                     <div class="lb">指尖血糖:</div>
-                                    <div class="input"><input type="text" ms-duplex="baseInfo.glsNum" ms-keyup="NumberInput(this)" maxlength="5"/>
+<%--                                    <div class="input"><input type="text" ms-duplex="baseInfo.glsNum" ms-keyup="NumberInput(this)" maxlength="5"/>--%>
+                                    <div class="input"><input type="text" ms-duplex="czzlInfo.ZJXT" data-duplex-event="change" ms-keyup="limitInputFloat(this)" maxlength="5"/>
                                         <div class="unit1">mmol/L</div>
                                     </div>
                                 </div>
@@ -217,7 +232,8 @@
                             <div class="inputs">
                                 <div class="input-group">
                                     <div class="lb">心电图时间:</div>
-                                    <div class="input"><input class="Wdate" ms-duplex="info.XDTSJ" 
+<%--                                    <div class="input"><input class="Wdate" ms-duplex="info.XDTSJ" --%>
+                                    <div class="input"><input class="Wdate" ms-duplex="czzlInfo.XDTSJ"
                                     	onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})">
                                         <a href="javascript:;" class="file">上传心电图
                                             <input type="file" name="" id="">
@@ -236,7 +252,7 @@
                                                 ms-click="onCheckClick('ZYZZ',el.infocode)">
                                                 {{el.info}}
                                             </div>
-                                            <input id="content" type="text" ms-duplex-string="info.ZYZZQT">
+                                            <input id="content" type="text" ms-duplex-string="czzlInfo.ZYZZQT">
                                         </div>
                                     </div>
                                 </div>
@@ -247,23 +263,27 @@
                                     <div class="lb">拟诊断时间:</div>
                                     <div class="input"><input class="Wdate" type="text"
                                             onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                            ms-duplex-string="info.NZDSJ"></div>
+<%--                                            ms-duplex-string="info.NZDSJ"></div>--%>
+                                            ms-duplex-string="czzlInfo.NZDSJ"></div>
                                 </div>
                                 <div class="input-group">
                                     <div class="lb">拟诊断医生:</div>
-                                    <div class="input"><input type="text" ms-duplex-string="info.NZDYS"></div>
+<%--                                    <div class="input"><input type="text" ms-duplex-string="info.NZDYS"></div>--%>
+                                    <div class="input"><input type="text" ms-duplex-string="czzlInfo.NZDYS"></div>
                                 </div>
                             </div>
                             <!-- 通知会诊 -->
                             <div class="inputs">
                                 <div class="input-group">
                                     <div class="lb">通知会诊时间:</div>
-                                    <div class="input"><input class="Wdate" ms-duplex-string="info.TZHZSJ" 
+<%--                                    <div class="input"><input class="Wdate" ms-duplex-string="info.TZHZSJ" --%>
+                                    <div class="input"><input class="Wdate" data-duplex-event="change" ms-duplex-string="czzlInfo.TZHZSJ" disabled="disabled"
                                     	onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"></div>
                                 </div>
                                 <div class="input-group">
                                     <div class="lb">会诊达到时间:</div>
-                                    <div class="input"><input class="Wdate" ms-duplex="info.HZDDSJ" 
+<%--                                    <div class="input"><input class="Wdate" ms-duplex="info.HZDDSJ" --%>
+                                    <div class="input"><input class="Wdate" data-duplex-event="change" ms-duplex="czzlInfo.HZDDSJ" disabled="disabled"
                                     	onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"></div>
                                 </div>
                             </div>
@@ -273,7 +293,9 @@
                                     <div class="lb">通知介入科:</div>
                                     <div class="tab-group">
                                         <div ms-repeat="TZJRKArr" class="tab"
-                                            ms-class="{{info.ISTZJRK==el.infocode ? 'active':''}}"
+<%--                                            ms-class="{{info.ISTZJRK==el.infocode ? 'active':''}}"--%>
+                                            ms-class="{{czzlInfo.ISTZJRK==el.infocode ? 'active':''}}"
+<%--                                            ms-click="onRadioClick('ISTZJRK',el.infocode)">--%>
                                             ms-click="onRadioClick('ISTZJRK',el.infocode)">
                                             {{el.info}}
                                         </div>
@@ -282,18 +304,21 @@
 
                             </div>
                             <!-- 通知介入时间 -->
-                            <div class="inputs" ms-if="info.ISTZJRK==0">
+<%--                            <div class="inputs" ms-if="info.ISTZJRK==0">--%>
+                            <div class="inputs" ms-if="czzlInfo.ISTZJRK==0">
                                 <div class="input-group">
                                     <div class="lb">通知介入时间:</div>
-                                    <div class="input"><input class="Wdate" type="text"
-                                            onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                            ms-duplex-string="info.JRTZSJ"></div>
+                                    <div class="input"><input class="Wdate" data-duplex-event="change" type="text"
+                                            onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" disabled="disabled"
+<%--                                            ms-duplex-string="info.JRTZSJ"></div>--%>
+                                            ms-duplex-string="czzlInfo.JRTZSJ"></div>
                                 </div>
                                 <div class="input-group">
                                     <div class="lb">介入到达时间:</div>
-                                    <div class="input"><input class="Wdate" type="text"
-                                            onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                            ms-duplex-string="info.JRDDSJ" /></div>
+                                    <div class="input"><input class="Wdate" data-duplex-event="change" type="text"
+                                            onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" disabled="disabled"
+<%--                                            ms-duplex-string="info.JRDDSJ" /></div>--%>
+                                            ms-duplex-string="czzlInfo.JRDDSJ" /></div>
                                 </div>
                             </div>
                             <!-- 通知外勤时间 -->
@@ -302,13 +327,15 @@
                                     <div class="lb">通知外勤时间:</div>
                                     <div class="input"><input class="Wdate" type="text"
                                             onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                            ms-duplex-string="info.TZWQSJ" /></div>
+<%--                                            ms-duplex-string="info.TZWQSJ" /></div>--%>
+                                            ms-duplex-string="czzlInfo.TZWQSJ" /></div>
                                 </div>
                                 <div class="input-group">
                                     <div class="lb">外勤到达时间:</div>
                                     <div class="input"><input class="Wdate" type="text"
                                             onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                            ms-duplex-string="info.WQDDSJ" /></div>
+<%--                                            ms-duplex-string="info.WQDDSJ" /></div>--%>
+                                            ms-duplex-string="czzlInfo.WQDDSJ" /></div>
                                 </div>
                             </div>
                             <!-- 检查开始时间 -->
@@ -317,13 +344,15 @@
                                     <div class="lb">检查开始时间:</div>
                                     <div class="input"><input class="Wdate" type="text"
                                             onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                            ms-duplex-string="info.JCKSSJ" /></div>
+<%--                                            ms-duplex-string="info.JCKSSJ" /></div>--%>
+                                            ms-duplex-string="czzlInfo.JCKSSJ" /></div>
                                 </div>
                                 <div class="input-group">
                                     <div class="lb">检查结束时间:</div>
                                     <div class="input"><input class="Wdate" type="text"
                                             onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                            ms-duplex-string="info.JCJGSJ" /></div>
+<%--                                            ms-duplex-string="info.JCJGSJ" /></div>--%>
+                                            ms-duplex-string="czzlInfo.JCJGSJ" /></div>
                                 </div>
                             </div>
                             <!-- 检验抽血时间 -->
@@ -332,21 +361,30 @@
                                     <div class="lb">检查抽血时间:</div>
                                     <div class="input"><input class="Wdate" type="text"
                                             onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                            ms-duplex-string="info.JYCXSJ" /></div>
+<%--                                            ms-duplex-string="info.JYCXSJ" /></div>--%>
+                                            ms-duplex-string="czzlInfo.JYCXSJ" /></div>
                                 </div>
                                 <div class="input-group">
                                     <div class="lb">转归去向:</div>
-                                    <div class="input"><input type="text" ms-duplex="baseInfo.ZGQX"></div>
+<%--                                    <div class="input"><input type="text" ms-duplex="baseInfo.ZGQX"></div>--%>
+                                    <select name="" ms-duplex="czzlInfo.ZGQX">
+                                        <option value="">请选择</option>
+                                        <option ms-repeat="zgqxArr" ms-attr-value="el.infocode">{{el.info}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="input-group">
                                         <div class="input">
-                                            <div class="btn" ms-class="{{info.jyxm==1 ? 'active' : ''}}" ms-click="onToggleClick('jyxm')" style="padding:0 20px;margin:0 10px 0 10px;box-shadow: 0 0 5px;">检验报告</div>
-                                            <div class="btn" ms-class="{{info.jcxm==1 ? 'active' : ''}}" ms-click="onToggleClick('jcxm')" style="padding:0 20px;margin:0 10px 0 10px;box-shadow: 0 0 5px;">检查报告</div>
+<%--                                            <div class="btn" ms-class="{{info.jyxm==1 ? 'active' : ''}}" ms-click="onToggleClick('jyxm')" style="padding:0 20px;margin:0 10px 0 10px;box-shadow: 0 0 5px;">检验报告</div>--%>
+                                            <div class="btn" ms-class="{{czzlInfo.jyxm==1 ? 'active' : ''}}" ms-click="onToggleClick('jyxm')" style="padding:0 20px;margin:0 10px 0 10px;box-shadow: 0 0 5px;">检验报告</div>
+<%--                                            <div class="btn" ms-class="{{info.jcxm==1 ? 'active' : ''}}" ms-click="onToggleClick('jcxm')" style="padding:0 20px;margin:0 10px 0 10px;box-shadow: 0 0 5px;">检查报告</div>--%>
+                                            <div class="btn" ms-class="{{czzlInfo.jcxm==1 ? 'active' : ''}}" ms-click="onToggleClick('jcxm')" style="padding:0 20px;margin:0 10px 0 10px;box-shadow: 0 0 5px;">检查报告</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="block1" style="overflow: hidden;" ms-if="info.jyxm==1">
+<%--                                <div class="block1" style="overflow: hidden;" ms-if="info.jyxm==1">--%>
+                                <div class="block1" style="overflow: hidden;" ms-if="czzlInfo.jyxm==1">
                                     <div class="no-data" ms-if="!jylist.length">
                                         检验报告：暂无数据
                                     </div>
@@ -381,7 +419,8 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="block1" ms-if="info.jcxm==1">
+<%--                                <div class="block1" ms-if="info.jcxm==1">--%>
+                                <div class="block1" ms-if="czzlInfo.jcxm==1">
                                     <div class="no-data" ms-if="!jclist.length">
                                         检查报告：暂无数据
                                     </div>
@@ -438,7 +477,8 @@
                                         <div class="lb">最后正常时间:</div>
                                         <div class="input"><input class="Wdate" type="text"
                                                 onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                ms-duplex-string="info.ZHZCSJ" /></div>
+<%--                                                ms-duplex-string="info.ZHZCSJ" /></div>--%>
+                                                ms-duplex-string="czzlInfo.ZHZCSJ" /></div>
                                     </div>
                                 </div>
                                 <!-- NIHSS评分 -->
@@ -446,7 +486,8 @@
                                     <div class="input-group">
                                         <div class="lb">NIHSS评分:</div>
                                         <div class="input"><input disabled="disabled" type="text"
-                                                ms-duplex="info.NIHSSPF01" />
+<%--                                                ms-duplex="info.NIHSSPF01" />--%>
+                                                ms-duplex="czzlInfo.NIHSSPF01" />
                                             <div class="unit1">分</div>
                                             <div class="dian">
                                                 <span onclick="DJ('layer')" class="iconfont icon-detail"></span>
@@ -623,7 +664,8 @@
                                 <div class="inputs">
                                     <div class="input-group">
                                         <div class="lb">MRS评分:</div>
-                                        <div class="input"><input type="text" disabled="disabled" ms-duplex="info.MRSPF" />
+<%--                                        <div class="input"><input type="text" disabled="disabled" ms-duplex="info.MRSPF" />--%>
+                                        <div class="input"><input type="text" disabled="disabled" ms-duplex="czzlInfo.MRSPF" />
                                             <div class="unit1">分</div>
                                             <div class="dian">
                                                 <span onclick="DJ1('mrs-lay')" class="iconfont icon-detail"></span>
@@ -641,7 +683,8 @@
                                             <div class="describe">描述</div>
                                         </div>
                                         <li class="mrs-item" ms-repeat="MRSPFArr"
-                                            ms-class="{{info.MRSPF==el.infocode ? 'active':''}}"
+<%--                                            ms-class="{{info.MRSPF==el.infocode ? 'active':''}}"--%>
+                                            ms-class="{{czzlInfo.MRSPF==el.infocode ? 'active':''}}"
                                             ms-click="onRadioClick('MRSPF',el.infocode,el.code)">
                                             <div class="classification">{{el.code}}</div>
                                             <div class="describe">{{el.info}}</div>
@@ -660,7 +703,8 @@
                                         <div class="lb">是否出血:</div>
                                         <div class="tab-group">
                                             <div ms-repeat="SFCXArr" class="tab"
-                                                ms-class="{{info.ISCX==el.infocode ? 'active':''}}"
+<%--                                                ms-class="{{info.ISCX==el.infocode ? 'active':''}}"--%>
+                                                ms-class="{{czzlInfo.ISCX==el.infocode ? 'active':''}}"
                                                 ms-click="onRadioClick('ISCX',el.infocode)">
                                                 {{el.info}}
                                             </div>
@@ -674,7 +718,8 @@
                                         <div class="lb">是否阻塞:</div>
                                         <div class="tab-group">
                                             <div ms-repeat="SFZSArr" class="tab"
-                                                ms-class="{{info.ISZS==el.infocode ? 'active':''}}"
+<%--                                                ms-class="{{info.ISZS==el.infocode ? 'active':''}}"--%>
+                                                ms-class="{{czzlInfo.ISZS==el.infocode ? 'active':''}}"
                                                 ms-click="onRadioClick('ISZS',el.infocode)">
                                                 {{el.info}}
                                             </div>
@@ -685,13 +730,15 @@
                                 <div class="inputs">
                                     <div class="input-group">
                                         <div class="lb">诊断医生:</div>
-                                        <div class="input"><input type="text" ms-duplex-string="info.ZDYS"/></div>
+<%--                                        <div class="input"><input type="text" ms-duplex-string="info.ZDYS"/></div>--%>
+                                        <div class="input"><input type="text" ms-duplex-string="czzlInfo.ZDYS"/></div>
                                     </div>
                                     <div class="input-group">
                                         <div class="lb">诊断时间:</div>
                                         <div class="input"><input class="Wdate" type="text"
                                                 onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                ms-duplex-string="info.ZDSJ" /></div>
+<%--                                                ms-duplex-string="info.ZDSJ" /></div>--%>
+                                                ms-duplex-string="czzlInfo.ZDSJ" /></div>
                                     </div>
                                 </div>
                                 <!-- 主要症状 -->
@@ -701,11 +748,13 @@
                                         <div style="margin-left: 130px">
                                             <div class="checkbox-group">
                                                 <div ms-repeat="RSZZYZZArr" class="btn"
-                                                    ms-class="{{info.CBZD==el.infocode ? 'active':''}}"
+<%--                                                    ms-class="{{info.CBZD==el.infocode ? 'active':''}}"--%>
+                                                    ms-class="{{czzlInfo.CBZD==el.infocode ? 'active':''}}"
                                                     ms-click="onRadioClick('CBZD',el.infocode)">
                                                     {{el.info}}
                                                 </div>
-                                                <input id="content" placeholder="其他诊断结果" type="text" ms-duplex-string="info.CBZDQT">
+<%--                                                <input id="content" placeholder="其他诊断结果" type="text" ms-duplex-string="info.CBZDQT">--%>
+                                                <input id="content" placeholder="其他诊断结果" type="text" ms-duplex-string="czzlInfo.CBZDQT">
                                             </div>
                                         </div>
                                     </div>
@@ -721,7 +770,8 @@
                                                     ms-click="onCheckClick('JIWS',el.infocode)">
                                                     {{el.info}}
                                                 </div>
-                                                <input id="content" placeholder="描述其他病史" type="text" ms-duplex-string="info.JIWSQT">
+<%--                                                <input id="content" placeholder="描述其他病史" type="text" ms-duplex-string="info.JIWSQT">--%>
+                                                <input id="content" placeholder="描述其他病史" type="text" ms-duplex-string="czzlInfo.JIWSQT">
                                             </div>
                                         </div>
                                     </div>
@@ -737,7 +787,8 @@
                                                     ms-click="onCheckClick('GUOMS',el.infocode)">
                                                     {{el.info}}
                                                 </div>
-                                                <input id="content" placeholder="描述其他过敏史" type="text" ms-duplex-string="info.GUOMSQT">
+<%--                                                <input id="content" placeholder="描述其他过敏史" type="text" ms-duplex-string="info.GUOMSQT">--%>
+                                                <input id="content" placeholder="描述其他过敏史" type="text" ms-duplex-string="czzlInfo.GUOMSQT">
                                             </div>
                                         </div>
                                     </div>
@@ -753,7 +804,8 @@
                                                     ms-click="onCheckClick('PSFYY',el.infocode)">
                                                     {{el.info}}
                                                 </div>
-                                                <input id="content" placeholder="描述其他服用药" type="text" ms-duplex-string="info.PSFYYQT">
+<%--                                                <input id="content" placeholder="描述其他服用药" type="text" ms-duplex-string="info.PSFYYQT">--%>
+                                                <input id="content" placeholder="描述其他服用药" type="text" ms-duplex-string="czzlInfo.PSFYYQT">
                                             </div>
                                         </div>
                                     </div>
@@ -764,7 +816,8 @@
                                         <div class="lb">溶栓谈话时间:</div>
                                         <div class="input"><input class="Wdate" type="text"
                                                 onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                ms-duplex-string="info.KSZQTHSJ01" /></div>
+<%--                                                ms-duplex-string="info.KSZQTHSJ01" /></div>--%>
+                                                ms-duplex-string="czzlInfo.KSZQTHSJ01" /></div>
                                     </div>
                                     <!-- 是否溶栓 -->
                                     <div class="input-group">
@@ -772,7 +825,8 @@
                                         <div class="tab-group">
                                             <div class="tab-group">
                                                 <div ms-repeat="SFRSArr" class="tab"
-                                                    ms-class="{{info.ISRS==el.infocode ? 'active':''}}"
+<%--                                                    ms-class="{{info.ISRS==el.infocode ? 'active':''}}"--%>
+                                                    ms-class="{{czzlInfo.ISRS==el.infocode ? 'active':''}}"
                                                     ms-click="onRadioClick('ISRS',el.infocode)">
                                                     {{el.info}}
                                                 </div>
@@ -787,17 +841,20 @@
                                         <div class="lb">签署知情同意时间:</div>
                                         <div class="input"><input class="Wdate" type="text"
                                                 onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                ms-duplex-string="info.QSZQTYSJ01" /></div>
+<%--                                                ms-duplex-string="info.QSZQTYSJ01" /></div>--%>
+                                                ms-duplex-string="czzlInfo.QSZQTYSJ01" /></div>
                                     </div>
                                 </div>
-                                <div class="bigbox" ms-if="info.ISRS==0">
+<%--                                <div class="bigbox" ms-if="info.ISRS==0">--%>
+                                <div class="bigbox" ms-if="czzlInfo.ISRS==0">
                                     <!-- 溶栓治疗开始时间 -->
                                     <div class="inputs">
                                         <div class="input-group">
                                             <div class="lb">溶栓治疗开始时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.RSZLKSSJ" /></div>
+<%--                                                    ms-duplex-string="info.RSZLKSSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.RSZLKSSJ" /></div>
                                         </div>
                                         <!-- 是否 -->
                                         <div class="input-group">
@@ -805,7 +862,8 @@
                                             <div class="tab-group">
                                                 <div class="tab-group">
                                                     <div ms-repeat="SFTQJSArr" class="tab"
-                                                        ms-class="{{info.TQJSFLG==el.infocode ? 'active':''}}"
+<%--                                                        ms-class="{{info.TQJSFLG==el.infocode ? 'active':''}}"--%>
+                                                        ms-class="{{czzlInfo.TQJSFLG==el.infocode ? 'active':''}}"
                                                         ms-click="onRadioClick('TQJSFLG',el.infocode)">
                                                         {{el.info}}
                                                     </div>
@@ -813,16 +871,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="inputs" ms-if="info.TQJSFLG==0">
+<%--                                    <div class="inputs" ms-if="info.TQJSFLG==0">--%>
+                                    <div class="inputs" ms-if="czzlInfo.TQJSFLG==0">
                                         <div class="input-group">
                                             <div class="lb">提前结束原因:</div>
-                                            <div class="input"> <input id="content" type="text" ms-duplex-string="info.TQJSYY"></div>
+<%--                                            <div class="input"> <input id="content" type="text" ms-duplex-string="info.TQJSYY"></div>--%>
+                                            <div class="input"> <input id="content" type="text" ms-duplex-string="czzlInfo.TQJSYY"></div>
                                         </div>
                                     </div>
                                     <div class="inputs">
                                         <div class="input-group">
                                             <div class="lb">溶栓备注:</div>
-                                            <div class="input"> <input style="width: 300px" id="content" type="text" ms-duplex-string="info.RSBZ"></div>
+                                            <div class="input"> <input style="width: 300px" id="content" type="text" ms-duplex-string="czzlInfo.RSBZ"></div>
                                         </div>
                                     </div>
                                     <!-- 药物选择 -->
@@ -844,9 +904,11 @@
 	                                    <div class="inputs">
 	                                        <div class="item_name">体重:</div>
 	                                    <div class="input">
-	                                        <input class="item_input" ms-duplex="info.TIZHONG"
-	                                            ms-on-change='blur(info.TIZHONG)' type="text">kg
-	                                        
+<%--	                                        <input class="item_input" ms-duplex="info.TIZHONG"--%>
+	                                        <input class="item_input" ms-duplex="czzlInfo.TIZHONG"
+<%--	                                            ms-on-change='blur(info.TIZHONG)' type="text">kg--%>
+	                                            ms-on-change='blur(czzlInfo.TIZHONG)' type="text">kg
+
 	                                    </div>
                                     </div>
                                     <!-- rtPA剂量标准 -->
@@ -856,7 +918,8 @@
                                         <div style="margin-left: 130px">
                                             <div class="checkbox-group">
                                                 <div ms-repeat="rtPabzArr" class="btn"
-                                                    ms-class="{{info.RTPAZJBZ==el.infocode ? 'active':''}}"
+<%--                                                    ms-class="{{info.RTPAZJBZ==el.infocode ? 'active':''}}"--%>
+                                                    ms-class="{{czzlInfo.RTPAZJBZ==el.infocode ? 'active':''}}"
                                                     ms-click="onRadioClick('RTPAZJBZ',el.infocode)">
                                                     {{el.info}}
                                                 </div>
@@ -869,7 +932,8 @@
                                         <div class="input-group">
                                             <div class="lb">溶栓后NIhSS评分:</div>
                                             <div class="input"><input disabled="disabled" type="text"
-                                                    ms-duplex="info.NIHSSPF02" />
+<%--                                                    ms-duplex="info.NIHSSPF02" />--%>
+                                                    ms-duplex="czzlInfo.NIHSSPF02" />
                                                 <div class="unit1">分</div>
                                                 <div class="dian">
                                                     <span onclick="DJ02('layer01')" class="iconfont icon-detail"></span>
@@ -1044,7 +1108,8 @@
                                     <div class="inputs">
                                         <div class="input-group">
                                             <div class="lb">所用药物总量:</div>
-                                            <div class="input"><input ms-duplex="info.SYYWZL"
+<%--                                            <div class="input"><input ms-duplex="info.SYYWZL"--%>
+                                            <div class="input"><input ms-duplex="czzlInfo.SYYWZL"
                                                     type="text" /></div>
                                         </div>
                                     </div>
@@ -1053,9 +1118,10 @@
                                         <div class="input-group1">
                                             <div class="lb">有无并发症:</div>
                                             <div class="tab-group">
-                                                <div ms-repeat="YWBFZArr" class="tab"
-                                                    ms-class="{{info.YWBFZ==el.infocode ? 'active':''}}"
-                                                    ms-click="onRadioClick('YWBFZ',el.infocode)">
+                                                <div ms-repeat="YWRSBFZArr" class="tab"
+<%--                                                    ms-class="{{info.YWBFZ==el.infocode ? 'active':''}}"--%>
+                                                    ms-class="{{czzlInfo.ISRSBFZ==el.infocode ? 'active':''}}"
+                                                    ms-click="onRadioClick('ISRSBFZ',el.infocode)">
                                                     {{el.info}}
                                                 </div>
                                             </div>
@@ -1063,7 +1129,8 @@
 
                                     </div>
                                     <!-- 并发症 -->
-                                    <div class="inputs " ms-if="info.YWBFZ==0">
+<%--                                    <div class="inputs " ms-if="info.YWBFZ==0">--%>
+                                    <div class="inputs " ms-if="czzlInfo.ISRSBFZ==0">
                                         <div class="input-group">
                                             <div class="lb">并发症:</div>
                                             <div style="margin-left: 130px">
@@ -1073,7 +1140,8 @@
                                                         ms-click="onCheckClick('RSBFZ',el.infocode)">
                                                         {{el.info}}
                                                     </div>
-                                                    <input id="content" placeholder="其他溶栓并发症" type="text" ms-duplex-string="info.RSBFZQT">
+<%--                                                    <input id="content" placeholder="其他溶栓并发症" type="text" ms-duplex-string="info.RSBFZQT">--%>
+                                                    <input id="content" placeholder="其他溶栓并发症" type="text" ms-duplex-string="czzlInfo.RSBFZQT">
                                                 </div>
                                             </div>
                                         </div>
@@ -1084,7 +1152,8 @@
                                             <div class="lb">溶栓后CT复查时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.RSHFCCTSJ" /></div>
+<%--                                                    ms-duplex-string="info.RSHFCCTSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.RSHFCCTSJ" /></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1098,7 +1167,8 @@
                                         <div class="lb">介入知情谈话时间:</div>
                                         <div class="input"><input class="Wdate" type="text"
                                                 onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                ms-duplex-string="info.KSZQTHSJ02" /></div>
+<%--                                                ms-duplex-string="info.KSZQTHSJ02" /></div>--%>
+                                                ms-duplex-string="czzlInfo.KSZQTHSJ02" /></div>
                                     </div>
                                 </div>
                                 <!-- 同意取栓 -->
@@ -1107,7 +1177,8 @@
                                         <div class="lb">同意取栓:</div>
                                         <div class="tab-group">
                                             <div ms-repeat="TYQSArr" class="tab"
-                                                ms-class="{{info.ISQS==el.infocode ? 'active':''}}"
+<%--                                                ms-class="{{info.ISQS==el.infocode ? 'active':''}}"--%>
+                                                ms-class="{{czzlInfo.ISQS==el.infocode ? 'active':''}}"
                                                 ms-click="onRadioClick('ISQS',el.infocode)">
                                                 {{el.info}}
                                             </div>
@@ -1115,18 +1186,21 @@
                                     </div>
 
                                 </div>
-                                <div class="bigbat" ms-if="info.ISQS==0">
+<%--                                <div class="bigbat" ms-if="info.ISQS==0">--%>
+                                <div class="bigbat" ms-if="czzlInfo.ISQS==0">
                                     <!-- 签署知情同意书 -->
                                     <div class="inputs">
                                         <div class="input-group">
                                             <div class="lb">签署知情同意书时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.QSZQTYSJ02" /></div>
+<%--                                                    ms-duplex-string="info.QSZQTYSJ02" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.QSZQTYSJ02" /></div>
                                         </div>
                                         <div class="input-group">
                                             <div class="lb">决定行介入手术医生:</div>
-                                            <div class="input"><input type="text" ms-duplex-string="info.JDJRSSYS"></div>
+<%--                                            <div class="input"><input type="text" ms-duplex-string="info.JDJRSSYS"></div>--%>
+                                            <div class="input"><input type="text" ms-duplex-string="czzlInfo.JDJRSSYS"></div>
                                         </div>
                                     </div>
                                     <!-- 住院时间 -->
@@ -1135,7 +1209,8 @@
                                             <div class="lb">住院时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.ZYSJ" /></div>
+<%--                                                    ms-duplex-string="info.ZYSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.ZYSJ" /></div>
                                         </div>
                                     </div>
                                     <!-- 启动导管室时间 -->
@@ -1144,13 +1219,15 @@
                                             <div class="lb">启动导管室时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.QDDGS" /></div>
+<%--                                                    ms-duplex-string="info.QDDGS" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.QDDGS" /></div>
                                         </div>
                                         <div class="input-group">
                                             <div class="lb">导管室激活时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.DGSJHSJ" /></div>
+<%--                                                    ms-duplex-string="info.DGSJHSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.DGSJHSJ" /></div>
                                         </div>
                                     </div>
                                     <!-- 患者进入导管室时间 -->
@@ -1159,7 +1236,8 @@
                                             <div class="lb">患者进入导管室时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.HZJRDGSSJ" /></div>
+<%--                                                    ms-duplex-string="info.HZJRDGSSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.HZJRDGSSJ" /></div>
                                         </div>
                                     </div>
                                     <!-- 麻醉科通知时间 -->
@@ -1168,13 +1246,15 @@
                                             <div class="lb">麻醉科通知时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.MZKTZSJ" /></div>
+<%--                                                    ms-duplex-string="info.MZKTZSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.MZKTZSJ" /></div>
                                         </div>
                                         <div class="input-group">
                                             <div class="lb">麻醉科到场时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.MZKDCSJ" /></div>
+<%--                                                    ms-duplex-string="info.MZKDCSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.MZKDCSJ" /></div>
                                         </div>
                                     </div>
                                     <!-- 麻醉完成时间 -->
@@ -1183,13 +1263,15 @@
                                             <div class="lb">麻醉完成时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.MZWCSJ" /></div>
+<%--                                                    ms-duplex-string="info.MZWCSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.MZWCSJ" /></div>
                                         </div>
                                         <div class="input-group">
                                             <div class="lb">穿刺开始时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.KSCCSJ" /></div>
+<%--                                                    ms-duplex-string="info.KSCCSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.KSCCSJ" /></div>
                                         </div>
                                     </div>
                                     <!-- 造影开始时间 -->
@@ -1198,13 +1280,15 @@
                                             <div class="lb">穿刺成功时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.CCCGSJ" /></div>
+<%--                                                    ms-duplex-string="info.CCCGSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.CCCGSJ" /></div>
                                         </div>
                                         <div class="input-group">
                                             <div class="lb">造影开始时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.ZYKSSJ" /></div>
+<%--                                                    ms-duplex-string="info.ZYKSSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.ZYKSSJ" /></div>
                                         </div>
                                     </div>
                                     <!-- 取栓完成时间 -->
@@ -1213,7 +1297,8 @@
                                             <div class="lb">造影完成时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.ZYWCSJ" /></div>
+<%--                                                    ms-duplex-string="info.ZYWCSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.ZYWCSJ" /></div>
                                         </div>
                                     </div>
                                     <!-- 取栓第几把时间 -->
@@ -1222,13 +1307,15 @@
                                             <div class="lb">取栓第一把时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.QSSJ1" /></div>
+<%--                                                    ms-duplex-string="info.QSSJ1" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.QSSJ1" /></div>
                                         </div>
                                         <div class="input-group">
                                             <div class="lb">取栓第二把时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.QSSJ2" /></div>
+<%--                                                    ms-duplex-string="info.QSSJ2" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.QSSJ2" /></div>
                                         </div>
                                     </div>
                                     <!-- 取栓第几把时间 -->
@@ -1237,26 +1324,30 @@
                                             <div class="lb">取栓第三把时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.QSSJ3" /></div>
+<%--                                                    ms-duplex-string="info.QSSJ3" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.QSSJ3" /></div>
                                         </div>
                                         <div class="input-group">
                                             <div class="lb">取栓完成时间:</div>
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
-                                                    ms-duplex-string="info.QSWCSJ" /></div>
+<%--                                                    ms-duplex-string="info.QSWCSJ" /></div>--%>
+                                                    ms-duplex-string="czzlInfo.QSWCSJ" /></div>
                                         </div>
                                     </div>
                                     <!-- 介入医生 -->
                                     <div class="inputs">
                                         <div class="input-group">
                                             <div class="lb">取栓完成-备注:</div>
-                                            <div class="input"><input type="text" ms-duplex-string="info.QSWCBZ"></div>
+<%--                                            <div class="input"><input type="text" ms-duplex-string="info.QSWCBZ"></div>--%>
+                                            <div class="input"><input type="text" ms-duplex-string="czzlInfo.QSWCBZ"></div>
                                         </div>
                                     </div>
                                      <div class="inputs">
                                         <div class="input-group">
                                             <div class="lb">介入医生:</div>
-                                            <div class="input"><input type="text" ms-duplex-string="info.JRYS"></div>
+<%--                                            <div class="input"><input type="text" ms-duplex-string="info.JRYS"></div>--%>
+                                            <div class="input"><input type="text" ms-duplex-string="czzlInfo.JRYS"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1270,6 +1361,7 @@
             <!-- <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script> -->
             <script type="text/javascript">
                 var _emgSeq = "${emgSeq}";
+                var _regSeq = "${regSeq}";
                 var infocodes = ['nihssYssp', 'nihssLxwt', 'nihssLxzl', 'nihssNs', 'nihssSye', 'nihssMt', 'nihssZszjl', 'nihssYszjl',
                     'nihssYxzjl', 'nihssZxzjl', 'nihssZtgjza', 'nihssGj', 'nihssSy', 'nihssGyza', 'nihssHs'
                 ];
@@ -1322,6 +1414,7 @@
                     index: 0,
                     index1: 0,
                     index2: '',
+                    count: 0,
                     activeTab: 0,
                     activetab: 0,
                     infoone: {
@@ -1329,114 +1422,203 @@
                         tabqh1: 0,
                     },
                     baseInfo: {
+                        regSeq: _regSeq,  //登记注册序列号
+                        regTim: '', //登记时间
+                        mpi: '',  //患者id
                         cstNam: '', //患者姓名
                         cstSexCod: '', //性别
                         cstAge: '', //年龄
+                        cardType: null, //证件类别
+                        idNbr: '', //证件号码
                         bthDat: '', //出生日期
+                        pheNbr: '', //联系电话
+                        emgJob: '', //职业
+                        cstEdu: '', //文化程度
+                        maritalStatus: '', //婚姻状况
                         nation: '', //民族
-                        senStuCod: '', //意识senstuCod
-                        breNbr: '', //呼吸
-                        tmpNbr: '', //体温
-                        sbpUpNbr: '', //血压
-                        sbpDownNbr: '',
-                        mpi: '', //患者id
-                        ywzl: '', //药物总量
-                        emgDat: '',//预检时间
-                        hrtRte: '',//心率
-                        oxyNbr: '',//血氧
-                        glsNum: '',//指尖血糖
-                        cstDspCodNameNew: '',
-                        ZGQX: '',//转归去向
+                        zyxh: '', //住院ID
+                        jzxh: '', //门诊ID（就诊ID）
                     },
- //                   info.NIHSSPF01: 0,
-                    nihssChecked: '',
-                    nationArr: [], //民族类别表
-                    senRctCodArr: [], //意识
-                    info: {
-                        MRSPF: '',
-                        NIHSSPF01: '',
-                        NIHSSPF02: 0,
-                        NIHSSPF01PFX: '',//溶栓前NIHSS评分项
-                        NIHSSPF02PFX: '',//溶栓后NIHSS评分项
-                        ZYZZ: '', //主要症状
-                        RSZZYZZ: '', //溶栓组主要症状
-                        PSFYY: '', //平时服用药
-                        YWXZ: '', //药物选择
-                        ISTZJRK: '', //通知介入
-                        YWBFZ: '', //有无并发症
-                        TYQS: '', //同意取栓
-                        FBSJ: '', //发病时间
-                        ZHZCSJ: '', //最后正常时间
+
+                    czzlInfo: {
+                        /*诊疗信息 -- 患者信息*/
+                        FBSJ: '',  //发病时间
+                        ZHZCSJ: '',  //最后正常时间
+                        FBDZ01: '',  //发病地址（省）
+                        FBDZ02: '',  //发病地址（市）
+                        FBDZ03: '',  //发病地址（区/县）
+                        YISHI: '',  //意识
+                        HUXI: '',  //呼吸
+                        XINL: '',   //心率
+                        XUEYANG: '',  //血氧
+                        TIWEN: '',  //体温
+                        XUEY: '',   //血压
+                        ZJXT: '',  //指尖血糖
                         XDTSJ: '', //心电图时间
+                        ZYZZ: '', //主要症状
+                        ZYZZQT: '',//主要症状其他
                         NZDSJ: '', //拟诊断时间
-                       	TZHZSJ: '', //通知会诊时间
-                      	HZDDSJ: '', //会诊达到时间
-                      	JRTZSJ: '', //通知介入时间
-                        JRDDSJ: '', //介入到达时间
-                        TZWQSJ: '', //通知外勤时间
-                        WQDDSJ: '', //外勤到达时间
+                        NZDYS: '',//拟诊断医生
+                        TZHZSJ: '', //通知会诊时间  与hsp_consultation_records表有关
+                        HZDDSJ: '', //会诊达到时间  与hsp_consultation_records表有关
+                        ISTZJRK: '',   //是否通知介入科
+                        JRTZSJ: '',  //通知介入时间   与hsp_consultation_records表有关
+                        JRDDSJ: '',   //介入到达时间   与hsp_consultation_records表有关
+                        TZWQSJ: '',   //通知外勤时间
+                        WQDDSJ: '',   //外勤到达时间
                         JCKSSJ: '', //检查开始时间
                         JCJGSJ: '', //检查结果时间
-                        ZDSJ: '', //诊断时间
+                        JYCXSJ: '',//检查抽血时间
+                        ZGQX: '',//转归去向
+                        jyxm: 0,   //检验报告
+                        jcxm: 0,   //检查报告
+
+                        /*诊疗信息 -- 溶栓组*/
+                        NIHSSPF01: '',    //NIHSS评分
+                        MRSPF: '',    //mRS评分
+                        ISCX: '',   //是否出血
+                        ISZS: '',   //是否阻塞
+                        ZDYS: '',   //诊断医生
+                        ZDSJ: '',   //诊断时间
+                        CBZD: '',   //初步诊断（主要症状）
+                        CBZDQT: '',   //初步诊断其他（主要症状）
+                        JIWS: '',  //既往史
+                        JIWSQT: '',   //既往史其他
+                        GUOMS: '',  //过敏史
+                        GUOMSQT: '',   //过敏史其他
+                        PSFYY: '',  //平时服用药
+                        PSFYYQT: '', //平时服用药其他
+                        KSZQTHSJ01: '',   //溶栓开始知情同意时间
+                        ISRS: '',     //是否溶栓
+                        QSZQTYSJ01: '',   //溶栓签署知情同意时间
                         RSZLKSSJ: '', //溶栓治疗开始时间
-                        QDDGSSJ: '', //启动导管室时间
-                        HZJRDGSSJ: '', //患者进入导管室时间
-                        MZKTZSJ: '', //麻醉科通知时间
-                        MZKDCSJ: '', //麻醉科到场时间
-                        MZWCSJ: '', //麻醉完成时间
-                        CCCGSJ: '', //穿刺成功时间
-                        ZYKSSJ: '', //造影开始时间
-                        ZYWCSJ: '', //造影完成时间
-                        QSWCSJ: '', //取栓完成时间
-                        XUEYA: '',//血压
-                        TIZHONG: '' ,//体重
-//                        ZGQX: '',//转归去向
-                        ISCX: '',//是否出血
-                        ISZS: '',//是否阻塞
-                        ZDYS: '',//诊断医生
-                        CBZD: '',//初步诊断
-                        JIWSQT: '',//既往史其他
-                        JIWS: '',//既往史
-                        GUOMS: '',//过敏史
-                        GUOMSQT: '',//过敏史其他
-                        PSFYYQT: '',//平时服用药其他
-                        QSZQTYSJ01: '',//取栓知情同意时间
-                        ISRS: '',//是否溶栓
-                        KSZQTHSJ01: '',//溶栓组开始知情同意时间
-                        TQJSFLG: '',//溶栓提前结束
-                        TQJSYY: '',//提前结束原因
-                        RSBZ:'',//溶栓备注
+                        TQJSFLG: '',  //溶栓提前结束
+                        TQJSYY: '',  //提前结束原因
+                        RSBZ: '',   //溶栓备注
+                        YWXZ: '',  //药物选择
+                        TIZHONG: '', //体重
+                        RTPAZJBZ: '',  //rtPa剂量标准
+                        NIHSSPF02: 0,  //溶栓后NIHSS评分
                         SYYWZL: '',//所用药物总量
+                        ISRSBFZ: '', //有无并发症
                         RSBFZ: '',//溶栓并发症
                         RSBFZQT: '',//溶栓并发症其他
                         RSHFCCTSJ: '',//溶栓后复查CT时间
+
+                        /*诊疗信息 -- 介入组*/
                         KSZQTHSJ02: '',//介入组开始知情同意时间
                         ISQS: '',//是否取栓
                         QSZQTYSJ02: '',//介入组知情同意时间(取栓知情同意时间)
                         JDJRSSYS: '',//决定行介入手术医生
+                        ZYSJ: '',//住院时间
                         QDDGS: '',//启动导管室时间
                         DGSJHSJ: '',//导管室激活时间
+                        HZJRDGSSJ: '', //患者进入导管室时间
+                        MZKTZSJ: '', //麻醉科通知时间
+                        MZKDCSJ: '', //麻醉科到场时间
+                        MZWCSJ: '', //麻醉完成时间
                         KSCCSJ: '',//开始穿刺时间
+                        CCCGSJ: '', //穿刺成功时间
+                        ZYKSSJ: '', //造影开始时间
+                        ZYWCSJ: '', //造影完成时间
                         QSSJ1: '',//取栓第一把时间
                         QSSJ2: '',//取栓第二把时间
                         QSSJ3: '',//取栓第三把时间
+                        QSWCSJ: '', //取栓完成时间
                         QSWCBZ: '',//取栓完成备注
                         JRYS: '',//介入医生
-                        ZYZZQT: '',//主要症状其他
-                        CBZDQT: '',//初步诊断其他
-                        RTPAZJBZ: '',//rtPa剂量标准
-                        NZDYS: '',//拟诊断医生
-                        JYCXSJ: '',//检查抽血时间
-                        jyxm:0,
-                        jcxm:0,
-                        ZYSJ: '',//住院时间
                     },
-                    aidPatient: {
-                        scePrvCod: '', //发病地址--省
-                        sceCtyCod: '', //发病地址--市
-                        sceAr0Cod: '', //发病地址--县/区
-                        illTim: '', //发病时间
+
+ //                   info.NIHSSPF01: 0,
+                    nihssChecked: '',
+                    cstSexCodArr: [], //性别列表
+                    nationArr: [], //民族类别表
+                    senRctCodArr: [], //意识
+                    info: {
+                        // MRSPF: '',
+                        // NIHSSPF01: '',
+                        // NIHSSPF02: 0,
+                        NIHSSPF01PFX: '',//溶栓前NIHSS评分项
+                        NIHSSPF02PFX: '',//溶栓后NIHSS评分项
+                        // ZYZZ: '', //主要症状
+                        RSZZYZZ: '', //溶栓组主要症状
+                        // PSFYY: '', //平时服用药
+                        // YWXZ: '', //药物选择
+                        // ISTZJRK: '', //通知介入
+                        // YWBFZ: '', //有无并发症
+                        TYQS: '', //同意取栓
+                        // FBSJ: '', //发病时间
+                        // ZHZCSJ: '', //最后正常时间
+                        // XDTSJ: '', //心电图时间
+                        // NZDSJ: '', //拟诊断时间
+                       	// TZHZSJ: '', //通知会诊时间
+                      	// HZDDSJ: '', //会诊达到时间
+                      	// JRTZSJ: '', //通知介入时间
+                        // JRDDSJ: '', //介入到达时间
+                        // TZWQSJ: '', //通知外勤时间
+                        // WQDDSJ: '', //外勤到达时间
+                        // JCKSSJ: '', //检查开始时间
+                        // JCJGSJ: '', //检查结果时间
+                        // ZDSJ: '', //诊断时间
+                        // RSZLKSSJ: '', //溶栓治疗开始时间
+                        QDDGSSJ: '', //启动导管室时间
+                        // HZJRDGSSJ: '', //患者进入导管室时间
+                        // MZKTZSJ: '', //麻醉科通知时间
+                        // MZKDCSJ: '', //麻醉科到场时间
+                        // MZWCSJ: '', //麻醉完成时间
+                        // CCCGSJ: '', //穿刺成功时间
+                        // ZYKSSJ: '', //造影开始时间
+                        // ZYWCSJ: '', //造影完成时间
+                        // QSWCSJ: '', //取栓完成时间
+                        // XUEYA: '', //血压
+                        // TIZHONG: '', //体重
+                        // ZGQX: '',//转归去向
+                        // ISCX: '',//是否出血
+                        // ISZS: '',//是否阻塞
+                        // ZDYS: '',//诊断医生
+                        // CBZD: '',//初步诊断
+                        // JIWSQT: '',//既往史其他
+                        // JIWS: '',//既往史
+                        // GUOMS: '',//过敏史
+                        // GUOMSQT: '',//过敏史其他
+                        // PSFYYQT: '',//平时服用药其他
+                        // QSZQTYSJ01: '',//取栓知情同意时间
+                        // ISRS: '',//是否溶栓
+                        // KSZQTHSJ01: '',//溶栓组开始知情同意时间
+                        // TQJSFLG: '',//溶栓提前结束
+                        // TQJSYY: '',//提前结束原因
+                        // RSBZ:'',//溶栓备注
+                        // SYYWZL: '',//所用药物总量
+                        // RSBFZ: '',//溶栓并发症
+                        // RSBFZQT: '',//溶栓并发症其他
+                        // RSHFCCTSJ: '',//溶栓后复查CT时间
+                        // KSZQTHSJ02: '',//介入组开始知情同意时间
+                        // ISQS: '',//是否取栓
+                        // QSZQTYSJ02: '',//介入组知情同意时间(取栓知情同意时间)
+                        // JDJRSSYS: '',//决定行介入手术医生
+                        // QDDGS: '',//启动导管室时间
+                        // DGSJHSJ: '',//导管室激活时间
+                        // KSCCSJ: '',//开始穿刺时间
+                        // QSSJ1: '',//取栓第一把时间
+                        // QSSJ2: '',//取栓第二把时间
+                        // QSSJ3: '',//取栓第三把时间
+                        // QSWCBZ: '',//取栓完成备注
+                        // JRYS: '',//介入医生
+                        // ZYZZQT: '',//主要症状其他
+                        // CBZDQT: '',//初步诊断其他
+                        // RTPAZJBZ: '',//rtPa剂量标准
+                        // NZDYS: '',//拟诊断医生
+                        // JYCXSJ: '',//检查抽血时间
+                        // jyxm:0,
+                        // jcxm:0,
+                        // ZYSJ: '',//住院时间
                     },
+                    // aidPatient: {
+                        // scePrvCod: '', //发病地址--省
+                        // sceCtyCod: '', //发病地址--市
+                        // sceAr0Cod: '', //发病地址--县/区
+                        // illTim: '', //发病时间
+                    // },
                     hspConsultationRecords: {
                     	invitationDate: '',//会诊通知时间
                         consultationDate: '',//会诊签到时间
@@ -1492,6 +1674,7 @@
                     SFZSArr: [], //是否阻塞
                     SFCXArr: [], //是否出血
                     rtPabzArr: [],//rtPa剂量标准
+                    zgqxArr: [], //转归去向
                     TZJRKArr: [{
                         info: "是",
                         infocode: "0"
@@ -1513,7 +1696,7 @@
                         info: "否",
                         infocode: "1"
                     }], //是否提前结束
-                    YWBFZArr: [{
+                    YWRSBFZArr: [{
                         info: "有",
                         infocode: "0"
                     }, {
@@ -1786,6 +1969,37 @@
                         vm.jclist = _list;
                     },
 
+                    //只能输入整数
+                    limitInput: function(obj, max) {
+                        obj.value = obj.value.replace(/[^\d.]/g, ""); //清除“数字”和“.”以外的字符
+                        obj.value = obj.value.replace(/^(\-)*(\d+)\.*$/, '$1$2'); //只能保留一位小数
+                        if (obj.value != "") {
+                            if (obj.value > max) {
+                                alert('数值不能超过' + max);
+                                obj.value = '';
+                                return;
+                            } else {
+                                obj.value = parseFloat(obj.value);
+                            }
+                        }
+                    },
+                    //限制大小 保留两位小数的浮点数
+                    limitInputFloat: function (obj, max) {
+                        obj.value = obj.value.replace(/[^\d.]/g, ""); //清除“数字”和“.”以外的字符
+                        obj.value = obj.value.replace(/\.{2,}/g, "."); //只保留第一个. 清除多余的
+                        obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+                        obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
+                        var data = parseFloat(obj.value);
+                        if (data != "") {
+                            if (data > max) {
+                                alert('数值不能超过' + max);
+                                obj.value = '';
+                                return;
+                            }
+                        }
+                        console.log('value', obj.value);
+                    },
+
                     // 溶栓组介入组
                     TabClick: function (busStep, index) {
                         vm.activetab = index;
@@ -1800,7 +2014,8 @@
                     },
                     // 单选
                     onRadioClick: function (prop, val, idx) {
-                        vm.info[prop] = val;
+                        // vm.info[prop] = val;
+                        vm.czzlInfo[prop] = val;
                     },
                     // 评分
                     onRadioClick1: function (prop1, idx) {
@@ -1839,14 +2054,16 @@
                     },
                     // 药物总量计算
                     blur: function (e) {
-                    	vm.info.SYYWZL = e * 0.9
+                    	// vm.info.SYYWZL = e * 0.9
+                    	vm.czzlInfo.SYYWZL = e * 0.9
                     },
                     // mrs评分
                     MRSClick: function (e) {
 //                         vm.index1 = e.$model.filter(item => item.infocode == vm.info.MRSPF)[0].code
                         console.log(vm.index1)
                           vm.index1 =e.$model.filter(function(item){
-                            return item.infocode == vm.info.MRSPF
+                            // return item.infocode == vm.info.MRSPF
+                            return item.infocode == vm.czzlInfo.MRSPF
                           })[0].code
 
                         document.getElementsByClassName('zzc01')[0].style.display = "none"
@@ -1856,7 +2073,8 @@
                     },
                     // NIHSS评分
                     NIHSSClick: function () {
-                         vm.info.NIHSSPF01 = Number(vm.cont.NIHSS01) + Number(vm.cont.NIHSS02) + Number(vm.cont.NIHSS03) + Number(vm.cont.NIHSS04) + Number(vm.cont.NIHSS06) + Number(vm.cont.NIHSS07) + Number(vm.cont.NIHSS08) + Number(vm.cont.NIHSS09) + Number(vm.cont.NIHSS010) + Number(vm.cont.NIHSS011) + Number(vm.cont.NIHSS012) + Number(vm.cont.NIHSS013) + Number(vm.cont.NIHSS014) + Number(vm.cont.NIHSS015) + Number(vm.cont.NIHSS016)
+                        // vm.info.NIHSSPF01 = Number(vm.cont.NIHSS01) + Number(vm.cont.NIHSS02) + Number(vm.cont.NIHSS03) + Number(vm.cont.NIHSS04) + Number(vm.cont.NIHSS06) + Number(vm.cont.NIHSS07) + Number(vm.cont.NIHSS08) + Number(vm.cont.NIHSS09) + Number(vm.cont.NIHSS010) + Number(vm.cont.NIHSS011) + Number(vm.cont.NIHSS012) + Number(vm.cont.NIHSS013) + Number(vm.cont.NIHSS014) + Number(vm.cont.NIHSS015) + Number(vm.cont.NIHSS016)
+                        vm.czzlInfo.NIHSSPF01 = Number(vm.cont.NIHSS01) + Number(vm.cont.NIHSS02) + Number(vm.cont.NIHSS03) + Number(vm.cont.NIHSS04) + Number(vm.cont.NIHSS06) + Number(vm.cont.NIHSS07) + Number(vm.cont.NIHSS08) + Number(vm.cont.NIHSS09) + Number(vm.cont.NIHSS010) + Number(vm.cont.NIHSS011) + Number(vm.cont.NIHSS012) + Number(vm.cont.NIHSS013) + Number(vm.cont.NIHSS014) + Number(vm.cont.NIHSS015) + Number(vm.cont.NIHSS016)
                         document.getElementsByClassName('zzc')[0].style.display = "none"
                         $('.layer').fadeOut()
                         document.getElementsByTagName('body')[0].style.overflow = 'visible'
@@ -1865,7 +2083,8 @@
                     },
                     // 溶栓后NIHSS评分
                     NIHSSClicktwo: function () {
-                        vm.info.NIHSSPF02 = Number(vm.cont1.NIHSS01) + Number(vm.cont1.NIHSS02) + Number(vm.cont1.NIHSS03) + Number(vm.cont1.NIHSS04) + Number(vm.cont1.NIHSS06) + Number(vm.cont1.NIHSS07) + Number(vm.cont1.NIHSS08) + Number(vm.cont1.NIHSS09) + Number(vm.cont1.NIHSS010) + Number(vm.cont1.NIHSS011) + Number(vm.cont1.NIHSS012) + Number(vm.cont1.NIHSS013) + Number(vm.cont1.NIHSS014) + Number(vm.cont1.NIHSS015) + Number(vm.cont1.NIHSS016)
+                        // vm.info.NIHSSPF02 = Number(vm.cont1.NIHSS01) + Number(vm.cont1.NIHSS02) + Number(vm.cont1.NIHSS03) + Number(vm.cont1.NIHSS04) + Number(vm.cont1.NIHSS06) + Number(vm.cont1.NIHSS07) + Number(vm.cont1.NIHSS08) + Number(vm.cont1.NIHSS09) + Number(vm.cont1.NIHSS010) + Number(vm.cont1.NIHSS011) + Number(vm.cont1.NIHSS012) + Number(vm.cont1.NIHSS013) + Number(vm.cont1.NIHSS014) + Number(vm.cont1.NIHSS015) + Number(vm.cont1.NIHSS016)
+                        vm.czzlInfo.NIHSSPF02 = Number(vm.cont1.NIHSS01) + Number(vm.cont1.NIHSS02) + Number(vm.cont1.NIHSS03) + Number(vm.cont1.NIHSS04) + Number(vm.cont1.NIHSS06) + Number(vm.cont1.NIHSS07) + Number(vm.cont1.NIHSS08) + Number(vm.cont1.NIHSS09) + Number(vm.cont1.NIHSS010) + Number(vm.cont1.NIHSS011) + Number(vm.cont1.NIHSS012) + Number(vm.cont1.NIHSS013) + Number(vm.cont1.NIHSS014) + Number(vm.cont1.NIHSS015) + Number(vm.cont1.NIHSS016)
                         document.getElementsByClassName('zzc02')[0].style.display = "none"
                         $('.layer01').fadeOut()
                         document.getElementsByTagName('body')[0].style.overflow = 'visible'
@@ -1904,7 +2123,8 @@
                         return flag;
                     },
                     zzc: function () {
-                       vm.info.NIHSSPF01 = Number(vm.cont.NIHSS01) + Number(vm.cont.NIHSS02) + Number(vm.cont.NIHSS03) + Number(vm.cont.NIHSS04) + Number(vm.cont.NIHSS06) + Number(vm.cont.NIHSS07) + Number(vm.cont.NIHSS08) + Number(vm.cont.NIHSS09) + Number(vm.cont.NIHSS010) + Number(vm.cont.NIHSS011) + Number(vm.cont.NIHSS012) + Number(vm.cont.NIHSS013) + Number(vm.cont.NIHSS014) + Number(vm.cont.NIHSS015) + Number(vm.cont.NIHSS016)
+                       // vm.info.NIHSSPF01 = Number(vm.cont.NIHSS01) + Number(vm.cont.NIHSS02) + Number(vm.cont.NIHSS03) + Number(vm.cont.NIHSS04) + Number(vm.cont.NIHSS06) + Number(vm.cont.NIHSS07) + Number(vm.cont.NIHSS08) + Number(vm.cont.NIHSS09) + Number(vm.cont.NIHSS010) + Number(vm.cont.NIHSS011) + Number(vm.cont.NIHSS012) + Number(vm.cont.NIHSS013) + Number(vm.cont.NIHSS014) + Number(vm.cont.NIHSS015) + Number(vm.cont.NIHSS016)
+                       vm.czzlInfo.NIHSSPF01 = Number(vm.cont.NIHSS01) + Number(vm.cont.NIHSS02) + Number(vm.cont.NIHSS03) + Number(vm.cont.NIHSS04) + Number(vm.cont.NIHSS06) + Number(vm.cont.NIHSS07) + Number(vm.cont.NIHSS08) + Number(vm.cont.NIHSS09) + Number(vm.cont.NIHSS010) + Number(vm.cont.NIHSS011) + Number(vm.cont.NIHSS012) + Number(vm.cont.NIHSS013) + Number(vm.cont.NIHSS014) + Number(vm.cont.NIHSS015) + Number(vm.cont.NIHSS016)
                         document.getElementsByClassName('zzc')[0].style.display = "none"
                         document.getElementsByClassName('layer')[0].style.display = 'none'
                         document.getElementsByTagName('body')[0].style.overflow = 'visible'
@@ -1913,7 +2133,8 @@
                     zzc01: function () {
 //                         vm.index1 =vm.MRSPFArr.filter(item => item.infocode == vm.info.MRSPF)[0].code
                           vm.index1 =vm.MRSPFArr.filter(function(item){
-                           return item.infocode == vm.info.MRSPF
+                           // return item.infocode == vm.info.MRSPF
+                           return item.infocode == vm.czzlInfo.MRSPF
                           })[0].code
                         
                         document.getElementsByClassName('zzc01')[0].style.display = "none"
@@ -1922,7 +2143,8 @@
                         document.getElementsByTagName('body')[0].style.height = '100%'
                     },
                     zzc02: function () {
-                        vm.info.NIHSSPF02 = Number(vm.cont1.NIHSS01) + Number(vm.cont1.NIHSS02) + Number(vm.cont1.NIHSS03) + Number(vm.cont1.NIHSS04) + Number(vm.cont1.NIHSS06) + Number(vm.cont1.NIHSS07) + Number(vm.cont1.NIHSS08) + Number(vm.cont1.NIHSS09) + Number(vm.cont1.NIHSS010) + Number(vm.cont1.NIHSS011) + Number(vm.cont1.NIHSS012) + Number(vm.cont1.NIHSS013) + Number(vm.cont1.NIHSS014) + Number(vm.cont1.NIHSS015) + Number(vm.cont1.NIHSS016)
+                        // vm.info.NIHSSPF02 = Number(vm.cont1.NIHSS01) + Number(vm.cont1.NIHSS02) + Number(vm.cont1.NIHSS03) + Number(vm.cont1.NIHSS04) + Number(vm.cont1.NIHSS06) + Number(vm.cont1.NIHSS07) + Number(vm.cont1.NIHSS08) + Number(vm.cont1.NIHSS09) + Number(vm.cont1.NIHSS010) + Number(vm.cont1.NIHSS011) + Number(vm.cont1.NIHSS012) + Number(vm.cont1.NIHSS013) + Number(vm.cont1.NIHSS014) + Number(vm.cont1.NIHSS015) + Number(vm.cont1.NIHSS016)
+                        vm.czzlInfo.NIHSSPF02 = Number(vm.cont1.NIHSS01) + Number(vm.cont1.NIHSS02) + Number(vm.cont1.NIHSS03) + Number(vm.cont1.NIHSS04) + Number(vm.cont1.NIHSS06) + Number(vm.cont1.NIHSS07) + Number(vm.cont1.NIHSS08) + Number(vm.cont1.NIHSS09) + Number(vm.cont1.NIHSS010) + Number(vm.cont1.NIHSS011) + Number(vm.cont1.NIHSS012) + Number(vm.cont1.NIHSS013) + Number(vm.cont1.NIHSS014) + Number(vm.cont1.NIHSS015) + Number(vm.cont1.NIHSS016)
                         document.getElementsByClassName('zzc02')[0].style.display = "none"
                         document.getElementsByClassName('layer01')[0].style.display = 'none'
                         document.getElementsByTagName('body')[0].style.overflow = 'visible'
@@ -1943,20 +2165,22 @@
                             list.push(code)
                         } 
                         vm[prop + 'Sel'] = list;
-                        vm.info[prop] = list.join(',');
+                        // vm.info[prop] = list.join(',');
+                        vm.czzlInfo[prop] = list.join(',');
                     },
                     onToggleClick: function(prop) {
                         
-                            if (vm.info[prop]==0) {
-                                vm.info[prop] = 1;
+                            if (vm.czzlInfo[prop]==0) {
+                                vm.czzlInfo[prop] = 1;
                             } else {
-                                vm.info[prop] = 0;
+                                vm.czzlInfo[prop] = 0;
                             }
                         
                     },
                 });
                 /* 监听省下拉选择框 */
-                vm.aidPatient.$watch('scePrvCod', function (newVal, oldVal, name) {
+                // vm.aidPatient.$watch('scePrvCod', function (newVal, oldVal, name) {
+                vm.czzlInfo.$watch('FBDZ01', function (newVal, oldVal, name) {
                     if (newVal == '') {
                         vm.cityList = [];
                     } else {
@@ -1965,10 +2189,12 @@
                             vm.cityList = addrInfoList.cityMap[newVal];
                         }
                     }
-                    vm.aidPatient.sceCtyCod = '';
+                    // vm.aidPatient.sceCtyCod = '';
+                    vm.czzlInfo.FBDZ02 = '';
                 });
                 /* 监听市下拉选择框 */
-                vm.aidPatient.$watch('sceCtyCod', function (newVal, oldVal, name) {
+                // vm.aidPatient.$watch('sceCtyCod', function (newVal, oldVal, name) {
+                vm.czzlInfo.$watch('FBDZ02', function (newVal, oldVal, name) {
                     if (newVal == '') {
                         vm.cntyList = [];
                     } else {
@@ -1977,10 +2203,42 @@
                             vm.cntyList = addrInfoList.cntyMap[newVal];
                         }
                     }
-                    vm.aidPatient.sceAr0Cod = '';
+                    // vm.aidPatient.sceAr0Cod = '';
+                    vm.czzlInfo.FBDZ03 = '';
                 });
 				//保存
-                function commit() {
+                var commit =  publicFun.debounce(function (){
+                    vm.count = 0
+                    parent.publicFun.ajaxLoading('保存中 请稍等。。。')
+                    commitBaseInfo();
+                    commitCzzlInfo()
+                },500)
+                // function commit() {
+                //     commitBaseInfo();
+                //     commitXtzlInfo();
+                // }
+
+                //提交基本信息
+                function commitBaseInfo(){
+                    vm.baseInfo.regTim = moment(vm.baseInfo.regTim).valueOf();
+                    var dataSubmit = {};
+                    dataSubmit.hspDbzlBasCustom = vm.baseInfo;
+                    $.ajax({
+                        url: '${baseurl}cz/czPatietBasicInfSubmit.do',
+                        type: 'post',
+                        dataType: 'json',
+                        contentType: 'application/json;charset=UTF-8',
+                        data: JSON.stringify(dataSubmit),
+                        success: function(res) {
+                            if (res.resultInfo.success) {
+                                vm.count++
+                            }
+                        },
+                    });
+                }
+
+                //提交表单信息
+                function commitCzzlInfo(){
                     console.log("@@@@@@@@@", vm.info);
                     var list = [];
                     for (var prop in vm.info) {
@@ -1991,6 +2249,14 @@
                                     proVal: vm.info[prop]
                                 });
                             }
+                        }
+                    }
+                    for (var prop in vm.czzlInfo) {
+                        if(vm.czzlInfo.hasOwnProperty(prop)) {
+                            list.push({
+                                proCode: prop,
+                                proVal: vm.czzlInfo[prop]
+                            });
                         }
                     }
                     console.log(list)
@@ -2004,12 +2270,19 @@
                             czzlInfList: list,
                         }),
                         success: function (res) {
-                            console.log(res)
-                            console.log('czzlInfList',list);
-                            parent.publicFun.alert("保存成功");
+                            parent.publicFun.ajaxLoadEnd();
+                            if (res.resultInfo.success) {
+                                vm.count++
+                            }
+                            if (vm.count === 2) {
+                                parent.publicFun.successalert("保存成功");
+                            }else {
+                                parent.publicFun.alert("保存失败");
+                            }
                         }
                     });
                 }
+
                 // 获取时间轴信息
                 function getTimeLineData() {
                     $.ajax({
@@ -2055,6 +2328,9 @@
                 // 字典
                 function getDicts() {
                     var maps = [{
+                        prop: 'cstSexCodArr',
+                        key: 'CST_SEX_COD'
+                    }, {
                         prop: 'ZYZZArr',
                         key: 'CZ_ZYZZ_COD'
                     }, //主要症状
@@ -2134,28 +2410,29 @@
                         	 var NIHSS;
                         	 var indx=0
                              aidPatient.forEach(function(item, index){
-                                 Object.getOwnPropertyNames(vm.info).forEach(function (key) {
+                                 // Object.getOwnPropertyNames(vm.info).forEach(function (key) {
+                                 Object.getOwnPropertyNames(vm.czzlInfo).forEach(function (key) {
                                      if (item.proCode == key) {
 //                                      console.log(111111111111111111)
-                                     vm.info[key]=item.proVal
-                                     vm[item.proCode + 'Sel'] = item.proVal ? item.proVal.split(',') : [];
-                                     resObj[item.proCode] = item.proVal;
-
-                                 }
-                                 if(item.proCode=='NIHSSPF02PFX'){
-                                 NIHSS1=item.proVal
-                                 }  
-                                  if(item.proCode=='NIHSSPF01PFX'){
-                                 NIHSS=item.proVal
-                                 }        
+//                                         vm.info[key]=item.proVal
+                                        vm.czzlInfo[key]=item.proVal
+                                        vm[item.proCode + 'Sel'] = item.proVal ? item.proVal.split(',') : [];
+                                        resObj[item.proCode] = item.proVal;
+                                    }
+                                    if(item.proCode=='NIHSSPF02PFX'){
+                                        NIHSS1=item.proVal
+                                    }
+                                    if(item.proCode=='NIHSSPF01PFX'){
+                                        NIHSS=item.proVal
+                                    }
                                  })
 
                              })
-                             
-                              for (var key in resObj) {
-                                vm.info[key] = resObj[key];
+                            for (var key in resObj) {
+                                // vm.info[key] = resObj[key];
+                                vm.czzlInfo[key] = resObj[key];
                             }
-                             console.log('获取卒中病人信息',res)
+
                              
 							for(var key in vm.cont1){
 								if(NIHSS1){
@@ -2171,34 +2448,34 @@
 							}
 							console.log(vm.cont1)
 
-                             var _hspEmgInf = res.resultInfo.sysdata.hspemgInfCustom
-                             console.log(_hspEmgInf)
-                             for (var a in vm.baseInfo) {
-                                 if (_hspEmgInf && _hspEmgInf.hasOwnProperty(a) && _hspEmgInf[a]) {
-                                     vm.baseInfo[a] = _hspEmgInf[a];
-                                 }
-                             }
-                             if (vm.baseInfo.sbpDownNbr && vm.baseInfo.sbpUpNbr) {
-                                 vm.info.XUEYA = vm.baseInfo.sbpUpNbr + '/' + vm.baseInfo.sbpDownNbr;
-                             }
-                             if (vm.baseInfo.emgDat) {
-                                 var time = vm.baseInfo.emgDat;
-                                 vm.baseInfo.emgDat = moment(parseInt(time)).format('YYYY-MM-DD HH:mm')
-                             }
-                             if (vm.baseInfo.bthDat) {
-                                 var bthDat = vm.baseInfo.bthDat;
-                                 vm.baseInfo.bthDat = moment(parseInt(bthDat)).format('YYYY-MM-DD')
-                             }
-                             if (vm.baseInfo.cardType == null) {
-                                 vm.baseInfo.cardType = '1'
-                             }
+                             // var _hspEmgInf = res.resultInfo.sysdata.hspemgInfCustom
+                             // console.log(_hspEmgInf)
+                             // for (var a in vm.baseInfo) {
+                             //     if (_hspEmgInf && _hspEmgInf.hasOwnProperty(a) && _hspEmgInf[a]) {
+                             //         vm.baseInfo[a] = _hspEmgInf[a];
+                             //     }
+                             // }
+                             // if (vm.baseInfo.sbpDownNbr && vm.baseInfo.sbpUpNbr) {
+                             //     vm.info.XUEYA = vm.baseInfo.sbpUpNbr + '/' + vm.baseInfo.sbpDownNbr;
+                             // }
+                             // if (vm.baseInfo.emgDat) {
+                             //     var time = vm.baseInfo.emgDat;
+                             //     vm.baseInfo.emgDat = moment(parseInt(time)).format('YYYY-MM-DD HH:mm')
+                             // }
+                             // if (vm.baseInfo.bthDat) {
+                             //     var bthDat = vm.baseInfo.bthDat;
+                             //     vm.baseInfo.bthDat = moment(parseInt(bthDat)).format('YYYY-MM-DD')
+                             // }
+                             // if (vm.baseInfo.cardType == null) {
+                             //     vm.baseInfo.cardType = '1'
+                             // }
 							
 
-                             if (vm.aidPatient['illTim'] && vm.aidPatient['illTimFlg'] == 1) {
-                                 var timer = vm.aidPatient['illTim'];
-                                 var newTimer = moment(new Date(timer)).format('YYYY/MM/DD');
-                                 vm.aidPatient['illTim'] = newTimer;
-                             }
+                             // if (vm.aidPatient['illTim'] && vm.aidPatient['illTimFlg'] == 1) {
+                             //     var timer = vm.aidPatient['illTim'];
+                             //     var newTimer = moment(new Date(timer)).format('YYYY/MM/DD');
+                             //     vm.aidPatient['illTim'] = newTimer;
+                             // }
                              try{
                             	//invitationDate 会诊邀请    consultationDate 会诊签到
                                  var invitationDate = res.resultInfo.sysdata.consultationList[0].invitationDate;
@@ -2207,19 +2484,25 @@
                                  var consultationDate1 = res.resultInfo.sysdata.hspConsultationRecordsCustomJr.consultationDate;
                                  console.log(consultationDate, invitationDate)
 	                             if (consultationDate) {
-	                                 vm.info.TZHZSJ = moment(invitationDate).format("YYYY-MM-DD HH:mm");
-	                                 vm.info.HZDDSJ = moment(consultationDate).format("YYYY-MM-DD HH:mm");
+	                                 // vm.info.TZHZSJ = moment(invitationDate).format("YYYY-MM-DD HH:mm");
+	                                 vm.czzlInfo.TZHZSJ = moment(invitationDate).format("YYYY-MM-DD HH:mm");
+	                                 // vm.info.HZDDSJ = moment(consultationDate).format("YYYY-MM-DD HH:mm");
+	                                 vm.czzlInfo.HZDDSJ = moment(consultationDate).format("YYYY-MM-DD HH:mm");
 	                             }
 	                             if (consultationDate1) {
-	                                 vm.info.JRTZSJ = moment(invitationDate).format("YYYY-MM-DD HH:mm");
-	                                 vm.info.JRDDSJ = moment(consultationDate).format("YYYY-MM-DD HH:mm");
+	                                 // vm.info.JRTZSJ = moment(invitationDate).format("YYYY-MM-DD HH:mm");
+	                                 vm.czzlInfo.JRTZSJ = moment(invitationDate).format("YYYY-MM-DD HH:mm");
+	                                 // vm.info.JRDDSJ = moment(consultationDate).format("YYYY-MM-DD HH:mm");
+	                                 vm.czzlInfo.JRDDSJ = moment(consultationDate).format("YYYY-MM-DD HH:mm");
 	                             }
-	                             var ZGQX = res.resultInfo.sysdata.hspemgInfCustom.cstDspCodNameNew;
-	                             var zgks = _hspEmgInf.sqlDepCod;
-	                             if (ZGQX){
-									 vm.baseInfo.ZGQX = ZGQX+"("+zgks+")";
-								 }
+	                             // var ZGQX = res.resultInfo.sysdata.hspemgInfCustom.cstDspCodNameNew;
+	                             // var zgks = _hspEmgInf.sqlDepCod;
+	                             // if (ZGQX){
+									//  vm.baseInfo.ZGQX = ZGQX+"("+zgks+")";
+								 // }
                              } catch (err){}
+
+                            console.log('获取卒中病人信息',vm.czzlInfo)
                              
                         }
                     });
@@ -2230,41 +2513,72 @@
                     }
                 }
                 
-              //院前信息
+                //院前信息
                 function getPatientInfo() {
                     $.ajax({
-                        url: '${baseurl}cz/getAidPatientByEmgSeq.do',
+                        url: '${baseurl}cz/getCzPatientBasicInfo.do',
                         type: 'post',
                         dataType: 'json',
                         contentType: 'application/json;charset=UTF-8',
                         data: JSON.stringify({
-                            emgSeq: _emgSeq
+                            regSeq: _regSeq
                         }),
-                        success: function(res) {
-                        	console.log('获取院前病人信息', res);
-                        	var _aidPatientXt = res.resultInfo.sysdata.aidPatientXt;
-                            var _aidPatient = res.resultInfo.sysdata.aidPatient;
-                            var _ynfb = res.resultInfo.sysdata.ynfb;
-                            if (_aidPatient) {
-                                for (var a in vm.aidPatient) {
-                                    if (_aidPatient.hasOwnProperty(a)) {
-                                        vm.aidPatient[a] = _aidPatient[a];
-                                    }
+                        success:function (res) {
+                            var _hspDbzlInf = res.resultInfo.sysdata.hspDbzlBasInf
+                            console.log(_hspDbzlInf);
+                            for (var a in vm.baseInfo) {
+                                if (_hspDbzlInf && _hspDbzlInf.hasOwnProperty(a) && _hspDbzlInf[a]) {
+                                    vm.baseInfo[a] = _hspDbzlInf[a];
                                 }
                             }
-                            if (_aidPatientXt) {
-                                for (var a in vm.aidPatientXt) {
-                                    if (_aidPatientXt.hasOwnProperty(a)) {
-                                        vm.aidPatientXt[a] = _aidPatientXt[a];
-                                        if (a == 'ddfs' && _aidPatientXt[a] == 1) {
-                                            vm.aidPatientXt.ccdw = 1;
-                                        }
-                                    }
-                                }
+                            if (vm.baseInfo.regTim) {
+                                var regTim = vm.baseInfo.regTim;
+                                vm.baseInfo.regTim = moment(parseInt(regTim)).format('YYYY-MM-DD HH:mm')
                             }
+                            if (vm.baseInfo.bthDat) {
+                                var bthDat = vm.baseInfo.bthDat;
+                                vm.baseInfo.bthDat = moment(parseInt(bthDat)).format('YYYY-MM-DD')
+                            }
+                            if (vm.baseInfo.cardType == null) {
+                                vm.baseInfo.cardType = '1'
+                            }
+                            console.log('baseInfo', vm.baseInfo);
                         }
-                    });
+                    })
                 }
+                <%--    $.ajax({--%>
+                <%--        url: '${baseurl}cz/getAidPatientByEmgSeq.do',--%>
+                <%--        type: 'post',--%>
+                <%--        dataType: 'json',--%>
+                <%--        contentType: 'application/json;charset=UTF-8',--%>
+                <%--        data: JSON.stringify({--%>
+                <%--            emgSeq: _emgSeq--%>
+                <%--        }),--%>
+                <%--        success: function(res) {--%>
+                <%--        	console.log('获取院前病人信息', res);--%>
+                <%--        	var _aidPatientXt = res.resultInfo.sysdata.aidPatientXt;--%>
+                <%--            var _aidPatient = res.resultInfo.sysdata.aidPatient;--%>
+                <%--            var _ynfb = res.resultInfo.sysdata.ynfb;--%>
+                <%--            if (_aidPatient) {--%>
+                <%--                for (var a in vm.aidPatient) {--%>
+                <%--                    if (_aidPatient.hasOwnProperty(a)) {--%>
+                <%--                        vm.aidPatient[a] = _aidPatient[a];--%>
+                <%--                    }--%>
+                <%--                }--%>
+                <%--            }--%>
+                <%--            if (_aidPatientXt) {--%>
+                <%--                for (var a in vm.aidPatientXt) {--%>
+                <%--                    if (_aidPatientXt.hasOwnProperty(a)) {--%>
+                <%--                        vm.aidPatientXt[a] = _aidPatientXt[a];--%>
+                <%--                        if (a == 'ddfs' && _aidPatientXt[a] == 1) {--%>
+                <%--                            vm.aidPatientXt.ccdw = 1;--%>
+                <%--                        }--%>
+                <%--                    }--%>
+                <%--                }--%>
+                <%--            }--%>
+                <%--        }--%>
+                <%--    });--%>
+                <%--}--%>
               
              // 检验检查
                 function getXtInspection() {
@@ -2330,10 +2644,14 @@
                         }
                     });
                 }
-                getXtInspection();
-                getPatientInfo();
-                getCZbaseInfo();
-                getTimeLineData();
+
+                $(function (){
+                    getXtInspection();
+                    getPatientInfo();
+                    getCZbaseInfo();
+                    getTimeLineData();
+                })
+
             </script>
 
             </html>

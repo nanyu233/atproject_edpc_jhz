@@ -64,9 +64,10 @@ public class CzAction {
 	 * @return
 	 */
 	@RequestMapping("/toCzxqPage")
-	public String toXtxqPage(String emgSeq,String wayTyp,Model model){
+	public String toXtxqPage(String emgSeq, String wayTyp, String regSeq, Model model){
 		model.addAttribute("emgSeq", emgSeq);
 		model.addAttribute("wayTyp", wayTyp);
+		model.addAttribute("regSeq", regSeq);
 		return View.toEDPC("/cz/czxq");
 	}
 
@@ -104,8 +105,9 @@ public class CzAction {
 	 * @return
 	 */
 	@RequestMapping("/toCzTimeline")
-	public String toCzTimeline(String emgSeq,Model model){
+	public String toCzTimeline(String emgSeq, String regSeq, Model model){
 		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("regSeq", regSeq);
 		return View.toEDPC("/cz/czTimeline");
 	}
 	
@@ -239,6 +241,19 @@ public class CzAction {
 		ResultInfo resultInfo = czService.getCzPatientDetail(emgSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
+
+	/**
+	 * 胸痛登记页面基本信息提交
+	 * @param hspDbzlBasQueryDto
+	 * @param activeUser
+	 * @return
+	 */
+	@RequestMapping("/czPatietBasicInfSubmit")
+	@ResponseBody
+	public SubmitResultInfo xtPatietBasicInfSubmit(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser){
+		ResultInfo resultInfo = czService.czPatietBasicInfSubmit(hspDbzlBasQueryDto, activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
 	
 	/**
 	 * 卒中患者信息保存
@@ -275,9 +290,28 @@ public class CzAction {
 		ResultInfo resultInfo = czService.getCzTimeline(emgSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
+
+	/**
+	 * 获取卒中患者主表hsp_dbzl_bas信息数据
+	 * @param map
+	 * @return
+	 */
+	@RequestMapping("/getCzPatientBasicInfo")
+	@ResponseBody
+	public SubmitResultInfo getCzPatientDetail(@RequestBody(required=false) Map<String,Object> map){
+		String regSeq = "";
+		if(map.containsKey("regSeq")){
+			regSeq = (String) map.get("regSeq");
+		}
+
+		ResultInfo resultInfo = czService.getCzPatientBasicInfo(regSeq);
+
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
 	
 	/**
 	 * 获取卒中患者院前信息数据
+	 * TODO 表已废弃
 	 * @param map
 	 * @return
 	 */

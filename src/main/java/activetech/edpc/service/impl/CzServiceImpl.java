@@ -1,5 +1,23 @@
 package activetech.edpc.service.impl;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import activetech.edpc.dao.mapper.*;
+import activetech.edpc.pojo.domain.*;
+import activetech.edpc.pojo.dto.*;
+import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import activetech.aid.dao.mapper.AidPatientMapper;
 import activetech.aid.dao.mapper.AidPatientXtMapper;
@@ -21,6 +39,7 @@ import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.*;
 import activetech.edpc.pojo.dto.*;
 import activetech.edpc.service.CzService;
+import activetech.external.dao.mapper.HspJyjgCustomMapper;
 import activetech.external.dao.mapper.VHemsJcjgMapper;
 import activetech.external.dao.mapper.VHemsJcjgMapperCustom;
 import activetech.external.dao.mapper.VHemsJyjgMapper;
@@ -31,6 +50,7 @@ import activetech.external.pojo.domain.VHemsJyjgExample;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
 import activetech.hospital.dao.mapper.HspemginfCustomMapper;
 import activetech.hospital.pojo.domain.HspEmgInf;
+import activetech.hospital.pojo.domain.HspEmgInfExample;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import activetech.util.DateUtil;
@@ -38,25 +58,16 @@ import activetech.util.StringUtils;
 import activetech.zyyhospital.dao.mapper.HspConsentInfMapper;
 import activetech.zyyhospital.dao.mapper.HspConsultationRecordsCustomMapper;
 import activetech.zyyhospital.dao.mapper.HspConsultationRecordsMapper;
+import activetech.zyyhospital.dao.mapper.HspHljldInfMapper;
+import activetech.zyyhospital.dao.mapper.HspLqblInfCustomMapper;
 import activetech.zyyhospital.pojo.domain.HspConsentInf;
 import activetech.zyyhospital.pojo.domain.HspConsentInfExample;
 import activetech.zyyhospital.pojo.domain.HspConsultationRecords;
 import activetech.zyyhospital.pojo.domain.HspConsultationRecordsExample;
+import activetech.zyyhospital.pojo.domain.HspHljldInf;
+import activetech.zyyhospital.pojo.domain.HspHljldInfExample;
 import activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
-
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.stream.Collectors;
+import activetech.zyyhospital.pojo.dto.HspLqblInfCustom;
 
 public class CzServiceImpl implements CzService{
 	
@@ -86,7 +97,12 @@ public class CzServiceImpl implements CzService{
 	
 	@Autowired
 	private HspemginfCustomMapper hspemginfCustomMapper;
-
+	
+	@Autowired
+	private HspLqblInfCustomMapper hspLqblInfCustomMapper;
+	
+	@Autowired
+	private HspHljldInfMapper hspHljldInfMapper;
 	
 	@Autowired
 	private HspCzzlInfMapper hspCzzlInfMapper;
@@ -112,6 +128,9 @@ public class CzServiceImpl implements CzService{
 	@Autowired
 	private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
 
+
+	@Autowired
+	private HspDbzlBasMapper hspDbzlBasMapper;
 
 	@Override
 	public ResultInfo getCzPatientInfoList(QueryDto queryDto) {
@@ -339,55 +358,101 @@ public class CzServiceImpl implements CzService{
 
 	@Override
 	public ResultInfo getCzReportHelperData(String emgSeq) {
+		
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		
 		Map<String,Object> sysdata = new HashMap<>();
-		//获取患者基本信息
-		HspDbzlBas hspDbzlBas= hspDbzlBasMapperCustom.selectByPrimaryByEmgSeq(emgSeq);
-		sysdata.put("hspDbzlBas", hspDbzlBas);
-
-		//获取卒中诊疗表信息
+		
+		
+		HspEmgInf hspEmgInf = hspemginfCustomMapper.findHspemginfByemgSql_jzt(emgSeq);
+		sysdata.put("hspEmgInf", hspEmgInf);
+		
+		// JSONObject baseInfo = new JSONObject();
+		/*
+		List<String> paramlist = new ArrayList<String>();
+		// 体重
+		paramlist.add("TIZHONG");
+		// 发病时间
+		paramlist.add("FBSJ");
+		// 溶栓前NHISS评分
+		paramlist.add("NIHSSPF01");
+		
+		// 平时服用药
+		paramlist.add("PSFYY");
+		
+		// 诊断结果
+		paramlist.add("YXXZDJG");
+		
+		List<HspCzzlInf> list = hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq,paramlist);
+		
+		*/
+		
 		HspCzzlInfExample hspCzzlInfExample = new HspCzzlInfExample();
 		HspCzzlInfExample.Criteria hspCzzlInfCriteria = hspCzzlInfExample.createCriteria();
 		hspCzzlInfCriteria.andEmgNoEqualTo(emgSeq);
+		
+		
 		List<HspCzzlInf> hspCzzlInfList = hspCzzlInfMapper.selectByExample(hspCzzlInfExample);
+		
 		sysdata.put("hspCzzlInfList", hspCzzlInfList);
-
-		//分诊图片  |   化验项目图片 | 护理记录单截图
-		Map<String ,String> hspCzzlInfMap= hspCzzlInfList.stream().filter(hspCzzlInf-> hspCzzlInf.getProVal()!=null).collect(Collectors.toMap(HspCzzlInf::getProCode, HspCzzlInf::getProVal, (key1, key2) -> key2));
-		try {
-			if (hspCzzlInfMap.containsKey("FZJT")){
-				String fileSeq=hspCzzlInfMap.get("FZJT");
-				sysdata.put("fzPicData",this.getPictureBase64(fileSeq));
-			}
-			if (hspCzzlInfMap.containsKey("HYXMJT")){
-				String fileSeq=hspCzzlInfMap.get("HYXMJT");
-				sysdata.put("hyPicData",this.getPictureBase64(fileSeq));
-			}
-			if (hspCzzlInfMap.containsKey("HLJLDJT")){
-				String fileSeq=hspCzzlInfMap.get("HYXMJT");
-				sysdata.put("hlPicData",this.getPictureBase64(fileSeq));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			sysdata.put("errMsg",e.getMessage());
-			resultInfo.setSysdata(sysdata);
-			return resultInfo;
+		// 主诉
+		HspLqblInfCustom hspLqblInfCustom = hspLqblInfCustomMapper.findLqblByEmgSeq(emgSeq);
+		if(hspLqblInfCustom!=null) {
+			sysdata.put("zhusu", hspLqblInfCustom.getLqblDes());
+		}else {
+			sysdata.put("zhusu", null);
 		}
+		
+		//分诊截图
+//		HspBase64PicKey key = new HspBase64PicKey();
+//		key.setEmgSeq(emgSeq);
+//		key.setPicType("fz");
+//		HspBase64Pic _hspBase64Pic = hspBase64PicMapper.selectByPrimaryKey(key);
+		
+		/*
+		HspBase64PicExample hspBase64PicExample = new HspBase64PicExample();
+		HspBase64PicExample.Criteria hspBase64PicCriteria = hspBase64PicExample.createCriteria();
+		hspBase64PicCriteria.andEmgSeqEqualTo(emgSeq);
+		List<String> values = new ArrayList<>();
+		values.add("fz");
+		values.add("rs");
+		hspBase64PicCriteria.andPicTypeIn(values);
+		List<HspBase64Pic> hspBase64PicList = hspBase64PicMapper.selectByExampleWithBLOBs(hspBase64PicExample);
+		*/
+//		if(_hspBase64Pic!=null) {
+//			sysdata.put("fzPicData", _hspBase64Pic.getData());
+//		}else {
+			sysdata.put("fzPicData", null);
+//		}
+		
+		
+		
+//		key.setPicType("rs");
+		
+//		HspBase64Pic rsPicData = hspBase64PicMapper.selectByPrimaryKey(key);
+//		
+//		if(rsPicData!=null) {
+//			sysdata.put("rsPicData", rsPicData.getData());
+//		}else {
+			sysdata.put("rsPicData", null);
+//		}
+		
+		
+		
+		HspHljldInfExample example = new HspHljldInfExample();
+		HspHljldInfExample.Criteria criteria = example.createCriteria();
+		criteria.andEmgSeqEqualTo(emgSeq);
+		criteria.andJchlLike("121");
+		List<HspHljldInf> hspHljldInfList = hspHljldInfMapper.selectByExample(example);
+		HspHljldInf hspHljldInf = null;
+		if(hspHljldInfList.size()>0) {
+			hspHljldInf = hspHljldInfList.get(0);
+		}
+		
+		sysdata.put("hspHljldInf", hspHljldInf);
+		
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
-	}
-
-	/**
-	 * 获取minio 图片base64
-	 * @param fileSeq fileSeq
-	 * @return String
-	 * @throws Exception Exception
-	 */
-	public String getPictureBase64(String fileSeq) throws Exception{
-		Dstarchives dstarchives = dstarchivesMapper.selectByPrimaryKey(fileSeq);
-		Assert.notNull(dstarchives);
-		InputStream fileInputStream= MinIoUtil.getObject(dstarchives.getFileType(),dstarchives.getFileName());
-		return Base64.encodeBase64String((IOUtils.toByteArray(fileInputStream)));
 	}
 	
 	
@@ -597,7 +662,7 @@ public class CzServiceImpl implements CzService{
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> sysdata = new HashMap<String, Object>();
 		//患者信息
-		HspemginfCustom hspemgInfCustom = hspemginfCustomMapper.findHspemginfCustom(emgSeq);
+//		HspemginfCustom hspemgInfCustom = hspemginfCustomMapper.findHspemginfCustom(emgSeq);
 		//卒中表信息
 		HspCzzlInfExample czzlExample = new HspCzzlInfExample();
 		HspCzzlInfExample.Criteria czzlCriteria = czzlExample.createCriteria();
@@ -623,11 +688,19 @@ public class CzServiceImpl implements CzService{
 			}
 		}
 		
-		sysdata.put("hspemgInfCustom", hspemgInfCustom);
+//		sysdata.put("hspemgInfCustom", hspemgInfCustom);
 		sysdata.put("czzlList", czzlList);
 		sysdata.put("consultationList", consultationList);
 		sysdata.put("hspConsultationRecordsCustomJr", hspConsultationRecordsCustomJr);
 		resultInfo.setSysdata(sysdata);
+		return resultInfo;
+	}
+
+	@Override
+	public ResultInfo czPatietBasicInfSubmit(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser){
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		hspDbzlBasQueryDto.getHspDbzlBasCustom().setModNo(activeUser.getUsrno());
+		hspDbzlBasMapperCustom.updateHspDbzlBasByRegSeq(hspDbzlBasQueryDto);
 		return resultInfo;
 	}
 
@@ -653,7 +726,17 @@ public class CzServiceImpl implements CzService{
 		
 		return map;
 	}
-	
+
+	@Override
+	public ResultInfo getCzPatientBasicInfo(String regSeq) {
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		HspDbzlBas hspDbzlBas = hspDbzlBasMapper.selectByPrimaryKey(regSeq);
+		Map<String,Object> sysdata = new HashMap<>();
+		sysdata.put("hspDbzlBasInf", hspDbzlBas);
+		resultInfo.setSysdata(sysdata);
+		return resultInfo;
+	}
+
 	@Override
 	public ResultInfo getAidPatientByEmgSeq(String emgSeq) {
 		

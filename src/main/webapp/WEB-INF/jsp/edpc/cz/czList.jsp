@@ -166,20 +166,20 @@
                     console.log( vm.searchParam.cstNam,vm.searchParam.zd, vm.searchParam.zdys, queryParams['startdate'],queryParams['enddate'])
                 }
 
-                function toCzTimeline(emgSeq, cstNam, wayTyp) {
-                    var url = 'cz/toCzTimeline.do?emgSeq=' + emgSeq + '&wayTyp=' + wayTyp;
+                function toCzTimeline(emgSeq, cstNam, wayTyp, regSeq) {
+                    var url = 'cz/toCzTimeline.do?emgSeq=' + emgSeq + '&wayTyp=' + wayTyp + '&regSeq=' + regSeq;
                     if (cstNam == 'null') {
                         cstNam = "";
                     }
                     window.top.addTab(cstNam + "-" + '卒中急救时间轴', url, 'icon icon-emergency-record');
                 }
-                function printCzhcb(emgSeq, cstNam, wayTyp) {
+                function printCzhcb(emgSeq, cstNam, wayTyp, regSeq) {
                     getCzhcbInfo(emgSeq)
 
                 }
 
-                function toDetail(emgSeq, cstNam) {
-                    var url = 'cz/toCzxqPage.do?emgSeq=' + emgSeq + '&wayTyp=0';
+                function toDetail(emgSeq, cstNam, regSeq) {
+                    var url = 'cz/toCzxqPage.do?emgSeq=' + emgSeq + '&wayTyp=0' + '&regSeq=' + regSeq;
                     if (cstNam == 'null') {
                         cstNam = "";
                     }
@@ -299,8 +299,9 @@
                                 title: '操作',
                                 width: setWidth(0.24),
                                 formatter: function(value, row, index) {
-                                    var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\')">查看</span>' +
-                                        '<span class="btn Timeline" onclick="toCzTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\')">时间轴</span>'+'<span class="btn Timeline" onclick="printCzhcb(\'' + row.emgSeq + '\',\'' + row.cstNam + '\')">核查表</span>';
+                                    var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">查看</span>' +
+                                        '<span class="btn Timeline" onclick="toCzTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">时间轴</span>'+
+                                        '<span class="btn Timeline" onclick="printCzhcb(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">核查表</span>';
                                     return _html;
                                 }
                             }]
