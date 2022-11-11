@@ -1,8 +1,6 @@
 package activetech.edpc.pojo.dto;
 
 import activetech.base.pojo.domain.PageCond;
-import activetech.base.pojo.dto.PageQuery;
-import activetech.edpc.pojo.domain.HspDbzlBas;
 
 import java.util.Date;
 
@@ -52,6 +50,9 @@ public class HspDbzlBasQueryDto extends PageCond {
 
     //注册序号
     private String regSeq;
+
+    //预检号
+    private String emgSeq;
 
 
 
@@ -151,5 +152,13 @@ public class HspDbzlBasQueryDto extends PageCond {
 
     public void setRegSeq(String regSeq) {
         this.regSeq = regSeq;
+    }
+
+    public String getEmgSeq() {
+        return emgSeq;
+    }
+
+    public void setEmgSeq(String emgSeq) {
+        this.emgSeq = emgSeq;
     }
 }

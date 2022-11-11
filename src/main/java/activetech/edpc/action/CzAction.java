@@ -1,17 +1,5 @@
 package activetech.edpc.action;
 
-import java.util.Date;
-import java.util.Map;
-
-import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import activetech.base.action.View;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.context.Config;
@@ -21,10 +9,20 @@ import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspBase64Pic;
 import activetech.edpc.pojo.dto.HspCzzlInfQueryDto;
+import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.QueryDto;
 import activetech.edpc.service.CzService;
-import activetech.hospital.pojo.domain.HspEmgInf;
 import activetech.util.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/cz")
@@ -176,6 +174,7 @@ public class CzAction {
 	/**
 	 * 获取卒中患者的分诊和护理记录单溶栓时候的页面截图base64编码数据
 	 * @return
+	 * TODO 废弃 HSP_BASE64_PIC 不存在 相关service 可删除
 	 */
 	@RequestMapping("/getBase64pic")
 	@ResponseBody
@@ -190,8 +189,8 @@ public class CzAction {
 	 */
 	@RequestMapping("/getCzReportHelperData")
 	@ResponseBody
-	public SubmitResultInfo getCzReportHelperData(@RequestBody HspEmgInf hspEmgInf){
-		ResultInfo resultInfo = czService.getCzReportHelperData(hspEmgInf.getEmgSeq());
+	public SubmitResultInfo getCzReportHelperData(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto){
+		ResultInfo resultInfo = czService.getCzReportHelperData(hspDbzlBasQueryDto.getEmgSeq());
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	
