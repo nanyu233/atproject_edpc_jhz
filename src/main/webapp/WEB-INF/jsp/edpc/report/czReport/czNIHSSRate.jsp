@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body class="Overtime">
-	<form id="querymqform" action="report/exportMqAvgSubmit.do"
+	<form id="querymqform" action="edpcReport/exportExcelSubmit.do"
 		method="post">
 		<!-- html的静态布局 -->
 		<!-- 查询条件 -->
@@ -31,10 +31,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="m-t10 div_h">
 				<ul class="querylist-ul form_hc">
 					<li><input type="text" class="input-base short-right Wdate"
-						id="emg_startdate" name="startdate"
+						id="emg_startdate" name="startDate"
 						onfocus="new WdatePicker({dateFmt:'yyyy/MM'})"> 至 <input
 						type="text" class="input-base short-right Wdate" id="emg_enddate"
-						name="enddate" onfocus="new WdatePicker({dateFmt:'yyyy/MM'})" />
+						name="endDate" onfocus="new WdatePicker({dateFmt:'yyyy/MM'})" />
 						<span class="f-left">&nbsp;查询时间：</span></li>
 					<li class="queryuser-btn m-l5">
 						<a class="easyui-linkbutton" iconCls="icon-search" id="btn"
@@ -44,6 +44,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="c"></div>
 			</div>
 		</div>
+		<input type="hidden" name="fileName" value="卒中患者抵达急诊接受NHISS评分的比例">
+		<input type="hidden" name="reportTypeFlag" value="DYTONHISS">
+		<input type="hidden" name="claFlg" value="true">
 	</form>
 	<div class="chart_grp chartbox">
 		<div class="form_cat border-radius box-shadow">
@@ -160,6 +163,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         //加载chart和datagrid
         $(function() {
+        	//初始化表单参数
+        	setParams()
             var height = $("#tabs", parent.document).height() * 0.75;
             $("#dtoblist").height(height);
             var chartheight = $("#tabs", parent.document).height() * 0.75 - 67;
@@ -302,6 +307,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					"endDate" : end,
 					// "reportTypeFlag" : 'DGSJH'
 				});
+			}
+		}
+		function setParams(){
+			let myForm =$("#querymqform");
+			for (let i = 0; i < columns_v[0].length; i++) {
+				myForm.append('<input type="hidden" name="fieldNames" value="'+columns_v[0][i].title+'">')
+				myForm.append('<input type="hidden" name="fieldCodes" value="'+columns_v[0][i].field+'">');
 			}
 		}
 	</script>

@@ -14,6 +14,7 @@ import activetech.edpc.service.CzService;
 import activetech.edpc.service.EDPCReportService;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import activetech.util.ExcelExportSXXSSF;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -298,10 +299,7 @@ public class EDPCReportAction {
 	@RequestMapping("/ctTime_result")
 	@ResponseBody
 	public DataGridResultInfo ctTime_result(ReportCondition reportCondition){
-		
-		DataGridResultInfo dataGridResultInfo = eDPCReportService.getctAvgTime(reportCondition);
-		
-		return dataGridResultInfo;
+		return eDPCReportService.getctAvgTime(reportCondition);
 	}
 	
 	
@@ -358,10 +356,7 @@ public class EDPCReportAction {
 	@RequestMapping("/d2dmqs_result")
 	@ResponseBody
 	public DataGridResultInfo d2dmqs_result(ReportCondition reportCondition){
-		
-		DataGridResultInfo dataGridResultInfo = eDPCReportService.getD2dmqsTime(reportCondition);
-		
-		return dataGridResultInfo;
+		return eDPCReportService.getD2dmqsTime(reportCondition);
 	}
 	
 	
@@ -2061,6 +2056,81 @@ public class EDPCReportAction {
 				Config.MESSAGE, 914, new Object[] {
 						"卒中病人发病6小时内的溶栓的病人的比例",
 						list.size(),
+						webpath//下载地址
+				}));
+	}
+
+	/**
+	 * 导出excle 报表 支持格式较为统一的报表
+	 * 查询数据集在 switch  case 维护
+	 *                  {
+	 *                   fileName "文件名称|excel报表主题名称",
+	 *                   fieldCodes:{} 字段code,
+	 *                   fieldNames{} 字段中文名,
+	 *                   reportTypeFlag :''区分报表数据源,
+	 *                   claFlg：''是否计算%
+	 *                   }
+	 * 不支持，追加统计行
+	 *
+	 * @param reportCondition reportCondition
+	 * @return SubmitResultInfo
+	 * @throws Exception Exception
+	 */
+	@SuppressWarnings("unchecked,SpellCheckingInspection")
+	@RequestMapping("/exportExcelSubmit")
+	public @ResponseBody
+	SubmitResultInfo exportExcelSubmit(ReportCondition reportCondition) throws Exception {
+		int flushRows = 100;
+		String filePath = ApplicationConfig.getConfig().get("XNML_PATH");
+		String gd = "查询范围：";
+		String startDateStr = reportCondition.getStartDate();
+		gd = gd + "时间：" + startDateStr;
+		String endDateStr = reportCondition.getEndDate();
+		gd = gd + " 至 " + endDateStr;
+		String hb = reportCondition.getFileName();
+		ExcelExportSXXSSF excelExportSXXSSF = ExcelExportSXXSSF.startHbGd(filePath,
+				"export/", reportCondition.getFileName(), reportCondition.getFieldNames(), reportCondition.getFieldCodes(), flushRows, hb, gd);
+		//数据集
+		List<ReportDataResult> dataResults = new ArrayList<>();
+		if (StringUtils.isNotBlank(reportCondition.getReportTypeFlag()))
+			switch (reportCondition.getReportTypeFlag()) {
+				case "DYTONHISS":
+					//卒中患者抵达急诊接受NHISS评分的比例
+					dataResults = eDPCReportService.getCzNIHSSRate(reportCondition).getRows();
+					break;
+				case "DYTOCT":
+					//从入院到开始头颅CT时间<25分钟的比例 |  从入院到开始头颅CT时间
+					dataResults = eDPCReportService.getctAvgTime(reportCondition).getRows();
+					break;
+				case "DYTODMQS":
+					//急性缺血性卒中患者，从入院到开始动脉取栓时间
+					dataResults = eDPCReportService.getD2dmqsTime(reportCondition).getRows();
+					break;
+			}
+		if (reportCondition.isClaFlg()) {
+			int tnNumb = 0, patNumb = 0;
+			double rate = 0.0d;
+			for (ReportDataResult reportDataResult : dataResults) {
+				tnNumb = reportDataResult.getTnumb();
+				//有用 total用来计算比例的，还不统一，避免空指针异常做判断
+				patNumb = reportDataResult.getPatNumb()== null?reportDataResult.getTotal():reportDataResult.getPatNumb();
+				if (patNumb > 0) {
+					rate = (double) tnNumb / (double) patNumb * 100;
+					BigDecimal d = new BigDecimal(rate);
+					reportDataResult.setRate(String.valueOf(d.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()) + "%");
+				} else {
+					reportDataResult.setRate("-");
+				}
+			}
+		}
+		// 执行导出
+		excelExportSXXSSF.writeDatasByObjectSy(dataResults);
+		// 输出文件，返回下载文件的http地址，已经包括虚拟目录
+		String webpath = excelExportSXXSSF.exportFile();
+		return ResultUtil.createSubmitResult(ResultUtil.createSuccess(
+				Config.MESSAGE, 914, new Object[]{
+						reportCondition.getFileName(),
+						dataResults.size(),
 						webpath//下载地址
 				}));
 	}

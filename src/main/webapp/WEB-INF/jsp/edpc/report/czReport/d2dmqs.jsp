@@ -23,27 +23,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body class="Overtime">
-	<form id="querymqform" action="report/exportMqAvgSubmit.do"
-		method="post">
+	<form id="querymqform" action="edpcReport/exportExcelSubmit.do"
+		  method="post">
 		<!-- html的静态布局 -->
 		<!-- 查询条件 -->
 		<div class="m-b5">
 			<div class="m-t10 div_h">
 				<ul class="querylist-ul form_hc">
 					<li><input type="text" class="input-base short-right Wdate"
-						id="emg_startdate" name="startdate"
-						onfocus="new WdatePicker({dateFmt:'yyyy/MM'})"> 至 <input
-						type="text" class="input-base short-right Wdate" id="emg_enddate"
-						name="enddate" onfocus="new WdatePicker({dateFmt:'yyyy/MM'})" />
+							   id="emg_startdate" name="startDate"
+							   onfocus="new WdatePicker({dateFmt:'yyyy/MM'})"> 至 <input
+							type="text" class="input-base short-right Wdate" id="emg_enddate"
+							name="endDate" onfocus="new WdatePicker({dateFmt:'yyyy/MM'})" />
 						<span class="f-left">&nbsp;查询时间：</span></li>
 					<li class="queryuser-btn m-l5">
 						<a class="easyui-linkbutton" iconCls="icon-search" id="btn"
-							onclick="medianquery()">查询</a>
+						   onclick="medianquery()">查询</a>
 					</li>
 				</ul>
 				<div class="c"></div>
 			</div>
 		</div>
+		<input type="hidden" name="fileName" value="急性缺血性卒中患者，从入院到开始动脉取栓时间">
+		<input type="hidden" name="reportTypeFlag" value="DYTODMQS">
+		<%--		<input type="hidden" name="claFlg" value="true">--%>
 	</form>
 	<div class="chart_grp chartbox">
 		<div class="form_cat border-radius box-shadow">
@@ -164,6 +167,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         //加载chart和datagrid
         $(function() {
+			//初始化表单参数
+			setParams()
             var height = $("#tabs", parent.document).height() * 0.75;
             $("#dtoblist").height(height);
             var chartheight = $("#tabs", parent.document).height() * 0.75 - 67;
@@ -309,6 +314,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
 			}
 		}
+	   function setParams(){
+		   let myForm =$("#querymqform");
+		   for (let i = 0; i < columns_v[0].length; i++) {
+			   myForm.append('<input type="hidden" name="fieldNames" value="'+columns_v[0][i].title+'">')
+			   myForm.append('<input type="hidden" name="fieldCodes" value="'+columns_v[0][i].field+'">');
+		   }
+	   }
 	</script>
 </body>
 
