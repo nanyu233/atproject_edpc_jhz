@@ -463,49 +463,6 @@ public class CzServiceImpl implements CzService{
 		Map<String, Object> sysdata = new HashMap<String, Object>();
 		List<HspCzzlInfCustom> list = hspCzzlInfMapperCustom.getCzTimeline(emgSeq);
 		
-		HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(emgSeq);
-		// 根据hspEmgInf 是否是null 判断是分诊的病人还是 hsp_xt_add 的病人
-		AidPatient aidPatient = null;
-		if(hspEmgInf!=null) {
-			if(hspEmgInf.getEmgDat() != null){
-				HspCzzlInfCustom fbsj = new HspCzzlInfCustom();
-				fbsj.setEmgNo(emgSeq);
-				fbsj.setProName("到达大门时间");
-				fbsj.setProCode(ProCode.DDDMSJ);
-				fbsj.setProVal(DateUtil.formatDateByFormat(hspEmgInf.getEmgDat(), DateUtil.DATETIME_FORMAT) );
-				list.add(fbsj);
-			}
-			// 分诊病人
-			aidPatient = aidPatientMapper.selectByPrimaryKey(hspEmgInf.getPatid());
-		}else {
-			aidPatient = aidPatientMapper.selectByPrimaryKey(emgSeq);
-		}
-		
-		//保险点判断下aidPatient是否为null
-		if(aidPatient!=null) {
-			//发病时间 FBSJ
-			if(aidPatient.getIllTim()!=null) {
-				HspCzzlInfCustom fbsj = new HspCzzlInfCustom();
-				fbsj.setEmgNo(emgSeq);
-				fbsj.setProName("发病时间");
-				fbsj.setProCode(ProCodeDef.FBSJ);
-				fbsj.setProVal(DateUtil.formatDateByFormat(aidPatient.getIllTim(), DateUtil.DATETIME_FORMAT) );
-				list.add(fbsj);
-			}
-			
-			//呼救时间 HJSJ
-			if(aidPatient.getAlmtime()!=null) {
-				HspCzzlInfCustom hjsj = new HspCzzlInfCustom();
-				hjsj.setEmgNo(emgSeq);
-				hjsj.setProName("呼救时间");
-				hjsj.setProCode(ProCodeDef.HJSJ);
-				hjsj.setProVal(DateUtil.formatDateByFormat(aidPatient.getAlmtime(), DateUtil.DATETIME_FORMAT) );
-				list.add(hjsj);
-			}
-		}
-		
-		
-		
 		list.sort(new Comparator<HspCzzlInfCustom>() {
 
 			@Override
@@ -663,6 +620,7 @@ public class CzServiceImpl implements CzService{
 		Map<String,Object> sysdata = new HashMap<String, Object>();
 		//患者信息
 //		HspemginfCustom hspemgInfCustom = hspemginfCustomMapper.findHspemginfCustom(emgSeq);
+		HspDbzlBas hspDbzlBas = hspDbzlBasMapperCustom.selectByPrimaryByEmgSeq(emgSeq);
 		//卒中表信息
 		HspCzzlInfExample czzlExample = new HspCzzlInfExample();
 		HspCzzlInfExample.Criteria czzlCriteria = czzlExample.createCriteria();
@@ -689,6 +647,7 @@ public class CzServiceImpl implements CzService{
 		}
 		
 //		sysdata.put("hspemgInfCustom", hspemgInfCustom);
+		sysdata.put("hspDbzlBas", hspDbzlBas);
 		sysdata.put("czzlList", czzlList);
 		sysdata.put("consultationList", consultationList);
 		sysdata.put("hspConsultationRecordsCustomJr", hspConsultationRecordsCustomJr);

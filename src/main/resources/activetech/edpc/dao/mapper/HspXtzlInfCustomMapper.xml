@@ -116,6 +116,7 @@
     where inf.pro_code = def.pro_code
       and inf.emg_no = #{emgSeq, jdbcType = VARCHAR}
       and def.pro_type = 'datetime'
+      and inf.pro_val is not null
       and def.key_time in ('1', '2')
     order by inf.pro_val asc, def.fld_sort asc
   </select>

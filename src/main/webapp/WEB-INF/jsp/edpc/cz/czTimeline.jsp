@@ -84,11 +84,11 @@
             <div class="basic-info">
                 <span class="item">姓名：<span class="name">{{info.cstNam}}</span></span>
                 <span class="item">年龄：<span class="value">{{info.cstAge}}岁</span></span>
-                <span class="item">性别：<span class="value">{{info.cstSexCod}}</span></span>
-                <span class="item">住院号：<span class="value"></span></span>
-                <span class="item">门诊号：<span class="value"></span></span>
-                <span class="item">呼救时间：<span class="value"></span></span>
-                <span class="item">诊断：<span class="value"></span></span>
+                <span class="item">性别：<span class="value">{{info.cstSexCod == 0 ? '男' : '女'}}</span></span>
+                <span class="item">住院号：<span class="value">{{info.zyxh}}</span></span>
+                <span class="item">门诊号：<span class="value">{{info.jzxh}}</span></span>
+<%--                <span class="item">呼救时间：<span class="value"></span></span>--%>
+                <span class="item">诊断：<span class="value">{{info.cbzd}}</span></span>
             </div>
             <table style='text-align:left;margin: 20px;' border='0' cellspacing='0' cellpadding='0'>
                 <tr>
@@ -419,9 +419,24 @@
                 emgSeq: "${emgSeq}"
             }),
             success: function (res) {
-                if(res.resultInfo.sysdata.hspemgInfCustom){
-                    vm.info = res.resultInfo.sysdata.hspemgInfCustom;
+                var czList = {};
+                var basList = {};
+                if(res.resultInfo.sysdata.czzlList){
+                    czList = res.resultInfo.sysdata.czzlList
                 }
+                if(res.resultInfo.sysdata.hspDbzlBas){
+                    basList = res.resultInfo.sysdata.hspDbzlBas;
+                }
+                for(var i = 0; i < czList.length; i++){
+                    // if(czList[i].proCode === 'HJSJ'){
+                    //     basList.hjsj = czList[i].proVal;
+                    // }
+                    if(czList[i].proCode === 'CBZD'){
+                        var czCbzdCodList = publicFun.getItem("allDict").CZ_CBZD_COD;
+                        basList.cbzd = publicFun.codingEscape(czCbzdCodList, czList[i].proVal);
+                    }
+                }
+                vm.info = basList;
             }
         });
     }
