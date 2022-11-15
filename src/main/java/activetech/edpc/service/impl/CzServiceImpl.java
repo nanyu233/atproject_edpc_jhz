@@ -462,47 +462,7 @@ public class CzServiceImpl implements CzService{
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
 		List<HspCzzlInfCustom> list = hspCzzlInfMapperCustom.getCzTimeline(emgSeq);
-		
-		list.sort(new Comparator<HspCzzlInfCustom>() {
-
-			@Override
-			public int compare(HspCzzlInfCustom o1, HspCzzlInfCustom o2) {
-
-				// 数据库保存有2种格式的时间字符串，要排序，坑爹啊
-				SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-				
-				String dateString1 = o1.getProVal();
-				String dateString2 = o2.getProVal();
-				Date date1 = null;
-				Date date2 = null;
-				try {
-					date1 = format1.parse(dateString1);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					try {
-						date1 = format2.parse(dateString1);
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-				try {
-					date2 = format1.parse(dateString2);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					try {
-						date2 = format2.parse(dateString2);
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-				
-				
-				return date1.compareTo(date2);
-			}
-		});
+		list.sort(Comparator.comparing(HspCzzlInfCustom::getProVal));
 		sysdata.put("czTimeline", list);
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
