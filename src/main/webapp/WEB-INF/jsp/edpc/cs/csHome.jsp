@@ -21,6 +21,7 @@
 
     <script type="text/javascript" src="lib/easyui1.3/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="lib/easyui1.3/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="lib/easyui1.3/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="lib/moment.min.js" charset="UTF-8"></script>
     <script type="text/javascript" src="lib/raphael-min.js"></script>
     <script type="text/javascript" src="lib/avalon1.4.8/avalon.js"></script>
@@ -30,6 +31,11 @@
     <%--    <script type="text/javascript" src="lib/highcharts5.0.7/code/solid-gauge.js"></script>--%>
     <script type="text/javascript" src="lib/highcharts5.0.7/code/highcharts-zh_CN.js"></script>
     <script type="text/javascript" src="js/websocket/reconnecting-websocket.min.js"></script>
+    <style type="text/css">
+        #pp .pagination-page-list {
+            width: 45px;
+        }
+    </style>
 </head>
 <body ms-controller="cs" style="background: #eee;overflow: hidden">
 <div id="win">
@@ -1188,6 +1194,7 @@
                     <span>{{el.sbpUpNbr}}/{{el.sbpDownNbr}}</span>
                 </div>
             </li>
+            <div id="pp" style="background:#efefef;border:1px solid #ccc;position: fixed;bottom: 0;"></div>
         </ul>
         <div class="no-patient" ms-if="!patientList.length">暂无相关病人数据</div>
     </div>
@@ -1470,6 +1477,11 @@
         $id: 'cs',
         tabs: ['ABCDE', 'AMPLE', 'CRASHPLAN', '辅助检查', 'MDT', 'SBAR'],
         currTab: 0,
+        pageInfo: {
+            total: 0,
+            pageNumber: 1, //当前页
+            pageSize: 5 //当前页数量
+        },
         bdData: {
             p1: false,//是否展示头面部信息
             p2: false,//是否展示颈部信息
@@ -2296,9 +2308,13 @@
     function getPatients() {
         publicFun.httpServ('post', '${baseurl}cs/getCsPatientInfoList.do', {
             cstNam: vm.searchKey,
-            bhls: vm.showHis
+            bhls: vm.showHis,
+            page: vm.pageInfo.pageNumber,
+            rows: vm.pageInfo.pageSize
         }, function (res) {
-            var list = res.resultInfo.sysdata.list;
+            var list = res.rows;
+            vm.pageInfo.total = res.total
+            setPagination()
             if (list && list.length) {
                 for (var i = 0; i < list.length; i++) {
                     list[i].emgDatStr = publicFun.timeFormat(list[i].emgDat, 'yyyy/MM/dd hh:mm') || '日期暂无';//格式化预检时间
@@ -2889,6 +2905,23 @@
             }
         });
     });
-
+    //分页
+    function setPagination() {
+        $('#pp').pagination({
+            total:vm.pageInfo.total,
+            pageSize:vm.pageInfo.pageSize,
+            loading: true,
+            pageNumber: vm.pageInfo.pageNumber,
+            pageList: [5,10,15],
+            onSelectPage:function(pageNumber, pageSize){
+                $(this).pagination('loading');
+                vm.pageInfo.pageNumber = pageNumber
+                vm.pageInfo.pageSize = pageSize
+                getPatients()
+                $(this).pagination('loaded');
+            },
+        });
+        $('#pp').pagination('loaded');
+    }
 </script>
 </html>

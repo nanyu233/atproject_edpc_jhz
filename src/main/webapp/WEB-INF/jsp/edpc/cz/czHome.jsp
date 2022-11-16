@@ -20,6 +20,7 @@
     <script type="text/javascript" src="lib/raphael-min.js"></script>
     <script type="text/javascript" src="lib/avalon1.4.8/avalon.js"></script>
     <script type="text/javascript" src="js/public.js"></script>
+    <script type="text/javascript" src="lib/easyui1.3/locale/easyui-lang-zh_CN.js"></script>
     <style>
         .filePart {
             position: absolute;
@@ -72,6 +73,10 @@
             display: inline-block;
             color: #FFCC00;
             vertical-align: top;
+        }
+
+        #pp .pagination-page-list {
+            width: 45px;
         }
     </style>
 </head>
@@ -188,6 +193,7 @@
                     <span>{{el.xuey}}</span><%--{{el.sbpUpNbr}}/{{el.sbpDownNbr}}--%>
                 </div>
             </li>
+            <div id="pp" style="background:#efefef;border:1px solid #ccc;position: fixed;bottom: 0;"></div>
         </ul>
         <div ms-if="!patientList.length" class="no-patient">暂无相关病人数据</div>
     </div>
@@ -239,7 +245,11 @@
         },
         showHis: false, //是否包含历史
         searchKey: '', //搜索框输入内容
-
+        pageInfo: {
+            total: 0,
+            pageNumber: 1, //当前页
+            pageSize: 5 //当前页数量
+        },
         // "包含历史"的按钮点击事件
         showHisToggle: function() {
             fishPool.showHis = !fishPool.showHis;
@@ -465,9 +475,12 @@
     function getPatientList() {
         publicFun.httpServ('post', 'cz/getCzPatientInfoList.do', {
             cstNam: fishPool.searchKey,
-            bhls: fishPool.showHis
+            bhls: fishPool.showHis,
+            page: fishPool.pageInfo.pageNumber,
+            rows: fishPool.pageInfo.pageSize
         }, function(res) {
-            var list = res.resultInfo.sysdata.list;
+            var list = res.rows;
+            fishPool.pageInfo.total = res.total
             if (list && list.length) {
                 for (var i = 0; i < list.length; i++) {
                     list[i].emgDatStr = publicFun.timeFormat(list[i].emgDat, 'yyyy-MM-dd hh:mm'); //格式化预检时间
@@ -475,6 +488,7 @@
                 }
                 fishPool.patientList = list;
                 clickPatient(list[0]);
+                setPagination()
             } else {
                 fishPool.patientList = [];
                 //停止倒计时
@@ -1354,7 +1368,24 @@
         // LODOP.SET_PRINT_MODE("DOUBLE_SIDED_PRINT", true);
         LODOP.PREVIEW();
     }
-
+    //分页
+    function setPagination() {
+        $('#pp').pagination({
+            total:fishPool.pageInfo.total,
+            pageSize:fishPool.pageInfo.pageSize,
+            loading: true,
+            pageNumber: fishPool.pageInfo.pageNumber,
+            pageList: [5,10,15],
+            onSelectPage:function(pageNumber, pageSize){
+                $(this).pagination('loading');
+                fishPool.pageInfo.pageNumber = pageNumber
+                fishPool.pageInfo.pageSize = pageSize
+                getPatientList()
+                $(this).pagination('loaded');
+            },
+        });
+        $('#pp').pagination('loaded');
+    }
     $(function() {
         initWebSocket();
         drawFlow();

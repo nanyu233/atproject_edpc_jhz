@@ -540,6 +540,7 @@
         }, function (res) {
             var list = res.rows;
             vm.pageInfo.total = res.total
+            setPagination()
             if (list && list.length) {
                 for (var i = 0; i < list.length; i++) {
                     list[i].emgDatStr = publicFun.timeFormat(list[i].regTim, 'yyyy/MM/dd hh:mm');//格式化预检时间
@@ -555,7 +556,6 @@
                     //左侧流程图立即渲染右侧列表的第一个病人的数据
                     vm.clickPatient(list[0]);
                 }
-                setPagination()
             }else {
                 vm.patientList = [];
                 vm.patientGreenNodes = [];
