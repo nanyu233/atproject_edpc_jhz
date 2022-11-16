@@ -42,7 +42,7 @@
 	</bean>
 	
 	<!-- 健康教育service -->
-	<bean id="hspHealthEducateService" class="activetech.hospital.service.impl.HspHealthEducateServiceImpl"/>
+<!--	<bean id="hspHealthEducateService" class="activetech.hospital.service.impl.HspHealthEducateServiceImpl"/>-->
 	
 	<!-- 收藏夹service -->
 	<bean id="hspFavoriteInfService" class="activetech.hospital.service.impl.HspFavoriteInfServiceImpl"/>

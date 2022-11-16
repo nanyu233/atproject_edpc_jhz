@@ -39,15 +39,11 @@ import activetech.zyyhospital.pojo.dto.HspDocadviceInfCustom;
 import activetech.zyyhospital.pojo.dto.HspJjbjlInfCustom;
 import activetech.zyyhospital.pojo.dto.HspLqblInfCustom;
 import activetech.zyyhospital.pojo.dto.HspLqbljlQueryDto;
-import activetech.zyyhospital.pojo.dto.HspModelInfCustom;
-import activetech.zyyhospital.pojo.dto.HspModelInfQueryDto;
-import activetech.zyyhospital.pojo.dto.HspModelcontInfCustom;
 import activetech.zyyhospital.pojo.dto.HspObsvtfstInfCustom;
 import activetech.zyyhospital.pojo.dto.HspOperateInfCustom;
 import activetech.zyyhospital.pojo.dto.HspOperateInfQueryDto;
 import activetech.zyyhospital.pojo.dto.HspQjjlInfCustom;
 import activetech.zyyhospital.service.HspBasyInfService;
-import activetech.zyyhospital.service.HspModelInfService;
 import activetech.zyyhospital.service.ZyyHspemginfService;
 import activetech.zyyhospital.service.ZyyLqblService;
 import sun.misc.BASE64Encoder;
@@ -59,8 +55,8 @@ public class ZyyLqblAction {
 	private ZyyHspemginfService zyyHspemginfService;
 	@Autowired
 	private ZyyLqblService zyyLqblService;
-	@Autowired
-	private HspModelInfService hspModelInfService;
+//	@Autowired
+//	private HspModelInfService hspModelInfService;
 	@Autowired
 	private HspsqlinfService hspsqlinfService;
 	@Autowired
@@ -679,12 +675,12 @@ public class ZyyLqblAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/querydocadvicelist")
-	public @ResponseBody List<HspModelInfCustom> querydocadvicelist()throws Exception{
-		String modelContent="1";
-		List<HspModelInfCustom> list=hspModelInfService.finddocadviceList(modelContent);
-		return list;
-	}
+//	@RequestMapping("/querydocadvicelist")
+//	public @ResponseBody List<HspModelInfCustom> querydocadvicelist()throws Exception{
+//		String modelContent="1";
+//		List<HspModelInfCustom> list=hspModelInfService.finddocadviceList(modelContent);
+//		return list;
+//	}
 	
 	/**
 	 * 医嘱信息根据大类获取内容
@@ -692,19 +688,19 @@ public class ZyyLqblAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/querydocadviceconlist")
-	public @ResponseBody DataGridResultInfo querydocadviceconlist(HspModelInfQueryDto hspModelInfQueryDto)throws Exception{
-		hspModelInfQueryDto=hspModelInfQueryDto!=null?hspModelInfQueryDto:new HspModelInfQueryDto();
-		
-		int total=hspModelInfService.finddocadviceconListallCount(hspModelInfQueryDto);
-		List<HspModelcontInfCustom> list=hspModelInfService.finddocadviceconallList(hspModelInfQueryDto);
-		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		//填充total
-		dataGridResultInfo.setTotal(total);
-		//填充rows
-		dataGridResultInfo.setRows(list);
-		return dataGridResultInfo;
-	}
+//	@RequestMapping("/querydocadviceconlist")
+//	public @ResponseBody DataGridResultInfo querydocadviceconlist(HspModelInfQueryDto hspModelInfQueryDto)throws Exception{
+//		hspModelInfQueryDto=hspModelInfQueryDto!=null?hspModelInfQueryDto:new HspModelInfQueryDto();
+//
+//		int total=hspModelInfService.finddocadviceconListallCount(hspModelInfQueryDto);
+//		List<HspModelcontInfCustom> list=hspModelInfService.finddocadviceconallList(hspModelInfQueryDto);
+//		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+//		//填充total
+//		dataGridResultInfo.setTotal(total);
+//		//填充rows
+//		dataGridResultInfo.setRows(list);
+//		return dataGridResultInfo;
+//	}
 	
 	/**
 	 * 跳转医嘱信息修改

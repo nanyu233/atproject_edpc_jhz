@@ -307,18 +307,18 @@ public class HisAction {
 	
 	/////////////////////////////////收费信息//////////////////////////////////////
 
-	@RequestMapping(value = "/sfjl")
-	public String getSfjlList(String vstCad, Date emgDat, Model model,
-			String emgSeq) {
-		model.addAttribute("vstCad", vstCad);
-		model.addAttribute("emgSeq", emgSeq);
-		model.addAttribute("emgDat",
-				DateUtil.formatDateByFormat(emgDat, "yyyy/MM/dd"));
-		
-		HspemginfCustom  hspemginfCustom = baseHspemgInfService.findHspemginfCustom(emgSeq);
-		model.addAttribute("cyrqDat",DateUtil.formatDateByFormat(hspemginfCustom.getSqlDate(), "yyyy/MM/dd"));
-		return "/hzszyyhospital/hzszyynurse/his/sfjl";
-	}
+//	@RequestMapping(value = "/sfjl")
+//	public String getSfjlList(String vstCad, Date emgDat, Model model,
+//			String emgSeq) {
+//		model.addAttribute("vstCad", vstCad);
+//		model.addAttribute("emgSeq", emgSeq);
+//		model.addAttribute("emgDat",
+//				DateUtil.formatDateByFormat(emgDat, "yyyy/MM/dd"));
+//
+//		HspemginfCustom  hspemginfCustom = baseHspemgInfService.findHspemginfCustom(emgSeq);
+//		model.addAttribute("cyrqDat",DateUtil.formatDateByFormat(hspemginfCustom.getSqlDate(), "yyyy/MM/dd"));
+//		return "/hzszyyhospital/hzszyynurse/his/sfjl";
+//	}
 	
 	/**
 	 * 查询患者收费信息-HIS

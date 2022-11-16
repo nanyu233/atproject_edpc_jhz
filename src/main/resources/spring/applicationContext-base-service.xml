@@ -36,7 +36,7 @@
 	<!-- 用户调配Service -->
 	<bean id="usrtrainfService" class="activetech.base.service.impl.UsrtrainfServiceImpl"/>
 	<!-- 物资维护Service -->
-	<bean id="ksjhService" class="activetech.base.service.impl.KsjhServiceImpl"/>
+<!--	<bean id="ksjhService" class="activetech.base.service.impl.KsjhServiceImpl"/>-->
 	<!-- 首页Service -->
 	<bean id="firstService" class="activetech.base.service.impl.FirstServiceImpl"/>
 	<!--初步印象管理-->

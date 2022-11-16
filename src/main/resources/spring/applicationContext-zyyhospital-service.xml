@@ -35,10 +35,10 @@
 	<bean id="hspBedInfService" class="activetech.zyyhospital.service.impl.HspBedInfServiceImpl" />
 	
 	<!-- 中医院报表zyyHspreport -->
-	<bean id="zyyHspreportService" class="activetech.zyyhospital.service.impl.ZyyHspreportServiceImpl" />
+<!--	<bean id="zyyHspreportService" class="activetech.zyyhospital.service.impl.ZyyHspreportServiceImpl" />-->
 	
 	<!-- 模板导入 -->
-	<bean id="hspModelInfService" class="activetech.zyyhospital.service.impl.HspModelInfServiceImpl" />
+<!--	<bean id="hspModelInfService" class="activetech.zyyhospital.service.impl.HspModelInfServiceImpl" />-->
 	
 	<!-- 抢救室 -->
 	<bean id="zyyHspQjsInfServiceB" class="activetech.zyyhospital.service.impl.ZyyHspQjsInfServiceImpl" />
@@ -89,7 +89,7 @@
 	<bean id="hspGlcsService" class="activetech.zyyhospital.service.impl.ZyyGlcsServiceImpl" />
 	
 	<!-- 群体事件管理 -->
-	<bean id="hspQtsjglService" class="activetech.zyyhospital.service.impl.HspQtsjglServiceImpl" />
+<!--	<bean id="hspQtsjglService" class="activetech.zyyhospital.service.impl.HspQtsjglServiceImpl" />-->
 	
 	<!-- 急诊门诊 -->
 	<bean id="zyyHspJzmzInfService" class="activetech.zyyhospital.service.impl.ZyyHspJzmzInfServiceImpl" />
@@ -107,7 +107,7 @@
 	<bean id="icuVsDefService" class="activetech.zyyhospital.service.impl.IcuVsDefServiceImpl" />
 	
 	<!-- 事件提醒  -->
-	<bean id="IcuErInfoService" class="activetech.zyyhospital.service.impl.IcuErInfoServiceImpl" />
+<!--	<bean id="IcuErInfoService" class="activetech.zyyhospital.service.impl.IcuErInfoServiceImpl" />-->
 	
 	<!--急诊创伤入院评估表 -->
 	<bean id="hspJzcspgInfService" class="activetech.zyyhospital.service.impl.HspJzcspgInfServiceImpl" />
