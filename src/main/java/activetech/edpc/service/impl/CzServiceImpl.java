@@ -3,16 +3,13 @@ package activetech.edpc.service.impl;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import activetech.base.service.SystemConfigService;
 import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.*;
 import activetech.edpc.pojo.dto.*;
+import activetech.util.UUIDBuild;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -127,6 +124,9 @@ public class CzServiceImpl implements CzService{
 
 	@Autowired
 	private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
+
+	@Autowired
+	private SystemConfigService systemConfigService;
 
 
 	@Autowired
@@ -806,5 +806,54 @@ public class CzServiceImpl implements CzService{
 	@Override
 	public List<HspDbzlBasCustom> getCzPatientInfoListByPage(QueryDto queryDto) {
 		return hspCzzlInfMapperCustom.getCzPatientInfoListForDbzlBas(queryDto);
+	}
+
+	@Override
+	public ResultInfo judgeNewPatient(String emgSeq){
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		HspDbzlBasCustom hspDbzlBasCustom=hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq);
+		Map<String, Object> sysdata = new HashMap<String, Object>();
+		sysdata.put("hspDbzlBasCustom",hspDbzlBasCustom);
+		resultInfo.setSysdata(sysdata);
+		return resultInfo;
+	}
+
+	@Override
+	public ResultInfo addNewPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser) {
+
+//		String resultJson=HttpClientUtil.doPostJson("http://localhost:8100/emis/sysIntergrating/receiveVHemsJyjg.do", emgSeq);
+//		if(StringUtils.isNotNullAndEmptyByTrim(resultJson)){
+//			HspDbzlBasCustom hspDbzlBasCustom=JSON.parseObject(resultJson,HspDbzlBasCustom.class);
+//			}
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		Map<String, Object> sysdata = new HashMap<String, Object>();
+		if(Objects.nonNull(hspDbzlBasQueryDto)) {
+			HspDbzlBasCustom hspDbzlBasCustom = hspDbzlBasQueryDto.getHspDbzlBasCustom();
+			HspDbzlBasCustom dbzl = hspDbzlBasMapperCustom.selectByEmgSeq(hspDbzlBasCustom.getEmgSeq());
+			if(Objects.nonNull(dbzl)){
+				dbzl.setModNo(activeUser.getUsrno());
+				dbzl.setModNam(activeUser.getUsrname());
+				dbzl.setModTim(new Date());
+				dbzl.setCstNam(hspDbzlBasCustom.getCstNam());
+				dbzl.setCstSexCod(hspDbzlBasCustom.getCstSexCod());
+				dbzl.setCstAge(hspDbzlBasCustom.getCstAge());
+				hspDbzlBasMapper.updateByPrimaryKey(dbzl);
+			}else{
+				String regseq=systemConfigService.findSequences("HSP_DBZL_BAS_REG_SEQ", "8", null);
+				hspDbzlBasCustom.setRegSeq(regseq);
+				hspDbzlBasCustom.setCrtNam(activeUser.getUsrname());
+				hspDbzlBasCustom.setCrtNo(activeUser.getUsrno());
+				hspDbzlBasCustom.setCrtTim(new Date());
+				hspDbzlBasCustom.setPatTyp("2");
+				hspDbzlBasCustom.setWayTyp("2");
+				hspDbzlBasCustom.setSwChl("0");
+				hspDbzlBasCustom.setGrnChl("0");
+				HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(hspDbzlBasCustom.getEmgSeq());
+				hspDbzlBasCustom.setRegTim(hspEmgInf.getEmgDat());
+				hspDbzlBasMapper.insert(hspDbzlBasCustom);
+			}
+		}
+
+		return resultInfo;
 	}
 }

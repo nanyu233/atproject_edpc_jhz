@@ -49,12 +49,30 @@
 
                     .form .search-btn {
                         cursor: pointer;
+                        position: absolute;
+                        top: 10px;
+                        right: 160px;
                         width: 140px;
                         border-radius: 5px;
                         color: #fff;
                         background-color: #428bca;
                         border-color: #357ebd;
-                        height: 32px;
+                        text-align: center;
+                        line-height: 32px;
+
+                    }
+                    .form .add-btn{
+                        cursor: pointer;
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        width: 140px;
+                        border-radius: 5px;
+                        color: #fff;
+                        background-color: #428bca;
+                        border-color: #357ebd;
+                        text-align: center;
+                        line-height: 32px;
 
                     }
 
@@ -122,8 +140,8 @@
                             诊断医生：
                             <input type="text" placeholder="请输入姓名" ms-duplex-string="searchParam.zdys">
                         </span>
-                        <input type="button" class="search-btn" onclick="search()" value="查询">
-
+                        <div class="search-btn" onclick="search()">查询</div>
+                        <div class="add-btn" onclick="addNewPatient()">新增患者</div>
                     </div>
                 </div>
                 <table id="cztable"></table>
@@ -164,6 +182,9 @@
                     queryParams['endDate'] = vm.searchParam.enddate;
                     $("#cztable").datagrid('reload');
                     console.log( vm.searchParam.cstNam,vm.searchParam.zd, vm.searchParam.zdys, queryParams['startdate'],queryParams['enddate'])
+                }
+                function addNewPatient(){
+                    createmodalwindow("新增院内/绕行发病患者", 430, 300, '${baseurl}cz/toadd.do', 'no');
                 }
 
                 function toCzTimeline(emgSeq, cstNam, wayTyp, regSeq) {

@@ -17,5 +17,9 @@ public interface HspDbzlBasMapperCustom {
 
     int countByCondition(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 
-    HspDbzlBas selectByPrimaryByEmgSeq(String emgNo);
+    public HspDbzlBas selectByPrimaryByEmgSeq(String emgNo);
+
+    public HspDbzlBasCustom selectByEmgSeq(String emgSeq);
+
+//    public int addNewPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 }

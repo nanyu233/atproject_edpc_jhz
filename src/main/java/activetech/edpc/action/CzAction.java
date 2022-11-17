@@ -364,4 +364,37 @@ public class CzAction {
 		
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
+
+	/**
+	 *跳转新增院内/绕行发病患者页面
+	 * @return
+	 */
+	@RequestMapping("/toadd")
+	public String toadd(String emgSeq,String wayTyp,Model model){
+		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("wayTyp", wayTyp);
+		return View.toEDPC("/cz/addNewPatient");
+	}
+
+	/**
+	 * 查询新增院内发病患者
+	 */
+	@RequestMapping("/judgeNewPatient")
+	@ResponseBody
+	public SubmitResultInfo judgeNewPatient(@RequestBody(required = false) String emgSeq){
+
+		ResultInfo resultInfo = czService.judgeNewPatient(emgSeq);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
+	/**
+	 * 新增院内发病患者
+	 */
+	@RequestMapping("/addNewPatient")
+	@ResponseBody
+	public SubmitResultInfo addNewPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser){
+
+		ResultInfo resultInfo = czService.addNewPatient(hspDbzlBasQueryDto,activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
 }

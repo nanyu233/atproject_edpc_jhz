@@ -7,6 +7,7 @@ import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.domain.HspGraceInf;
 import activetech.edpc.pojo.domain.HspXtzlInf;
 import activetech.edpc.pojo.dto.*;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 
@@ -44,6 +45,21 @@ public interface XtService {
 	 * @return
 	 */
 	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows);
+
+	/**
+	 * 查询新增院内发病患者
+	 * @param emgSeq
+	 * @return
+	 */
+	public ResultInfo judgeNewPatient(String emgSeq);
+
+	/**
+	 * 新增院内发病患者
+	 * @param hspDbzlBasQueryDto
+	 * @return
+	 */
+	public ResultInfo addNewPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser);
+
 
 	/**
 	 * 胸痛登记页面提交

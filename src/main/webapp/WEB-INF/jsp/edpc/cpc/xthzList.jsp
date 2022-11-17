@@ -79,6 +79,21 @@
         }
 
         .row .search-btn {
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 160px;
+            width: 140px;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #428bca;
+            border-color: #357ebd;
+            height: 32px;
+            text-align: center;
+            line-height: 32px;
+        }
+        .row .add-btn {
+            cursor: pointer;
             position: absolute;
             top: 10px;
             right: 10px;
@@ -134,6 +149,7 @@
 <div class="form">
     <div class="row">
         <div class="search-btn" onclick="search()">查询</div>
+        <div class="add-btn" onclick="addNewPatient()">新增患者</div>
     </div>
     <div class="row">
         <div class="form-item">
@@ -243,6 +259,9 @@
         queryParams['startDate'] = vm.condition.startDate;
         queryParams['endDate'] = vm.condition.endDate;
         $("#dg").datagrid('reload');
+    }
+    function addNewPatient(){
+        createmodalwindow("新增院内/绕行发病患者", 430, 300, '${baseurl}cpc/toadd.do', 'no');
     }
 
    

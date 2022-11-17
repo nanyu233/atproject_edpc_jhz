@@ -110,4 +110,20 @@
         where
         emg_seq = #{emgSeq,jdbcType = VARCHAR}
     </select>
+
+    <select id="selectByEmgSeq" resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom"
+            parameterType="java.lang.String">
+        select *
+        from hsp_dbzl_bas a
+        where
+          a.reg_seq = #{emgSeq,jdbcType=VARCHAR}
+           or a.cst_nam = #{emgSeq,jdbcType=VARCHAR}
+           or a.phe_nbr = #{emgSeq,jdbcType=VARCHAR}
+           or a.id_nbr = #{emgSeq,jdbcType=VARCHAR}
+           or a.emg_seq = #{emgSeq,jdbcType=VARCHAR}
+    </select>
+
+<!--    <insert id="addNewPatient" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto">-->
+<!--        insert -->
+<!--    </insert>-->
 </mapper>

@@ -168,6 +168,17 @@ public class XtAction {
 		model.addAttribute("wayTyp", wayTyp);
 		return View.toEDPC("/cpc/csyw");
 	}
+
+	/**
+	 *跳转新增院内/绕行发病患者页面
+	 * @return
+	 */
+	@RequestMapping("/toadd")
+	public String toadd(String emgSeq,String wayTyp,Model model){
+		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("wayTyp", wayTyp);
+		return View.toEDPC("/cpc/addNewPatient");
+	}
 	
 	
 	/**
@@ -473,7 +484,27 @@ public class XtAction {
 		DataGridResultInfo dataGridResultInfo = xtService.getXtPatientList(hspDbzlBasQueryDto, page, rows);
 		return dataGridResultInfo;
 	}
+	/**
+	 * 查询新增院内发病患者
+	 */
+	@RequestMapping("/judgeNewPatient")
+	@ResponseBody
+	public SubmitResultInfo judgeNewPatient(@RequestBody(required = false) String emgSeq){
 
+		ResultInfo resultInfo = xtService.judgeNewPatient(emgSeq);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
+	/**
+	 * 新增院内发病患者
+	 */
+	@RequestMapping("/addNewPatient")
+	@ResponseBody
+	public SubmitResultInfo addNewPatient( HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser){
+
+		ResultInfo resultInfo = xtService.addNewPatient(hspDbzlBasQueryDto,activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
 	
 	/**
 	 * 获取诊疗时间线

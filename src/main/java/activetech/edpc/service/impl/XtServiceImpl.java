@@ -15,6 +15,7 @@ import activetech.base.process.context.Config;
 import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
+import activetech.base.service.SystemConfigService;
 import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.*;
 import activetech.edpc.pojo.dto.*;
@@ -31,6 +32,7 @@ import activetech.hospital.pojo.domain.HspEmgInf;
 import activetech.hospital.pojo.domain.HspMewsInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.util.DateUtil;
+import activetech.util.HttpClientUtil;
 import activetech.websocket.action.WebSocketXT;
 import activetech.zyyhospital.dao.mapper.HspConsultationRecordsMapper;
 import activetech.zyyhospital.pojo.domain.HspConsultationRecords;
@@ -125,7 +127,11 @@ public class XtServiceImpl implements XtService{
 
 	@Autowired
 	private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
-	
+
+	@Autowired
+	private SystemConfigService systemConfigService;
+
+
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
 		ResultInfo resultInfo = null;
@@ -452,6 +458,55 @@ public class XtServiceImpl implements XtService{
 		dataGridResultInfo.setRows(list);
 		dataGridResultInfo.setTotal(total);
 		return dataGridResultInfo;
+	}
+
+	@Override
+	public ResultInfo judgeNewPatient(String emgSeq){
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		HspDbzlBasCustom hspDbzlBasCustom=hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq);
+		Map<String, Object> sysdata = new HashMap<String, Object>();
+		sysdata.put("hspDbzlBasCustom",hspDbzlBasCustom);
+		resultInfo.setSysdata(sysdata);
+		return resultInfo;
+	}
+
+	@Override
+	public ResultInfo addNewPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser) {
+
+//		String resultJson=HttpClientUtil.doPostJson("http://localhost:8100/emis/sysIntergrating/receiveVHemsJyjg.do", emgSeq);
+//		if(StringUtils.isNotNullAndEmptyByTrim(resultJson)){
+//			HspDbzlBasCustom hspDbzlBasCustom=JSON.parseObject(resultJson,HspDbzlBasCustom.class);
+//			}
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		Map<String, Object> sysdata = new HashMap<String, Object>();
+		if(Objects.nonNull(hspDbzlBasQueryDto)) {
+			HspDbzlBasCustom hspDbzlBasCustom = hspDbzlBasQueryDto.getHspDbzlBasCustom();
+			HspDbzlBasCustom dbzl = hspDbzlBasMapperCustom.selectByEmgSeq(hspDbzlBasCustom.getEmgSeq());
+			if(Objects.nonNull(dbzl)){
+				dbzl.setModNo(activeUser.getUsrno());
+				dbzl.setModNam(activeUser.getUsrname());
+				dbzl.setModTim(new Date());
+				dbzl.setCstNam(hspDbzlBasCustom.getCstNam());
+				dbzl.setCstSexCod(hspDbzlBasCustom.getCstSexCod());
+				dbzl.setCstAge(hspDbzlBasCustom.getCstAge());
+				hspDbzlBasMapper.updateByPrimaryKey(dbzl);
+			}else{
+				String regseq=systemConfigService.findSequences("HSP_DBZL_BAS_REG_SEQ", "8", null);
+				hspDbzlBasCustom.setRegSeq(regseq);
+				hspDbzlBasCustom.setCrtNam(activeUser.getUsrname());
+				hspDbzlBasCustom.setCrtNo(activeUser.getUsrno());
+				hspDbzlBasCustom.setCrtTim(new Date());
+				hspDbzlBasCustom.setPatTyp("1");
+				hspDbzlBasCustom.setWayTyp("2");
+				hspDbzlBasCustom.setSwChl("0");
+				hspDbzlBasCustom.setGrnChl("0");
+				HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(hspDbzlBasCustom.getEmgSeq());
+				hspDbzlBasCustom.setRegTim(hspEmgInf.getEmgDat());
+				hspDbzlBasMapper.insert(hspDbzlBasCustom);
+			}
+		}
+
+		return resultInfo;
 	}
 	
 	@Override

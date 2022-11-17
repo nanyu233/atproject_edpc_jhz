@@ -71,4 +71,8 @@ public interface CzService {
     int getCzPatientInfoListCount(QueryDto queryDto);
 
 	List<HspDbzlBasCustom> getCzPatientInfoListByPage(QueryDto queryDto);
+
+    public ResultInfo judgeNewPatient(String emgSeq);
+
+	public ResultInfo addNewPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser);
 }
