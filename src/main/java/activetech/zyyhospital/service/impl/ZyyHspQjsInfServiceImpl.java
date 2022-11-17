@@ -1,17 +1,5 @@
 package activetech.zyyhospital.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.tongji.ReportService;
-
 import activetech.basehems.service.BaseHspemgInfService;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
 import activetech.hospital.dao.mapper.HspSqlInfMapper;
@@ -22,19 +10,19 @@ import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import activetech.hospital.pojo.dto.HspsqlinfCustom;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
-import activetech.util.UUIDBuild;
-import activetech.zyyhospital.dao.mapper.HspBasyInfCustomMapper;
-import activetech.zyyhospital.dao.mapper.HspBasyInfMapper;
-import activetech.zyyhospital.dao.mapper.HspCgxjInfCustomMapper;
-import activetech.zyyhospital.dao.mapper.HspCgxjInfMapper;
-import activetech.zyyhospital.dao.mapper.HspObsvtfstInfCustomMapper;
-import activetech.zyyhospital.dao.mapper.HspObsvtfstInfMapper;
-import activetech.zyyhospital.dao.mapper.ZyyHspemginfCustomMapper;
+import activetech.zyyhospital.dao.mapper.*;
 import activetech.zyyhospital.pojo.domain.HspBasyInf;
 import activetech.zyyhospital.pojo.dto.HspCgxjInfCustom;
 import activetech.zyyhospital.pojo.dto.HspObsvtfstInfCustom;
 import activetech.zyyhospital.pojo.dto.QjsCountCustom;
 import activetech.zyyhospital.service.ZyyHspQjsInfService;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ZyyHspQjsInfServiceImpl implements ZyyHspQjsInfService {
 	private static Logger logger = Logger.getLogger(ZyyHspQjsInfServiceImpl.class); 
@@ -210,27 +198,7 @@ public class ZyyHspQjsInfServiceImpl implements ZyyHspQjsInfService {
 	}
 	
 	private void sendLgxx(String type,String mpi,Long jzxh) throws Exception {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-	    String nowDate = sdf.format(new Date());
-	    ReportService service = new ReportService();
-		String  request ="<Request><MessageHeader><Sender>EMIS</Sender><Receiver>HIS</Receiver>"
-				+ "<SendTime>"+nowDate+"</SendTime><EventType>OBSERVING_STATE_NOTIFY</EventType>"
-				+ "<MsgId>"+UUIDBuild.getUUID()+"</MsgId></MessageHeader>"
-				+ "<MessageBody>"
-				+ "<PatientId>"+mpi+"</PatientId><VisitId>"+jzxh+"</VisitId><Observation>"+type+"</Observation>"
-				+ "</MessageBody></Request>";
-		logger.info("留观传参："+request);
-		String response=service.getReportServiceSoap().xmlService(request);
-		logger.info("留观返参："+response);
-		Document doc = DocumentHelper.parseText(response); // 将字符串转为XML
-		Element rootElt = doc.getRootElement(); // 获取根节点
-		Element ment  = rootElt.element("MessageBody");
-		Element elementResult = ment.element("Result");
-		if(elementResult != null){
-			if(!"CA".equals(elementResult.elementTextTrim("Code"))){
-				logger.info("留观接口解析失败："+response);
-			}
-		}
+		//TODO 删除webService接口
 	}
 	
 }

@@ -1,36 +1,27 @@
 package activetech.external.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import activetech.base.pojo.dto.ActiveUser;
-import activetech.external.dao.mapper.HspEcgInfMapperCustom;
-import com.th.supcom.eif.webservice.AcceptAppointMessage;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
-import activetech.base.dbconfig.ApplicationConfig;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.edpc.dao.mapper.HspXtAddMapper;
 import activetech.edpc.pojo.domain.HspXtAdd;
 import activetech.external.dao.mapper.HspEcgInfMapper;
+import activetech.external.dao.mapper.HspEcgInfMapperCustom;
 import activetech.external.dao.mapper.VHemsJcjgMapperCustom;
 import activetech.external.dao.mapper.VHemsJyjgMapper;
-import activetech.external.pojo.domain.HspEcgInf;
-import activetech.external.pojo.domain.HspEcgInfExample;
-import activetech.external.pojo.domain.VHemsJcjg;
-import activetech.external.pojo.domain.VHemsJcjgExample;
-import activetech.external.pojo.domain.VHemsJyjg;
-import activetech.external.pojo.domain.VHemsJyjgExample;
+import activetech.external.pojo.domain.*;
 import activetech.external.service.EsbService;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
 import activetech.hospital.pojo.domain.HspEmgInf;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EsbServiceImpl implements EsbService{
 	

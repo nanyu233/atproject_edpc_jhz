@@ -18,12 +18,12 @@
 <bean class="activetech.base.listener.InitAllDictinfo" id="initAllDictinfo"/> 
 
 <!-- 数据库dstappoption表配置 -->
-<bean id="applicationConfig" class="activetech.base.dbconfig.ApplicationConfig" /> 
+<bean class="activetech.base.dbconfig.ApplicationConfig" id="applicationConfig"  />
 
 <!-- Spring上下文工具 -->
 <bean class="activetech.base.service.SpringContextUtil"  id="springContextUtil"/>
 
-<bean id="minIoUtil" class="activetech.base.util.MinIoUtil"></bean>
+<bean class="activetech.base.util.MinIoUtil"  id="minIoUtil" />
 
     <!-- 试用下hikari 连接池，据说是java速度最快的数据库连接池 -->
 <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">

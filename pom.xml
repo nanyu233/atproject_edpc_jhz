@@ -1,195 +1,210 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  	<parent>
-		<!-- 父模块的相对路径， 父模块目录 中要有pom.xml -->
-		<relativePath>../atparent</relativePath>
-		<groupId>activetech</groupId>
-		<artifactId>atparent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
-	<!-- <groupId>yycg</groupId> 继承父节点以后，需要注释-->
-	<artifactId>atproject_edpc</artifactId>
-	<!-- <version>0.0.1-SNAPSHOT</version> 继承父节点以后，需要注释-->
+    <parent>
+        <!-- 父模块的相对路径， 父模块目录 中要有pom.xml -->
+        <relativePath>../atparent</relativePath>
+        <groupId>activetech</groupId>
+        <artifactId>atparent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <!-- <groupId>yycg</groupId> 继承父节点以后，需要注释-->
+    <artifactId>atproject_edpc</artifactId>
+    <!-- <version>0.0.1-SNAPSHOT</version> 继承父节点以后，需要注释-->
 
-	<packaging>war</packaging>
-  <name>atproject_edpc</name>
-  <url>http://maven.apache.org</url>
+    <packaging>war</packaging>
+    <name>atproject_edpc</name>
+    <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-  <dependencies>
-    <!-- 依赖技术架构模块 -->
-	  <dependency>
-		<groupId>activetech</groupId>
-		<artifactId>atspringmybatis</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-    </dependency>
+    <dependencies>
+        <!-- 依赖技术架构模块 -->
+        <dependency>
+            <groupId>activetech</groupId>
+            <artifactId>atspringmybatis</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
-	  <!-- hl7工具类-->
-	  <dependency>
-		<groupId>activetech</groupId>
-		<artifactId>atHl7Utils26</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-    </dependency>
+        <!-- hl7工具类-->
+        <dependency>
+            <groupId>activetech</groupId>
+            <artifactId>atHl7Utils26</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
-	  <!-- 工具类-->
-	  <dependency>
-		<groupId>activetech</groupId>
-		<artifactId>atutil</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-    </dependency>
+        <!-- 工具类-->
+        <dependency>
+            <groupId>activetech</groupId>
+            <artifactId>atutil</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-
-
-	  <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
-	  <dependency>
-		<groupId>com.zaxxer</groupId>
-		<artifactId>HikariCP</artifactId>
-		<version>3.3.1</version>
-	  </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
 
 
-	<dependency>
-		<groupId>cn.easyproject</groupId>
-		<artifactId>ojdbc6</artifactId>
-		<version>12.1.0.2.0</version>
-	</dependency>
+        <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>3.3.1</version>
+        </dependency>
 
-	  <!-- servlet-api 编译时用 -->
-	  <dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>servlet-api</artifactId>
-		<version>2.5</version>
-		<scope>provided</scope>
-	</dependency>
 
-	  <!-- jstl标签 -->
-	  <dependency>
-		<groupId>jstl</groupId>
-		<artifactId>jstl</artifactId>
-		<version>1.2</version>
-	</dependency>
+        <dependency>
+            <groupId>cn.easyproject</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>12.1.0.2.0</version>
+        </dependency>
 
-	<dependency>
-		<groupId>taglibs</groupId>
-		<artifactId>standard</artifactId>
-		<version>1.1.2</version>
-	</dependency>
-	  <!-- 文件上传 -->
-	  <dependency>
-		<groupId>commons-fileupload</groupId>
-		<artifactId>commons-fileupload</artifactId>
-		<version>1.2.2</version>
-	</dependency>
-	  <!-- commons io -->
-	  <dependency>
-		<groupId>commons-io</groupId>
-		<artifactId>commons-io</artifactId>
-		<version>2.4</version>
-	</dependency>
+        <!-- servlet-api 编译时用 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
 
-	  <!-- json转换 ,springmvc 返回json格式必须加入-->
-	  <dependency>
-		<groupId>org.codehaus.jackson</groupId>
-		<artifactId>jackson-mapper-asl</artifactId>
-		<version>1.9.11</version>
-	</dependency>
+        <!-- jstl标签 -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
 
-	  <!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
-	  <dependency>
-	    <groupId>com.lowagie</groupId>
-	    <artifactId>itext</artifactId>
-	    <version>2.1.7</version>
-	</dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <!-- 文件上传 -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <!-- commons io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
 
-	  <!-- https://mvnrepository.com/artifact/com.microsoft/sqljdbc4 -->
-	  <dependency>
-	    <groupId>com.microsoft</groupId>
-	    <artifactId>sqljdbc4</artifactId>
-	    <version>3.0</version>
-	</dependency>
+        <!-- json转换 ,springmvc 返回json格式必须加入-->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.11</version>
+        </dependency>
 
-	  <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
-	  <dependency>
-		<groupId>org.apache.cxf</groupId>
-		<artifactId>cxf-rt-frontend-jaxws</artifactId>
-		<version>3.2.4</version>
-	</dependency>
+        <!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
+        </dependency>
 
-	  <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
-	  <dependency>
-		<groupId>org.apache.cxf</groupId>
-		<artifactId>cxf-rt-transports-http</artifactId>
-		<version>3.2.4</version>
-	</dependency>
+        <!-- https://mvnrepository.com/artifact/com.microsoft/sqljdbc4 -->
+        <dependency>
+            <groupId>com.microsoft</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>3.0</version>
+        </dependency>
 
-	  <dependency>
-		  <groupId>cn.hutool</groupId>
-		  <artifactId>hutool-http</artifactId>
-		  <version>5.6.5</version>
-	  </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>3.2.4</version>
+        </dependency>
 
-	  <!-- https://mvnrepository.com/artifact/io.minio/minio -->
-	  <dependency>
-        <groupId>io.minio</groupId>
-        <artifactId>minio</artifactId>
-        <version>7.1.4</version>
-    </dependency>
-  </dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>3.2.4</version>
+        </dependency>
+        <!--HuTool工具类 文档 https://www.bookstack.cn/read/hutool/093507f34fe0715d.md-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+            <version>5.6.5</version>
+        </dependency>
 
-	<build>
-		<finalName>atproject_edpc</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
+        <!-- https://mvnrepository.com/artifact/io.minio/minio -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>7.1.4</version>
+        </dependency>
+        <!--	  rabbitmq START -->
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.amqp/spring-rabbit -->
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit</artifactId>
+            <version>1.4.5.RELEASE</version>
+        </dependency>
+        <!--	  rabbitmq END -->
+
+    </dependencies>
+
+    <build>
+        <finalName>atproject_edpc</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.7</version>
-				<!-- <configuration>
+                <!-- <configuration>
                     <skip>true</skip>
                 </configuration> -->
             </plugin>
 
-			<!-- war包生成插件 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<warSourceDirectory>src/main/webapp</warSourceDirectory>
-				</configuration>
-			</plugin>
+            <!-- war包生成插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                </configuration>
+            </plugin>
 
 
             <plugin>
-				<groupId>org.mybatis.generator</groupId>
-				<artifactId>mybatis-generator-maven-plugin</artifactId>
-				<version>1.4.0</version>
-				<configuration>
-					<configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
-					<verbose>true</verbose>
-					<overwrite>true</overwrite>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -1,45 +1,26 @@
 package activetech.edpc.service.impl;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-
-import activetech.edpc.dao.mapper.HspCzzlInfMapperCustom;
-import activetech.edpc.dao.mapper.HspFlowChartInfMapperCustom;
-import activetech.edpc.dao.mapper.HspXtzlInfCustomMapper;
-import activetech.edpc.dao.mapper.VHemsJcjgHzMapperCustom;
-import activetech.edpc.dao.mapper.VHemsJyjgHzMapper;
-import activetech.edpc.dao.mapper.VHemsJyjgHzMapperCustom;
+import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.HspCzzlInf;
 import activetech.edpc.pojo.domain.HspFlowChartInf;
 import activetech.edpc.pojo.domain.VHemsJcjgHz;
 import activetech.edpc.pojo.domain.VHemsJyjgHz;
 import activetech.edpc.pojo.dto.FlowChartNodeDef;
 import activetech.edpc.pojo.dto.HspXtzlInfCustom;
-import activetech.edpc.pojo.dto.VHemsJcjgHzCustom;
 import activetech.edpc.pojo.dto.VHemsJyjgHzCustom;
 import activetech.edpc.service.SysIntergratingService;
-import activetech.edpc.xml.dto.MessageBody;
-import activetech.edpc.xml.dto.MessageHeader;
-import activetech.edpc.xml.dto.ReportInfo;
-import activetech.edpc.xml.dto.Request;
-import activetech.edpc.xml.dto.Response;
-import activetech.edpc.xml.dto.Result;
 import activetech.external.dao.mapper.VHemsJyjgMapper;
 import activetech.external.pojo.domain.VHemsJyjg;
 import activetech.hospital.dao.mapper.HspemginfCustomMapper;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.util.DateUtil;
-import activetech.util.UUIDBuild;
-import activetech.webservice.client.xmlservice.ReportService;
-import activetech.webservice.client.xmlservice.ReportServiceSoap;
 import activetech.websocket.action.WebSocketXT;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SysIntergratingServiceImpl implements SysIntergratingService {
 	@Autowired
@@ -331,161 +312,7 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 	
 	@Override
 	public void JcjgIntergrat(VHemsJcjgHz vHemsJcjgHz) {
-		List<VHemsJcjgHzCustom> jcjglist = vHemsJcjgHzMapperCustom.findVhemsJcjgByMpijzxh(vHemsJcjgHz);
-		for (VHemsJcjgHzCustom jcjg : jcjglist) {
-			String xtFlg = jcjg.getXtFlg();
-			String czFlg = jcjg.getCzFlg();
-			String emgSeq = jcjg.getEmgSeq();
-			
-			if("1".equals(xtFlg)){
-				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>进入胸痛环节");
-				if(jcjg.getYlmc().indexOf("心电")>-1){
-					
-					HspFlowChartInf record = new HspFlowChartInf();
-				    record.setEmgSeq(emgSeq);
-				    record.setNodeId("tlCTaBgSj");
-				    record.setFlowType("cz");
-				    record.setStatus("1");
-				    hspFlowChartInfMapperCustom.mergeFlowChartInf(record);
-				    ReportInfo r = new ReportInfo(jcjg.getMpi()
-				    								,"1"
-				    								,"EC"
-				    								,"D"
-				    								,DateUtil.formatDateByFormat(jcjg.getShrq(), "yyyyMMdd000000"));
-				    MessageHeader mh = new MessageHeader("EMIS", "HIS", DateUtil.getCurrentTime(), "QBP_REPORT", UUIDBuild.getUUID());
-					MessageBody messageBody = new MessageBody();
-					messageBody.setReportInfo(r);
-					Request Request = new Request();
-					Request.setMessageBody(messageBody);
-					Request.setMessageHeader(mh);
-					XStream xs = new XStream(new DomDriver());
-					xs.alias("Request", Request.class);
-					xs.alias("ReportInfo", ReportInfo.class);
-					xs.alias("MessageHeader", MessageHeader.class);
-					xs.alias("MessageBody", MessageBody.class);
-					
-					ReportService reportService = new ReportService();
-					ReportServiceSoap reportServiceSoap = reportService.getReportServiceSoap();
-					//去除reportinfo同级多项导致无法解析的问题
-					String retStr = reportServiceSoap.xmlService(xs.toXML(Request))
-							.replace("</Result>", "</Result><ReportInfos>").replace("</MessageBody>", "</ReportInfos></MessageBody>");
-					
-					XStream xsr = new XStream(new DomDriver());
-					
-					xsr.alias("Response", Response.class);
-					xsr.alias("MessageBody", MessageBody.class);
-					xsr.alias("RESULT", Result.class);
-					xsr.alias("ReportInfo", ReportInfo.class);
-					xsr.alias("MessageHeader", MessageHeader.class);
-					xsr.aliasField("RESULT", MessageBody.class, "result");
-					
-					xsr.aliasField("ReportInfo", MessageBody.class, "ReportInfos");
-					xsr.aliasField("PatientId", ReportInfo.class, "PatientId");
-					
-					Response re = (Response) xsr.fromXML(retStr);
-					List<ReportInfo> rilist = re.getMessageBody().getReportInfos();
-					for(int i=0;i<rilist.size();i++){
-						
-					}
-				}
-				if("全主动脉CTA(仅限主动脉夹层患者)(常规CT)".equals(jcjg.getYlmc())){
-					
-				}
-				if(jcjg.getYlmc().indexOf("心包腔")>-1 &&
-						jcjg.getYlmc().indexOf("普通彩超")>-1){
-					HspFlowChartInf record = new HspFlowChartInf();
-				    record.setEmgSeq(emgSeq);
-				    record.setNodeId("tlCTaBgSj");
-				    record.setFlowType("cz");
-				    record.setStatus("1");
-				    hspFlowChartInfMapperCustom.mergeFlowChartInf(record);
-				    
-				    //2  提取webSocket句柄，发送给所有的客户端
-				    Map<String,Object> map = new HashMap<>();
-				    map.put("targetPage", "cz");
-				    map.put("emgSeq", emgSeq);	    
-				    map.put("message", "头颅CTA完成");
-				    map.put("messageCode","tlCTaBgSj");
-				    map.put("time", jcjg.getShrq());
-				 	try {
-						WebSocketXT.sendMessageToAllAwaiting(map);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				if(jcjg.getYlmc().indexOf("肺动脉CTA")>-1 &&
-						jcjg.getYlmc().indexOf("增强(常规CT)")>-1){
-				}
-				if(jcjg.getYlmc().indexOf("胸部平扫")>-1){
-				}
-			}
-//			if("1".equals(czFlg)){
-//				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>进入卒中环节");
-//				HspCzzlInf hspCzzlInf = new HspCzzlInf();
-//				hspCzzlInf.setEmgNo(emgSeq);
-//				hspCzzlInf.setCrtUser("system");
-//				hspCzzlInf.setCrtTime(new Date());
-//				if((jcjg.getYlmc().indexOf("颅脑")>-1 || jcjg.getYlmc().indexOf("头颅")>-1)
-//						&& ((jcjg.getYlmc().indexOf("CT")>-1 && jcjg.getYlmc().indexOf("CTA")<0) 
-//								|| jcjg.getYlmc().indexOf("MRI")> -1)){
-//					System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>进入卒中颅脑ct");
-//					//1  更新节点记录表
-//					HspFlowChartInf record = new HspFlowChartInf();
-//				    record.setEmgSeq(emgSeq);
-//				    record.setNodeId("tlCT");
-//				    record.setFlowType("cz");
-//				    record.setStatus("1");
-//				    hspFlowChartInfMapperCustom.mergeFlowChartInf(record);
-//				    
-//				    //2  提取webSocket句柄，发送给所有的客户端
-//				    Map<String,Object> map = new HashMap<>();
-//				    map.put("targetPage", "cz");
-//				    map.put("emgSeq", emgSeq);	    
-//				    map.put("message", "头颅CT完成");
-//				    map.put("messageCode","tlCT");
-//				    map.put("time", jcsj);
-//				 	XTWebSocket.sendMessageToAllAwaiting(map);
-//				 	
-////				    //头颅CT检查医生
-////				    hspCzzlInf.setProCode("TlCTjcys");
-////				 	hspCzzlInf.setProVal(jcjg.getJcysxm());
-////				    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-//				    
-//				    //头颅CT检查时间
-//				 	HspCzzlInfExample czExample = new HspCzzlInfExample();
-//				 	HspCzzlInfExample.Criteria czcriteria = czExample.createCriteria();
-//				 	czcriteria.andEmgNoEqualTo(emgSeq);
-//				 	czcriteria.andProCodeEqualTo("YXXJCSJ");
-//				 	List<HspCzzlInf> czzls = hspCzzlInfMapper.selectByExample(czExample); 
-//				 	if(czzls.size() == 0 && StringUtils.isNotNullAndEmptyByTrim(jcjg.getJcrq())){
-//				 		hspCzzlInf.setProCode("YXXJCSJ");
-//					    hspCzzlInf.setProVal(DateUtil.formatDateByFormat(DateUtils.addMinutes(jcjg.getJcrq(), 2),"yyyy-MM-dd HH:mm:ss"));
-//					    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-//				 	}
-//				   
-//				}
-//				if((jcrw.getYlmc().indexOf("颅脑")>-1 || jcrw.getYlmc().indexOf("头颅")>-1)
-//						&& jcrw.getYlmc().indexOf("CTA")>-1){
-//					//1  更新节点记录表
-//					HspFlowChartInf record = new HspFlowChartInf();
-//				    record.setEmgSeq(emgSeq);
-//				    record.setNodeId("tlCTaBgSj");
-//				    record.setFlowType("cz");
-//				    record.setStatus("1");
-//				    hspFlowChartInfMapperCustom.mergeFlowChartInf(record);
-//				    
-//				    //2  提取webSocket句柄，发送给所有的客户端
-//				    Map<String,Object> map = new HashMap<>();
-//				    map.put("targetPage", "cz");
-//				    map.put("emgSeq", emgSeq);	    
-//				    map.put("message", "头颅CTA完成");
-//				    map.put("messageCode","tlCTaBgSj");
-//				    map.put("time", jcsj);
-//				 	XTWebSocket.sendMessageToAllAwaiting(map);
-//				}
-//			}
-		}
+		//TODO 删除其他医院接口
 	}
 	
 	/**

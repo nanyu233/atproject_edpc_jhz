@@ -1,63 +1,23 @@
 package activetech.basehems.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import activetech.edpc.service.JzbrService;
-import org.apache.log4j.Logger;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.tongji.ReportService;
-
 import activetech.base.pojo.domain.Dstappoption;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.service.SystemConfigService;
 import activetech.basehems.service.BaseHspemgInfService;
 import activetech.basehis.dao.mapper.VHemsRczMapper;
 import activetech.basehis.pojo.domain.VHemsRcz;
+import activetech.edpc.service.JzbrService;
 import activetech.hl7.base.HL7Util;
-import activetech.hospital.dao.mapper.HspCramsInfMapper;
-import activetech.hospital.dao.mapper.HspEmgInfMapper;
-import activetech.hospital.dao.mapper.HspEmgInfhisMapper;
-import activetech.hospital.dao.mapper.HspFastInfMapper;
-import activetech.hospital.dao.mapper.HspGcsInfMapper;
-import activetech.hospital.dao.mapper.HspJbzdInfMapper;
-import activetech.hospital.dao.mapper.HspMewsInfMapper;
-import activetech.hospital.dao.mapper.HspSqlInfMapper;
-import activetech.hospital.dao.mapper.HspemginfCustomMapper;
-import activetech.hospital.pojo.domain.HspEmgInf;
-import activetech.hospital.pojo.domain.HspEmgInfhis;
-import activetech.hospital.pojo.domain.HspFastInf;
-import activetech.hospital.pojo.domain.HspJbzdInfExample;
-import activetech.hospital.pojo.domain.HspSqlInf;
-import activetech.hospital.pojo.dto.HspFastInfCustom;
-import activetech.hospital.pojo.dto.HspJbzdInfCustom;
-import activetech.hospital.pojo.dto.HspcramsinfCustom;
-import activetech.hospital.pojo.dto.HspemginfCustom;
-import activetech.hospital.pojo.dto.HspemginfQueryDto;
-import activetech.hospital.pojo.dto.HspgcsinfCustom;
-import activetech.hospital.pojo.dto.HspmewsinfCustom;
-import activetech.hospital.pojo.dto.HspsqlinfCustom;
+import activetech.hospital.dao.mapper.*;
+import activetech.hospital.pojo.domain.*;
+import activetech.hospital.pojo.dto.*;
 import activetech.netty.client.NettyClient;
 import activetech.netty.util.MethodInvokeMeta;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
 import activetech.util.UUIDBuild;
-import activetech.zyyhospital.dao.mapper.HspBedInfMapper;
-import activetech.zyyhospital.dao.mapper.HspDdfxpgbInfMapper;
-import activetech.zyyhospital.dao.mapper.HspFallassInfMapper;
-import activetech.zyyhospital.dao.mapper.HspNrsInfCustomMapper;
-import activetech.zyyhospital.dao.mapper.HspNrsInfMapper;
-import activetech.zyyhospital.dao.mapper.HspPewsckInfMapper;
-import activetech.zyyhospital.pojo.domain.HspBedInf;
-import activetech.zyyhospital.pojo.domain.HspBedInfExample;
-import activetech.zyyhospital.pojo.domain.HspDdfxpgbInf;
-import activetech.zyyhospital.pojo.domain.HspFallassInf;
-import activetech.zyyhospital.pojo.domain.HspPewsckInf;
+import activetech.zyyhospital.dao.mapper.*;
+import activetech.zyyhospital.pojo.domain.*;
 import activetech.zyyhospital.pojo.dto.HspDdfxpgbInfCustom;
 import activetech.zyyhospital.pojo.dto.HspFallAssInfCustom;
 import activetech.zyyhospital.pojo.dto.HspNrsInfCustom;
@@ -68,6 +28,13 @@ import ca.uhn.hl7v2.model.v26.segment.DG1;
 import ca.uhn.hl7v2.model.v26.segment.EVN;
 import ca.uhn.hl7v2.model.v26.segment.MSH;
 import ca.uhn.hl7v2.util.Terser;
+import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -432,27 +399,7 @@ public class BaseHspemgInfServiceImpl implements BaseHspemgInfService{
 	}
 	
 	private void sendLgxx(String type,String mpi,Long jzxh) throws Exception {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-	    String nowDate = sdf.format(new Date());
-	    ReportService service = new ReportService();
-		String  request ="<Request><MessageHeader><Sender>EMIS</Sender><Receiver>HIS</Receiver>"
-				+ "<SendTime>"+nowDate+"</SendTime><EventType>OBSERVING_STATE_NOTIFY</EventType>"
-				+ "<MsgId>"+UUIDBuild.getUUID()+"</MsgId></MessageHeader>"
-				+ "<MessageBody>"
-				+ "<PatientId>"+mpi+"</PatientId><VisitId>"+jzxh+"</VisitId><Observation>"+type+"</Observation>"
-				+ "</MessageBody></Request>";
-		logger.info("留观传参："+request);
-		String response=service.getReportServiceSoap().xmlService(request);
-		logger.info("留观返参："+response);
-		Document doc = DocumentHelper.parseText(response); // 将字符串转为XML
-		Element rootElt = doc.getRootElement(); // 获取根节点
-		Element ment  = rootElt.element("MessageBody");
-		Element elementResult = ment.element("Result");
-		if(elementResult != null){
-			if(!"CA".equals(elementResult.elementTextTrim("Code"))){
-				logger.info("留观接口解析失败："+response);
-			}
-		}
+		//TODO 删除webService接口
 	}
 	
 	public String insertGhxxAndBackYj(ADT_A01 adt_A01,HspemginfCustom hspemginfCustom) throws Exception {

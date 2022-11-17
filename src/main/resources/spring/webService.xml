@@ -9,11 +9,11 @@
 	
 	<import resource="classpath:META-INF/cxf/cxf.xml"/>
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>				
-	<jaxws:server address="/noticeProxyService" serviceClass="activetech.webservice.server.NoticeProxyWebService" >
-		<jaxws:serviceBean>
-			<bean class ="activetech.webservice.server.NoticeProxyWebServiceImpl"></bean>
-		</jaxws:serviceBean>
-	</jaxws:server>
+<!--	<jaxws:server address="/noticeProxyService" serviceClass="activetech.webservice.server.NoticeProxyWebService" >-->
+<!--		<jaxws:serviceBean>-->
+<!--			<bean class ="activetech.webservice.server.NoticeProxyWebServiceImpl"></bean>-->
+<!--		</jaxws:serviceBean>-->
+<!--	</jaxws:server>-->
 	
 
 </beans>

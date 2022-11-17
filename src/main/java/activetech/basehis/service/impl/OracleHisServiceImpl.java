@@ -1,25 +1,5 @@
 package activetech.basehis.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
-
-import org.apache.log4j.Logger;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.tongji.ReportService;
-
-import com.th.supcom.eif.webservice.WebServiceInterfaceService;
-
 import activetech.base.dao.mapper.DstcompctlMapper;
 import activetech.base.pojo.domain.Dstcompctl;
 import activetech.base.pojo.domain.DstcompctlExample;
@@ -27,20 +7,11 @@ import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.service.SystemConfigService;
-import activetech.basehis.dao.mapper.VHemsGhlbMapper;
-import activetech.basehis.dao.mapper.VHemsJyjgMapperSi;
-import activetech.basehis.dao.mapper.VHemsRczMapper;
-import activetech.basehis.dao.mapper.VHemsSfxxMapper;
-import activetech.basehis.dao.mapper.YZMapper;
+import activetech.basehis.dao.mapper.*;
 import activetech.basehis.pojo.domain.VHemsEmpi;
 import activetech.basehis.pojo.domain.VHemsJyjg;
 import activetech.basehis.pojo.domain.VHemsRcz;
-import activetech.basehis.pojo.dto.HemshisDto;
-import activetech.basehis.pojo.dto.VHemsGhlbCustom;
-import activetech.basehis.pojo.dto.VHemsGhlbQueryDto;
-import activetech.basehis.pojo.dto.VHemsRczCustom;
-import activetech.basehis.pojo.dto.VHemsSfxxCustom;
-import activetech.basehis.pojo.dto.VHemsSfxxDto;
+import activetech.basehis.pojo.dto.*;
 import activetech.basehis.service.OracleHisService;
 import activetech.external.dao.mapper.VHemsJyjgMapperCustom;
 import activetech.external.pojo.dto.VHemsJyjgCustom;
@@ -72,6 +43,13 @@ import ca.uhn.hl7v2.model.v26.segment.DG1;
 import ca.uhn.hl7v2.model.v26.segment.EVN;
 import ca.uhn.hl7v2.model.v26.segment.MSH;
 import ca.uhn.hl7v2.util.Terser;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 
 public class OracleHisServiceImpl implements OracleHisService {
@@ -108,72 +86,8 @@ public class OracleHisServiceImpl implements OracleHisService {
 	////////////////////////////////患者信息////////////////////////////////////////
 	@Override
 	public VHemsEmpi findvHemsEmpi(String cardNo,String cardType,String trackData) throws Exception {
-		String merchantSubNo = systemConfigService.findAppoptionByOptkey("HSPLP").getVchar1();
-		VHemsEmpi vHemsEmpi = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-	    String nowDate = sdf.format(new Date());
-		WebServiceInterfaceService service = new WebServiceInterfaceService();
-		String IDNumberStr="<IDNumber/>";
-		if("4".equals(cardType)){
-			IDNumberStr = "<IDNumber>"+cardNo+"</IDNumber>";
-		}
-		
-		String  request ="<Request><MessageHeader>"
-				+ "<Sender>EMIS</Sender>"
-				+ "<Receiver>HIS</Receiver>"
-				+ "<SendTime>"+nowDate+"</SendTime>"
-				+ "<EventType>PCA_VERIFY_CARD</EventType>"
-				+ "<MsgId>"+UUIDBuild.getUUID()+"</MsgId></MessageHeader>"
-				+ "<MessageBody><MsgLog>"
-				+ "<TerminalNo>EMIS"+merchantSubNo+"</TerminalNo>"
-				+ "<UserId>EMIS"+merchantSubNo+"</UserId>"
-				+ "<IpAddr>192.18.103.41</IpAddr>"
-				+ "<RequestWay>2</RequestWay>"
-				+ "<MerchantNo>EMIS</MerchantNo>"
-				+ "<MerchantSubNo>"+merchantSubNo +"</MerchantSubNo>" //yin ZJYY01 ,san ZJYY02
-				+ "</MsgLog><BindingInfo>"+IDNumberStr+"</BindingInfo>"
-				+ "<CardInfo><CardNo>"+cardNo+"</CardNo>"
-				+ "<CardType>"+cardType+"</CardType>"
-				+ "<TrackData>"+trackData+"</TrackData></CardInfo></MessageBody></Request>";
-		logger.info("fasongshuju:"+request);
-		String response=service.getWebServiceInterfacePort().acceptMessage(request);
-		/*String response="<Response>"
-				+ "<MessageHeader><MsgId>1c77c611-097c-436a-a739-d95ba44cbbbb</MsgId>"
-				+ "<EventType>ACK_PCA_VERIFY_CARD</EventType>"
-				+ "<Receiver>ZZJ</Receiver><Sender>HIS</Sender><SendTime>2020-04-26 10:07:00</SendTime>"
-				+ "</MessageHeader>"
-				+ "<MessageBody><Result><CardNo /><Code>CA</Code><Desc>成功</Desc></Result>"
-				+ "<PatientInfo>"
-				+ "<PatientId>1110089260</PatientId>"
-				+ "<Name>包晓燕</Name>"
-				+ "<Sex>女</Sex>"
-				+ "<DateOfBirth>19890511010000</DateOfBirth>"
-				+ "<PhoneNumber>15257570373</PhoneNumber>"
-				+ "<IdNumber>330621198905117420</IdNumber>"
-				+ "</PatientInfo><AccountInfo><AccountBalance>0.0</AccountBalance></AccountInfo>"
-				+ "<BindingInfo><BindingCode>CA_B</BindingCode><BindingPatientId>null</BindingPatientId>"
-				+ "</BindingInfo></MessageBody></Response>";*/
-		logger.info("jieshoushuju:"+response);
-		Document doc = DocumentHelper.parseText(response); // 将字符串转为XML
-		Element rootElt = doc.getRootElement(); // 获取根节点
-		Element ment  = rootElt.element("MessageBody");
-		Element elementResult = ment.element("Result");
-		if(elementResult != null){
-			if("CA".equals(elementResult.elementTextTrim("Code"))){
-				//chenggong
-				Element elementPatientInfo = ment.element("PatientInfo");
-				if(elementPatientInfo != null){
-					vHemsEmpi = new VHemsEmpi();
-					vHemsEmpi.setCsny(sdf.parse(elementPatientInfo.elementTextTrim("DateOfBirth")));
-					vHemsEmpi.setXm(elementPatientInfo.elementTextTrim("Name"));
-					vHemsEmpi.setXb(elementPatientInfo.elementTextTrim("Sex"));
-					vHemsEmpi.setSfzh(elementPatientInfo.elementTextTrim("IdNumber"));
-					vHemsEmpi.setLxdh(elementPatientInfo.elementTextTrim("PhoneNumber"));
-					vHemsEmpi.setMpi(elementPatientInfo.elementTextTrim("PatientId"));
-				}
-			}
-		}
-		return  vHemsEmpi;
+		//TODO 删除webService接口
+		return  null;
 	}
 
 	////////////////////////////////检验信息////////////////////////////////////////
@@ -803,27 +717,7 @@ public class OracleHisServiceImpl implements OracleHisService {
 	}
 	
 	private void sendLgxx(String type,String mpi,Long jzxh) throws Exception {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-	    String nowDate = sdf.format(new Date());
-	    ReportService service = new ReportService();
-		String  request ="<Request><MessageHeader><Sender>EMIS</Sender><Receiver>HIS</Receiver>"
-				+ "<SendTime>"+nowDate+"</SendTime><EventType>OBSERVING_STATE_NOTIFY</EventType>"
-				+ "<MsgId>"+UUIDBuild.getUUID()+"</MsgId></MessageHeader>"
-				+ "<MessageBody>"
-				+ "<PatientId>"+mpi+"</PatientId><VisitId>"+jzxh+"</VisitId><Observation>"+type+"</Observation>"
-				+ "</MessageBody></Request>";
-		logger.info("留观传参："+request);
-		String response=service.getReportServiceSoap().xmlService(request);
-		logger.info("留观返参："+response);
-		Document doc = DocumentHelper.parseText(response); // 将字符串转为XML
-		Element rootElt = doc.getRootElement(); // 获取根节点
-		Element ment  = rootElt.element("MessageBody");
-		Element elementResult = ment.element("Result");
-		if(elementResult != null){
-			if(!"CA".equals(elementResult.elementTextTrim("Code"))){
-				logger.info("留观接口解析失败："+response);
-			}
-		}
+		//TODO 删除webService接口
 	}
 	
 	private void delJbzd(String emgSeq) throws Exception {

@@ -1,7 +1,11 @@
-package activetech.webservice.server;
+package activetech.task.mq.pojo;
 
-public class PushMessageDto {
-	
+import java.io.Serializable;
+
+public class PushMessageDto implements Serializable {
+
+	private static final long serialVersionUID = -327110726852705695L;
+
 	private String emgSeq;
 	
 	private String greenNodeId;
