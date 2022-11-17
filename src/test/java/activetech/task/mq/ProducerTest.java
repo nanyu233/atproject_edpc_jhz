@@ -4,6 +4,7 @@ import activetech.task.mq.pojo.PushMessageDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -20,8 +21,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class ProducerTest {
     @Autowired
     public AmqpTemplate amqpTemplate;
+    @Autowired
+    public RabbitTemplate rabbitTemplate;
 
-    @Test
+//    @Test
     public void SendMessage() {
         PushMessageDto pushMessageDto = new PushMessageDto();
         pushMessageDto.setEmgSeq("11111");
@@ -29,8 +32,12 @@ public class ProducerTest {
         amqpTemplate.convertAndSend("messageToWebExchangeFanout", "", pushMessageDto);
     }
     @Test
-    public void testTEnum(){
+    public void rabbitTemplateSend(){
 //        System.out.println(x.XX);
+        PushMessageDto pushMessageDto = new PushMessageDto();
+        pushMessageDto.setEmgSeq("11111");
+        pushMessageDto.setTargetPage("aaaa");
+        rabbitTemplate.convertAndSend("messageToWebExchangeFanout", "", pushMessageDto);
     }
 
 }
