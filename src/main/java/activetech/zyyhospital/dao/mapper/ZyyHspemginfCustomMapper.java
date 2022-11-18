@@ -14,7 +14,6 @@ import activetech.hospital.pojo.dto.HspScoCustom;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import activetech.zyyhospital.pojo.domain.THemsSjz;
-import activetech.zyyhospital.pojo.dto.HspOperateInfCustom;
 
 /**
  * 
@@ -242,9 +241,9 @@ public interface ZyyHspemginfCustomMapper {
 	 * @param heHspemginfQueryDto
 	 * @return
 	 */
-	public List<HspOperateInfCustom> operationList(HspemginfQueryDto heHspemginfQueryDto);
-	public int queryEmgCountBySscz(HspOperateInfCustom hspOperateInfCustom);
-	public List<HspOperateInfCustom> queryEmgListBySscz(HspOperateInfCustom hspOperateInfCustom);
+//	public List<HspOperateInfCustom> operationList(HspemginfQueryDto heHspemginfQueryDto);
+//	public int queryEmgCountBySscz(HspOperateInfCustom hspOperateInfCustom);
+//	public List<HspOperateInfCustom> queryEmgListBySscz(HspOperateInfCustom hspOperateInfCustom);
 	
 	/**
 	 * 查询已预检待完善数据（新入病人）

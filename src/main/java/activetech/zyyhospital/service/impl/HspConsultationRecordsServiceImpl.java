@@ -24,7 +24,6 @@ import activetech.zyyhospital.pojo.domain.HspConsultationRecords;
 import activetech.zyyhospital.pojo.domain.HspConsultationRecordsExample;
 import activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom;
 import activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto;
-import activetech.zyyhospital.pojo.dto.HspDiseaseCourseCustom;
 import activetech.zyyhospital.service.HspConsultationRecordsService;
 
 public class HspConsultationRecordsServiceImpl implements HspConsultationRecordsService {

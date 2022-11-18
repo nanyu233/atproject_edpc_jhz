@@ -18,26 +18,21 @@ import activetech.util.UUIDBuild;
 import activetech.zyyhospital.dao.mapper.HspBasyCzjsMapper;
 import activetech.zyyhospital.dao.mapper.HspBasyInfCustomMapper;
 import activetech.zyyhospital.dao.mapper.HspBasyInfMapper;
-import activetech.zyyhospital.dao.mapper.HspOperateInfCustomMapper;
-import activetech.zyyhospital.dao.mapper.HspOperateInfMapper;
 import activetech.zyyhospital.pojo.domain.HspBasyCzjs;
 import activetech.zyyhospital.pojo.domain.HspBasyCzjsExample;
 import activetech.zyyhospital.pojo.domain.HspBasyInf;
-import activetech.zyyhospital.pojo.domain.HspOperateInf;
 import activetech.zyyhospital.pojo.dto.HspBasyCzjsCustom;
 import activetech.zyyhospital.pojo.dto.HspBasyInfCustom;
 import activetech.zyyhospital.pojo.dto.HspBasyInfQueryDto;
-import activetech.zyyhospital.pojo.dto.HspOperateInfCustom;
-import activetech.zyyhospital.pojo.dto.HspOperateInfQueryDto;
 import activetech.zyyhospital.service.HspBasyInfService;
 
 public class HspBasyInfServiceImpl implements HspBasyInfService{
 
-	@Autowired
-	private HspOperateInfMapper hspOperateInfMapper;
+//	@Autowired
+//	private HspOperateInfMapper hspOperateInfMapper;
 	
-	@Autowired
-	private HspOperateInfCustomMapper hspOperateInfCustomMapper;
+//	@Autowired
+//	private HspOperateInfCustomMapper hspOperateInfCustomMapper;
 	
 	@Autowired
 	private HspEmgInfMapper hspEmgInfMapper;
@@ -132,68 +127,68 @@ public class HspBasyInfServiceImpl implements HspBasyInfService{
 	 * 通过oper_seq查询手术操作数据
 	 * @param hspOperateInfQueryDto
 	 */
-	@Override
-	public HspOperateInf findOperateBySeq(String operSeq) {
-		return hspOperateInfMapper.selectByPrimaryKey(operSeq);
-	}
+//	@Override
+//	public HspOperateInf findOperateBySeq(String operSeq) {
+//		return hspOperateInfMapper.selectByPrimaryKey(operSeq);
+//	}
 	
 	/**
 	 * 查询手术操作列表总数
 	 * @param hspOperateInfQueryDto
 	 * @return
 	 */
-	@Override
-	public int findOperateListCount(HspOperateInfQueryDto hspOperateInfQueryDto) {
-		return hspOperateInfCustomMapper.findOperateListCount(hspOperateInfQueryDto);
-	}
+//	@Override
+//	public int findOperateListCount(HspOperateInfQueryDto hspOperateInfQueryDto) {
+//		return hspOperateInfCustomMapper.findOperateListCount(hspOperateInfQueryDto);
+//	}
 	
 	/**
 	 * 通过emg_seq查询该患者的手术操作列表数据
 	 * @param hspOperateInfQueryDto
 	 * @return
 	 */
-	@Override
-	public List<HspOperateInfCustom> findOperateListByEmgSeq(HspOperateInfQueryDto hspOperateInfQueryDto) {
-		return hspOperateInfCustomMapper.findOperateListByEmgSeq(hspOperateInfQueryDto);
-	}
+//	@Override
+//	public List<HspOperateInfCustom> findOperateListByEmgSeq(HspOperateInfQueryDto hspOperateInfQueryDto) {
+//		return hspOperateInfCustomMapper.findOperateListByEmgSeq(hspOperateInfQueryDto);
+//	}
 	
 	/**
 	 * 手术操作情况保存
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
 	 */
-	@Override
-	public String addOperatelr(HspOperateInfCustom hspOperateInfCustom, ActiveUser activeUser) throws Exception {
-		if(StringUtils.isNotNullAndEmptyByTrim(hspOperateInfCustom.getOperSeq())) {
-			hspOperateInfCustom.setUpdDat(new Date());
-			hspOperateInfCustom.setUpdCod(activeUser.getUsrno());
-			hspOperateInfCustom.setUpdNam(activeUser.getUsrname());
-			HspOperateInf operateInf = new HspOperateInf();
-			BeanUtils.copyProperties(operateInf,hspOperateInfCustom);
-			hspOperateInfMapper.updateByPrimaryKey(operateInf);
-		}else {
-			String operSeq = UUIDBuild.getUUID();
-			hspOperateInfCustom.setOperSeq(operSeq);
-			hspOperateInfCustom.setCreDat(new Date());
-			hspOperateInfCustom.setCreCod(activeUser.getUsrno());
-			hspOperateInfCustom.setCreNam(activeUser.getUsrname());
-			hspOperateInfCustom.setUpdDat(new Date());
-			hspOperateInfCustom.setUpdCod(activeUser.getUsrno());
-			hspOperateInfCustom.setUpdNam(activeUser.getUsrname());
-			HspOperateInf operateInf = new HspOperateInf();
-			BeanUtils.copyProperties(operateInf,hspOperateInfCustom);
-			hspOperateInfMapper.insertSelective(operateInf);
-		}
-		return hspOperateInfCustom.getOperSeq();
-	}
+//	@Override
+//	public String addOperatelr(HspOperateInfCustom hspOperateInfCustom, ActiveUser activeUser) throws Exception {
+//		if(StringUtils.isNotNullAndEmptyByTrim(hspOperateInfCustom.getOperSeq())) {
+//			hspOperateInfCustom.setUpdDat(new Date());
+//			hspOperateInfCustom.setUpdCod(activeUser.getUsrno());
+//			hspOperateInfCustom.setUpdNam(activeUser.getUsrname());
+//			HspOperateInf operateInf = new HspOperateInf();
+//			BeanUtils.copyProperties(operateInf,hspOperateInfCustom);
+//			hspOperateInfMapper.updateByPrimaryKey(operateInf);
+//		}else {
+//			String operSeq = UUIDBuild.getUUID();
+//			hspOperateInfCustom.setOperSeq(operSeq);
+//			hspOperateInfCustom.setCreDat(new Date());
+//			hspOperateInfCustom.setCreCod(activeUser.getUsrno());
+//			hspOperateInfCustom.setCreNam(activeUser.getUsrname());
+//			hspOperateInfCustom.setUpdDat(new Date());
+//			hspOperateInfCustom.setUpdCod(activeUser.getUsrno());
+//			hspOperateInfCustom.setUpdNam(activeUser.getUsrname());
+//			HspOperateInf operateInf = new HspOperateInf();
+//			BeanUtils.copyProperties(operateInf,hspOperateInfCustom);
+//			hspOperateInfMapper.insertSelective(operateInf);
+//		}
+//		return hspOperateInfCustom.getOperSeq();
+//	}
 
 	/**
 	 * 通过oper_seq删除手术操作数据
 	 */
-	@Override
-	public void delOperateBySeq(String operSeq) {
-		hspOperateInfMapper.deleteByPrimaryKey(operSeq);
-	}
+//	@Override
+//	public void delOperateBySeq(String operSeq) {
+//		hspOperateInfMapper.deleteByPrimaryKey(operSeq);
+//	}
 
 	
 	/**

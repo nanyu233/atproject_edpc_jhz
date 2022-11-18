@@ -42,8 +42,6 @@ import activetech.util.HttpClientUtil;
 import activetech.util.JacksonUtil;
 import activetech.util.StringUtils;
 import activetech.util.UUIDBuild;
-import activetech.zyyhospital.dao.mapper.HspCfjlInfCustomMapper;
-import activetech.zyyhospital.dao.mapper.HspCfjlInfMapper;
 import activetech.zyyhospital.dao.mapper.HspCgxjInfCustomMapper;
 import activetech.zyyhospital.dao.mapper.HspCgxjInfMapper;
 import activetech.zyyhospital.dao.mapper.HspDocadviceInfCustomMapper;
@@ -51,8 +49,6 @@ import activetech.zyyhospital.dao.mapper.HspDocadviceInfMapper;
 import activetech.zyyhospital.dao.mapper.HspHljldInfMapper;
 import activetech.zyyhospital.dao.mapper.HspHlpgbCustomMapper;
 import activetech.zyyhospital.dao.mapper.HspHlpgbMapper;
-import activetech.zyyhospital.dao.mapper.HspJjbjlInfCustomMapper;
-import activetech.zyyhospital.dao.mapper.HspJjbjlInfMapper;
 import activetech.zyyhospital.dao.mapper.HspJzcspgInfMapper;
 import activetech.zyyhospital.dao.mapper.HspLqblInfCustomMapper;
 import activetech.zyyhospital.dao.mapper.HspLqblInfMapper;
@@ -61,16 +57,12 @@ import activetech.zyyhospital.dao.mapper.HspNrsInfMapper;
 import activetech.zyyhospital.dao.mapper.HspObsvtfstInfCustomMapper;
 import activetech.zyyhospital.dao.mapper.HspObsvtfstInfMapper;
 import activetech.zyyhospital.dao.mapper.HspPrintInfMapper;
-import activetech.zyyhospital.dao.mapper.HspQjjlInfCustomMapper;
-import activetech.zyyhospital.dao.mapper.HspQjjlInfMapper;
-import activetech.zyyhospital.pojo.domain.HspCfjlInf;
 import activetech.zyyhospital.pojo.domain.HspCgxjInf;
 import activetech.zyyhospital.pojo.domain.HspCgxjInfExample;
 import activetech.zyyhospital.pojo.domain.HspDocadviceInf;
 import activetech.zyyhospital.pojo.domain.HspHljldInf;
 import activetech.zyyhospital.pojo.domain.HspHljldInfExample;
 import activetech.zyyhospital.pojo.domain.HspHlpgb;
-import activetech.zyyhospital.pojo.domain.HspJjbjlInf;
 import activetech.zyyhospital.pojo.domain.HspJzcspgInf;
 import activetech.zyyhospital.pojo.domain.HspLqblInf;
 import activetech.zyyhospital.pojo.domain.HspLqblInfExample;
@@ -78,18 +70,14 @@ import activetech.zyyhospital.pojo.domain.HspNrsInf;
 import activetech.zyyhospital.pojo.domain.HspObsvtfstInf;
 import activetech.zyyhospital.pojo.domain.HspObsvtfstInfExample;
 import activetech.zyyhospital.pojo.domain.HspPrintInf;
-import activetech.zyyhospital.pojo.domain.HspQjjlInf;
 import activetech.zyyhospital.pojo.domain.THemsPaperwork;
-import activetech.zyyhospital.pojo.dto.HspCfjlInfCustom;
 import activetech.zyyhospital.pojo.dto.HspCgxjInfCustom;
 import activetech.zyyhospital.pojo.dto.HspDocadviceInfCustom;
-import activetech.zyyhospital.pojo.dto.HspJjbjlInfCustom;
 import activetech.zyyhospital.pojo.dto.HspLqblInfCustom;
 import activetech.zyyhospital.pojo.dto.HspLqbljlQueryDto;
 import activetech.zyyhospital.pojo.dto.HspMediaInfCustom;
 import activetech.zyyhospital.pojo.dto.HspNrsInfCustom;
 import activetech.zyyhospital.pojo.dto.HspObsvtfstInfCustom;
-import activetech.zyyhospital.pojo.dto.HspQjjlInfCustom;
 import activetech.zyyhospital.service.ZyyLqblService;
 
 public class ZyyLqblServiceImpl implements ZyyLqblService {
@@ -98,18 +86,18 @@ public class ZyyLqblServiceImpl implements ZyyLqblService {
 	private HspObsvtfstInfMapper hspObsvtfstInfMapper;
 	@Autowired
 	private HspObsvtfstInfCustomMapper hspObsvtfstInfCustomMapper;
-	@Autowired
-	private HspCfjlInfCustomMapper hspCfjlInfCustomMapper;
+//	@Autowired
+//	private HspCfjlInfCustomMapper hspCfjlInfCustomMapper;
 	@Autowired
 	private HspEmgInfMapper hspEmgInfMapper;
 	@Autowired
 	private HspSqlInfMapper hspSqlInfMapper;
-	@Autowired
-	private HspCfjlInfMapper hspCfjlInfMapper;
-	@Autowired
-	private HspJjbjlInfCustomMapper hspJjbjlInfCustomMapper;
-	@Autowired
-	private HspJjbjlInfMapper hspJjbjlInfMapper; 
+//	@Autowired
+//	private HspCfjlInfMapper hspCfjlInfMapper;
+//	@Autowired
+//	private HspJjbjlInfCustomMapper hspJjbjlInfCustomMapper;
+//	@Autowired
+//	private HspJjbjlInfMapper hspJjbjlInfMapper;
 	@Autowired
 	private HspLqblInfMapper hspLqblInfMapper;
 	@Autowired
@@ -118,10 +106,10 @@ public class ZyyLqblServiceImpl implements ZyyLqblService {
 	private HspCgxjInfMapper hspCgxjInfMapper;
 	@Autowired
 	private HspCgxjInfCustomMapper hspCgxjInfCustomMapper;
-	@Autowired 
-	private HspQjjlInfMapper hspQjjlInfMapper;
-	@Autowired
-	private HspQjjlInfCustomMapper hspQjjlInfCustomMapper;
+//	@Autowired
+//	private HspQjjlInfMapper hspQjjlInfMapper;
+//	@Autowired
+//	private HspQjjlInfCustomMapper hspQjjlInfCustomMapper;
 	@Autowired
 	private HspHlpgbCustomMapper hspHlpgbCustomMapper;
 	@Autowired
@@ -483,203 +471,203 @@ public class ZyyLqblServiceImpl implements ZyyLqblService {
 		}
 	
 	/*-------------------------------zhang----------------------*/
-	@Override
-	public int findhspCfjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return hspCfjlInfCustomMapper.findhspCfjlInfcount(hspLqbljlQueryDto);
-	}
+//	@Override
+//	public int findhspCfjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto)
+//			throws Exception {
+//		// TODO Auto-generated method stub
+//		return hspCfjlInfCustomMapper.findhspCfjlInfcount(hspLqbljlQueryDto);
+//	}
 
-	@Override
-	public List<HspCfjlInfCustom> findhspCfjlInfList(
-			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception {
-		// TODO Auto-generated method stub
-		return hspCfjlInfCustomMapper.findhspCfjlInfList(hspLqbljlQueryDto);
-	}
+//	@Override
+//	public List<HspCfjlInfCustom> findhspCfjlInfList(
+//			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception {
+//		// TODO Auto-generated method stub
+//		return hspCfjlInfCustomMapper.findhspCfjlInfList(hspLqbljlQueryDto);
+//	}
 	
-	@Override
-	public String addcfjlsubmit(HspLqbljlQueryDto hspLqbljlQueryDto)
-			throws Exception {
-		HspCfjlInf hspCfjlInf = new HspCfjlInf();
-		BeanUtils.copyProperties(hspCfjlInf, hspLqbljlQueryDto.getHspCfjlInfCustom());
-		hspCfjlInf.setCfjlSeq(UUIDBuild.getUUID());
-		hspCfjlInf.setCreateDat(new Date());
-		hspCfjlInfMapper.insertSelective(hspCfjlInf);
-		return hspCfjlInf.getCfjlSeq();
-		
-	}
+//	@Override
+//	public String addcfjlsubmit(HspLqbljlQueryDto hspLqbljlQueryDto)
+//			throws Exception {
+//		HspCfjlInf hspCfjlInf = new HspCfjlInf();
+//		BeanUtils.copyProperties(hspCfjlInf, hspLqbljlQueryDto.getHspCfjlInfCustom());
+//		hspCfjlInf.setCfjlSeq(UUIDBuild.getUUID());
+//		hspCfjlInf.setCreateDat(new Date());
+//		hspCfjlInfMapper.insertSelective(hspCfjlInf);
+//		return hspCfjlInf.getCfjlSeq();
+//
+//	}
 	
-	public void delcfjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser) throws Exception {
-		if(hspLqbljlQueryDto!=null){
-			if(hspLqbljlQueryDto.getHspCfjlInfCustom()!=null){
-				hspCfjlInfMapper.deleteByPrimaryKey(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlSeq());
-			}
-		}
-	}
+//	public void delcfjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser) throws Exception {
+//		if(hspLqbljlQueryDto!=null){
+//			if(hspLqbljlQueryDto.getHspCfjlInfCustom()!=null){
+//				hspCfjlInfMapper.deleteByPrimaryKey(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlSeq());
+//			}
+//		}
+//	}
 	
-	@Override
-	public HspCfjlInfCustom findHspCfjlInfbyid(String cfjlSeq) throws Exception {
-		HspCfjlInfCustom hspCfjlInfCustom =new HspCfjlInfCustom();
-		HspCfjlInf hspCfjlInf = hspCfjlInfMapper.selectByPrimaryKey(cfjlSeq);
-		if(hspCfjlInf!=null){
-			hspCfjlInfCustom.setCfjlDatString(DateUtil.formatDateByFormat(hspCfjlInf.getCfjlDat(), "yyyy/MM/dd HH:mm:ss"));
-			BeanUtils.copyProperties(hspCfjlInfCustom, hspCfjlInf);
-		}
-		return hspCfjlInfCustom;
-	}
+//	@Override
+//	public HspCfjlInfCustom findHspCfjlInfbyid(String cfjlSeq) throws Exception {
+//		HspCfjlInfCustom hspCfjlInfCustom =new HspCfjlInfCustom();
+//		HspCfjlInf hspCfjlInf = hspCfjlInfMapper.selectByPrimaryKey(cfjlSeq);
+//		if(hspCfjlInf!=null){
+//			hspCfjlInfCustom.setCfjlDatString(DateUtil.formatDateByFormat(hspCfjlInf.getCfjlDat(), "yyyy/MM/dd HH:mm:ss"));
+//			BeanUtils.copyProperties(hspCfjlInfCustom, hspCfjlInf);
+//		}
+//		return hspCfjlInfCustom;
+//	}
 	
-	@Override
-	public String updatecfjl(HspLqbljlQueryDto hspLqbljlQueryDto,
-			ActiveUser activeUser) throws Exception {
-		if(hspLqbljlQueryDto.getHspCfjlInfCustom()!=null){
-			if(StringUtils.isNotNullAndEmptyByTrim(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlSeq())){
-				HspCfjlInf hspCfjlInf = hspCfjlInfMapper.selectByPrimaryKey(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlSeq());
-				hspCfjlInf.setCfjlDat(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlDat());
-				hspCfjlInf.setCfjlType(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlType());
-				hspCfjlInf.setCfjlContent(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlContent());
-				hspCfjlInf.setUpdateDat(new Date());
-				hspCfjlInf.setUpdateNam(activeUser.getUsrname());
-				hspCfjlInf.setUpdateNum(activeUser.getUsrno());
-				hspCfjlInf.setCheckNam(hspLqbljlQueryDto.getHspCfjlInfCustom().getCheckNam());
-				hspCfjlInf.setCfjlNam(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlNam());
-				hspCfjlInf.setCfjlNum(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlNum());
-				hspCfjlInfMapper.updateByPrimaryKeyWithBLOBs(hspCfjlInf);
-				return hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlSeq();
-			}
-		}
-		return "";
-	}
+//	@Override
+//	public String updatecfjl(HspLqbljlQueryDto hspLqbljlQueryDto,
+//			ActiveUser activeUser) throws Exception {
+//		if(hspLqbljlQueryDto.getHspCfjlInfCustom()!=null){
+//			if(StringUtils.isNotNullAndEmptyByTrim(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlSeq())){
+//				HspCfjlInf hspCfjlInf = hspCfjlInfMapper.selectByPrimaryKey(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlSeq());
+//				hspCfjlInf.setCfjlDat(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlDat());
+//				hspCfjlInf.setCfjlType(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlType());
+//				hspCfjlInf.setCfjlContent(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlContent());
+//				hspCfjlInf.setUpdateDat(new Date());
+//				hspCfjlInf.setUpdateNam(activeUser.getUsrname());
+//				hspCfjlInf.setUpdateNum(activeUser.getUsrno());
+//				hspCfjlInf.setCheckNam(hspLqbljlQueryDto.getHspCfjlInfCustom().getCheckNam());
+//				hspCfjlInf.setCfjlNam(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlNam());
+//				hspCfjlInf.setCfjlNum(hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlNum());
+//				hspCfjlInfMapper.updateByPrimaryKeyWithBLOBs(hspCfjlInf);
+//				return hspLqbljlQueryDto.getHspCfjlInfCustom().getCfjlSeq();
+//			}
+//		}
+//		return "";
+//	}
 	
-	@Override
-	public int findhspJjbjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return hspJjbjlInfCustomMapper.findhspJjbjlInfcount(hspLqbljlQueryDto);
-	}
+//	@Override
+//	public int findhspJjbjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto)
+//			throws Exception {
+//		// TODO Auto-generated method stub
+//		return hspJjbjlInfCustomMapper.findhspJjbjlInfcount(hspLqbljlQueryDto);
+//	}
 
-	@Override
-	public List<HspJjbjlInfCustom> findhspJjbjlInfList(
-			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception {
-		// TODO Auto-generated method stub
-		return hspJjbjlInfCustomMapper.findhspJjbjlInfList(hspLqbljlQueryDto);
-	}
+//	@Override
+//	public List<HspJjbjlInfCustom> findhspJjbjlInfList(
+//			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception {
+//		// TODO Auto-generated method stub
+//		return hspJjbjlInfCustomMapper.findhspJjbjlInfList(hspLqbljlQueryDto);
+//	}
 	
-	@Override
-	public int addjjbjlsubmit(HspLqbljlQueryDto hspLqbljlQueryDto)
-			throws Exception {
-		HspJjbjlInf hspJjbjlInf = new HspJjbjlInf();
-		BeanUtils.copyProperties(hspJjbjlInf, hspLqbljlQueryDto.getHspJjbjlInfCustom());
-		hspJjbjlInf.setJjbjlSeq(UUIDBuild.getUUID());
-		hspJjbjlInf.setCreateDat(new Date());
-		return hspJjbjlInfMapper.insertSelective(hspJjbjlInf);
-		
-	}
+//	@Override
+//	public int addjjbjlsubmit(HspLqbljlQueryDto hspLqbljlQueryDto)
+//			throws Exception {
+//		HspJjbjlInf hspJjbjlInf = new HspJjbjlInf();
+//		BeanUtils.copyProperties(hspJjbjlInf, hspLqbljlQueryDto.getHspJjbjlInfCustom());
+//		hspJjbjlInf.setJjbjlSeq(UUIDBuild.getUUID());
+//		hspJjbjlInf.setCreateDat(new Date());
+//		return hspJjbjlInfMapper.insertSelective(hspJjbjlInf);
+//
+//	}
 	
-	public void deljjbjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser) throws Exception {
-		if(hspLqbljlQueryDto!=null){
-			if(hspLqbljlQueryDto.getHspJjbjlInfCustom()!=null){
-				hspJjbjlInfMapper.deleteByPrimaryKey(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlSeq());
-			}
-		}
-	}
+//	public void deljjbjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser) throws Exception {
+//		if(hspLqbljlQueryDto!=null){
+//			if(hspLqbljlQueryDto.getHspJjbjlInfCustom()!=null){
+//				hspJjbjlInfMapper.deleteByPrimaryKey(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlSeq());
+//			}
+//		}
+//	}
 	
-	@Override
-	public HspJjbjlInfCustom findHspjjbjlInfbyid(String jjbjlSeq) throws Exception {
-		HspJjbjlInfCustom hspJjbjlInfCustom =new HspJjbjlInfCustom();
-		HspJjbjlInf hspJjbjlInf = hspJjbjlInfMapper.selectByPrimaryKey(jjbjlSeq);
-		if(hspJjbjlInf!=null){
-			hspJjbjlInfCustom.setJjbjlDatString(DateUtil.formatDateByFormat(hspJjbjlInf.getJjbjlDat(), "yyyy/MM/dd HH:mm:ss"));
-			BeanUtils.copyProperties(hspJjbjlInfCustom, hspJjbjlInf);
-		}
-		return hspJjbjlInfCustom;
-	}
+//	@Override
+//	public HspJjbjlInfCustom findHspjjbjlInfbyid(String jjbjlSeq) throws Exception {
+//		HspJjbjlInfCustom hspJjbjlInfCustom =new HspJjbjlInfCustom();
+//		HspJjbjlInf hspJjbjlInf = hspJjbjlInfMapper.selectByPrimaryKey(jjbjlSeq);
+//		if(hspJjbjlInf!=null){
+//			hspJjbjlInfCustom.setJjbjlDatString(DateUtil.formatDateByFormat(hspJjbjlInf.getJjbjlDat(), "yyyy/MM/dd HH:mm:ss"));
+//			BeanUtils.copyProperties(hspJjbjlInfCustom, hspJjbjlInf);
+//		}
+//		return hspJjbjlInfCustom;
+//	}
 	
-	@Override
-	public void updatejjbjl(HspLqbljlQueryDto hspLqbljlQueryDto,
-			ActiveUser activeUser) throws Exception {
-		if(hspLqbljlQueryDto.getHspJjbjlInfCustom()!=null){
-			if(StringUtils.isNotNullAndEmptyByTrim(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlSeq())){
-				HspJjbjlInf hspJjbjlInf= hspJjbjlInfMapper.selectByPrimaryKey(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlSeq());
-				hspJjbjlInf.setJjbjlDat(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlDat());
-				hspJjbjlInf.setJjbjlType(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlType());
-				hspJjbjlInf.setJjbjlContent(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlContent());
-				hspJjbjlInf.setUpdateDat(new Date());
-				hspJjbjlInf.setUpdateNam(activeUser.getUsrname());
-				hspJjbjlInf.setUpdateNum(activeUser.getUsrno());
-				hspJjbjlInf.setJjbjlNam(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlNam());
-				hspJjbjlInf.setJjbjlNum(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlNum());
-				hspJjbjlInfMapper.updateByPrimaryKeyWithBLOBs(hspJjbjlInf);
-			}
-		}
-	}
+//	@Override
+//	public void updatejjbjl(HspLqbljlQueryDto hspLqbljlQueryDto,
+//			ActiveUser activeUser) throws Exception {
+//		if(hspLqbljlQueryDto.getHspJjbjlInfCustom()!=null){
+//			if(StringUtils.isNotNullAndEmptyByTrim(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlSeq())){
+//				HspJjbjlInf hspJjbjlInf= hspJjbjlInfMapper.selectByPrimaryKey(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlSeq());
+//				hspJjbjlInf.setJjbjlDat(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlDat());
+//				hspJjbjlInf.setJjbjlType(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlType());
+//				hspJjbjlInf.setJjbjlContent(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlContent());
+//				hspJjbjlInf.setUpdateDat(new Date());
+//				hspJjbjlInf.setUpdateNam(activeUser.getUsrname());
+//				hspJjbjlInf.setUpdateNum(activeUser.getUsrno());
+//				hspJjbjlInf.setJjbjlNam(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlNam());
+//				hspJjbjlInf.setJjbjlNum(hspLqbljlQueryDto.getHspJjbjlInfCustom().getJjbjlNum());
+//				hspJjbjlInfMapper.updateByPrimaryKeyWithBLOBs(hspJjbjlInf);
+//			}
+//		}
+//	}
 	
-	@Override
-	public int findhspQjjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return hspQjjlInfCustomMapper.findhspQjjlInfcount(hspLqbljlQueryDto);
-	}
-
-	@Override
-	public List<HspQjjlInfCustom> findhspQjjlInfList(
-			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception {
-		return hspQjjlInfCustomMapper.findhspQjjlInfList(hspLqbljlQueryDto);
-	}
-	
-	@Override
-	public String addqjjlsubmit(HspLqbljlQueryDto hspLqbljlQueryDto)
-			throws Exception {
-		HspQjjlInf hspQjjlInf = new HspQjjlInf();
-		BeanUtils.copyProperties(hspQjjlInf, hspLqbljlQueryDto.getHspQjjlInfCustom());
-		hspQjjlInf.setQjjlSeq(UUIDBuild.getUUID());
-		hspQjjlInf.setCreateDat(new Date());
-		hspQjjlInfMapper.insertSelective(hspQjjlInf);
-		return hspQjjlInf.getQjjlSeq();	
-	}
-	
-	public void delqjjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser) throws Exception {
-		if(hspLqbljlQueryDto!=null){
-			if(hspLqbljlQueryDto.getHspQjjlInfCustom()!=null){
-				if(StringUtils.isNotNullAndEmptyByTrim(hspLqbljlQueryDto.getHspQjjlInfCustom().getQjjlSeq())){
-					hspQjjlInfMapper.deleteByPrimaryKey(hspLqbljlQueryDto.getHspQjjlInfCustom().getQjjlSeq());
-				}
-			}
-		}
-	}
-	
-	@Override
-	public HspQjjlInfCustom findHspqjjlInfbyid(String qjjlSeq) throws Exception {
-		HspQjjlInfCustom hspQjjlInfCustom =new HspQjjlInfCustom();
-		HspQjjlInf hspQjjlInf = hspQjjlInfMapper.selectByPrimaryKey(qjjlSeq);
-		if(hspQjjlInf!=null){
-			hspQjjlInfCustom.setQjjlDatString(DateUtil.formatDateByFormat(hspQjjlInf.getQjjlDatStart(), "yyyy/MM/dd HH:mm:ss"));
-			hspQjjlInfCustom.setQjjlJldatString(DateUtil.formatDateByFormat(hspQjjlInf.getQjjlJldat(), "yyyy/MM/dd HH:mm:ss"));
-			BeanUtils.copyProperties(hspQjjlInfCustom, hspQjjlInf);
-		}
-		return hspQjjlInfCustom;
-	}
-	
-	@Override
-	public String updateqjjl(HspLqbljlQueryDto hspLqbljlQueryDto,
-			ActiveUser activeUser) throws Exception {
-		HspQjjlInfCustom hspQjjlInfCustom = hspLqbljlQueryDto.getHspQjjlInfCustom();
-		if (hspQjjlInfCustom == null) {
-			hspQjjlInfCustom = new HspQjjlInfCustom();
-		}
-		if(StringUtils.isNotNullAndEmptyByTrim(hspQjjlInfCustom.getQjjlSeq())){
-			HspQjjlInf hspQjjlInf = hspQjjlInfMapper.selectByPrimaryKey(hspQjjlInfCustom.getQjjlSeq());
-			if (hspQjjlInf != null) {
-				hspQjjlInfCustom.setEmgSeq(hspQjjlInf.getEmgSeq());
-				hspQjjlInfCustom.setCreateDat(hspQjjlInf.getCreateDat());
-				hspQjjlInfCustom.setUpdateDat(new Date());
-				hspQjjlInfCustom.setUpdateNam(activeUser.getUsrname());
-				hspQjjlInfCustom.setUpdateNum(activeUser.getUsrno());
-				hspQjjlInfMapper.updateByPrimaryKeyWithBLOBs(hspQjjlInf);
-			}			
-		}
-		return hspQjjlInfCustom.getQjjlSeq();
-	}
-	
+//	@Override
+//	public int findhspQjjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto)
+//			throws Exception {
+//		// TODO Auto-generated method stub
+//		return hspQjjlInfCustomMapper.findhspQjjlInfcount(hspLqbljlQueryDto);
+//	}
+//
+//	@Override
+//	public List<HspQjjlInfCustom> findhspQjjlInfList(
+//			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception {
+//		return hspQjjlInfCustomMapper.findhspQjjlInfList(hspLqbljlQueryDto);
+//	}
+//
+//	@Override
+//	public String addqjjlsubmit(HspLqbljlQueryDto hspLqbljlQueryDto)
+//			throws Exception {
+//		HspQjjlInf hspQjjlInf = new HspQjjlInf();
+//		BeanUtils.copyProperties(hspQjjlInf, hspLqbljlQueryDto.getHspQjjlInfCustom());
+//		hspQjjlInf.setQjjlSeq(UUIDBuild.getUUID());
+//		hspQjjlInf.setCreateDat(new Date());
+//		hspQjjlInfMapper.insertSelective(hspQjjlInf);
+//		return hspQjjlInf.getQjjlSeq();
+//	}
+//
+//	public void delqjjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser) throws Exception {
+//		if(hspLqbljlQueryDto!=null){
+//			if(hspLqbljlQueryDto.getHspQjjlInfCustom()!=null){
+//				if(StringUtils.isNotNullAndEmptyByTrim(hspLqbljlQueryDto.getHspQjjlInfCustom().getQjjlSeq())){
+//					hspQjjlInfMapper.deleteByPrimaryKey(hspLqbljlQueryDto.getHspQjjlInfCustom().getQjjlSeq());
+//				}
+//			}
+//		}
+//	}
+//
+//	@Override
+//	public HspQjjlInfCustom findHspqjjlInfbyid(String qjjlSeq) throws Exception {
+//		HspQjjlInfCustom hspQjjlInfCustom =new HspQjjlInfCustom();
+//		HspQjjlInf hspQjjlInf = hspQjjlInfMapper.selectByPrimaryKey(qjjlSeq);
+//		if(hspQjjlInf!=null){
+//			hspQjjlInfCustom.setQjjlDatString(DateUtil.formatDateByFormat(hspQjjlInf.getQjjlDatStart(), "yyyy/MM/dd HH:mm:ss"));
+//			hspQjjlInfCustom.setQjjlJldatString(DateUtil.formatDateByFormat(hspQjjlInf.getQjjlJldat(), "yyyy/MM/dd HH:mm:ss"));
+//			BeanUtils.copyProperties(hspQjjlInfCustom, hspQjjlInf);
+//		}
+//		return hspQjjlInfCustom;
+//	}
+//
+//	@Override
+//	public String updateqjjl(HspLqbljlQueryDto hspLqbljlQueryDto,
+//			ActiveUser activeUser) throws Exception {
+//		HspQjjlInfCustom hspQjjlInfCustom = hspLqbljlQueryDto.getHspQjjlInfCustom();
+//		if (hspQjjlInfCustom == null) {
+//			hspQjjlInfCustom = new HspQjjlInfCustom();
+//		}
+//		if(StringUtils.isNotNullAndEmptyByTrim(hspQjjlInfCustom.getQjjlSeq())){
+//			HspQjjlInf hspQjjlInf = hspQjjlInfMapper.selectByPrimaryKey(hspQjjlInfCustom.getQjjlSeq());
+//			if (hspQjjlInf != null) {
+//				hspQjjlInfCustom.setEmgSeq(hspQjjlInf.getEmgSeq());
+//				hspQjjlInfCustom.setCreateDat(hspQjjlInf.getCreateDat());
+//				hspQjjlInfCustom.setUpdateDat(new Date());
+//				hspQjjlInfCustom.setUpdateNam(activeUser.getUsrname());
+//				hspQjjlInfCustom.setUpdateNum(activeUser.getUsrno());
+//				hspQjjlInfMapper.updateByPrimaryKeyWithBLOBs(hspQjjlInf);
+//			}
+//		}
+//		return hspQjjlInfCustom.getQjjlSeq();
+//	}
+//
 	
 	@Override
 	public void insertyzxx(VHemsJyjgQueryDto vHemsJyjgQueryDto,ActiveUser activeUser)

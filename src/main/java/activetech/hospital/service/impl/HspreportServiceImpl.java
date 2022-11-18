@@ -15,7 +15,6 @@ import activetech.base.pojo.domain.Series;
 import activetech.base.pojo.dto.HighChartsDemoCustom;
 import activetech.base.pojo.dto.HighChartsDemoCustomDto;
 import activetech.base.process.result.HighChartsInfo;
-import activetech.zyyhospital.pojo.dto.HspJjbglInfQueryDto;
 import activetech.hospital.dao.mapper.HspMewsInfCustomMapper;
 import activetech.hospital.dao.mapper.HspemginfCustomMapper;
 import activetech.hospital.dao.mapper.HspsqlinfCustomMapper;
@@ -32,7 +31,6 @@ import activetech.hospital.service.HspreportService;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
 import activetech.zyyhospital.dao.mapper.HspConsultationRecordsCustomMapper;
-import activetech.zyyhospital.dao.mapper.HspJjbglInfCustomMapper;
 import activetech.zyyhospital.dao.mapper.ZyyHspemginfCustomMapper;
 import activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom;
 import activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto;
@@ -48,8 +46,8 @@ public class HspreportServiceImpl implements HspreportService {
 	private ZyyHspemginfCustomMapper zyyHspemginfCustomMapper;
 	@Autowired
 	private HspMewsInfCustomMapper hspMewsInfCustomMapper;
-	@Autowired
-	private HspJjbglInfCustomMapper hspJjbglInfCustomMapper;
+//	@Autowired
+//	private HspJjbglInfCustomMapper hspJjbglInfCustomMapper;
 	/**
 	 * 获取急诊患者趋势
 	 */
@@ -975,148 +973,148 @@ public class HspreportServiceImpl implements HspreportService {
 	/**
 	 * 班次患者汇总列表
 	 */
-	@Override
-	public List<HspBchzhzReportCustom> findbchzhzList(HspJjbglInfQueryDto hspJjbglInfQueryDto) {
-		List<HspBchzhzReportCustom> list = hspJjbglInfCustomMapper.findbchzhzList(hspJjbglInfQueryDto);
-		if(list.size() == 0){
-			HspBchzhzReportCustom a = new HspBchzhzReportCustom();
-			a.setJiaobc("RB");
-			list.add(a);
-			HspBchzhzReportCustom b = new HspBchzhzReportCustom();
-			b.setJiaobc("QYB");
-			list.add(b);
-			HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-			c.setJiaobc("HYB");
-			list.add(c);
-		}else if(list.size() == 1){
-			HspBchzhzReportCustom a = list.get(0);
-			if("RB".equals(a.getJiaobc())){
-				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
-				b.setJiaobc("QYB");
-				list.add(b);
-				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-				c.setJiaobc("HYB");
-				list.add(c);
-			}
-			if("QYB".equals(a.getJiaobc())){
-				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
-				b.setJiaobc("RB");
-				list.add(0,b);
-				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-				c.setJiaobc("HYB");
-				list.add(2,c);
-			}
-			if("HYB".equals(a.getJiaobc())){
-				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
-				b.setJiaobc("RB");
-				list.add(0,b);
-				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-				c.setJiaobc("QYB");
-				list.add(1,c);
-			}
-		}else if(list.size() == 2){
-			HspBchzhzReportCustom a = list.get(0);
-			HspBchzhzReportCustom b = list.get(1);
-			if("RB".equals(a.getJiaobc())){
-				if("QYB".equals(b.getJiaobc())){
-					HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-					c.setJiaobc("HYB");
-					list.add(2,c);
-				}else{
-					HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-					c.setJiaobc("QYB");
-					list.add(1,c);
-				}
-			}else if("QYB".equals(a.getJiaobc())){
-				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-				c.setJiaobc("RB");
-				list.add(0,c);
-			}
-		}
-		for(HspBchzhzReportCustom a : list){
-			String jiaobc = a.getJiaobc();
-			if("RB".equals(jiaobc)){
-				jiaobc = "日班";
-			}else if("QYB".equals(jiaobc)){
-				jiaobc = "前夜班";
-			}else if("HYB".equals(jiaobc)){
-				jiaobc = "后夜班";
-			}
-			a.setJiaobc(jiaobc);
-		}
-		return list;
-	}
-	@Override
-	public List<HspBchzhzReportCustom> findbchzhzListRange(HspJjbglInfQueryDto hspJjbglInfQueryDto) {
-		List<HspBchzhzReportCustom> list = hspJjbglInfCustomMapper.findbchzhzListRange(hspJjbglInfQueryDto);
-		if(list.size() == 0){
-			HspBchzhzReportCustom a = new HspBchzhzReportCustom();
-			a.setJiaobc("RB");
-			list.add(a);
-			HspBchzhzReportCustom b = new HspBchzhzReportCustom();
-			b.setJiaobc("QYB");
-			list.add(b);
-			HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-			c.setJiaobc("HYB");
-			list.add(c);
-		}else if(list.size() == 1){
-			HspBchzhzReportCustom a = list.get(0);
-			if("RB".equals(a.getJiaobc())){
-				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
-				b.setJiaobc("QYB");
-				list.add(b);
-				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-				c.setJiaobc("HYB");
-				list.add(c);
-			}
-			if("QYB".equals(a.getJiaobc())){
-				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
-				b.setJiaobc("RB");
-				list.add(0,b);
-				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-				c.setJiaobc("HYB");
-				list.add(2,c);
-			}
-			if("HYB".equals(a.getJiaobc())){
-				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
-				b.setJiaobc("RB");
-				list.add(0,b);
-				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-				c.setJiaobc("QYB");
-				list.add(1,c);
-			}
-		}else if(list.size() == 2){
-			HspBchzhzReportCustom a = list.get(0);
-			HspBchzhzReportCustom b = list.get(1);
-			if("RB".equals(a.getJiaobc())){
-				if("QYB".equals(b.getJiaobc())){
-					HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-					c.setJiaobc("HYB");
-					list.add(2,c);
-				}else{
-					HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-					c.setJiaobc("QYB");
-					list.add(1,c);
-				}
-			}else if("QYB".equals(a.getJiaobc())){
-				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
-				c.setJiaobc("RB");
-				list.add(0,c);
-			}
-		}
-		for(HspBchzhzReportCustom a : list){
-			String jiaobc = a.getJiaobc();
-			if("RB".equals(jiaobc)){
-				jiaobc = "日班";
-			}else if("QYB".equals(jiaobc)){
-				jiaobc = "前夜班";
-			}else if("HYB".equals(jiaobc)){
-				jiaobc = "后夜班";
-			}
-			a.setJiaobc(jiaobc);
-		}
-		return list;
-	}
+//	@Override
+//	public List<HspBchzhzReportCustom> findbchzhzList(HspJjbglInfQueryDto hspJjbglInfQueryDto) {
+//		List<HspBchzhzReportCustom> list = hspJjbglInfCustomMapper.findbchzhzList(hspJjbglInfQueryDto);
+//		if(list.size() == 0){
+//			HspBchzhzReportCustom a = new HspBchzhzReportCustom();
+//			a.setJiaobc("RB");
+//			list.add(a);
+//			HspBchzhzReportCustom b = new HspBchzhzReportCustom();
+//			b.setJiaobc("QYB");
+//			list.add(b);
+//			HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//			c.setJiaobc("HYB");
+//			list.add(c);
+//		}else if(list.size() == 1){
+//			HspBchzhzReportCustom a = list.get(0);
+//			if("RB".equals(a.getJiaobc())){
+//				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
+//				b.setJiaobc("QYB");
+//				list.add(b);
+//				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//				c.setJiaobc("HYB");
+//				list.add(c);
+//			}
+//			if("QYB".equals(a.getJiaobc())){
+//				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
+//				b.setJiaobc("RB");
+//				list.add(0,b);
+//				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//				c.setJiaobc("HYB");
+//				list.add(2,c);
+//			}
+//			if("HYB".equals(a.getJiaobc())){
+//				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
+//				b.setJiaobc("RB");
+//				list.add(0,b);
+//				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//				c.setJiaobc("QYB");
+//				list.add(1,c);
+//			}
+//		}else if(list.size() == 2){
+//			HspBchzhzReportCustom a = list.get(0);
+//			HspBchzhzReportCustom b = list.get(1);
+//			if("RB".equals(a.getJiaobc())){
+//				if("QYB".equals(b.getJiaobc())){
+//					HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//					c.setJiaobc("HYB");
+//					list.add(2,c);
+//				}else{
+//					HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//					c.setJiaobc("QYB");
+//					list.add(1,c);
+//				}
+//			}else if("QYB".equals(a.getJiaobc())){
+//				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//				c.setJiaobc("RB");
+//				list.add(0,c);
+//			}
+//		}
+//		for(HspBchzhzReportCustom a : list){
+//			String jiaobc = a.getJiaobc();
+//			if("RB".equals(jiaobc)){
+//				jiaobc = "日班";
+//			}else if("QYB".equals(jiaobc)){
+//				jiaobc = "前夜班";
+//			}else if("HYB".equals(jiaobc)){
+//				jiaobc = "后夜班";
+//			}
+//			a.setJiaobc(jiaobc);
+//		}
+//		return list;
+//	}
+//	@Override
+//	public List<HspBchzhzReportCustom> findbchzhzListRange(HspJjbglInfQueryDto hspJjbglInfQueryDto) {
+//		List<HspBchzhzReportCustom> list = hspJjbglInfCustomMapper.findbchzhzListRange(hspJjbglInfQueryDto);
+//		if(list.size() == 0){
+//			HspBchzhzReportCustom a = new HspBchzhzReportCustom();
+//			a.setJiaobc("RB");
+//			list.add(a);
+//			HspBchzhzReportCustom b = new HspBchzhzReportCustom();
+//			b.setJiaobc("QYB");
+//			list.add(b);
+//			HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//			c.setJiaobc("HYB");
+//			list.add(c);
+//		}else if(list.size() == 1){
+//			HspBchzhzReportCustom a = list.get(0);
+//			if("RB".equals(a.getJiaobc())){
+//				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
+//				b.setJiaobc("QYB");
+//				list.add(b);
+//				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//				c.setJiaobc("HYB");
+//				list.add(c);
+//			}
+//			if("QYB".equals(a.getJiaobc())){
+//				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
+//				b.setJiaobc("RB");
+//				list.add(0,b);
+//				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//				c.setJiaobc("HYB");
+//				list.add(2,c);
+//			}
+//			if("HYB".equals(a.getJiaobc())){
+//				HspBchzhzReportCustom b = new HspBchzhzReportCustom();
+//				b.setJiaobc("RB");
+//				list.add(0,b);
+//				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//				c.setJiaobc("QYB");
+//				list.add(1,c);
+//			}
+//		}else if(list.size() == 2){
+//			HspBchzhzReportCustom a = list.get(0);
+//			HspBchzhzReportCustom b = list.get(1);
+//			if("RB".equals(a.getJiaobc())){
+//				if("QYB".equals(b.getJiaobc())){
+//					HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//					c.setJiaobc("HYB");
+//					list.add(2,c);
+//				}else{
+//					HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//					c.setJiaobc("QYB");
+//					list.add(1,c);
+//				}
+//			}else if("QYB".equals(a.getJiaobc())){
+//				HspBchzhzReportCustom c = new HspBchzhzReportCustom();
+//				c.setJiaobc("RB");
+//				list.add(0,c);
+//			}
+//		}
+//		for(HspBchzhzReportCustom a : list){
+//			String jiaobc = a.getJiaobc();
+//			if("RB".equals(jiaobc)){
+//				jiaobc = "日班";
+//			}else if("QYB".equals(jiaobc)){
+//				jiaobc = "前夜班";
+//			}else if("HYB".equals(jiaobc)){
+//				jiaobc = "后夜班";
+//			}
+//			a.setJiaobc(jiaobc);
+//		}
+//		return list;
+//	}
 	
 	/**
 	 * 120收住人数统计报表列表查询

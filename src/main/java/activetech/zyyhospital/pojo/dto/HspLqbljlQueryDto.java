@@ -24,7 +24,7 @@ public class HspLqbljlQueryDto {
 	/**
 	 * 查房记录
 	 */
-	private HspCfjlInfCustom hspCfjlInfCustom;
+//	private HspCfjlInfCustom hspCfjlInfCustom;
 	
 	/**
 	 * 留观首页
@@ -39,7 +39,7 @@ public class HspLqbljlQueryDto {
 	/**
 	 * 交接班记录
 	 */
-	private HspJjbjlInfCustom hspJjbjlInfCustom;
+//	private HspJjbjlInfCustom hspJjbjlInfCustom;
 	
 	/**
 	 * 留抢病历
@@ -54,7 +54,7 @@ public class HspLqbljlQueryDto {
 	/**
 	 * 抢救记录
 	 */
-	private HspQjjlInfCustom hspQjjlInfCustom;
+//	private HspQjjlInfCustom hspQjjlInfCustom;
 	
 	/**
 	 * 转归记录
@@ -69,7 +69,7 @@ public class HspLqbljlQueryDto {
 	/**
 	 * 手术操作记录自定义实体类
 	 */
-	private HspOperateInfCustom hspOperateInfCustom;
+//	private HspOperateInfCustom hspOperateInfCustom;
 	
 	/**
 	 * 疼痛评分
@@ -84,7 +84,7 @@ public class HspLqbljlQueryDto {
 	/**
 	 * 输血记录
 	 */
-	private HspTransfusionInfCustom hspTransfusionInfCustom; 
+//	private HspTransfusionInfCustom hspTransfusionInfCustom;
 	
 	/**
 	 * 请求来源(HIS_NO_PATIENT:HIS请求病历且未查到患者数据)
@@ -107,13 +107,13 @@ public class HspLqbljlQueryDto {
 		this.hspsqlinfCustom = hspsqlinfCustom;
 	}
 
-	public HspQjjlInfCustom getHspQjjlInfCustom() {
-		return hspQjjlInfCustom;
-	}
+//	public HspQjjlInfCustom getHspQjjlInfCustom() {
+//		return hspQjjlInfCustom;
+//	}
 
-	public void setHspQjjlInfCustom(HspQjjlInfCustom hspQjjlInfCustom) {
-		this.hspQjjlInfCustom = hspQjjlInfCustom;
-	}
+//	public void setHspQjjlInfCustom(HspQjjlInfCustom hspQjjlInfCustom) {
+//		this.hspQjjlInfCustom = hspQjjlInfCustom;
+//	}
 
 	public HspCgxjInfCustom getHspCgxjInfCustom() {
 		return hspCgxjInfCustom;
@@ -131,13 +131,13 @@ public class HspLqbljlQueryDto {
 		this.hspLqblInfCustom = hspLqblInfCustom;
 	}
 
-	public HspJjbjlInfCustom getHspJjbjlInfCustom() {
-		return hspJjbjlInfCustom;
-	}
+//	public HspJjbjlInfCustom getHspJjbjlInfCustom() {
+//		return hspJjbjlInfCustom;
+//	}
 
-	public void setHspJjbjlInfCustom(HspJjbjlInfCustom hspJjbjlInfCustom) {
-		this.hspJjbjlInfCustom = hspJjbjlInfCustom;
-	}
+//	public void setHspJjbjlInfCustom(HspJjbjlInfCustom hspJjbjlInfCustom) {
+//		this.hspJjbjlInfCustom = hspJjbjlInfCustom;
+//	}
 
 	public HspemginfCustom getHspemginfCustom() {
 		return hspemginfCustom;
@@ -179,21 +179,21 @@ public class HspLqbljlQueryDto {
 		this.order = order;
 	}
 
-	public HspCfjlInfCustom getHspCfjlInfCustom() {
-		return hspCfjlInfCustom;
-	}
+//	public HspCfjlInfCustom getHspCfjlInfCustom() {
+//		return hspCfjlInfCustom;
+//	}
 
-	public void setHspCfjlInfCustom(HspCfjlInfCustom hspCfjlInfCustom) {
-		this.hspCfjlInfCustom = hspCfjlInfCustom;
-	}
+//	public void setHspCfjlInfCustom(HspCfjlInfCustom hspCfjlInfCustom) {
+//		this.hspCfjlInfCustom = hspCfjlInfCustom;
+//	}
 
-	public HspOperateInfCustom getHspOperateInfCustom() {
-		return hspOperateInfCustom;
-	}
+//	public HspOperateInfCustom getHspOperateInfCustom() {
+//		return hspOperateInfCustom;
+//	}
 
-	public void setHspOperateInfCustom(HspOperateInfCustom hspOperateInfCustom) {
-		this.hspOperateInfCustom = hspOperateInfCustom;
-	}
+//	public void setHspOperateInfCustom(HspOperateInfCustom hspOperateInfCustom) {
+//		this.hspOperateInfCustom = hspOperateInfCustom;
+//	}
 
 	public HspNrsInfCustom getHspNrsInfCustom() {
 		return hspNrsInfCustom;
@@ -211,13 +211,13 @@ public class HspLqbljlQueryDto {
 		this.hspFallAssInfCustom = hspFallAssInfCustom;
 	}
 
-	public HspTransfusionInfCustom getHspTransfusionInfCustom() {
-		return hspTransfusionInfCustom;
-	}
-
-	public void setHspTransfusionInfCustom(HspTransfusionInfCustom hspTransfusionInfCustom) {
-		this.hspTransfusionInfCustom = hspTransfusionInfCustom;
-	}
+//	public HspTransfusionInfCustom getHspTransfusionInfCustom() {
+//		return hspTransfusionInfCustom;
+//	}
+//
+//	public void setHspTransfusionInfCustom(HspTransfusionInfCustom hspTransfusionInfCustom) {
+//		this.hspTransfusionInfCustom = hspTransfusionInfCustom;
+//	}
 
 	public String getRequestSource() {
 		return requestSource;

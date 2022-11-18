@@ -53,16 +53,17 @@
 	<bean id="zyyConsentService" class="activetech.zyyhospital.service.impl.ZyyConsentServiceImpl" />
 	
 	<!-- 病程记录 -->
-	<bean id="hspDiseaseCourseService" class="activetech.zyyhospital.service.impl.HspDiseaseCourseServiceImpl" />
+<!--	<bean id="hspDiseaseCourseService" class="activetech.zyyhospital.service.impl.HspDiseaseCourseServiceImpl" />-->
 	
 	<!-- 会诊记录 -->
 	<bean id="hspConsultationRecordsService" class="activetech.zyyhospital.service.impl.HspConsultationRecordsServiceImpl" />
 	
+
 	<!-- 死亡记录 -->
-	<bean id="hspDeathRecordService" class="activetech.zyyhospital.service.impl.HspDeathRecordServiceImpl" />
+<!--	<bean id="hspDeathRecordService" class="activetech.zyyhospital.service.impl.HspDeathRecordServiceImpl" />-->
 	
 	<!-- 文书 -->
-	<bean id="zyyNrsconsentService" class="activetech.zyyhospital.service.impl.ZyyNrsconsentServiceImpl" />
+<!--	<bean id="zyyNrsconsentService" class="activetech.zyyhospital.service.impl.ZyyNrsconsentServiceImpl" />-->
 	
 	<!--  -->
 	<bean id="zyyWebsocketService" class="activetech.zyyhospital.service.impl.ZyyWebsocketServiceImpl" />
@@ -74,19 +75,19 @@
 	<bean id="scoreQueryService" class="activetech.zyyhospital.service.impl.ScoreQueryServiceImpl" />
 	
 	<!-- 脑梗溶栓病程 -->
-	<bean id="hspCerebralService" class="activetech.zyyhospital.service.impl.HspCerebralServiceImpl" />
+<!--	<bean id="hspCerebralService" class="activetech.zyyhospital.service.impl.HspCerebralServiceImpl" />-->
 
 	<!-- 新诊断 -->
 	<bean id="hspJbzdInfNewService" class="activetech.zyyhospital.service.impl.HspJbzdInfNewServiceImpl" />
 
 	<!-- 评估表 -->
-	<bean id="riskAssSheetService" class="activetech.zyyhospital.service.impl.HspRiskAssSheetServiceImpl" />
+<!--	<bean id="riskAssSheetService" class="activetech.zyyhospital.service.impl.HspRiskAssSheetServiceImpl" />-->
 	
 	<!-- 卒中 -->
 	<bean id="hisCzSqlServerService" class="activetech.zyyhospital.service.impl.HisCzSqlServerServiceImpl" />
 
 	<!-- 隔离措施 -->
-	<bean id="hspGlcsService" class="activetech.zyyhospital.service.impl.ZyyGlcsServiceImpl" />
+<!--	<bean id="hspGlcsService" class="activetech.zyyhospital.service.impl.ZyyGlcsServiceImpl" />-->
 	
 	<!-- 群体事件管理 -->
 <!--	<bean id="hspQtsjglService" class="activetech.zyyhospital.service.impl.HspQtsjglServiceImpl" />-->
@@ -98,13 +99,13 @@
 	<bean id="hspBasyInfService" class="activetech.zyyhospital.service.impl.HspBasyInfServiceImpl" />
 	
 	<!--  -->
-	<bean id="icuPipeInfoService" class="activetech.zyyhospital.service.impl.IcuPipeInfoServiceImpl" />
+<!--	<bean id="icuPipeInfoService" class="activetech.zyyhospital.service.impl.IcuPipeInfoServiceImpl" />-->
 	
 	<!-- 交接班管理 -->
-	<bean id="hspJjbglInfService" class="activetech.zyyhospital.service.impl.HspJjbglInfServiceImpl" />
+<!--	<bean id="hspJjbglInfService" class="activetech.zyyhospital.service.impl.HspJjbglInfServiceImpl" />-->
 	
 	<!-- 预警阀值管理（生命体征） -->
-	<bean id="icuVsDefService" class="activetech.zyyhospital.service.impl.IcuVsDefServiceImpl" />
+<!--	<bean id="icuVsDefService" class="activetech.zyyhospital.service.impl.IcuVsDefServiceImpl" />-->
 	
 	<!-- 事件提醒  -->
 <!--	<bean id="IcuErInfoService" class="activetech.zyyhospital.service.impl.IcuErInfoServiceImpl" />-->
@@ -122,7 +123,7 @@
 	<bean id="hspHeartreordService" class="activetech.zyyhospital.service.impl.HspHeartRecordServiceImpl" />
 	
 	<!-- 输血记录 -->
-	<bean id="hspTransfusionInfService" class="activetech.zyyhospital.service.impl.HspTransfusionInfServiceImpl" />
+<!--	<bean id="hspTransfusionInfService" class="activetech.zyyhospital.service.impl.HspTransfusionInfServiceImpl" />-->
 	
 	<!-- 特殊护理记录单 -->
 	<bean id="zyyTshljlService" class="activetech.zyyhospital.service.impl.ZyyTshljlServiceImpl" />

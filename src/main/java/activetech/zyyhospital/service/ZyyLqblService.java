@@ -6,14 +6,11 @@ import activetech.base.pojo.dto.ActiveUser;
 import activetech.basehis.pojo.dto.HspAotographInfoCustom;
 import activetech.external.pojo.dto.VHemsJyjgQueryDto;
 import activetech.zyyhospital.pojo.domain.THemsPaperwork;
-import activetech.zyyhospital.pojo.dto.HspCfjlInfCustom;
 import activetech.zyyhospital.pojo.dto.HspCgxjInfCustom;
 import activetech.zyyhospital.pojo.dto.HspDocadviceInfCustom;
-import activetech.zyyhospital.pojo.dto.HspJjbjlInfCustom;
 import activetech.zyyhospital.pojo.dto.HspLqblInfCustom;
 import activetech.zyyhospital.pojo.dto.HspLqbljlQueryDto;
 import activetech.zyyhospital.pojo.dto.HspObsvtfstInfCustom;
-import activetech.zyyhospital.pojo.dto.HspQjjlInfCustom;
 
 public interface ZyyLqblService {
 	
@@ -37,51 +34,51 @@ public interface ZyyLqblService {
 	public void deletecgxj(String cgxjSeq)throws Exception;
 	
 	/*-------------------------------zhang----------------------*/
-	public int findhspCfjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
+//	public int findhspCfjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
 	
-	public List<HspCfjlInfCustom> findhspCfjlInfList(
-			HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
+//	public List<HspCfjlInfCustom> findhspCfjlInfList(
+//			HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
 	
-	public String addcfjlsubmit(
-			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception;
+//	public String addcfjlsubmit(
+//			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception;
 	
-	public void delcfjl(
-			HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser ) throws Exception;
+//	public void delcfjl(
+//			HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser ) throws Exception;
 	
-	public HspCfjlInfCustom findHspCfjlInfbyid(String cfjlSeq)throws Exception;
+//	public HspCfjlInfCustom findHspCfjlInfbyid(String cfjlSeq)throws Exception;
 	
-	public String updatecfjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser)throws Exception;
+//	public String updatecfjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser)throws Exception;
+
+//	public int findhspJjbjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
 	
-	public int findhspJjbjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
+//	public List<HspJjbjlInfCustom> findhspJjbjlInfList(
+//			HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
 	
-	public List<HspJjbjlInfCustom> findhspJjbjlInfList(
-			HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
+//	public int addjjbjlsubmit(
+//			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception;
 	
-	public int addjjbjlsubmit(
-			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception;
+//	public void deljjbjl(
+//			HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser ) throws Exception;
 	
-	public void deljjbjl(
-			HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser ) throws Exception;
+//	public HspJjbjlInfCustom findHspjjbjlInfbyid(String jjbjlSeq)throws Exception;
 	
-	public HspJjbjlInfCustom findHspjjbjlInfbyid(String jjbjlSeq)throws Exception;
+//	public void updatejjbjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser)throws Exception;
 	
-	public void updatejjbjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser)throws Exception;
-	
-	public int findhspQjjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
-	
-	public List<HspQjjlInfCustom> findhspQjjlInfList(
-			HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
-	
-	public String addqjjlsubmit(
-			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception;
-	
-	public void delqjjl(
-			HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser ) throws Exception;
-	
-	public HspQjjlInfCustom findHspqjjlInfbyid(String qjjlSeq)throws Exception;
-	
-	public String updateqjjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser)throws Exception;
-	
+//	public int findhspQjjlInfcount(HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
+//
+//	public List<HspQjjlInfCustom> findhspQjjlInfList(
+//			HspLqbljlQueryDto hspLqbljlQueryDto ) throws Exception;
+//
+//	public String addqjjlsubmit(
+//			HspLqbljlQueryDto hspLqbljlQueryDto) throws Exception;
+//
+//	public void delqjjl(
+//			HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser ) throws Exception;
+//
+//	public HspQjjlInfCustom findHspqjjlInfbyid(String qjjlSeq)throws Exception;
+//
+//	public String updateqjjl(HspLqbljlQueryDto hspLqbljlQueryDto,ActiveUser activeUser)throws Exception;
+//
 
 	
 	public  void insertyzxx(VHemsJyjgQueryDto vHemsJyjgQueryDto,ActiveUser activeUser)throws Exception;

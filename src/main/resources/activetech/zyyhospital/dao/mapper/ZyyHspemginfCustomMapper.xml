@@ -1892,102 +1892,102 @@
   </select>
   
   <!-- 手术操作统计报表 -->
-	<select id="operationList" parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
-		resultType="activetech.zyyhospital.pojo.dto.HspOperateInfCustom">
-		select count(*) operateCount,OPER_NAM operNam ,#{queryDate} querydate from hsp_operate_inf b,hsp_emg_inf a
-		where OPER_NAM is not null and a.emg_seq = b.emg_seq and
-		<if test="querytype=='year'">
-		to_char(a.emg_dat,'yyyy') = to_char(#{startdate},'yyyy') 
-		</if>
-		<if test="querytype=='month'">
-		to_char(a.emg_dat,'yyyy/mm') = to_char(#{startdate},'yyyy/mm') 
-		</if>
-		<if test="querytype=='day'">
-		to_char(a.emg_dat,'yyyy/mm/dd') = to_char(#{startdate},'yyyy/mm/dd') 
-		</if>
-		group by oper_nam
-	</select>
+<!--	<select id="operationList" parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"-->
+<!--		resultType="activetech.zyyhospital.pojo.dto.HspOperateInfCustom">-->
+<!--		select count(*) operateCount,OPER_NAM operNam ,#{queryDate} querydate from hsp_operate_inf b,hsp_emg_inf a-->
+<!--		where OPER_NAM is not null and a.emg_seq = b.emg_seq and-->
+<!--		<if test="querytype=='year'">-->
+<!--		to_char(a.emg_dat,'yyyy') = to_char(#{startdate},'yyyy') -->
+<!--		</if>-->
+<!--		<if test="querytype=='month'">-->
+<!--		to_char(a.emg_dat,'yyyy/mm') = to_char(#{startdate},'yyyy/mm') -->
+<!--		</if>-->
+<!--		<if test="querytype=='day'">-->
+<!--		to_char(a.emg_dat,'yyyy/mm/dd') = to_char(#{startdate},'yyyy/mm/dd') -->
+<!--		</if>-->
+<!--		group by oper_nam-->
+<!--	</select>-->
 	
 	<!-- 手术操作方法 -->
-  	<sql id="queryEmgBySsczCond">
-		<where>
-				a.emg_seq = b.emg_seq and 
-				a.sql_seq = c.sql_seq and
-			<if test="querytype=='month'">
-				to_char(a.emg_dat,'yyyy/mm') = to_char(#{startdate},'yyyy/mm') 
-			</if>
-			<if test="querytype=='day'">
-				to_char(a.emg_dat,'yyyy/mm/dd') = to_char(#{startdate},'yyyy/mm/dd') 
-			</if>
-			<if test="querytype=='year'">
-		  	  <![CDATA[
-				to_char(a.emg_dat,'yyyy/mm/dd') >= to_char(#{startdate},'yyyy/mm/dd') 
-				and to_char(a.emg_dat,'yyyy/mm/dd') <= to_char(#{enddate},'yyyy/mm/dd') 
-			  ]]>
-			</if>
-			<if test="cstNam!=null and cstNam!=''">
-				and a.cst_nam like  '%'|| #{cstNam}||'%'
-			</if>
-			<if test="vstCad!=null and vstCad!=''">
-				and a.vst_Cad= #{vstCad}
-			</if>
-			<if test="operNam!=null and operNam!=''">
-				and b.oper_Nam like '%'||#{operNam}||'%'
-			</if>
-			<if test="mpi!=null and mpi!=''">
-				and a.mpi= #{mpi}
-			</if>
-		</where>
-	</sql>
+<!--  	<sql id="queryEmgBySsczCond">-->
+<!--		<where>-->
+<!--				a.emg_seq = b.emg_seq and -->
+<!--				a.sql_seq = c.sql_seq and-->
+<!--			<if test="querytype=='month'">-->
+<!--				to_char(a.emg_dat,'yyyy/mm') = to_char(#{startdate},'yyyy/mm') -->
+<!--			</if>-->
+<!--			<if test="querytype=='day'">-->
+<!--				to_char(a.emg_dat,'yyyy/mm/dd') = to_char(#{startdate},'yyyy/mm/dd') -->
+<!--			</if>-->
+<!--			<if test="querytype=='year'">-->
+<!--		  	  <![CDATA[-->
+<!--				to_char(a.emg_dat,'yyyy/mm/dd') >= to_char(#{startdate},'yyyy/mm/dd') -->
+<!--				and to_char(a.emg_dat,'yyyy/mm/dd') <= to_char(#{enddate},'yyyy/mm/dd') -->
+<!--			  ]]>-->
+<!--			</if>-->
+<!--			<if test="cstNam!=null and cstNam!=''">-->
+<!--				and a.cst_nam like  '%'|| #{cstNam}||'%'-->
+<!--			</if>-->
+<!--			<if test="vstCad!=null and vstCad!=''">-->
+<!--				and a.vst_Cad= #{vstCad}-->
+<!--			</if>-->
+<!--			<if test="operNam!=null and operNam!=''">-->
+<!--				and b.oper_Nam like '%'||#{operNam}||'%'-->
+<!--			</if>-->
+<!--			<if test="mpi!=null and mpi!=''">-->
+<!--				and a.mpi= #{mpi}-->
+<!--			</if>-->
+<!--		</where>-->
+<!--	</sql>-->
 	
-	<select id="queryEmgCountBySscz" parameterType="activetech.zyyhospital.pojo.dto.HspOperateInfCustom" resultType="java.lang.Integer">
-		select count(*) 
-		  from hsp_emg_inf a, hsp_operate_inf b,HSP_SQL_INF c
-		<include refid="queryEmgBySsczCond"/>
-		and b.oper_nam is not null
-	</select>
+<!--	<select id="queryEmgCountBySscz" parameterType="activetech.zyyhospital.pojo.dto.HspOperateInfCustom" resultType="java.lang.Integer">-->
+<!--		select count(*) -->
+<!--		  from hsp_emg_inf a, hsp_operate_inf b,HSP_SQL_INF c-->
+<!--		<include refid="queryEmgBySsczCond"/>-->
+<!--		and b.oper_nam is not null-->
+<!--	</select>-->
 	
   <!-- 查询手术操作情况列表 -->
-	<select id="queryEmgListBySscz" parameterType="activetech.zyyhospital.pojo.dto.HspOperateInfCustom" resultType="activetech.zyyhospital.pojo.dto.HspOperateInfCustom">
-		<include refid="activetech.base.CommonSql.page_start" />
-		select a.emg_dat emgDat,
-		       a.vst_cad vstCad,
-		       a.cst_nam cstNam,
-		       cst_age cstAge,
-		       mpi,
-               jbzd_des,
-               ABN_DOCTOR,
-		       ABN_DRIVER,
-               (select info from dstdictinfo a where a.typecode = 'MOD_LVL_COD' and a.infocode = a.emg_dep_cod) as emgJjd,
-		       (select info from dstdictinfo where a.cst_age_cod=dstdictinfo.infocode and typecode='CST_AGE_COD') cstAgeCod,
-		       (select info from dstdictinfo  where a.CST_SEX_COD=dstdictinfo.infocode and typecode='CST_SEX_COD') cstSexCod,
-		       (select info from dstdictinfo q where q.typecode='ARV_CHL_COD' and q.infocode=a.arv_chl_cod) as  arvChlCod,
-		       (select info from dstdictinfo q where q.typecode='ISORNOT' and q.infocode=a.grn_chl) as  grnChl,
-		       (select info from dstdictinfo q where q.typecode='CST_DSP_COD' and q.infocode=a.CST_DSP_COD) as cstDspCod,
-		       (select info from dstdictinfo q where q.typecode='CST_DSP_COD' and q.infocode= c.SQL_STA_COD) as cstDspCodNameNew,
-		       to_char((select sql_dat from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = a.SQL_SEQ),'yyyy/mm/dd hh24:mi:ss') sqlDat,
-		       (select sql_des from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = a.SQL_SEQ) sqlDes,
-		       (select SQL_STA_COD from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = a.SQL_SEQ)  as cstDspCodNew,
-		       (select comcname from dstcompctl a where a.comno = (select sql_dep_cod from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = a.SQL_SEQ))    as cstDepCodNew,
-		       to_char(a.emg_dat,'yyyy/MM/dd hh24:mi:ss')emgDatStr,
-		       pre_usr_nam preUsrNam,
-		       a.pre_dgn_cod preDgnCod,
-		       b.oper_nam operNam,
-		       FIRSTSQLSEQ firstsqlseq,
-		       a.SQL_SEQ sqlSeq,
-		       b.oper_dat operDat,
-		       (select COMCNAME from dstcompctl d where  d.COMNO=a.emg_fk_cod) as  emgFkCod,
-		       (select info
-		          from dstdictinfo d
-		         where d.typecode = 'MOD_LVL_COD'
-		           and d.infocode = a.emg_dep_cod) as emgDepCod
-		  from hsp_emg_inf a, hsp_operate_inf b,HSP_SQL_INF c
-		 <include refid="queryEmgBySsczCond"/>		 	
-		   and b.oper_nam is not null
-		 order by b.oper_nam,a.emg_dat asc
-		<!-- 分页尾部 -->
-		<include refid="activetech.base.CommonSql.page_end" />
-	</select>
+<!--	<select id="queryEmgListBySscz" parameterType="activetech.zyyhospital.pojo.dto.HspOperateInfCustom" resultType="activetech.zyyhospital.pojo.dto.HspOperateInfCustom">-->
+<!--		<include refid="activetech.base.CommonSql.page_start" />-->
+<!--		select a.emg_dat emgDat,-->
+<!--		       a.vst_cad vstCad,-->
+<!--		       a.cst_nam cstNam,-->
+<!--		       cst_age cstAge,-->
+<!--		       mpi,-->
+<!--               jbzd_des,-->
+<!--               ABN_DOCTOR,-->
+<!--		       ABN_DRIVER,-->
+<!--               (select info from dstdictinfo a where a.typecode = 'MOD_LVL_COD' and a.infocode = a.emg_dep_cod) as emgJjd,-->
+<!--		       (select info from dstdictinfo where a.cst_age_cod=dstdictinfo.infocode and typecode='CST_AGE_COD') cstAgeCod,-->
+<!--		       (select info from dstdictinfo  where a.CST_SEX_COD=dstdictinfo.infocode and typecode='CST_SEX_COD') cstSexCod,-->
+<!--		       (select info from dstdictinfo q where q.typecode='ARV_CHL_COD' and q.infocode=a.arv_chl_cod) as  arvChlCod,-->
+<!--		       (select info from dstdictinfo q where q.typecode='ISORNOT' and q.infocode=a.grn_chl) as  grnChl,-->
+<!--		       (select info from dstdictinfo q where q.typecode='CST_DSP_COD' and q.infocode=a.CST_DSP_COD) as cstDspCod,-->
+<!--		       (select info from dstdictinfo q where q.typecode='CST_DSP_COD' and q.infocode= c.SQL_STA_COD) as cstDspCodNameNew,-->
+<!--		       to_char((select sql_dat from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = a.SQL_SEQ),'yyyy/mm/dd hh24:mi:ss') sqlDat,-->
+<!--		       (select sql_des from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = a.SQL_SEQ) sqlDes,-->
+<!--		       (select SQL_STA_COD from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = a.SQL_SEQ)  as cstDspCodNew,-->
+<!--		       (select comcname from dstcompctl a where a.comno = (select sql_dep_cod from HSP_SQL_INF where HSP_SQL_INF.SQL_SEQ = a.SQL_SEQ))    as cstDepCodNew,-->
+<!--		       to_char(a.emg_dat,'yyyy/MM/dd hh24:mi:ss')emgDatStr,-->
+<!--		       pre_usr_nam preUsrNam,-->
+<!--		       a.pre_dgn_cod preDgnCod,-->
+<!--		       b.oper_nam operNam,-->
+<!--		       FIRSTSQLSEQ firstsqlseq,-->
+<!--		       a.SQL_SEQ sqlSeq,-->
+<!--		       b.oper_dat operDat,-->
+<!--		       (select COMCNAME from dstcompctl d where  d.COMNO=a.emg_fk_cod) as  emgFkCod,-->
+<!--		       (select info-->
+<!--		          from dstdictinfo d-->
+<!--		         where d.typecode = 'MOD_LVL_COD'-->
+<!--		           and d.infocode = a.emg_dep_cod) as emgDepCod-->
+<!--		  from hsp_emg_inf a, hsp_operate_inf b,HSP_SQL_INF c-->
+<!--		 <include refid="queryEmgBySsczCond"/>		 	-->
+<!--		   and b.oper_nam is not null-->
+<!--		 order by b.oper_nam,a.emg_dat asc-->
+<!--		&lt;!&ndash; 分页尾部 &ndash;&gt;-->
+<!--		<include refid="activetech.base.CommonSql.page_end" />-->
+<!--	</select>-->
   
     <!-- 获取已预检待完善数据（新入病人） -->
   	<select id="toBeImprovedList" parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto" resultType="activetech.hospital.pojo.dto.HspemginfCustom">

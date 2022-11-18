@@ -7,7 +7,6 @@ import java.util.Map;
 import activetech.base.pojo.dto.HighChartsDemoCustom;
 import activetech.base.pojo.dto.HighChartsDemoCustomDto;
 import activetech.base.process.result.HighChartsInfo;
-import activetech.zyyhospital.pojo.dto.HspJjbglInfQueryDto;
 import activetech.hospital.pojo.dto.HighChartsReportCustom;
 import activetech.zyyhospital.pojo.dto.HspBchzhzReportCustom;
 import activetech.hospital.pojo.dto.HspBrbzCustom;
@@ -325,8 +324,8 @@ public interface HspreportService {
 	/**
 	 * 班次报表汇总
 	 */
-	public List<HspBchzhzReportCustom> findbchzhzList(HspJjbglInfQueryDto hspJjbglinfQueryDto);
-	public List<HspBchzhzReportCustom> findbchzhzListRange(HspJjbglInfQueryDto hspJjbglinfQueryDto);
+//	public List<HspBchzhzReportCustom> findbchzhzList(HspJjbglInfQueryDto hspJjbglinfQueryDto);
+//	public List<HspBchzhzReportCustom> findbchzhzListRange(HspJjbglInfQueryDto hspJjbglinfQueryDto);
 	
 	/**
 	 * 120收住院人数统计

@@ -10,7 +10,6 @@ import activetech.zyyhospital.pojo.dto.HspFallAssInfCustom;
 import activetech.zyyhospital.pojo.dto.HspFrbrInfCustom;
 import activetech.zyyhospital.pojo.dto.HspGcsInfCustom;
 import activetech.zyyhospital.pojo.dto.HspHlpgbCustom;
-import activetech.zyyhospital.pojo.dto.HspJjbhzmxCustom;
 import activetech.zyyhospital.pojo.dto.HspNrsInfCustom;
 import activetech.zyyhospital.pojo.dto.HspPewsckInfCustom;
 
@@ -40,7 +39,7 @@ public class HspemginfQueryDto {
 	
 	private HspPewsckInfCustom hspPewsckInfCustom;//产科pews评分
 	
-	private List<HspJjbhzmxCustom> hspJjbhzmxCustom;
+//	private List<HspJjbhzmxCustom> hspJjbhzmxCustom;
 	
 	private HspFrbrInfCustom hspFrbrInfCustom;//发热登记
 	
@@ -177,12 +176,12 @@ public class HspemginfQueryDto {
 	public void setHspDdfxpgbInfCustom(HspDdfxpgbInfCustom hspDdfxpgbInfCustom) {
 		this.hspDdfxpgbInfCustom = hspDdfxpgbInfCustom;
 	}
-	public List<HspJjbhzmxCustom> getHspJjbhzmxCustom() {
-		return hspJjbhzmxCustom;
-	}
-	public void setHspJjbhzmxCustom(List<HspJjbhzmxCustom> emglist) {
-		this.hspJjbhzmxCustom = emglist;
-	}
+//	public List<HspJjbhzmxCustom> getHspJjbhzmxCustom() {
+//		return hspJjbhzmxCustom;
+//	}
+//	public void setHspJjbhzmxCustom(List<HspJjbhzmxCustom> emglist) {
+//		this.hspJjbhzmxCustom = emglist;
+//	}
 	public String getSwChlFlag() {
 		return swChlFlag;
 	}

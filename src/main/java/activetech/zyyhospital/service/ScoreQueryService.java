@@ -16,7 +16,6 @@ import activetech.zyyhospital.pojo.domain.HspZcddexpfInf;
 import activetech.zyyhospital.pojo.domain.HspZyfxpfInf;
 import activetech.zyyhospital.pojo.dto.HspHljldInfCustom;
 import activetech.zyyhospital.pojo.dto.HspTiInfCustom;
-import activetech.zyyhospital.pojo.dto.HspXtpgInfCustom;
 import activetech.zyyhospital.pojo.dto.HspXtpgInfQueryDto;
 import activetech.zyyhospital.pojo.dto.HspZyfxpfInfCustom;
 
