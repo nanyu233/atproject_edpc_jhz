@@ -36,14 +36,11 @@ import activetech.hospital.service.HspemginfService;
 import activetech.util.DateUtil;
 import activetech.util.ExcelExportSXXSSF;
 import activetech.util.StringUtils;
-import activetech.zyyhospital.pojo.dto.HspBedInfCustom;
 import activetech.zyyhospital.pojo.dto.HspCheckCaseInfCustom;
 import activetech.zyyhospital.pojo.dto.HspObsvtfstInfCustom;
 import activetech.zyyhospital.pojo.dto.QjsCountCustom;
-import activetech.zyyhospital.service.HspBedInfService;
 import activetech.zyyhospital.service.ZyyHspQjsInfService;
 import activetech.zyyhospital.service.ZyyHspemginfService;
-import activetech.zyyhospital.service.ZyyLqblService;
 
 @Controller
 @RequestMapping("/zyyqjs")
@@ -54,12 +51,12 @@ public class ZyyQjsAction {
 	private SystemConfigService systemConfigService;
 	@Autowired
 	private ZyyHspemginfService zyyHspemginfService;
-	@Autowired
-	private HspBedInfService hspBedInfService;
+//	@Autowired
+//	private HspBedInfService hspBedInfService;
 	@Autowired
 	private ZyyHspQjsInfService zyyHspQjsInfService;
-	@Autowired
-	private ZyyLqblService zyyLqblService;
+//	@Autowired
+//	private ZyyLqblService zyyLqblService;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -168,15 +165,15 @@ public class ZyyQjsAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/bedInfo")
-	public @ResponseBody SubmitResultInfo bedInfo(HttpServletResponse response, String isBedType) throws Exception{
-		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		List<HspBedInfCustom> hspBedInfCustomList = hspBedInfService.findALLBedPlace(isBedType);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("hspBedInfCustomList", hspBedInfCustomList);
-		resultInfo.setSysdata(map);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}
+//	@RequestMapping("/bedInfo")
+//	public @ResponseBody SubmitResultInfo bedInfo(HttpServletResponse response, String isBedType) throws Exception{
+//		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+//		List<HspBedInfCustom> hspBedInfCustomList = hspBedInfService.findALLBedPlace(isBedType);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("hspBedInfCustomList", hspBedInfCustomList);
+//		resultInfo.setSysdata(map);
+//		return ResultUtil.createSubmitResult(resultInfo);
+//	}
 	
 	/**
 	 * 跳转会诊记录
@@ -399,18 +396,18 @@ public class ZyyQjsAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/toqjscaseexamine")
-	public String toqjscaseexamine(Model model,String moduleid,String emgSeq) throws Exception {
-		model.addAttribute("emgSeq", emgSeq);
-		model.addAttribute("moduleid", moduleid);
-		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
-		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
-		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
-		model.addAttribute("hspemginfCustom", hspemginfCustom);
-		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
-		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
-		return "/hzszyyhospital/hzszyydoctor/qjscaseexamine";
-	}
+//	@RequestMapping("/toqjscaseexamine")
+//	public String toqjscaseexamine(Model model,String moduleid,String emgSeq) throws Exception {
+//		model.addAttribute("emgSeq", emgSeq);
+//		model.addAttribute("moduleid", moduleid);
+//		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
+//		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
+//		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
+//		model.addAttribute("hspemginfCustom", hspemginfCustom);
+//		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
+//		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
+//		return "/hzszyyhospital/hzszyydoctor/qjscaseexamine";
+//	}
 	
 	/**
 	 * 跳转检查报告
@@ -418,19 +415,19 @@ public class ZyyQjsAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/qjsjcbg")
-	public String qjsjcbg(Model model,String moduleid,String emgSeq) throws Exception {
-		model.addAttribute("emgSeq", emgSeq);
-		model.addAttribute("moduleid", moduleid);
-		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
-		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
-		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
-		model.addAttribute("hspemginfCustom", hspemginfCustom);
-		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
-		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
-		model.addAttribute("MPI", hspemginfCustom.getMpi());
-		return "/hzszyyhospital/hzszyydoctor/qjsjcbg";
-	}
+//	@RequestMapping("/qjsjcbg")
+//	public String qjsjcbg(Model model,String moduleid,String emgSeq) throws Exception {
+//		model.addAttribute("emgSeq", emgSeq);
+//		model.addAttribute("moduleid", moduleid);
+//		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
+//		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
+//		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
+//		model.addAttribute("hspemginfCustom", hspemginfCustom);
+//		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
+//		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
+//		model.addAttribute("MPI", hspemginfCustom.getMpi());
+//		return "/hzszyyhospital/hzszyydoctor/qjsjcbg";
+//	}
 
 	/**
 	 * 跳转医嘱信息
@@ -458,19 +455,19 @@ public class ZyyQjsAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/toqjscaseexaminenew")
-	public String toqjscaseexaminenew(Model model,String moduleid,String emgSeq) throws Exception {
-		model.addAttribute("emgSeq", emgSeq);
-		model.addAttribute("moduleid", moduleid);
-		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
-		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
-		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
-		model.addAttribute("hspemginfCustom", hspemginfCustom);
-		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
-		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
-		model.addAttribute("MPI", hspemginfCustom.getMpi());
-		return "/hzszyyhospital/hzszyydoctor/newqjscaseexamine";
-	}
+//	@RequestMapping("/toqjscaseexaminenew")
+//	public String toqjscaseexaminenew(Model model,String moduleid,String emgSeq) throws Exception {
+//		model.addAttribute("emgSeq", emgSeq);
+//		model.addAttribute("moduleid", moduleid);
+//		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
+//		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
+//		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
+//		model.addAttribute("hspemginfCustom", hspemginfCustom);
+//		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
+//		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
+//		model.addAttribute("MPI", hspemginfCustom.getMpi());
+//		return "/hzszyyhospital/hzszyydoctor/newqjscaseexamine";
+//	}
 	
 	
 
@@ -729,9 +726,9 @@ public class ZyyQjsAction {
 	public @ResponseBody SubmitResultInfo findBedAndSqlStaCod(String emgSeq)throws Exception {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906,null);
 		//单独取床位
-		List<HspBedInfCustom> bedplacecodList=hspBedInfService.findBedPlaceAndNum(emgSeq,"");
+//		List<HspBedInfCustom> bedplacecodList=hspBedInfService.findBedPlaceAndNum(emgSeq,"");
         Map<String, Object> map = new HashMap<String, Object>(70);
-		map.put("bedplacecodList",bedplacecodList);
+//		map.put("bedplacecodList",bedplacecodList);
 		//单独取转归去向
 		List<Dstdictinfo> sqlStaCodList = systemConfigService.findDictinfoByType("CST_DSP_COD");
 		map.put("sqlStaCodList", sqlStaCodList);

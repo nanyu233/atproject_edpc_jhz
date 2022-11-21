@@ -12,7 +12,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import activetech.base.service.SystemConfigService;
-import activetech.basehis.service.SqlServerHisService;
 import activetech.eicu.dao.mapper.IcuVsDefMapper;
 import activetech.eicu.pojo.domain.IcuGradeTotal;
 import activetech.eicu.pojo.domain.IcuVsDef;
@@ -39,7 +38,7 @@ import activetech.zyyhospital.pojo.dto.HspDocadviceInfCustom;
 import activetech.zyyhospital.pojo.dto.HspHljldInfCustom;
 import activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto;
 import activetech.zyyhospital.service.ZyyHspemginfService;
-import activetech.zyyhospital.service.ZyyLqblService;
+
 /**
  * ICU患者信息ServiceImpl
  * <p>Title: IcuCustInfoServiceImpl.java IcuCustInfoServiceImpl</p>
@@ -58,8 +57,8 @@ public class IcuCustInfoServiceImpl implements IcuCustInfoService{
 	private HspHljldInfCustomMapper hspHljldInfCustomMapper;
 	@Autowired
 	private IcuScoreService icuScoreService;
-	@Autowired
-	private ZyyLqblService zyyLqblService;
+//	@Autowired
+//	private ZyyLqblService zyyLqblService;
 	@Autowired
 	private ZyyHspemginfService zyyHspemginfService;
 	
@@ -71,9 +70,6 @@ public class IcuCustInfoServiceImpl implements IcuCustInfoService{
 	
 	@Autowired
 	private HspJyjgService hspJyjgService;//本地测试使用
-	
-	@Autowired
-	private SqlServerHisService sqlServerHisService;
 	
 	@Override
 	public Map<String, Object> getOverviewInfo(IcuCustInfoQueryDto icuCustInfoQueryDto) throws Exception {

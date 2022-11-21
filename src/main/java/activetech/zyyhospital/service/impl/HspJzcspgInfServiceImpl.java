@@ -20,15 +20,12 @@ import activetech.zyyhospital.dao.mapper.HspDdfxpgbInfMapper;
 import activetech.zyyhospital.dao.mapper.HspHlpgbCustomMapper;
 import activetech.zyyhospital.dao.mapper.HspJzcspgInfCustomMapper;
 import activetech.zyyhospital.dao.mapper.HspJzcspgInfMapper;
-import activetech.zyyhospital.dao.mapper.HspLqblInfMapper;
 import activetech.zyyhospital.dao.mapper.HspNrsInfMapper;
 import activetech.zyyhospital.dao.mapper.HspZyfxpfInfMapper;
 import activetech.zyyhospital.pojo.domain.HspAdlInf;
 import activetech.zyyhospital.pojo.domain.HspBradenInf;
 import activetech.zyyhospital.pojo.domain.HspDdfxpgbInf;
 import activetech.zyyhospital.pojo.domain.HspJzcspgInf;
-import activetech.zyyhospital.pojo.domain.HspLqblInf;
-import activetech.zyyhospital.pojo.domain.HspLqblInfExample;
 import activetech.zyyhospital.pojo.domain.HspNrsInf;
 import activetech.zyyhospital.pojo.domain.HspZyfxpfInf;
 import activetech.zyyhospital.pojo.dto.HspAdlInfCustom;
@@ -68,8 +65,8 @@ public class HspJzcspgInfServiceImpl implements HspJzcspgInfService{
 	private HspZyfxpfInfMapper hspZyfxpfInfMapper;	
 	@Autowired
 	private HspsqlinfCustomMapper hspsqlinfCustomMapper;
-	@Autowired
-	private HspLqblInfMapper hspLqblInfMapper;
+//	@Autowired
+//	private HspLqblInfMapper hspLqblInfMapper;
 	
 	@Override
 	public HspJzcspgInfQueryDto getJzcsrypgbByEmgSeq(String emgSeq) throws Exception {
@@ -82,16 +79,16 @@ public class HspJzcspgInfServiceImpl implements HspJzcspgInfService{
 		if(hspemginfCustom == null){
 			hspemginfCustom = new HspemginfCustom();
 		}
-		HspLqblInfExample  hspLqblInfExample = new HspLqblInfExample();
-		HspLqblInfExample.Criteria criteria =  hspLqblInfExample.createCriteria();
-		criteria.andEmgSeqEqualTo(emgSeq);
-		criteria.andBltypeEqualTo("0");
-		List<HspLqblInf> hspLqblInfrtv = hspLqblInfMapper.selectByExample(hspLqblInfExample);
-		//如果有则默认赋值留抢病历主诉
-		if(hspLqblInfrtv != null && hspLqblInfrtv.size() > 0){
-			HspLqblInf hspLqblInf = hspLqblInfrtv.get(0);
-			hspJzcspgInfCustom.setPreDgnCod(hspLqblInf.getLqblDes());
-		}
+//		HspLqblInfExample  hspLqblInfExample = new HspLqblInfExample();
+//		HspLqblInfExample.Criteria criteria =  hspLqblInfExample.createCriteria();
+//		criteria.andEmgSeqEqualTo(emgSeq);
+//		criteria.andBltypeEqualTo("0");
+//		List<HspLqblInf> hspLqblInfrtv = hspLqblInfMapper.selectByExample(hspLqblInfExample);
+//		//如果有则默认赋值留抢病历主诉
+//		if(hspLqblInfrtv != null && hspLqblInfrtv.size() > 0){
+//			HspLqblInf hspLqblInf = hspLqblInfrtv.get(0);
+//			hspJzcspgInfCustom.setPreDgnCod(hspLqblInf.getLqblDes());
+//		}
 		//转归记录
 		HspsqlinfCustom hspsqlinfCustom= hspsqlinfCustomMapper.findSql_jzt(hspemginfCustom.getSqlSeq());
 		hspJzcspgInfQueryDto.setHspJzcspgInfCustom(hspJzcspgInfCustom);

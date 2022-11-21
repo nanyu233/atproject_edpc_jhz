@@ -10,9 +10,9 @@ import activetech.hospital.pojo.dto.HspJbzdInfQueryDto;
 
 public interface HspJbzdInfCustomMapper {
 
-	public int findHsphzjbzdCount(HspJbzdInfQueryDto hspJbzdInfQueryDto);
+//	public int findHsphzjbzdCount(HspJbzdInfQueryDto hspJbzdInfQueryDto);
 
-	public int findHsphzjbzdCount(@Param("jbbc")String jbbc,@Param("pysm") String pysm);
+//	public int findHsphzjbzdCount(@Param("jbbc")String jbbc,@Param("pysm") String pysm);
 
 	public List<HspJbzdInfCustom> findJbzdInfByPysm(HspJbzdInfQueryDto hspJbzdInfQueryDto);
 

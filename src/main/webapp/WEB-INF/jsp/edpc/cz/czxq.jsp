@@ -642,7 +642,7 @@
                                                 </ul>
                                             </div>
                                             <div class="options">
-                                                <div class="options-title">11。忽视</div>
+                                                <div class="options-title">11.忽视</div>
                                                 <ul class="options-list">
                                                     <li class="options-item btn" ms-repeat="nihssHsArr"
                                                         ms-class="{{cont.NIHSS016 ? (cont.NIHSS016==el.code ? 'active':''): ''}}"

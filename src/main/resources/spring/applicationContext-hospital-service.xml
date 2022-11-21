@@ -22,10 +22,10 @@
 	<bean id="hspreportService" class="activetech.hospital.service.impl.HspreportServiceImpl"/>
 	
 	<!-- 救护车管理 -->
-	<bean id="hspAbnInfService" class="activetech.hospital.service.impl.HspAbnInfServiceImpl"/>
+<!--	<bean id="hspAbnInfService" class="activetech.hospital.service.impl.HspAbnInfServiceImpl"/>-->
 	
 	<!-- 抢救室管理 -->
-	<bean id="hspCstInfService" class="activetech.hospital.service.impl.HspCstInfServiceImpl"/>
+<!--	<bean id="hspCstInfService" class="activetech.hospital.service.impl.HspCstInfServiceImpl"/>-->
 	
 	<!-- 设备设置 -->
 	<bean id="hspDeviceService" class="activetech.hospital.service.impl.HspDeviceServiceImpl"/>
@@ -45,13 +45,13 @@
 <!--	<bean id="hspHealthEducateService" class="activetech.hospital.service.impl.HspHealthEducateServiceImpl"/>-->
 	
 	<!-- 收藏夹service -->
-	<bean id="hspFavoriteInfService" class="activetech.hospital.service.impl.HspFavoriteInfServiceImpl"/>
+<!--	<bean id="hspFavoriteInfService" class="activetech.hospital.service.impl.HspFavoriteInfServiceImpl"/>-->
 	
 	<!-- 通用Oracle HIS Service -->
 	<bean id="oracleHisService" class="activetech.basehis.service.impl.OracleHisServiceImpl"/>
 	
 	<!-- 通用SqlServer HIS Service -->
-	<bean id="sqlServerHisService" class="activetech.basehis.service.impl.SqlServerHisServiceImpl"/>
+<!--	<bean id="sqlServerHisService" class="activetech.basehis.service.impl.SqlServerHisServiceImpl"/>-->
 	
 	<!-- 湖州本地检验信息查询-->
 	<bean id="hspJyjgService" class="activetech.external.service.impl.HspJyjgServiceImpl"/>

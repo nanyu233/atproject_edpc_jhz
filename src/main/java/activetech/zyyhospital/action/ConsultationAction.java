@@ -23,10 +23,8 @@ import activetech.hospital.pojo.domain.HspEmgInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom;
 import activetech.zyyhospital.pojo.dto.HspConsultationRecordsQueryDto;
-import activetech.zyyhospital.pojo.dto.HspLqblInfCustom;
 import activetech.zyyhospital.service.HspConsultationRecordsService;
 import activetech.zyyhospital.service.ZyyHspemginfService;
-import activetech.zyyhospital.service.ZyyLqblService;
 
 /**
  * <p>Title:ConsultationAction</p>
@@ -41,8 +39,8 @@ public class ConsultationAction {
 	private HspConsultationRecordsService hspConsultationRecordsService;
 	@Autowired
 	private ZyyHspemginfService zyyHspemginfService;
-	@Autowired
-	private ZyyLqblService zyyLqblService;
+//	@Autowired
+//	private ZyyLqblService zyyLqblService;
 	/**
 	 * 跳转会诊记录主页面
 	 * @param model
@@ -124,11 +122,11 @@ public class ConsultationAction {
 		if(null != hspConsultationRecordsQueryDto.getHspConsultationRecordsCustom().getConsultationRecordsSeq()){
 			hspConsultationRecordsCustom = hspConsultationRecordsService.findHspConsultationRecords(hspConsultationRecordsQueryDto);
 		}
-		HspLqblInfCustom hspLqblInfCustom = zyyLqblService.findLqblForDisease(emgSeqCr);
+//		HspLqblInfCustom hspLqblInfCustom = zyyLqblService.findLqblForDisease(emgSeqCr);
 		model.addAttribute("hspConsultationRecordsCustom", hspConsultationRecordsCustom);
 		model.addAttribute("hspemginfCustom", hspemginfCustom);
 		model.addAttribute("recordFlag", hspConsultationRecordsQueryDto.getRecordFlag());
-		model.addAttribute("hspLqblInfCustom", hspLqblInfCustom);
+//		model.addAttribute("hspLqblInfCustom", hspLqblInfCustom);
 		return "/hzszyyhospital/hzszyydoctor/consultation/updateConsultation";
 	}
 	

@@ -37,7 +37,6 @@ import activetech.zyyhospital.dao.mapper.HspHljldInfMapper;
 import activetech.zyyhospital.dao.mapper.HspHljldclrInfMapper;
 import activetech.zyyhospital.dao.mapper.HspHljldcrltjInfMapper;
 import activetech.zyyhospital.dao.mapper.HspHlpgbCustomMapper;
-import activetech.zyyhospital.dao.mapper.HspLqblInfCustomMapper;
 import activetech.zyyhospital.dao.mapper.HspNrsInfMapper;
 import activetech.zyyhospital.dao.mapper.HspZyfxpfInfMapper;
 import activetech.zyyhospital.dao.mapper.PdatransfusionrecordMapper;
@@ -94,12 +93,14 @@ public class HspHljldInfServiceImpl implements HspHljldInfService{
 	private HspAdlInfMapper hspAdlInfMapper;
 	@Autowired
 	private HspBradenInfMapper hspBradenInfMapper;	
-	@Autowired
-	private HspLqblInfCustomMapper hspLqblInfCustomMapper;
+//	@Autowired
+//	private HspLqblInfCustomMapper hspLqblInfCustomMapper;
 	@Autowired
 	private PdatransfusionrecordMapper pdatransfusionrecordMapper;
 	@Autowired
 	private HspHlpgbCustomMapper hspHlpgbCustomMapper;
+	@Autowired
+	private HspHljldInfService hspHljldInfService;
 	
 	@Override
 	public List<HspHljldInfCustom> getHljldListByemgseq(
@@ -986,7 +987,8 @@ public class HspHljldInfServiceImpl implements HspHljldInfService{
 	 * @return
 	 */
 	public List<HspCfxxInfoCustom> cfxxInfoResult(HspCfxxInfoQueryDto hspCfxxInfoQueryDto){
-		return hspLqblInfCustomMapper.getAdviceByMpi(hspCfxxInfoQueryDto);
+//		return hspLqblInfCustomMapper.getAdviceByMpi(hspCfxxInfoQueryDto);
+		return hspHljldInfService.cfxxInfoResult(hspCfxxInfoQueryDto);
 	}
 	
 	@Override

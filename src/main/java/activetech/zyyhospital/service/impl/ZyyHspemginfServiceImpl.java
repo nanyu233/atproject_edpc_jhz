@@ -19,7 +19,6 @@ import activetech.zyyhospital.pojo.domain.*;
 import activetech.zyyhospital.pojo.dto.*;
 import activetech.zyyhospital.service.ScoreQueryService;
 import activetech.zyyhospital.service.ZyyHspemginfService;
-import activetech.zyyhospital.service.ZyyLqblService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -86,8 +85,8 @@ public class ZyyHspemginfServiceImpl implements ZyyHspemginfService {
 	private HspSqlInfMapper hspSqlInfMapper;
 	@Autowired
 	private HspFrbrInfMapper hspFrbrInfMapper;
-	@Autowired
-	private ZyyLqblService zyyLqblService;
+//	@Autowired
+//	private ZyyLqblService zyyLqblService;
 	
 	////////////杭州市中医院核心操作Start/////////////////////////////////////////////////////////////////////////////
 	/**
@@ -474,12 +473,12 @@ public class ZyyHspemginfServiceImpl implements ZyyHspemginfService {
 		public List<HspemginfCustom> findEmgInfByMpi(String mpi)
 				throws Exception {
 			List<HspemginfCustom> list =zyyHspemginfCustomMapper.findEmgInfByMpi(mpi);
-			if(list.size()>0){
-				for(int i=0;i<list.size();i++){
-					HspLqblInfCustom hspLqblInfCustom = zyyLqblService.findAllLqblForDisease(list.get(i).getLqblSeq());
-					list.get(i).setTgjcMergeStr(hspLqblInfCustom.getTgjcMergeStr());
-				}
-			}
+//			if(list.size()>0){
+//				for(int i=0;i<list.size();i++){
+//					HspLqblInfCustom hspLqblInfCustom = zyyLqblService.findAllLqblForDisease(list.get(i).getLqblSeq());
+//					list.get(i).setTgjcMergeStr(hspLqblInfCustom.getTgjcMergeStr());
+//				}
+//			}
 			return list;
 		}
 

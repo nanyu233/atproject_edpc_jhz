@@ -36,7 +36,7 @@ import activetech.zyyhospital.pojo.dto.HspHljldInfQueryDto;
 import activetech.zyyhospital.pojo.dto.HspObsvtfstInfCustom;
 import activetech.zyyhospital.service.HspHljldInfService;
 import activetech.zyyhospital.service.ZyyHspemginfService;
-import activetech.zyyhospital.service.ZyyLqblService;
+
 /**
  * ICU患者管理
  * <p>Title: IcuCustInfoAction.java IcuCustInfoAction</p>
@@ -58,8 +58,8 @@ public class IcuCustInfoAction {
 	private IcuScoreService icuScoreService;			
 	@Autowired
 	private ZyyHspemginfService zyyHspemginfService;
-	@Autowired
-	private ZyyLqblService zyyLqblService;
+//	@Autowired
+//	private ZyyLqblService zyyLqblService;
 	@Autowired
 	private HspHljldInfService hspHljldInfService;
 	@Autowired
@@ -212,18 +212,18 @@ public class IcuCustInfoAction {
 	 *@return
 	 *@throws Exception
 	 */
-	@RequestMapping("/icuquerynote")
-	public String lqblquerynote(Model model,String emgSeq,String moduleid,String enterSource) throws Exception{
-		model.addAttribute("emgSeq", emgSeq);
-		model.addAttribute("enterSource", enterSource);
-		model.addAttribute("moduleid", moduleid);
-		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
-		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
-		model.addAttribute("cstNam", hspemginfCustom.getCstNam());
-		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
-		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
-		return "/eicu/icucust/icuquerynote";
-	}
+//	@RequestMapping("/icuquerynote")
+//	public String lqblquerynote(Model model,String emgSeq,String moduleid,String enterSource) throws Exception{
+//		model.addAttribute("emgSeq", emgSeq);
+//		model.addAttribute("enterSource", enterSource);
+//		model.addAttribute("moduleid", moduleid);
+//		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
+//		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
+//		model.addAttribute("cstNam", hspemginfCustom.getCstNam());
+//		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
+//		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
+//		return "/eicu/icucust/icuquerynote";
+//	}
 	
 	/**
 	 * 跳转护理记录单结果集
@@ -261,18 +261,18 @@ public class IcuCustInfoAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/toquerycfxx")
-	public String toquerycfxx(Model model,String moduleid,String emgSeq) throws Exception {
-		model.addAttribute("emgSeq", emgSeq);
-		model.addAttribute("moduleid", moduleid);
-		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
-		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
-		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
-		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
-		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
-		model.addAttribute("hspemginfCustom", hspemginfCustom);
-		return "/eicu/icucust/queryyzxx";
-	}
+//	@RequestMapping("/toquerycfxx")
+//	public String toquerycfxx(Model model,String moduleid,String emgSeq) throws Exception {
+//		model.addAttribute("emgSeq", emgSeq);
+//		model.addAttribute("moduleid", moduleid);
+//		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
+//		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
+//		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
+//		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
+//		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
+//		model.addAttribute("hspemginfCustom", hspemginfCustom);
+//		return "/eicu/icucust/queryyzxx";
+//	}
 	
 	/**
 	 * 跳转检验信息
@@ -280,18 +280,18 @@ public class IcuCustInfoAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/qjscaseexamine")
-	public String qjscaseexamine(Model model,String moduleid,String emgSeq) throws Exception {
-		model.addAttribute("emgSeq", emgSeq);
-		model.addAttribute("moduleid", moduleid);
-		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
-		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
-		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
-		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
-		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
-		model.addAttribute("hspemginfCustom", hspemginfCustom);
-		return "/eicu/icucust/qjscaseexamine";
-	}
+//	@RequestMapping("/qjscaseexamine")
+//	public String qjscaseexamine(Model model,String moduleid,String emgSeq) throws Exception {
+//		model.addAttribute("emgSeq", emgSeq);
+//		model.addAttribute("moduleid", moduleid);
+//		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
+//		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
+//		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
+//		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
+//		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
+//		model.addAttribute("hspemginfCustom", hspemginfCustom);
+//		return "/eicu/icucust/qjscaseexamine";
+//	}
 	
 	/**
 	 * 检验信息结果集

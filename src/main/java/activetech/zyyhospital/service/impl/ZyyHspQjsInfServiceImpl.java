@@ -11,7 +11,6 @@ import activetech.hospital.pojo.dto.HspsqlinfCustom;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
 import activetech.zyyhospital.dao.mapper.*;
-import activetech.zyyhospital.pojo.domain.HspBasyInf;
 import activetech.zyyhospital.pojo.dto.HspCgxjInfCustom;
 import activetech.zyyhospital.pojo.dto.HspObsvtfstInfCustom;
 import activetech.zyyhospital.pojo.dto.QjsCountCustom;
@@ -41,10 +40,10 @@ public class ZyyHspQjsInfServiceImpl implements ZyyHspQjsInfService {
 	private HspCgxjInfMapper hspCgxjInfMapper;
 	@Autowired
 	private ZyyHspemginfCustomMapper zyyHspemginfCustomMapper;
-	@Autowired
-	private HspBasyInfCustomMapper hspBasyInfCustomMapper;
-	@Autowired
-	private HspBasyInfMapper hspBasyInfMapper;
+//	@Autowired
+//	private HspBasyInfCustomMapper hspBasyInfCustomMapper;
+//	@Autowired
+//	private HspBasyInfMapper hspBasyInfMapper;
 	@Autowired
 	private HspEmgInfMapper hspEmgInfMapper;
 	
@@ -101,14 +100,14 @@ public class ZyyHspQjsInfServiceImpl implements ZyyHspQjsInfService {
 					
 					
 					//更新转归信息时，同时更新病案首页离抢时间、离抢方式
-					HspBasyInf hspBasyInf = hspBasyInfCustomMapper.findBasyInfByEmgSeq(hspemginfCustom.getEmgSeq());
-					if(null != hspBasyInf && !"6".equals(hspsqlinfCustom.getSqlStaCod())) {
-						hspBasyInf.setSqlDat(hspsqlinfCustom.getSqlDat());
-						hspBasyInf.setSqlType(hspsqlinfCustom.getSqlStaCod());
-						hspBasyInf.setSqlDes(sqlDesCus);
-						hspBasyInf.setSqlDepCod(sqlDepCodCus);
-						hspBasyInfMapper.updateByPrimaryKey(hspBasyInf);
-					}
+//					HspBasyInf hspBasyInf = hspBasyInfCustomMapper.findBasyInfByEmgSeq(hspemginfCustom.getEmgSeq());
+//					if(null != hspBasyInf && !"6".equals(hspsqlinfCustom.getSqlStaCod())) {
+//						hspBasyInf.setSqlDat(hspsqlinfCustom.getSqlDat());
+//						hspBasyInf.setSqlType(hspsqlinfCustom.getSqlStaCod());
+//						hspBasyInf.setSqlDes(sqlDesCus);
+//						hspBasyInf.setSqlDepCod(sqlDepCodCus);
+//						hspBasyInfMapper.updateByPrimaryKey(hspBasyInf);
+//					}
 				}
 				
 		}

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.hospital.dao.mapper.HspJbzdInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspJbzdInf">
+    <id column="JBZD_SEQ" jdbcType="VARCHAR" property="jbzdSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="JBZD_TYPE" jdbcType="VARCHAR" property="jbzdType" />
+    <result column="HZZD_COD" jdbcType="VARCHAR" property="hzzdCod" />
+    <result column="JBZD_COMM" jdbcType="VARCHAR" property="jbzdComm" />
+    <result column="HZZD_DAT" jdbcType="TIMESTAMP" property="hzzdDat" />
+    <result column="HZZD_NUR_NBR" jdbcType="VARCHAR" property="hzzdNurNbr" />
+    <result column="HZZD_UPD_DAT" jdbcType="TIMESTAMP" property="hzzdUpdDat" />
+    <result column="HZZD_UPD_NBR" jdbcType="VARCHAR" property="hzzdUpdNbr" />
+    <result column="JBZD_FLG" jdbcType="CHAR" property="jbzdFlg" />
+    <result column="JBZD_PREFIX" jdbcType="VARCHAR" property="jbzdPrefix" />
+    <result column="JBZD_SUFFIX" jdbcType="VARCHAR" property="jbzdSuffix" />
+    <result column="JBZD_STATUS" jdbcType="CHAR" property="jbzdStatus" />
+    <result column="JBZD_PYSM" jdbcType="VARCHAR" property="jbzdPysm" />
+    <result column="SHOW_ORDER" jdbcType="VARCHAR" property="showOrder" />
+    <result column="ICD10" jdbcType="VARCHAR" property="icd10" />
+    <result column="ONSET_DAT" jdbcType="TIMESTAMP" property="onsetDat" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    JBZD_SEQ, EMG_SEQ, JBZD_TYPE, HZZD_COD, JBZD_COMM, HZZD_DAT, HZZD_NUR_NBR, HZZD_UPD_DAT,
+    HZZD_UPD_NBR, JBZD_FLG, JBZD_PREFIX, JBZD_SUFFIX, JBZD_STATUS, JBZD_PYSM, SHOW_ORDER,
+    ICD10, ONSET_DAT
+  </sql>
+  <select id="selectByExample" parameterType="activetech.hospital.pojo.domain.HspJbzdInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_JBZD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from HSP_JBZD_INF
+    where JBZD_SEQ = #{jbzdSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_JBZD_INF
+    where JBZD_SEQ = #{jbzdSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.hospital.pojo.domain.HspJbzdInfExample">
+    delete from HSP_JBZD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.hospital.pojo.domain.HspJbzdInf">
+    insert into HSP_JBZD_INF (JBZD_SEQ, EMG_SEQ, JBZD_TYPE,
+                              HZZD_COD, JBZD_COMM, HZZD_DAT,
+                              HZZD_NUR_NBR, HZZD_UPD_DAT, HZZD_UPD_NBR,
+                              JBZD_FLG, JBZD_PREFIX, JBZD_SUFFIX,
+                              JBZD_STATUS, JBZD_PYSM, SHOW_ORDER,
+                              ICD10, ONSET_DAT)
+    values (#{jbzdSeq,jdbcType=VARCHAR}, #{emgSeq,jdbcType=VARCHAR}, #{jbzdType,jdbcType=VARCHAR},
+            #{hzzdCod,jdbcType=VARCHAR}, #{jbzdComm,jdbcType=VARCHAR}, #{hzzdDat,jdbcType=TIMESTAMP},
+            #{hzzdNurNbr,jdbcType=VARCHAR}, #{hzzdUpdDat,jdbcType=TIMESTAMP}, #{hzzdUpdNbr,jdbcType=VARCHAR},
+            #{jbzdFlg,jdbcType=CHAR}, #{jbzdPrefix,jdbcType=VARCHAR}, #{jbzdSuffix,jdbcType=VARCHAR},
+            #{jbzdStatus,jdbcType=CHAR}, #{jbzdPysm,jdbcType=VARCHAR}, #{showOrder,jdbcType=VARCHAR},
+            #{icd10,jdbcType=VARCHAR}, #{onsetDat,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.hospital.pojo.domain.HspJbzdInf">
+    insert into HSP_JBZD_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jbzdSeq != null">
+        JBZD_SEQ,
+      </if>
+      <if test="emgSeq != null">
+        EMG_SEQ,
+      </if>
+      <if test="jbzdType != null">
+        JBZD_TYPE,
+      </if>
+      <if test="hzzdCod != null">
+        HZZD_COD,
+      </if>
+      <if test="jbzdComm != null">
+        JBZD_COMM,
+      </if>
+      <if test="hzzdDat != null">
+        HZZD_DAT,
+      </if>
+      <if test="hzzdNurNbr != null">
+        HZZD_NUR_NBR,
+      </if>
+      <if test="hzzdUpdDat != null">
+        HZZD_UPD_DAT,
+      </if>
+      <if test="hzzdUpdNbr != null">
+        HZZD_UPD_NBR,
+      </if>
+      <if test="jbzdFlg != null">
+        JBZD_FLG,
+      </if>
+      <if test="jbzdPrefix != null">
+        JBZD_PREFIX,
+      </if>
+      <if test="jbzdSuffix != null">
+        JBZD_SUFFIX,
+      </if>
+      <if test="jbzdStatus != null">
+        JBZD_STATUS,
+      </if>
+      <if test="jbzdPysm != null">
+        JBZD_PYSM,
+      </if>
+      <if test="showOrder != null">
+        SHOW_ORDER,
+      </if>
+      <if test="icd10 != null">
+        ICD10,
+      </if>
+      <if test="onsetDat != null">
+        ONSET_DAT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jbzdSeq != null">
+        #{jbzdSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="emgSeq != null">
+        #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="jbzdType != null">
+        #{jbzdType,jdbcType=VARCHAR},
+      </if>
+      <if test="hzzdCod != null">
+        #{hzzdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="jbzdComm != null">
+        #{jbzdComm,jdbcType=VARCHAR},
+      </if>
+      <if test="hzzdDat != null">
+        #{hzzdDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hzzdNurNbr != null">
+        #{hzzdNurNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="hzzdUpdDat != null">
+        #{hzzdUpdDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hzzdUpdNbr != null">
+        #{hzzdUpdNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="jbzdFlg != null">
+        #{jbzdFlg,jdbcType=CHAR},
+      </if>
+      <if test="jbzdPrefix != null">
+        #{jbzdPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="jbzdSuffix != null">
+        #{jbzdSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="jbzdStatus != null">
+        #{jbzdStatus,jdbcType=CHAR},
+      </if>
+      <if test="jbzdPysm != null">
+        #{jbzdPysm,jdbcType=VARCHAR},
+      </if>
+      <if test="showOrder != null">
+        #{showOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="icd10 != null">
+        #{icd10,jdbcType=VARCHAR},
+      </if>
+      <if test="onsetDat != null">
+        #{onsetDat,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.hospital.pojo.domain.HspJbzdInfExample" resultType="java.lang.Integer">
+    select count(*) from HSP_JBZD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_JBZD_INF
+    <set>
+      <if test="record.jbzdSeq != null">
+        JBZD_SEQ = #{record.jbzdSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emgSeq != null">
+        EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jbzdType != null">
+        JBZD_TYPE = #{record.jbzdType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hzzdCod != null">
+        HZZD_COD = #{record.hzzdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jbzdComm != null">
+        JBZD_COMM = #{record.jbzdComm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hzzdDat != null">
+        HZZD_DAT = #{record.hzzdDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hzzdNurNbr != null">
+        HZZD_NUR_NBR = #{record.hzzdNurNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hzzdUpdDat != null">
+        HZZD_UPD_DAT = #{record.hzzdUpdDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hzzdUpdNbr != null">
+        HZZD_UPD_NBR = #{record.hzzdUpdNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jbzdFlg != null">
+        JBZD_FLG = #{record.jbzdFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.jbzdPrefix != null">
+        JBZD_PREFIX = #{record.jbzdPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jbzdSuffix != null">
+        JBZD_SUFFIX = #{record.jbzdSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jbzdStatus != null">
+        JBZD_STATUS = #{record.jbzdStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.jbzdPysm != null">
+        JBZD_PYSM = #{record.jbzdPysm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showOrder != null">
+        SHOW_ORDER = #{record.showOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icd10 != null">
+        ICD10 = #{record.icd10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onsetDat != null">
+        ONSET_DAT = #{record.onsetDat,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_JBZD_INF
+    set JBZD_SEQ = #{record.jbzdSeq,jdbcType=VARCHAR},
+      EMG_SEQ = #{record.emgSeq,jdbcType=VARCHAR},
+      JBZD_TYPE = #{record.jbzdType,jdbcType=VARCHAR},
+      HZZD_COD = #{record.hzzdCod,jdbcType=VARCHAR},
+      JBZD_COMM = #{record.jbzdComm,jdbcType=VARCHAR},
+      HZZD_DAT = #{record.hzzdDat,jdbcType=TIMESTAMP},
+      HZZD_NUR_NBR = #{record.hzzdNurNbr,jdbcType=VARCHAR},
+      HZZD_UPD_DAT = #{record.hzzdUpdDat,jdbcType=TIMESTAMP},
+      HZZD_UPD_NBR = #{record.hzzdUpdNbr,jdbcType=VARCHAR},
+      JBZD_FLG = #{record.jbzdFlg,jdbcType=CHAR},
+      JBZD_PREFIX = #{record.jbzdPrefix,jdbcType=VARCHAR},
+      JBZD_SUFFIX = #{record.jbzdSuffix,jdbcType=VARCHAR},
+      JBZD_STATUS = #{record.jbzdStatus,jdbcType=CHAR},
+      JBZD_PYSM = #{record.jbzdPysm,jdbcType=VARCHAR},
+      SHOW_ORDER = #{record.showOrder,jdbcType=VARCHAR},
+      ICD10 = #{record.icd10,jdbcType=VARCHAR},
+      ONSET_DAT = #{record.onsetDat,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.hospital.pojo.domain.HspJbzdInf">
+    update HSP_JBZD_INF
+    <set>
+      <if test="emgSeq != null">
+        EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="jbzdType != null">
+        JBZD_TYPE = #{jbzdType,jdbcType=VARCHAR},
+      </if>
+      <if test="hzzdCod != null">
+        HZZD_COD = #{hzzdCod,jdbcType=VARCHAR},
+      </if>
+      <if test="jbzdComm != null">
+        JBZD_COMM = #{jbzdComm,jdbcType=VARCHAR},
+      </if>
+      <if test="hzzdDat != null">
+        HZZD_DAT = #{hzzdDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hzzdNurNbr != null">
+        HZZD_NUR_NBR = #{hzzdNurNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="hzzdUpdDat != null">
+        HZZD_UPD_DAT = #{hzzdUpdDat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hzzdUpdNbr != null">
+        HZZD_UPD_NBR = #{hzzdUpdNbr,jdbcType=VARCHAR},
+      </if>
+      <if test="jbzdFlg != null">
+        JBZD_FLG = #{jbzdFlg,jdbcType=CHAR},
+      </if>
+      <if test="jbzdPrefix != null">
+        JBZD_PREFIX = #{jbzdPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="jbzdSuffix != null">
+        JBZD_SUFFIX = #{jbzdSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="jbzdStatus != null">
+        JBZD_STATUS = #{jbzdStatus,jdbcType=CHAR},
+      </if>
+      <if test="jbzdPysm != null">
+        JBZD_PYSM = #{jbzdPysm,jdbcType=VARCHAR},
+      </if>
+      <if test="showOrder != null">
+        SHOW_ORDER = #{showOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="icd10 != null">
+        ICD10 = #{icd10,jdbcType=VARCHAR},
+      </if>
+      <if test="onsetDat != null">
+        ONSET_DAT = #{onsetDat,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where JBZD_SEQ = #{jbzdSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.hospital.pojo.domain.HspJbzdInf">
+    update HSP_JBZD_INF
+    set EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
+        JBZD_TYPE = #{jbzdType,jdbcType=VARCHAR},
+        HZZD_COD = #{hzzdCod,jdbcType=VARCHAR},
+        JBZD_COMM = #{jbzdComm,jdbcType=VARCHAR},
+        HZZD_DAT = #{hzzdDat,jdbcType=TIMESTAMP},
+        HZZD_NUR_NBR = #{hzzdNurNbr,jdbcType=VARCHAR},
+        HZZD_UPD_DAT = #{hzzdUpdDat,jdbcType=TIMESTAMP},
+        HZZD_UPD_NBR = #{hzzdUpdNbr,jdbcType=VARCHAR},
+        JBZD_FLG = #{jbzdFlg,jdbcType=CHAR},
+        JBZD_PREFIX = #{jbzdPrefix,jdbcType=VARCHAR},
+        JBZD_SUFFIX = #{jbzdSuffix,jdbcType=VARCHAR},
+        JBZD_STATUS = #{jbzdStatus,jdbcType=CHAR},
+        JBZD_PYSM = #{jbzdPysm,jdbcType=VARCHAR},
+        SHOW_ORDER = #{showOrder,jdbcType=VARCHAR},
+        ICD10 = #{icd10,jdbcType=VARCHAR},
+        ONSET_DAT = #{onsetDat,jdbcType=TIMESTAMP}
+    where JBZD_SEQ = #{jbzdSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

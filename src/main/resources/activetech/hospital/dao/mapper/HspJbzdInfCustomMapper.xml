@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.hospital.dao.mapper.HspJbzdInfCustomMapper" >
+  <resultMap id="BaseResultMap" type="activetech.hospital.pojo.domain.HspJbzdInf" >
+    <id column="JBZD_SEQ" jdbcType="VARCHAR" property="jbzdSeq" />
+    <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
+    <result column="JBZD_TYPE" jdbcType="VARCHAR" property="jbzdType" />
+    <result column="HZZD_COD" jdbcType="VARCHAR" property="hzzdCod" />
+    <result column="JBZD_COMM" jdbcType="VARCHAR" property="jbzdComm" />
+    <result column="HZZD_DAT" jdbcType="TIMESTAMP" property="hzzdDat" />
+    <result column="HZZD_NUR_NBR" jdbcType="VARCHAR" property="hzzdNurNbr" />
+    <result column="HZZD_UPD_DAT" jdbcType="TIMESTAMP" property="hzzdUpdDat" />
+    <result column="HZZD_UPD_NBR" jdbcType="VARCHAR" property="hzzdUpdNbr" />
+    <result column="JBZD_FLG" jdbcType="CHAR" property="jbzdFlg" />
+    <result column="JBZD_PREFIX" jdbcType="VARCHAR" property="jbzdPrefix" />
+    <result column="JBZD_SUFFIX" jdbcType="VARCHAR" property="jbzdSuffix" />
+    <result column="JBZD_STATUS" jdbcType="CHAR" property="jbzdStatus" />
+    <result column="JBZD_PYSM" jdbcType="VARCHAR" property="jbzdPysm" />
+    <result column="SHOW_ORDER" jdbcType="VARCHAR" property="showOrder" />
+    <result column="ICD10" jdbcType="VARCHAR" property="icd10" />
+    <result column="ONSET_DAT" jdbcType="TIMESTAMP" property="onsetDat" />
+  </resultMap>
+
+  <resultMap id="BaseResultMap2" type="activetech.hospital.pojo.dto.HspHzjbzdCustom" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ICD10" property="icd10" jdbcType="VARCHAR" />
+    <result column="JBBC" property="jbbc" jdbcType="VARCHAR" />
+    <result column="PYSM" property="pysm" jdbcType="VARCHAR" />
+    <result column="LMT_SEX" property="lmtSex" jdbcType="VARCHAR" />
+    <result column="LMT_LX" property="lmtLx" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+    <!-- 查询疾病字典列表 -->
+    <select id="findJbzdInfByPysm" parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto"
+            resultMap="BaseResultMap2">
+ 		 select ID,JBBC,ICD10,PYSM
+         from HSP_JBZD_LZ
+         where
+             HSP_JBZD_LZ.PYSM like #{hspHzjbzdCustom.pysm}||'%'
+            or HSP_JBZD_LZ.JBBC like #{hspHzjbzdCustom.pysm}||'%'
+ 	</select>
+
+ 	<select id="findHspJbzdInfHzzd" parameterType="activetech.hospital.pojo.dto.HspJbzdInfCustom"
+            resultType="activetech.hospital.pojo.dto.HspJbzdInfCustom">
+		select
+            JBZD_SEQ jbzdSeq,
+            EMG_SEQ emgSeq,
+            JBZD_TYPE jbzdType,
+            JBZD_COMM jbzdComm,
+            icd10 icd,
+            HZZD_DAT hzzdDat,
+            JBZD_FLG jbzdFlg,
+            JBZD_STATUS jbzdStatus,
+            JBZD_PYSM jbzdPysm,
+            HZZD_NUR_NBR hzzdNurNbr
+        from HSP_JBZD_INF
+        where EMG_SEQ = #{emgSeq}
+          and JBZD_TYPE=#{jbzdType} order by JBZD_STATUS,ONSET_DAT
+ 	</select>
+
+ 	<select id="findHspJbzdInfComm" parameterType="java.lang.String"
+            resultType="activetech.hospital.pojo.dto.HspJbzdInfCustom">
+ 		select
+            JBZD_SEQ jbzdSeq,
+            EMG_SEQ emgSeq,
+            JBZD_TYPE jbzdType,
+            JBZD_COMM jbzdComm,
+            (select JBBC from HSP_JBZD_lz where HSP_JBZD_lz.id=HSP_JBZD_INF.HZZD_COD) hzzdCod,
+            HZZD_DAT hzzdDat,
+            HZZD_NUR_NBR hzzdNurNbr,
+            HZZD_UPD_DAT hzzdUpdDat,
+            HZZD_UPD_NBR hzzdUpdNbr,
+            JBZD_FLG jbzdFlg,
+            JBZD_PREFIX jbzdPrefix,
+            JBZD_SUFFIX jbzdSuffix,
+            JBZD_STATUS jbzdStatus,
+            JBZD_PYSM jbzdPysm
+        from HSP_JBZD_INF
+        where EMG_SEQ = #{emgSeq}
+          and JBZD_TYPE=#{jbzdType}
+          and HZZD_COD is null
+ 	</select>
+</mapper>

@@ -48,9 +48,7 @@ import activetech.zyyhospital.pojo.domain.HspFrbrInf;
 import activetech.zyyhospital.pojo.domain.HspZyfxpfInf;
 import activetech.zyyhospital.pojo.domain.THemsSjz;
 import activetech.zyyhospital.pojo.dto.HisCzCustom;
-import activetech.zyyhospital.pojo.dto.HspBedInfCustom;
 import activetech.zyyhospital.service.HisCzSqlServerService;
-import activetech.zyyhospital.service.HspBedInfService;
 import activetech.zyyhospital.service.ZyyHspemginfService;
 
 /**
@@ -78,8 +76,8 @@ public class ZyyemgAction {
 	private SystemConfigService systemConfigService;
 	@Autowired
 	private CompctlService compctlService;
-	@Autowired
-	private HspBedInfService hspBedInfService;
+//	@Autowired
+//	private HspBedInfService hspBedInfService;
 	@Autowired
 	private BaseHspemgInfService baseHspemgInfService;
 	@Autowired
@@ -360,8 +358,8 @@ public class ZyyemgAction {
 			emgSeq="";
 		}
 		//editbedflg 为1 代表床位列表会把预检时床位加进去，无论这个床有没有被占用。修改界面用
-		List<HspBedInfCustom> bedplacecodList=hspBedInfService.findBedPlaceAndNum(emgSeq,editbedflg);
-		map.put("bedplacecodList",bedplacecodList);
+//		List<HspBedInfCustom> bedplacecodList=hspBedInfService.findBedPlaceAndNum(emgSeq,editbedflg);
+//		map.put("bedplacecodList",bedplacecodList);
 		resultInfo.setSysdata(map);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
@@ -1254,7 +1252,7 @@ public class ZyyemgAction {
 	@RequestMapping("/rlgSubmit")
 	public @ResponseBody SubmitResultInfo rlgSubmit(String emgSeq,ActiveUser activeuser) throws Exception{
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906,null);
-		oracleHisService.sendLgxxSd(emgSeq,"1");
+//		oracleHisService.sendLgxxSd(emgSeq,"1");
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	
@@ -1267,7 +1265,7 @@ public class ZyyemgAction {
 	@RequestMapping("/clgSubmit")
 	public @ResponseBody SubmitResultInfo clgSubmit(String emgSeq,ActiveUser activeuser) throws Exception{
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906,null);
-		oracleHisService.sendLgxxSd(emgSeq,"2");
+//		oracleHisService.sendLgxxSd(emgSeq,"2");
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	

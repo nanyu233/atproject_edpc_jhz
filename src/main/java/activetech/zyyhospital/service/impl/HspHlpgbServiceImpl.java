@@ -25,7 +25,6 @@ import activetech.zyyhospital.dao.mapper.HspFallriskInfMapper;
 import activetech.zyyhospital.dao.mapper.HspHljldInfMapper;
 import activetech.zyyhospital.dao.mapper.HspHlpgbCustomMapper;
 import activetech.zyyhospital.dao.mapper.HspHlpgbMapper;
-import activetech.zyyhospital.dao.mapper.HspLqblInfMapper;
 import activetech.zyyhospital.dao.mapper.HspNrsInfMapper;
 import activetech.zyyhospital.dao.mapper.HspZcddexpfInfMapper;
 import activetech.zyyhospital.dao.mapper.HspZyfxpfInfMapper;
@@ -36,8 +35,6 @@ import activetech.zyyhospital.pojo.domain.HspFallriskInf;
 import activetech.zyyhospital.pojo.domain.HspHljldInf;
 import activetech.zyyhospital.pojo.domain.HspHljldInfExample;
 import activetech.zyyhospital.pojo.domain.HspHlpgb;
-import activetech.zyyhospital.pojo.domain.HspLqblInf;
-import activetech.zyyhospital.pojo.domain.HspLqblInfExample;
 import activetech.zyyhospital.pojo.domain.HspNrsInf;
 import activetech.zyyhospital.pojo.domain.HspZcddexpfInf;
 import activetech.zyyhospital.pojo.domain.HspZyfxpfInf;
@@ -87,8 +84,8 @@ public class HspHlpgbServiceImpl implements HspHlpgbService {
 	private HspHljldInfMapper hspHljldInfMapper;
 	@Autowired
 	private HspSqlInfMapper hspSqlInfMapper;
-	@Autowired
-	private HspLqblInfMapper hspLqblInfMapper;
+//	@Autowired
+//	private HspLqblInfMapper hspLqblInfMapper;
 	
 	@Override
 	public HspHlpgbQueryDto getHlpgbByEmgSeq(String emgSeq) throws Exception {
@@ -571,16 +568,16 @@ public class HspHlpgbServiceImpl implements HspHlpgbService {
 			hspHlpgbCustom.setAbnScoNme(hspemginfCustom.getAbnScoNme());
 			hspHlpgbCustom.setSeeDocDat(hspemginfCustom.getEmgDat());
 			
-			HspLqblInfExample  hspLqblInfExample = new HspLqblInfExample();
-			HspLqblInfExample.Criteria criteria =  hspLqblInfExample.createCriteria();
-			criteria.andEmgSeqEqualTo(hspHlpgbCustom.getEmgSeq());
-			criteria.andBltypeEqualTo("0");
-			List<HspLqblInf> hspLqblInfrtv = hspLqblInfMapper.selectByExample(hspLqblInfExample);
-			//如果有则默认赋值留抢病历主诉
-			if(hspLqblInfrtv != null && hspLqblInfrtv.size() > 0){
-				HspLqblInf hspLqblInf = hspLqblInfrtv.get(0);
-				hspHlpgbCustom.setPreDgnCod(hspLqblInf.getLqblDes());
-			}
+//			HspLqblInfExample  hspLqblInfExample = new HspLqblInfExample();
+//			HspLqblInfExample.Criteria criteria =  hspLqblInfExample.createCriteria();
+//			criteria.andEmgSeqEqualTo(hspHlpgbCustom.getEmgSeq());
+//			criteria.andBltypeEqualTo("0");
+//			List<HspLqblInf> hspLqblInfrtv = hspLqblInfMapper.selectByExample(hspLqblInfExample);
+//			//如果有则默认赋值留抢病历主诉
+//			if(hspLqblInfrtv != null && hspLqblInfrtv.size() > 0){
+//				HspLqblInf hspLqblInf = hspLqblInfrtv.get(0);
+//				hspHlpgbCustom.setPreDgnCod(hspLqblInf.getLqblDes());
+//			}
 			
 			hspHlpgbCustom.setOprDat(DateUtil.parseDate(DateUtil.formatDateByFormat(new Date(),"yyyy/MM/dd"),"yyyy/MM/dd"));
 			//如果是诊间转留抢的患者，则时间取转归为留抢时的转归时间

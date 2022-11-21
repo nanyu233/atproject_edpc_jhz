@@ -1112,12 +1112,15 @@
 							</div>
 							<div class="input-group">
 								<div class="input">
-									<div class="btn" ms-class="{{info.jyxm ? 'active' : ''}}" ms-click="onToggleClick('jyxm')" style="padding:0 20px;box-shadow: 0 0 5px;">检验报告</div>
-									<div class="btn" ms-class="{{info.jcxm ? 'active' : ''}}" ms-click="onToggleClick('jcxm')" style="padding:0 20px;box-shadow: 0 0 5px;">检查报告</div>
+<%--									<div class="btn" ms-class="{{info.jyxm ? 'active' : ''}}" ms-click="onToggleClick('jyxm')" style="padding:0 20px;box-shadow: 0 0 5px;">检验报告</div>--%>
+									<div class="btn" ms-class="{{hspXtzlInf.jyxm ? 'active' : ''}}" ms-click="onToggleClick('jyxm')" style="padding:0 20px;box-shadow: 0 0 5px;">检验报告</div>
+<%--									<div class="btn" ms-class="{{info.jcxm ? 'active' : ''}}" ms-click="onToggleClick('jcxm')" style="padding:0 20px;box-shadow: 0 0 5px;">检查报告</div>--%>
+									<div class="btn" ms-class="{{hspXtzlInf.jcxm ? 'active' : ''}}" ms-click="onToggleClick('jcxm')" style="padding:0 20px;box-shadow: 0 0 5px;">检查报告</div>
 								</div>
 							</div>
 						</div>
-						<div class="block" style="overflow: hidden;" ms-if="info.jyxm">
+<%--						<div class="block" style="overflow: hidden;" ms-if="info.jyxm">--%>
+						<div class="block" style="overflow: hidden;" ms-if="hspXtzlInf.jyxm">
 							<div class="no-data" ms-if="!jylist.length">
 								检验报告：暂无数据
 							</div>
@@ -1152,7 +1155,8 @@
 								</table>
 							</div>
 						</div>
-						<div class="block" ms-if="info.jcxm">
+<%--						<div class="block" ms-if="info.jcxm">--%>
+						<div class="block" ms-if="hspXtzlInf.jcxm">
 							<div class="no-data" ms-if="!jclist.length">
 								检查报告：暂无数据
 							</div>
@@ -3815,8 +3819,8 @@
 				CKMBSZ: '',     //CKMB数值
 				CKMBDW: '',     //CKMB单位
 
-				// jyxm: '',   //检验报告  无定义
-				// jcxm: '',   //检查报告  无定义
+				jyxm: '',   //检验报告  无定义
+				jcxm: '',   //检查报告  无定义
 
 				/*cpctreat -- 心内科会诊*/
 				XNKHZ: null,     //心内科会诊
@@ -4269,8 +4273,8 @@
 				// CYDYSTZZJDCJL: '', //β受体阻滞剂-单次剂量
 				// JGDBSZ: '', //肌钙蛋白数值
 				// JGDBXZ: '', //肌钙蛋白性质
-				jyxm: 0,
-				jcxm: 0,
+				// jyxm: 0,
+				// jcxm: 0,
 				// gracefz: '', //grace分值
 				pfxx: false, //grace评分细项
 				// SFARNI: null, //是否ARNI
@@ -5856,7 +5860,7 @@
 		// 基础信息接口
 		function getXtbaseInfo(busStep) {
 			$.ajax({
-					url: '${baseurl}cpc/getXtPatientDetail.do',
+				url: '${baseurl}cpc/getXtPatientDetail.do',
 				type: 'post',
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',

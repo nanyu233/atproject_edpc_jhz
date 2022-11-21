@@ -55,19 +55,11 @@ import java.util.stream.Collectors;
 public class OracleHisServiceImpl implements OracleHisService {
 	
 	private static Logger logger = Logger.getLogger(OracleHisServiceImpl.class); 
-	
-	@Autowired
-	private HspemginfCustomMapper hspemginfCustomMapper;
-	@Autowired
-	private VHemsJyjgMapperCustom vHemsJyjgMapperCustom;
+
 	@Autowired
 	private VHemsGhlbMapper vHemsGhlbMapper;
 	@Autowired
-	private VHemsSfxxMapper vHemsSfxxMapper;
-	@Autowired
 	private SystemConfigService systemConfigService;
-	@Autowired
-	private YZMapper yzMapper;
 	@Autowired
 	private VHemsRczMapper vHemsRczMapper;
 	@Autowired
@@ -79,88 +71,9 @@ public class OracleHisServiceImpl implements OracleHisService {
 	@Autowired
 	private ZyyHspemginfCustomMapper zyyHspemginfCustomMapper;
 	@Autowired
-	private DstcompctlMapper dstcompctlMapper;
-	@Autowired
 	private VHemsJyjgMapperSi vHemsJyjgMapperSi;
 	
-	////////////////////////////////患者信息////////////////////////////////////////
-	@Override
-	public VHemsEmpi findvHemsEmpi(String cardNo,String cardType,String trackData) throws Exception {
-		//TODO 删除webService接口
-		return  null;
-	}
 
-	////////////////////////////////检验信息////////////////////////////////////////
-	@Override
-	public int findvhemsjyjgcount(VHemsJyjgQueryDto vHemsJyjgQueryDto)
-			throws Exception {
-		if (vHemsJyjgQueryDto.getvHemsJyjgCustom() != null) {
-			if (StringUtils.isNotNullAndEmptyByTrim(vHemsJyjgQueryDto.getvHemsJyjgCustom().getPatientId())) {
-				return vHemsJyjgMapperCustom.findvhemsjyjgcount(vHemsJyjgQueryDto);
-			}
-		}
-		return 0;
-	}
-
-	@Override
-	public List<VHemsJyjgCustom> findvhemsjyjgList(
-			VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception {
-		List<VHemsJyjgCustom> list = new ArrayList<VHemsJyjgCustom>();
-		vHemsJyjgQueryDto.setSort("resultDateTime");
-		vHemsJyjgQueryDto.setOrder("asc");
-		if (vHemsJyjgQueryDto.getvHemsJyjgCustom() != null) {
-			if (StringUtils.isNotNullAndEmptyByTrim(vHemsJyjgQueryDto.getvHemsJyjgCustom().getPatientId())) {
-				list = vHemsJyjgMapperCustom.findvhemsjyjgList(vHemsJyjgQueryDto);
-			}
-		}
-		return list;
-	}
-	
-	@Override
-	public int findvhemsjyjginfocount(VHemsJyjgQueryDto vHemsJyjgQueryDto)
-			throws Exception {
-		
-		return vHemsJyjgMapperCustom.findvhemsjyjginfocount(vHemsJyjgQueryDto);
-	}
-
-	@Override
-	public List<VHemsJyjgCustom> findvhemsjyjginfoList(
-			VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception {
-		return vHemsJyjgMapperCustom.findvhemsjyjginfoList(vHemsJyjgQueryDto);
-	}
-
-	@Override
-	public List<VHemsJyjgCustom> findvhemsjyjginfoListqfy(
-			VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception {
-		List<VHemsJyjgCustom> list= vHemsJyjgMapperCustom.findvhemsjyjginfoListqfy(vHemsJyjgQueryDto);
-		for (VHemsJyjgCustom vHemsJyjgCustom : list) {
-			if(StringUtils.isNotNullAndEmptyByTrim(vHemsJyjgCustom.getUnits())&&vHemsJyjgCustom.getUnits().length()>=3){
-				if(vHemsJyjgCustom.getUnits().substring(0,3).equals("10E")){
-					vHemsJyjgCustom.setSign("*");
-				}
-			}
-		}
-		return list;
-	}
-
-
-	@Override
-	public List<VHemsJyjgCustom> findvhemsjyjginfoListajaxnew(
-			VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception {
-			vHemsJyjgQueryDto.setSort("resultDateTime");
-			vHemsJyjgQueryDto.setOrder("asc");
-			vHemsJyjgQueryDto.getvHemsJyjgCustom().setEnddate(DateUtil.getNextDay(vHemsJyjgQueryDto.getvHemsJyjgCustom().getEnddate()));
-		 List<VHemsJyjgCustom> list1 = vHemsJyjgMapperCustom.findvhemsjyjgList(vHemsJyjgQueryDto);
-		 for (VHemsJyjgCustom vHemsJyjgCustom : list1) {
-			 VHemsJyjgQueryDto vHemsJyjgQueryDto1 = new VHemsJyjgQueryDto();
-			 vHemsJyjgQueryDto1.setvHemsJyjgCustom(vHemsJyjgCustom);
-			 List<VHemsJyjgCustom> list2= vHemsJyjgMapperCustom.findvhemsjyjginfoList(vHemsJyjgQueryDto1);
-			 vHemsJyjgCustom.setVlist(list2);
-		}
-		return list1;
-	}
-	
-	//////////////////////////////////挂号信息///////////////////////////////////////
 	/**
 	 * @param	vHemsGhlbQueryDto
 	 * @return	已挂号患者列表总记录数 
@@ -182,160 +95,6 @@ public class OracleHisServiceImpl implements OracleHisService {
 	}
 	
 	
-	/**
-	 * 获取处方信息（视图+本地处方表）
-	 * @param hspCfxxInfoQueryDto
-	 */
-	@Override
-	public List<HspCfxxInfoCustom> findCfxxLocalAndHISList(HspCfxxInfoQueryDto hspCfxxInfoQueryDto) throws Exception{
-		//本地处方表
-		List<HspCfxxInfoCustom> cfxxList = yzMapper.findCfxxDataByLocalList(hspCfxxInfoQueryDto);
-		//HIS视图
-		List<HspCfxxInfoCustom> hisList = yzMapper.findCfxxDataByHisList(hspCfxxInfoQueryDto);
-		cfxxList.addAll(hisList);
-		//根据组号去重
-		cfxxList = cfxxList.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(HspCfxxInfo :: getDaSub))), ArrayList::new));
-		cfxxList.sort(Comparator.comparingLong(HspCfxxInfoCustom::getStartTimeLong).thenComparing(HspCfxxInfoCustom::getDaSeq).reversed());
-		return cfxxList;
-	}
-
-	//////////////////////////////////收费信息///////////////////////////////////////
-	
-	@Override
-	public List<VHemsSfxxCustom> getVHemsSfxxList(VHemsSfxxDto vHemsSfxxDto) {
-		return vHemsSfxxMapper.getVHemsSfxxList(vHemsSfxxDto);
-	}
-
-	
-	@Override
-	public Map<String, Object> findEmergencyOuttime(String flag) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put(flag,0);
-		CopyOnWriteArrayList<HspemginfCustom> emergencyList;
-		if("emergencyList".equals(flag)) {
-			emergencyList = hspemginfCustomMapper.findEmergencyOuttime(new HemshisDto());
-		}else {
-			emergencyList = hspemginfCustomMapper.findSlowListOuttime(new HemshisDto());
-		}
-		if(StringUtils.isNotNullAndZero(emergencyList)){
-			getOutTimeList(emergencyList);
-			if(StringUtils.isNotNullAndZero(emergencyList)){
-				map.put(flag,emergencyList.size());
-			}
-		}
-		map.put("flag", flag);
-		return map;
-	}
-
-	@Override
-	public Map<String, Object> findOutTimeList(HemshisDto hemshisDto) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("emergencyList", 0);
-		map.put("slowList", 0);
-		List<HspemginfCustom> hspemginfCustomList = new ArrayList<HspemginfCustom>();
-		CopyOnWriteArrayList<HspemginfCustom> emergencyList = hspemginfCustomMapper.findEmergencyOuttime(hemshisDto);
-		if(StringUtils.isNotNullAndZero(emergencyList)){
-			getOutTimeList(emergencyList);
-			if(StringUtils.isNotNullAndZero(emergencyList)){
-				map.put("emergencyList", emergencyList.size());
-				hspemginfCustomList.addAll(emergencyList);
-			}
-		}
-		CopyOnWriteArrayList<HspemginfCustom> slowList = hspemginfCustomMapper.findSlowListOuttime(hemshisDto);
-		if(StringUtils.isNotNullAndZero(slowList)){
-			getOutTimeList(slowList);
-			if(StringUtils.isNotNullAndZero(slowList)){
-				map.put("slowList", slowList.size());
-				hspemginfCustomList.addAll(slowList);
-			}
-		}
-		hspemginfCustomList.sort(Comparator.comparingLong(HspemginfCustom::getEmgDatLong));
-		map.put("flag", "all");
-		map.put("hspemginfCustomList", hspemginfCustomList);
-		return map;
-	}
-	
-	private void getOutTimeList(CopyOnWriteArrayList<HspemginfCustom> emergencyList) {
-		//取第三方的就诊信息视图
-		//取emg的就诊时间为空，并且在就诊信息视图有值的数据，对emg表做更新
-		//如果两天内就1条就诊信息，则取该条
-		//如果就诊信息比预检要早，则取离预检最近的数据（就诊时间最大的预检前）
-		//如果就诊信息比预检要晚，则取离预检最近的数据（就诊时间最小的预检后）
-		//就诊时间、就诊序号、就诊医生、就诊科室对emg表做更新。并且候诊列表里剔除有就诊信息的病人
-		List<HspemginfCustom> hspemginfCustomList = hspemginfCustomMapper.getOutTimeList(emergencyList);
-		for (HspemginfCustom emergencyCustom : emergencyList) {
-			HspemginfCustom beforCustom = null;
-			HspemginfCustom tempCustom = null;
-			for(int i = 0; StringUtils.isNotNullAndZero(hspemginfCustomList) && i<hspemginfCustomList.size();i++){
-				if(!hspemginfCustomList.get(i).getVstCad().equals(emergencyCustom.getVstCad())){
-					continue;
-				}
-				//2天内就一条就诊
-				if(1 == hspemginfCustomList.get(i).getCounts()){
-					tempCustom = hspemginfCustomList.get(i);
-					break;
-				}else{
-					//判断是否是4小时内数据
-					if(Math.abs(hspemginfCustomList.get(i).getDocDat().getTime() - emergencyCustom.getEmgDat().getTime()) < 14400000){
-						//获取最大的预检前
-						if(hspemginfCustomList.get(i).getDocDat().getTime() < emergencyCustom.getEmgDat().getTime()){
-							if(null == beforCustom){
-								beforCustom = hspemginfCustomList.get(i);
-							}else{
-								if(beforCustom.getDocDat().getTime() < hspemginfCustomList.get(i).getDocDat().getTime()){
-									beforCustom = hspemginfCustomList.get(i); 
-								}
-							}
-						}
-						//获取最小的预检后
-						if(hspemginfCustomList.get(i).getDocDat().getTime() > emergencyCustom.getEmgDat().getTime()){
-							if(null == tempCustom){
-								tempCustom = hspemginfCustomList.get(i);
-							}else{
-								if(tempCustom.getDocDat().getTime() > hspemginfCustomList.get(i).getDocDat().getTime()){
-									tempCustom = hspemginfCustomList.get(i); 
-								}
-							}
-						}
-					}
-				}
-			}
-			if(null != tempCustom){
-				emergencyCustom.setDocDat(tempCustom.getDocDat());
-				emergencyCustom.setJzxh(tempCustom.getJzxh());
-				emergencyCustom.setJzys(tempCustom.getJzys());
-				emergencyCustom.setYsxm(tempCustom.getYsxm());
-				emergencyCustom.setKsdm(tempCustom.getKsdm());
-				hspemginfCustomMapper.updateDocDat(emergencyCustom);
-				emergencyList.remove(emergencyCustom);
-			}else if(null == tempCustom && beforCustom != null){
-				emergencyCustom.setDocDat(beforCustom.getDocDat());
-				emergencyCustom.setJzxh(beforCustom.getJzxh());
-				emergencyCustom.setJzys(beforCustom.getJzys());
-				emergencyCustom.setYsxm(beforCustom.getYsxm());
-				emergencyCustom.setKsdm(beforCustom.getKsdm());
-				hspemginfCustomMapper.updateDocDat(emergencyCustom);
-				emergencyList.remove(emergencyCustom);
-			}
-		}
-	}
-
-	@Override
-	public void updateCleanListHz(HemshisDto hemshisDto, ActiveUser activeUser) {
-		hemshisDto.setUpdateNur(activeUser.getUsrno());
-		hemshisDto.setUpdateName(activeUser.getUsrname());
-		hspemginfCustomMapper.updateCleanListHz(hemshisDto);
-	}
-
-	@Override
-	public int findRczGhxxCount(HemshisDto hemshisDto) {
-		return vHemsRczMapper.findRczGhxxCount(hemshisDto);
-	}
-
-	@Override
-	public List<VHemsRczCustom> findRczGhxx(HemshisDto hemshisDto) {
-		return vHemsRczMapper.findRczGhxx(hemshisDto);
-	}
 
 	@Override
 	public void updateRczGhxxBd(HspemginfQueryDto hspemginfQueryDto) throws Exception {
@@ -448,277 +207,17 @@ public class OracleHisServiceImpl implements OracleHisService {
 		if(hspemginfCustom.getJzxhOld() != null){
 			VHemsRcz vHemsRczRegOld = vHemsRczMapper.selectRczByJzxh("REG",hspemginfCustom.getMpi(),hspemginfCustom.getJzxhOld());
 			vHemsRczRegOld.setEmgSeq(null);
-			sendLgxx("2", hspemginfCustom.getMpi(), hspemginfCustom.getJzxhOld());
+//			sendLgxx("2", hspemginfCustom.getMpi(), hspemginfCustom.getJzxhOld());
 			vHemsRczMapper.updateEmgSeq(vHemsRczRegOld);
 		}
 		
 		hspemginfMapper.updateByPrimaryKeySelective(hspEmgInf);
-		if("6".equals(hspemginfCustom.getCstDspCod()) && hspemginfCustom.getJzxhOld() != null){
-			sendLgxx("2", hspemginfCustom.getMpi(), hspemginfCustom.getJzxhOld());
-			sendLgxx("1", hspemginfCustom.getMpi(), hspemginfCustom.getJzxh());
-		}
+//		if("6".equals(hspemginfCustom.getCstDspCod()) && hspemginfCustom.getJzxhOld() != null){
+//			sendLgxx("2", hspemginfCustom.getMpi(), hspemginfCustom.getJzxhOld());
+//			sendLgxx("1", hspemginfCustom.getMpi(), hspemginfCustom.getJzxh());
+//		}
 	}
-	
-	@Override
-	public void updateRczGhxxBdMz(HspemginfQueryDto hspemginfQueryDto) throws Exception {
-		HspemginfCustom hspemginfCustom = hspemginfQueryDto.getHspemginfCustom();
-		VHemsRcz vHemsRczReg = vHemsRczMapper.selectForMz(hspemginfCustom.getMpi(),hspemginfCustom.getJzxh());
-		vHemsRczReg.setEmgSeq(hspemginfCustom.getEmgSeq());
-		vHemsRczMapper.updateEmgSeq(vHemsRczReg);
-		hspemginfCustom.setAdtA01(vHemsRczReg.getAdtA01());
-		hspemginfCustom.setEmgDat(vHemsRczReg.getGhsj());
-		DstcompctlExample dstcompctlExample = new DstcompctlExample();
-		DstcompctlExample.Criteria DstcompctlCriteria = dstcompctlExample.createCriteria();
-		DstcompctlCriteria.andComcnameEqualTo(vHemsRczReg.getGhks());
-		DstcompctlCriteria.andCommanEqualTo("101030102");
-		DstcompctlCriteria.andIsenableEqualTo("1");
-		List<Dstcompctl> dstcompctlList = dstcompctlMapper.selectByExample(dstcompctlExample);
-		if(StringUtils.isNotNullAndZero(dstcompctlList)){
-			hspemginfCustom.setEmgFkCod(dstcompctlList.get(0).getComno());
-		}
-		hspemginfCustom.setIdNbr(vHemsRczReg.getSfzh());
-		if(StringUtils.isNotNullAndEmptyByTrim(vHemsRczReg.getSex())){
-			hspemginfCustom.setCstSexCod(Integer.parseInt(vHemsRczReg.getSex()) - 1 +"");
-		}
-		hspemginfCustom.setBthDat(vHemsRczReg.getCsrq());
-		hspemginfCustom.setPheNbr(vHemsRczReg.getLxfs()); 
-		VHemsRcz vHemsRczAdt = vHemsRczMapper.selectRczByJzxh("ADT",hspemginfCustom.getMpi(),hspemginfCustom.getJzxh());
-		if(vHemsRczAdt != null){
-			String aaa = "MSH|^~\\&|EMR||ESB||20200729182555||ADT^A01^ADT_A01|9f1e1813-b7c0-4f5a-8efd-e3577f2d4980|P|2.6|||NE|AL||utf-8\r"
-					+ "EVN|ADT|20200729182555|||B0539^陈亚琴\r"
-					+ "PID||5010100512|4^^^^4^^^^^330702199007253229||金誉祯^^^JIN YU ZHEN||19900724010000|2|||||^13362143433\r"
-					+ "PV1||1|30896^101030102^^^^^^^^急诊耳鼻喉科&急诊科门诊||6||A1636^吕慧洋|||2||||1||3|||4||0||||||||||||||||||ZJYY02|||||20200729182107||||||02-B0539-O0081839|1\r";
-			ADT_A01 adt_A01Adt = HL7Util.hl7Text2Msg(vHemsRczAdt.getAdtA01(), ADT_A01.class);
-			String jzys = adt_A01Adt.getPV1().getPv17_AttendingDoctor(0).getXcn1_IDNumber().getValue();
-			hspemginfCustom.setDocDat(adt_A01Adt.getEVN().getEvn2_RecordedDateTime().getValueAsDate());
-			hspemginfCustom.setJzys(jzys);
-			hspemginfCustom.setYsxm(adt_A01Adt.getPV1().getPv17_AttendingDoctor(0).getXcn2_FamilyName().getFn1_Surname().getValue());
-			hspemginfCustom.setKsdm(adt_A01Adt.getPV1().getPv13_AssignedPatientLocation().getPl2_Room().getValue());
-			hspemginfCustom.setSqlDctNbr(adt_A01Adt.getPV1().getPv17_AttendingDoctor(0).getXcn2_FamilyName().getFn1_Surname().getValue());
-			vHemsRczAdt.setEmgSeq(hspemginfCustom.getEmgSeq());
-			vHemsRczMapper.updateEmgSeq(vHemsRczAdt);
-		}
-		VHemsRcz vHemsRczDg = vHemsRczMapper.selectRczByJzxh("DG",hspemginfCustom.getMpi(),hspemginfCustom.getJzxh());
-		if(vHemsRczDg != null){
-			ADT_A01 adt_A01Dg = HL7Util.hl7Text2Msg(vHemsRczDg.getAdtA01(), ADT_A01.class);
-			List<HspJbzdInfCustom> hspJbzdInfCustomList = new ArrayList<HspJbzdInfCustom>();
-			List<DG1> dg1List = adt_A01Dg.getDG1All();
-			for (DG1 dg1 : dg1List) {
-				if("3".equals(dg1.getDg121_DiagnosisActionCode().getValue())){
-					continue;
-				}
-				HspJbzdInfCustom hspJbzdInfCustom = new HspJbzdInfCustom();
-				hspJbzdInfCustom.setEmgSeq(hspemginfCustom.getEmgSeq());
-				hspJbzdInfCustom.setIcd10(dg1.getDg13_DiagnosisCodeDG1().getCwe1_Identifier().getValue());
-				hspJbzdInfCustom.setJbzdComm(dg1.getDg13_DiagnosisCodeDG1().getCwe2_Text().getValue());
-				hspJbzdInfCustom.setHzzdDat(dg1.getDg15_DiagnosisDateTime().getValueAsDate());
-				hspJbzdInfCustom.setHzzdNurNbr(adt_A01Dg.getEVN().getEvn5_OperatorID(0).getXcn2_FamilyName().getFn1_Surname().getValue());
-				hspJbzdInfCustom.setShowOrder(dg1.getDg11_SetIDDG1().getValue());
-				if("1".equals(dg1.getDg115_DiagnosisPriority().getValue())){
-					hspJbzdInfCustom.setJbzdStatus("0");
-				}else{
-					hspJbzdInfCustom.setJbzdStatus("1");
-				}
-				hspJbzdInfCustomList.add(hspJbzdInfCustom);
-			}
-			
-			if(StringUtils.isNotNullAndZero(hspJbzdInfCustomList)){
-				HspJbzdInfCustom hspJbzdInfCustom=hspJbzdInfCustomList.get(hspJbzdInfCustomList.size()-1);
-				//删除原有诊断数据
-				delJbzd(hspJbzdInfCustom.getEmgSeq());
-				//新增诊断数据，返回诊断拼接字符串
-				String jbzdDes=addJbzdList(hspJbzdInfCustomList,hspJbzdInfCustom).toString();
-				//更新主表jbzdDes
-				hspemginfCustom.setJbzdDes(jbzdDes);
-				hspemginfCustom.setCyzdXy(jbzdDes);
-				hspemginfCustom.setDeathDiagnosis(jbzdDes);
-			}
-			vHemsRczDg.setEmgSeq(hspemginfCustom.getEmgSeq());
-			vHemsRczMapper.updateEmgSeq(vHemsRczDg);
-		}else{
-			//删除原有诊断数据
-			delJbzd(hspemginfCustom.getEmgSeq());
-		}
-		VHemsRcz vHemsRczWhe = vHemsRczMapper.selectRczByJzxh("WHE",hspemginfCustom.getMpi(),hspemginfCustom.getJzxh());
-		if(vHemsRczWhe != null){
-			ADT_A01 adt_A01Whe = HL7Util.hl7Text2Msg(vHemsRczWhe.getAdtA01(), ADT_A01.class);
-			if("5".equals(hspemginfCustom.getCstDspCod())){
-				Terser terser = new Terser(adt_A01Whe);
-				Date regdat=new Date();
-				String dateStr = DateUtil.formatDateByFormat(regdat, "yyyyMMdd");
-				String seq=systemConfigService.findSequences("HSPSQLINF_SQLSEQ","8",dateStr);
-		    	HspSqlInf hspSqlInf = new HspSqlInf();
-		    	hspSqlInf.setEmgSeq(hspemginfCustom.getEmgSeq());
-		    	hspSqlInf.setSqlSeq(seq);
-		    	hspSqlInf.setSqlDat(DateUtil.parseDate(terser.get("/ZPV-5"), "yyyyMMddHHmmss"));
-		    	hspSqlInf.setRegDat(regdat);
-		    	if("1".equals(terser.get("/ZPV-4"))){
-		    		hspSqlInf.setSqlStaCod("4");
-		    	}else{
-		    		hspSqlInf.setSqlStaCod(terser.get("/ZPV-4"));
-		    	}
-		    	hspSqlInf.setSqlDctNbr("AUTO");
-		    	hspSqlInf.setSqlDctNam("AUTO");
-		    	hspSqlInf.setSqlNurNbr("AUTO");
-		    	hspSqlInf.setSqlNurNam("AUTO");
-		    	hspemginfCustom.setSqlSeq(seq);
-		    	hspSqlInfMapper.insertSelective(hspSqlInf);
-			}
-			vHemsRczWhe.setEmgSeq(hspemginfCustom.getEmgSeq());
-			vHemsRczMapper.updateEmgSeq(vHemsRczWhe);
-		}else{
-			HspSqlInfExample example = new HspSqlInfExample();
-			HspSqlInfExample.Criteria criteria = example.createCriteria();
-			criteria.andEmgSeqEqualTo(hspemginfCustom.getEmgSeq());
-			criteria.andSqlNurNbrEqualTo("AUTO");
-			List<HspSqlInf> hspSqlInfList = hspSqlInfMapper.selectByExample(example);
-			if(StringUtils.isNotNullAndZero(hspSqlInfList)){
-				for (HspSqlInf hspSqlInf : hspSqlInfList) {
-					hspSqlInf.setEmgSeq(hspSqlInf.getEmgSeq()+"AUTO");
-					hspSqlInfMapper.updateByPrimaryKeySelective(hspSqlInf);
-				}
-			}
-		}
-		VHemsRcz vHemsRczCal = vHemsRczMapper.selectRczByJzxh("CAL",hspemginfCustom.getMpi(),hspemginfCustom.getJzxh());
-		if(vHemsRczCal != null){
-			hspemginfCustom.setGhbz("2");
-		}else{
-			hspemginfCustom.setGhbz("1");
-		}
-	}
-	
-	@Override
-	public void updateRczGhxxBdMz(HspemginfCustom hspemginfCustomXm) throws Exception {
-		VHemsRcz vHemsRczReg = vHemsRczMapper.selectForMz(hspemginfCustomXm.getMpi(),hspemginfCustomXm.getJzxh());
-		vHemsRczReg.setEmgSeq(hspemginfCustomXm.getEmgSeq());
-		HspEmgInf hspEmgInf = new HspEmgInf();
-		hspEmgInf.setEmgDat(vHemsRczReg.getGhsj());
-		vHemsRczMapper.updateEmgSeq(vHemsRczReg);
-		hspEmgInf.setAdtA01(vHemsRczReg.getAdtA01());
-		hspEmgInf.setJzxh(hspemginfCustomXm.getJzxh());
-		hspEmgInf.setMpi(hspemginfCustomXm.getMpi());
-		DstcompctlExample dstcompctlExample = new DstcompctlExample();
-		DstcompctlExample.Criteria DstcompctlCriteria = dstcompctlExample.createCriteria();
-		DstcompctlCriteria.andComcnameEqualTo(vHemsRczReg.getGhks());
-		DstcompctlCriteria.andCommanEqualTo("101030102");
-		DstcompctlCriteria.andIsenableEqualTo("1");
-		List<Dstcompctl> dstcompctlList = dstcompctlMapper.selectByExample(dstcompctlExample);
-		if(StringUtils.isNotNullAndZero(dstcompctlList)){
-			hspEmgInf.setEmgFkCod(dstcompctlList.get(0).getComno());
-		}
-		hspEmgInf.setIdNbr(vHemsRczReg.getSfzh());
-		if(StringUtils.isNotNullAndEmptyByTrim(vHemsRczReg.getSex())){
-			hspEmgInf.setCstSexCod(Integer.parseInt(vHemsRczReg.getSex()) - 1 +"");
-		}
-		hspEmgInf.setBthDat(vHemsRczReg.getCsrq());
-		hspEmgInf.setPheNbr(vHemsRczReg.getLxfs()); 
-		VHemsRcz vHemsRczAdt = vHemsRczMapper.selectRczByJzxh("ADT",hspemginfCustomXm.getMpi(),hspemginfCustomXm.getJzxh());
-		
-		hspEmgInf.setEmgSeq(hspemginfCustomXm.getEmgSeq());
-		hspEmgInf.setAdtA01(vHemsRczReg.getAdtA01());
-		if(vHemsRczAdt != null){
-			ADT_A01 adt_A01Adt = HL7Util.hl7Text2Msg(vHemsRczAdt.getAdtA01(), ADT_A01.class);
-			hspEmgInf.setDocDat(adt_A01Adt.getEVN().getEvn2_RecordedDateTime().getValueAsDate());
-			hspEmgInf.setJzys(adt_A01Adt.getPV1().getPv17_AttendingDoctor(0).getXcn1_IDNumber().getValue());
-			hspEmgInf.setYsxm(adt_A01Adt.getPV1().getPv17_AttendingDoctor(0).getXcn2_FamilyName().getFn1_Surname().getValue());
-			hspEmgInf.setKsdm(adt_A01Adt.getPV1().getPv13_AssignedPatientLocation().getPl2_Room().getValue());
-			hspEmgInf.setSqlDctNbr(adt_A01Adt.getPV1().getPv17_AttendingDoctor(0).getXcn2_FamilyName().getFn1_Surname().getValue());
-			vHemsRczAdt.setEmgSeq(hspemginfCustomXm.getEmgSeq());
-			vHemsRczMapper.updateEmgSeq(vHemsRczAdt);
-		}
-		VHemsRcz vHemsRczDg = vHemsRczMapper.selectRczByJzxh("DG",hspemginfCustomXm.getMpi(),hspemginfCustomXm.getJzxh());
-		if(vHemsRczDg != null){
-			ADT_A01 adt_A01Dg = HL7Util.hl7Text2Msg(vHemsRczDg.getAdtA01(), ADT_A01.class);
-			List<HspJbzdInfCustom> hspJbzdInfCustomList = new ArrayList<HspJbzdInfCustom>();
-			List<DG1> dg1List = adt_A01Dg.getDG1All();
-			for (DG1 dg1 : dg1List) {
-				if("3".equals(dg1.getDg121_DiagnosisActionCode().getValue())){
-					continue;
-				}
-				HspJbzdInfCustom hspJbzdInfCustom = new HspJbzdInfCustom();
-				hspJbzdInfCustom.setEmgSeq(hspemginfCustomXm.getEmgSeq());
-				hspJbzdInfCustom.setIcd10(dg1.getDg13_DiagnosisCodeDG1().getCwe1_Identifier().getValue());
-				hspJbzdInfCustom.setJbzdComm(dg1.getDg13_DiagnosisCodeDG1().getCwe2_Text().getValue());
-				hspJbzdInfCustom.setHzzdDat(dg1.getDg15_DiagnosisDateTime().getValueAsDate());
-				hspJbzdInfCustom.setHzzdNurNbr(adt_A01Dg.getEVN().getEvn5_OperatorID(0).getXcn2_FamilyName().getFn1_Surname().getValue());
-				hspJbzdInfCustom.setShowOrder(dg1.getDg11_SetIDDG1().getValue());
-				if("1".equals(dg1.getDg115_DiagnosisPriority().getValue())){
-					hspJbzdInfCustom.setJbzdStatus("0");
-				}else{
-					hspJbzdInfCustom.setJbzdStatus("1");
-				}
-				hspJbzdInfCustomList.add(hspJbzdInfCustom);
-			}
-			
-			if(StringUtils.isNotNullAndZero(hspJbzdInfCustomList)){
-				HspJbzdInfCustom hspJbzdInfCustom=hspJbzdInfCustomList.get(hspJbzdInfCustomList.size()-1);
-				//删除原有诊断数据
-				delJbzd(hspJbzdInfCustom.getEmgSeq());
-				//新增诊断数据，返回诊断拼接字符串
-				String jbzdDes=addJbzdList(hspJbzdInfCustomList,hspJbzdInfCustom).toString();
-				//更新主表jbzdDes
-				hspEmgInf.setJbzdDes(jbzdDes);
-				hspEmgInf.setCyzdXy(jbzdDes);
-				hspEmgInf.setDeathDiagnosis(jbzdDes);
-			}
-			vHemsRczDg.setEmgSeq(hspemginfCustomXm.getEmgSeq());
-			vHemsRczMapper.updateEmgSeq(vHemsRczDg);
-		}else{
-			//删除原有诊断数据
-			delJbzd(hspemginfCustomXm.getEmgSeq());
-		}
-		VHemsRcz vHemsRczWhe = vHemsRczMapper.selectRczByJzxh("WHE",hspemginfCustomXm.getMpi(),hspemginfCustomXm.getJzxh());
-		if(vHemsRczWhe != null){
-			ADT_A01 adt_A01Whe = HL7Util.hl7Text2Msg(vHemsRczWhe.getAdtA01(), ADT_A01.class);
-			if("5".equals(hspemginfCustomXm.getCstDspCod())){
-				Terser terser = new Terser(adt_A01Whe);
-				Date regdat=new Date();
-				String dateStr = DateUtil.formatDateByFormat(regdat, "yyyyMMdd");
-				String seq=systemConfigService.findSequences("HSPSQLINF_SQLSEQ","8",dateStr);
-		    	HspSqlInf hspSqlInf = new HspSqlInf();
-		    	hspSqlInf.setEmgSeq(hspemginfCustomXm.getEmgSeq());
-		    	hspSqlInf.setSqlSeq(seq);
-		    	hspSqlInf.setSqlDat(DateUtil.parseDate(terser.get("/ZPV-5"), "yyyyMMddHHmmss"));
-		    	hspSqlInf.setRegDat(regdat);
-		    	if("1".equals(terser.get("/ZPV-4"))){
-		    		hspSqlInf.setSqlStaCod("4");
-		    	}else{
-		    		hspSqlInf.setSqlStaCod(terser.get("/ZPV-4"));
-		    	}
-		    	hspSqlInf.setSqlDctNbr("AUTO");
-		    	hspSqlInf.setSqlDctNam("AUTO");
-		    	hspSqlInf.setSqlNurNbr("AUTO");
-		    	hspSqlInf.setSqlNurNam("AUTO");
-		    	hspEmgInf.setSqlSeq(seq);
-		    	hspSqlInfMapper.insertSelective(hspSqlInf);
-			}
-			vHemsRczWhe.setEmgSeq(hspemginfCustomXm.getEmgSeq());
-			vHemsRczMapper.updateEmgSeq(vHemsRczWhe);
-		}else{
-			HspSqlInfExample example = new HspSqlInfExample();
-			HspSqlInfExample.Criteria criteria = example.createCriteria();
-			criteria.andEmgSeqEqualTo(hspemginfCustomXm.getEmgSeq());
-			criteria.andSqlNurNbrEqualTo("AUTO");
-			List<HspSqlInf> hspSqlInfList = hspSqlInfMapper.selectByExample(example);
-			if(StringUtils.isNotNullAndZero(hspSqlInfList)){
-				for (HspSqlInf hspSqlInf : hspSqlInfList) {
-					hspSqlInf.setEmgSeq(hspSqlInf.getEmgSeq()+"AUTO");
-					hspSqlInfMapper.updateByPrimaryKeySelective(hspSqlInf);
-				}
-			}
-		}
-		VHemsRcz vHemsRczCal = vHemsRczMapper.selectRczByJzxh("CAL",hspemginfCustomXm.getMpi(),hspemginfCustomXm.getJzxh());
-		if(vHemsRczCal != null){
-			hspEmgInf.setGhbz("2");
-		}else{
-			hspEmgInf.setGhbz("1");
-		}
-		hspemginfMapper.updateByPrimaryKeySelective(hspEmgInf);
-	}
-	
-	private void sendLgxx(String type,String mpi,Long jzxh) throws Exception {
-		//TODO 删除webService接口
-	}
+
 	
 	private void delJbzd(String emgSeq) throws Exception {
 		if(StringUtils.isNotNullAndEmptyByTrim(emgSeq)){
@@ -770,7 +269,7 @@ public class OracleHisServiceImpl implements OracleHisService {
 
 	@Override
 	public void updateCleanRcz(String emgSeq,String mpi, Long jzxh) throws Exception {
-		sendLgxx("2", mpi, jzxh);
+//		sendLgxx("2", mpi, jzxh);
 		vHemsRczMapper.updateCleanRcz(emgSeq,mpi,jzxh);
 	}
 
@@ -853,18 +352,7 @@ public class OracleHisServiceImpl implements OracleHisService {
         }
 	}
 
-	@Override
-	public void sendLgxxSd(String emgSeq, String type) throws Exception {
-		HspEmgInf hspEmgInf = hspemginfMapper.selectByPrimaryKey(emgSeq);
-		if(StringUtils.isNotNullAndEmptyByTrim(hspEmgInf.getMpi()) && hspEmgInf.getJzxh() != null){
-			sendLgxx(type, hspEmgInf.getMpi(), hspEmgInf.getJzxh());
-		}
-	}
 
-	@Override
-	public VHemsRcz selectForMz(String mpi, Long jzxh) {
-		return vHemsRczMapper.selectForMz(mpi,jzxh);
-	}
 
 	@Override
 	public List<VHemsJyjg> findRecentJyjg() {

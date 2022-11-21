@@ -87,9 +87,6 @@ public class CzServiceImpl implements CzService{
 	private HspemginfCustomMapper hspemginfCustomMapper;
 	
 	@Autowired
-	private HspLqblInfCustomMapper hspLqblInfCustomMapper;
-	
-	@Autowired
 	private HspHljldInfMapper hspHljldInfMapper;
 	
 	@Autowired
