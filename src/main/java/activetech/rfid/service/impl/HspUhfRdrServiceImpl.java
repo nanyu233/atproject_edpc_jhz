@@ -139,13 +139,14 @@ public class HspUhfRdrServiceImpl implements HspUhfRdrService {
 	}
 
 	/**
-	 * 查询UHF读写器列表总数
+	 * 查询UHF读写器列表总数  hspUhfRdrCustomMapper
 	 * @return
 	 * @throws Exception
 	 */
 	@Override
 	public int findHspUhfRdrCount(HspUhfRdrQueryDto hspUhfRdrQueryDto) throws Exception{
-		return hspUhfRdrMapper.findHspUhfRdrCount(hspUhfRdrQueryDto);
+		//return hspUhfRdrMapper.findHspUhfRdrCount(hspUhfRdrQueryDto);
+		return hspUhfRdrCustomMapper.findHspUhfRdrCount(hspUhfRdrQueryDto);
 	}
 	
 	/**
@@ -154,10 +155,9 @@ public class HspUhfRdrServiceImpl implements HspUhfRdrService {
 	 * @return
 	 */
 	@Override
-	public List<HspUhfRdr> findHspUhfRdrList(HspUhfRdrQueryDto hspUhfRdrQueryDto){
-		List<HspUhfRdr> l = hspUhfRdrMapper.findHspUhfRdrList(hspUhfRdrQueryDto);
-		return l;
-
+	public List<HspUhfRdrCustom> findHspUhfRdrList(HspUhfRdrQueryDto hspUhfRdrQueryDto){
+		//return hspUhfRdrMapper.findHspUhfRdrList(hspUhfRdrQueryDto);
+		return hspUhfRdrCustomMapper.findHspUhfRdrList(hspUhfRdrQueryDto);
 	}
 	
 	/**

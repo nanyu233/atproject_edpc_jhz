@@ -89,4 +89,59 @@
             MOD_TIM     = #{modTim,jdbcType=TIMESTAMP}
         where RDR_SEQ = #{rdrSeq,jdbcType=VARCHAR}
     </update>
+
+
+    <!-- 查询列表的总记录数 -->
+    <select id="findHspUhfRdrCount" parameterType="activetech.rfid.pojo.dto.HspUhfRdrQueryDto" resultType="int">
+    select count(*) from HSP_UHF_RDR
+    <where>
+      <include refid="query_hspUhfRdr_where" />
+    </where>
+  </select>
+
+  <sql id="query_hspUhfRdr_where">
+    <if test="hspUhfRdrCustom!=null">
+      <if test="hspUhfRdrCustom.rdrNam!=null and hspUhfRdrCustom.rdrNam!=''">
+        and RDR_NAM like  '%'|| #{hspUhfRdrCustom.rdrNam}||'%'
+      </if>
+    </if>
+  </sql>
+
+  <select id="findHspUhfRdrList" parameterType="activetech.rfid.pojo.dto.HspUhfRdrQueryDto" resultType="activetech.rfid.pojo.dto.HspUhfRdrCustom">
+    select
+        t1.RDR_SEQ,
+        t1.RDR_ID,
+        t1.RDR_NAM,
+        t1.RDR_TYP,
+        t1.MTR_TYP,
+        t1.MTR_COD,
+        t1.RDR_LOC,
+        t1.RDR_STA,
+        t1.RDR_PAR,
+        t1.RDR_DEP,
+        t1.BUY_DAT,
+        t1.FIX_DAT,
+        t1.FIX_MAN,
+        t1.MNT_COM,
+        t1.MNT_MAN,
+        t1.MNT_TEL,
+        t1.TCP_FLG,
+        t1.WIF_FLG,
+        t1.RDR_IP,
+        t1.RDR_PORT,
+        t1.CRT_USR_NO,
+        t1.CRT_USR_NAM,
+        t1.CRT_TIM,
+        t1.MOD_USR_NO,
+        t1.MOD_USR_NAM,
+        t1.MOD_TIM,
+        t2.COMCNAME as rdrDepNam
+    from
+        HSP_UHF_RDR t1
+        left join DSTCOMPCTL t2 on t1.RDR_DEP = t2.COMNO
+    <where>
+      <include refid="query_hspUhfRdr_where" />
+    </where>
+    order by CRT_TIM desc
+  </select>
 </mapper>

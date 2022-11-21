@@ -114,26 +114,36 @@
             field: 'typPic',
             title: '类型图片'
           }, {
-            align: 'left',
+            align: 'center',
             field: 'trpSta',
-            title: '设备状态',
+            title: '设备是否使用',
             formatter: function (value, row, index) {
-              if (value == 1) {
+              if(value=='1'){
+                return '<input type="checkbox" disabled="disabled" checked="checked">'
+              }else{
+                return '<input type="checkbox" disabled="disabled">'
+              }
+              /*if (value == 1) {
                 return "使用";
               } else {
                 return "未使用";
-              }
+              }*/
             }
           }, {
-            align: 'left',
+            align: 'center',
             field: 'bidFlg',
             title: '是否绑定',
             formatter: function (value, row, index) {
-              if (value == 1) {
+              if(value=='1'){
+                return '<input type="checkbox" disabled="disabled" checked="checked">'
+              }else{
+                return '<input type="checkbox" disabled="disabled">'
+              }
+              /*if (value == 1) {
                 return "已绑定";
               } else {
                 return "未绑定";
-              }
+              }*/
             }
           }, {
             align: 'left',
@@ -234,6 +244,7 @@
     //删除的回调函数
     function hspUhfTrpDel_callback(data) {
       message_alert(data);
+      console.log("data",data);
       var type = data.resultInfo.type;
       if (type == 1) {
         queryHspUhfTrp();
@@ -244,6 +255,17 @@
     function editHspUhfTrp(trpSeq) {
       //打开修改窗口
       createmodalwindow("修改UHF应答器信息", 515, 280, '${baseurl}rfid/editHspUhfTrp.do?trpSeq=' + trpSeq);
+    }
+
+
+    function cmdunbind() {
+      var row = $('#hspUhfTrpList').datagrid("getSelected");
+      if (GridUtils.checkChecked(row)) {
+        _confirm('确定解绑该数据吗？', null, function () {
+          $("#unbind_trpSeq").val(row.trpSeq);
+          jquerySubByFId('hspUhfTrpUnbindForm', hspUhfTrpDel_callback, null, "json");
+        });
+      }
     }
   </script>
   <!-- html的静态布局 -->
@@ -262,6 +284,10 @@
   </form>
   <form id="hspUhfTrpDeleteForm" action="${baseurl}rfid/deleteHspUhfTrp.do" method="post">
     <input type="hidden" id="delete_trpSeq" name="trpSeq" />
+  </form>
+
+  <form id="hspUhfTrpUnbindForm" action="${baseurl}rfid/unbindRfidPatient.do" method="post">
+    <input type="hidden" id="unbind_trpSeq" name="trpSeq" />
   </form>
 </body>
 

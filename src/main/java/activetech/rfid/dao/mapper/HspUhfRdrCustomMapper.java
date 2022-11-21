@@ -1,6 +1,7 @@
 package activetech.rfid.dao.mapper;
 
 import activetech.rfid.pojo.domain.HspUhfRdr;
+import activetech.rfid.pojo.dto.HspUhfRdrCustom;
 import activetech.rfid.pojo.dto.HspUhfRdrQueryDto;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public interface HspUhfRdrCustomMapper {
 	 * @param hspUhfRdrQueryDto
 	 * @return
 	 */
-	public List<HspUhfRdr> findHspUhfRdrList(HspUhfRdrQueryDto hspUhfRdrQueryDto);
+	public List<HspUhfRdrCustom> findHspUhfRdrList(HspUhfRdrQueryDto hspUhfRdrQueryDto);
 
 
 	int updateByPrimaryKey(HspUhfRdr record);

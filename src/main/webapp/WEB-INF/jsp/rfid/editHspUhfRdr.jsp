@@ -25,7 +25,7 @@
         <tr>
           <th><i class="red">*</i> 设备序号：</th>
           <td>
-            <input type="text"  maxlength="2"
+            <input type="text"  maxlength="32"
                    ms-duplex-string = "hspUhfRdrCustom.rdrSeq"  readonly="readonly" />
           </td>
         </tr>
@@ -193,9 +193,9 @@
   <script type="text/javascript" src="${baseurl}lib/validate/jquery.validate.js"></script>
   <script type="text/javascript">
 
-    $.validator.methods.isRdrSeq = function (value, element, param) {
-      return (/[0-9]\d*/.test(value) && 0 <= 1 * value && value.length==2);
-    };
+  /*  $.validator.methods.isRdrSeq = function (value, element, param) {
+      return (/[0-9]\d*!/.test(value) && 0 <= 1 * value && value.length==2);
+    };*/
 
     $.validator.methods.isIpaddr = function (value, element, param) {
       if(""==value){

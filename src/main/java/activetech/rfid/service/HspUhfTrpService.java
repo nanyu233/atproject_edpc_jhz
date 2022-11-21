@@ -1,5 +1,6 @@
 package activetech.rfid.service;
 
+import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.result.ResultInfo;
 import activetech.rfid.pojo.domain.HspUhfTrp;
 import activetech.rfid.pojo.dto.HspUhfTrpCustom;
@@ -61,4 +62,6 @@ public interface HspUhfTrpService {
 	public HspUhfTrpCustom findHspUhfTrpByHspUhfTrp(String trpSeq);
 
     ResultInfo getHspUhfTrpByRdrSeq(String trpSeq);
+
+    void unbindRfidPatient(String trpSeq, ActiveUser activeUser) throws Exception;
 }

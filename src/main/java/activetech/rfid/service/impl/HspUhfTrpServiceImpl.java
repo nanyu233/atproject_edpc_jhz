@@ -1,8 +1,10 @@
 package activetech.rfid.service.impl;
 
+import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
+import activetech.rfid.dao.mapper.HspUhfRdrCustomMapper;
 import activetech.rfid.dao.mapper.HspUhfTrpCustomMapper;
 import activetech.rfid.dao.mapper.HspUhfTrpMapper;
 import activetech.rfid.pojo.domain.HspUhfRdr;
@@ -37,6 +39,9 @@ public class HspUhfTrpServiceImpl implements HspUhfTrpService {
 	
 	@Autowired
 	private HspUhfTrpCustomMapper hspUhfTrpCustomMapper;
+
+	@Autowired
+	private HspUhfRdrCustomMapper hspUhfRdrCustomMapper;
 	
 	/**
 	 * 根据UHF应答器名称查询UHF应答器
@@ -128,7 +133,8 @@ public class HspUhfTrpServiceImpl implements HspUhfTrpService {
 	 */
 	@Override
 	public int findHspUhfTrpCount(HspUhfTrpQueryDto hspUhfTrpQueryDto) throws Exception{
-		return hspUhfTrpMapper.findHspUhfTrpCount(hspUhfTrpQueryDto);
+		//return hspUhfTrpMapper.findHspUhfTrpCount(hspUhfTrpQueryDto);
+		return hspUhfTrpCustomMapper.findHspUhfTrpCount(hspUhfTrpQueryDto);
 	}
 	
 	/**
@@ -138,7 +144,8 @@ public class HspUhfTrpServiceImpl implements HspUhfTrpService {
 	 */
 	@Override
 	public List<HspUhfTrp> findHspUhfTrpList(HspUhfTrpQueryDto hspUhfTrpQueryDto){
-		return hspUhfTrpMapper.findHspUhfTrpList(hspUhfTrpQueryDto);
+		//return hspUhfTrpMapper.findHspUhfTrpList(hspUhfTrpQueryDto);
+		return hspUhfTrpCustomMapper.findHspUhfTrpList(hspUhfTrpQueryDto);
 	}
 	
 	/**
@@ -164,4 +171,35 @@ public class HspUhfTrpServiceImpl implements HspUhfTrpService {
 		return resultInfo;
 	}
 
+	/**
+	 * 删除UHF应答器
+	 * @param trpSeq
+	 * @throws Exception
+	 */
+	@Override
+	public void unbindRfidPatient(String trpSeq, ActiveUser activeUser)throws Exception{
+		//参数校验
+		//1.非空校验
+		if(!StringUtils.isNotNullAndEmptyByTrim(trpSeq)){
+			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE, 911,new Object[] { "标签编号" }));
+		}
+
+		//2.解绑设备是否存在
+		HspUhfTrp hspUhfTrp_unbind = hspUhfTrpMapper.selectByPrimaryKey(trpSeq);
+		if(hspUhfTrp_unbind == null){
+			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE, 912, new Object[] { "标签信息","" }));
+		}
+
+		if("0".equals(hspUhfTrp_unbind.getBidFlg())){
+			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE, 920, new Object[] { "无需解绑","" }));
+		}
+
+		hspUhfTrp_unbind.setBidFlg("0");
+		hspUhfTrp_unbind.setBidTim(null);
+		hspUhfTrp_unbind.setBidPat(null);
+		hspUhfTrp_unbind.setBidMan(null);
+		hspUhfTrp_unbind.setModUsrNo(activeUser.getUsrno());
+		hspUhfTrp_unbind.setModUsrNam(activeUser.getUsrname());
+		hspUhfTrpCustomMapper.updateHspUhfTrpForUnbindPatient(hspUhfTrp_unbind);
+	}
 }

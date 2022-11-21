@@ -51,7 +51,7 @@ public interface HspUhfRdrService {
 	 * @param hspUhfRdrQueryDto
 	 * @return
 	 */
-	public List<HspUhfRdr> findHspUhfRdrList(HspUhfRdrQueryDto hspUhfRdrQueryDto);
+	public List<HspUhfRdrCustom> findHspUhfRdrList(HspUhfRdrQueryDto hspUhfRdrQueryDto);
 	
 	/**
 	 * 根据rdrSeq获取UHF读写器数据

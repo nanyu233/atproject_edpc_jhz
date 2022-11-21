@@ -45,4 +45,63 @@
                 #{crtTim,jdbcType=TIMESTAMP}
                 )
     </insert>
+
+
+     <update id="updateHspUhfTrpForUnbindPatient" parameterType="activetech.rfid.pojo.domain.HspUhfTrp">
+        update HSP_UHF_TRP
+        set BID_FLG     = #{bidFlg,jdbcType=VARCHAR},
+            BID_TIM     = #{bidTim,jdbcType=TIMESTAMP},
+            BID_PAT     = #{bidPat,jdbcType=VARCHAR},
+            BID_MAN     = #{bidMan,jdbcType=VARCHAR},
+            MOD_USR_NO  = #{modUsrNo,jdbcType=VARCHAR},
+            MOD_USR_NAM = #{modUsrNam,jdbcType=VARCHAR},
+            MOD_TIM     = sysdate
+        where TRP_SEQ = #{trpSeq,jdbcType=VARCHAR}
+    </update>
+
+    <!-- 查询列表的总记录数 -->
+    <select id="findHspUhfTrpCount" parameterType="activetech.rfid.pojo.dto.HspUhfTrpQueryDto" resultType="int">
+    select count(*) from HSP_UHF_TRP
+    <where>
+      <include refid="query_hspUhfTrp_where" />
+    </where>
+  </select>
+
+  <sql id="query_hspUhfTrp_where">
+    <if test="hspUhfTrpCustom!=null">
+      <if test="hspUhfTrpCustom.trpNam!=null and hspUhfTrpCustom.trpNam!=''">
+        and TRP_NAM like  '%'|| #{hspUhfTrpCustom.trpNam}||'%'
+      </if>
+    </if>
+  </sql>
+
+  <select id="findHspUhfTrpList" parameterType="activetech.rfid.pojo.dto.HspUhfTrpQueryDto" resultType="activetech.rfid.pojo.domain.HspUhfTrp">
+    select
+      t1.TRP_SEQ,
+      t1.TRP_ID,
+      t1.TRP_NAM,
+      t1.TRP_TYP,
+      t1.TRP_CLS,
+      t1.TYP_PIC,
+      t1.TRP_STA,
+      t1.BID_FLG,
+      t1.BID_MAN,
+      t1.BID_TIM,
+      t1.BID_PAT,
+      t1.PAT_NAM,
+      t1.UNB_MAN,
+      t1.UNB_TIM,
+      t1.CRT_USR_NO,
+      t1.CRT_USR_NAM,
+      t1.CRT_TIM,
+      t1.MOD_USR_NO,
+      t1.MOD_USR_NAM,
+      t1.MOD_TIM
+    from
+        HSP_UHF_TRP t1
+    <where>
+      <include refid="query_hspUhfTrp_where" />
+    </where>
+    order by CRT_TIM desc
+  </select>
 </mapper>

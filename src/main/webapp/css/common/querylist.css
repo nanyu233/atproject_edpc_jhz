@@ -65,10 +65,9 @@
 .queryTabs .datagrid-header{
     width: 99% !important;
 }
-/* 为了设置有滚动条-y, 并且x轴 滚动条隐藏 */
+/* 为了设置有滚动条-y, 并且x轴 滚动条隐藏      overflow-x: hidden;*/
 .queryTabs .datagrid-body, .norowTab .datagrid-body, .datagrid-body {
     width: 98% !important;
-    overflow-x: hidden;
 }
 .queryTabs .panel-header{
     padding-left: 0px;

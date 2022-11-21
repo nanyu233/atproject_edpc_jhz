@@ -16,7 +16,17 @@ public class HspUhfRdrCustom extends HspUhfRdr {
 	private String qxcount;//已分配权限数sss
 
 	private String usrno; //用户号
-	
+
+	private String rdrDepNam; //
+
+	public String getRdrDepNam() {
+		return rdrDepNam;
+	}
+
+	public void setRdrDepNam(String rdrDepNam) {
+		this.rdrDepNam = rdrDepNam;
+	}
+
 	public String getUsrno() {
 		return usrno;
 	}

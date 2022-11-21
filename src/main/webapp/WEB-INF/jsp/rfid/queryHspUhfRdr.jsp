@@ -112,15 +112,20 @@
             field: 'rdrLoc',
             title: '设备位置'
           }, {
-            align: 'left',
+            align: 'center',
             field: 'rdrSta',
-            title: '设备状态',
+            title: '设备是否使用',
             formatter: function (value, row, index) {
-              if (value == 1) {
+              if(value=='1'){
+                return '<input type="checkbox" disabled="disabled" checked="checked">'
+              }else{
+                return '<input type="checkbox" disabled="disabled">'
+              }
+             /* if (value == 1) {
                 return "使用";
               } else {
                 return "未使用";
-              }
+              }*/
             }
           }, {
             align: 'left',
@@ -168,26 +173,36 @@
             field: 'mntTel',
             title: '运维电话'
           }, {
-            align: 'left',
+            align: 'center',
             field: 'tcpFlg',
             title: '是否有线网',
             formatter: function (value, row, index) {
-              if (value == 1) {
+              if(value=='1'){
+                return '<input type="checkbox" disabled="disabled" checked="checked">'
+              }else{
+                return '<input type="checkbox" disabled="disabled">'
+              }
+             /* if (value == 1) {
                 return "是";
               } else {
                 return "否";
-              }
+              }*/
             }
           }, {
-            align: 'left',
+            align: 'center',
             field: 'wifFlg',
             title: '是否无线网',
             formatter: function (value, row, index) {
-              if (value == 1) {
+              if(value=='1'){
+                return '<input type="checkbox" disabled="disabled" checked="checked">'
+              }else{
+                return '<input type="checkbox" disabled="disabled">'
+              }
+             /* if (value == 1) {
                 return "是";
               } else {
                 return "否";
-              }
+              }*/
             }
           }, {
             align: 'left',

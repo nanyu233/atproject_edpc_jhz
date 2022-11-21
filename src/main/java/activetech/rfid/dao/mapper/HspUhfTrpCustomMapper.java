@@ -34,4 +34,11 @@ public interface HspUhfTrpCustomMapper {
 	int updateByPrimaryKey(HspUhfTrp record);
 
     void insert(HspUhfTrpCustom hspUhfTrpCustom);
+
+	/**
+	 * 手环解绑
+	 * @param hspUhfTrp
+	 * @return
+	 */
+    void updateHspUhfTrpForUnbindPatient(HspUhfTrp hspUhfTrp);
 }

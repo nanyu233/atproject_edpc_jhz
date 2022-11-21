@@ -81,7 +81,7 @@ public class RfidAction {
         PageQuery pageQuery = new PageQuery();
         pageQuery.setPageParams(total, rows, page);
         hspUhfRdrQueryDto.setPageQuery(pageQuery);
-        List<HspUhfRdr> list = hspUhfRdrService.findHspUhfRdrList(hspUhfRdrQueryDto);
+        List<HspUhfRdrCustom> list = hspUhfRdrService.findHspUhfRdrList(hspUhfRdrQueryDto);
         DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
         //填充total
         dataGridResultInfo.setTotal(total);
@@ -339,4 +339,17 @@ public class RfidAction {
     }
 
 
+    /**
+     * 解绑患者手环
+     *
+     * @param trpSeq
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/unbindRfidPatient")
+    public @ResponseBody
+    SubmitResultInfo unbindRfidPatient(String trpSeq,ActiveUser activeUser) throws Exception {
+        hspUhfTrpService.unbindRfidPatient(trpSeq,activeUser);
+        return ResultUtil.createSubmitResult(ResultUtil.createSuccess(Config.MESSAGE, 906, null));
+    }
 }
