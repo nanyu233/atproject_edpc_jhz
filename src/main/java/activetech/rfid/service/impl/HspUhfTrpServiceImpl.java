@@ -198,6 +198,7 @@ public class HspUhfTrpServiceImpl implements HspUhfTrpService {
 		hspUhfTrp_unbind.setBidTim(null);
 		hspUhfTrp_unbind.setBidPat(null);
 		hspUhfTrp_unbind.setBidMan(null);
+		hspUhfTrp_unbind.setUnbMan(activeUser.getUsrname());
 		hspUhfTrp_unbind.setModUsrNo(activeUser.getUsrno());
 		hspUhfTrp_unbind.setModUsrNam(activeUser.getUsrname());
 		hspUhfTrpCustomMapper.updateHspUhfTrpForUnbindPatient(hspUhfTrp_unbind);

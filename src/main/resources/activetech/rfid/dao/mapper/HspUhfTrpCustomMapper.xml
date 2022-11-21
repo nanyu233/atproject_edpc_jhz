@@ -53,6 +53,8 @@
             BID_TIM     = #{bidTim,jdbcType=TIMESTAMP},
             BID_PAT     = #{bidPat,jdbcType=VARCHAR},
             BID_MAN     = #{bidMan,jdbcType=VARCHAR},
+            UNB_MAN     = #{unbMan,jdbcType=VARCHAR},
+            UNB_TIM     = sysdate,
             MOD_USR_NO  = #{modUsrNo,jdbcType=VARCHAR},
             MOD_USR_NAM = #{modUsrNam,jdbcType=VARCHAR},
             MOD_TIM     = sysdate
