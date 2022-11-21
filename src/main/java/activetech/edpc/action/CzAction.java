@@ -381,7 +381,7 @@ public class CzAction {
 	 */
 	@RequestMapping("/judgeNewPatient")
 	@ResponseBody
-	public SubmitResultInfo judgeNewPatient(@RequestBody(required = false) String emgSeq){
+	public SubmitResultInfo judgeNewPatient(String emgSeq){
 
 		ResultInfo resultInfo = czService.judgeNewPatient(emgSeq);
 		return ResultUtil.createSubmitResult(resultInfo);

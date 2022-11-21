@@ -21,6 +21,7 @@ import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.*;
 import activetech.edpc.pojo.dto.*;
 import activetech.edpc.service.CzService;
+import activetech.external.dao.mapper.HspJyjgCustomMapper;
 import activetech.external.dao.mapper.VHemsJcjgMapper;
 import activetech.external.dao.mapper.VHemsJcjgMapperCustom;
 import activetech.external.dao.mapper.VHemsJyjgMapper;
@@ -31,6 +32,7 @@ import activetech.external.pojo.domain.VHemsJyjgExample;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
 import activetech.hospital.dao.mapper.HspemginfCustomMapper;
 import activetech.hospital.pojo.domain.HspEmgInf;
+import activetech.hospital.pojo.domain.HspEmgInfExample;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import activetech.util.DateUtil;
@@ -790,6 +792,7 @@ public class CzServiceImpl implements CzService{
 				hspDbzlBasCustom.setWayTyp("2");
 				hspDbzlBasCustom.setSwChl("0");
 				hspDbzlBasCustom.setGrnChl("0");
+				//正式环境区别分诊时间和院内新增
 				HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(hspDbzlBasCustom.getEmgSeq());
 				hspDbzlBasCustom.setRegTim(hspEmgInf.getEmgDat());
 				hspDbzlBasMapper.insert(hspDbzlBasCustom);

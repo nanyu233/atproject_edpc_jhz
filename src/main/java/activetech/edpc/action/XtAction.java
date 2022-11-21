@@ -489,7 +489,7 @@ public class XtAction {
 	 */
 	@RequestMapping("/judgeNewPatient")
 	@ResponseBody
-	public SubmitResultInfo judgeNewPatient(@RequestBody(required = false) String emgSeq){
+	public SubmitResultInfo judgeNewPatient(String emgSeq){
 
 		ResultInfo resultInfo = xtService.judgeNewPatient(emgSeq);
 		return ResultUtil.createSubmitResult(resultInfo);

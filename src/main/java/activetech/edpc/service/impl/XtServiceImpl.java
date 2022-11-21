@@ -500,6 +500,7 @@ public class XtServiceImpl implements XtService{
 				hspDbzlBasCustom.setWayTyp("2");
 				hspDbzlBasCustom.setSwChl("0");
 				hspDbzlBasCustom.setGrnChl("0");
+				//正式环境区别分诊时间和院内新增
 				HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(hspDbzlBasCustom.getEmgSeq());
 				hspDbzlBasCustom.setRegTim(hspEmgInf.getEmgDat());
 				hspDbzlBasMapper.insert(hspDbzlBasCustom);

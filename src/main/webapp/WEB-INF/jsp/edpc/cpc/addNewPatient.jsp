@@ -42,6 +42,7 @@
           <th><i class="red">*</i> 预检号：</th>
           <td>
             <input class="input-base total-right" type="text" id="emgSeq" name="hspDbzlBasCustom.emgSeq" maxlength="200" />
+            <a class="easyui-linkbutton" iconCls="icon-search" id="sltbtn" onclick="sltpatient()">查询</a>
           </td>
         </tr>
         <tr>
@@ -59,9 +60,38 @@
   <%@ include file="/WEB-INF/jsp/base/common_js.jsp"%>
   <script type="text/javascript" src="${baseurl}lib/validate/jquery.validate.js"></script>
   <script type="text/javascript">
+
+
     function addHspCbyx() {
+      let cstcod
+      if ($('#cstSexCod').val() == '男') {
+        cstcod = '0'
+      }else {
+        cstcod = '1'
+      }
       if (validateForm()) {
-        jquerySubByFId('hspcbyxform', inserthspjbzd_callback, null, "json");
+        $.ajax({
+          url: '${baseurl}cpc/addNewPatient.do',
+          type: 'post',
+          dataType: 'json',
+          data: {
+            'hspDbzlBasCustom.cstNam': $('#cstNam').val(),
+            'hspDbzlBasCustom.cstSexCod':cstcod,
+            'hspDbzlBasCustom.cstAge':$('#cstAge').val(),
+            'hspDbzlBasCustom.emgSeq': $('#emgSeq').val()
+          },
+          success: function(res){
+            if (res.resultInfo.success) {
+              $.messager.alert("提示信息", '操作成功', "success");
+              setTimeout(() => {
+                parent.search()
+                parent.closemodalwindow()
+              },1000)
+            }else {
+              $.messager.alert("提示信息", '操作失败', "warning");
+            }
+          }
+        });
       }
     }
 
@@ -77,13 +107,29 @@
         }
       }).form();
     }
-    //新增的回调函数
-    function inserthspjbzd_callback(data) {
-      message_alert(data);
-      if (data.resultInfo.type == '1') {
-        setTimeout("parent.closemodalwindow()", 1000);
-        parent.queryhspcbyx();
-      }
+    function sltpatient() {
+      $.ajax({
+        url: '${baseurl}cpc/judgeNewPatient.do',
+        data: {
+          'emgSeq': $('#emgSeq').val()
+        },
+        success: function(res){
+          let result = res.resultInfo.sysdata.hspDbzlBasCustom
+          if(!result) {
+            $.messager.alert("提示信息", '不存在病人档案', "warning");
+          }else {
+            $('#cstNam').val(result.cstNam)
+
+            if (result.cstSexCod == 0) {
+              $('#cstSexCod').val('男')
+            }else {
+              $('#cstSexCod').val('女')
+            }
+
+            $('#cstAge').val(result.cstAge)
+          }
+        }
+      });
     }
   </script>
 </body>
