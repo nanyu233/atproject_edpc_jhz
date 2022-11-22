@@ -23,6 +23,8 @@
 <!-- Spring上下文工具 -->
 <bean class="activetech.base.service.SpringContextUtil"  id="springContextUtil"/>
 
+<bean class="activetech.task.quartz.conf.QuartzConf"  id="quartzConf"/>
+
 <bean class="activetech.base.util.MinIoUtil"  id="minIoUtil" />
 
     <!-- 试用下hikari 连接池，据说是java速度最快的数据库连接池 -->

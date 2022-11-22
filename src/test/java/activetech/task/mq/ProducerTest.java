@@ -24,7 +24,7 @@ public class ProducerTest {
     @Autowired
     public RabbitTemplate rabbitTemplate;
 
-//    @Test
+    @Test
     public void SendMessage() {
         PushMessageDto pushMessageDto = new PushMessageDto();
         pushMessageDto.setEmgSeq("11111");
@@ -33,7 +33,6 @@ public class ProducerTest {
     }
     @Test
     public void rabbitTemplateSend(){
-//        System.out.println(x.XX);
         PushMessageDto pushMessageDto = new PushMessageDto();
         pushMessageDto.setEmgSeq("11111");
         pushMessageDto.setTargetPage("aaaa");

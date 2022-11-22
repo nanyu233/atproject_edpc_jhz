@@ -1,10 +1,8 @@
 package activetech.edpc.dao.mapper;
 
-import java.util.List;
-
 import activetech.edpc.pojo.dto.HspFuvPlnCustom;
 import activetech.edpc.pojo.dto.HspFuvPlnQueryDto;
-import activetech.edpc.pojo.dto.HspPatInfCustom;
+import java.util.List;
 
 
 
@@ -24,5 +22,13 @@ public interface HspFuvPlnMapperCustom {
     HspFuvPlnCustom selectOneByCondition(HspFuvPlnQueryDto hspFuvPlnQueryDto);
 
 	int checkUnFinishPln(HspFuvPlnQueryDto hspFuvPlnQueryDto);
-
+	/**
+	 * 查询即随访记录 提醒医生对患者进行随访
+     *
+	 * @param hspFuvPlnQueryDto hspFuvPlnQueryDto
+	 * @return java.util.List<activetech.edpc.pojo.dto.HspFuvPlnCustom>
+	 * @author chenys
+	 * @date 2022/11/21 14:32
+	 */
+	List<HspFuvPlnCustom> selectReminderDue(HspFuvPlnQueryDto hspFuvPlnQueryDto);
 }

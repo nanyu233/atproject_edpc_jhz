@@ -68,8 +68,8 @@
         left join hsp_fuv_pat b on a.pat_id=b.pat_id
         left join hsp_fuv_inf c on a.pln_seq=c.pln_seq
     <include refid="condition"/>
-  </select>  
-  
+  </select>
+
   <select id="checkUnFinishPln" resultType="java.lang.Integer" parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto" >
       select count(*)
         from hsp_fuv_pln a
@@ -81,6 +81,26 @@
   				and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<]]> to_char(#{endDate},'YYYY/MM/dd')
         	</if>
         </where>
-  </select> 
+  </select>
+    <select id="selectReminderDue" resultType="activetech.edpc.pojo.dto.HspFuvPlnCustom"  parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto" >
+        select a.PLN_SEQ,
+               a.PLN_FUV_TIM,
+               a.CRT_USR_NO,
+               u.PHONE,
+               u.MOVEPHONE,
+               b.PAT_NAM
+        FROM hsp_fuv_pln a
+            left join DSTUSER u
+                on a.CRT_USR_NO = u.USRNO
+            left join hsp_fuv_pat b
+                on a.pat_id = b.pat_id
+        where a.PLN_STA = #{plnSta}
+        <if test="beforeWarnTim != null and beforeWarnTim != ''">
+            and trunc(a.PLN_FUV_TIM-#{beforeWarnTim}, 'dd') = trunc(sysdate, 'dd')
+        </if>
+        <if test="expireTim != null and expireTim != ''">
+            and trunc(a.PLN_FUV_TIM+#{expireTim}, 'dd') = trunc(sysdate, 'dd')
+        </if>
+    </select>
   
 </mapper>

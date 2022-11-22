@@ -1,4 +1,4 @@
-package activetech.test.aop;
+package activetech.aop;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -9,7 +9,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import activetech.base.core.DatabaseContextHolder;
-import activetech.test.annotation.DynamicRoutingDataSource;
 
 import java.lang.reflect.Method;
 
@@ -24,7 +23,7 @@ public class HandlerDataSourceAop {
 	 * @within 匹配类上的注解
 	 * @annotation 匹配方法上的注解
 	 */
-	@Pointcut("@within(activetech.test.annotation.DynamicRoutingDataSource)||@annotation(activetech.test.annotation.DynamicRoutingDataSource)")
+	@Pointcut("@within(activetech.aop.DynamicRoutingDataSource)||@annotation(activetech.aop.DynamicRoutingDataSource)")
 	public void pointcut(){}
 	
 	@Before(value = "pointcut()")
