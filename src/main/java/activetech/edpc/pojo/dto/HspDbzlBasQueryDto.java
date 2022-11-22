@@ -54,7 +54,16 @@ public class HspDbzlBasQueryDto extends PageCond {
     //预检号
     private String emgSeq;
 
+    //院区
+    private String hspAra;
 
+    public String getHspAra() {
+        return hspAra;
+    }
+
+    public void setHspAra(String hspAra) {
+        this.hspAra = hspAra;
+    }
 
     public String getPatTyp() {
         return patTyp;

@@ -42,6 +42,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -448,12 +449,17 @@ public class XtServiceImpl implements XtService{
 	}
 
 	@Override
-	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows){
+	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows,ActiveUser activeUser){
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
 		int total = hspXtzlInfCustomMapper.countXtPatientList(hspDbzlBasQueryDto);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, rows, page);
 		hspDbzlBasQueryDto.setPageQuery(pageQuery);
+		if("1".equals(activeUser.getHospitalCategory())){
+			hspDbzlBasQueryDto.setHspAra("1");
+		}else {
+			hspDbzlBasQueryDto.setHspAra("2");
+		}
 		List<HspDbzlBasCustom> list = hspXtzlInfCustomMapper.getXtPatientList(hspDbzlBasQueryDto);
 		dataGridResultInfo.setRows(list);
 		dataGridResultInfo.setTotal(total);

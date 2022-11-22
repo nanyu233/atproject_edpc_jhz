@@ -477,11 +477,11 @@ public class XtAction {
 //		return dataGridResultInfo;
 //	}
 
-	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto,
+	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser,
 											   int page,//当前页码
 											   int rows//每页显示个数
 	){
-		DataGridResultInfo dataGridResultInfo = xtService.getXtPatientList(hspDbzlBasQueryDto, page, rows);
+		DataGridResultInfo dataGridResultInfo = xtService.getXtPatientList(hspDbzlBasQueryDto, page, rows,activeUser);
 		return dataGridResultInfo;
 	}
 	/**

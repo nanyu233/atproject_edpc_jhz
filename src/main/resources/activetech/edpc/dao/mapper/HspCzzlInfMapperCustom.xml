@@ -221,6 +221,7 @@
 			   a.smt_sta smtSta
 		from hsp_dbzl_bas a
 		where a.PAT_TYP = '2'
+		and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
 			 <if test="cstNam !=null and cstNam.length()>0">
 			   and a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
 			 </if>

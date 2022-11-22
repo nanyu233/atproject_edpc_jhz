@@ -43,7 +43,7 @@
                     </label>
                     <label for="yq" class="small-label">
                         <!-- disabled 目前先变灰不能选--灵隐还没开放 -->
-                        <input disabled type="radio" name="hospitalArea" value="2" id="yq"> 灵隐
+                        <input  type="radio" name="hospitalArea" value="2" id="yq"> 灵隐
                     </label>
                 </label>
                 <label>
@@ -104,7 +104,7 @@
                     //三墩
                     currentBaseUrl = '${baseurl}'
                 }
-                publicFun.httpServer({url: currentBaseUrl + 'loginsubmit.do', crossMsg: 'cross'}, {
+                publicFun.httpServer({url: currentBaseUrl + 'loginsubmit.do?hospitalCategory=' + areaVal, crossMsg: 'cross'}, {
                     userid: this.msg.userId,
                     pwd: this.msg.password
                 }, function (data) {

@@ -405,6 +405,7 @@
 		       a.smt_sta smtSta
 		from hsp_dbzl_bas a
 		where a.PAT_TYP = '1'
+		and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
 		<include refid="xtdbzl_where"/>
 		<include refid="activetech.base.CommonSql.page_end"/>
 	</select>

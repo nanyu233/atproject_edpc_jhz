@@ -85,6 +85,7 @@
         FROM hsp_dbzl_bas a
         where
         a.pat_typ = #{patTyp,jdbcType = VARCHAR}
+        and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
         and
         not exists ( select 1 FROM hsp_fuv_pat where pat_id = a.reg_seq)
         <include refid="condition"/>

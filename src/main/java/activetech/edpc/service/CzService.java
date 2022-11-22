@@ -48,7 +48,7 @@ public interface CzService {
 	 * @param rows
 	 * @return
 	 */
-	public DataGridResultInfo getCzPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows);
+	public DataGridResultInfo getCzPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows,ActiveUser activeUser);
 	
 	public ResultInfo getCzhcbInfoByEmgSeq(String emgSeq);
 	

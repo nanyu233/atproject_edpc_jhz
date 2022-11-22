@@ -55,12 +55,13 @@ public class LoginAction {
 	 * @throws Exception
 	 */
 	@RequestMapping("/loginsubmit")
-	public @ResponseBody SubmitResultInfo loginsubmit(HttpSession session,String userid, String pwd,String validateCode,ActiveUser activeUser,HttpServletRequest request) throws Throwable{
+	public @ResponseBody SubmitResultInfo loginsubmit(HttpSession session,String userid, String pwd,String validateCode,ActiveUser activeUser,HttpServletRequest request,String hospitalCategory ) throws Throwable{
 		String ip=getIpAddr(request);
 		if(activeUser==null || !activeUser.getUsrno().equals(userid)){
 			activeUser = userService.checkUserInfo(userid,pwd);
 		}
 		// 将用户身份信息写入session
+		activeUser.setHospitalCategory(hospitalCategory);
 		activeUser.setIp(ip);
 		session.setAttribute(Config.ACTIVEUSER_KEY, activeUser);
 		System.out.println(">>>>>>>>>>>>>>>>acativeUser-ip:"+activeUser.getIp());

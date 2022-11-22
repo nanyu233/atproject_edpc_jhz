@@ -73,11 +73,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 							}else{
 								ActiveUser adminUser= new ActiveUser();
 								List<Dstappoption> list = appoptionService.findAppoptionList();
-								for (Dstappoption dstappoption : list) {
-									if ("HSPLP".equals(dstappoption.getOptkey())) {
-										adminUser.setHospitalCategory(dstappoption.getOptvalue());
-									}
-								}			
+//								for (Dstappoption dstappoption : list) {
+//									if ("HSPLP".equals(dstappoption.getOptkey())) {
+//										adminUser.setHospitalCategory(dstappoption.getOptvalue());
+//									}
+//								}
 								adminUser.setUsrno(userid);
 								adminUser.setUsrname(dstuser.getUsrname());
 								adminUser.setGroupid(dstuser.getGroupid());
@@ -105,11 +105,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 						}else{
 							ActiveUser adminUser= new ActiveUser();
 							List<Dstappoption> list = appoptionService.findAppoptionList();
-							for (Dstappoption dstappoption : list) {
-								if ("HSPLP".equals(dstappoption.getOptkey())) {
-									adminUser.setHospitalCategory(dstappoption.getOptvalue());
-								}
-							}
+//							for (Dstappoption dstappoption : list) {
+//								if ("HSPLP".equals(dstappoption.getOptkey())) {
+//									adminUser.setHospitalCategory(dstappoption.getOptvalue());
+//								}
+//							}
 							adminUser.setUsrno(userid);
 							adminUser.setUsrname(dstuser.getUsrname());
 							adminUser.setGroupid(dstuser.getGroupid());
