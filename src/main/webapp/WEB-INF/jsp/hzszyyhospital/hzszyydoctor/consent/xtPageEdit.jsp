@@ -72,6 +72,7 @@
         patientName: patient,
         debug: false,
     });
+    var _tempCode = "${tempCode}";
 
     atEditor.dispatch({
         type: "overwriteSettings",
@@ -95,7 +96,7 @@
     });
 
     function handoverSheetLb() {
-        window.location = "${baseurl}zyyconsent/queryConsentInf.do?refseqno=${refseqno}";
+        window.location = "${baseurl}zyyconsent/queryConsentInf.do?refseqno=${refseqno}" + "&cstNam=" + patientName + "&tempCode=" + _tempCode;
     }
 
     function setLayout() {

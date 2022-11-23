@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.structtext.dao.mapper.DstcasesMapper" >
+  <resultMap id="BaseResultMap" type="activetech.structtext.pojo.domain.Dstcases" >
+    <id column="CASE_SEQ" property="caseSeq" jdbcType="VARCHAR" />
+    <result column="CASE_STAT" property="caseStat" jdbcType="CHAR" />
+    <result column="SYS_ID" property="sysId" jdbcType="VARCHAR" />
+    <result column="PATIENT_ID" property="patientId" jdbcType="VARCHAR" />
+    <result column="PATIENT_NAME" property="patientName" jdbcType="VARCHAR" />
+    <result column="TEMP_SEQ" property="tempSeq" jdbcType="VARCHAR" />
+    <result column="CASE_DETL" property="caseDetl" jdbcType="VARCHAR" />
+    <result column="CASE_TIME" property="caseTime" jdbcType="DATE" />
+    <result column="CASE_USER" property="caseUser" jdbcType="VARCHAR" />
+    <result column="CASE_NAME" property="caseName" jdbcType="VARCHAR" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="DATE" />
+    <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+    <result column="CRT_USER_NAME" property="crtUserName" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="DATE" />
+    <result column="MOD_USER" property="modUser" jdbcType="VARCHAR" />
+    <result column="MOD_USER_NAME" property="modUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="activetech.structtext.pojo.domain.DstcasesWithBLOBs" extends="BaseResultMap" >
+    <result column="CASE_HTML" property="caseHtml" jdbcType="CLOB" />
+    <result column="CASE_ANS" property="caseAns" jdbcType="CLOB" />
+    <result column="COMP_LIST" property="compList" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CASE_SEQ, CASE_STAT, SYS_ID, PATIENT_ID, PATIENT_NAME, TEMP_SEQ, CASE_DETL, CASE_TIME, 
+    CASE_USER, CASE_NAME, CRT_TIME, CRT_USER, CRT_USER_NAME, MOD_TIME, MOD_USER, MOD_USER_NAME
+  </sql>
+  <sql id="Blob_Column_List" >
+    CASE_HTML, CASE_ANS, COMP_LIST
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="activetech.structtext.pojo.domain.DstcasesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from EDPC.DSTCASES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.structtext.pojo.domain.DstcasesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from EDPC.DSTCASES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from EDPC.DSTCASES
+    where CASE_SEQ = #{caseSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from EDPC.DSTCASES
+    where CASE_SEQ = #{caseSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.structtext.pojo.domain.DstcasesExample" >
+    delete from EDPC.DSTCASES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.structtext.pojo.domain.DstcasesWithBLOBs" >
+    insert into EDPC.DSTCASES (CASE_SEQ, CASE_STAT, SYS_ID, 
+      PATIENT_ID, PATIENT_NAME, TEMP_SEQ, 
+      CASE_DETL, CASE_TIME, CASE_USER, 
+      CASE_NAME, CRT_TIME, CRT_USER, 
+      CRT_USER_NAME, MOD_TIME, MOD_USER, 
+      MOD_USER_NAME, CASE_HTML, CASE_ANS, 
+      COMP_LIST)
+    values (#{caseSeq,jdbcType=VARCHAR}, #{caseStat,jdbcType=CHAR}, #{sysId,jdbcType=VARCHAR}, 
+      #{patientId,jdbcType=VARCHAR}, #{patientName,jdbcType=VARCHAR}, #{tempSeq,jdbcType=VARCHAR}, 
+      #{caseDetl,jdbcType=VARCHAR}, #{caseTime,jdbcType=DATE}, #{caseUser,jdbcType=VARCHAR}, 
+      #{caseName,jdbcType=VARCHAR}, #{crtTime,jdbcType=DATE}, #{crtUser,jdbcType=VARCHAR}, 
+      #{crtUserName,jdbcType=VARCHAR}, #{modTime,jdbcType=DATE}, #{modUser,jdbcType=VARCHAR}, 
+      #{modUserName,jdbcType=VARCHAR}, #{caseHtml,jdbcType=CLOB}, #{caseAns,jdbcType=CLOB}, 
+      #{compList,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.structtext.pojo.domain.DstcasesWithBLOBs" >
+    insert into EDPC.DSTCASES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caseSeq != null" >
+        CASE_SEQ,
+      </if>
+      <if test="caseStat != null" >
+        CASE_STAT,
+      </if>
+      <if test="sysId != null" >
+        SYS_ID,
+      </if>
+      <if test="patientId != null" >
+        PATIENT_ID,
+      </if>
+      <if test="patientName != null" >
+        PATIENT_NAME,
+      </if>
+      <if test="tempSeq != null" >
+        TEMP_SEQ,
+      </if>
+      <if test="caseDetl != null" >
+        CASE_DETL,
+      </if>
+      <if test="caseTime != null" >
+        CASE_TIME,
+      </if>
+      <if test="caseUser != null" >
+        CASE_USER,
+      </if>
+      <if test="caseName != null" >
+        CASE_NAME,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER,
+      </if>
+      <if test="crtUserName != null" >
+        CRT_USER_NAME,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="modUser != null" >
+        MOD_USER,
+      </if>
+      <if test="modUserName != null" >
+        MOD_USER_NAME,
+      </if>
+      <if test="caseHtml != null" >
+        CASE_HTML,
+      </if>
+      <if test="caseAns != null" >
+        CASE_ANS,
+      </if>
+      <if test="compList != null" >
+        COMP_LIST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caseSeq != null" >
+        #{caseSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="caseStat != null" >
+        #{caseStat,jdbcType=CHAR},
+      </if>
+      <if test="sysId != null" >
+        #{sysId,jdbcType=VARCHAR},
+      </if>
+      <if test="patientId != null" >
+        #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="patientName != null" >
+        #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="tempSeq != null" >
+        #{tempSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDetl != null" >
+        #{caseDetl,jdbcType=VARCHAR},
+      </if>
+      <if test="caseTime != null" >
+        #{caseTime,jdbcType=DATE},
+      </if>
+      <if test="caseUser != null" >
+        #{caseUser,jdbcType=VARCHAR},
+      </if>
+      <if test="caseName != null" >
+        #{caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=DATE},
+      </if>
+      <if test="crtUser != null" >
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUserName != null" >
+        #{crtUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=DATE},
+      </if>
+      <if test="modUser != null" >
+        #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modUserName != null" >
+        #{modUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="caseHtml != null" >
+        #{caseHtml,jdbcType=CLOB},
+      </if>
+      <if test="caseAns != null" >
+        #{caseAns,jdbcType=CLOB},
+      </if>
+      <if test="compList != null" >
+        #{compList,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.structtext.pojo.domain.DstcasesExample" resultType="java.lang.Integer" >
+    select count(*) from EDPC.DSTCASES
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update EDPC.DSTCASES
+    <set >
+      <if test="record.caseSeq != null" >
+        CASE_SEQ = #{record.caseSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseStat != null" >
+        CASE_STAT = #{record.caseStat,jdbcType=CHAR},
+      </if>
+      <if test="record.sysId != null" >
+        SYS_ID = #{record.sysId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientId != null" >
+        PATIENT_ID = #{record.patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientName != null" >
+        PATIENT_NAME = #{record.patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempSeq != null" >
+        TEMP_SEQ = #{record.tempSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseDetl != null" >
+        CASE_DETL = #{record.caseDetl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseTime != null" >
+        CASE_TIME = #{record.caseTime,jdbcType=DATE},
+      </if>
+      <if test="record.caseUser != null" >
+        CASE_USER = #{record.caseUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseName != null" >
+        CASE_NAME = #{record.caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTime != null" >
+        CRT_TIME = #{record.crtTime,jdbcType=DATE},
+      </if>
+      <if test="record.crtUser != null" >
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUserName != null" >
+        CRT_USER_NAME = #{record.crtUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTime != null" >
+        MOD_TIME = #{record.modTime,jdbcType=DATE},
+      </if>
+      <if test="record.modUser != null" >
+        MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modUserName != null" >
+        MOD_USER_NAME = #{record.modUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseHtml != null" >
+        CASE_HTML = #{record.caseHtml,jdbcType=CLOB},
+      </if>
+      <if test="record.caseAns != null" >
+        CASE_ANS = #{record.caseAns,jdbcType=CLOB},
+      </if>
+      <if test="record.compList != null" >
+        COMP_LIST = #{record.compList,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update EDPC.DSTCASES
+    set CASE_SEQ = #{record.caseSeq,jdbcType=VARCHAR},
+      CASE_STAT = #{record.caseStat,jdbcType=CHAR},
+      SYS_ID = #{record.sysId,jdbcType=VARCHAR},
+      PATIENT_ID = #{record.patientId,jdbcType=VARCHAR},
+      PATIENT_NAME = #{record.patientName,jdbcType=VARCHAR},
+      TEMP_SEQ = #{record.tempSeq,jdbcType=VARCHAR},
+      CASE_DETL = #{record.caseDetl,jdbcType=VARCHAR},
+      CASE_TIME = #{record.caseTime,jdbcType=DATE},
+      CASE_USER = #{record.caseUser,jdbcType=VARCHAR},
+      CASE_NAME = #{record.caseName,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=DATE},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      CRT_USER_NAME = #{record.crtUserName,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=DATE},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      MOD_USER_NAME = #{record.modUserName,jdbcType=VARCHAR},
+      CASE_HTML = #{record.caseHtml,jdbcType=CLOB},
+      CASE_ANS = #{record.caseAns,jdbcType=CLOB},
+      COMP_LIST = #{record.compList,jdbcType=CLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update EDPC.DSTCASES
+    set CASE_SEQ = #{record.caseSeq,jdbcType=VARCHAR},
+      CASE_STAT = #{record.caseStat,jdbcType=CHAR},
+      SYS_ID = #{record.sysId,jdbcType=VARCHAR},
+      PATIENT_ID = #{record.patientId,jdbcType=VARCHAR},
+      PATIENT_NAME = #{record.patientName,jdbcType=VARCHAR},
+      TEMP_SEQ = #{record.tempSeq,jdbcType=VARCHAR},
+      CASE_DETL = #{record.caseDetl,jdbcType=VARCHAR},
+      CASE_TIME = #{record.caseTime,jdbcType=DATE},
+      CASE_USER = #{record.caseUser,jdbcType=VARCHAR},
+      CASE_NAME = #{record.caseName,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=DATE},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      CRT_USER_NAME = #{record.crtUserName,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=DATE},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      MOD_USER_NAME = #{record.modUserName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.structtext.pojo.domain.DstcasesWithBLOBs" >
+    update EDPC.DSTCASES
+    <set >
+      <if test="caseStat != null" >
+        CASE_STAT = #{caseStat,jdbcType=CHAR},
+      </if>
+      <if test="sysId != null" >
+        SYS_ID = #{sysId,jdbcType=VARCHAR},
+      </if>
+      <if test="patientId != null" >
+        PATIENT_ID = #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="patientName != null" >
+        PATIENT_NAME = #{patientName,jdbcType=VARCHAR},
+      </if>
+      <if test="tempSeq != null" >
+        TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDetl != null" >
+        CASE_DETL = #{caseDetl,jdbcType=VARCHAR},
+      </if>
+      <if test="caseTime != null" >
+        CASE_TIME = #{caseTime,jdbcType=DATE},
+      </if>
+      <if test="caseUser != null" >
+        CASE_USER = #{caseUser,jdbcType=VARCHAR},
+      </if>
+      <if test="caseName != null" >
+        CASE_NAME = #{caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME = #{crtTime,jdbcType=DATE},
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUserName != null" >
+        CRT_USER_NAME = #{crtUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=DATE},
+      </if>
+      <if test="modUser != null" >
+        MOD_USER = #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modUserName != null" >
+        MOD_USER_NAME = #{modUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="caseHtml != null" >
+        CASE_HTML = #{caseHtml,jdbcType=CLOB},
+      </if>
+      <if test="caseAns != null" >
+        CASE_ANS = #{caseAns,jdbcType=CLOB},
+      </if>
+      <if test="compList != null" >
+        COMP_LIST = #{compList,jdbcType=CLOB},
+      </if>
+    </set>
+    where CASE_SEQ = #{caseSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.structtext.pojo.domain.DstcasesWithBLOBs" >
+    update EDPC.DSTCASES
+    set CASE_STAT = #{caseStat,jdbcType=CHAR},
+      SYS_ID = #{sysId,jdbcType=VARCHAR},
+      PATIENT_ID = #{patientId,jdbcType=VARCHAR},
+      PATIENT_NAME = #{patientName,jdbcType=VARCHAR},
+      TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR},
+      CASE_DETL = #{caseDetl,jdbcType=VARCHAR},
+      CASE_TIME = #{caseTime,jdbcType=DATE},
+      CASE_USER = #{caseUser,jdbcType=VARCHAR},
+      CASE_NAME = #{caseName,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=DATE},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      CRT_USER_NAME = #{crtUserName,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=DATE},
+      MOD_USER = #{modUser,jdbcType=VARCHAR},
+      MOD_USER_NAME = #{modUserName,jdbcType=VARCHAR},
+      CASE_HTML = #{caseHtml,jdbcType=CLOB},
+      CASE_ANS = #{caseAns,jdbcType=CLOB},
+      COMP_LIST = #{compList,jdbcType=CLOB}
+    where CASE_SEQ = #{caseSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.structtext.pojo.domain.Dstcases" >
+    update EDPC.DSTCASES
+    set CASE_STAT = #{caseStat,jdbcType=CHAR},
+      SYS_ID = #{sysId,jdbcType=VARCHAR},
+      PATIENT_ID = #{patientId,jdbcType=VARCHAR},
+      PATIENT_NAME = #{patientName,jdbcType=VARCHAR},
+      TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR},
+      CASE_DETL = #{caseDetl,jdbcType=VARCHAR},
+      CASE_TIME = #{caseTime,jdbcType=DATE},
+      CASE_USER = #{caseUser,jdbcType=VARCHAR},
+      CASE_NAME = #{caseName,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=DATE},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      CRT_USER_NAME = #{crtUserName,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=DATE},
+      MOD_USER = #{modUser,jdbcType=VARCHAR},
+      MOD_USER_NAME = #{modUserName,jdbcType=VARCHAR}
+    where CASE_SEQ = #{caseSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

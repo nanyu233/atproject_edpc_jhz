@@ -44,7 +44,8 @@
 
     //查询列表
     function handoverSheet() {
-      var height = $('#main', parent.document).height() - 57;
+      var windowHeight = $(window).height();
+      var height = windowHeight - 70;
       $('#handoverSheetList').height(height);
       $('#handoverSheetList').datagrid({
         striped: true,
@@ -66,39 +67,39 @@
           return data;
         },
         onDblClickRow: function (rowIndex, rowData) {
-          window.location = '${baseurl}zyyconsent/ConsentInf.do?seqno=' + rowData.seqno;
+          <%--window.location = '${baseurl}zyyconsent/ConsentInf.do?seqno=' + rowData.seqno;--%>
+          window.location = '${baseurl}zyyconsent/toXtPageEdit.do?tempno=' + rowData.tempSeq + '&refseqno='
+                  + rowData.patientId + '&tempname=' + rowData.tempName + '&cstNam=' + rowData.patientName
+                  + '&caseno=' + rowData.caseSeq;
         },
         columns: [
           [{
-            field: 'seqno',
-            title: '',
-            width: getWidth(0),
-            hidden: true
+            field: 'caseSeq',
+            title: '编号',
+            width: getWidth(0.2),
           }, {
-            field: 'tempno',
+            field: 'tempSeq',
             title: '模板号',
-            width: getWidth(0),
-            hidden: true
+            width: getWidth(0.1),
           }, {
-            field: 'tempname',
+            field: 'tempName',
             title: '名称',
-            width: getWidth(.35)
+            width: getWidth(0.15)
           }, {
-            field: 'crtusrname',
+            field: 'crtUserName',
             title: '创建人名称',
-            width: getWidth(.25)
+            width: getWidth(0.25)
           }, {
-            field: 'crtdate',
+            field: 'crtTime',
             title: '创建时间',
-            width: getWidth(.25),
+            width: getWidth(0.15),
             formatter: function (value, row, index) {
               return publicFun.timeFormat(value, 'yyyy/MM/dd hh:mm')
             }
           }, {
-            field: 'upddate',
+            field: 'modTime',
             title: '更新时间',
-            width: getWidth(.15),
-            hidden: true,
+            width: getWidth(0.15),
             formatter: function (value, row, index) {
               return publicFun.timeFormat(value, 'yyyy/MM/dd hh:mm:ss')
             }
@@ -113,7 +114,7 @@
      */
     function handoverSheetAdd() {
       //window.location = '${baseurl}zyyconsent/queryHspConsentTemp.do?refseqno=${refseqno}'; 
-      createmodalwindow("选择模板", 700, 515, '${baseurl}zyyconsent/queryHspConsentTemp.do?refseqno=${refseqno}');
+      createmodalwindow("选择模板", 700, 515, '${baseurl}zyyconsent/queryHspConsentTemp.do?refseqno=${refseqno}' + '&cstNam=${cstNam}' + '&tempCode=${tempCode}');
     }
 
     /**
@@ -124,7 +125,10 @@
       if (checkedRows == null) {
         $.messager.alert('提示信息', '请选择一条数据', 'warning');
       } else {
-        window.location = '${baseurl}zyyconsent/ConsentInf.do?seqno=' + checkedRows['seqno']
+        <%--window.location = '${baseurl}zyyconsent/ConsentInf.do?seqno=' + checkedRows['seqno']--%>
+        window.location = '${baseurl}zyyconsent/toXtPageEdit.do?tempno=' + checkedRows['tempSeq'] + '&refseqno='
+                + checkedRows['patientId'] + '&tempname=' + checkedRows['tempName'] + '&cstNam=' + checkedRows['patientName']
+                + '&caseno=' + checkedRows['caseSeq'];
       }
     }
     /**
@@ -135,13 +139,13 @@
       if (checkedRows == null) {
         $.messager.alert('提示信息', '请选择一条数据', 'warning');
       } else {
-        publicFun.httpServer({url: '${baseurl}zyylqbl/checkRoleAjax.do'}, {'cratNbr': checkedRows.crtusrno}, function (data) {
+        publicFun.httpServer({url: '${baseurl}zyyconsent/checkRoleAjax.do'}, {'cratNbr': checkedRows.crtusrno}, function (data) {
           //规则判断，若是1，则有操作权限，若是0，则隐藏操作按钮
           if (data.resultInfo.message == "doctorSelf" || data.resultInfo.message == "admin"){
-            
+
               _confirm('确定删除该数据吗？', null, function () {
                 publicFun.httpServer({ url: '${baseurl}zyyconsent/delConsentInfBySeqnoSubmit.do' }, {
-                  'seqno': checkedRows['seqno']
+                  'caseSeq': checkedRows['caseSeq']
                 }, function (res) {
                   message_alert(res);
                   if (res.resultInfo.type == '1') {
@@ -162,34 +166,36 @@
     /**
      * 选着模板
      */
-    function AddModel(tempno, tempname, refseqno,qmHash,qmTag) {
-      var url = '${baseurl}zyyconsent/ConsentInfByTempno.do?tempno=' + tempno + '&tempname=' + tempname 
-      	+ '&refseqno=' + refseqno + '&qmHash=' + qmHash+ '&qmTag=' + qmTag;
+    function AddModel(tempno, tempname, refseqno, cstNam, tempCode) {
+      var url = '${baseurl}zyyconsent/toXtPageEdit.do?tempno=' +  tempno + '&tempname=' + tempname
+              + '&refseqno=' + refseqno + '&cstNam=' + cstNam + '&tempCode=' + tempCode;
       url = encodeURI(url);
       window.location = url;
+
+
     }
 
     function checkRole () {
-       publicFun.httpServer({ url: '${baseurl}zyylqbl/checkRoleAjax.do'}, { "cratNbr": '' }, function (data) {
-        //规则判断，若是1，则有操作权限，若是0，则隐藏操作按钮
-        if (parent.pageFlg) {
-          $('#add').hide()
-          $("#delete").hide();
-          $("#edit").hide();
-        }else{
-          if(data.resultInfo.message == 'nurse'){
-            $('#add').hide()
-            $("#delete").hide();
-            $("#edit").hide();
-          }
-        }
-        //日志、归档病历、留抢病历 游客无权限
-        if(data.resultInfo.message == 'tourist'){
-        	$('#add').hide()
-            $("#delete").hide();
-            $("#edit").hide();
-        }
-      })
+      <%-- publicFun.httpServer({ url: '${baseurl}zyylqbl/checkRoleAjax.do'}, { "cratNbr": '' }, function (data) {--%>
+      <%--  //规则判断，若是1，则有操作权限，若是0，则隐藏操作按钮--%>
+      <%--  if (parent.pageFlg) {--%>
+      <%--    $('#add').hide()--%>
+      <%--    $("#delete").hide();--%>
+      <%--    $("#edit").hide();--%>
+      <%--  }else{--%>
+      <%--    if(data.resultInfo.message == 'nurse'){--%>
+      <%--      $('#add').hide()--%>
+      <%--      $("#delete").hide();--%>
+      <%--      $("#edit").hide();--%>
+      <%--    }--%>
+      <%--  }--%>
+      <%--  //日志、归档病历、留抢病历 游客无权限--%>
+      <%--  if(data.resultInfo.message == 'tourist'){--%>
+      <%--  	$('#add').hide()--%>
+      <%--      $("#delete").hide();--%>
+      <%--      $("#edit").hide();--%>
+      <%--  }--%>
+      <%--})--%>
     }
 
     $(function () {

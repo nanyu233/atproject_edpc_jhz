@@ -324,6 +324,7 @@
         patientList: [],//右侧胸痛病人列表
         patientGreenNodes: [],//单个病人已完成的流程节点
         ecgList:[],//心电图列表
+        tempCode: '10000001',  //编辑器模板编号10000001是胸痛
         currPatientInfo: {
             regSeq:'',
         	emgSeq:'',
@@ -1871,71 +1872,41 @@
     //展示知情同意书
     function showTable() {
         $('#fileBox').window({
-            width:500,
-            height:380,
+            width:600,
+            height:400,
             modal:true,
             title:'知情同意书'
         });
         $('#dg').datagrid({
                 striped: true,
-                data:[
-                    // {code:'1030',name:'知情选择'},
-                    // {code:'1029',name:'患者授权书'},
-                    // {code:'1004',name:'病危(重)通知书'},
-                    // {code:'1020',name:'心导管诊疗知情同意书'},
-                    // {code:'1012',name:'静脉溶栓治疗同意书'},
-                    // {code:'1015',name:'气管插管和器械通气知情同意书'},
-                    // {code:'1024',name:'造影剂使用知情同意书'},
-                    // {code:'1040',name:'临时起搏器植入术谈话'},
-                    // {code:'1034',name:'血管内介入治疗知情同意书'},
-                    // {code:'1013',name:'拒绝或放弃医学治疗告知书'},
-                    // {code:'1027',name:'自动出院或转院告知书'},
-                    // {code:'TEMP10000000', name:'测试用'}
-
-                    {code:'TEMP10000009',name:'知情选择'},
-                    {code:'TEMP10000010',name:'患者授权书'},
-                    {code:'TEMP10000013',name:'病危(重)通知书'},
-                    {code:'TEMP10000002',name:'心导管诊疗知情同意书'},
-                    {code:'TEMP10000011',name:'静脉溶栓治疗同意书'},
-                    {code:'TEMP10000003',name:'气管插管和器械通气知情同意书'},
-                    {code:'TEMP10000004',name:'造影剂使用知情同意书'},
-                    {code:'TEMP10000006',name:'临时起搏器植入术谈话'},
-                    {code:'TEMP10000012',name:'血管内介入治疗知情同意书'},
-                    {code:'TEMP10000014',name:'拒绝或放弃医学治疗告知书'},
-                    {code:'TEMP10000005',name:'自动出院或转院告知书'},
-                    {code:'TEMP10000000',name:'测试用'},
-                    {code:'1030',name:'知情选择'},
-                    {code:'1029',name:'患者授权书'},
-                    {code:'1004',name:'病危(重)通知书'},
-                    {code:'1020',name:'心导管诊疗知情同意书'},
-                    {code:'1012',name:'静脉溶栓治疗同意书'},
-                    {code:'1015',name:'气管插管和器械通气知情同意书'},
-                    {code:'1024',name:'造影剂使用知情同意书'},
-                    {code:'1040',name:'临时起搏器植入术谈话'},
-                    {code:'1034',name:'血管内介入治疗知情同意书'},
-                    {code:'1013',name:'拒绝或放弃医学治疗告知书'},
-                    {code:'1027',name:'自动出院或转院告知书'},
-                ],
+                url: '${baseurl}zyyconsent/queryHspConsentTemp_result.do',
+                // pagination: true,
+                rownumbers: true,
+                // pageList: [20, 30, 50],
+                queryParams: {
+                    'hspConsentTempCustom.tempname':'',
+                    'tempCode': vm.tempCode
+                },
                 columns:[[
-                    {field:'code',title:'模板号',width:150,styler:function (value,row,index) {
+                    {field:'tempSeq',title:'模板号',width:150,styler:function (value,row,index) {
                             return 'font-weight:bold';
                         }},
-                    {field:'name',title:'名称',width:350},
+                    {field:'tempName',title:'名称',width:350},
                 ]],
-                onDblClickRow: function (rowIndex,rowData) {
+                onDblClickRow: function (rowIndex, rowData) {
                     // console.log("++++++++++++");
-                    // console.log(rowData);
+                    // console.log('rowData', rowData);
 
-                    if(tempIsFromTiny(rowData.code)){
-                        var url = '${baseurl}zyyconsent/toXtPageEdit.do?tempno=' +  rowData.code + '&tempname=' + rowData.name
-                            + '&refseqno=' + vm.currPatientInfo.emgSeq + '&cstNam=' + vm.currPatientInfo.cstNam;
+                    if(tempIsFromTiny(rowData.tempSeq)){
+                        var url = '${baseurl}zyyconsent/toXtPageEdit.do?tempno=' +  rowData.tempSeq + '&tempname=' + rowData.tempName
+                            + '&refseqno=' + vm.currPatientInfo.emgSeq + '&cstNam=' + vm.currPatientInfo.cstNam + '&tempCode=' + vm.tempCode;
                         url = encodeURI(url);
                         // alert(url);
                     }
                     else{
-                        var url = '${baseurl}zyyconsent/ConsentInfByTempno.do?tempno='+rowData.code+'&tempname='+rowData.name+'&refseqno='+vm.currPatientInfo.emgSeq;
+                        var url = '${baseurl}zyyconsent/ConsentInfByTempno.do?tempno='+rowData.tempSeq+'&tempname='+rowData.tempName+'&refseqno='+vm.currPatientInfo.emgSeq;
                     }
-                    window.top.addTab(rowData.name, url, 'icon icon-emergency-record');
+                    window.top.addTab(rowData.tempName, url, 'icon icon-emergency-record');
                 }
             });
     }

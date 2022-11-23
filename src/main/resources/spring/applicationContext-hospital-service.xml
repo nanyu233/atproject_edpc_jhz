@@ -55,6 +55,9 @@
 	
 	<!-- 湖州本地检验信息查询-->
 	<bean id="hspJyjgService" class="activetech.external.service.impl.HspJyjgServiceImpl"/>
-	
+
+	<!-- 编辑器相关-->
+	<bean id="StructTextService" class="activetech.structtext.service.impl.StructTextServiceImpl"/>
+
 	
 </beans>

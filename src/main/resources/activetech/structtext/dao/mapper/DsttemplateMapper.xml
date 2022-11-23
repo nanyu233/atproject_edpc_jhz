@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.structtext.dao.mapper.DsttemplateMapper" >
+  <resultMap id="BaseResultMap" type="activetech.structtext.pojo.domain.Dsttemplate" >
+    <id column="TEMP_SEQ" property="tempSeq" jdbcType="VARCHAR" />
+    <result column="SYS_ID" property="sysId" jdbcType="VARCHAR" />
+    <result column="TEMP_CODE" property="tempCode" jdbcType="VARCHAR" />
+    <result column="TEMP_NAME" property="tempName" jdbcType="VARCHAR" />
+    <result column="TEMP_STAT" property="tempStat" jdbcType="VARCHAR" />
+    <result column="TEMP_PAPER" property="tempPaper" jdbcType="VARCHAR" />
+    <result column="TEMP_PRINT" property="tempPrint" jdbcType="VARCHAR" />
+    <result column="CRT_TIME" property="crtTime" jdbcType="DATE" />
+    <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="DATE" />
+    <result column="MOD_USER" property="modUser" jdbcType="VARCHAR" />
+    <result column="TEMP_MARGINS" property="tempMargins" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="activetech.structtext.pojo.domain.DsttemplateWithBLOBs" extends="BaseResultMap" >
+    <result column="TEMP_HTML" property="tempHtml" jdbcType="CLOB" />
+    <result column="COMP_LIST" property="compList" jdbcType="CLOB" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TEMP_SEQ, SYS_ID, TEMP_CODE, TEMP_NAME, TEMP_STAT, TEMP_PAPER, TEMP_PRINT, CRT_TIME, 
+    CRT_USER, MOD_TIME, MOD_USER, TEMP_MARGINS
+  </sql>
+  <sql id="Blob_Column_List" >
+    TEMP_HTML, COMP_LIST
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="activetech.structtext.pojo.domain.DsttemplateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from EDPC.DSTTEMPLATE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.structtext.pojo.domain.DsttemplateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from EDPC.DSTTEMPLATE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from EDPC.DSTTEMPLATE
+    where TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from EDPC.DSTTEMPLATE
+    where TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.structtext.pojo.domain.DsttemplateExample" >
+    delete from EDPC.DSTTEMPLATE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.structtext.pojo.domain.DsttemplateWithBLOBs" >
+    insert into EDPC.DSTTEMPLATE (TEMP_SEQ, SYS_ID, TEMP_CODE, 
+      TEMP_NAME, TEMP_STAT, TEMP_PAPER, 
+      TEMP_PRINT, CRT_TIME, CRT_USER, 
+      MOD_TIME, MOD_USER, TEMP_MARGINS, 
+      TEMP_HTML, COMP_LIST)
+    values (#{tempSeq,jdbcType=VARCHAR}, #{sysId,jdbcType=VARCHAR}, #{tempCode,jdbcType=VARCHAR}, 
+      #{tempName,jdbcType=VARCHAR}, #{tempStat,jdbcType=VARCHAR}, #{tempPaper,jdbcType=VARCHAR}, 
+      #{tempPrint,jdbcType=VARCHAR}, #{crtTime,jdbcType=DATE}, #{crtUser,jdbcType=VARCHAR}, 
+      #{modTime,jdbcType=DATE}, #{modUser,jdbcType=VARCHAR}, #{tempMargins,jdbcType=VARCHAR}, 
+      #{tempHtml,jdbcType=CLOB}, #{compList,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.structtext.pojo.domain.DsttemplateWithBLOBs" >
+    insert into EDPC.DSTTEMPLATE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tempSeq != null" >
+        TEMP_SEQ,
+      </if>
+      <if test="sysId != null" >
+        SYS_ID,
+      </if>
+      <if test="tempCode != null" >
+        TEMP_CODE,
+      </if>
+      <if test="tempName != null" >
+        TEMP_NAME,
+      </if>
+      <if test="tempStat != null" >
+        TEMP_STAT,
+      </if>
+      <if test="tempPaper != null" >
+        TEMP_PAPER,
+      </if>
+      <if test="tempPrint != null" >
+        TEMP_PRINT,
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME,
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="modUser != null" >
+        MOD_USER,
+      </if>
+      <if test="tempMargins != null" >
+        TEMP_MARGINS,
+      </if>
+      <if test="tempHtml != null" >
+        TEMP_HTML,
+      </if>
+      <if test="compList != null" >
+        COMP_LIST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tempSeq != null" >
+        #{tempSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="sysId != null" >
+        #{sysId,jdbcType=VARCHAR},
+      </if>
+      <if test="tempCode != null" >
+        #{tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tempName != null" >
+        #{tempName,jdbcType=VARCHAR},
+      </if>
+      <if test="tempStat != null" >
+        #{tempStat,jdbcType=VARCHAR},
+      </if>
+      <if test="tempPaper != null" >
+        #{tempPaper,jdbcType=VARCHAR},
+      </if>
+      <if test="tempPrint != null" >
+        #{tempPrint,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        #{crtTime,jdbcType=DATE},
+      </if>
+      <if test="crtUser != null" >
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=DATE},
+      </if>
+      <if test="modUser != null" >
+        #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="tempMargins != null" >
+        #{tempMargins,jdbcType=VARCHAR},
+      </if>
+      <if test="tempHtml != null" >
+        #{tempHtml,jdbcType=CLOB},
+      </if>
+      <if test="compList != null" >
+        #{compList,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.structtext.pojo.domain.DsttemplateExample" resultType="java.lang.Integer" >
+    select count(*) from EDPC.DSTTEMPLATE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update EDPC.DSTTEMPLATE
+    <set >
+      <if test="record.tempSeq != null" >
+        TEMP_SEQ = #{record.tempSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysId != null" >
+        SYS_ID = #{record.sysId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempCode != null" >
+        TEMP_CODE = #{record.tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempName != null" >
+        TEMP_NAME = #{record.tempName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempStat != null" >
+        TEMP_STAT = #{record.tempStat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempPaper != null" >
+        TEMP_PAPER = #{record.tempPaper,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempPrint != null" >
+        TEMP_PRINT = #{record.tempPrint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTime != null" >
+        CRT_TIME = #{record.crtTime,jdbcType=DATE},
+      </if>
+      <if test="record.crtUser != null" >
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTime != null" >
+        MOD_TIME = #{record.modTime,jdbcType=DATE},
+      </if>
+      <if test="record.modUser != null" >
+        MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempMargins != null" >
+        TEMP_MARGINS = #{record.tempMargins,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempHtml != null" >
+        TEMP_HTML = #{record.tempHtml,jdbcType=CLOB},
+      </if>
+      <if test="record.compList != null" >
+        COMP_LIST = #{record.compList,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update EDPC.DSTTEMPLATE
+    set TEMP_SEQ = #{record.tempSeq,jdbcType=VARCHAR},
+      SYS_ID = #{record.sysId,jdbcType=VARCHAR},
+      TEMP_CODE = #{record.tempCode,jdbcType=VARCHAR},
+      TEMP_NAME = #{record.tempName,jdbcType=VARCHAR},
+      TEMP_STAT = #{record.tempStat,jdbcType=VARCHAR},
+      TEMP_PAPER = #{record.tempPaper,jdbcType=VARCHAR},
+      TEMP_PRINT = #{record.tempPrint,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=DATE},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=DATE},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      TEMP_MARGINS = #{record.tempMargins,jdbcType=VARCHAR},
+      TEMP_HTML = #{record.tempHtml,jdbcType=CLOB},
+      COMP_LIST = #{record.compList,jdbcType=CLOB}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update EDPC.DSTTEMPLATE
+    set TEMP_SEQ = #{record.tempSeq,jdbcType=VARCHAR},
+      SYS_ID = #{record.sysId,jdbcType=VARCHAR},
+      TEMP_CODE = #{record.tempCode,jdbcType=VARCHAR},
+      TEMP_NAME = #{record.tempName,jdbcType=VARCHAR},
+      TEMP_STAT = #{record.tempStat,jdbcType=VARCHAR},
+      TEMP_PAPER = #{record.tempPaper,jdbcType=VARCHAR},
+      TEMP_PRINT = #{record.tempPrint,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=DATE},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=DATE},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      TEMP_MARGINS = #{record.tempMargins,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.structtext.pojo.domain.DsttemplateWithBLOBs" >
+    update EDPC.DSTTEMPLATE
+    <set >
+      <if test="sysId != null" >
+        SYS_ID = #{sysId,jdbcType=VARCHAR},
+      </if>
+      <if test="tempCode != null" >
+        TEMP_CODE = #{tempCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tempName != null" >
+        TEMP_NAME = #{tempName,jdbcType=VARCHAR},
+      </if>
+      <if test="tempStat != null" >
+        TEMP_STAT = #{tempStat,jdbcType=VARCHAR},
+      </if>
+      <if test="tempPaper != null" >
+        TEMP_PAPER = #{tempPaper,jdbcType=VARCHAR},
+      </if>
+      <if test="tempPrint != null" >
+        TEMP_PRINT = #{tempPrint,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null" >
+        CRT_TIME = #{crtTime,jdbcType=DATE},
+      </if>
+      <if test="crtUser != null" >
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=DATE},
+      </if>
+      <if test="modUser != null" >
+        MOD_USER = #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="tempMargins != null" >
+        TEMP_MARGINS = #{tempMargins,jdbcType=VARCHAR},
+      </if>
+      <if test="tempHtml != null" >
+        TEMP_HTML = #{tempHtml,jdbcType=CLOB},
+      </if>
+      <if test="compList != null" >
+        COMP_LIST = #{compList,jdbcType=CLOB},
+      </if>
+    </set>
+    where TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.structtext.pojo.domain.DsttemplateWithBLOBs" >
+    update EDPC.DSTTEMPLATE
+    set SYS_ID = #{sysId,jdbcType=VARCHAR},
+      TEMP_CODE = #{tempCode,jdbcType=VARCHAR},
+      TEMP_NAME = #{tempName,jdbcType=VARCHAR},
+      TEMP_STAT = #{tempStat,jdbcType=VARCHAR},
+      TEMP_PAPER = #{tempPaper,jdbcType=VARCHAR},
+      TEMP_PRINT = #{tempPrint,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=DATE},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=DATE},
+      MOD_USER = #{modUser,jdbcType=VARCHAR},
+      TEMP_MARGINS = #{tempMargins,jdbcType=VARCHAR},
+      TEMP_HTML = #{tempHtml,jdbcType=CLOB},
+      COMP_LIST = #{compList,jdbcType=CLOB}
+    where TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.structtext.pojo.domain.Dsttemplate" >
+    update EDPC.DSTTEMPLATE
+    set SYS_ID = #{sysId,jdbcType=VARCHAR},
+      TEMP_CODE = #{tempCode,jdbcType=VARCHAR},
+      TEMP_NAME = #{tempName,jdbcType=VARCHAR},
+      TEMP_STAT = #{tempStat,jdbcType=VARCHAR},
+      TEMP_PAPER = #{tempPaper,jdbcType=VARCHAR},
+      TEMP_PRINT = #{tempPrint,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=DATE},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=DATE},
+      MOD_USER = #{modUser,jdbcType=VARCHAR},
+      TEMP_MARGINS = #{tempMargins,jdbcType=VARCHAR}
+    where TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

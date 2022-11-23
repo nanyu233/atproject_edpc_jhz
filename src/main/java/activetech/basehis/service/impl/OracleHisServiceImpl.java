@@ -274,6 +274,16 @@ public class OracleHisServiceImpl implements OracleHisService {
 	}
 
 	@Override
+	public List<VHemsRczCustom> findRczGhxx(HemshisDto hemshisDto) {
+		return vHemsRczMapper.findRczGhxx(hemshisDto);
+	}
+
+	@Override
+	public int findRczGhxxCount(HemshisDto hemshisDto) {
+		return vHemsRczMapper.findRczGhxxCount(hemshisDto);
+	}
+
+	@Override
 	public void sendDjhc(HspemginfQueryDto hspemginfQueryDto) throws Exception {
 		HspemginfCustom hspemginfCustom = zyyHspemginfCustomMapper.selectEmgByGhsj(hspemginfQueryDto.getHspemginfCustom().getEmgSeq());
 		if(!StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getAdtA01())){

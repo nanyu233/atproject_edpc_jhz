@@ -40,6 +40,10 @@ public interface OracleHisService {
 
 	public void updateCleanRcz(String emgSeq,String mpi, Long jzxh) throws Exception;
 
+	public List<VHemsRczCustom> findRczGhxx(HemshisDto hemshisDto);
+
+	public int findRczGhxxCount(HemshisDto hemshisDto);
+
 	public void sendDjhc(HspemginfQueryDto hspemginfQueryDto) throws Exception;
 
 	public List<VHemsJyjg> findRecentJyjg();

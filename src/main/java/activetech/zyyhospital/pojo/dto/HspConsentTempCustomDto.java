@@ -5,6 +5,7 @@ import activetech.base.pojo.dto.PageQuery;
 public class HspConsentTempCustomDto {
 	private PageQuery pageQuery;
 	private HspConsentTempCustom hspConsentTempCustom;
+	private String tempCode;
 	public PageQuery getPageQuery() {
 		return pageQuery;
 	}
@@ -17,5 +18,12 @@ public class HspConsentTempCustomDto {
 	public void setHspConsentTempCustom(HspConsentTempCustom hspConsentTempCustom) {
 		this.hspConsentTempCustom = hspConsentTempCustom;
 	}
-	
+
+	public String getTempCode() {
+		return tempCode;
+	}
+
+	public void setTempCode(String tempCode) {
+		this.tempCode = tempCode;
+	}
 }

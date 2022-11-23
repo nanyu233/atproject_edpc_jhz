@@ -88,6 +88,40 @@ public class HisAction {
 		return dataGridResultInfo;
 	}
 
+	/**
+	 * 跳转入出转挂号信息页面
+	 * @param hemshisDto
+	 * @param activeUser
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/toRczGhxx")
+	public String toRczGhxx(Model model,String emgSeq,String mpi,String jzxhOld,String cstNam) throws Exception{
+		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("mpi", mpi);
+		model.addAttribute("jzxhOld", jzxhOld);
+		model.addAttribute("cstNam", cstNam);
+		return "/hzszyyhospital/hzszyynurse/precheckPage/boxPage/ghbdBox";
+	}
+
+	@RequestMapping("/findRczGhxx")
+	public @ResponseBody
+	DataGridResultInfo findRczGhxx(HemshisDto hemshisDto,int page,
+								   int rows) throws Exception {
+		hemshisDto.setEnddate(DateUtil.getNextDay(hemshisDto.getEnddate()));
+		int total =oracleHisService.findRczGhxxCount(hemshisDto);
+		PageQuery pageQuery = new PageQuery();
+		pageQuery.setPageParams(total, rows, page);
+		hemshisDto.setPageQuery(pageQuery);
+		List<VHemsRczCustom> vHemsRczCustomList =  oracleHisService.findRczGhxx(hemshisDto);
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		//填充total
+		dataGridResultInfo.setTotal(total);
+		//填充rows
+		dataGridResultInfo.setRows(vHemsRczCustomList);
+		return dataGridResultInfo;
+	}
+
 	@RequestMapping(value = "/sfjl")
 	public String getSfjlList(String vstCad, Date emgDat, Model model,
 			String emgSeq) {
