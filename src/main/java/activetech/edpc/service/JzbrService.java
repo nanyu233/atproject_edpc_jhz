@@ -1,5 +1,6 @@
 package activetech.edpc.service;
 
+import activetech.base.pojo.dto.ActiveUser;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 
 /**
@@ -12,5 +13,5 @@ public interface JzbrService {
      * @param hspemginfQueryDto hspemginfQueryDto
      * @throws Exception Exception
      */
-    void enterDbzl(HspemginfQueryDto hspemginfQueryDto) throws Exception;
+    void enterDbzl(HspemginfQueryDto hspemginfQueryDto, ActiveUser activeUser) throws Exception;
 }

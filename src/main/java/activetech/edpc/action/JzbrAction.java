@@ -1,5 +1,6 @@
 package activetech.edpc.action;
 
+import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
@@ -30,9 +31,9 @@ public class JzbrAction {
      * @throws Exception Exception
      */
     @RequestMapping("/enterDbzl")
-    public @ResponseBody SubmitResultInfo enterDbzl(@RequestBody HspemginfQueryDto hspemginfQueryDto) throws Exception {
+    public @ResponseBody SubmitResultInfo enterDbzl(@RequestBody HspemginfQueryDto hspemginfQueryDto, ActiveUser activeUser) throws Exception {
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-        jzbrService.enterDbzl(hspemginfQueryDto);
+        jzbrService.enterDbzl(hspemginfQueryDto,activeUser);
         return ResultUtil.createSubmitResult(resultInfo);
     }
 

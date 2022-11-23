@@ -187,7 +187,6 @@ public class BaseHspemgInfServiceImpl implements BaseHspemgInfService{
 			hspBedInf.setUpdNam(activeUser.getUsrname());
             hspBedInfMapper.updateByPrimaryKeySelective(hspBedInf);
 		}
-
 		//8.诊断信息表组装
 		HspJbzdInfCustom hspJbzdInfCustomNew  = new HspJbzdInfCustom();
 		hspJbzdInfCustomNew.setJbzdComm(hspemginfCustom.getPreDgnCod());
@@ -209,7 +208,7 @@ public class BaseHspemgInfServiceImpl implements BaseHspemgInfService{
 		//12.跌倒评分
 		submitHspFallassinfCus(hspemginfQueryDto,activeUser);
 
-		jzbrService.enterDbzl(hspemginfQueryDto);
+		jzbrService.enterDbzl(hspemginfQueryDto,activeUser);
 
 		return hspsqlinfCustom;
 	}

@@ -1,5 +1,6 @@
 package activetech.edpc.service.impl;
 
+import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.service.SystemConfigService;
 import activetech.edpc.dao.mapper.HspDbzlBasMapper;
 import activetech.edpc.dao.mapper.HspXtzlInfCustomMapper;
@@ -36,17 +37,17 @@ public class JzbrServiceImpl implements JzbrService {
      * @param hspemginfQueryDto hspemginfQueryDto
      */
     @Override
-    public void enterDbzl(HspemginfQueryDto hspemginfQueryDto) {
+    public void enterDbzl(HspemginfQueryDto hspemginfQueryDto,ActiveUser activeUser) {
         HspemginfCustom hspemginfCustom = hspemginfQueryDto.getHspemginfCustom();
         //xtlcflag 胸痛流程
         if("1".equals(hspemginfCustom.getXtlcflg())) {
-            String regSeq = enterPatInDbzl(hspemginfCustom, "XT");
+            String regSeq = enterPatInDbzl(hspemginfCustom, "XT",activeUser);
             addMewsInfo(hspemginfCustom, regSeq);
             addXtPg(hspemginfCustom, regSeq);
         }
         //czlsflg 卒中流程标识
         if("1".equals(hspemginfCustom.getCzlcflg())) {
-            String regSeq = enterPatInDbzl(hspemginfCustom, "CZ");
+            String regSeq = enterPatInDbzl(hspemginfCustom, "CZ",activeUser);
             addMewsInfo(hspemginfCustom, regSeq);
         }
     }
@@ -123,7 +124,7 @@ public class JzbrServiceImpl implements JzbrService {
      * @param dbFlag dbFlag
      * @return return
      */
-    private String enterPatInDbzl(HspemginfCustom hspemginfCustom, String dbFlag) {
+    private String enterPatInDbzl(HspemginfCustom hspemginfCustom, String dbFlag, ActiveUser activeUser) {
         String patType = "1";
         switch (dbFlag){
             case "XT":
@@ -197,6 +198,11 @@ public class JzbrServiceImpl implements JzbrService {
         hspDbzlBas.setSmtSta("1");
         hspDbzlBas.setSmtSeq(null);
         hspDbzlBas.setSmtMsg(null);
+        if("1".equals(activeUser.getHospitalCategory())){
+            hspDbzlBas.setHspAra("1");
+        }else{
+            hspDbzlBas.setHspAra("2");
+        }
         hspDbzlBasMapper.insert(hspDbzlBas);
         return regSeq;
     }
