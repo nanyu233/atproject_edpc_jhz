@@ -149,16 +149,15 @@ public class FollowUpAction {
 	public DataGridResultInfo querypat_resultByType(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser
 		)throws Exception{
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		HspDbzlBasCustom hspDbzlBasCustom=new HspDbzlBasCustom();
+		hspDbzlBasCustom.setHspAra(activeUser.getHospitalCategory());
+		hspDbzlBasQueryDto.setHspDbzlBasCustom(hspDbzlBasCustom);
 		int total = followUpService.queryCountfuvResult(hspDbzlBasQueryDto);
 		if(total>0) {
 			PageQuery pageQuery = new PageQuery();
 			pageQuery.setPageParams(total, hspDbzlBasQueryDto.getRows(), hspDbzlBasQueryDto.getPage());
 			hspDbzlBasQueryDto.setPageQuery(pageQuery);
-			if("1".equals(activeUser.getHospitalCategory())){
-				hspDbzlBasQueryDto.setHspAra("1");
-			}else {
-				hspDbzlBasQueryDto.setHspAra("2");
-			}
+
 			List<HspDbzlBasCustom> hspPatInfCustomList = followUpService.selectHspDbzlBasPatient(hspDbzlBasQueryDto);
 			//填充rows
 			dataGridResultInfo.setRows(hspPatInfCustomList);

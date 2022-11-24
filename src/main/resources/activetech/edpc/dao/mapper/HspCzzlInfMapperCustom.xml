@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="activetech.edpc.dao.mapper.HspCzzlInfMapperCustom">
-
+		<sql id="czdbzl_where">
+			<if test="hspDbzlBasCustom!=null ">
+				<if test="hspDbzlBasCustom.hspAra!=null and hspDbzlBasCustom.hspAra!=''.toString()">
+					and a.hsp_ara =#{hspDbzlBasCustom.hspAra,jdbcType=VARCHAR}
+				</if>
+			</if>
+			<if test="cstNam !=null and cstNam.length()>0">
+				and a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+			</if>
+			<if test="zd !=null and zd.length()>0">
+				and exists (select 1
+				from hsp_czzl_inf
+				where hsp_czzl_inf.emg_no = a.emg_seq
+				and hsp_czzl_inf.pro_code = 'CBZD'
+				and hsp_czzl_inf.pro_val = #{zd, jdbcType = VARCHAR})
+			</if>
+			<if test="zdys !=null and zdys.length()>0">
+				and exists (select 1
+				from hsp_czzl_inf
+				where hsp_czzl_inf.emg_no = a.emg_seq
+				and hsp_czzl_inf.pro_code = 'ZDYS'
+				and hsp_czzl_inf.pro_val like '%'||#{zdys, jdbcType = VARCHAR}||'%')
+			</if>
+			and a.crt_tim <![CDATA[>]]> #{startDate, jdbcType = TIMESTAMP}
+			and a.crt_tim <![CDATA[<]]> #{endDate, jdbcType = TIMESTAMP}
+		</sql>
   		 <update id="mergeHspCzzlInf" parameterType="activetech.edpc.pojo.domain.HspCzzlInf">
 				merge into hsp_czzl_inf a
 				using (select #{emgNo, jdbcType = VARCHAR} emg_no,
@@ -221,26 +246,7 @@
 			   a.smt_sta smtSta
 		from hsp_dbzl_bas a
 		where a.PAT_TYP = '2'
-		and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
-			 <if test="cstNam !=null and cstNam.length()>0">
-			   and a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
-			 </if>
-			 <if test="zd !=null and zd.length()>0">
-			   and exists (select 1
-			          from hsp_czzl_inf
-			         where hsp_czzl_inf.emg_no = a.emg_seq
-			           and hsp_czzl_inf.pro_code = 'CBZD'
-			           and hsp_czzl_inf.pro_val = #{zd, jdbcType = VARCHAR})
-			 </if>
-			 <if test="zdys !=null and zdys.length()>0">
-			   and exists (select 1
-			          from hsp_czzl_inf
-			         where hsp_czzl_inf.emg_no = a.emg_seq
-			           and hsp_czzl_inf.pro_code = 'ZDYS'
-			           and hsp_czzl_inf.pro_val like '%'||#{zdys, jdbcType = VARCHAR}||'%')
-			 </if>
-			   and a.crt_tim <![CDATA[>]]> #{startDate, jdbcType = TIMESTAMP}
-			   and a.crt_tim <![CDATA[<]]> #{endDate, jdbcType = TIMESTAMP}
+		<include refid="czdbzl_where"/>
 		<include refid="activetech.base.CommonSql.page_end" />
 	</select>
 
@@ -249,26 +255,7 @@
 		select count(1)
 		from hsp_dbzl_bas a
 		where a.PAT_TYP = '2'
-		  and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
-			 <if test="cstNam !=null and cstNam.length()>0">
-			   and a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
-			 </if>
-			 <if test="zd !=null and zd.length()>0">
-			   and exists (select 1
-			          from hsp_czzl_inf
-			         where hsp_czzl_inf.emg_no = a.emg_seq
-			           and hsp_czzl_inf.pro_code = 'CBZD'
-			           and hsp_czzl_inf.pro_val = #{zd, jdbcType = VARCHAR})
-			 </if>
-			 <if test="zdys !=null and zdys.length()>0">
-			   and exists (select 1
-			          from hsp_czzl_inf
-			         where hsp_czzl_inf.emg_no = a.emg_seq
-			           and hsp_czzl_inf.pro_code = 'ZDYS'
-			           and hsp_czzl_inf.pro_val like '%'||#{zdys, jdbcType = VARCHAR}||'%')
-			 </if>
-			   and a.crt_tim <![CDATA[>]]> #{startDate, jdbcType = TIMESTAMP}
-			   and a.crt_tim <![CDATA[<]]> #{endDate, jdbcType = TIMESTAMP}
+		<include refid="czdbzl_where"/>
 	</select>
   
   <select id="getCzhcbInfoByEmgseq" parameterType="java.lang.String"

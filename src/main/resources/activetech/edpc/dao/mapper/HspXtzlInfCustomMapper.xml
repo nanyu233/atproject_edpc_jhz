@@ -248,6 +248,11 @@
   </sql>
 
 	<sql id="xtdbzl_where">
+		<if test="hspDbzlBasCustom!=null ">
+		<if test="hspDbzlBasCustom.hspAra!=null and hspDbzlBasCustom.hspAra!=''.toString()">
+			and a.hsp_ara =#{hspDbzlBasCustom.hspAra,jdbcType=VARCHAR}
+		</if>
+		</if>
 		<if test="cstNam!=null and cstNam!=''">
 	   	and a.cst_nam like '%'||#{cstNam,jdbcType=VARCHAR}||'%'
 	 	</if>
@@ -369,7 +374,6 @@
 	select count(1)
 	  from hsp_dbzl_bas a
 	 where a.PAT_TYP = '1'
-	and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
 	 <include refid="xtdbzl_where"/>
   </select>
 
@@ -380,6 +384,7 @@
 		       a.emg_seq emgSeq,
 			   a.vst_cad vstCad,
 			   a.id_nbr idNbr,
+		       a.hsp_ara hspAra,
 			   a.cst_nam cstNam,
 			   a.cst_sex_cod cstSexCod,
 			   (case
@@ -406,7 +411,6 @@
 		       a.smt_sta smtSta
 		from hsp_dbzl_bas a
 		where a.PAT_TYP = '1'
-		and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
 		<include refid="xtdbzl_where"/>
 		<include refid="activetech.base.CommonSql.page_end"/>
 	</select>

@@ -449,16 +449,11 @@ public class XtServiceImpl implements XtService{
 	}
 
 	@Override
-	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows,ActiveUser activeUser){
+	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto){
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		if("1".equals(activeUser.getHospitalCategory())){
-			hspDbzlBasQueryDto.setHspAra("1");
-		}else {
-			hspDbzlBasQueryDto.setHspAra("2");
-		}
 		int total = hspXtzlInfCustomMapper.countXtPatientList(hspDbzlBasQueryDto);
 		PageQuery pageQuery = new PageQuery();
-		pageQuery.setPageParams(total, rows, page);
+		pageQuery.setPageParams(total, hspDbzlBasQueryDto.getRows(), hspDbzlBasQueryDto.getPage());
 		hspDbzlBasQueryDto.setPageQuery(pageQuery);
 		List<HspDbzlBasCustom> list = hspXtzlInfCustomMapper.getXtPatientList(hspDbzlBasQueryDto);
 		dataGridResultInfo.setRows(list);

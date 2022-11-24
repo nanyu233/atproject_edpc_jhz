@@ -477,11 +477,13 @@ public class XtAction {
 //		return dataGridResultInfo;
 //	}
 
-	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser,
-											   int page,//当前页码
-											   int rows//每页显示个数
+	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser
+
 	){
-		DataGridResultInfo dataGridResultInfo = xtService.getXtPatientList(hspDbzlBasQueryDto, page, rows,activeUser);
+		HspDbzlBasCustom hspDbzlBasCustom=new HspDbzlBasCustom();
+		hspDbzlBasCustom.setHspAra(activeUser.getHospitalCategory());
+		hspDbzlBasQueryDto.setHspDbzlBasCustom(hspDbzlBasCustom);
+		DataGridResultInfo dataGridResultInfo = xtService.getXtPatientList(hspDbzlBasQueryDto);
 		return dataGridResultInfo;
 	}
 	/**

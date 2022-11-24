@@ -3,12 +3,16 @@
 <mapper namespace="activetech.edpc.dao.mapper.HspDbzlBasMapperCustom">
     <sql id="condition">
         <if test="hspDbzlBasCustom!=null">
+            <if test="hspDbzlBasCustom.hspAra!=null and hspDbzlBasCustom.hspAra!=''.toString()">
+                and a.hsp_ara =#{hspDbzlBasCustom.hspAra,jdbcType=VARCHAR}
+            </if>
             <if test="hspDbzlBasCustom.regSeq != null and hspDbzlBasCustom.regSeq != ''.toString() ">
                 and (a.reg_seq like '%' || #{hspDbzlBasCustom.regSeq,jdbcType=VARCHAR} || '%'
                 or a.cst_nam like '%' || #{hspDbzlBasCustom.regSeq,jdbcType=VARCHAR} || '%'
                 or a.phe_nbr like '%' || #{hspDbzlBasCustom.regSeq,jdbcType=VARCHAR} || '%'
                 or a.id_nbr like '%' || #{hspDbzlBasCustom.regSeq,jdbcType=VARCHAR} || '%')
             </if>
+
         </if>
     </sql>
     <update id="updateHspDbzlBasByRegSeq" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto">
@@ -85,7 +89,6 @@
         FROM hsp_dbzl_bas a
         where
         a.pat_typ = #{patTyp,jdbcType = VARCHAR}
-        and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
         and
         not exists ( select 1 FROM hsp_fuv_pat where pat_id = a.reg_seq)
         <include refid="condition"/>

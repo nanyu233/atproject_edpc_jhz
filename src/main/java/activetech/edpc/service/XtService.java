@@ -44,7 +44,7 @@ public interface XtService {
 	 * @param rows
 	 * @return
 	 */
-	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto, int page, int rows,ActiveUser activeUser);
+	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 
 	/**
 	 * 查询新增院内发病患者

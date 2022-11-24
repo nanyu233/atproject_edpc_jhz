@@ -219,13 +219,15 @@ public class CzAction {
 	 */
 	@RequestMapping("/getCzPatientList")
 	@ResponseBody
-	public DataGridResultInfo getCzPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser,
-											   int page,//当前页码
-											   int rows//每页显示个数
+	public DataGridResultInfo getCzPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser
+
 	){
 		Date enddate = DateUtil.getDateAdd(hspDbzlBasQueryDto.getEndDate(), 24);
 		hspDbzlBasQueryDto.setEndDate(enddate);
-		DataGridResultInfo dataGridResultInfo = czService.getCzPatientList(hspDbzlBasQueryDto,page,rows,activeUser);
+		HspDbzlBasCustom hspDbzlBasCustom=new HspDbzlBasCustom();
+		hspDbzlBasCustom.setHspAra(activeUser.getHospitalCategory());
+		hspDbzlBasQueryDto.setHspDbzlBasCustom(hspDbzlBasCustom);
+		DataGridResultInfo dataGridResultInfo = czService.getCzPatientList(hspDbzlBasQueryDto);
 		return dataGridResultInfo;
 	}
 	
