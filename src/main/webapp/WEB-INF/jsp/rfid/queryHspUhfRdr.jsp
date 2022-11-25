@@ -102,7 +102,17 @@
           }, {
             align: 'left',
             field: 'mtrTyp',
-            title: '监测点类型'
+            title: '监测点类型',
+            formatter: function (value, row, index) {
+               if (value != null && value.length === 3) {//slice*/
+                 return (value.slice(0,1)==="1"?"胸痛":"")
+                        + (value.slice(1,2)==="1"?"卒中":"")
+                        + (value.slice(2,3)==="1"?"创伤":"")
+
+               } else {
+                 return "";
+               }
+            }
           }, {
             align: 'left',
             field: 'mtrCod',
