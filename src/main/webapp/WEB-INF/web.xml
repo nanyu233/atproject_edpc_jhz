@@ -42,6 +42,11 @@
     <servlet-name>springmvc</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  <!-- / 是为了开放 swagger 接口，或者一个个匹配加上也可以 -->
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
   <filter>
     <filter-name>springSessionRepositoryFilter</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

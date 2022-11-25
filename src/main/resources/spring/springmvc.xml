@@ -11,16 +11,20 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
-
+    <mvc:default-servlet-handler />
+    <!--向容器自动注入配置-->
+    <context:annotation-config />
 	<!-- 组件扫描 扫描所有标记@Controller类，由于使用自动扫描所以action类不用在spring配置文件中配置 -->
-    <context:component-scan base-package="activetech.**.action,activetech.websocket.task"/>
+    <context:component-scan base-package="activetech.**.action,activetech.websocket.task,
+    activetech.base.config"/>
 
 	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 
 	<!-- 定时器开关 -->
 	<task:annotation-driven/>
 
-
+    <!--SwaggerConfig配置类注入-->
+    <bean class="activetech.base.config.SwaggerConfig"/>
 	<!-- AOP -->
 	<bean class="activetech.base.aop.ActiveAspect"/>
 	<bean class="activetech.base.aop.DataSourceAspect"/>
@@ -123,22 +127,56 @@
 			<value>5242880</value>
 		</property>
 	</bean>
+    <!--  swagger web xml 里的 servlet-mapping url-pattern  必须为/ 切要交给 DispatcherServlet 处理
+     为了放行静态资源，每个过滤器都必须排除 swagger 的资源和 项目静态资源 -->
     <!-- 拦截器 -->
     <mvc:interceptors>
-		<!-- 多个拦截器,顺序执行 -->
+        <!-- 多个拦截器,顺序执行 -->
         <!-- 用户身份校验的拦截器 -->
         <mvc:interceptor>
-			<mvc:mapping path="/**"/>
-			<bean class="activetech.base.filter.LoginInterceptor"></bean>
-		</mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!--   放行 swagger2 资源  -->
+            <mvc:exclude-mapping path="/swagger-resources/**"/>
+            <mvc:exclude-mapping path="/webjars/**"/>
+            <mvc:exclude-mapping path="/v2/**"/>
+            <mvc:exclude-mapping path="/api/**"/>
+            <mvc:exclude-mapping path="/doc.html/**"/>
+            <mvc:exclude-mapping path="/swagger-ui/**"/>
+            <mvc:exclude-mapping path="/swagger-ui.html/**"/>
+            <!--  放行项目里的静态资源     -->
+            <mvc:exclude-mapping path="/ateditor/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/images/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/lib/**"/>
+            <mvc:exclude-mapping path="/Lodop6.216/**"/>
+            <mvc:exclude-mapping path="/template/**"/>
+            <bean class="activetech.base.filter.LoginInterceptor"/>
+        </mvc:interceptor>
         <!-- 用户权限拦截器-->
         <mvc:interceptor>
-			<mvc:mapping path="/**"/>
-			<bean class="activetech.base.filter.PermissionInterceptor"></bean>
-		</mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!--           放行 swagger2 资源  -->
+            <mvc:exclude-mapping path="/swagger-resources/**"/>
+            <mvc:exclude-mapping path="/webjars/**"/>
+            <mvc:exclude-mapping path="/v2/**"/>
+            <mvc:exclude-mapping path="/api/**"/>
+            <mvc:exclude-mapping path="/doc.html/**"/>
+            <mvc:exclude-mapping path="/swagger-ui/**"/>
+            <mvc:exclude-mapping path="/swagger-ui.html/**"/>
+            <!--  放行项目里的静态资源     -->
+            <mvc:exclude-mapping path="/ateditor/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/images/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/lib/**"/>
+            <mvc:exclude-mapping path="/Lodop6.216/**"/>
+            <mvc:exclude-mapping path="/template/**"/>
+            <bean class="activetech.base.filter.PermissionInterceptor"/>
+        </mvc:interceptor>
         <!-- <mvc:interceptor>
             <mvc:mapping path="/**" />
             <bean class="activetech.base.filter.FormTokenInterceptor"></bean>
         </mvc:interceptor> -->
-	</mvc:interceptors>
+    </mvc:interceptors>
 </beans>

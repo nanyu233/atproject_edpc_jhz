@@ -19,6 +19,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <swaggerVersion>2.9.2</swaggerVersion>
+        <knife4jVersion>2.0.9</knife4jVersion>
     </properties>
 
     <dependencies>
@@ -144,6 +146,13 @@
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
             <version>7.1.4</version>
+            <!--与 atutil 和 swagger2 依赖冲突       -->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-annotations</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--	  rabbitmq START -->
         <dependency>
@@ -171,12 +180,54 @@
             <artifactId>quartz</artifactId>
             <version>2.3.2</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>junit</groupId>-->
-<!--            <artifactId>junit</artifactId>-->
-<!--            <version>4.13.2</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <!--  不要放在下面，会有一推依赖冲突 version 2.9.2  -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swaggerVersion}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.checkerframework</groupId>
+                    <artifactId>checker-qual</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-annotations</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 原生 可以去掉用美化的 ui IP:PORT/projectName/swagger-ui.html -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swaggerVersion}</version>
+        </dependency>
+        <!--  美化 ui IP:PORT/projectName/doc.html -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-ui</artifactId>
+            <version>${knife4jVersion}</version>
+        </dependency>
 
     </dependencies>
 
