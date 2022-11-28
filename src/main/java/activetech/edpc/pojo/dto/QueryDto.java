@@ -13,7 +13,18 @@ public class QueryDto  extends PageCond {
 	//hspDbzlBas- 主键
 	private String regSeq;
 
+	//院区 1三墩 2灵隐
+
+	private String hspAra;
 	private PageQuery pageQuery;
+
+	public String getHspAra() {
+		return hspAra;
+	}
+
+	public void setHspAra(String hspAra) {
+		this.hspAra = hspAra;
+	}
 
 	public PageQuery getPageQuery() {
 		return pageQuery;

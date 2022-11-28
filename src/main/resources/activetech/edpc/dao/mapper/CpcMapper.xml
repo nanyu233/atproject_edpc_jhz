@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="activetech.edpc.dao.mapper.CpcMapper" >
-  
+	<sql id="condition">
+		<where>
+			<if test="hspAra!=null and hspAra!=''.toString()">
+				and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
+			</if>
+			<if test="patTyp != null and patTyp.length()>0">
+				and a.pat_typ = #{patTyp,jdbcType = VARCHAR}
+			</if>
+			<if test="cstNam !=null and cstNam.length()>0">
+				and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
+				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+				)
+			</if>
+			<if test="bhls == false ">
+				and a.crt_tim >= sysdate - 1
+			</if>
+		</where>
+		order by reg_tim desc nulls last
+	</sql>
   	<select id="getCpcPatientInfoList" resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom"
   		parameterType="activetech.edpc.pojo.dto.QueryDto">
        <include refid="activetech.base.CommonSql.page_start"/>
@@ -18,6 +36,7 @@
 			a.cst_age_cod,
 			a.id_nbr,
 			a.phe_nbr,
+			a.hsp_ara,
 			(select pro_val
 			FROM hsp_xtzl_inf
 			WHERE emg_no = a.emg_seq
@@ -39,20 +58,7 @@
 			WHERE emg_no = a.emg_seq
 			and pro_code = 'XINL') xinl
 		from hsp_dbzl_bas a
-		<where>
-			<if test="patTyp != null and patTyp.length()>0">
-				and a.pat_typ = #{patTyp,jdbcType = VARCHAR}
-			</if>
-			<if test="cstNam !=null and cstNam.length()>0">
-				and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
-				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
-				)
-			</if>
-			<if test="bhls == false ">
-				and a.crt_tim >= sysdate - 1
-			</if>
-		</where>
-		order by reg_tim desc nulls last
+		<include refid="condition"/>
       <include refid="activetech.base.CommonSql.page_end"/>
   	</select>
   	
@@ -167,20 +173,7 @@
 	<select id="getCpcPatientInfoListCount" parameterType="activetech.edpc.pojo.dto.QueryDto"
 			resultType="int">
 		select count(*) from hsp_dbzl_bas a
-		<where>
-			<if test="patTyp != null and patTyp.length()>0">
-				and a.pat_typ = #{patTyp,jdbcType = VARCHAR}
-			</if>
-			<if test="cstNam !=null and cstNam.length()>0">
-				and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
-				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
-				)
-			</if>
-			<if test="bhls == false ">
-				and a.crt_tim >= sysdate - 1
-			</if>
-		</where>
-		order by reg_tim desc nulls last
+		<include refid="condition"/>
 	</select>
 
 

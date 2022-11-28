@@ -27,6 +27,16 @@
 			and a.crt_tim <![CDATA[>]]> #{startDate, jdbcType = TIMESTAMP}
 			and a.crt_tim <![CDATA[<]]> #{endDate, jdbcType = TIMESTAMP}
 		</sql>
+		<sql id="czCondition">
+			<if test="hspAra!=null and hspAra!=''.toString()">
+				and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
+			</if>
+			<if test="cstNam !=null and cstNam.length()>0">
+				and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
+				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+				)
+			</if>
+		</sql>
   		 <update id="mergeHspCzzlInf" parameterType="activetech.edpc.pojo.domain.HspCzzlInf">
 				merge into hsp_czzl_inf a
 				using (select #{emgNo, jdbcType = VARCHAR} emg_no,
@@ -293,6 +303,7 @@
 		   a.cst_nam,
 		   a.cst_age,
 		   a.cst_sex_cod,
+			a.hsp_ara,
 		   (select pro_val FROM hsp_czzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XUEYANG') xueyang,
 		   (select pro_val FROM hsp_czzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XUEY') xuey,
 		   (select pro_val FROM hsp_czzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XINL') xinl,
@@ -303,14 +314,10 @@
 		   (select bed_num from hsp_bed_inf where emg_seq = a.emg_seq) bed_num
 		  from HSP_DBZL_BAS a
 		where a.pat_typ = '2'
-			<if test="cstNam !=null and cstNam.length()>0">
-				and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
-					or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
-				)
-			</if>
 			<if test = "bhls == false ">
 				and a.reg_tim >= sysdate - 1
 			</if>
+		<include refid="czCondition"/>
 	   order by reg_tim desc
      <include refid="activetech.base.CommonSql.page_end"/>
 	</select>
@@ -319,14 +326,10 @@
 			resultType="int">
 		select count(*) from hsp_dbzl_bas a
             where a.pat_typ = '2'
-			<if test="cstNam !=null and cstNam.length()>0">
-				and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
-				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
-				)
-			</if>
 			<if test="bhls == false ">
 				and a.crt_tim >= sysdate - 1
 			</if>
+		<include refid="czCondition"/>
 		order by reg_tim desc nulls last
 	</select>
 </mapper>

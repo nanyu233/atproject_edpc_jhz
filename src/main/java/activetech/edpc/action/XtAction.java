@@ -202,8 +202,9 @@ public class XtAction {
 	 */
 	@RequestMapping("/getCpcPatientListInfo")
 	@ResponseBody
-	public DataGridResultInfo getCpcPatientListInfo(QueryDto queryDto){
+	public DataGridResultInfo getCpcPatientListInfo(QueryDto queryDto,ActiveUser activeUser){
 
+		queryDto.setHspAra(activeUser.getHospitalCategory());
 		int total = xtService.getCpcPatientInfoListCount(queryDto);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, queryDto.getRows(), queryDto.getPage());

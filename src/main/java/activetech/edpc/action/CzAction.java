@@ -159,8 +159,9 @@ public class CzAction {
 	 */
 	@RequestMapping("/getCzPatientInfoList")
 	@ResponseBody
-	public DataGridResultInfo getCzPatientListInfo(QueryDto queryDto){
+	public DataGridResultInfo getCzPatientListInfo(QueryDto queryDto,ActiveUser activeUser){
 
+		queryDto.setHspAra(activeUser.getHospitalCategory());
 		int total = czService.getCzPatientInfoListCount(queryDto);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, queryDto.getRows(), queryDto.getPage());
