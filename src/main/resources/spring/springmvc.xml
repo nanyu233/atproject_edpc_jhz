@@ -13,18 +13,18 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
     <mvc:default-servlet-handler />
     <!--向容器自动注入配置-->
-    <context:annotation-config />
+<!--    <context:annotation-config />-->
+<!--    <context:property-placeholder location="classpath:appConfig-dev.properties" />-->
 	<!-- 组件扫描 扫描所有标记@Controller类，由于使用自动扫描所以action类不用在spring配置文件中配置 -->
-    <context:component-scan base-package="activetech.**.action,activetech.websocket.task,
-    activetech.base.config"/>
+    <context:component-scan base-package="activetech.**.action,activetech.websocket.task"/>
 
 	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 
 	<!-- 定时器开关 -->
 	<task:annotation-driven/>
 
-    <!--SwaggerConfig配置类注入-->
-    <bean class="activetech.base.config.SwaggerConfig"/>
+<!--    &lt;!&ndash;SwaggerConfig配置类注入&ndash;&gt;-->
+<!--    <bean class="activetech.base.config.SwaggerConfig"/>-->
 	<!-- AOP -->
 	<bean class="activetech.base.aop.ActiveAspect"/>
 	<bean class="activetech.base.aop.DataSourceAspect"/>

@@ -1,6 +1,8 @@
 package activetech.base.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -37,21 +39,31 @@ import static springfox.documentation.spring.web.paths.Paths.removeAdjacentForwa
  * apis(Predicates.or(RequestHandlerSelectors.withClassAnnotation(RestController.class)
  * ,RequestHandlerSelectors.withClassAnnotation(Controller.class)))
  *
- *
  * @author chenys
  * @date 2022/11/25 13:29
  */
-
+@ComponentScan("activetech.**.action")
 @EnableSwagger2
 @Configuration
+//@PropertySource("classpath:appConfig-dev.properties")
 @EnableWebMvc
+@SuppressWarnings("all")
 public class SwaggerConfig {
     @Resource
     private ServletContext servletContext;
+    //是否启用
+    private static Boolean enable;
+    private static final String TRUE = "true";
+
+    @Value("${swagger.enable:}")
+    public void setSwaggerEnable(String swaggerEnable) {
+        enable = TRUE.equals(swaggerEnable);
+    }
 
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .enable(enable)
 //                .pathMapping("/")
                 .useDefaultResponseMessages(false)
                 .pathProvider(new CuRelativePathProvide(servletContext))
@@ -72,6 +84,18 @@ public class SwaggerConfig {
                                 .build()
                 );
     }
+
+//    /**
+//     * spring mvc 容器没有 PropertySourcesPlaceholderConfigurer 需要注入一个新的配置管理
+//     * value注解 配合 PropertySource 注解才能取到配置文件的值
+//     *
+//     * @author chenys
+//     * @date 2022/11/28 14:58
+//     */
+//    @Bean
+//    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+//        return new PropertySourcesPlaceholderConfigurer();
+//    }
 
     /**
      * 继承 AbstractPathProvider 接口  来 替换 RelativePathProvider
@@ -95,7 +119,7 @@ public class SwaggerConfig {
 
         @Override
         protected String applicationPath() {
-           return isNullOrEmpty(servletContext.getContextPath()) ? ROOT : servletContext.getContextPath();
+            return isNullOrEmpty(servletContext.getContextPath()) ? ROOT : servletContext.getContextPath();
         }
 
         @Override
