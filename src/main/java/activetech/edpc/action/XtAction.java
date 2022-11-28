@@ -844,4 +844,10 @@ public class XtAction {
 		return View.toEDPC("/cpc/chkConfirm");
 	}
 
+	@RequestMapping("/reportSubmit")
+	public @ResponseBody SubmitResultInfo reportSubmit(@RequestBody HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
+		ResultInfo resultInfo = xtService.reportSubmit(hspDbzlBasCustom, activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
 }

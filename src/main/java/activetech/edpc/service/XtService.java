@@ -142,11 +142,20 @@ public interface XtService {
 	List<HspDbzlBasCustom> getCpcPatientInfoListByPage(QueryDto queryDto);
 
 	/**
-	 * 提交审核申请
+	 * 审核提交(申请, 审核，驳回)
 	 * @param hspDbzlBasCustom hspDbzlBasCustom
 	 * @param activeUser activeUser
 	 * @return return
 	 * @throws Exception Exception
 	 */
 	ResultInfo reviewSubmit(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception;
+
+	/**
+	 * 上报
+	 * @param hspDbzlBasCustom hspDbzlBasCustom
+	 * @param activeUser activeUser
+	 * @return return
+	 * @throws Exception Exception
+	 */
+	ResultInfo reportSubmit(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception;
 }

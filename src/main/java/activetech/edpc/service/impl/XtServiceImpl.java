@@ -1667,4 +1667,11 @@ public class XtServiceImpl implements XtService{
 		return resultInfo;
 	}
 
+	@Override
+	public ResultInfo reportSubmit(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
+		hspDbzlBasMapper.updateByPrimaryKeySelective(hspDbzlBasCustom);
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		return resultInfo;
+	}
+
 }
