@@ -127,6 +127,22 @@
            or a.emg_seq = #{emgSeq,jdbcType=VARCHAR}
     </select>
 
+    <update id="reviewSubmitBySeqArr">
+        update hsp_dbzl_bas set
+               rcd_sta = #{hspDbzlBasCustom.rcdSta, jdbcType = VARCHAR },
+               chk_tim = #{hspDbzlBasCustom.chkTim, jdbcType = TIMESTAMP },
+               chk_no = #{hspDbzlBasCustom.chkNo, jdbcType = VARCHAR },
+               chk_nam = #{hspDbzlBasCustom.chkNam, jdbcType = VARCHAR },
+               chk_msg = #{hspDbzlBasCustom.chkMsg, jdbcType = VARCHAR },
+               mod_tim = sysdate,
+               mod_no = #{hspDbzlBasCustom.modNo, jdbcType = VARCHAR },
+               mod_nam = #{hspDbzlBasCustom.modNam, jdbcType = VARCHAR }
+         where reg_seq in
+         <foreach collection="seqArr" item="regSeq" open="(" index="idx" close=")" separator="," >
+             #{regSeq, jdbcType = VARCHAR }
+         </foreach>
+    </update>
+
 <!--    <insert id="addNewPatient" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto">-->
 <!--        insert -->
 <!--    </insert>-->

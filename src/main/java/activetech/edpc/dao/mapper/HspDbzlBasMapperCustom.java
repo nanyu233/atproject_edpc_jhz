@@ -3,6 +3,7 @@ package activetech.edpc.dao.mapper;
 import activetech.edpc.pojo.domain.HspDbzlBas;
 import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ public interface HspDbzlBasMapperCustom {
     public HspDbzlBas selectByPrimaryByEmgSeq(String emgNo);
 
     public HspDbzlBasCustom selectByEmgSeq(String emgSeq);
+
+    void reviewSubmitBySeqArr(@Param(value = "hspDbzlBasCustom") HspDbzlBasCustom hspDbzlBasCustom, @Param(value = "seqArr") String[] seqArr) throws Exception;
 
 //    public int addNewPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 }

@@ -408,7 +408,12 @@
 			   a.way_typ wayTyp,
 		       a.crt_tim crtTim,
 		       a.smt_seq smtSeq,
-		       a.smt_sta smtSta
+		       a.smt_sta smtSta,
+		       nvl(a.rcd_sta, '1') rcd_sta,
+		       a.chk_tim,
+		       a.chk_no,
+		       a.chk_nam,
+		       a.chk_msg
 		from hsp_dbzl_bas a
 		where a.PAT_TYP = '1'
 		<include refid="xtdbzl_where"/>

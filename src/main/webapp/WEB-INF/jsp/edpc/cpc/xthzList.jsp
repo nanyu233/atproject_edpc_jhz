@@ -148,6 +148,7 @@
 
 <div class="form">
     <div class="row">
+        <div class="search-btn" onclick="batchChkConf()" style="right: 310px">批量复核</div>
         <div class="search-btn" onclick="search()">查询</div>
         <div class="add-btn" onclick="addNewPatient()">新增患者</div>
     </div>
@@ -313,6 +314,54 @@
         }
     }
 
+    /**
+     * 提交审核
+     */
+    function reviewApply(regSeq, rcdSta) {
+        _confirm('确认提交审核？', null, function() {
+            var requestData = {
+                'regSeq': regSeq,
+                'rcdSta': "2"
+            };
+            publicFun.httpRequest(
+                '${baseurl}cpc/reviewSubmit.do',
+                requestData,
+                {
+                    'ajaxType': 'post',
+                    'requestType': 'json'
+                },
+                function (res) {
+                    if (res.resultInfo.success){
+                        search();
+                    }
+                }
+            )
+        });
+    }
+    //审核页面用
+    var chkRegSeqArr;
+    function chkConfirm(regSeq, rcdSta) {
+        chkRegSeqArr = [regSeq];
+        if(chkRegSeqArr.length > 0) {
+            createmodalwindow("审核确认", 430, 300, '${baseurl}cpc/toChkConfirm.do?', 'no');
+        }
+    }
+
+    function batchChkConf() {
+        chkRegSeqArr = [];
+        var chkRows = $('#dg').datagrid("getChecked");
+        chkRows.forEach(function(chkRow){
+            if(chkRow.rcdSta === '2'){
+                chkRegSeqArr.push(chkRow.regSeq);
+            }
+        })
+        if(chkRegSeqArr.length > 0) {
+            createmodalwindow("审核确认", 430, 300, '${baseurl}cpc/toChkConfirm.do', 'no');
+        } else {
+            alert_warn("不存在需要审核记录！")
+        }
+    }
+
     $(function () {
 		if(vm.advSearch==false){
 			h3 = height-56;
@@ -331,11 +380,16 @@
                 'endDate': vm.condition.endDate
             },
             striped: true,
-            singleSelect: true,
+            singleSelect: false,
             pagination: true,
             rownumbers: true,
             pageList: [20, 30, 50],
             columns: [ [
+                {
+                    field: "regSeq",
+                    title:"",
+                    checkbox: true
+                },
                 {
                     field : 'smtSeq',
                     title : '填报编号',
@@ -403,6 +457,43 @@
 					}
 				},
                 {
+                    field : 'rcdSta',
+                    title : '审核状态',
+                    width : setWidth(0.03),
+                    formatter : function(value, row, index) {
+                        if (value == 1) {
+                            return '记录中'
+                        } else if (value == 2) {
+                            return '审核中'
+                        } else if (value == 3) {
+                            return '被驳回'
+                        } else if (value == 4) {
+                            return '已审核'
+                        }
+                    }
+                },
+                {
+                    field : 'chkTim',
+                    title : '审核时间',
+                    width : setWidth(0.07),
+                    formatter : function(value, row, index) {
+                        if(value) {
+                            return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+                        }
+                        return "";
+                    }
+                },
+                {
+                    field : 'chkNam',
+                    title : '审核人',
+                    width : setWidth(0.03)
+                },
+                {
+                    field : 'chkMsg',
+                    title : '审核意见',
+                    width : setWidth(0.03)
+                },
+                {
                     field : 'smtSta',
                     title : '状态',
                     width : setWidth(0.05),
@@ -438,9 +529,13 @@
 					title : '操作',
 					width : setWidth(0.14),
 					formatter : function(value, row, index) {
-                        console.log('row', row);
                         var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">查看</span>' +
 						'<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>';
+                        if("1" == row.rcdSta || "3" == row.rcdSta) {
+                            _html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
+                        } else if("2" == row.rcdSta) {
+                            _html += '<span class="btn detail" onclick="chkConfirm(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">审核</span>'
+                        }
 							// var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\')">查看</span>' +
 							// 	'<span class="btn del" onclick="delPatient(\'' + row.emgSeq + '\')">删除</span>';
 						return _html

@@ -12,7 +12,7 @@ import org.checkerframework.checker.units.qual.A;
 import java.util.List;
 
 public interface XtService {
-	
+
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto);
 	
 	public ResultInfo getCpcPatientRouteInfoByEmgSeq(String emgSeq);
@@ -140,4 +140,13 @@ public interface XtService {
 	int getCpcPatientInfoListCount(QueryDto queryDto);
 
 	List<HspDbzlBasCustom> getCpcPatientInfoListByPage(QueryDto queryDto);
+
+	/**
+	 * 提交审核申请
+	 * @param hspDbzlBasCustom hspDbzlBasCustom
+	 * @param activeUser activeUser
+	 * @return return
+	 * @throws Exception Exception
+	 */
+	ResultInfo reviewSubmit(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception;
 }

@@ -1640,4 +1640,31 @@ public class XtServiceImpl implements XtService{
 		return cpcMapper.getCpcPatientInfoList(queryDto);
 	}
 
+	/**
+	 * 提交审核申请
+	 * @param hspDbzlBasCustom hspDbzlBasCustom
+	 * @param activeUser activeUser
+	 * @return return
+	 * @throws Exception Exception
+	 */
+	@Override
+	public ResultInfo reviewSubmit(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
+		String regSeq = hspDbzlBasCustom.getRegSeq();
+		String[] split = regSeq.split(",");
+		hspDbzlBasCustom.setModNo(activeUser.getUsrno());
+		hspDbzlBasCustom.setModNam(activeUser.getUsrname());
+		if("2".equals(hspDbzlBasCustom.getRcdSta())) {
+			hspDbzlBasCustom.setChkTim(null);
+			hspDbzlBasCustom.setChkNo("");
+			hspDbzlBasCustom.setChkNam("");
+		} else {
+			hspDbzlBasCustom.setChkTim(new Date());
+			hspDbzlBasCustom.setChkNo(activeUser.getUsrno());
+			hspDbzlBasCustom.setChkNam(activeUser.getUsrname());
+		}
+		hspDbzlBasMapperCustom.reviewSubmitBySeqArr(hspDbzlBasCustom, split);
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		return resultInfo;
+	}
+
 }
