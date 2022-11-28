@@ -42,10 +42,15 @@
     <servlet-name>springmvc</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
-  <!-- / 是为了开放 swagger 接口，或者一个个匹配加上也可以 -->
+  <!--  swagger 注入 -->
   <servlet-mapping>
     <servlet-name>springmvc</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>/swagger-resources</url-pattern>
+    <url-pattern>/api-docs</url-pattern>
+    <url-pattern>/v2/api-docs</url-pattern>
+    <url-pattern>/swagger-resources/configuration/ui</url-pattern>
+    <url-pattern>/swagger-resources/configuration/security</url-pattern>
+    <url-pattern>/csrf</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>springSessionRepositoryFilter</filter-name>
