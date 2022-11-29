@@ -3739,4 +3739,168 @@ public class EDPCReportAction {
 						webpath//下载地址
 				}));
 	}
+	/**
+	 * 胸痛质控
+	 */
+
+	/**
+	 *所有急诊PCI的STEMI患者的死亡率
+	 */
+	@RequestMapping("/toStemiHzswl")
+	public String toStemiHzswl(Model model) throws Exception {
+		return "/edpc/report/xtReport/stemiHzswl";
+	}
+	/**
+	 *FMC2ECG时间分布
+	 */
+	@RequestMapping("/toFmc2ecgsj")
+	public String toFmc2ecgsj(Model model) throws Exception {
+		return "/edpc/report/xtReport/fmc2ecgsj";
+	}
+	/**
+	 *全部ACS患者，心力衰竭患者数
+	 */
+	@RequestMapping("/toAschzxlsj")
+	public String toAschzxlsj(Model model) throws Exception {
+		return "/edpc/report/xtReport/aschzxlsj";
+	}
+	/**
+	 *溶栓治疗STEMI患者，到达本院大门时间到溶栓开始时间
+	 */
+	@RequestMapping("/toStemiJyydmdrs")
+	public String toStemiJyydmdrs(Model model) throws Exception {
+		return "/edpc/report/xtReport/stemiJyydmdrs";
+	}
+	/**
+	 *溶栓治疗STEMI患者，转出医院入门时间到溶栓开始时间
+	 */
+	@RequestMapping("toStemiCyydmdrs")
+	public String toStemiCyydmdrs(Model model) throws Exception {
+		return "/edpc/report/xtReport/stemiCyydmdrs";
+	}
+	/**
+	 *D2N时间分布
+	 */
+	@RequestMapping("/toD2N")
+	public String toD2N(Model model) throws Exception {
+		return "/edpc/report/xtReport/D2N";
+	}
+	/**
+	 *D2B时间分布
+	 */
+	@RequestMapping("/toD2B")
+	public String toD2B(Model model) throws Exception {
+		return "/edpc/report/xtReport/D2B";
+	}
+	/**
+	 *FMC2B时间分布
+	 */
+	@RequestMapping("/toFmc2B")
+	public String toFmc2B(Model model) throws Exception {
+		return "/edpc/report/xtReport/Fmc2B";
+	}
+
+	/**
+	 * 卒中质控
+	 */
+
+	/**
+	 *卒中绿道患者查询统计：卒中绿道患者信息查询和导出
+	 */
+	@RequestMapping("/toCzlstdhz")
+	public String toCzlstdhz(Model model) throws Exception {
+		return "/edpc/report/czReport/czlstdhz";
+	}
+	/**
+	 *缺血性卒中患者在溶栓时间窗内接受静脉溶栓患者的比例
+	 */
+	@RequestMapping("/toRssjnjsJmrs")
+	public String toRssjnjsjmrs(Model model) throws Exception {
+		return "/edpc/report/czReport/rssjnjsJmrs";
+	}
+	/**
+	 *在抵达医院 60 分钟内，急性缺血性卒中患者接受静脉溶栓患者的比例
+	 */
+	@RequestMapping("/toQthzjsJmrs")
+	public String toQthzjsJmrs(Model model) throws Exception {
+		return "/edpc/report/czReport/qthzjsJmrs";
+	}
+	/**
+	 *SAH、ICH、AVM 患者入院时病情严重程度评估率
+	 */
+	@RequestMapping("/toSahIchAvm")
+	public String toSahIchAvm(Model model) throws Exception {
+		return "/edpc/report/czReport/sahIchAvm";
+	}
+	/**
+	 *卒中患者行去骨瓣减压、血肿清除术的比例及死亡率
+	 */
+	@RequestMapping("/toGbjyXzqcs")
+	public String toGbjyXzqcs(Model model) throws Exception {
+		return "/edpc/report/czReport/gbjyXzqcs";
+	}
+	/**
+	 *卒中患者行脑室外引流的比例及死亡率
+	 */
+	@RequestMapping("/toNswyl")
+	public String toNswyl(Model model) throws Exception {
+		return "/edpc/report/czReport/nswyl";
+	}
+	/**
+	 *患者从入院到给予促凝血治疗后 INR 达标的平均时间（INR 升高（INR＞1.4）
+	 */
+	@RequestMapping("/toInravgtime")
+	public String toInravgtime(Model model) throws Exception {
+		return "/edpc/report/czReport/inravgtime";
+	}
+	/**
+	 *脑出血手术患者住院死亡率
+	 */
+	@RequestMapping("/toNcxhzzyswl")
+	public String toNcxhzzyswl(Model model) throws Exception {
+		return "/edpc/report/czReport/ncxhzzyswl";
+	}
+	/**
+	 *脑出血手术并发症发生率
+	 */
+	@RequestMapping("/toNcxbfzfsl")
+	public String toNcxbfzfsl(Model model) throws Exception {
+		return "/edpc/report/czReport/ncxbfzfsl";
+	}
+	/**
+	 *所有动脉瘤手术并发症发生率
+	 */
+	@RequestMapping("/toDmlbfzfsl")
+	public String toDmlbfzfsl(Model model) throws Exception {
+		return "/edpc/report/czReport/dmlbfzfsl";
+	}
+	/**
+	 *所有动脉瘤手术患者住院死亡率
+	 */
+	@RequestMapping("/toDmlzyswl")
+	public String toDmlzyswl(Model model) throws Exception {
+		return "/edpc/report/czReport/dmlzyswl";
+	}
+	/**
+	 *CEA手术并发症发生率
+	 */
+	@RequestMapping("/toCeabfzfsl")
+	public String toCeabfzfsl(Model model) throws Exception {
+		return "/edpc/report/czReport/ceabfzfsl";
+	}
+	/**
+	 *CAS手术并发症发生率
+	 */
+	@RequestMapping("/toCasbfzfsl")
+	public String toCasbfzfsl(Model model) throws Exception {
+		return "/edpc/report/czReport/casbfzfsl";
+	}
+	/**
+	 *患者时间以及来院方式分布
+	 */
+	@RequestMapping("/toCzhzsjlyfs")
+	public String toCzhzsjlyfs(Model model) throws Exception {
+		return "/edpc/report/czReport/czhzsjlyfs";
+	}
+
 }
