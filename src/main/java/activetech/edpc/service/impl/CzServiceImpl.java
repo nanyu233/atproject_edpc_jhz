@@ -349,7 +349,7 @@ public class CzServiceImpl implements CzService{
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> sysdata = new HashMap<>();
 		//获取患者基本信息
-		HspDbzlBas hspDbzlBas= hspDbzlBasMapperCustom.selectByPrimaryByEmgSeq(emgSeq);
+		HspDbzlBas hspDbzlBas = hspDbzlBasMapperCustom.selectByPrimaryByEmgSeq(emgSeq);
 		sysdata.put("hspDbzlBas", hspDbzlBas);
 
 		//获取卒中诊疗表信息

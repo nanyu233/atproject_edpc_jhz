@@ -16,9 +16,6 @@ public interface XtService {
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto);
 	
 	public ResultInfo getCpcPatientRouteInfoByEmgSeq(String emgSeq);
-	
-	 
-	
 	/**
 	 * 走统一的接口获取节点上的信息
 	 * @param emgSeq
@@ -26,29 +23,24 @@ public interface XtService {
 	 * @return
 	 */
 	public ResultInfo getNodeInfoByEmgSeq(String emgSeq,String nodeId);
-	// TODO 废弃待删除
-//	public ResultInfo getCpcTimeline(String emgSeq);
-	
+
 	/**
 	 * 根据busStep,emgNo获取数据
-	 * @param busStep
-	 * @param emgNo
+	 * @param xtHspEmgInfQueryDto xtHspEmgInfQueryDto
 	 * @return
 	 */
 	public ResultInfo findXtPatientWithCod(XtHspEmgInfQueryDto xtHspEmgInfQueryDto);
 
 	/**
 	 * 查询hspDbzlBas的胸痛患者列表
-	 * @param hspDbzlBasQueryDto
-	 * @param page
-	 * @param rows
+	 * @param hspDbzlBasQueryDto hspDbzlBasQueryDto
 	 * @return
 	 */
 	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 
 	/**
 	 * 查询新增院内发病患者
-	 * @param emgSeq
+	 * @param emgSeq emgSeq
 	 * @return
 	 */
 	public ResultInfo judgeNewPatient(String emgSeq);
@@ -86,14 +78,13 @@ public interface XtService {
 	ResultInfo getXtTimeLine(String emgSeq);
 	
 	public ResultInfo getHspFlowChartDef(String flowType);
-	// TODO 废弃待删除
-//	public ResultInfo queryXtPatientDetail(String emgSeq);
 
 	ResultInfo getHspGraceInf(HspGraceInf hspGraceInf);
 	
 	/**
 	 * 新增犯罪血管，返回保存的关联字段
-	 * @param hspXtAdd
+	 * @param hspXtzlInfCustom hspXtzlInfCustom
+	 * @param activeUser activeUser
 	 * @return
 	 */
 	public ResultInfo addFzxg(HspXtzlInfCustom hspXtzlInfCustom,ActiveUser activeUser);
@@ -110,9 +101,7 @@ public interface XtService {
 	 * @return
 	 */
 	public ResultInfo updateHspCrivelInf(HspCrivelInf hspCrivelInf,ActiveUser activeUser);
-	// TODO 废弃待删除
-//	public ResultInfo queryHspXtAddDetail(String emgSeq);
-	
+
 	/**
 	 * 获取手动上传的心电图信息
 	 * @param emgSeq
@@ -125,18 +114,33 @@ public interface XtService {
 	public ResultInfo getHspXtzlInfByEmgSeq(String emgSeq);
 	
 	public ResultInfo getAidPatientByEmgSeq(String emgSeq, String wayTyp);
-	//获取胸痛诊疗数据，格式化比编辑器所需数据
+
+	/**
+	 * 获取胸痛诊疗数据，格式化比编辑器所需数据
+	 * @param regSeq regSeq
+	 * @return return
+	 */
 	ResultInfo getHspXtzlInfByEmgSeqToEdit(String regSeq);
-	// 获取患者基础信息
+
+	/**
+	 * 获取患者基础信息
+	 * @param regSeq regSeq
+	 * @return return
+	 */
 	ResultInfo queryHspDbzlBasinf(String regSeq);
 
 	/**
 	 * 根据emgSeq 获取胸痛诊疗表的信息
-	 * @param emgSeq
-	 * @return
+	 * @param emgSeq emgSeq
+	 * @return return
 	 */
 	public ResultInfo queryHspXtzlInfByEmgSeq(String emgSeq);
 
+	/**
+	 *
+	 * @param queryDto queryDto
+	 * @return return
+	 */
 	int getCpcPatientInfoListCount(QueryDto queryDto);
 
 	List<HspDbzlBasCustom> getCpcPatientInfoListByPage(QueryDto queryDto);

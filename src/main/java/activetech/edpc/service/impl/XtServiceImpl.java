@@ -5,7 +5,6 @@ import activetech.aid.dao.mapper.AidPatientXtMapper;
 import activetech.aid.pojo.domain.AidPatient;
 import activetech.aid.pojo.domain.AidPatientXt;
 import activetech.base.dao.mapper.DstarchivesMapper;
-import activetech.base.dao.mapper.DstcompctlCustomMapper;
 import activetech.base.dao.mapper.HspAddrPostMapper;
 import activetech.base.pojo.domain.Dstarchives;
 import activetech.base.pojo.domain.DstarchivesExample;
@@ -31,25 +30,18 @@ import activetech.hospital.dao.mapper.HspEmgInfMapper;
 import activetech.hospital.dao.mapper.HspMewsInfMapper;
 import activetech.hospital.pojo.domain.HspEmgInf;
 import activetech.hospital.pojo.domain.HspMewsInf;
-import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.util.DateUtil;
-import activetech.util.HttpClientUtil;
 import activetech.websocket.action.WebSocketXT;
 import activetech.zyyhospital.dao.mapper.HspConsultationRecordsMapper;
 import activetech.zyyhospital.pojo.domain.HspConsultationRecords;
 import activetech.zyyhospital.pojo.domain.HspConsultationRecordsExample;
-import afu.org.checkerframework.checker.units.qual.A;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
-import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -111,10 +103,7 @@ public class XtServiceImpl implements XtService{
 	
 	@Autowired
 	private VHemsJyjgHzMapper vHemsJyjgHzMapper;
-	
-	@Autowired
-	private DstcompctlCustomMapper dstcompctlCustomMapper;
-	
+
 	@Autowired
 	private AidPatientMapper aidPatientMapper;
 	
@@ -163,11 +152,7 @@ public class XtServiceImpl implements XtService{
 		criteria.andFlowTypeEqualTo("xt");
 		List<HspFlowChartInf> list = hspFlowChartInfMapper.selectByExample(example);
 		map.put("list", list);
-		
-		
-		
-		
-		
+
 		List<String> paramList = new ArrayList<>();
 		
 		// 首次医疗接触时间
@@ -347,93 +332,6 @@ public class XtServiceImpl implements XtService{
 		}
 		
 		resultInfo.setSysdata(map);
-		return resultInfo;
-	}
-	// TODO 废弃---代码冗余过多-待删除
-//	@Override
-	public ResultInfo getCpcTimeline(String emgSeq) {
-		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		Map<String, Object> sysdata = new HashMap<String, Object>();
-		List<HspXtzlInfCustom> list = hspXtzlInfCustomMapper.getCpcTimeline(emgSeq);
-		HspEcgInfExample ecgExample = new HspEcgInfExample();
-		HspEcgInfExample.Criteria ecgCriteria = ecgExample.createCriteria();
-		ecgExample.setOrderByClause("file_date");
-		ecgCriteria.andRefIdEqualTo(emgSeq);
-		// 11代表院内心电图
-		ecgCriteria.andEcgTypeEqualTo("11");
-		List<HspEcgInf> ecgList = hspEcgInfMapper.selectByExample(ecgExample);
-		
-		if(ecgList.size()>0) {
-			HspEcgInf hspEcgInf = ecgList.get(0);
-			if(hspEcgInf.getFileDate()!=null) {
-				HspXtzlInfCustom ynsfxdtsj = new HspXtzlInfCustom();
-				ynsfxdtsj.setEmgNo(emgSeq);
-				ynsfxdtsj.setProName("院内首份心电图时间");
-				ynsfxdtsj.setProCode(ProCodeDef.YNSFXDTSJ);
-				ynsfxdtsj.setProVal(DateUtil.formatDateByFormat(hspEcgInf.getFileDate(), DateUtil.DATETIME_FORMAT) );
-				list.add(ynsfxdtsj);
-			}
-			if(hspEcgInf.getFileDiaDate()!=null) {
-				HspXtzlInfCustom ynsfxdtqzsj = new HspXtzlInfCustom();
-				ynsfxdtqzsj.setEmgNo(emgSeq);
-				ynsfxdtqzsj.setProName("院内首份心电图确诊时间");
-				ynsfxdtqzsj.setProCode(ProCodeDef.YNSFXDTQZSJ);
-				ynsfxdtqzsj.setProVal(DateUtil.formatDateByFormat(hspEcgInf.getFileDiaDate(), DateUtil.DATETIME_FORMAT) );
-				list.add(ynsfxdtqzsj);
-			}
-		}
-		
-		String jgdbbgsj = vHemsJyjgMapperCustom.getJgdbDate(emgSeq);
-		if(jgdbbgsj!=null) {
-			HspXtzlInfCustom jgdbbgsjHspXtzlInf = new HspXtzlInfCustom();
-			jgdbbgsjHspXtzlInf.setEmgNo(emgSeq);
-			jgdbbgsjHspXtzlInf.setProName("肌钙蛋白报告时间");
-			jgdbbgsjHspXtzlInf.setProCode(ProCodeDef.JGDBBGSJ);
-			jgdbbgsjHspXtzlInf.setProVal(jgdbbgsj);
-			list.add(jgdbbgsjHspXtzlInf);
-		}
-		list.sort(new Comparator<HspXtzlInfCustom>() {
-
-			@Override
-			public int compare(HspXtzlInfCustom o1, HspXtzlInfCustom o2) {
-
-				// 数据库保存有2种格式的时间字符串，要排序，坑爹啊
-				SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-				
-				String dateString1 = o1.getProVal();
-				String dateString2 = o2.getProVal();
-				Date date1 = null;
-				Date date2 = null;
-				try {
-					date1 = format1.parse(dateString1);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					try {
-						date1 = format2.parse(dateString1);
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-				try {
-					date2 = format1.parse(dateString2);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					try {
-						date2 = format2.parse(dateString2);
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-				
-				
-				return date1.compareTo(date2);
-			}
-		});
-		sysdata.put("cpcTimeline", list);
-		resultInfo.setSysdata(sysdata);
 		return resultInfo;
 	}
 
@@ -616,42 +514,6 @@ public class XtServiceImpl implements XtService{
 		return resultInfo;
 
 	}
-	// TODO 废弃待删除
-	public ResultInfo queryXtPatientDetail(String emgSeq){
-		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		Map<String, Object> sysdata = new HashMap<String, Object>();
-		if(StringUtils.isNotBlank(emgSeq)){
-			
-			HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(emgSeq);
-			
-			HspMewsInf hspMewsInf = hspMewsInfMapper.selectByPrimaryKey(emgSeq);
-			
-			HspemginfCustom hspemginfCustom = new HspemginfCustom();
-			try {
-				PropertyUtils.copyProperties(hspemginfCustom, hspEmgInf);
-				hspemginfCustom.setSenRctCod(hspMewsInf.getSenRctCod());
-				hspemginfCustom.setHrtRte(hspMewsInf.getHrtRte());
-				hspemginfCustom.setSbpUpNbr(hspMewsInf.getSbpupNbr());
-				hspemginfCustom.setSbpDownNbr(hspMewsInf.getSbpdownNbr());
-				hspemginfCustom.setBreNbr(hspMewsInf.getBreNbr());
-				hspemginfCustom.setTmpNbr(hspMewsInf.getTmpNbr());
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			sysdata.put("hspEmgInf", hspemginfCustom);
-			
-			resultInfo.setSysdata(sysdata);
-		}
-		return resultInfo;
-	}	
 	
 	@Override
 	public ResultInfo getHspGraceInf(HspGraceInf hspGraceInf) {
@@ -822,37 +684,6 @@ public class XtServiceImpl implements XtService{
 			}
 		} else {
 			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 900, null);
-		}
-		return resultInfo;
-	}
-
-//	TODO 废弃---减少代码冗余 -- 待删除
-	public ResultInfo queryHspXtAddDetail(String emgSeq) {
-		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		Map<String, Object> sysdata = new HashMap<String, Object>();
-		if(StringUtils.isNotBlank(emgSeq)){
-		    HspXtAdd hspXtAdd = hspXtAddMapper.selectByPrimaryKey(emgSeq);
-		    
-		    HspemginfCustom hspemginfCustom = new HspemginfCustom();
-		    
-		    hspemginfCustom.setCstNam(hspXtAdd.getCstNam());
-		    hspemginfCustom.setCstSexCod(hspXtAdd.getCstSexCod());
-		    hspemginfCustom.setIdNbr(hspXtAdd.getIdNbr());
-		    hspemginfCustom.setCstAge(hspXtAdd.getCstAge());
-		    hspemginfCustom.setBthDat(hspXtAdd.getBthDat());
-		    hspemginfCustom.setPheNbr(hspXtAdd.getPheNbr());
-		    
-		    hspemginfCustom.setSbpUpNbr(hspXtAdd.getSbpNbr());
-		    hspemginfCustom.setSbpDownNbr(hspXtAdd.getDbpNbr());
-		    
-		    hspemginfCustom.setHrtRte(hspXtAdd.getHrtRte());
-		    
-		    hspemginfCustom.setSenRctCod(hspXtAdd.getSenRct());
-		    hspemginfCustom.setBreNbr(hspXtAdd.getBreNbr());
-		    hspemginfCustom.setTmpNbr(hspXtAdd.getTmpNbr());
-		    
-			sysdata.put("hspEmgInf", hspemginfCustom);
-			resultInfo.setSysdata(sysdata);
 		}
 		return resultInfo;
 	}

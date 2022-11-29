@@ -205,7 +205,6 @@ public class XtAction {
 	@RequestMapping("/getCpcPatientListInfo")
 	@ResponseBody
 	public DataGridResultInfo getCpcPatientListInfo(QueryDto queryDto,ActiveUser activeUser){
-
 		queryDto.setHspAra(activeUser.getHospitalCategory());
 		int total = xtService.getCpcPatientInfoListCount(queryDto);
 		PageQuery pageQuery = new PageQuery();
@@ -220,13 +219,6 @@ public class XtAction {
 		return dataGridResultInfo;
 	}
 
-	/*public SubmitResultInfo getCpcPatientListInfo(QueryDto queryDto){
-		ResultInfo resultInfo = xtService.getCpcPatientInfoList(queryDto);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}*/
-
-	
-	
 	/**
 	 * 根据病案号获取该胸痛患者的路径的点的集合
 	 * @return
