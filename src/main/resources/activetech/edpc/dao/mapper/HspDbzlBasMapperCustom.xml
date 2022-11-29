@@ -143,7 +143,21 @@
          </foreach>
     </update>
 
-<!--    <insert id="addNewPatient" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto">-->
+    <update id="editDbzlBasByReport">
+        update hsp_dbzl_bas set
+               smt_sta = #{smtSta, jdbcType = VARCHAR },
+               smt_seq = nvl(smt_seq, #{smtSeq, jdbcType = VARCHAR }),
+               smt_msg = #{smtMsg, jdbcType = VARCHAR },
+               smt_no = #{smtNo, jdbcType = VARCHAR },
+               smt_nam = #{smtNam, jdbcType = VARCHAR },
+               smt_tim = #{smtTim, jdbcType = TIMESTAMP },
+               mod_no = #{modNo, jdbcType = VARCHAR },
+               mod_nam = #{modNam, jdbcType = VARCHAR },
+               mod_tim = sysdate
+         where reg_seq = #{regSeq, jdbcType = VARCHAR }
+    </update>
+
+    <!--    <insert id="addNewPatient" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto">-->
 <!--        insert -->
 <!--    </insert>-->
 </mapper>

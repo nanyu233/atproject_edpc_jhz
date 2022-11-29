@@ -790,37 +790,6 @@ public class XtAction {
 		ResultInfo resultInfo = xtService.queryHspXtzlInfByEmgSeq(emgSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
-	/**
-	 * 跳转随访信息管理列表
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-/*	@RequestMapping("/queryfuv")
-	public String queryksjh(Model model, String moduleid) throws Exception {
-		model.addAttribute("moduleid", moduleid);
-		return View.toEDPC("/followup/queryfuv");
-	}*/
-
-     /**
-	 * 胸痛登记页面上报提交
-	 * @param xtzlInfs
-	 * @param emgSeq
-	 * @param activeUser
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/queryfuv")
-	@ResponseBody
-	//public SubmitResultInfo xtPatietSbSubmit(@RequestBody(required=false) Map<String,Object> map) throws Exception{
-	public SubmitResultInfo xtPatietSbSubmit(@RequestBody HspSbarInf hspSbarInf) throws Exception{
-		String emgSeq = hspSbarInf.getEmgSeq();
-		/*if(map.containsKey("emgSeq")){
-			emgSeq = (String) map.get("emgSeq");
-		}*/
-		ResultInfo resultInfo = cpcCrfplaneService.registerInfoCrfplane(emgSeq);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}
 
 	/**
 	 * 审核提交(申请,通过,不通过)

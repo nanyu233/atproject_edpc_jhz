@@ -2,34 +2,27 @@ package activetech.edpc.service.impl;
 
 import activetech.aid.dao.mapper.AidPatientMapper;
 import activetech.aid.dao.mapper.AidPatientXtMapper;
-import activetech.aid.pojo.domain.AidPatient;
-import activetech.aid.pojo.domain.AidPatientXt;
 import activetech.base.dao.mapper.DstarchivesMapper;
 import activetech.base.dao.mapper.DstdictinfoCustomMapper;
 import activetech.base.dao.mapper.HspAddrPostMapper;
 import activetech.base.pojo.domain.Dstarchives;
 import activetech.base.pojo.domain.DstarchivesExample;
-import activetech.base.process.context.Config;
 import activetech.base.process.context.CpcConfig;
 import activetech.base.process.result.ResultInfo;
-import activetech.base.process.result.ResultUtil;
 import activetech.base.util.MinIoUtil;
 import activetech.edpc.dao.mapper.*;
-import activetech.edpc.pojo.domain.*;
-import activetech.edpc.pojo.dto.HspDbzlBasCustom;
+import activetech.edpc.pojo.domain.HspCrivelInf;
+import activetech.edpc.pojo.domain.HspDbzlBas;
+import activetech.edpc.pojo.domain.HspXtzlInf;
+import activetech.edpc.pojo.domain.HspXtzlInfExample;
 import activetech.edpc.service.CpcCrfplaneService;
 import activetech.external.dao.mapper.HspEcgInfMapper;
-import activetech.external.pojo.domain.HspEcgInf;
-import activetech.external.pojo.domain.HspEcgInfExample;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
 import activetech.hospital.dao.mapper.HspMewsInfMapper;
 import activetech.hospital.dao.mapper.HspemginfCustomMapper;
-import activetech.hospital.pojo.domain.HspEmgInf;
-import activetech.hospital.pojo.domain.HspMewsInf;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
 import activetech.zyyhospital.dao.mapper.HspConsultationRecordsCustomMapper;
-import activetech.zyyhospital.pojo.dto.HspConsultationRecordsCustom;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -82,6 +75,8 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 	@Autowired
 	private HspCrivelInfMapperCustom hspCrivelInfMapperCustom;
 
+	@Autowired
+	private HspDbzlBasMapper hspDbzlBasMapper;
 
 	@Autowired
 	private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
@@ -108,11 +103,9 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 		return null;
 	}
 
-	public ResultInfo registerInfoCrfplane(String emgNo) throws Exception {
-		//胸痛信息map
-		//emgNo="SD20220920295256";
-
-		Map<String, String> xtzlMap = new HashMap<String, String>();
+	@Override
+	public String registerInfoCrfplane(String emgNo) throws Exception {
+		Map<String, String> xtzlMap = new HashMap<>();
 		HspXtzlInfExample hspXtzlInfExample = new HspXtzlInfExample();
 		HspXtzlInfExample.Criteria criteria = hspXtzlInfExample.createCriteria();
 		criteria.andEmgNoEqualTo(emgNo);
@@ -120,25 +113,12 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 		for (HspXtzlInf hspXtzlInf : list2) {
 			xtzlMap.put(hspXtzlInf.getProCode(), hspXtzlInf.getProVal());
 		}
-//----------------------------------------------------------------------------------------------
-	/*	HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(emgNo);
-		HspMewsInf hspMewsInf = hspMewsInfMapper.selectByPrimaryKey(emgNo);
-		AidPatient aidPatient = null;
-		AidPatientXt aidPatientXt = null;
-		if (StringUtils.isNotNullAndEmptyByTrim(hspEmgInf.getPatid())) {
-			aidPatient = aidPatientMapper.selectByPrimaryKey(hspEmgInf.getPatid());
-			aidPatientXt = aidPatientXtMapper.selectByPrimaryKey(hspEmgInf.getPatid());
-		}*/
 
-
-		HspDbzlBas hspDbzlBas =hspDbzlBasMapperCustom.selectByPrimaryByEmgSeq(emgNo);
+		HspDbzlBas hspDbzlBas =hspDbzlBasMapper.selectByPrimaryKey(emgNo);
 
 		JSONObject root = new JSONObject();
-
-
 		//人口基本信息
 		JSONObject registerInfoMap = new JSONObject();
-
         //registerInfoMap  start ----------------------------------------------------------
 		registerInfoMap.put("REGISTER_ID", hspDbzlBas.getSmtSeq() == null ?"": hspDbzlBas.getSmtSeq()); ////注册编号  fei  上报填写后返回  id 用于后续 修改提交等操作
 		registerInfoMap.put("HOSPITAL_ID", CpcConfig.HOSPITAL_ID);//医院 ID  bi
@@ -153,7 +133,6 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 		if(!"0".equals(registerInfoMap.get("CREDENTIALS_TYPE"))  &&  registerInfoMap.get("CREDENTIALS_TYPE") != null){
 			registerInfoMap.put("IDCARD", hspDbzlBas.getIdNbr());// 证件号  bi  hspEmgInf.getIdNbr()
 		}
-
 		//--add start
 		registerInfoMap.put("JOB", hspDbzlBas.getEmgJob());  //职业 fei
 		registerInfoMap.put("CULTUREDEGREE", hspDbzlBas.getCstEdu());// 文化程度 fei
@@ -1802,36 +1781,18 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 		post.setEntity(new ByteArrayEntity(requestBodyString.getBytes()));
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		CloseableHttpResponse httpResponse = httpClient.execute(post);
-		ResultInfo resultInfo = null;
 		try {
 			HttpEntity entityResponse = httpResponse.getEntity();
 			if (entityResponse != null) {
 				String result = EntityUtils.toString(entityResponse);
 				System.out.println("result" + "--------------------" +result);
 				//插入数据库 这块没写
-				/*JSONObject result_1 = JSONObject.parseObject(result);
-				Object  ResultCode = result_1.get("ResultCode");
-				Object  Message = result_1.get("Message");
-				Object  Error = result_1.get("Error");
-				if(result_1.get("Data") != null){
-					Object  Data = result_1.get("Data");
-					String Data_1 = JSON.toJSONString(Data);
-					JSONObject Data_2 = JSONObject.parseObject(Data_1);
-					Object  id=  Data_2.get("REGISTER_ID");
-					System.out.println("Data" + "--------------------" +id);
-					Map<String, Object> sysdata = new HashMap<>();
-					sysdata.put("REGISTER_ID",id);
-					System.out.println("sysdata" + "--------------------" +id);
-					resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 920, new Object[] {result_1.get("Data")});
-				}*/
-
+				return result;
 			}
-
 		} finally {
 			httpResponse.close();
 		}
-
-		return resultInfo;
+		return null;
 	}
 
 	//STEMI 再灌注措施

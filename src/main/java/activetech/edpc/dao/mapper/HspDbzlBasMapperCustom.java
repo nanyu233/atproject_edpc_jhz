@@ -24,5 +24,11 @@ public interface HspDbzlBasMapperCustom {
 
     void reviewSubmitBySeqArr(@Param(value = "hspDbzlBasCustom") HspDbzlBasCustom hspDbzlBasCustom, @Param(value = "seqArr") String[] seqArr) throws Exception;
 
+    /**
+     * 上报
+     * @param hspDbzlBasCustom hspDbzlBasCustom
+     */
+    void editDbzlBasByReport(HspDbzlBasCustom hspDbzlBasCustom) throws Exception;
+
 //    public int addNewPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 }

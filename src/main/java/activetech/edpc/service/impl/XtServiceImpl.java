@@ -19,6 +19,7 @@ import activetech.base.service.SystemConfigService;
 import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.*;
 import activetech.edpc.pojo.dto.*;
+import activetech.edpc.service.CpcCrfplaneService;
 import activetech.edpc.service.ExternalDataService;
 import activetech.edpc.service.XtService;
 import activetech.external.dao.mapper.HspEcgInfMapper;
@@ -37,12 +38,12 @@ import activetech.websocket.action.WebSocketXT;
 import activetech.zyyhospital.dao.mapper.HspConsultationRecordsMapper;
 import activetech.zyyhospital.pojo.domain.HspConsultationRecords;
 import activetech.zyyhospital.pojo.domain.HspConsultationRecordsExample;
+import afu.org.checkerframework.checker.units.qual.A;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -132,6 +133,8 @@ public class XtServiceImpl implements XtService{
 	@Autowired
 	private SystemConfigService systemConfigService;
 
+	@Autowired
+	private CpcCrfplaneService cpcCrfplaneService;
 
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
@@ -1669,8 +1672,45 @@ public class XtServiceImpl implements XtService{
 
 	@Override
 	public ResultInfo reportSubmit(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
-		hspDbzlBasMapper.updateByPrimaryKeySelective(hspDbzlBasCustom);
-		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		hspDbzlBasCustom.setModNo(activeUser.getUsrno());
+		hspDbzlBasCustom.setModNam(activeUser.getUsrname());
+		//上报前修改信息
+		hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
+		//上报
+		String result = cpcCrfplaneService.registerInfoCrfplane(hspDbzlBasCustom.getRegSeq());
+		Map<String, Object> resultMap = new HashMap<>();
+		ResultInfo resultInfo;
+		if(result != null) {
+			JSONObject resultObj = JSONObject.parseObject(result);
+			String resultCode = resultObj.get("ResultCode").toString();
+			String message = resultObj.get("Message").toString();
+			Object error = resultObj.get("Error");
+			Object data = resultObj.get("Data");
+			if("200".equals(resultCode)) {
+				String smtSeq = "";
+				//成功
+				if(data != null){
+					JSONObject dataObj = JSONObject.parseObject(JSON.toJSONString(data));
+					smtSeq = dataObj.get("REGISTER_ID").toString();
+				}
+				resultMap.put("REGISTER_ID", smtSeq);
+				hspDbzlBasCustom.setSmtSta("5");
+				hspDbzlBasCustom.setSmtSeq(smtSeq);
+				resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+			} else {
+				//失败403 500
+				hspDbzlBasCustom.setSmtSta("3");
+				hspDbzlBasCustom.setSmtMsg(error.toString());
+				resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 920, new Object[] {error});
+			}
+			hspDbzlBasCustom.setSmtNo(activeUser.getUsrno());
+			hspDbzlBasCustom.setSmtNam(activeUser.getUsrname());
+			hspDbzlBasCustom.setSmtTim(new Date());
+			//上报返回后修改状态等信息
+			hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
+		} else {
+			resultInfo = ResultUtil.createFail(Config.MESSAGE, 920, new Object[] {"上报失败"});
+		}
 		return resultInfo;
 	}
 
