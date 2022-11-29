@@ -363,7 +363,11 @@
     }
 
     function smtPort(regSeq, smtSta) {
-        _confirm('确认上报？', null, function() {
+        var tipMsg = "确认上报？";
+        if(smtSta === '5') {
+            tipMsg = "确认重新上报？";
+        }
+        _confirm(tipMsg, null, function() {
             //虚化
             $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$(window).height()}).appendTo("body");
             $("<div class=\"datagrid-mask-msg\"></div>").html("正在上报，请稍候。。。").appendTo("body").css({display:"block","line-height": "11px",left:($(document.body).outerWidth(true) - 190) / 2});
