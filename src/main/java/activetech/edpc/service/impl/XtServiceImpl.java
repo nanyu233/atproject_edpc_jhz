@@ -1505,9 +1505,6 @@ public class XtServiceImpl implements XtService{
 	public ResultInfo reportSubmit(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
 		hspDbzlBasCustom.setModNo(activeUser.getUsrno());
 		hspDbzlBasCustom.setModNam(activeUser.getUsrname());
-		//上报前修改信息
-		hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
-		//上报
 		String result = cpcCrfplaneService.registerInfoCrfplane(hspDbzlBasCustom.getRegSeq());
 		Map<String, Object> resultMap = new HashMap<>();
 		ResultInfo resultInfo;
@@ -1517,6 +1514,10 @@ public class XtServiceImpl implements XtService{
 			String message = resultObj.get("Message").toString();
 			Object error = resultObj.get("Error");
 			Object data = resultObj.get("Data");
+
+			hspDbzlBasCustom.setSmtNo(activeUser.getUsrno());
+			hspDbzlBasCustom.setSmtNam(activeUser.getUsrname());
+			hspDbzlBasCustom.setSmtTim(new Date());
 			if("200".equals(resultCode)) {
 				String smtSeq = "";
 				//成功
@@ -1527,19 +1528,22 @@ public class XtServiceImpl implements XtService{
 				resultMap.put("REGISTER_ID", smtSeq);
 				hspDbzlBasCustom.setSmtSta("5");
 				hspDbzlBasCustom.setSmtSeq(smtSeq);
+				//上报返回后修改状态等信息
+				hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
 				resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 			} else {
 				//失败403 500
 				hspDbzlBasCustom.setSmtSta("3");
 				hspDbzlBasCustom.setSmtMsg(error.toString());
-				resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 920, new Object[] {error});
+				//上报返回后修改状态等信息
+				if(!"患者状态已经为<已存档>,不可以再修改;".equals(error)) {
+					hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
+				}
+				resultInfo = ResultUtil.createFail(Config.MESSAGE, 920, new Object[] {error});
 			}
-			hspDbzlBasCustom.setSmtNo(activeUser.getUsrno());
-			hspDbzlBasCustom.setSmtNam(activeUser.getUsrname());
-			hspDbzlBasCustom.setSmtTim(new Date());
-			//上报返回后修改状态等信息
-			hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
 		} else {
+			//上报前修改信息
+			hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
 			resultInfo = ResultUtil.createFail(Config.MESSAGE, 920, new Object[] {"上报失败"});
 		}
 		return resultInfo;

@@ -413,7 +413,9 @@
 		       a.chk_tim,
 		       a.chk_no,
 		       a.chk_nam,
-		       a.chk_msg
+		       a.chk_msg,
+		       a.smt_msg,
+		       a.smt_tim
 		from hsp_dbzl_bas a
 		where a.PAT_TYP = '1'
 		<include refid="xtdbzl_where"/>

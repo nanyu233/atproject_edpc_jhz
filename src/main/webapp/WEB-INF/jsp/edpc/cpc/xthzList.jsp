@@ -364,6 +364,9 @@
 
     function smtPort(regSeq, smtSta) {
         _confirm('确认上报？', null, function() {
+            //虚化
+            $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$(window).height()}).appendTo("body");
+            $("<div class=\"datagrid-mask-msg\"></div>").html("正在上报，请稍候。。。").appendTo("body").css({display:"block","line-height": "11px",left:($(document.body).outerWidth(true) - 190) / 2});
             var requestData = {
                 'regSeq': regSeq,
                 'smtSta': "2"
@@ -376,9 +379,11 @@
                     'requestType': 'json'
                 },
                 function (res) {
-                    if (res.resultInfo.success){
-                        search();
-                    }
+                    //虚化结束
+                    $("body").children("div.datagrid-mask-msg").remove();
+                    $("body").children("div.datagrid-mask").remove();
+                    search();
+                    message_alert(res)
                 }
             )
         });
@@ -542,6 +547,17 @@
                     }
                 },
                 {
+                    field : 'smtTim',
+                    title : '上报时间',
+                    width : setWidth(0.06),
+                    formatter : function(value, row, index) {
+                        if(value) {
+                            return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+                        }
+                        return "";
+                    }
+                },
+                {
                     field : 'smtSeq',
                     title : '填报编号',
                     width : setWidth(0.1)
@@ -558,13 +574,13 @@
 					formatter : function(value, row, index) {
                         var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">查看</span>' +
 						'<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>';
+						// if("1" == row.smtSta || "4" == row.smtSta) {
+                            _html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">上报</span>'
+                        // }
                         if("1" == row.rcdSta || "3" == row.rcdSta) {
                             _html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
                         } else if("2" == row.rcdSta) {
                             _html += '<span class="btn detail" onclick="chkConfirm(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">审核</span>'
-                        }
-						if("1" == row.smtSta || "4" == row.smtSta) {
-						    _html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">上报</span>'
                         }
 						return _html
 					}
