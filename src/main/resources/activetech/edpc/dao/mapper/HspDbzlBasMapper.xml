@@ -2,8 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="activetech.edpc.dao.mapper.HspDbzlBasMapper">
   <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspDbzlBas">
-    <!--@mbg.generated-->
-    <!--@Table HSP_DBZL_BAS-->
     <id column="REG_SEQ" jdbcType="VARCHAR" property="regSeq" />
     <result column="REG_TIM" jdbcType="TIMESTAMP" property="regTim" />
     <result column="EMG_SEQ" jdbcType="VARCHAR" property="emgSeq" />
@@ -57,9 +55,11 @@
     <result column="SMT_STA" jdbcType="CHAR" property="smtSta" />
     <result column="SMT_SEQ" jdbcType="VARCHAR" property="smtSeq" />
     <result column="SMT_MSG" jdbcType="VARCHAR" property="smtMsg" />
+    <result column="SMT_NO" jdbcType="VARCHAR" property="smtNo" />
+    <result column="SMT_NAM" jdbcType="VARCHAR" property="smtNam" />
+    <result column="SMT_TIM" jdbcType="TIMESTAMP" property="smtTim" />
   </resultMap>
   <sql id="Example_Where_Clause">
-    <!--@mbg.generated-->
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
         <if test="criteria.valid">
@@ -89,7 +89,6 @@
     </where>
   </sql>
   <sql id="Update_By_Example_Where_Clause">
-    <!--@mbg.generated-->
     <where>
       <foreach collection="example.oredCriteria" item="criteria" separator="or">
         <if test="criteria.valid">
@@ -119,16 +118,14 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    <!--@mbg.generated-->
     REG_SEQ, REG_TIM, EMG_SEQ, MPI, PAT_TYP, WAY_TYP, CARD_TYPE, VST_CAD, CST_NAM, CST_SEX_COD, 
     ID_TYPE, ID_NBR, CST_AGE_COD, CST_AGE, PAT_WGT, PAT_HGT, BTH_DAT, PHE_NBR, CST_ADR, 
     NATION, EMG_JOB, MARITAL_STATUS, CST_EDU, LNK_MAN, LNK_WAY, GRN_CHL, SW_CHL, HSP_ARA, 
     YQXH, JZXH, ZYXH, DOC_DAT, JZYS, YSXM, KSDM, CRT_TIM, CRT_NO, CRT_NAM, MOD_TIM, MOD_NO, 
     MOD_NAM, RCD_STA, CHK_TIM, CHK_NO, CHK_NAM, CHK_MSG, STP_FLG, STP_TIM, STP_NO, STP_NAM, 
-    SMT_STA, SMT_SEQ, SMT_MSG
+    SMT_STA, SMT_SEQ, SMT_MSG, SMT_NO, SMT_NAM, SMT_TIM
   </sql>
   <select id="selectByExample" parameterType="activetech.edpc.pojo.domain.HspDbzlBasExample" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
     select
     <if test="distinct">
       distinct
@@ -143,26 +140,22 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
     from HSP_DBZL_BAS
     where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    <!--@mbg.generated-->
     delete from HSP_DBZL_BAS
     where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspDbzlBasExample">
-    <!--@mbg.generated-->
     delete from HSP_DBZL_BAS
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspDbzlBas">
-    <!--@mbg.generated-->
     insert into HSP_DBZL_BAS (REG_SEQ, REG_TIM, EMG_SEQ, 
       MPI, PAT_TYP, WAY_TYP, CARD_TYPE, 
       VST_CAD, CST_NAM, CST_SEX_COD, 
@@ -179,7 +172,8 @@
       CHK_TIM, CHK_NO, CHK_NAM, 
       CHK_MSG, STP_FLG, STP_TIM, 
       STP_NO, STP_NAM, SMT_STA, 
-      SMT_SEQ, SMT_MSG)
+      SMT_SEQ, SMT_MSG, SMT_NO, 
+      SMT_NAM, SMT_TIM)
     values (#{regSeq,jdbcType=VARCHAR}, #{regTim,jdbcType=TIMESTAMP}, #{emgSeq,jdbcType=VARCHAR}, 
       #{mpi,jdbcType=VARCHAR}, #{patTyp,jdbcType=CHAR}, #{wayTyp,jdbcType=CHAR}, #{cardType,jdbcType=VARCHAR}, 
       #{vstCad,jdbcType=VARCHAR}, #{cstNam,jdbcType=VARCHAR}, #{cstSexCod,jdbcType=VARCHAR}, 
@@ -196,10 +190,10 @@
       #{chkTim,jdbcType=TIMESTAMP}, #{chkNo,jdbcType=VARCHAR}, #{chkNam,jdbcType=VARCHAR}, 
       #{chkMsg,jdbcType=VARCHAR}, #{stpFlg,jdbcType=CHAR}, #{stpTim,jdbcType=TIMESTAMP}, 
       #{stpNo,jdbcType=VARCHAR}, #{stpNam,jdbcType=VARCHAR}, #{smtSta,jdbcType=CHAR}, 
-      #{smtSeq,jdbcType=VARCHAR}, #{smtMsg,jdbcType=VARCHAR})
+      #{smtSeq,jdbcType=VARCHAR}, #{smtMsg,jdbcType=VARCHAR}, #{smtNo,jdbcType=VARCHAR}, 
+      #{smtNam,jdbcType=VARCHAR}, #{smtTim,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspDbzlBas">
-    <!--@mbg.generated-->
     insert into HSP_DBZL_BAS
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="regSeq != null">
@@ -360,6 +354,15 @@
       </if>
       <if test="smtMsg != null">
         SMT_MSG,
+      </if>
+      <if test="smtNo != null">
+        SMT_NO,
+      </if>
+      <if test="smtNam != null">
+        SMT_NAM,
+      </if>
+      <if test="smtTim != null">
+        SMT_TIM,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -522,17 +525,24 @@
       <if test="smtMsg != null">
         #{smtMsg,jdbcType=VARCHAR},
       </if>
+      <if test="smtNo != null">
+        #{smtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="smtNam != null">
+        #{smtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="smtTim != null">
+        #{smtTim,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspDbzlBasExample" resultType="java.lang.Long">
-    <!--@mbg.generated-->
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspDbzlBasExample" resultType="java.lang.Integer">
     select count(*) from HSP_DBZL_BAS
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    <!--@mbg.generated-->
     update HSP_DBZL_BAS
     <set>
       <if test="record.regSeq != null">
@@ -694,13 +704,21 @@
       <if test="record.smtMsg != null">
         SMT_MSG = #{record.smtMsg,jdbcType=VARCHAR},
       </if>
+      <if test="record.smtNo != null">
+        SMT_NO = #{record.smtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smtNam != null">
+        SMT_NAM = #{record.smtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smtTim != null">
+        SMT_TIM = #{record.smtTim,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    <!--@mbg.generated-->
     update HSP_DBZL_BAS
     set REG_SEQ = #{record.regSeq,jdbcType=VARCHAR},
       REG_TIM = #{record.regTim,jdbcType=TIMESTAMP},
@@ -754,13 +772,15 @@
       STP_NAM = #{record.stpNam,jdbcType=VARCHAR},
       SMT_STA = #{record.smtSta,jdbcType=CHAR},
       SMT_SEQ = #{record.smtSeq,jdbcType=VARCHAR},
-      SMT_MSG = #{record.smtMsg,jdbcType=VARCHAR}
+      SMT_MSG = #{record.smtMsg,jdbcType=VARCHAR},
+      SMT_NO = #{record.smtNo,jdbcType=VARCHAR},
+      SMT_NAM = #{record.smtNam,jdbcType=VARCHAR},
+      SMT_TIM = #{record.smtTim,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspDbzlBas">
-    <!--@mbg.generated-->
     update HSP_DBZL_BAS
     <set>
       <if test="regTim != null">
@@ -919,11 +939,19 @@
       <if test="smtMsg != null">
         SMT_MSG = #{smtMsg,jdbcType=VARCHAR},
       </if>
+      <if test="smtNo != null">
+        SMT_NO = #{smtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="smtNam != null">
+        SMT_NAM = #{smtNam,jdbcType=VARCHAR},
+      </if>
+      <if test="smtTim != null">
+        SMT_TIM = #{smtTim,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspDbzlBas">
-    <!--@mbg.generated-->
     update HSP_DBZL_BAS
     set REG_TIM = #{regTim,jdbcType=TIMESTAMP},
       EMG_SEQ = #{emgSeq,jdbcType=VARCHAR},
@@ -976,7 +1004,10 @@
       STP_NAM = #{stpNam,jdbcType=VARCHAR},
       SMT_STA = #{smtSta,jdbcType=CHAR},
       SMT_SEQ = #{smtSeq,jdbcType=VARCHAR},
-      SMT_MSG = #{smtMsg,jdbcType=VARCHAR}
+      SMT_MSG = #{smtMsg,jdbcType=VARCHAR},
+      SMT_NO = #{smtNo,jdbcType=VARCHAR},
+      SMT_NAM = #{smtNam,jdbcType=VARCHAR},
+      SMT_TIM = #{smtTim,jdbcType=TIMESTAMP}
     where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
   </update>
 </mapper>

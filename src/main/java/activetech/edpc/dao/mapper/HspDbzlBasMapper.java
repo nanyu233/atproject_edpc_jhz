@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface HspDbzlBasMapper {
-    long countByExample(HspDbzlBasExample example);
+    int countByExample(HspDbzlBasExample example);
 
     int deleteByExample(HspDbzlBasExample example);
 

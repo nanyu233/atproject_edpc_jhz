@@ -3705,10 +3705,209 @@ public class HspDbzlBasExample {
             addCriterion("SMT_MSG not between", value1, value2, "smtMsg");
             return (Criteria) this;
         }
+
+        public Criteria andSmtNoIsNull() {
+            addCriterion("SMT_NO is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoIsNotNull() {
+            addCriterion("SMT_NO is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoEqualTo(String value) {
+            addCriterion("SMT_NO =", value, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoNotEqualTo(String value) {
+            addCriterion("SMT_NO <>", value, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoGreaterThan(String value) {
+            addCriterion("SMT_NO >", value, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoGreaterThanOrEqualTo(String value) {
+            addCriterion("SMT_NO >=", value, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoLessThan(String value) {
+            addCriterion("SMT_NO <", value, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoLessThanOrEqualTo(String value) {
+            addCriterion("SMT_NO <=", value, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoLike(String value) {
+            addCriterion("SMT_NO like", value, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoNotLike(String value) {
+            addCriterion("SMT_NO not like", value, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoIn(List<String> values) {
+            addCriterion("SMT_NO in", values, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoNotIn(List<String> values) {
+            addCriterion("SMT_NO not in", values, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoBetween(String value1, String value2) {
+            addCriterion("SMT_NO between", value1, value2, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNoNotBetween(String value1, String value2) {
+            addCriterion("SMT_NO not between", value1, value2, "smtNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamIsNull() {
+            addCriterion("SMT_NAM is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamIsNotNull() {
+            addCriterion("SMT_NAM is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamEqualTo(String value) {
+            addCriterion("SMT_NAM =", value, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamNotEqualTo(String value) {
+            addCriterion("SMT_NAM <>", value, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamGreaterThan(String value) {
+            addCriterion("SMT_NAM >", value, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamGreaterThanOrEqualTo(String value) {
+            addCriterion("SMT_NAM >=", value, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamLessThan(String value) {
+            addCriterion("SMT_NAM <", value, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamLessThanOrEqualTo(String value) {
+            addCriterion("SMT_NAM <=", value, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamLike(String value) {
+            addCriterion("SMT_NAM like", value, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamNotLike(String value) {
+            addCriterion("SMT_NAM not like", value, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamIn(List<String> values) {
+            addCriterion("SMT_NAM in", values, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamNotIn(List<String> values) {
+            addCriterion("SMT_NAM not in", values, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamBetween(String value1, String value2) {
+            addCriterion("SMT_NAM between", value1, value2, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtNamNotBetween(String value1, String value2) {
+            addCriterion("SMT_NAM not between", value1, value2, "smtNam");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimIsNull() {
+            addCriterion("SMT_TIM is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimIsNotNull() {
+            addCriterion("SMT_TIM is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimEqualTo(Date value) {
+            addCriterion("SMT_TIM =", value, "smtTim");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimNotEqualTo(Date value) {
+            addCriterion("SMT_TIM <>", value, "smtTim");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimGreaterThan(Date value) {
+            addCriterion("SMT_TIM >", value, "smtTim");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimGreaterThanOrEqualTo(Date value) {
+            addCriterion("SMT_TIM >=", value, "smtTim");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimLessThan(Date value) {
+            addCriterion("SMT_TIM <", value, "smtTim");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimLessThanOrEqualTo(Date value) {
+            addCriterion("SMT_TIM <=", value, "smtTim");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimIn(List<Date> values) {
+            addCriterion("SMT_TIM in", values, "smtTim");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimNotIn(List<Date> values) {
+            addCriterion("SMT_TIM not in", values, "smtTim");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimBetween(Date value1, Date value2) {
+            addCriterion("SMT_TIM between", value1, value2, "smtTim");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmtTimNotBetween(Date value1, Date value2) {
+            addCriterion("SMT_TIM not between", value1, value2, "smtTim");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }

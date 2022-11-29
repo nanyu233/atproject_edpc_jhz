@@ -1,283 +1,130 @@
 package activetech.edpc.pojo.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
-    * 多病种诊疗基础信息表
-    */
-public class HspDbzlBas {
-    /**
-    * 序列号       |自动产生                            
-    */
+public class HspDbzlBas implements Serializable {
     private String regSeq;
 
-    /**
-    * 登记时间     |急诊时填入EMG_DAT                   
-    */
     private Date regTim;
 
-    /**
-    * 预检号       |(YYYYMMDD+4位序号)                  
-    */
     private String emgSeq;
 
-    /**
-    * 院内唯一编号;|患者ID                              
-    */
     private String mpi;
 
-    /**
-    * 患者类型;    |1:胸痛 2:卒中 3:创伤                
-    */
     private String patTyp;
 
-    /**
-    * 患者来源;    |0:急诊 1:绕行 2:住院                
-    */
     private String wayTyp;
 
-    /**
-    * 卡类别;      |dstdicttype(CARD_TYPE_COD)          
-    */
     private String cardType;
 
-    /**
-    * 就诊卡号     |                                    
-    */
     private String vstCad;
 
-    /**
-    * 病人姓名     |                                    
-    */
     private String cstNam;
 
-    /**
-    * 病人性别     |dstdicttype(CST_SEX_COD)            
-    */
     private String cstSexCod;
 
-    /**
-    * 证件类型     |                                    
-    */
     private String idType;
 
-    /**
-    * 证件号码     |                                    
-    */
     private String idNbr;
 
-    /**
-    * 年龄类型     |dstdicttype(CST_AGE_COD)            
-    */
     private String cstAgeCod;
 
-    /**
-    * 病人年龄     |                                    
-    */
     private String cstAge;
 
-    /**
-    * 病人体重     |（千克）                            
-    */
     private BigDecimal patWgt;
 
-    /**
-    * 病人身高     |（CM）                              
-    */
     private BigDecimal patHgt;
 
-    /**
-    * 出生日期     |(YYYY/MM/DD)                        
-    */
     private Date bthDat;
 
-    /**
-    * 患者电话     |                                    
-    */
     private String pheNbr;
 
-    /**
-    * 病人地址     |                                    
-    */
     private String cstAdr;
 
-    /**
-    * 民族         |                                    
-    */
     private String nation;
 
-    /**
-    * 职业         |                                    
-    */
     private String emgJob;
 
-    /**
-    * 婚姻状况     |dstdicttype(MARITAL_STATUS)         
-    */
     private String maritalStatus;
 
-    /**
-    * 文化程度     |                                    
-    */
     private String cstEdu;
 
-    /**
-    * 联系人       |                                    
-    */
     private String lnkMan;
 
-    /**
-    * 联系方式     |                                    
-    */
     private String lnkWay;
 
-    /**
-    * 绿色通道     |(0=否,1=是)                         
-    */
     private String grnChl;
 
-    /**
-    * 三无患者     |(0=否,1=是)                         
-    */
     private String swChl;
 
-    /**
-    * 医院院区     |                                    
-    */
     private String hspAra;
 
-    /**
-    * 院前ID       |aid_patient(PATID)                  
-    */
     private String yqxh;
 
-    /**
-    * 就诊ID       |                                    
-    */
     private Long jzxh;
 
-    /**
-    * 住院ID       |                                    
-    */
     private Long zyxh;
 
-    /**
-    * 医生就诊时间 |                                    
-    */
     private Date docDat;
 
-    /**
-    * 医生号       |                                    
-    */
     private String jzys;
 
-    /**
-    * 医生姓名     |                                    
-    */
     private String ysxm;
 
-    /**
-    * 就诊科室     |                                    
-    */
     private String ksdm;
 
-    /**
-    * 创建时间     |                                    
-    */
     private Date crtTim;
 
-    /**
-    * 创建人员号   |                                    
-    */
     private String crtNo;
 
-    /**
-    * 创建人员名   |                                    
-    */
     private String crtNam;
 
-    /**
-    * 修改时间     |                                    
-    */
     private Date modTim;
 
-    /**
-    * 修改人员号   |                                    
-    */
     private String modNo;
 
-    /**
-    * 修改人员名   |                                    
-    */
     private String modNam;
 
-    /**
-    * 记录状态     |1:记录中,2:审核中,3:已退回,4:已审核
-    */
     private String rcdSta;
 
-    /**
-    * 审核时间     |                                    
-    */
     private Date chkTim;
 
-    /**
-    * 审核人员号   |                                    
-    */
     private String chkNo;
 
-    /**
-    * 审核人员名   |                                    
-    */
     private String chkNam;
 
-    /**
-    * 审核意见     |                                    
-    */
     private String chkMsg;
 
-    /**
-    * 终止标志     |0:正常,1:终止                       
-    */
     private String stpFlg;
 
-    /**
-    * 终止时间     |                                    
-    */
     private Date stpTim;
 
-    /**
-    * 终止人员号   |                                    
-    */
     private String stpNo;
 
-    /**
-    * 终止人员名   |                                    
-    */
     private String stpNam;
 
-    /**
-    * 上报状态     |1:未上报,2:上报中,3:上报失败,4:上报驳回,5:上报完成
-    */
     private String smtSta;
 
-    /**
-    * 上报返回序号 |是由上报平台返回                    
-    */
     private String smtSeq;
 
-    /**
-    * 上报错误信息 |                                    
-    */
     private String smtMsg;
+
+    private String smtNo;
+
+    private String smtNam;
+
+    private Date smtTim;
+
+    private static final long serialVersionUID = 1L;
 
     public String getRegSeq() {
         return regSeq;
     }
 
     public void setRegSeq(String regSeq) {
-        this.regSeq = regSeq;
+        this.regSeq = regSeq == null ? null : regSeq.trim();
     }
 
     public Date getRegTim() {
@@ -293,7 +140,7 @@ public class HspDbzlBas {
     }
 
     public void setEmgSeq(String emgSeq) {
-        this.emgSeq = emgSeq;
+        this.emgSeq = emgSeq == null ? null : emgSeq.trim();
     }
 
     public String getMpi() {
@@ -301,7 +148,7 @@ public class HspDbzlBas {
     }
 
     public void setMpi(String mpi) {
-        this.mpi = mpi;
+        this.mpi = mpi == null ? null : mpi.trim();
     }
 
     public String getPatTyp() {
@@ -309,7 +156,7 @@ public class HspDbzlBas {
     }
 
     public void setPatTyp(String patTyp) {
-        this.patTyp = patTyp;
+        this.patTyp = patTyp == null ? null : patTyp.trim();
     }
 
     public String getWayTyp() {
@@ -317,7 +164,7 @@ public class HspDbzlBas {
     }
 
     public void setWayTyp(String wayTyp) {
-        this.wayTyp = wayTyp;
+        this.wayTyp = wayTyp == null ? null : wayTyp.trim();
     }
 
     public String getCardType() {
@@ -325,7 +172,7 @@ public class HspDbzlBas {
     }
 
     public void setCardType(String cardType) {
-        this.cardType = cardType;
+        this.cardType = cardType == null ? null : cardType.trim();
     }
 
     public String getVstCad() {
@@ -333,7 +180,7 @@ public class HspDbzlBas {
     }
 
     public void setVstCad(String vstCad) {
-        this.vstCad = vstCad;
+        this.vstCad = vstCad == null ? null : vstCad.trim();
     }
 
     public String getCstNam() {
@@ -341,7 +188,7 @@ public class HspDbzlBas {
     }
 
     public void setCstNam(String cstNam) {
-        this.cstNam = cstNam;
+        this.cstNam = cstNam == null ? null : cstNam.trim();
     }
 
     public String getCstSexCod() {
@@ -349,7 +196,7 @@ public class HspDbzlBas {
     }
 
     public void setCstSexCod(String cstSexCod) {
-        this.cstSexCod = cstSexCod;
+        this.cstSexCod = cstSexCod == null ? null : cstSexCod.trim();
     }
 
     public String getIdType() {
@@ -357,7 +204,7 @@ public class HspDbzlBas {
     }
 
     public void setIdType(String idType) {
-        this.idType = idType;
+        this.idType = idType == null ? null : idType.trim();
     }
 
     public String getIdNbr() {
@@ -365,7 +212,7 @@ public class HspDbzlBas {
     }
 
     public void setIdNbr(String idNbr) {
-        this.idNbr = idNbr;
+        this.idNbr = idNbr == null ? null : idNbr.trim();
     }
 
     public String getCstAgeCod() {
@@ -373,7 +220,7 @@ public class HspDbzlBas {
     }
 
     public void setCstAgeCod(String cstAgeCod) {
-        this.cstAgeCod = cstAgeCod;
+        this.cstAgeCod = cstAgeCod == null ? null : cstAgeCod.trim();
     }
 
     public String getCstAge() {
@@ -381,7 +228,7 @@ public class HspDbzlBas {
     }
 
     public void setCstAge(String cstAge) {
-        this.cstAge = cstAge;
+        this.cstAge = cstAge == null ? null : cstAge.trim();
     }
 
     public BigDecimal getPatWgt() {
@@ -413,7 +260,7 @@ public class HspDbzlBas {
     }
 
     public void setPheNbr(String pheNbr) {
-        this.pheNbr = pheNbr;
+        this.pheNbr = pheNbr == null ? null : pheNbr.trim();
     }
 
     public String getCstAdr() {
@@ -421,7 +268,7 @@ public class HspDbzlBas {
     }
 
     public void setCstAdr(String cstAdr) {
-        this.cstAdr = cstAdr;
+        this.cstAdr = cstAdr == null ? null : cstAdr.trim();
     }
 
     public String getNation() {
@@ -429,7 +276,7 @@ public class HspDbzlBas {
     }
 
     public void setNation(String nation) {
-        this.nation = nation;
+        this.nation = nation == null ? null : nation.trim();
     }
 
     public String getEmgJob() {
@@ -437,7 +284,7 @@ public class HspDbzlBas {
     }
 
     public void setEmgJob(String emgJob) {
-        this.emgJob = emgJob;
+        this.emgJob = emgJob == null ? null : emgJob.trim();
     }
 
     public String getMaritalStatus() {
@@ -445,7 +292,7 @@ public class HspDbzlBas {
     }
 
     public void setMaritalStatus(String maritalStatus) {
-        this.maritalStatus = maritalStatus;
+        this.maritalStatus = maritalStatus == null ? null : maritalStatus.trim();
     }
 
     public String getCstEdu() {
@@ -453,7 +300,7 @@ public class HspDbzlBas {
     }
 
     public void setCstEdu(String cstEdu) {
-        this.cstEdu = cstEdu;
+        this.cstEdu = cstEdu == null ? null : cstEdu.trim();
     }
 
     public String getLnkMan() {
@@ -461,7 +308,7 @@ public class HspDbzlBas {
     }
 
     public void setLnkMan(String lnkMan) {
-        this.lnkMan = lnkMan;
+        this.lnkMan = lnkMan == null ? null : lnkMan.trim();
     }
 
     public String getLnkWay() {
@@ -469,7 +316,7 @@ public class HspDbzlBas {
     }
 
     public void setLnkWay(String lnkWay) {
-        this.lnkWay = lnkWay;
+        this.lnkWay = lnkWay == null ? null : lnkWay.trim();
     }
 
     public String getGrnChl() {
@@ -477,7 +324,7 @@ public class HspDbzlBas {
     }
 
     public void setGrnChl(String grnChl) {
-        this.grnChl = grnChl;
+        this.grnChl = grnChl == null ? null : grnChl.trim();
     }
 
     public String getSwChl() {
@@ -485,7 +332,7 @@ public class HspDbzlBas {
     }
 
     public void setSwChl(String swChl) {
-        this.swChl = swChl;
+        this.swChl = swChl == null ? null : swChl.trim();
     }
 
     public String getHspAra() {
@@ -493,7 +340,7 @@ public class HspDbzlBas {
     }
 
     public void setHspAra(String hspAra) {
-        this.hspAra = hspAra;
+        this.hspAra = hspAra == null ? null : hspAra.trim();
     }
 
     public String getYqxh() {
@@ -501,7 +348,7 @@ public class HspDbzlBas {
     }
 
     public void setYqxh(String yqxh) {
-        this.yqxh = yqxh;
+        this.yqxh = yqxh == null ? null : yqxh.trim();
     }
 
     public Long getJzxh() {
@@ -533,7 +380,7 @@ public class HspDbzlBas {
     }
 
     public void setJzys(String jzys) {
-        this.jzys = jzys;
+        this.jzys = jzys == null ? null : jzys.trim();
     }
 
     public String getYsxm() {
@@ -541,7 +388,7 @@ public class HspDbzlBas {
     }
 
     public void setYsxm(String ysxm) {
-        this.ysxm = ysxm;
+        this.ysxm = ysxm == null ? null : ysxm.trim();
     }
 
     public String getKsdm() {
@@ -549,7 +396,7 @@ public class HspDbzlBas {
     }
 
     public void setKsdm(String ksdm) {
-        this.ksdm = ksdm;
+        this.ksdm = ksdm == null ? null : ksdm.trim();
     }
 
     public Date getCrtTim() {
@@ -565,7 +412,7 @@ public class HspDbzlBas {
     }
 
     public void setCrtNo(String crtNo) {
-        this.crtNo = crtNo;
+        this.crtNo = crtNo == null ? null : crtNo.trim();
     }
 
     public String getCrtNam() {
@@ -573,7 +420,7 @@ public class HspDbzlBas {
     }
 
     public void setCrtNam(String crtNam) {
-        this.crtNam = crtNam;
+        this.crtNam = crtNam == null ? null : crtNam.trim();
     }
 
     public Date getModTim() {
@@ -589,7 +436,7 @@ public class HspDbzlBas {
     }
 
     public void setModNo(String modNo) {
-        this.modNo = modNo;
+        this.modNo = modNo == null ? null : modNo.trim();
     }
 
     public String getModNam() {
@@ -597,7 +444,7 @@ public class HspDbzlBas {
     }
 
     public void setModNam(String modNam) {
-        this.modNam = modNam;
+        this.modNam = modNam == null ? null : modNam.trim();
     }
 
     public String getRcdSta() {
@@ -605,7 +452,7 @@ public class HspDbzlBas {
     }
 
     public void setRcdSta(String rcdSta) {
-        this.rcdSta = rcdSta;
+        this.rcdSta = rcdSta == null ? null : rcdSta.trim();
     }
 
     public Date getChkTim() {
@@ -621,7 +468,7 @@ public class HspDbzlBas {
     }
 
     public void setChkNo(String chkNo) {
-        this.chkNo = chkNo;
+        this.chkNo = chkNo == null ? null : chkNo.trim();
     }
 
     public String getChkNam() {
@@ -629,7 +476,7 @@ public class HspDbzlBas {
     }
 
     public void setChkNam(String chkNam) {
-        this.chkNam = chkNam;
+        this.chkNam = chkNam == null ? null : chkNam.trim();
     }
 
     public String getChkMsg() {
@@ -637,7 +484,7 @@ public class HspDbzlBas {
     }
 
     public void setChkMsg(String chkMsg) {
-        this.chkMsg = chkMsg;
+        this.chkMsg = chkMsg == null ? null : chkMsg.trim();
     }
 
     public String getStpFlg() {
@@ -645,7 +492,7 @@ public class HspDbzlBas {
     }
 
     public void setStpFlg(String stpFlg) {
-        this.stpFlg = stpFlg;
+        this.stpFlg = stpFlg == null ? null : stpFlg.trim();
     }
 
     public Date getStpTim() {
@@ -661,7 +508,7 @@ public class HspDbzlBas {
     }
 
     public void setStpNo(String stpNo) {
-        this.stpNo = stpNo;
+        this.stpNo = stpNo == null ? null : stpNo.trim();
     }
 
     public String getStpNam() {
@@ -669,7 +516,7 @@ public class HspDbzlBas {
     }
 
     public void setStpNam(String stpNam) {
-        this.stpNam = stpNam;
+        this.stpNam = stpNam == null ? null : stpNam.trim();
     }
 
     public String getSmtSta() {
@@ -677,7 +524,7 @@ public class HspDbzlBas {
     }
 
     public void setSmtSta(String smtSta) {
-        this.smtSta = smtSta;
+        this.smtSta = smtSta == null ? null : smtSta.trim();
     }
 
     public String getSmtSeq() {
@@ -685,7 +532,7 @@ public class HspDbzlBas {
     }
 
     public void setSmtSeq(String smtSeq) {
-        this.smtSeq = smtSeq;
+        this.smtSeq = smtSeq == null ? null : smtSeq.trim();
     }
 
     public String getSmtMsg() {
@@ -693,6 +540,30 @@ public class HspDbzlBas {
     }
 
     public void setSmtMsg(String smtMsg) {
-        this.smtMsg = smtMsg;
+        this.smtMsg = smtMsg == null ? null : smtMsg.trim();
+    }
+
+    public String getSmtNo() {
+        return smtNo;
+    }
+
+    public void setSmtNo(String smtNo) {
+        this.smtNo = smtNo == null ? null : smtNo.trim();
+    }
+
+    public String getSmtNam() {
+        return smtNam;
+    }
+
+    public void setSmtNam(String smtNam) {
+        this.smtNam = smtNam == null ? null : smtNam.trim();
+    }
+
+    public Date getSmtTim() {
+        return smtTim;
+    }
+
+    public void setSmtTim(Date smtTim) {
+        this.smtTim = smtTim;
     }
 }
