@@ -231,10 +231,6 @@
                         pageList: [20, 30, 50],
                         columns: [
                             [{
-                                field : 'smtSeq',
-                                title : '填报编号',
-                                width : setWidth(0.1)
-                            }, {
                                 field : 'wayTyp',
                                 title : '患者类型',
                                 width : setWidth(0.05),
@@ -254,7 +250,7 @@
                             }, {
                                 field: 'cstSexCod',
                                 title: '性别',
-                                width: setWidth(0.05),
+                                width: setWidth(0.03),
                                 formatter: function(value, row, index) {
                                     if (value == 0) {
                                         return '男'
@@ -265,7 +261,7 @@
                             }, {
                                 field: 'cstAge',
                                 title: '年龄',
-                                width: setWidth(0.05),
+                                width: setWidth(0.03),
                                 formatter: function(value, row, index) {
                                     return value == null ? '-' : value + '岁';
                                 }
@@ -285,10 +281,56 @@
                                 formatter: function(value, row, index) {
                                     return publicFun.codingEscape(czCbzdCodList, value);
                                 }
+                            },{
+                                field : 'zdys',
+                                title : '诊断医生',
+                                width : setWidth(0.08),
+                            },{
+                                field: 'crtTim',
+                                title: '建档时间',
+                                width: setWidth(0.1),
+                                formatter: function(value, row, index) {
+                                    if (value != null)
+                                        return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+                                    return null;
+                                }
                             }, {
+                                field : 'rcdSta',
+                                title : '审核状态',
+                                width : setWidth(0.04),
+                                formatter : function(value, row, index) {
+                                    if (value == 1) {
+                                        return '记录中'
+                                    } else if (value == 2) {
+                                        return '审核中'
+                                    } else if (value == 3) {
+                                        return '被驳回'
+                                    } else if (value == 4) {
+                                        return '已审核'
+                                    }
+                                }
+                            }, {
+                                field : 'chkTim',
+                                title : '审核时间',
+                                width : setWidth(0.06),
+                                formatter : function(value, row, index) {
+                                    if(value) {
+                                        return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+                                    }
+                                    return "";
+                                }
+                            },{
+                                field : 'chkNam',
+                                title : '审核人',
+                                width : setWidth(0.04)
+                            },{
+                                field : 'chkMsg',
+                                title : '审核意见',
+                                width : setWidth(0.06)
+                            },{
                                 field : 'smtSta',
-                                title : '状态',
-                                width : setWidth(0.05),
+                                title : '上报状态',
+                                width : setWidth(0.04),
                                 formatter : function(value, row, index) {
                                     if (value == 1) {
                                         return '未上报'
@@ -303,18 +345,23 @@
                                     }
                                 }
                             },{
-                                field: 'crtTim',
-                                title: '建档时间',
-                                width: setWidth(0.1),
-                                formatter: function(value, row, index) {
-                                    if (value != null)
+                                field : 'smtTim',
+                                title : '上报时间',
+                                width : setWidth(0.06),
+                                formatter : function(value, row, index) {
+                                    if(value) {
                                         return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
-                                    return null;
+                                    }
+                                    return "";
                                 }
                             },{
-                                field : 'zdys',
-                                title : '诊断医生',
-                                width : setWidth(0.08),
+                                field : 'smtSeq',
+                                title : '填报编号',
+                                width : setWidth(0.1)
+                            },{
+                                field : 'smtMsg',
+                                title : '上报信息',
+                                width : setWidth(0.06)
                             },{
                                 field: 'dd',
                                 title: '操作',

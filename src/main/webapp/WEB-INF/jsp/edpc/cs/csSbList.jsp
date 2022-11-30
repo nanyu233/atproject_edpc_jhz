@@ -13,7 +13,8 @@
     <title>My JSP 'csSbList.jsp' starting page</title>
     <%@ include file="/WEB-INF/jsp/base/common_css.jsp" %>
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
-    <style>
+    <script type="text/javascript" src="js/edpc/crfplane/crfplane.js"></script>
+  <style>
         .form {
             border: 1px solid #eeeeee;
             width: 99%;
@@ -153,53 +154,53 @@
             var height = 0.945 * ($("#tabs", parent.document).height() - 34 - 18);
             $("#dg").height(height);
             var czCbzdCodList = publicFun.getItem("allDict").CZ_CBZD_COD;
-            $('#dg').datagrid({
-                url: 'cs/getCsPatientList.do',
-                queryParams: this.queryParams,
-                striped: true,
-                singleSelect: true,
-                pagination: true,
-                rownumbers: true,
-                pageList: [20, 30, 50],
-                columns: [[
-                    {
-                        field: 'cstNam',
-                        title: '姓名',
-                        width: this.setWidth(0.1)
-                    },
-                    {
-                        field: 'cstSexCod',
-                        title: '性别',
-                        width: this.setWidth(0.11),
-                        formatter: function (value, row, index) {
-                            if (value == 0) {
-                                return '男'
-                            } else if (value == 1) {
-                                return '女'
-                            }
-                        }
-                    },
-                    {
-                        field: 'cstAge',
-                        title: '年龄',
-                        width: this.setWidth(0.1),
-                        formatter: function (value, row, index) {
-                            return value == null ? '-' : value + '岁';
-                        }
-                    },
-                    {
-                        field: 'emgDat',
-                        title: '登记时间',
-                        width: this.setWidth(0.1),
-                        formatter: function (value, row, index) {
-                            return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm:ss');
-                        }
-                    },
-                    {
-                        field: 'fbsj',
-                        title: '发病时间',
-                        width: this.setWidth(0.1),
-                        formatter: function (value, row, index) {
+              $('#dg').datagrid({
+                  url: 'cs/getCsPatientList.do',
+                  queryParams: this.queryParams,
+                  striped: true,
+                  singleSelect: true,
+                  pagination: true,
+                  rownumbers: true,
+                  pageList: [20, 30, 50],
+                  columns: [ [
+                      {
+                          field : 'cstNam',
+                          title : '姓名',
+                          width : this.setWidth(0.1)
+                      },
+                      {
+                          field : 'cstSexCod',
+                          title : '性别',
+                          width : this.setWidth(0.11),
+                          formatter : function(value, row, index) {
+                              if (value == 0) {
+                                  return '男'
+                              } else if (value == 1) {
+                                  return '女'
+                              }
+                          }
+                      },
+                      {
+                          field : 'cstAge',
+                          title : '年龄',
+                          width : this.setWidth(0.1),
+                          formatter : function(value, row, index) {
+                              return value==null?'-':value + '岁';
+                          }
+                      },
+                      {
+                          field : 'regTim',
+                          title : '登记时间',
+                          width : this.setWidth(0.1),
+                          formatter : function(value, row, index) {
+                              return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm:ss');
+                          }
+                      },
+                      {
+                          field : 'fbsj',
+                          title : '发病时间',
+                          width : this.setWidth(0.1),
+                          formatter : function(value, row, index) {
                             if (value) {
                                 return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm:ss');
                             }
@@ -212,22 +213,99 @@
                         formatter: function (value, row, index) {
                             return publicFun.codingEscape(czCbzdCodList, value);
                         }
-                    },
-                    {
-                        field: 'dd',
-                        title: '操作',
-                        width: this.setWidth(0.15),
-                        formatter: function (value, row, index) {
-                            var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">查看</span>' +
-                                '<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">时间轴</span>' +
-                                '<span class="btn Timeline" onclick="toAisiss(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">AIS/ISS</span>';
-                            return _html
+                      },{
+                        field : 'rcdSta',
+                        title : '审核状态',
+                        width : this.setWidth(0.04),
+                        formatter : function(value, row, index) {
+                          if (value == 1) {
+                            return '记录中'
+                          } else if (value == 2) {
+                            return '审核中'
+                          } else if (value == 3) {
+                            return '被驳回'
+                          } else if (value == 4) {
+                            return '已审核'
+                          }
                         }
-                    }
-                ]]
-            });
-        },
-        methods: {
+                      }, {
+                        field : 'chkTim',
+                        title : '审核时间',
+                        width : this.setWidth(0.06),
+                        formatter : function(value, row, index) {
+                          if(value) {
+                            return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+                          }
+                          return "";
+                        }
+                      },{
+                        field : 'chkNam',
+                        title : '审核人',
+                        width : this.setWidth(0.04)
+                      },{
+                        field : 'chkMsg',
+                        title : '审核意见',
+                        width : this.setWidth(0.06)
+                      },{
+                        field : 'smtSta',
+                        title : '上报状态',
+                        width : this.setWidth(0.04),
+                        formatter : function(value, row, index) {
+                          if (value == 1) {
+                            return '未上报'
+                          } else if (value == 2) {
+                            return '上报中'
+                          } else if (value == 3) {
+                            return '上报失败'
+                          } else if (value == 4) {
+                            return '上报驳回'
+                          } else if (value == 5) {
+                            return '上报完成'
+                          }
+                        }
+                      },{
+                        field : 'smtTim',
+                        title : '上报时间',
+                        width : this.setWidth(0.06),
+                        formatter : function(value, row, index) {
+                          if(value) {
+                            return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+                          }
+                          return "";
+                        }
+                      },{
+                        field : 'smtSeq',
+                        title : '填报编号',
+                        width : this.setWidth(0.1)
+                      },{
+                        field : 'smtMsg',
+                        title : '上报信息',
+                        width : this.setWidth(0.06)
+                      },{
+                          field : 'dd',
+                          title : '操作',
+                          width : this.setWidth(0.15),
+                          formatter : function(value, row, index) {
+                              var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">查看</span>' +
+                                  '<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">时间轴</span>'+
+                                      '<span class="btn Timeline" onclick="toAisiss(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">AIS/ISS</span>';
+
+                            if("1" == row.rcdSta || "3" == row.rcdSta) {
+                              _html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
+                            } else if("2" == row.rcdSta) {
+                              _html += '<span class="btn detail" onclick="skipChkPage(\'' + row.regSeq + '\')">审核</span>'
+                            }
+                            if("4" == row.rcdSta) {
+                              _html += '<span class="btn detail" onclick="chkRowBak(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">解锁</span>'
+                              _html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\',\'' + row.patTyp + '\')">上报</span>'
+                            }
+                              return _html
+                          }
+                      }
+                  ]]
+              });
+          },
+          methods: {
             search() {
                 this.queryParams.startdate = this.$refs.startdate.value
                 this.queryParams.enddate = this.$refs.enddate.value

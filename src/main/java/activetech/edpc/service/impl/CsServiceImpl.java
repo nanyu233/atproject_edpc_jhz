@@ -529,7 +529,7 @@ public class CsServiceImpl implements CsService{
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, rows, page);
 		hspCszlInfQueryDto.setPageQuery(pageQuery);
-		List<HspCszlInfQueryDto> list = hspCszlInfMapperCustom.getCsPatientList(hspCszlInfQueryDto);
+		List<HspDbzlBasCustom> list = hspCszlInfMapperCustom.getCsPatientList(hspCszlInfQueryDto);
 		dataGridResultInfo.setRows(list);
 		dataGridResultInfo.setTotal(total);
 		return dataGridResultInfo;

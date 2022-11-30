@@ -1,57 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="activetech.edpc.dao.mapper.HspCszlInfMapperCustom">
-    <select id="countCsPatientList" parameterType="activetech.edpc.pojo.dto.HspCszlInfQueryDto"
-            resultType="java.lang.Integer">
-        select count(*)
-		  from hsp_emg_inf
-		 where cspg_flg = '1'
-		 <if test="cstNam != null and cstNam.length() > 0">
-             and cst_nam = #{cstNam, jdbcType = VARCHAR}
-         </if>
-		 <if test="vstCad != null and vstCad.length() > 0">
-             and vst_cad = #{vstCad, jdbcType = VARCHAR}
-         </if>
-		   and emg_dat <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}
-	   	   and emg_dat <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
-    </select>
+	<select id="countCsPatientList" parameterType="activetech.edpc.pojo.dto.HspCszlInfQueryDto"
+				 resultType="java.lang.Integer">
+		select count(*)
+		  from hsp_dbzl_bas
+		 where PAT_TYP = '3'
+		 <if test="cstNam !=null and cstNam.length()>0">
+		   and cst_nam = #{cstNam, jdbcType = VARCHAR}
+		 </if>
+		 <if test="vstCad !=null and vstCad.length()>0">
+		   and vst_cad = #{vstCad, jdbcType = VARCHAR}
+		 </if>
+		   and reg_tim <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}
+	   	   and reg_tim <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
+	</select>
 		
 	<select id="getCsPatientList" parameterType="activetech.edpc.pojo.dto.HspCszlInfQueryDto"
-            resultType="activetech.edpc.pojo.dto.HspCszlInfQueryDto">
-        <include refid="activetech.base.CommonSql.page_start"/>
-		select emg_seq,
-		       vst_cad,
-		       cst_nam,
-		       emg_dat,
-		       (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
-		          from hsp_cszl_inf
-		         where pro_code = 'FBSJ'
-		           and emg_no = hsp_emg_inf.emg_seq) fbsj,
-		       cst_sex_cod,
-		       bth_dat,
-		       cst_age,
-		       (select info
-		          from dstdictinfo
-		         where typecode = 'ARV_CHL_COD'
-		           and infocode = hsp_emg_inf.arv_chl_cod) arvChlCod
-        <!--		       getjbzddata('4', hsp_emg_inf.emg_seq) jbzdDes-->
-        from hsp_emg_inf
-		 where cspg_flg = '1'
-		 <if test="cstNam != null and cstNam.length() > 0">
-             and cst_nam = #{cstNam, jdbcType = VARCHAR}
-         </if>
-		 <if test="vstCad != null and vstCad.length() > 0">
-             and vst_cad = #{vstCad, jdbcType = VARCHAR}
-         </if>
-		   and emg_dat <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}
-	   	   and emg_dat <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
-		<include refid="activetech.base.CommonSql.page_end"/>
-    </select>
-
-    <!-- 创伤急救时间轴 -->
-    <select id="getCzTimeline" parameterType="java.lang.String"
-            resultType="activetech.edpc.pojo.dto.HspCszlInfCustom">
-        select seq_no,
+		resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom">
+		<include refid="activetech.base.CommonSql.page_start" />
+		select reg_seq,
+               reg_tim,
+               emg_seq,
+               mpi,
+               pat_typ,
+               way_typ,
+               card_type,
+               vst_cad,
+               cst_nam,
+               cst_sex_cod,
+               id_type,
+               id_nbr,
+               cst_age_cod,
+               decode(cst_age_cod, '0', cst_age, '0') cstAge,
+               pat_wgt,
+               pat_hgt,
+               bth_dat,
+               phe_nbr,
+               cst_adr,
+               nation,
+               emg_job,
+               marital_status,
+               cst_edu,
+               lnk_man,
+               lnk_way,
+               grn_chl,
+               sw_chl,
+               hsp_ara,
+               yqxh,
+               jzxh,
+               zyxh,
+               doc_dat,
+               jzys,
+               ysxm,
+               ksdm,
+               crt_tim,
+               crt_no,
+               crt_nam,
+               mod_tim,
+               mod_no,
+               mod_nam,
+               nvl(rcd_sta, '1') rcd_sta,
+               chk_tim,
+               chk_no,
+               chk_nam,
+               chk_msg,
+               stp_flg,
+               stp_tim,
+               stp_no,
+               stp_nam,
+               nvl(smt_sta, '1') smt_sta,
+               smt_seq,
+               smt_msg,
+               smt_no,
+               smt_nam,
+               smt_tim
+		  from hsp_dbzl_bas
+		 where PAT_TYP = '3'
+		 <if test="cstNam !=null and cstNam.length()>0">
+		   and cst_nam = #{cstNam, jdbcType = VARCHAR}
+		 </if>
+		 <if test="vstCad !=null and vstCad.length()>0">
+		   and vst_cad = #{vstCad, jdbcType = VARCHAR}
+		 </if>
+		   and reg_tim <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}
+	   	   and reg_tim <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
+		<include refid="activetech.base.CommonSql.page_end" />
+	</select>
+	
+	<!-- 创伤急救时间轴 -->
+	<select id="getCzTimeline" parameterType="java.lang.String"
+		resultType="activetech.edpc.pojo.dto.HspCszlInfCustom">
+		select seq_no,
 			   emg_no,
 			   pro_code,
 			   pro_type,

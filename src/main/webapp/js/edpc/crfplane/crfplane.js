@@ -21,7 +21,9 @@ function reviewApply(regSeq, rcdSta) {
             },
             function (res) {
                 if (res.resultInfo.success){
-                    search();
+                    if(search) {
+                        search();
+                    }
                 }
             }
         )
@@ -59,7 +61,9 @@ function smtPort(regSeq, smtSta, patTyp) {
                 //虚化结束
                 $("body").children("div.datagrid-mask-msg").remove();
                 $("body").children("div.datagrid-mask").remove();
-                search();
+                if(search) {
+                    search();
+                }
                 message_alert(res)
             }
         )
@@ -90,7 +94,9 @@ function chkRowBak(regSeq, smtSta) {
             },
             function (res) {
                 message_alert(res)
-                search();
+                if(search) {
+                    search();
+                }
             }
         )
     });

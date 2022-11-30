@@ -79,7 +79,9 @@
                     },
                     function (res) {
                         if (res.resultInfo.success){
-                            parent.search();
+                            if(parent.search){
+                                parent.search();
+                            }
                             parent.closemodalwindow()
                         }
                     }

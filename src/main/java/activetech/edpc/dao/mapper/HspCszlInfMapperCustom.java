@@ -2,6 +2,7 @@ package activetech.edpc.dao.mapper;
 
 import java.util.List;
 
+import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import org.apache.ibatis.annotations.Param;
 
 import activetech.edpc.pojo.domain.HspCszlInf;
@@ -21,7 +22,7 @@ public interface HspCszlInfMapperCustom {
 	 * @param hspCszlInfQueryDto
 	 * @return
 	 */
-	public List<HspCszlInfQueryDto> getCsPatientList(HspCszlInfQueryDto hspCszlInfQueryDto);
+	public List<HspDbzlBasCustom> getCsPatientList(HspCszlInfQueryDto hspCszlInfQueryDto);
 	
 	/**
 	 * 获取创伤时间轴
