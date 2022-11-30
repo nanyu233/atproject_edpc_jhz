@@ -27,23 +27,6 @@ public interface HspXtzlInfCustomMapper {
 	
 	List<HspXtzlInfCustom> findXtPatientWithCod(@Param(value="busSteps")List<String> busSteps,@Param(value="emgNo")String emgNo);
 	
-//	int countXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto);
-//
-//	List<XtHspEmgInfQueryDto> getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto);
-
-	/**
-	 * 统计胸痛患者数目
-	 * @param hspDbzlBasQueryDto
-	 * @return
-	 */
-	int countXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
-	/**
-	 * 查询hspDbzlBas的胸痛患者列表请求
-	 * @param hspDbzlBasQueryDto
-	 * @return
-	 */
-	List<HspDbzlBasCustom> getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
-	
 	String getD2W(@Param(value="emgSeq")String emgSeq);
 	
 	HspEmgInf getXtPatientDetail2(String emgSeq);

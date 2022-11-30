@@ -71,7 +71,7 @@
 
                 };
                 publicFun.httpRequest(
-                    '${baseurl}cpc/reviewSubmit.do',
+                    '${baseurl}crfplane/reviewSubmit.do',
                     requestData,
                     {
                         'ajaxType': 'post',

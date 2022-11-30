@@ -1,25 +1,25 @@
 package activetech.edpc.service.impl;
 
-import activetech.aid.dao.mapper.AidPatientMapper;
-import activetech.aid.dao.mapper.AidPatientXtMapper;
 import activetech.base.dao.mapper.DstarchivesMapper;
-import activetech.base.dao.mapper.DstdictinfoCustomMapper;
 import activetech.base.dao.mapper.HspAddrPostMapper;
 import activetech.base.pojo.domain.Dstarchives;
 import activetech.base.pojo.domain.DstarchivesExample;
+import activetech.base.pojo.dto.ActiveUser;
+import activetech.base.process.context.Config;
 import activetech.base.process.context.CpcConfig;
 import activetech.base.process.result.ResultInfo;
+import activetech.base.process.result.ResultUtil;
 import activetech.base.util.MinIoUtil;
 import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.domain.HspDbzlBas;
 import activetech.edpc.pojo.domain.HspXtzlInf;
 import activetech.edpc.pojo.domain.HspXtzlInfExample;
-import activetech.edpc.service.CpcCrfplaneService;
+import activetech.edpc.pojo.dto.HspDbzlBasCustom;
+import activetech.edpc.service.CrfplaneService;
 import activetech.external.dao.mapper.HspEcgInfMapper;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
 import activetech.hospital.dao.mapper.HspMewsInfMapper;
-import activetech.hospital.dao.mapper.HspemginfCustomMapper;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
 import activetech.zyyhospital.dao.mapper.HspConsultationRecordsCustomMapper;
@@ -39,27 +39,20 @@ import sun.misc.BASE64Encoder;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
+public class CrfplaneServiceImpl implements CrfplaneService {
 
 	@Autowired
 	private HspXtzlInfMapper hspXtzlInfMapper;
 	@Autowired
-	private HspemginfCustomMapper hspemginfCustomMapper;
-	@Autowired
 	private HspEmgInfMapper hspEmgInfMapper;
 	@Autowired
-	private AidPatientMapper aidPatientMapper;
-	@Autowired
-	private AidPatientXtMapper aidPatientXtMapper;
-	@Autowired
 	private HspMewsInfMapper hspMewsInfMapper;
-	@Autowired
-	private DstdictinfoCustomMapper dstdictinfoCustomMapper;
 	@Autowired
 	private DstarchivesMapper dstarchivesMapper;
 	@Autowired
@@ -69,52 +62,119 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 	@Autowired
 	private HspAddrPostMapper hspAddrPostMapper;
 	@Autowired
-	private HspXtAddMapper hspXtAddMapper;
-	@Autowired
 	private HspEcgInfMapper hspEcgInfMapper;
 	@Autowired
 	private HspCrivelInfMapperCustom hspCrivelInfMapperCustom;
-
 	@Autowired
 	private HspDbzlBasMapper hspDbzlBasMapper;
-
 	@Autowired
 	private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
-
+	/**
+	 * 提交审核申请
+	 * @param hspDbzlBasCustom hspDbzlBasCustom
+	 * @param activeUser activeUser
+	 * @return return
+	 * @throws Exception Exception
+	 */
 	@Override
-	public ResultInfo cpcCrfplane(String emgNo, String patFlg) {
-		// TODO Auto-generated method stub
-		//胸痛信息map
-		Map<String, String> xtzlMap = new HashMap<String, String>();
-		HspXtzlInfExample hspXtzlInfExample = new HspXtzlInfExample();
-		HspXtzlInfExample.Criteria criteria = hspXtzlInfExample.createCriteria();
-		criteria.andEmgNoEqualTo(emgNo);
-		List<HspXtzlInf> list = hspXtzlInfMapper.selectByExample(hspXtzlInfExample);
-		for (HspXtzlInf hspXtzlInf : list) {
-			xtzlMap.put(hspXtzlInf.getProCode(), hspXtzlInf.getProVal());
+	public ResultInfo reviewSubmit(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
+		String regSeq = hspDbzlBasCustom.getRegSeq();
+		String[] split = regSeq.split(",");
+		hspDbzlBasCustom.setModNo(activeUser.getUsrno());
+		hspDbzlBasCustom.setModNam(activeUser.getUsrname());
+		if("2".equals(hspDbzlBasCustom.getRcdSta())) {
+			hspDbzlBasCustom.setChkTim(null);
+			hspDbzlBasCustom.setChkNo("");
+			hspDbzlBasCustom.setChkNam("");
+		} else {
+			hspDbzlBasCustom.setChkTim(new Date());
+			hspDbzlBasCustom.setChkNo(activeUser.getUsrno());
+			hspDbzlBasCustom.setChkNam(activeUser.getUsrname());
 		}
-		if ("".equals(patFlg)) {
-
-		} else if ("".equals(patFlg)) {
-
-		} else if ("".equals(patFlg)) {
-
-		}
-		return null;
+		hspDbzlBasMapperCustom.reviewSubmitBySeqArr(hspDbzlBasCustom, split);
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		return resultInfo;
 	}
 
 	@Override
-	public String registerInfoCrfplane(String emgNo) throws Exception {
+	public ResultInfo reportSubmit(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
+
+		String patTyp = hspDbzlBasCustom.getPatTyp();
+
+		hspDbzlBasCustom.setModNo(activeUser.getUsrno());
+		hspDbzlBasCustom.setModNam(activeUser.getUsrname());
+		String result = null;
+		if("1".equals(patTyp)) {
+			//胸痛
+			result = this.registerInfoCrfplane(hspDbzlBasCustom.getRegSeq());
+		} else if("2".equals(patTyp)) {
+			//卒中
+			result = null;
+		} else if("3".equals(patTyp)) {
+			//创伤
+			result = null;
+		}
+		Map<String, Object> resultMap = new HashMap<>();
+		ResultInfo resultInfo;
+		if(result != null) {
+			JSONObject resultObj = JSONObject.parseObject(result);
+			String resultCode = resultObj.get("ResultCode").toString();
+			String message = resultObj.get("Message").toString();
+			Object error = resultObj.get("Error");
+			Object data = resultObj.get("Data");
+
+			hspDbzlBasCustom.setSmtNo(activeUser.getUsrno());
+			hspDbzlBasCustom.setSmtNam(activeUser.getUsrname());
+			hspDbzlBasCustom.setSmtTim(new Date());
+			if("200".equals(resultCode)) {
+				String smtSeq = "";
+				//成功
+				if(data != null){
+					JSONObject dataObj = JSONObject.parseObject(JSON.toJSONString(data));
+					smtSeq = dataObj.get("REGISTER_ID").toString();
+				}
+				resultMap.put("REGISTER_ID", smtSeq);
+				hspDbzlBasCustom.setSmtSta("5");
+				hspDbzlBasCustom.setSmtSeq(smtSeq);
+				//上报返回后修改状态等信息
+				hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
+				resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+			} else {
+				//失败403 500
+				hspDbzlBasCustom.setSmtSta("3");
+				hspDbzlBasCustom.setSmtMsg(error.toString());
+				//上报返回后修改状态等信息
+				if(!"患者状态已经为<已存档>,不可以再修改;".equals(error)) {
+					hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
+				}
+				resultInfo = ResultUtil.createFail(Config.MESSAGE, 920, new Object[] {error});
+			}
+		} else {
+			//上报前修改信息
+			hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
+			resultInfo = ResultUtil.createFail(Config.MESSAGE, 920, new Object[] {"上报失败"});
+		}
+		return resultInfo;
+	}
+
+	/**
+	 * 胸痛上报方法
+	 * @param regSeq regSeq
+	 * @return return
+	 * @throws Exception Exception
+	 */
+	@Override
+	public String registerInfoCrfplane(String regSeq) throws Exception {
 		Map<String, String> xtzlMap = new HashMap<>();
 		HspXtzlInfExample hspXtzlInfExample = new HspXtzlInfExample();
 		HspXtzlInfExample.Criteria criteria = hspXtzlInfExample.createCriteria();
-		criteria.andEmgNoEqualTo(emgNo);
+		criteria.andEmgNoEqualTo(regSeq);
 		List<HspXtzlInf> list2 = hspXtzlInfMapper.selectByExample(hspXtzlInfExample);
 		for (HspXtzlInf hspXtzlInf : list2) {
 			xtzlMap.put(hspXtzlInf.getProCode(), hspXtzlInf.getProVal());
 		}
 
-		HspDbzlBas hspDbzlBas =hspDbzlBasMapper.selectByPrimaryKey(emgNo);
+		HspDbzlBas hspDbzlBas =hspDbzlBasMapper.selectByPrimaryKey(regSeq);
 
 		JSONObject root = new JSONObject();
 		//人口基本信息
@@ -605,7 +665,7 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 		//心电图列表
 		DstarchivesExample dstarchivesExample = new DstarchivesExample();
 		DstarchivesExample.Criteria dstarchivesCriteria = dstarchivesExample.createCriteria();
-		dstarchivesCriteria.andRefIdEqualTo(emgNo);
+		dstarchivesCriteria.andRefIdEqualTo(regSeq);
 		dstarchivesCriteria.andFileTypeEqualTo("ecg");
 		dstarchivesExample.setOrderByClause("crt_date desc");
 		List<Dstarchives> ecgList = dstarchivesMapper.selectByExample(dstarchivesExample);
@@ -1217,7 +1277,7 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 			// HspCrivelInf hspCrivelInf = hspCrivelInfMapperCustom.selectByPrimaryKey(emgNo);
 
 
-			List<HspCrivelInf> hspCrivelInfList = hspCrivelInfMapperCustom.selectByPrimaryKeyList(emgNo);
+			List<HspCrivelInf> hspCrivelInfList = hspCrivelInfMapperCustom.selectByPrimaryKeyList(regSeq);
 			for (int i = 1; i < 28; i++) {
 				String gmzy = "GMZY" + String.format("%02d",i);
 				if (StringUtils.isNotNullAndEmptyByTrim(xtzlMap.get(gmzy))) {
@@ -1740,18 +1800,18 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 
 		//未完成  出院药物方案 fei
 		OutComeInfo.put("OUTDRUGDETAILS", OutDrugDetailList);
-
-
 		// System.out.println("data1"+ "-------------"+ JSON.toJSONString(registerInfoMap));
 		// System.out.println("data2"+ "-------------"+ JSON.toJSONString(firstAIDInfoMap));
 		// System.out.println("data3"+ "-------------"+ JSON.toJSONString(treatmentInfoMap));
 		// System.out.println("data4"+ "-------------"+ JSON.toJSONString(TreatmentPciInfo));
 		// System.out.println("data5"+ "-------------"+ JSON.toJSONString(OutComeInfo));
-
 		root.put("OutComeInfo", OutComeInfo);
 		String requestBodyString = root.toJSONString();
 		System.out.println("root.toJSONString() = " + requestBodyString);
+		return sendToCenter(requestBodyString);
+	}
 
+	private String sendToCenter(String requestBodyString) throws Exception {
 		//请求地址
 		//String url = "http://[ip]:[port]/Services/V1.0/ChestPainCenter";
 		String url = "https://webapi.chinacpc.org/Services/v1.1/ChestPainCenter";
@@ -1768,7 +1828,6 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 		System.out.println("appId" + "-------------" + appId);
 		System.out.println("requestId" + "-------------" + requestId);
 		System.out.println("sign" + "-------------" + sign);
-
 
 		//设置请求头
 		HttpPost post = new HttpPost(url);
@@ -1790,7 +1849,11 @@ public class CpcCrfplaneServiceImpl implements CpcCrfplaneService {
 				return result;
 			}
 		} finally {
-			httpResponse.close();
+			try {
+				httpResponse.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}

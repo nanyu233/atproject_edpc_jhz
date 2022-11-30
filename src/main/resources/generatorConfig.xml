@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
     <!-- 数据库驱动包路径 -->
-    <classPathEntry location="C:\atrepository\repository\com\oracle\ojdbc6\11.2.0\ojdbc6-11.2.0.jar" />
+    <classPathEntry location="D:/Hot/product/11.2.0/dbhome_1/jdbc/lib/ojdbc6.jar" />
 
     <context id="context1" targetRuntime="MyBatis3">
         <!-- 运行环境配置 -->
@@ -21,27 +21,27 @@
         </commentGenerator>
         <!-- 连接数据库 -->
         <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
-                        connectionURL="jdbc:oracle:thin:@192.168.3.5:1521:orcl"
-                        userId="zjyy"
-                        password="zjyy" />
+                        connectionURL="jdbc:oracle:thin:@192.168.3.6:1521:emis"
+                        userId="edpc"
+                        password="edpc" />
 
         <!-- 生成po类 -->
-        <javaModelGenerator targetPackage="activetech.external.pojo.domain" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="activetech.edpc.pojo.domain" targetProject="src/main/java">
             <property name="enableSubPackages" value="false" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成xml映射文件 -->
-        <sqlMapGenerator targetPackage="activetech.external.dao.mapper" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="activetech.edpc.dao.mapper" targetProject="src/main/resources">
             <property name="enableSubPackages" value="false" />
             <property name="isMergeable" value="false" />
         </sqlMapGenerator>
         <!-- 生成dao类 -->
-        <javaClientGenerator targetPackage="activetech.external.dao.mapper" targetProject="src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="activetech.edpc.dao.mapper" targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 
         <!-- 需要生产po类的表 -->
-        <table tableName="hsp_ecg_inf" schema="zjyy" >
+        <table tableName="hsp_dbzl_bas" schema="edpc" >
             <!-- 主键生成方式 -->
         </table>
 

@@ -30,5 +30,17 @@ public interface HspDbzlBasMapperCustom {
      */
     void editDbzlBasByReport(HspDbzlBasCustom hspDbzlBasCustom) throws Exception;
 
-//    public int addNewPatient(HspDbzlBasQueryDto hspDbzlBasQueryDto);
+    /**
+     * 统计胸痛患者数目
+     * @param hspDbzlBasQueryDto
+     * @return
+     */
+    int countXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
+
+    /**
+     * 查询hspDbzlBas的胸痛患者列表请求
+     * @param hspDbzlBasQueryDto
+     * @return
+     */
+    List<HspDbzlBasCustom> getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 }

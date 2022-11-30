@@ -324,7 +324,7 @@
                 'rcdSta': "2"
             };
             publicFun.httpRequest(
-                '${baseurl}cpc/reviewSubmit.do',
+                '${baseurl}crfplane/reviewSubmit.do',
                 requestData,
                 {
                     'ajaxType': 'post',
@@ -343,7 +343,7 @@
     function chkConfirm(regSeq, rcdSta) {
         chkRegSeqArr = [regSeq];
         if(chkRegSeqArr.length > 0) {
-            createmodalwindow("审核确认", 430, 300, '${baseurl}cpc/toChkConfirm.do?', 'no');
+            createmodalwindow("审核确认", 430, 300, '${baseurl}crfplane/toChkConfirm.do?', 'no');
         }
     }
 
@@ -356,13 +356,13 @@
             }
         })
         if(chkRegSeqArr.length > 0) {
-            createmodalwindow("审核确认", 430, 300, '${baseurl}cpc/toChkConfirm.do', 'no');
+            createmodalwindow("审核确认", 430, 300, '${baseurl}crfplane/toChkConfirm.do', 'no');
         } else {
             alert_warn("不存在需要审核记录！")
         }
     }
 
-    function smtPort(regSeq, smtSta) {
+    function smtPort(regSeq, smtSta, patTyp) {
         var tipMsg = "确认上报？";
         if(smtSta === '5') {
             tipMsg = "确认重新上报？";
@@ -373,10 +373,11 @@
             $("<div class=\"datagrid-mask-msg\"></div>").html("正在上报，请稍候。。。").appendTo("body").css({display:"block","line-height": "11px",left:($(document.body).outerWidth(true) - 190) / 2});
             var requestData = {
                 'regSeq': regSeq,
+                'patTyp': patTyp,
                 'smtSta': "2"
             };
             publicFun.httpRequest(
-                '${baseurl}cpc/reportSubmit.do',
+                '${baseurl}crfplane/reportSubmit.do',
                 requestData,
                 {
                     'ajaxType': 'post',
@@ -391,6 +392,10 @@
                 }
             )
         });
+    }
+
+    function chkRowBak(regSeq, smtSta) {
+
     }
 
     $(function () {
@@ -578,13 +583,14 @@
 					formatter : function(value, row, index) {
                         var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">查看</span>' +
 						'<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>';
-						// if("1" == row.smtSta || "4" == row.smtSta) {
-                            _html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">上报</span>'
-                        // }
                         if("1" == row.rcdSta || "3" == row.rcdSta) {
                             _html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
                         } else if("2" == row.rcdSta) {
                             _html += '<span class="btn detail" onclick="chkConfirm(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">审核</span>'
+                        }
+                        if("4" == row.rcdSta) {
+                            _html += '<span class="btn detail" onclick="chkRowBak(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">解锁</span>'
+                            _html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\',\'' + row.patTyp + '\')">上报</span>'
                         }
 						return _html
 					}

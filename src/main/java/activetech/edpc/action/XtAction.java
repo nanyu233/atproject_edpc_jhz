@@ -11,18 +11,13 @@ import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.domain.HspGraceInf;
-import activetech.edpc.pojo.domain.HspSbarInf;
 import activetech.edpc.pojo.domain.HspXtzlInf;
 import activetech.edpc.pojo.dto.*;
-import activetech.edpc.service.CpcCrfplaneService;
+import activetech.edpc.service.CrfplaneService;
 import activetech.edpc.service.XtService;
-import activetech.edpc.service.impl.XtServiceImpl;
 import activetech.external.pojo.domain.HspEcgInf;
 import activetech.external.service.EsbService;
-import activetech.zyyhospital.pojo.dto.HspConsentInfCustom;
-import activetech.zyyhospital.pojo.dto.HspConsentInfCustomDto;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +53,7 @@ public class XtAction {
 	private AidService aidService;
 
 	@Autowired
-	private CpcCrfplaneService cpcCrfplaneService;
+	private CrfplaneService cpcCrfplaneService;
 
 
 	/**
@@ -464,17 +459,7 @@ public class XtAction {
 	 */
 	@RequestMapping("/getXtPatientList")
 	@ResponseBody
-//	public DataGridResultInfo getXtPatientList(XtHspEmgInfQueryDto xtHspEmgInfQueryDto,
-//			int page,//当前页码
-//			int rows//每页显示个数
-//			){
-//		DataGridResultInfo dataGridResultInfo = xtService.getXtPatientList(xtHspEmgInfQueryDto, page, rows);
-//		return dataGridResultInfo;
-//	}
-
-	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser
-
-	){
+	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser){
 		HspDbzlBasCustom hspDbzlBasCustom=new HspDbzlBasCustom();
 		hspDbzlBasCustom.setHspAra(activeUser.getHospitalCategory());
 		hspDbzlBasQueryDto.setHspDbzlBasCustom(hspDbzlBasCustom);
@@ -783,32 +768,5 @@ public class XtAction {
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
-	/**
-	 * 审核提交(申请,通过,不通过)
- 	 * @return throws
-	 * @throws Exception Exception
-	 */
-	@RequestMapping("/reviewSubmit")
-	public @ResponseBody SubmitResultInfo reviewSubmit(@RequestBody HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
-		ResultInfo resultInfo = xtService.reviewSubmit(hspDbzlBasCustom, activeUser);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}
-
-	/**
-	 * 跳转审核确认页面
-	 * @param model model
-	 * @return return
-	 * @throws Exception Exception
-	 */
-	@RequestMapping("/toChkConfirm")
-	public String toChkConfirm(Model model) throws Exception {
-		return View.toEDPC("/cpc/chkConfirm");
-	}
-
-	@RequestMapping("/reportSubmit")
-	public @ResponseBody SubmitResultInfo reportSubmit(@RequestBody HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
-		ResultInfo resultInfo = xtService.reportSubmit(hspDbzlBasCustom, activeUser);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}
 
 }

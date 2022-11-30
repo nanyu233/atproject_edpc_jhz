@@ -18,7 +18,7 @@ import activetech.base.service.SystemConfigService;
 import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.*;
 import activetech.edpc.pojo.dto.*;
-import activetech.edpc.service.CpcCrfplaneService;
+import activetech.edpc.service.CrfplaneService;
 import activetech.edpc.service.ExternalDataService;
 import activetech.edpc.service.XtService;
 import activetech.external.dao.mapper.HspEcgInfMapper;
@@ -123,7 +123,7 @@ public class XtServiceImpl implements XtService{
 	private SystemConfigService systemConfigService;
 
 	@Autowired
-	private CpcCrfplaneService cpcCrfplaneService;
+	private CrfplaneService cpcCrfplaneService;
 
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
@@ -352,11 +352,11 @@ public class XtServiceImpl implements XtService{
 	@Override
 	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto){
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		int total = hspXtzlInfCustomMapper.countXtPatientList(hspDbzlBasQueryDto);
+		int total = hspDbzlBasMapperCustom.countXtPatientList(hspDbzlBasQueryDto);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, hspDbzlBasQueryDto.getRows(), hspDbzlBasQueryDto.getPage());
 		hspDbzlBasQueryDto.setPageQuery(pageQuery);
-		List<HspDbzlBasCustom> list = hspXtzlInfCustomMapper.getXtPatientList(hspDbzlBasQueryDto);
+		List<HspDbzlBasCustom> list = hspDbzlBasMapperCustom.getXtPatientList(hspDbzlBasQueryDto);
 		dataGridResultInfo.setRows(list);
 		dataGridResultInfo.setTotal(total);
 		return dataGridResultInfo;
@@ -1472,81 +1472,6 @@ public class XtServiceImpl implements XtService{
 	@Override
 	public List<HspDbzlBasCustom> getCpcPatientInfoListByPage(QueryDto queryDto) {
 		return cpcMapper.getCpcPatientInfoList(queryDto);
-	}
-
-	/**
-	 * 提交审核申请
-	 * @param hspDbzlBasCustom hspDbzlBasCustom
-	 * @param activeUser activeUser
-	 * @return return
-	 * @throws Exception Exception
-	 */
-	@Override
-	public ResultInfo reviewSubmit(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
-		String regSeq = hspDbzlBasCustom.getRegSeq();
-		String[] split = regSeq.split(",");
-		hspDbzlBasCustom.setModNo(activeUser.getUsrno());
-		hspDbzlBasCustom.setModNam(activeUser.getUsrname());
-		if("2".equals(hspDbzlBasCustom.getRcdSta())) {
-			hspDbzlBasCustom.setChkTim(null);
-			hspDbzlBasCustom.setChkNo("");
-			hspDbzlBasCustom.setChkNam("");
-		} else {
-			hspDbzlBasCustom.setChkTim(new Date());
-			hspDbzlBasCustom.setChkNo(activeUser.getUsrno());
-			hspDbzlBasCustom.setChkNam(activeUser.getUsrname());
-		}
-		hspDbzlBasMapperCustom.reviewSubmitBySeqArr(hspDbzlBasCustom, split);
-		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		return resultInfo;
-	}
-
-	@Override
-	public ResultInfo reportSubmit(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
-		hspDbzlBasCustom.setModNo(activeUser.getUsrno());
-		hspDbzlBasCustom.setModNam(activeUser.getUsrname());
-		String result = cpcCrfplaneService.registerInfoCrfplane(hspDbzlBasCustom.getRegSeq());
-		Map<String, Object> resultMap = new HashMap<>();
-		ResultInfo resultInfo;
-		if(result != null) {
-			JSONObject resultObj = JSONObject.parseObject(result);
-			String resultCode = resultObj.get("ResultCode").toString();
-			String message = resultObj.get("Message").toString();
-			Object error = resultObj.get("Error");
-			Object data = resultObj.get("Data");
-
-			hspDbzlBasCustom.setSmtNo(activeUser.getUsrno());
-			hspDbzlBasCustom.setSmtNam(activeUser.getUsrname());
-			hspDbzlBasCustom.setSmtTim(new Date());
-			if("200".equals(resultCode)) {
-				String smtSeq = "";
-				//成功
-				if(data != null){
-					JSONObject dataObj = JSONObject.parseObject(JSON.toJSONString(data));
-					smtSeq = dataObj.get("REGISTER_ID").toString();
-				}
-				resultMap.put("REGISTER_ID", smtSeq);
-				hspDbzlBasCustom.setSmtSta("5");
-				hspDbzlBasCustom.setSmtSeq(smtSeq);
-				//上报返回后修改状态等信息
-				hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
-				resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-			} else {
-				//失败403 500
-				hspDbzlBasCustom.setSmtSta("3");
-				hspDbzlBasCustom.setSmtMsg(error.toString());
-				//上报返回后修改状态等信息
-				if(!"患者状态已经为<已存档>,不可以再修改;".equals(error)) {
-					hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
-				}
-				resultInfo = ResultUtil.createFail(Config.MESSAGE, 920, new Object[] {error});
-			}
-		} else {
-			//上报前修改信息
-			hspDbzlBasMapperCustom.editDbzlBasByReport(hspDbzlBasCustom);
-			resultInfo = ResultUtil.createFail(Config.MESSAGE, 920, new Object[] {"上报失败"});
-		}
-		return resultInfo;
 	}
 
 }
