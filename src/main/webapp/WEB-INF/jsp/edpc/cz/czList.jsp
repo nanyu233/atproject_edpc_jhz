@@ -14,16 +14,16 @@
                 <link rel="stylesheet" type="text/css" href="css/hems/global.css">
                 <link rel="stylesheet" type="text/css" href="css/common/querylist.css" />
                 <script type="text/javascript" src="lib/moment.min.js"></script>
-                <script type="text/javascript" src="lib/easyui1.3/jquery-1.8.0.min.js"></script>
-                <script type="text/javascript" src="lib/easyui1.3/jquery.easyui.min.js"></script>
                 <script type="text/javascript" src="lib/raphael-min.js"></script>
                 <script type="text/javascript" src="lib/avalon1.4.8/avalon.js"></script>
-                <script type="text/javascript" src="js/public.js"></script>
                 <script language="javascript" src="${baseurl}Lodop6.216/LodopFuncs.js"></script>
+                <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
+                <script type="text/javascript" src="js/edpc/crfplane/crfplane.js"></script>
                 <script>
                     var _emgSeq='';
+                    //审核页面用
+                    var chkRegSeqArr;
                 </script>
-                <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
                 <style>
 
                     .form {
@@ -323,6 +323,15 @@
                                     var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">查看</span>' +
                                         '<span class="btn Timeline" onclick="toCzTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">时间轴</span>'+
                                         '<span class="btn Timeline" onclick="printCzhcb(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">核查表</span>';
+                                    if("1" == row.rcdSta || "3" == row.rcdSta) {
+                                        _html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
+                                    } else if("2" == row.rcdSta) {
+                                        _html += '<span class="btn detail" onclick="skipChkPage(\'' + row.regSeq + '\')">审核</span>'
+                                    }
+                                    if("4" == row.rcdSta) {
+                                        _html += '<span class="btn detail" onclick="chkRowBak(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">解锁</span>'
+                                        _html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\',\'' + row.patTyp + '\')">上报</span>'
+                                    }
                                     return _html;
                                 }
                             }]

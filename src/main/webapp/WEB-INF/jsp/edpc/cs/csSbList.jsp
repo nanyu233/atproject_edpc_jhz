@@ -13,6 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title>My JSP 'csSbList.jsp' starting page</title>
       <%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
       <%@ include file="/WEB-INF/jsp/base/common_js.jsp"%>
+      <script type="text/javascript" src="js/edpc/crfplane/crfplane.js"></script>
     <style>
       .form {
         border: 1px solid #eeeeee;
@@ -125,6 +126,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </body>
   <script type="text/javascript" src="${baseurl}lib/vue2.6.7/vue.js"></script>
   <script type="text/javascript">
+    //审核页面用
+    var chkRegSeqArr;
       var vm = new Vue({
           el: '#form',
           data: {
@@ -208,6 +211,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                               var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">查看</span>' +
                                   '<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">时间轴</span>'+
                                       '<span class="btn Timeline" onclick="toAisiss(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">AIS/ISS</span>';
+
+                            if("1" == row.rcdSta || "3" == row.rcdSta) {
+                              _html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
+                            } else if("2" == row.rcdSta) {
+                              _html += '<span class="btn detail" onclick="skipChkPage(\'' + row.regSeq + '\')">审核</span>'
+                            }
+                            if("4" == row.rcdSta) {
+                              _html += '<span class="btn detail" onclick="chkRowBak(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">解锁</span>'
+                              _html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\',\'' + row.patTyp + '\')">上报</span>'
+                            }
                               return _html
                           }
                       }

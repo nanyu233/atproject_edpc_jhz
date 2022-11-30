@@ -15,12 +15,10 @@
 	<link rel="stylesheet" type="text/css" href="css/hems/global.css">
 	<link rel="stylesheet" type="text/css" href="css/common/querylist.css" />
     <script type="text/javascript" src="lib/moment.min.js"></script>
-    <script type="text/javascript" src="lib/easyui1.3/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="lib/easyui1.3/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="lib/raphael-min.js"></script>
     <script type="text/javascript" src="lib/avalon1.4.8/avalon.js"></script>
-    <script type="text/javascript" src="js/public.js"></script>
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
+    <script type="text/javascript" src="js/edpc/crfplane/crfplane.js"></script>
     <style>
 
         .form {
@@ -215,6 +213,8 @@
 	var ccdwArr = publicFun.getDict('XT_CCDW_COD');
 	var yqrscsArr = publicFun.getDict('XT_YQRSCS_COD');
 	var height = $('#container').height()
+    //审核页面用
+    var chkRegSeqArr;
     var vm = avalon.define({
         $id: 'list',
         advSearch: false,//高级查询
@@ -315,38 +315,8 @@
     }
 
     /**
-     * 提交审核
+     * 批量审核
      */
-    function reviewApply(regSeq, rcdSta) {
-        _confirm('确认提交审核？', null, function() {
-            var requestData = {
-                'regSeq': regSeq,
-                'rcdSta': "2"
-            };
-            publicFun.httpRequest(
-                '${baseurl}crfplane/reviewSubmit.do',
-                requestData,
-                {
-                    'ajaxType': 'post',
-                    'requestType': 'json'
-                },
-                function (res) {
-                    if (res.resultInfo.success){
-                        search();
-                    }
-                }
-            )
-        });
-    }
-    //审核页面用
-    var chkRegSeqArr;
-    function chkConfirm(regSeq, rcdSta) {
-        chkRegSeqArr = [regSeq];
-        if(chkRegSeqArr.length > 0) {
-            createmodalwindow("审核确认", 430, 300, '${baseurl}crfplane/toChkConfirm.do?', 'no');
-        }
-    }
-
     function batchChkConf() {
         chkRegSeqArr = [];
         var chkRows = $('#dg').datagrid("getChecked");
@@ -355,68 +325,7 @@
                 chkRegSeqArr.push(chkRow.regSeq);
             }
         })
-        if(chkRegSeqArr.length > 0) {
-            createmodalwindow("审核确认", 430, 300, '${baseurl}crfplane/toChkConfirm.do', 'no');
-        } else {
-            alert_warn("不存在需要审核记录！")
-        }
-    }
-
-    function smtPort(regSeq, smtSta, patTyp) {
-        var tipMsg = "确认上报？";
-        if(smtSta === '5') {
-            tipMsg = "确认重新上报？";
-        }
-        _confirm(tipMsg, null, function() {
-            //虚化
-            $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$(window).height()}).appendTo("body");
-            $("<div class=\"datagrid-mask-msg\"></div>").html("正在上报，请稍候。。。").appendTo("body").css({display:"block","line-height": "11px",left:($(document.body).outerWidth(true) - 190) / 2});
-            var requestData = {
-                'regSeq': regSeq,
-                'patTyp': patTyp,
-                'smtSta': "2"
-            };
-            publicFun.httpRequest(
-                '${baseurl}crfplane/reportSubmit.do',
-                requestData,
-                {
-                    'ajaxType': 'post',
-                    'requestType': 'json'
-                },
-                function (res) {
-                    //虚化结束
-                    $("body").children("div.datagrid-mask-msg").remove();
-                    $("body").children("div.datagrid-mask").remove();
-                    search();
-                    message_alert(res)
-                }
-            )
-        });
-    }
-
-    function chkRowBak(regSeq, smtSta) {
-        var tipMsg = "确认退回到审核中？";
-        if(smtSta === '5') {
-            tipMsg = "信息已上报完成，确认退回到审核中？";
-        }
-        _confirm(tipMsg, null, function() {
-            var requestData = {
-                'regSeq': regSeq,
-                'rcdSta': "2"
-            };
-            publicFun.httpRequest(
-                '${baseurl}crfplane/reviewSubmit.do',
-                requestData,
-                {
-                    'ajaxType': 'post',
-                    'requestType': 'json'
-                },
-                function (res) {
-                    message_alert(res)
-                    search();
-                }
-            )
-        });
+        skipChkPage(null, "batch");
     }
 
     $(function () {
@@ -607,7 +516,7 @@
                         if("1" == row.rcdSta || "3" == row.rcdSta) {
                             _html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
                         } else if("2" == row.rcdSta) {
-                            _html += '<span class="btn detail" onclick="chkConfirm(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">审核</span>'
+                            _html += '<span class="btn detail" onclick="skipChkPage(\'' + row.regSeq + '\')">审核</span>'
                         }
                         if("4" == row.rcdSta) {
                             _html += '<span class="btn detail" onclick="chkRowBak(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">解锁</span>'

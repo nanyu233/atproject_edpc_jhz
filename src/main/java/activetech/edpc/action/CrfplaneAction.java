@@ -41,7 +41,7 @@ public class CrfplaneAction {
      */
     @RequestMapping("/toChkConfirm")
     public String toChkConfirm(Model model) throws Exception {
-        return View.toEDPC("/cpc/chkConfirm");
+        return View.toEDPC("/crfplane/chkConfirm");
     }
 
     @RequestMapping("/reportSubmit")
