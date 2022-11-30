@@ -395,7 +395,28 @@
     }
 
     function chkRowBak(regSeq, smtSta) {
-
+        var tipMsg = "确认退回到审核中？";
+        if(smtSta === '5') {
+            tipMsg = "信息已上报完成，确认退回到审核中？";
+        }
+        _confirm(tipMsg, null, function() {
+            var requestData = {
+                'regSeq': regSeq,
+                'rcdSta': "2"
+            };
+            publicFun.httpRequest(
+                '${baseurl}crfplane/reviewSubmit.do',
+                requestData,
+                {
+                    'ajaxType': 'post',
+                    'requestType': 'json'
+                },
+                function (res) {
+                    message_alert(res)
+                    search();
+                }
+            )
+        });
     }
 
     $(function () {
