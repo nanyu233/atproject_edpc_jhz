@@ -18,7 +18,7 @@
 <context:component-scan base-package="activetech.base.config"/>
 <!--SwaggerConfig配置类注入-->
 <bean class="activetech.base.config.SwaggerConfig" id="swaggerConfig"/>
-
+<bean class="activetech.task.xxljob.MyJob" id="myJob"/>
 <!-- 获取编码 服务器启动时加载 redis上传 -->
 <bean class="activetech.base.listener.InitAllDictinfo" id="initAllDictinfo"/>
 
