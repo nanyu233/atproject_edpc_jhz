@@ -44,6 +44,13 @@ public class CrfplaneAction {
         return View.toEDPC("/crfplane/chkConfirm");
     }
 
+    /**
+     * 上报
+     * @param hspDbzlBasCustom hspDbzlBasCustom
+     * @param activeUser activeUser
+     * @return return
+     * @throws Exception Exception
+     */
     @RequestMapping("/reportSubmit")
     public @ResponseBody SubmitResultInfo reportSubmit(@RequestBody HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
         ResultInfo resultInfo = cpcCrfplaneService.reportSubmit(hspDbzlBasCustom, activeUser);
