@@ -15,10 +15,12 @@
 	<link rel="stylesheet" type="text/css" href="css/hems/global.css">
 	<link rel="stylesheet" type="text/css" href="css/common/querylist.css" />
     <script type="text/javascript" src="lib/moment.min.js"></script>
+    <script type="text/javascript" src="lib/easyui1.3/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="lib/easyui1.3/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="lib/raphael-min.js"></script>
     <script type="text/javascript" src="lib/avalon1.4.8/avalon.js"></script>
+    <script type="text/javascript" src="js/public.js"></script>
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
-    <script type="text/javascript" src="js/edpc/crfplane/crfplane.js"></script>
     <style>
 
         .form {
@@ -129,17 +131,24 @@
         table .del {
             background: red;
         }
-		.pagination-page-list{
-			width:45px;
-		}
-		.datagrid-wrap{
-			position:relative;
-		}
-		.datagrid-pager{
-			position:absolute;
-			bottom:0;
-			width:100%;
-		}
+
+        .pagination-page-list {
+            width: 45px;
+        }
+
+        .datagrid-wrap {
+            position: relative;
+        }
+
+        .datagrid-pager {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .datagrid-body {
+            overflow: auto;
+        }
     </style>
 </head>
 <body ms-controller="list" id="container">
@@ -213,8 +222,6 @@
 	var ccdwArr = publicFun.getDict('XT_CCDW_COD');
 	var yqrscsArr = publicFun.getDict('XT_YQRSCS_COD');
 	var height = $('#container').height()
-    //审核页面用
-    var chkRegSeqArr;
     var vm = avalon.define({
         $id: 'list',
         advSearch: false,//高级查询
@@ -315,8 +322,38 @@
     }
 
     /**
-     * 批量审核
+     * 提交审核
      */
+    function reviewApply(regSeq, rcdSta) {
+        _confirm('确认提交审核？', null, function() {
+            var requestData = {
+                'regSeq': regSeq,
+                'rcdSta': "2"
+            };
+            publicFun.httpRequest(
+                '${baseurl}cpc/reviewSubmit.do',
+                requestData,
+                {
+                    'ajaxType': 'post',
+                    'requestType': 'json'
+                },
+                function (res) {
+                    if (res.resultInfo.success){
+                        search();
+                    }
+                }
+            )
+        });
+    }
+    //审核页面用
+    var chkRegSeqArr;
+    function chkConfirm(regSeq, rcdSta) {
+        chkRegSeqArr = [regSeq];
+        if(chkRegSeqArr.length > 0) {
+            createmodalwindow("审核确认", 430, 300, '${baseurl}cpc/toChkConfirm.do?', 'no');
+        }
+    }
+
     function batchChkConf() {
         chkRegSeqArr = [];
         var chkRows = $('#dg').datagrid("getChecked");
@@ -325,7 +362,42 @@
                 chkRegSeqArr.push(chkRow.regSeq);
             }
         })
-        skipChkPage(null, "batch");
+        if(chkRegSeqArr.length > 0) {
+            createmodalwindow("审核确认", 430, 300, '${baseurl}cpc/toChkConfirm.do', 'no');
+        } else {
+            alert_warn("不存在需要审核记录！")
+        }
+    }
+
+    function smtPort(regSeq, smtSta) {
+        var tipMsg = "确认上报？";
+        if(smtSta === '5') {
+            tipMsg = "确认重新上报？";
+        }
+        _confirm(tipMsg, null, function() {
+            //虚化
+            $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$(window).height()}).appendTo("body");
+            $("<div class=\"datagrid-mask-msg\"></div>").html("正在上报，请稍候。。。").appendTo("body").css({display:"block","line-height": "11px",left:($(document.body).outerWidth(true) - 190) / 2});
+            var requestData = {
+                'regSeq': regSeq,
+                'smtSta': "2"
+            };
+            publicFun.httpRequest(
+                '${baseurl}cpc/reportSubmit.do',
+                requestData,
+                {
+                    'ajaxType': 'post',
+                    'requestType': 'json'
+                },
+                function (res) {
+                    //虚化结束
+                    $("body").children("div.datagrid-mask-msg").remove();
+                    $("body").children("div.datagrid-mask").remove();
+                    search();
+                    message_alert(res)
+                }
+            )
+        });
     }
 
     $(function () {
@@ -513,14 +585,13 @@
 					formatter : function(value, row, index) {
                         var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">查看</span>' +
 						'<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>';
+						// if("1" == row.smtSta || "4" == row.smtSta) {
+                            _html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">上报</span>'
+                        // }
                         if("1" == row.rcdSta || "3" == row.rcdSta) {
                             _html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
                         } else if("2" == row.rcdSta) {
-                            _html += '<span class="btn detail" onclick="skipChkPage(\'' + row.regSeq + '\')">审核</span>'
-                        }
-                        if("4" == row.rcdSta) {
-                            _html += '<span class="btn detail" onclick="chkRowBak(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">解锁</span>'
-                            _html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\',\'' + row.patTyp + '\')">上报</span>'
+                            _html += '<span class="btn detail" onclick="chkConfirm(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">审核</span>'
                         }
 						return _html
 					}

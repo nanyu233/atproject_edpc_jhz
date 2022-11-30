@@ -2,273 +2,276 @@
 <%@ include file="/WEB-INF/jsp/base/tag.jsp" %>
 <%--<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>--%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
+<head>
     <base href="<%=basePath%>">
     <title>My JSP 'csSbList.jsp' starting page</title>
-      <%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
-      <%@ include file="/WEB-INF/jsp/base/common_js.jsp"%>
-      <script type="text/javascript" src="js/edpc/crfplane/crfplane.js"></script>
+    <%@ include file="/WEB-INF/jsp/base/common_css.jsp" %>
+    <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
     <style>
-      .form {
-        border: 1px solid #eeeeee;
-        width: 100%;
+        .form {
+            border: 1px solid #eeeeee;
+            width: 99%;
 
-       }
-       .form .form_item {
-         display: flex;
-         justify-content: flex-start;
-       }
-      .form_item  .row {
-        margin: 10px 0 10px 3%;
-      }
-      .row label {
-        display: inline-block;
-        width: 90px;
-        text-align: right;
-        margin-left: 10px;
-        font-size: 14px;
-      }
-      .row input,
-      .row select{
-        height: 34px;
-        padding: 3px 3px;
-        font-size: 14px;
-        line-height: 1.428571429;
-        color: #555;
-        vertical-align: middle;
-        background-color: #fff;
-        background-image: none;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-      .row .search-btn {
-        width: 140px;
-        font-size: 14px;
-        border-radius: 5px;
-        color: #fff;
-        background-color: #428bca;
-        border-color: #357ebd;
-        height: 32px;
-        text-align: center;
-        line-height: 26px;
-      }
-      table .btn {
-        display: inline-block;
-        height: 18px;
-        padding: 2px 10px;
-        /*border: 1px solid black;*/
-        border-radius: 5px;
-        margin: 3px;
-        color: #ffffff;
-        cursor: pointer;
-      }
+        }
 
-      table .detail {
-        background: #428bca;
-      }
+        .form .form_item {
+            display: flex;
+            justify-content: flex-start;
+        }
 
-      table .Timeline {
-        background: #428bca;
-        /* background:darkseagreen; */
-      }
+        .form_item .row {
+            margin: 10px 0 10px 3%;
+        }
 
-      table .del {
-        background: red;
-      }
+        .row label {
+            display: inline-block;
+            width: 90px;
+            text-align: right;
+            margin-left: 10px;
+            font-size: 14px;
+        }
 
-      .pagination-page-list {
-        width: 45px;
-      }
+        .row input,
+        .row select {
+            height: 34px;
+            padding: 3px 3px;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #555;
+            vertical-align: middle;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-      .datagrid-wrap {
-        position: relative;
-      }
+        .row .search-btn {
+            width: 140px;
+            font-size: 14px;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #428bca;
+            border-color: #357ebd;
+            height: 32px;
+            text-align: center;
+            line-height: 26px;
+        }
 
-      .datagrid-pager {
-        /* position: fixed; */
-        /* position: absolute; */
-        height: auto;
-        /* bottom: 0; */
-        width: 100%;
-      }
+        table .btn {
+            display: inline-block;
+            height: 18px;
+            padding: 2px 10px;
+            /*border: 1px solid black;*/
+            border-radius: 5px;
+            margin: 3px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        table .detail {
+            background: #428bca;
+        }
+
+        table .Timeline {
+            background: #428bca;
+            /* background:darkseagreen; */
+        }
+
+        table .del {
+            background: red;
+        }
+
+        .pagination-page-list {
+            width: 45px;
+        }
+
+        .datagrid-wrap {
+            position: relative;
+        }
+
+        .datagrid-pager {
+            /* position: fixed; */
+            /* position: absolute; */
+            height: auto;
+            /* bottom: 0; */
+            width: 100%;
+        }
+
+        .datagrid-body {
+            overflow: auto;
+        }
     </style>
-  </head>
-  
-  <body>
-     <div id="form" class="form">
-       <div class="form_item">
-       <div class="row">
-         <label>登记时间：</label>
-         <input type="input" style="width: 37%;" class="input-date Wdate" ref="startdate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})"  v-model="queryParams.startdate" />-
-         <input type="input" style="width: 37%;" class="input-date Wdate" ref="enddate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})"  v-model="queryParams.enddate" />
-       </div>
-       <div class="row">
-         <select @change="optionChange" style="width: 35%">
-           <option>姓名</option>
-           <option>就诊卡号</option>
-         </select>
-         <input type="text" style="width: 60%" placeholder="请输入姓名" v-if="mainValue === 0" v-model="queryParams.cstNam">
-         <input type="text" style="width: 60%" placeholder="请输入就诊卡号" v-else v-model="queryParams.vstCad">
-       </div>
-       <div class="row">
-         <input type="button" class="search-btn" @click="search" value="查询" style="cursor: pointer">
-       </div>
-       </div>
-       <table id="dg"></table>
-     </div>
+</head>
 
-  </body>
-  <script type="text/javascript" src="${baseurl}lib/vue2.6.7/vue.js"></script>
-  <script type="text/javascript">
-    //审核页面用
-    var chkRegSeqArr;
-      var vm = new Vue({
-          el: '#form',
-          data: {
+<body>
+<div id="form" class="form">
+    <div class="form_item">
+        <div class="row">
+            <label>登记时间：</label>
+            <input type="input" style="width: 37%;" class="input-date Wdate" ref="startdate"
+                   onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" v-model="queryParams.startdate"/>-
+            <input type="input" style="width: 37%;" class="input-date Wdate" ref="enddate"
+                   onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" v-model="queryParams.enddate"/>
+        </div>
+        <div class="row">
+            <select @change="optionChange" style="width: 35%">
+                <option>姓名</option>
+                <option>就诊卡号</option>
+            </select>
+            <input type="text" style="width: 60%" placeholder="请输入姓名" v-if="mainValue === 0"
+                   v-model="queryParams.cstNam">
+            <input type="text" style="width: 60%" placeholder="请输入就诊卡号" v-else v-model="queryParams.vstCad">
+        </div>
+        <div class="row">
+            <input type="button" class="search-btn" @click="search" value="查询" style="cursor: pointer">
+        </div>
+    </div>
+    <table id="dg"></table>
+</div>
+
+</body>
+<script type="text/javascript" src="${baseurl}lib/vue2.6.7/vue.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#form',
+        data: {
             mainValue: 0,
             queryParams: {
-              cstNam: '',
-              vstCad: '',
-              startdate: publicFun.timeFormat(new Date(), 'yyyy/MM/dd'),
-              enddate: publicFun.timeFormat(new Date(), 'yyyy/MM/dd')
+                cstNam: '',
+                vstCad: '',
+                startdate: publicFun.timeFormat(new Date(), 'yyyy/MM/dd'),
+                enddate: publicFun.timeFormat(new Date(), 'yyyy/MM/dd')
             }
-          },
-          mounted() {
-            var height = 0.975 * ($("#tabs", parent.document).height() - 34 - 18);
+        },
+        mounted() {
+            var height = 0.945 * ($("#tabs", parent.document).height() - 34 - 18);
             $("#dg").height(height);
             var czCbzdCodList = publicFun.getItem("allDict").CZ_CBZD_COD;
-              $('#dg').datagrid({
-                  url: 'cs/getCsPatientList.do',
-                  queryParams: this.queryParams,
-                  striped: true,
-                  singleSelect: true,
-                  pagination: true,
-                  rownumbers: true,
-                  pageList: [20, 30, 50],
-                  columns: [ [
-                      {
-                          field : 'cstNam',
-                          title : '姓名',
-                          width : this.setWidth(0.1)
-                      },
-                      {
-                          field : 'cstSexCod',
-                          title : '性别',
-                          width : this.setWidth(0.11),
-                          formatter : function(value, row, index) {
-                              if (value == 0) {
-                                  return '男'
-                              } else if (value == 1) {
-                                  return '女'
-                              }
-                          }
-                      },
-                      {
-                          field : 'cstAge',
-                          title : '年龄',
-                          width : this.setWidth(0.1),
-                          formatter : function(value, row, index) {
-                              return value==null?'-':value + '岁';
-                          }
-                      },
-                      {
-                          field : 'emgDat',
-                          title : '登记时间',
-                          width : this.setWidth(0.1),
-                          formatter : function(value, row, index) {
-                              return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm:ss');
-                          }
-                      },
-                      {
-                          field : 'fbsj',
-                          title : '发病时间',
-                          width : this.setWidth(0.1),
-                          formatter : function(value, row, index) {
-                            if (value) {
-                              return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm:ss');
+            $('#dg').datagrid({
+                url: 'cs/getCsPatientList.do',
+                queryParams: this.queryParams,
+                striped: true,
+                singleSelect: true,
+                pagination: true,
+                rownumbers: true,
+                pageList: [20, 30, 50],
+                columns: [[
+                    {
+                        field: 'cstNam',
+                        title: '姓名',
+                        width: this.setWidth(0.1)
+                    },
+                    {
+                        field: 'cstSexCod',
+                        title: '性别',
+                        width: this.setWidth(0.11),
+                        formatter: function (value, row, index) {
+                            if (value == 0) {
+                                return '男'
+                            } else if (value == 1) {
+                                return '女'
                             }
-                          }
-                      },
-                      {
-                          field : 'jbzdDes',
-                          title : '诊断',
-                          width : this.setWidth(0.11),
-                        formatter: function(value, row, index) {
-                          return publicFun.codingEscape(czCbzdCodList, value);
                         }
-                      },
-                      {
-                          field : 'dd',
-                          title : '操作',
-                          width : this.setWidth(0.15),
-                          formatter : function(value, row, index) {
-                              var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">查看</span>' +
-                                  '<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">时间轴</span>'+
-                                      '<span class="btn Timeline" onclick="toAisiss(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">AIS/ISS</span>';
-
-                            if("1" == row.rcdSta || "3" == row.rcdSta) {
-                              _html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
-                            } else if("2" == row.rcdSta) {
-                              _html += '<span class="btn detail" onclick="skipChkPage(\'' + row.regSeq + '\')">审核</span>'
+                    },
+                    {
+                        field: 'cstAge',
+                        title: '年龄',
+                        width: this.setWidth(0.1),
+                        formatter: function (value, row, index) {
+                            return value == null ? '-' : value + '岁';
+                        }
+                    },
+                    {
+                        field: 'emgDat',
+                        title: '登记时间',
+                        width: this.setWidth(0.1),
+                        formatter: function (value, row, index) {
+                            return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm:ss');
+                        }
+                    },
+                    {
+                        field: 'fbsj',
+                        title: '发病时间',
+                        width: this.setWidth(0.1),
+                        formatter: function (value, row, index) {
+                            if (value) {
+                                return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm:ss');
                             }
-                            if("4" == row.rcdSta) {
-                              _html += '<span class="btn detail" onclick="chkRowBak(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">解锁</span>'
-                              _html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\',\'' + row.patTyp + '\')">上报</span>'
-                            }
-                              return _html
-                          }
-                      }
-                  ]]
-              });
-          },
-          methods: {
+                        }
+                    },
+                    {
+                        field: 'jbzdDes',
+                        title: '诊断',
+                        width: this.setWidth(0.11),
+                        formatter: function (value, row, index) {
+                            return publicFun.codingEscape(czCbzdCodList, value);
+                        }
+                    },
+                    {
+                        field: 'dd',
+                        title: '操作',
+                        width: this.setWidth(0.15),
+                        formatter: function (value, row, index) {
+                            var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">查看</span>' +
+                                '<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">时间轴</span>' +
+                                '<span class="btn Timeline" onclick="toAisiss(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">AIS/ISS</span>';
+                            return _html
+                        }
+                    }
+                ]]
+            });
+        },
+        methods: {
             search() {
-              this.queryParams.startdate = this.$refs.startdate.value
-              this.queryParams.enddate = this.$refs.enddate.value
-              $('#dg').datagrid('load',this.queryParams)
+                this.queryParams.startdate = this.$refs.startdate.value
+                this.queryParams.enddate = this.$refs.enddate.value
+                $('#dg').datagrid('load', this.queryParams)
             },
             optionChange(e) {
-              this.queryParams.cstNam = ''
-              this.queryParams.vstCad = ''
-              for (var i of e.target) {
-                if (i.selected === true) {
-                  if (i.innerText == '姓名') {
-                    this.mainValue = 0
-                  }else {
-                    this.mainValue = 1
-                  }
+                this.queryParams.cstNam = ''
+                this.queryParams.vstCad = ''
+                for (var i of e.target) {
+                    if (i.selected === true) {
+                        if (i.innerText == '姓名') {
+                            this.mainValue = 0
+                        } else {
+                            this.mainValue = 1
+                        }
 
+                    }
                 }
-              }
             },
-             setWidth(pct) {
-               var pWidth = $('.form').width();
-               if (pct < 1 && pct >= 0) {
+            setWidth(pct) {
+                var pWidth = $('.form').width();
+                if (pct < 1 && pct >= 0) {
                     return pWidth * pct;
-               } else {
-                   return undefined;
+                } else {
+                    return undefined;
                 }
-             }
-          }
-      })
-      function toDetail(emgSeq, cstNam) {
+            }
+        }
+    })
+
+    function toDetail(emgSeq, cstNam) {
         var url = 'cs/toCsSbDtlPage.do?emgSeq=' + emgSeq
         window.top.addTab(cstNam + "-" + '创伤患者详情', url, 'icon icon-emergency-record');
-      }
-      function toCpcTimeline(emgSeq, cstNam) {
+    }
+
+    function toCpcTimeline(emgSeq, cstNam) {
         var url = 'cs/toCsTimeline.do?emgSeq=' + emgSeq;
         window.top.addTab(cstNam + "-" + '创伤急救时间轴', url, 'icon icon-emergency-record');
-      }
-      function toAisiss(emgSeq, cstNam) {
+    }
+
+    function toAisiss(emgSeq, cstNam) {
         createmodalwindow(cstNam + "AIS/ISS", 950, 685, '${baseurl}cs/toAisIss.do?emgSeq=' + emgSeq);
-      }
+    }
 
 
-  </script>
+</script>
 </html>

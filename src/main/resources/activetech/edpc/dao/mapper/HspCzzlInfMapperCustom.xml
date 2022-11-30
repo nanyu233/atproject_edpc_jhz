@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="activetech.edpc.dao.mapper.HspCzzlInfMapperCustom">
-		<sql id="czdbzl_where">
-			<if test="hspDbzlBasCustom!=null ">
-				<if test="hspDbzlBasCustom.hspAra!=null and hspDbzlBasCustom.hspAra!=''.toString()">
-					and a.hsp_ara =#{hspDbzlBasCustom.hspAra,jdbcType=VARCHAR}
-				</if>
-			</if>
-			<if test="cstNam !=null and cstNam.length()>0">
-				and a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
-			</if>
-			<if test="zd !=null and zd.length()>0">
-				and exists (select 1
+    <sql id="czdbzl_where">
+        <if test="hspDbzlBasCustom != null">
+            <if test="hspDbzlBasCustom.hspAra != null and hspDbzlBasCustom.hspAra != ''.toString()">
+                and a.hsp_ara =#{hspDbzlBasCustom.hspAra,jdbcType=VARCHAR}
+            </if>
+        </if>
+			<if test="cstNam != null and cstNam.length() > 0">
+                and a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+            </if>
+			<if test="zd != null and zd.length() > 0">
+                and exists (select 1
 				from hsp_czzl_inf
 				where hsp_czzl_inf.emg_no = a.emg_seq
 				and hsp_czzl_inf.pro_code = 'CBZD'
 				and hsp_czzl_inf.pro_val = #{zd, jdbcType = VARCHAR})
-			</if>
-			<if test="zdys !=null and zdys.length()>0">
-				and exists (select 1
+            </if>
+			<if test="zdys != null and zdys.length() > 0">
+                and exists (select 1
 				from hsp_czzl_inf
 				where hsp_czzl_inf.emg_no = a.emg_seq
 				and hsp_czzl_inf.pro_code = 'ZDYS'
 				and hsp_czzl_inf.pro_val like '%'||#{zdys, jdbcType = VARCHAR}||'%')
-			</if>
+            </if>
 			and a.crt_tim <![CDATA[>]]> #{startDate, jdbcType = TIMESTAMP}
 			and a.crt_tim <![CDATA[<]]> #{endDate, jdbcType = TIMESTAMP}
-		</sql>
+    </sql>
 		<sql id="czCondition">
-			<if test="hspAra!=null and hspAra!=''.toString()">
-				and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
-			</if>
-			<if test="cstNam !=null and cstNam.length()>0">
-				and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
+            <if test="hspAra != null and hspAra != ''.toString()">
+                and a.hsp_ara =#{hspAra,jdbcType=VARCHAR}
+            </if>
+			<if test="cstNam != null and cstNam.length() > 0">
+                and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
 				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
 				)
-			</if>
-		</sql>
+            </if>
+        </sql>
   		 <update id="mergeHspCzzlInf" parameterType="activetech.edpc.pojo.domain.HspCzzlInf">
-				merge into hsp_czzl_inf a
+             merge into hsp_czzl_inf a
 				using (select #{emgNo, jdbcType = VARCHAR} emg_no,
 				              #{proCode, jdbcType = VARCHAR} pro_code,
 				              #{proVal, jdbcType = VARCHAR} pro_val
@@ -68,12 +68,12 @@
 				     #{crtUser, jdbcType = VARCHAR},
 				     sysdate,
 				     #{crtUser, jdbcType = VARCHAR})
-		  </update>
+         </update>
 		  
 		  
-		 <select id="getHspCzzlInfByEmgSeqAndProCodeList" 
-		  		resultType="activetech.edpc.pojo.domain.HspCzzlInf">
-		  		select a.seq_no,
+		 <select id="getHspCzzlInfByEmgSeqAndProCodeList"
+                 resultType="activetech.edpc.pojo.domain.HspCzzlInf">
+             select a.seq_no,
 				       a.emg_no,
 				       a.pro_code,
 				       a.pro_val,
@@ -84,16 +84,16 @@
 				  from hsp_czzl_inf a
 				 where emg_no = #{emgSeq, jdbcType = VARCHAR}
 				   and pro_code in
-				       <foreach item="item" index="index" collection="list" 
-		                    open="(" separator="," close=")">
-		                   #{item}
-		               </foreach>
- 		 </select>
+				       <foreach item="item" index="index" collection="list"
+                                open="(" separator="," close=")">
+                           #{item}
+                       </foreach>
+         </select>
  		 
  		 
- 		 <select id="getHspCzzlInfByEmgSeqAndStep" parameterType="java.lang.String" 
-	  		resultType="activetech.edpc.pojo.dto.HspCzzlInfCustom">
-		 	   select a.pro_name, a.pro_type, a.pro_code, b.pro_val,a.pro_list,a.pro_unit
+ 		 <select id="getHspCzzlInfByEmgSeqAndStep" parameterType="java.lang.String"
+                 resultType="activetech.edpc.pojo.dto.HspCzzlInfCustom">
+             select a.pro_name, a.pro_type, a.pro_code, b.pro_val,a.pro_list,a.pro_unit
 			     from (select pro_name, pro_type, pro_code,pro_list,pro_unit
 			             from hsp_czzl_def
 			            where node_id = #{nodeId, jdbcType = VARCHAR} 
@@ -101,12 +101,12 @@
 			         order by fld_sort) a,
 			          (select pro_code, pro_val from hsp_czzl_inf where emg_no = #{emgSeq, jdbcType = VARCHAR}) b
 			    where a.pro_code = b.pro_code(+)
-  		 </select>
+         </select>
   		 
   		 
   		 <select id="getCzPatientInfoList" resultType="activetech.hospital.pojo.dto.HspemginfCustom"
-  		 	parameterType="activetech.edpc.pojo.dto.QueryDto">
-	  		select a.emg_seq,
+                 parameterType="activetech.edpc.pojo.dto.QueryDto">
+             select a.emg_seq,
 				   a.emg_dat,
 				   a.cst_nam,
 				   a.cst_age,
@@ -123,21 +123,21 @@
 			  from hsp_emg_inf a, hsp_mews_inf b
 			 where a.emg_seq = b.emg_seq(+)
 			   and a.czlcflg = '1'
-			    <if test="cstNam !=null and cstNam.length()>0">
-		 			and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
+			    <if test="cstNam != null and cstNam.length() > 0">
+                    and (a.vst_cad = #{cstNam, jdbcType = VARCHAR}
 		 				or a.cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
 		 			)
-		 		</if>
-		 		<if test = "bhls == false ">
-		 			and a.emg_dat >= sysdate - 1
-		 		</if>
+                </if>
+		 		<if test="bhls == false">
+                    and a.emg_dat >= sysdate - 1
+                </if>
 		  order by emg_dat desc
-  		</select>
+         </select>
 
-  		
-  		<!-- 卒中急救时间轴 -->
-  <select id="getCzTimeline" parameterType="java.lang.String" resultType="activetech.edpc.pojo.dto.HspCzzlInfCustom">
-	select inf.seq_no,
+
+    <!-- 卒中急救时间轴 -->
+    <select id="getCzTimeline" parameterType="java.lang.String" resultType="activetech.edpc.pojo.dto.HspCzzlInfCustom">
+        select inf.seq_no,
 	       inf.emg_no,
 	       inf.pro_code,
 	       inf.pro_val,
@@ -151,81 +151,81 @@
 	   and def.key_time in ('1','2')
 	   and inf.pro_val is not null 
 	 order by inf.pro_val asc, def.fld_sort asc
-  </select>
-  
-<!--  <select id="getCzPatientList" parameterType="activetech.edpc.pojo.dto.HspCzzlInfQueryDto"-->
-<!--  		resultType="activetech.edpc.pojo.dto.HspCzzlInfQueryDto">-->
-<!--  		<include refid="activetech.base.CommonSql.page_start" />-->
-<!--	select cst_nam cstNam,-->
-<!--	       cst_sex_cod cstSexCod,-->
-<!--	       cst_age cstAge,-->
-<!--	       emg_dat emgDat,-->
-<!--	       emg_seq emgSeq,-->
-<!--&lt;!&ndash; 	       cst_age_cod cstAgeCod, &ndash;&gt;-->
-<!--	       (select ap.ill_tim-->
-<!--	          from aid_patient ap-->
-<!--	         where ap.patid = hsp_emg_inf.patid) fbsj,-->
-<!--	       (select czzl.pro_val-->
-<!--	          from hsp_czzl_inf czzl-->
-<!--	         where czzl.emg_no = emg_seq-->
-<!--	           and czzl.pro_code = 'CBZD') zd,-->
-<!--	       (select czzl.pro_val-->
-<!--	          from hsp_czzl_inf czzl-->
-<!--	         where czzl.emg_no = emg_seq-->
-<!--	           and czzl.pro_code = 'ZDYS') zdys-->
-<!--	  from hsp_emg_inf-->
-<!--	 where czlcflg = '1'-->
-<!--	 <if test="cstNam !=null and cstNam.length()>0">-->
-<!--	   and cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'-->
-<!--	 </if>-->
-<!--	 <if test="zd !=null and zd.length()>0">-->
-<!--	   and exists (select 1-->
-<!--	          from hsp_czzl_inf-->
-<!--	         where hsp_czzl_inf.emg_no = emg_seq-->
-<!--	           and hsp_czzl_inf.pro_code = 'CBZD'-->
-<!--	           and hsp_czzl_inf.pro_val = #{zd, jdbcType = VARCHAR})-->
-<!--	 </if>-->
-<!--	 <if test="zdys !=null and zdys.length()>0">-->
-<!--	   and exists (select 1-->
-<!--	          from hsp_czzl_inf-->
-<!--	         where hsp_czzl_inf.emg_no = emg_seq-->
-<!--	           and hsp_czzl_inf.pro_code = 'ZDYS'-->
-<!--	           and hsp_czzl_inf.pro_val = #{zdys, jdbcType = VARCHAR})-->
-<!--	 </if>-->
-<!--	   and emg_dat <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}-->
-<!--	   and emg_dat <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP}-->
-<!--	   <include refid="activetech.base.CommonSql.page_end" />-->
-<!--  </select>-->
+    </select>
 
-<!--  <select id="countCzPatientList" parameterType="activetech.edpc.pojo.dto.HspCzzlInfQueryDto"-->
-<!--  		resultType="java.lang.Integer">-->
-<!--	select count(*)-->
-<!--	  from hsp_emg_inf-->
-<!--	 where czlcflg = '1'-->
-<!--	 <if test="cstNam !=null and cstNam.length()>0">-->
-<!--	   and cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'-->
-<!--	 </if>-->
-<!--	 <if test="zd !=null and zd.length()>0">-->
-<!--	   and exists (select 1-->
-<!--	          from hsp_czzl_inf-->
-<!--	         where hsp_czzl_inf.emg_no = emg_seq-->
-<!--	           and hsp_czzl_inf.pro_code = 'CBZD'-->
-<!--	           and hsp_czzl_inf.pro_val = #{zd, jdbcType = VARCHAR})-->
-<!--	 </if>-->
-<!--	 <if test="zdys !=null and zdys.length()>0">-->
-<!--	   and exists (select 1-->
-<!--	          from hsp_czzl_inf-->
-<!--	         where hsp_czzl_inf.emg_no = emg_seq-->
-<!--	           and hsp_czzl_inf.pro_code = 'ZDYS'-->
-<!--	           and hsp_czzl_inf.pro_val = #{zdys, jdbcType = VARCHAR})-->
-<!--	 </if>-->
-<!--	   and emg_dat <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}-->
-<!--	   and emg_dat <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP}-->
-<!--  </select>-->
+    <!--  <select id="getCzPatientList" parameterType="activetech.edpc.pojo.dto.HspCzzlInfQueryDto"-->
+    <!--  		resultType="activetech.edpc.pojo.dto.HspCzzlInfQueryDto">-->
+    <!--  		<include refid="activetech.base.CommonSql.page_start" />-->
+    <!--	select cst_nam cstNam,-->
+    <!--	       cst_sex_cod cstSexCod,-->
+    <!--	       cst_age cstAge,-->
+    <!--	       emg_dat emgDat,-->
+    <!--	       emg_seq emgSeq,-->
+    <!--&lt;!&ndash; 	       cst_age_cod cstAgeCod, &ndash;&gt;-->
+    <!--	       (select ap.ill_tim-->
+    <!--	          from aid_patient ap-->
+    <!--	         where ap.patid = hsp_emg_inf.patid) fbsj,-->
+    <!--	       (select czzl.pro_val-->
+    <!--	          from hsp_czzl_inf czzl-->
+    <!--	         where czzl.emg_no = emg_seq-->
+    <!--	           and czzl.pro_code = 'CBZD') zd,-->
+    <!--	       (select czzl.pro_val-->
+    <!--	          from hsp_czzl_inf czzl-->
+    <!--	         where czzl.emg_no = emg_seq-->
+    <!--	           and czzl.pro_code = 'ZDYS') zdys-->
+    <!--	  from hsp_emg_inf-->
+    <!--	 where czlcflg = '1'-->
+    <!--	 <if test="cstNam !=null and cstNam.length()>0">-->
+    <!--	   and cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'-->
+    <!--	 </if>-->
+    <!--	 <if test="zd !=null and zd.length()>0">-->
+    <!--	   and exists (select 1-->
+    <!--	          from hsp_czzl_inf-->
+    <!--	         where hsp_czzl_inf.emg_no = emg_seq-->
+    <!--	           and hsp_czzl_inf.pro_code = 'CBZD'-->
+    <!--	           and hsp_czzl_inf.pro_val = #{zd, jdbcType = VARCHAR})-->
+    <!--	 </if>-->
+    <!--	 <if test="zdys !=null and zdys.length()>0">-->
+    <!--	   and exists (select 1-->
+    <!--	          from hsp_czzl_inf-->
+    <!--	         where hsp_czzl_inf.emg_no = emg_seq-->
+    <!--	           and hsp_czzl_inf.pro_code = 'ZDYS'-->
+    <!--	           and hsp_czzl_inf.pro_val = #{zdys, jdbcType = VARCHAR})-->
+    <!--	 </if>-->
+    <!--	   and emg_dat <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}-->
+    <!--	   and emg_dat <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP}-->
+    <!--	   <include refid="activetech.base.CommonSql.page_end" />-->
+    <!--  </select>-->
 
-	<select id="getCzPatientList" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto"
-			resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom">
-		<include refid="activetech.base.CommonSql.page_start" />
+    <!--  <select id="countCzPatientList" parameterType="activetech.edpc.pojo.dto.HspCzzlInfQueryDto"-->
+    <!--  		resultType="java.lang.Integer">-->
+    <!--	select count(*)-->
+    <!--	  from hsp_emg_inf-->
+    <!--	 where czlcflg = '1'-->
+    <!--	 <if test="cstNam !=null and cstNam.length()>0">-->
+    <!--	   and cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'-->
+    <!--	 </if>-->
+    <!--	 <if test="zd !=null and zd.length()>0">-->
+    <!--	   and exists (select 1-->
+    <!--	          from hsp_czzl_inf-->
+    <!--	         where hsp_czzl_inf.emg_no = emg_seq-->
+    <!--	           and hsp_czzl_inf.pro_code = 'CBZD'-->
+    <!--	           and hsp_czzl_inf.pro_val = #{zd, jdbcType = VARCHAR})-->
+    <!--	 </if>-->
+    <!--	 <if test="zdys !=null and zdys.length()>0">-->
+    <!--	   and exists (select 1-->
+    <!--	          from hsp_czzl_inf-->
+    <!--	         where hsp_czzl_inf.emg_no = emg_seq-->
+    <!--	           and hsp_czzl_inf.pro_code = 'ZDYS'-->
+    <!--	           and hsp_czzl_inf.pro_val = #{zdys, jdbcType = VARCHAR})-->
+    <!--	 </if>-->
+    <!--	   and emg_dat <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}-->
+    <!--	   and emg_dat <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP}-->
+    <!--  </select>-->
+
+    <select id="getCzPatientList" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto"
+            resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom">
+        <include refid="activetech.base.CommonSql.page_start"/>
 		select a.reg_seq regSeq,
 			   a.emg_seq emgSeq,
 			   a.vst_cad vstCad,
@@ -241,15 +241,15 @@
 			   (select pro_val
 				from hsp_czzl_inf
 				where hsp_czzl_inf.pro_code = 'FBSJ'
-				  and hsp_czzl_inf.emg_no = emg_seq) fbsj,
+				  and hsp_czzl_inf.emg_no = reg_seq) fbsj,
 			   (select pro_val
 				from hsp_czzl_inf
 				where hsp_czzl_inf.pro_code = 'CBZD'
-				  and hsp_czzl_inf.emg_no = emg_seq) cbzd,
+				  and hsp_czzl_inf.emg_no = reg_seq) cbzd,
 			   (select pro_val
 				from hsp_czzl_inf
 				where hsp_czzl_inf.pro_code = 'ZDYS'
-				  and hsp_czzl_inf.emg_no = emg_seq) zdys,
+				  and hsp_czzl_inf.emg_no = reg_seq) zdys,
 			   a.way_typ wayTyp,
 			   a.crt_tim crtTim,
 			   a.smt_seq smtSeq,
@@ -257,20 +257,20 @@
 		from hsp_dbzl_bas a
 		where a.PAT_TYP = '2'
 		<include refid="czdbzl_where"/>
-		<include refid="activetech.base.CommonSql.page_end" />
-	</select>
+		<include refid="activetech.base.CommonSql.page_end"/>
+    </select>
 
 	<select id="countCzPatientList" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto"
-			resultType="java.lang.Integer">
-		select count(1)
+            resultType="java.lang.Integer">
+        select count(1)
 		from hsp_dbzl_bas a
 		where a.PAT_TYP = '2'
 		<include refid="czdbzl_where"/>
-	</select>
+    </select>
   
   <select id="getCzhcbInfoByEmgseq" parameterType="java.lang.String"
-  	resultType="activetech.hospital.pojo.dto.HspemginfCustom">
-		select emg.emg_seq emgSeq,
+          resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+      select emg.emg_seq emgSeq,
 		       emg.cst_nam cstNam,
 		       (case
 		         when emg.cst_age_cod = '0' then
@@ -296,8 +296,8 @@
 
 
   <select id="getCzPatientInfoListForDbzlBas" resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom"
-		parameterType="activetech.edpc.pojo.dto.QueryDto">
-        <include refid="activetech.base.CommonSql.page_start"/>
+          parameterType="activetech.edpc.pojo.dto.QueryDto">
+      <include refid="activetech.base.CommonSql.page_start"/>
 		select a.emg_seq,
 		   a.reg_tim,
 		   a.cst_nam,
@@ -314,22 +314,22 @@
 		   (select bed_num from hsp_bed_inf where emg_seq = a.emg_seq) bed_num
 		  from HSP_DBZL_BAS a
 		where a.pat_typ = '2'
-			<if test = "bhls == false ">
-				and a.reg_tim >= sysdate - 1
-			</if>
+			<if test="bhls == false">
+                and a.reg_tim >= sysdate - 1
+            </if>
 		<include refid="czCondition"/>
 	   order by reg_tim desc
      <include refid="activetech.base.CommonSql.page_end"/>
-	</select>
+  </select>
 
 	<select id="getCzPatientInfoListCount" parameterType="activetech.edpc.pojo.dto.QueryDto"
-			resultType="int">
-		select count(*) from hsp_dbzl_bas a
+            resultType="int">
+        select count(*) from hsp_dbzl_bas a
             where a.pat_typ = '2'
-			<if test="bhls == false ">
-				and a.crt_tim >= sysdate - 1
-			</if>
+			<if test="bhls == false">
+                and a.crt_tim >= sysdate - 1
+            </if>
 		<include refid="czCondition"/>
 		order by reg_tim desc nulls last
-	</select>
+    </select>
 </mapper>

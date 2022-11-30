@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="activetech.edpc.dao.mapper.HspCszlInfMapperCustom">
-	<select id="countCsPatientList" parameterType="activetech.edpc.pojo.dto.HspCszlInfQueryDto"
-				 resultType="java.lang.Integer">
-		select count(*)
+    <select id="countCsPatientList" parameterType="activetech.edpc.pojo.dto.HspCszlInfQueryDto"
+            resultType="java.lang.Integer">
+        select count(*)
 		  from hsp_emg_inf
 		 where cspg_flg = '1'
-		 <if test="cstNam !=null and cstNam.length()>0">
-		   and cst_nam = #{cstNam, jdbcType = VARCHAR}
-		 </if>
-		 <if test="vstCad !=null and vstCad.length()>0">
-		   and vst_cad = #{vstCad, jdbcType = VARCHAR}
-		 </if>
+		 <if test="cstNam != null and cstNam.length() > 0">
+             and cst_nam = #{cstNam, jdbcType = VARCHAR}
+         </if>
+		 <if test="vstCad != null and vstCad.length() > 0">
+             and vst_cad = #{vstCad, jdbcType = VARCHAR}
+         </if>
 		   and emg_dat <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}
 	   	   and emg_dat <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
-	</select>
+    </select>
 		
 	<select id="getCsPatientList" parameterType="activetech.edpc.pojo.dto.HspCszlInfQueryDto"
-		resultType="activetech.edpc.pojo.dto.HspCszlInfQueryDto">
-		<include refid="activetech.base.CommonSql.page_start" />
+            resultType="activetech.edpc.pojo.dto.HspCszlInfQueryDto">
+        <include refid="activetech.base.CommonSql.page_start"/>
 		select emg_seq,
 		       vst_cad,
 		       cst_nam,
@@ -33,25 +33,25 @@
 		       (select info
 		          from dstdictinfo
 		         where typecode = 'ARV_CHL_COD'
-		           and infocode = hsp_emg_inf.arv_chl_cod) arvChlCod,
-		       getjbzddata('4', hsp_emg_inf.emg_seq) jbzdDes
-		  from hsp_emg_inf
+		           and infocode = hsp_emg_inf.arv_chl_cod) arvChlCod
+        <!--		       getjbzddata('4', hsp_emg_inf.emg_seq) jbzdDes-->
+        from hsp_emg_inf
 		 where cspg_flg = '1'
-		 <if test="cstNam !=null and cstNam.length()>0">
-		   and cst_nam = #{cstNam, jdbcType = VARCHAR}
-		 </if>
-		 <if test="vstCad !=null and vstCad.length()>0">
-		   and vst_cad = #{vstCad, jdbcType = VARCHAR}
-		 </if>
+		 <if test="cstNam != null and cstNam.length() > 0">
+             and cst_nam = #{cstNam, jdbcType = VARCHAR}
+         </if>
+		 <if test="vstCad != null and vstCad.length() > 0">
+             and vst_cad = #{vstCad, jdbcType = VARCHAR}
+         </if>
 		   and emg_dat <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}
 	   	   and emg_dat <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
-		<include refid="activetech.base.CommonSql.page_end" />
-	</select>
-	
-	<!-- 创伤急救时间轴 -->
-	<select id="getCzTimeline" parameterType="java.lang.String"
-		resultType="activetech.edpc.pojo.dto.HspCszlInfCustom">
-		select seq_no,
+		<include refid="activetech.base.CommonSql.page_end"/>
+    </select>
+
+    <!-- 创伤急救时间轴 -->
+    <select id="getCzTimeline" parameterType="java.lang.String"
+            resultType="activetech.edpc.pojo.dto.HspCszlInfCustom">
+        select seq_no,
 			   emg_no,
 			   pro_code,
 			   pro_type,
@@ -73,11 +73,10 @@
 		           and def.key_time in ('1', '2')
 		           and inf.pro_val is not null) temp
 		 order by temp.valsort asc
-
-	</select>
+    </select>
 	
 	<select id="mergeHspCszlInf" parameterType="activetech.edpc.pojo.domain.HspCszlInf">
-				merge into hsp_cszl_inf a
+        merge into hsp_cszl_inf a
 				using (select #{emgNo, jdbcType = VARCHAR} emg_no,
 				              #{proCode, jdbcType = VARCHAR} pro_code,
 				              #{proVal, jdbcType = VARCHAR} pro_val
@@ -107,5 +106,5 @@
 				     #{crtUser, jdbcType = VARCHAR},
 				     sysdate,
 				     #{crtUser, jdbcType = VARCHAR})
-	</select>
+    </select>
 </mapper>
