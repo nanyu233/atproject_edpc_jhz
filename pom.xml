@@ -174,13 +174,7 @@
             </exclusions>
         </dependency>
         <!--	  rabbitmq END -->
-        <!--   quartz   -->
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>2.3.2</version>
-        </dependency>
-        <!--  不要放在下面，会有一推依赖冲突 version 2.9.2  -->
+        <!--  version 2.9.2  -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>

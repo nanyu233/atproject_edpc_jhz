@@ -40,7 +40,5 @@
 
 	<bean id="CpcCrfplaneService" class="activetech.edpc.service.impl.CrfplaneServiceImpl"/>
 
-	<!--  定时任务	-->
-	<bean id="quartzService"  class="activetech.edpc.service.impl.QuartzServiceImpl"/>
 
 </beans>

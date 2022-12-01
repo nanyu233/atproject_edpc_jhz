@@ -1,12 +1,14 @@
-package activetech.task.quartz.followup;
+package activetech.task.xxljob;
 
 import activetech.edpc.dao.mapper.HspFuvPlnMapper;
 import activetech.edpc.dao.mapper.HspFuvPlnMapperCustom;
 import activetech.edpc.pojo.domain.HspFuvPln;
 import activetech.edpc.pojo.dto.HspFuvPlnCustom;
 import activetech.edpc.pojo.dto.HspFuvPlnQueryDto;
+import com.xxl.job.core.handler.annotation.XxlJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,9 +16,10 @@ import java.util.List;
 /**
  * 定时查询随访到期的人，给创建随访人发提醒
  */
-public class Control {
+@Component
+public class FuvPlnJobHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(Control.class);
+    private static final Logger logger = LoggerFactory.getLogger(FuvPlnJobHandler.class);
     @Resource
     private HspFuvPlnMapperCustom hspFuvPlnMapperCustom;
     @Resource
@@ -52,7 +55,12 @@ public class Control {
         hspFuvPlnQueryDtoTwo.setExpireTim(ONE);
     }
 
-    public void getPlanOfFollowUp() {
+    /**
+     * 注册 xxl-job Handler
+     * 任务中心调度执行
+     */
+    @XxlJob("fuvPlnJobHandler")
+    public void execute() {
         logger.info("开始任务");
         //查询需要提醒的列表
         List<HspFuvPlnCustom> resList = hspFuvPlnMapperCustom.selectReminderDue(hspFuvPlnQueryDtoOne);

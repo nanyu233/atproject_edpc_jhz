@@ -14,11 +14,8 @@
 		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
 
 <context:annotation-config />
-<!--  swagger配置，需要扫描接口注解的包 和 swagger 配置类  -->
-<context:component-scan base-package="activetech.base.config"/>
-<!--SwaggerConfig配置类注入-->
-<bean class="activetech.base.config.SwaggerConfig" id="swaggerConfig"/>
-<bean class="activetech.task.xxljob.MyJob" id="myJob"/>
+<!--  swagger配置，需要扫描接口注解的包 和 swagger 配置类 |扫描定时任务bean  -->
+<context:component-scan base-package="activetech.base.config,activetech.task.xxljob"/>
 <!-- 获取编码 服务器启动时加载 redis上传 -->
 <bean class="activetech.base.listener.InitAllDictinfo" id="initAllDictinfo"/>
 
@@ -28,7 +25,6 @@
 <!-- Spring上下文工具 -->
 <bean class="activetech.base.service.SpringContextUtil"  id="springContextUtil"/>
 
-<bean class="activetech.task.quartz.conf.QuartzConf"  id="quartzConf"/>
 
 <bean class="activetech.base.util.MinIoUtil"  id="minIoUtil" />
 

@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -24,6 +25,14 @@ public class ProducerTest {
     @Autowired
     public RabbitTemplate rabbitTemplate;
 
+
+
+    private  static  String enables;
+    @Value("${swagger.enable:}")
+    public void setEnables(String enable1) {
+        enables = enable1;
+    }
+
     @Test
     public void SendMessage() {
         PushMessageDto pushMessageDto = new PushMessageDto();
@@ -37,6 +46,10 @@ public class ProducerTest {
         pushMessageDto.setEmgSeq("11111");
         pushMessageDto.setTargetPage("aaaa");
         rabbitTemplate.convertAndSend("messageToWebExchangeFanout", "", pushMessageDto);
+    }
+    @Test
+    public void proTest(){
+        System.out.println(enables);
     }
 
 }
