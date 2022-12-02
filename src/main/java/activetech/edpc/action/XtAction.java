@@ -192,7 +192,24 @@ public class XtAction {
 		ResultInfo resultInfo = xtService.getXtTimeLine(emgSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
-	
+
+	/**
+	 * 时间轴甘特图数据
+	 * */
+	@RequestMapping("/queryCpcTimelineGt")
+	@ResponseBody
+	public SubmitResultInfo queryCpcTimelineGt(@RequestBody HspTimDiffQueryDto hspTimDiffQueryDto){
+		String emgSeq=hspTimDiffQueryDto.getEmgSeq();
+		//获取当前病人的各个质控时间节点
+		ResultInfo xtTimeLine = xtService.getXtTimeLine(emgSeq);
+		Map<String, Object> sysdata = xtTimeLine.getSysdata();
+		List<HspXtzlInfCustom> list = (List<HspXtzlInfCustom>) sysdata.get("list");
+		//获取甘特图数据
+		ResultInfo resultInfo = xtService.getTimelineGt(list,hspTimDiffQueryDto);
+
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
 	/**
 	 * 获取最近1天的胸痛患者列表
 	 * @return

@@ -144,4 +144,6 @@ public interface XtService {
 	int getCpcPatientInfoListCount(QueryDto queryDto);
 
 	List<HspDbzlBasCustom> getCpcPatientInfoListByPage(QueryDto queryDto);
+
+	ResultInfo getTimelineGt(List<HspXtzlInfCustom> list, HspTimDiffQueryDto hspTimDiffQueryDto);
 }

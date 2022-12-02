@@ -124,6 +124,8 @@ public class XtServiceImpl implements XtService{
 
 	@Autowired
 	private CrfplaneService cpcCrfplaneService;
+	@Autowired
+	private HspTimDiffMapper hspTimDiffMapper;
 
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
@@ -1474,4 +1476,56 @@ public class XtServiceImpl implements XtService{
 		return cpcMapper.getCpcPatientInfoList(queryDto);
 	}
 
+	@Override
+	public ResultInfo getTimelineGt(List<HspXtzlInfCustom> list, HspTimDiffQueryDto hspTimDiffQueryDto) {
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		Map<String,Object> map = new HashMap<>();
+		//参数校验
+		if (!Objects.nonNull(list)|| !(list.size()>0) || Objects.nonNull(hspTimDiffQueryDto)){
+			return resultInfo;
+		}
+
+		HspTimDiffCustom questParam = hspTimDiffQueryDto.getHspTimDiffCustom();
+		HspTimDiffExample hspTimDiffExample = new HspTimDiffExample();
+		HspTimDiffExample.Criteria criteria = hspTimDiffExample.createCriteria();
+		criteria.andDisTypEqualTo(questParam.getDisTyp());
+		criteria.andObjTypEqualTo(questParam.getObjTyp());
+		hspTimDiffExample.setOrderByClause("");
+		List<HspTimDiff> hspTimDiffs = hspTimDiffMapper.selectByExample(hspTimDiffExample);
+		List<HspTimDiffCustom> hspTimDiffCustomList = new ArrayList<>();
+
+
+		for (HspTimDiff hspTimDiff : hspTimDiffs) {
+			//质控开始节点
+			String begDateStr = new String();
+			//质控结束节点
+			String engDateStr = new String();
+
+			HspTimDiffCustom hspTimDiffCustom = (HspTimDiffCustom) hspTimDiff;
+
+			//获取质控开始与结束时间
+			for (HspXtzlInfCustom hspXtzlInfCustom : list) {
+				if (hspTimDiff.getTimBegCod().equals(hspXtzlInfCustom.getProCode())){
+					begDateStr = hspXtzlInfCustom.getProCode();
+				}
+				if (hspTimDiff.getTimEndCod().equals(hspXtzlInfCustom.getProCode())){
+					engDateStr = hspXtzlInfCustom.getProCode();
+				}
+			}
+
+			//计算时间差（分钟）
+			if (activetech.util.StringUtils.isNotNullAndEmptyByTrim(begDateStr) || activetech.util.StringUtils.isNotNullAndEmptyByTrim(engDateStr)){
+				Date begDat = DateUtil.parseDate(begDateStr, "yyyy-mm-dd hh:mm");
+				Date endDat = DateUtil.parseDate(engDateStr, "yyyy-mm-dd hh:mm");
+				long diff = (begDat.getTime() - endDat.getTime()) / 1000 / 60;
+				hspTimDiffCustom.setHzTimDif(diff);
+			}
+
+
+			hspTimDiffCustomList.add(hspTimDiffCustom);
+		}
+		map.put("list",hspTimDiffCustomList);
+		resultInfo.setSysdata(map);
+		return resultInfo;
+	}
 }
