@@ -17,59 +17,71 @@
     <script src="${baseurl}lib/Highcharts-8.1.0/code/modules/oldie.js" type="text/javascript"></script>
     <script src="${baseurl}lib/Highcharts-8.1.0/code/modules/timeline.js"></script>
     <style type="text/css">
-        .form_cat{
+        .form_cat {
             min-width: 1440px;
             max-width: 100%;
             overflow: scroll;
         }
 
-        tr td{
-            text-align:center;
+        tr td {
+            text-align: center;
         }
-        .odd{
-            vertical-align:bottom;
+
+        .odd {
+            vertical-align: bottom;
         }
-        .even{
-            text-align:left;
+
+        .even {
+            text-align: left;
         }
-        .orange{
+
+        .orange {
             color: orange;
         }
-        .time{
-            text-align:center;
-            height:11px;
-            line-height:11px;
+
+        .time {
+            text-align: center;
+            height: 11px;
+            line-height: 11px;
         }
-        .cost{
-            text-align:center;
-            height:13px;
-            line-height:13px;
+
+        .cost {
+            text-align: center;
+            height: 13px;
+            line-height: 13px;
         }
-        .line{
-            text-align:center;
-            height:0.6em;
-            line-height:0.6em;
+
+        .line {
+            text-align: center;
+            height: 0.6em;
+            line-height: 0.6em;
         }
-        .desc{
+
+        .desc {
             margin: 40px 0 20px 20px;
             line-height: 30px;
         }
-        .desc .title{
+
+        .desc .title {
             font-weight: bold;
         }
+
         .basic-info {
             height: 60px;
             line-height: 60px;
             max-width: 100%;
         }
-        .basic-info .item{
+
+        .basic-info .item {
             margin: 0 15px;
         }
-        .basic-info .item .name{
+
+        .basic-info .item .name {
             color: #0d478f;
             font-weight: bold;
         }
-        .basic-info .item .value{
+
+        .basic-info .item .value {
             font-weight: bold;
         }
     </style>
@@ -81,33 +93,47 @@
     <input type="text" class="hidden" id="emgSeq" name="emgSeq" value="${emgSeq }"/>
     <div class="chart_grp chartbox">
         <div class="form_cat border-radius box-shadow">
-            <div class="basic-info">
+            <div class="basic-info" style="height: 35px;">
                 <span class="item">姓名：<span class="name">{{info.cstNam}}</span></span>
                 <span class="item">年龄：<span class="value">{{info.cstAge}}{{info.cstAgeCodInf || '岁'}}</span></span>
                 <span class="item">性别：<span class="value">{{info.cstSexCod == 0 ? '男' : '女'}}</span></span>
                 <span class="item">住院号：<span class="value">{{info.zyxh}}</span></span>
                 <span class="item">门诊号：<span class="value">{{info.jzxh}}</span></span>
-<%--                <span class="item">呼救时间：<span class="value"></span></span>--%>
+                <%--                <span class="item">呼救时间：<span class="value"></span></span>--%>
                 <span class="item">诊断：<span class="value">{{info.cbzd}}</span></span>
+            </div>
+            <div class="basic-info" style="height: 35px">
+                <span class="item">基准：
+                   <span class="name">
+                    <select ms-duplex="timeline.benchmark">
+                         <option style='display: none'></option>
+                         <option ms-repeat="timeline.benchmarkList" ms-attr-value="el.infocode" ms-attr-selected="el.infocode == 1">{{el.info}}</option>
+                    </select>
+                   </span>
+                </span>
             </div>
             <table style='text-align:left;margin: 20px;' border='0' cellspacing='0' cellpadding='0'>
                 <tr>
                     <td style='text-align: center;' rowspan='4'>时间节点：</td>
-                    <td ms-repeat="pointArr" ms-class="odd:($index+1)%2 !=0" ms-class-1="orange:el.keyTime==2" ms-attr-rowspan="($index+1)%2 !=0 ?'4':''">
+                    <td ms-repeat="pointArr" ms-class="odd:($index+1)%2 !=0" ms-class-1="orange:el.keyTime==2"
+                        ms-attr-rowspan="($index+1)%2 !=0 ?'4':''">
                         {{el.proName}}
                     </td>
                 </tr>
                 <tr>
                     <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==2"
-                        ms-visible="($index+1)%2==0">↑</td>
+                        ms-visible="($index+1)%2==0">↑
+                    </td>
                 </tr>
                 <tr>
                     <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==2"
-                        ms-visible="($index+1)%2==0">︱</td>
+                        ms-visible="($index+1)%2==0">︱
+                    </td>
                 </tr>
                 <tr>
                     <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==2"
-                        ms-visible="($index+1)%2==0">︱</td>
+                        ms-visible="($index+1)%2==0">︱
+                    </td>
                 </tr>
                 <tr>
                     <td class="time">&nbsp;</td>
@@ -128,11 +154,12 @@
                     <td style='width: 70px; height: 1px; text-align: center; color: rgb(51, 0, 255); line-height: 1px; '>
                         <img width='100%' height='1' style='min-width: 70px;' src='${baseurl}images/edpc/line1.gif'>
                     </td>
-                    <td ms-repeat="pointArr" style='text-align:center;width:50px;height:1px;line-height:1px;color:#3300FF;'>
-                    <img src='${baseurl}images/edpc/line1.gif' width='100%' height='1' style='min-width:55px;'/>
+                    <td ms-repeat="pointArr"
+                        style='text-align:center;width:50px;height:1px;line-height:1px;color:#3300FF;'>
+                        <img src='${baseurl}images/edpc/line1.gif' width='100%' height='1' style='min-width:55px;'/>
                     </td>
                     <td style='text-align:left;width:50px;height:1px;line-height:1px;color:#3300FF;'><img
-                            src='${baseurl}images/edpc/line1.gif' width="100%" height='1' style='min-width:55px;'/></td>
+                        src='${baseurl}images/edpc/line1.gif' width="100%" height='1' style='min-width:55px;'/></td>
                 </tr>
                 <tr>
                     <td class="line">&nbsp;</td>
@@ -166,11 +193,15 @@
                     <td class="time"></td>
                 </tr>
                 <tr>
-                    <td style='height: 11px; text-align: center; color: red; line-height: 11px; '><img width='70px' height='1' src='${baseurl}images/edpc/line2.gif'></td>
+                    <td style='height: 11px; text-align: center; color: red; line-height: 11px; '><img width='70px'
+                                                                                                       height='1'
+                                                                                                       src='${baseurl}images/edpc/line2.gif'>
+                    </td>
                     <td ms-repeat="pointArr" style='height:11px;line-height:11px;'>
                         <img src='${baseurl}images/edpc/line2.gif' width='55px' height='1'/>
                     </td>
-                    <td style='height:11px;line-height:11px;'><img src='${baseurl}images/edpc/line2.gif' width='55px'  height='1'/></td>
+                    <td style='height:11px;line-height:11px;'><img src='${baseurl}images/edpc/line2.gif' width='55px'
+                                                                   height='1'/></td>
                 </tr>
                 <tr>
                     <td class="cost">实际时长：</td>
@@ -181,11 +212,13 @@
             <div class="desc">
                 <p class="title">说明：</p>
                 <p><span class="title">时间节点：</span>意思是实际救治过程中的具体事件的时间定义描述；</p>
-                <p><span class="title">发生时间：</span>表示对应时间节点的时间，默认只显示小时和分钟，如10:15表示十点十五分，如果跨天，则增加天，如29 20:00，表示29号的二十点；</p>
-                <p><span class="title">实际时长：</span>表示的当前这个时间节点发生的时间距离上一个时间节点之间的时长，上一个时间是相对的，不确定是哪个时间，就是时间轴上显示的前一个时间节点；</p>
+                <p><span class="title">发生时间：</span>表示对应时间节点的时间，默认只显示小时和分钟，如10:15表示十点十五分，如果跨天，则增加天，如29 20:00，表示29号的二十点；
+                </p>
+                <p><span class="title">实际时长：</span>表示的当前这个时间节点发生的时间距离上一个时间节点之间的时长，上一个时间是相对的，不确定是哪个时间，就是时间轴上显示的前一个时间节点；
+                </p>
                 <p><span class="title">字体橘色：</span>表示是关键时间节点，可能是需要考核的关键点；</p>
             </div>
-<%--            <div style="display: none" id="container" class="chart_div" style="min-height: 450px;"></div>--%>
+            <%--            <div style="display: none" id="container" class="chart_div" style="min-height: 450px;"></div>--%>
         </div>
     </div>
 </form>
@@ -194,7 +227,24 @@
     var vm = avalon.define({
         $id: 'timeLine',
         pointArr: [],
-        info:{}
+        info: {},
+        timeline: {
+            benchmark: '',
+            benchmarkList: [
+                {
+                    info: '国标',
+                    infocode: '1'
+                },
+                {
+                    info: '院标',
+                    infocode: '2'
+                },
+                {
+                    info: '月平均',
+                    infocode: '3'
+                }
+            ]
+        }
     });
     Date.prototype.format = function (fmt) {
         var o = {
@@ -376,6 +426,7 @@
             chartdata[i].cost = minutes;
         }
     }
+
     //查询方法
     function loadTimeline() {
         var url = "${baseurl}cpc/queryCpcTimeline.do";
@@ -384,22 +435,22 @@
         };
 //    		console.log("query cpc timeline data url: ", url);
 //    		console.log("request param: ", params);
-        publicFun.httpRequest( url, params,{requestType:'json'}, function (res) {
+        publicFun.httpRequest(url, params, {requestType: 'json'}, function (res) {
             var data = res.resultInfo.sysdata.list || [];
-			(function(data){
-				if(data && data.length){
-					for(var m in data){
-						if(data[m].proCode == 'CBZDSJ'){
-							for(var n in data){
-								if(data[n].proCode == 'JZZDSJ'){
-									data.splice(n,1)
-									return false
-								}
-							}
-						}
-					}
-				}
-			})(data)
+            (function (data) {
+                if (data && data.length) {
+                    for (var m in data) {
+                        if (data[m].proCode == 'CBZDSJ') {
+                            for (var n in data) {
+                                if (data[n].proCode == 'JZZDSJ') {
+                                    data.splice(n, 1)
+                                    return false
+                                }
+                            }
+                        }
+                    }
+                }
+            })(data)
             calcCost(data);
             vm.pointArr = data;
             // 加载图表
@@ -408,6 +459,7 @@
             console.log("err", err)
         }, 5000);
     }
+
     function getBasicInfo() {
         $.ajax({
             url: '${baseurl}cpc/getXtPatientDetail.do',
@@ -418,15 +470,35 @@
                 regSeq: "${regSeq}"
             }),
             success: function (res) {
-                if(res.resultInfo.sysdata.hspDbzlBasCustom){
-                    var  hspDbzlBasCustom=res.resultInfo.sysdata.hspDbzlBasCustom;
+                if (res.resultInfo.sysdata.hspDbzlBasCustom) {
+                    var hspDbzlBasCustom = res.resultInfo.sysdata.hspDbzlBasCustom;
                     vm.info = hspDbzlBasCustom;
                     // console.log("cbzd", vm.info)
-                    vm.info.cbzd= publicFun.codingEscape(publicFun.getDict('XT_CBZD_COD'),hspDbzlBasCustom.cbzd);
+                    vm.info.cbzd = publicFun.codingEscape(publicFun.getDict('XT_CBZD_COD'), hspDbzlBasCustom.cbzd);
                 }
             }
         });
     }
+
+    function getTimDiff() {
+        $.ajax({
+            url: '${baseurl}cpc/queryCpcTimelineGt.do',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify({
+                emgSeq: "${emgSeq}",
+                hspTimDiffCustom: {
+                    disTyp:"1",
+                    objTyp:"1"
+                }
+            }),
+            success: function (res) {
+
+            }
+        });
+    }
+
     function getWidth(proportion) {
         var width = $("body").width() * 0.29 - 4;
         return Math.round(proportion * width);
@@ -437,9 +509,11 @@
         //在这里提示信息中有文件下载链接
         message_alert(data);
     }
+
     $(function () {
         getBasicInfo();
         loadTimeline();
+        getTimDiff()
     });
 </script>
 </html>
