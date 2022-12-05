@@ -1523,9 +1523,9 @@ public class XtServiceImpl implements XtService{
 
 			//计算时间差（分钟）
 			if (activetech.util.StringUtils.isNotNullAndEmptyByTrim(begDateStr) && activetech.util.StringUtils.isNotNullAndEmptyByTrim(engDateStr)){
-				Date begDat = DateUtil.parseDate(begDateStr, "yyyy-mm-dd hh:mm");
-				Date endDat = DateUtil.parseDate(engDateStr, "yyyy-mm-dd hh:mm");
-				long diff = (endDat.getTime()-begDat.getTime()) / 1000 / 60;
+				Date begDat = DateUtil.parseDate(begDateStr, "yyyy-MM-dd HH:mm");
+				Date endDat = DateUtil.parseDate(engDateStr, "yyyy-MM-dd HH:mm");
+				long diff = (endDat.getTime()-begDat.getTime()) / 1000;
 				hspTimDiffCustom.setBeginTim(begDat);
 				hspTimDiffCustom.setEndTim(endDat);
 				hspTimDiffCustom.setHzTimDif(diff);
