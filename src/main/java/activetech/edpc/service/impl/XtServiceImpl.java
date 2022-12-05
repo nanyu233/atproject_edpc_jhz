@@ -1537,9 +1537,8 @@ public class XtServiceImpl implements XtService{
 	}
 
 	@Override
-	public ResultInfo getTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto) {
-		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		Map<String,Object> map = new HashMap<>();
+	public  DataGridResultInfo getTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto) {
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
 		HspTimDiffCustom questParam = hspTimDiffQueryDto.getHspTimDiffCustom();
 
 		HspTimDiffExample hspTimDiffExample = new HspTimDiffExample();
@@ -1549,8 +1548,28 @@ public class XtServiceImpl implements XtService{
 		hspTimDiffExample.setOrderByClause("OBJ_ODR");
 		List<HspTimDiff> hspTimDiffs = hspTimDiffMapper.selectByExample(hspTimDiffExample);
 
-		map.put("hspTimDiffList",hspTimDiffs);
-		resultInfo.setSysdata(map);
-		return resultInfo;
+		if (Objects.nonNull(hspTimDiffs)&&hspTimDiffs.size()>0){
+			dataGridResultInfo.setRows(hspTimDiffs);
+			dataGridResultInfo.setTotal(hspTimDiffs.size());
+		}
+
+
+		return dataGridResultInfo;
+	}
+
+	@Override
+	public ResultInfo updateTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto) throws Exception {
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE,901,null);
+
+		HspTimDiffCustom questParam = hspTimDiffQueryDto.getHspTimDiffCustom();
+		HspTimDiffExample hspTimDiffExample = new HspTimDiffExample();
+		HspTimDiffExample.Criteria criteria = hspTimDiffExample.createCriteria();
+		criteria.andDisTypEqualTo(questParam.getDisTyp());
+		criteria.andObjTypEqualTo(questParam.getObjTyp());
+		criteria.andObjEnmEqualTo(questParam.getObjEnm());
+		List<HspTimDiff> hspTimDiffs = hspTimDiffMapper.selectByExample(hspTimDiffExample);
+//		if (Objects.nonNull(hspTimDiffs)&&)
+
+		return null;
 	}
 }

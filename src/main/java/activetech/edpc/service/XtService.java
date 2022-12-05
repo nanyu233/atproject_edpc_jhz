@@ -147,5 +147,7 @@ public interface XtService {
 
 	ResultInfo getTimelineGt(List<HspXtzlInfCustom> list, HspTimDiffQueryDto hspTimDiffQueryDto);
 
-	ResultInfo getTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto);
+	public DataGridResultInfo getTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto);
+
+	ResultInfo updateTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto) throws Exception;
 }

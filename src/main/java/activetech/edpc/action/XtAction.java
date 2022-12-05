@@ -214,8 +214,16 @@ public class XtAction {
 	 * */
 	@RequestMapping("queryTimeLineCriterion")
 	@ResponseBody
-	public SubmitResultInfo queryTimeLineCriterion(@RequestBody HspTimDiffQueryDto hspTimDiffQueryDto)throws Exception{
-		ResultInfo resultInfo = xtService.getTimeLineCriterion(hspTimDiffQueryDto);
+	public DataGridResultInfo  queryTimeLineCriterion(@RequestBody HspTimDiffQueryDto hspTimDiffQueryDto)throws Exception{
+		DataGridResultInfo dataGridResultInfo = xtService.getTimeLineCriterion(hspTimDiffQueryDto);
+		return dataGridResultInfo;
+	}
+	/**
+	 * 质控时间标准修改
+	 * */
+	@RequestMapping("updateTimeLineCriterion")
+	public SubmitResultInfo updateTimeLineCriterion(@RequestBody HspTimDiffQueryDto hspTimDiffQueryDto)throws Exception{
+		ResultInfo resultInfo = xtService.updateTimeLineCriterion(hspTimDiffQueryDto);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
