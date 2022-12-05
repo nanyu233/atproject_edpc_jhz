@@ -39,6 +39,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -1481,16 +1482,17 @@ public class XtServiceImpl implements XtService{
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> map = new HashMap<>();
 		//参数校验
-		if (!Objects.nonNull(list)|| !(list.size()>0) || Objects.nonNull(hspTimDiffQueryDto)){
+		if (!Objects.nonNull(list)|| !(list.size()>0) || !Objects.nonNull(hspTimDiffQueryDto)){
 			return resultInfo;
 		}
 
 		HspTimDiffCustom questParam = hspTimDiffQueryDto.getHspTimDiffCustom();
+
 		HspTimDiffExample hspTimDiffExample = new HspTimDiffExample();
 		HspTimDiffExample.Criteria criteria = hspTimDiffExample.createCriteria();
 		criteria.andDisTypEqualTo(questParam.getDisTyp());
 		criteria.andObjTypEqualTo(questParam.getObjTyp());
-		hspTimDiffExample.setOrderByClause("");
+		hspTimDiffExample.setOrderByClause("OBJ_ODR");
 		List<HspTimDiff> hspTimDiffs = hspTimDiffMapper.selectByExample(hspTimDiffExample);
 		List<HspTimDiffCustom> hspTimDiffCustomList = new ArrayList<>();
 
@@ -1501,28 +1503,33 @@ public class XtServiceImpl implements XtService{
 			//质控结束节点
 			String engDateStr = new String();
 
-			HspTimDiffCustom hspTimDiffCustom = (HspTimDiffCustom) hspTimDiff;
+
+			HspTimDiffCustom hspTimDiffCustom = new HspTimDiffCustom();
+			BeanUtils.copyProperties(hspTimDiff,hspTimDiffCustom);
 
 			//获取质控开始与结束时间
 			for (HspXtzlInfCustom hspXtzlInfCustom : list) {
 				if (hspTimDiff.getTimBegCod().equals(hspXtzlInfCustom.getProCode())){
-					begDateStr = hspXtzlInfCustom.getProCode();
+					begDateStr = hspXtzlInfCustom.getProVal();
 				}
+			}
+			for (HspXtzlInfCustom hspXtzlInfCustom : list) {
 				if (hspTimDiff.getTimEndCod().equals(hspXtzlInfCustom.getProCode())){
-					engDateStr = hspXtzlInfCustom.getProCode();
+					engDateStr = hspXtzlInfCustom.getProVal();
 				}
 			}
 
 			//计算时间差（分钟）
-			if (activetech.util.StringUtils.isNotNullAndEmptyByTrim(begDateStr) || activetech.util.StringUtils.isNotNullAndEmptyByTrim(engDateStr)){
+			if (activetech.util.StringUtils.isNotNullAndEmptyByTrim(begDateStr) && activetech.util.StringUtils.isNotNullAndEmptyByTrim(engDateStr)){
 				Date begDat = DateUtil.parseDate(begDateStr, "yyyy-mm-dd hh:mm");
 				Date endDat = DateUtil.parseDate(engDateStr, "yyyy-mm-dd hh:mm");
 				long diff = (begDat.getTime() - endDat.getTime()) / 1000 / 60;
+				hspTimDiffCustom.setBeginTim(begDat);
+				hspTimDiffCustom.setEndTim(endDat);
 				hspTimDiffCustom.setHzTimDif(diff);
+				hspTimDiffCustomList.add(hspTimDiffCustom);
 			}
 
-
-			hspTimDiffCustomList.add(hspTimDiffCustom);
 		}
 		map.put("list",hspTimDiffCustomList);
 		resultInfo.setSysdata(map);
