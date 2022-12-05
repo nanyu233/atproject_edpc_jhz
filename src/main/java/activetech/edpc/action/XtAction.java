@@ -785,5 +785,13 @@ public class XtAction {
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
+	/**
+	 * 跳转 胸痛质控标准时间设置
+	 * */
+	@RequestMapping("toXtTimeLineSetup")
+	public String toXtTimeLineSetup(Model model) throws Exception{
+		return View.toEDPC("cpc/toXtTimeLineSetup");
+	}
+
 
 }
