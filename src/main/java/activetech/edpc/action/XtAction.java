@@ -209,6 +209,15 @@ public class XtAction {
 
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
+	/**
+	 * 质控时间标准查询
+	 * */
+	@RequestMapping("queryTimeLineCriterion")
+	@ResponseBody
+	public SubmitResultInfo queryTimeLineCriterion(@RequestBody HspTimDiffQueryDto hspTimDiffQueryDto)throws Exception{
+		ResultInfo resultInfo = xtService.getTimeLineCriterion(hspTimDiffQueryDto);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
 
 	/**
 	 * 获取最近1天的胸痛患者列表

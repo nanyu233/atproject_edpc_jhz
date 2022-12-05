@@ -1523,7 +1523,7 @@ public class XtServiceImpl implements XtService{
 			if (activetech.util.StringUtils.isNotNullAndEmptyByTrim(begDateStr) && activetech.util.StringUtils.isNotNullAndEmptyByTrim(engDateStr)){
 				Date begDat = DateUtil.parseDate(begDateStr, "yyyy-mm-dd hh:mm");
 				Date endDat = DateUtil.parseDate(engDateStr, "yyyy-mm-dd hh:mm");
-				long diff = (begDat.getTime() - endDat.getTime()) / 1000 / 60;
+				long diff = (endDat.getTime()-begDat.getTime()) / 1000 / 60;
 				hspTimDiffCustom.setBeginTim(begDat);
 				hspTimDiffCustom.setEndTim(endDat);
 				hspTimDiffCustom.setHzTimDif(diff);
@@ -1532,6 +1532,24 @@ public class XtServiceImpl implements XtService{
 
 		}
 		map.put("list",hspTimDiffCustomList);
+		resultInfo.setSysdata(map);
+		return resultInfo;
+	}
+
+	@Override
+	public ResultInfo getTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto) {
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		Map<String,Object> map = new HashMap<>();
+		HspTimDiffCustom questParam = hspTimDiffQueryDto.getHspTimDiffCustom();
+
+		HspTimDiffExample hspTimDiffExample = new HspTimDiffExample();
+		HspTimDiffExample.Criteria criteria = hspTimDiffExample.createCriteria();
+		criteria.andDisTypEqualTo(questParam.getDisTyp());
+		criteria.andObjTypEqualTo(questParam.getObjTyp());
+		hspTimDiffExample.setOrderByClause("OBJ_ODR");
+		List<HspTimDiff> hspTimDiffs = hspTimDiffMapper.selectByExample(hspTimDiffExample);
+
+		map.put("hspTimDiffList",hspTimDiffs);
 		resultInfo.setSysdata(map);
 		return resultInfo;
 	}
