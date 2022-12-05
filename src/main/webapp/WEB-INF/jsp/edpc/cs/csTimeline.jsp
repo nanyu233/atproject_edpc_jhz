@@ -84,7 +84,7 @@
             <div class="basic-info">
                 <span class="item">姓名：<span class="name">{{info.cstNam}}</span></span>
                 <span class="item">年龄：<span class="value">{{info.cstAge}}岁</span></span>
-                <span class="item">性别：<span class="value">{{info.cstSexCod}}</span></span>
+                <span class="item">性别：<span class="value">{{info.cstSexCod == 0 ? '男' : '女'}}</span></span>
                 <span class="item">住院号：<span class="value"></span></span>
                 <span class="item">门诊号：<span class="value"></span></span>
                 <span class="item">呼救时间：<span class="value"></span></span>

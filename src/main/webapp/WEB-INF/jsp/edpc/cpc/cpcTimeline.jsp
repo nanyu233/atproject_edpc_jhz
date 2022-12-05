@@ -12,6 +12,7 @@
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
     <link rel="stylesheet" href="${baseurl}css/common/highcharts.css" type="text/css"/>
     <script src="${baseurl}lib/avalon1.4.8/avalon.js" type="text/javascript"></script>
+    <script type="text/javascript" src="${baseurl}lib/vue2.6.7/vue.js"></script>
     <script src="${baseurl}lib/Highcharts-8.1.0/code/highcharts.js" type="text/javascript"></script>
     <script src="${baseurl}lib/Highcharts-8.1.0/code/modules/exporting.js" type="text/javascript"></script>
     <script src="${baseurl}lib/Highcharts-8.1.0/code/modules/oldie.js" type="text/javascript"></script>
@@ -84,6 +85,75 @@
         .basic-info .item .value {
             font-weight: bold;
         }
+
+        .timeGt {
+            width: 98%;
+            border: 1px solid #a4a8ae;
+            padding-bottom: 20px;
+        }
+        .timeGtTop {
+            display: flex;
+        }
+        .timeGt .timeGt_left {
+            width: 200px;
+        }
+        .timeGt .timeGt_leftT, .timeGt_rightT {
+            height: 20px;
+        }
+        .timeGt .timeGt_left .timeGt_leftT {
+            border-right: 1px solid #a4a8ae;
+            margin-top: -1px;
+        }
+        .timeGt .timeGt_right .timeGt_rightT {
+            display: flex;
+        }
+        .timeGt .timeGt_right .timeGt_rightT .timeGt_rightT_item {
+            width: 100px;
+            border-right: 1px solid #a4a8ae;
+            margin-top: -1px;
+            position: relative;
+        }
+        .timeGt .timeGt_right .timeGt_rightT .timeGt_rightT_item span{
+            position: absolute;
+            right: -20px;
+        }
+        .timeGt .timeGtEnd .timeGtEnd_item {
+            margin-top: 10px;
+            display: flex;
+        }
+        .timeGt .timeGtEnd .timeGtEnd_item .timeGtEnd_itemL{
+            width: 200px;
+            line-height: 25px;
+            display: flex;
+            justify-content: flex-end;
+            box-sizing: border-box;
+            padding-right: 5px;
+        }
+        .timeGt .timeGtEnd .timeGtEnd_item .timeGtEnd_itemR{
+           display: flex;
+        }
+        .g-container {
+            height: 25px;
+            background: #fff;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .g-container span{
+            position: absolute;
+            top: 0;
+        }
+        .g-progress {
+            height: inherit;
+            background: #95f204;
+            transition: width .2s linear;
+        }
+        .red-progress {
+            height: inherit;
+            background: #d9001b;
+            transition: width .2s linear;
+        }
     </style>
 </head>
 
@@ -106,8 +176,7 @@
                 <span class="item">基准：
                    <span class="name">
                     <select ms-duplex="timeline.benchmark">
-                         <option style='display: none'></option>
-                         <option ms-repeat="timeline.benchmarkList" ms-attr-value="el.infocode" ms-attr-selected="el.infocode == 1">{{el.info}}</option>
+                         <option ms-repeat="timeline.benchmarkList" ms-attr-value="el.infocode">{{el.info}}</option>
                     </select>
                    </span>
                 </span>
@@ -209,6 +278,39 @@
                     <td class="cost"></td>
                 </tr>
             </table>
+            <div class="timeGt" id="timeGt" ms-if="timeline.timeGtList.length > 0">
+                <div class="timeGtTop">
+                    <div class="timeGt_left">
+                        <div class="timeGt_leftT"></div>
+                    </div>
+                    <div class="timeGt_right">
+                        <div class="timeGt_rightT">
+                            <div class="timeGt_rightT_item" ms-repeat="timeline.timeGt">
+                                <span>{{el}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeGtEnd">
+                    <div class="timeGtEnd_item" ms-repeat="timeline.timeGtList">
+                        <div class="timeGtEnd_itemL">
+                            {{el.objDes}}:
+                        </div>
+                        <div class="timeGtEnd_itemR">
+                            <div class="g-container" style="width: 100px;">
+                                <div class="g-progress">
+                                </div>
+                                <span>{{el.hzTimDif / 60}} / {{el.timDif / 60}} 分钟</span>
+                            </div>
+                            <div class="red-progress" style="margin-left: 5px" ms-if="el.hzTimDif > el.timDif">
+                            </div>
+                            <div style="color: #d9001b;margin-left: 2px" ms-if="el.hzTimDif > el.timDif">
+                                超出基准{{el.hzTimDif / 60 - el.timDif / 60}}分钟
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="desc">
                 <p class="title">说明：</p>
                 <p><span class="title">时间节点：</span>意思是实际救治过程中的具体事件的时间定义描述；</p>
@@ -229,7 +331,7 @@
         pointArr: [],
         info: {},
         timeline: {
-            benchmark: '',
+            benchmark: '1',
             benchmarkList: [
                 {
                     info: '国标',
@@ -243,8 +345,10 @@
                     info: '月平均',
                     infocode: '3'
                 }
-            ]
-        }
+            ],
+            timeGt: [10,20,30,40,50,60,70,80,90,100],
+            timeGtList: [],
+        },
     });
     Date.prototype.format = function (fmt) {
         var o = {
@@ -490,14 +594,41 @@
                 emgSeq: "${emgSeq}",
                 hspTimDiffCustom: {
                     disTyp:"1",
-                    objTyp:"1"
+                    objTyp: vm.timeline.benchmark
                 }
             }),
             success: function (res) {
+                if (res && res.resultInfo.success) {
+                    vm.timeline.timeGtList = res.resultInfo.sysdata.list || []
+                    vm.timeline.timeGtList.forEach(function (item, index) {
+                        if (item.timDif) {
+                            var container = document.querySelectorAll('.g-container')
+                            var progress = document.querySelectorAll('.g-progress')
+                            var red_progress = document.querySelectorAll('.red-progress')
+                            container[index].style.width = (item.timDif / 60) * 10 + 'px'
+                            if (item.hzTimDif > item.timDif) {
+                                progress[index].style.width = '100%'
+                                //超出时间  小于100分钟减去绿色进度条
+                                if ((item.hzTimDif - item.timDif) / 60 < 100 - item.timDif / 60) {
+                                    red_progress[index].style.width = (item.hzTimDif - item.timDif) / 60 * 10 + 'px'
+                                }else {
+                                    red_progress[index].style.width = 1000 - (item.timDif / 60) * 10 + 'px'
+                                }
+                            }else {
+                                progress[index].style.width = item.hzTimDif / item.timDif * 100 + '%'
+                            }
 
+                        }
+                    })
+                }
             }
         });
     }
+    vm.timeline.$watch('benchmark',function (newVal, oldVal) {
+        getTimDiff()
+    })
+
+
 
     function getWidth(proportion) {
         var width = $("body").width() * 0.29 - 4;
