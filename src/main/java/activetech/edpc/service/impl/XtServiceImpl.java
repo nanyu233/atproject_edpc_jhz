@@ -127,6 +127,8 @@ public class XtServiceImpl implements XtService{
 	private CrfplaneService cpcCrfplaneService;
 	@Autowired
 	private HspTimDiffMapper hspTimDiffMapper;
+	@Autowired
+	private HspTimDiffCustomMapper hspTimDiffCustomMapper;
 
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
@@ -1558,18 +1560,18 @@ public class XtServiceImpl implements XtService{
 	}
 
 	@Override
-	public ResultInfo updateTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto) throws Exception {
+	public ResultInfo updateTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto,ActiveUser activeUser) throws Exception {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE,901,null);
+		if (Objects.nonNull(hspTimDiffQueryDto) && Objects.nonNull(hspTimDiffQueryDto.getHspTimDiffCustom())){
+			HspTimDiffCustom questParam = hspTimDiffQueryDto.getHspTimDiffCustom();
+			questParam.setChgTim(new Date());
+			questParam.setChgUsrNam(activeUser.getUsrname());
+			questParam.setChgUsrNo(activeUser.getUsrno());
+			hspTimDiffCustomMapper.updateBySelective(questParam);
 
-		HspTimDiffCustom questParam = hspTimDiffQueryDto.getHspTimDiffCustom();
-		HspTimDiffExample hspTimDiffExample = new HspTimDiffExample();
-		HspTimDiffExample.Criteria criteria = hspTimDiffExample.createCriteria();
-		criteria.andDisTypEqualTo(questParam.getDisTyp());
-		criteria.andObjTypEqualTo(questParam.getObjTyp());
-		criteria.andObjEnmEqualTo(questParam.getObjEnm());
-		List<HspTimDiff> hspTimDiffs = hspTimDiffMapper.selectByExample(hspTimDiffExample);
-//		if (Objects.nonNull(hspTimDiffs)&&)
+		}
 
-		return null;
+
+		return resultInfo;
 	}
 }

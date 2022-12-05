@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspTimDiffCustomMapper" >
+    <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspTimDiff" >
+        <result column="DIS_TYP" property="disTyp" jdbcType="CHAR" />
+        <result column="OBJ_TYP" property="objTyp" jdbcType="CHAR" />
+        <result column="OBJ_ENM" property="objEnm" jdbcType="VARCHAR" />
+        <result column="OBJ_NAM" property="objNam" jdbcType="VARCHAR" />
+        <result column="OBJ_DES" property="objDes" jdbcType="VARCHAR" />
+        <result column="OBJ_ODR" property="objOdr" jdbcType="DECIMAL" />
+        <result column="TIM_BEG_COD" property="timBegCod" jdbcType="VARCHAR" />
+        <result column="TIM_BEG_NAM" property="timBegNam" jdbcType="VARCHAR" />
+        <result column="TIM_END_COD" property="timEndCod" jdbcType="VARCHAR" />
+        <result column="TIM_END_NAM" property="timEndNam" jdbcType="VARCHAR" />
+        <result column="TIM_DIF" property="timDif" jdbcType="DECIMAL" />
+        <result column="OBJ_MEM" property="objMem" jdbcType="VARCHAR" />
+        <result column="CHG_TIM" property="chgTim" jdbcType="TIMESTAMP" />
+        <result column="CHG_USR_NO" property="chgUsrNo" jdbcType="VARCHAR" />
+        <result column="CHG_USR_NAM" property="chgUsrNam" jdbcType="VARCHAR" />
+    </resultMap>
+    <update id="updateBySelective">
+        update HSP_TIM_DIFF
+        <set >
+            <if test="objNam != null" >
+                OBJ_NAM = #{objNam,jdbcType=VARCHAR},
+            </if>
+            <if test="objDes != null" >
+                OBJ_DES = #{objDes,jdbcType=VARCHAR},
+            </if>
+            <if test="objOdr != null" >
+                OBJ_ODR = #{objOdr,jdbcType=DECIMAL},
+            </if>
+            <if test="timBegCod != null" >
+                TIM_BEG_COD = #{timBegCod,jdbcType=VARCHAR},
+            </if>
+            <if test="timBegNam != null" >
+                TIM_BEG_NAM = #{timBegNam,jdbcType=VARCHAR},
+            </if>
+            <if test="timEndCod != null" >
+                TIM_END_COD = #{timEndCod,jdbcType=VARCHAR},
+            </if>
+            <if test="timEndNam != null" >
+                TIM_END_NAM = #{timEndNam,jdbcType=VARCHAR},
+            </if>
+            <if test="timDif != null" >
+                TIM_DIF = #{timDif,jdbcType=DECIMAL},
+            </if>
+            <if test="objMem != null" >
+                OBJ_MEM = #{objMem,jdbcType=VARCHAR},
+            </if>
+            <if test="chgTim != null" >
+                CHG_TIM = #{chgTim,jdbcType=TIMESTAMP},
+            </if>
+            <if test="chgUsrNo != null" >
+                CHG_USR_NO = #{chgUsrNo,jdbcType=VARCHAR},
+            </if>
+            <if test="chgUsrNam != null" >
+                CHG_USR_NAM = #{chgUsrNam,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where DIS_TYP = #{disTyp,jdbcType=CHAR}
+        and OBJ_TYP = #{objTyp,jdbcType=CHAR}
+        and OBJ_ENM = #{objEnm,jdbcType=VARCHAR}
+    </update>
+
+
+</mapper>

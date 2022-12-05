@@ -222,8 +222,8 @@ public class XtAction {
 	 * 质控时间标准修改
 	 * */
 	@RequestMapping("updateTimeLineCriterion")
-	public SubmitResultInfo updateTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto)throws Exception{
-		ResultInfo resultInfo = xtService.updateTimeLineCriterion(hspTimDiffQueryDto);
+	public SubmitResultInfo updateTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto,ActiveUser activeUser)throws Exception{
+		ResultInfo resultInfo = xtService.updateTimeLineCriterion(hspTimDiffQueryDto,activeUser);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
