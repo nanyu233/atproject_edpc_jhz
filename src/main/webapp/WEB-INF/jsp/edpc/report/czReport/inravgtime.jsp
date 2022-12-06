@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 
 <head>
-	<title>D-to-W时间报表</title>
+	<title>患者从入院到给予促凝血治疗后 INR 达标的平均时间（INR 升高（INR＞1.4）</title>
 	<base href="<%=basePath%>" target="_self">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,294 +20,98 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 
 	<script src="lib/easyui1.3/plugins/datagrid-transposedview.js" type="text/javascript"></script>
 	 -->
-	 
+	<style type="text/css">
+		.dashboard {
+			width: 100%;
+			margin: 0 auto;
+		}
+		.dashboard iframe {
+			width: 99%;
+			height: 105%;
+			margin-top: -150px;
+		}
+		#querymqform {
+			position: relative;
+			margin-top: -10px;
+		}
+	</style>
+
 </head>
 
-<body class="Overtime">
-	<form id="querymqform" action="edpcReport/exportXtReportSubmit.do"
-		method="post">
-		<!-- html的静态布局 -->
-		<!-- 查询条件 -->
-		<div class="m-b5">
-			<div class="m-t10 div_h">
-				<ul class="querylist-ul form_hc">
-					<li><input type="text" class="input-base short-right Wdate"
-						id="emg_startdate" name="startDate"
-						onfocus="new WdatePicker({dateFmt:'yyyy/MM'})"> 至 <input
-						type="text" class="input-base short-right Wdate" id="emg_enddate"
-						name="endDate" onfocus="new WdatePicker({dateFmt:'yyyy/MM'})" />
-						<span class="f-left">&nbsp;查询时间：</span></li>
-					<li class="queryuser-btn m-l5">
-						<a class="easyui-linkbutton" iconCls="icon-search" id="btn"
-							onclick="medianquery()">查询</a>
-					</li>
-				</ul>
-				<div class="c"></div>
-			</div>
-		</div>
-		<input type="hidden" name="reportTypeFlag" value="D2W">
-	</form>
-	<div class="chart_grp chartbox">
-		<div class="form_cat border-radius box-shadow">
-			<p class="chart_title">患者从入院到给予促凝血治疗后 INR 达标的平均时间（INR 升高（INR＞1.4）</p>
-			<div id="container" class="chart_div"></div>
-		</div>
-		<!-- 查询列表 -->
-		<div class="list_table" id="list_table">
-			<table id="dtoblist"></table>
+<body>
+<form id="querymqform">
+	<!-- html的静态布局 -->
+	<!-- 查询条件 -->
+	<div class="m-b5">
+		<div class="m-t10 div_h">
+			<ul class="querylist-ul form_hc">
+				<li>
+					<input type="text" class="input-base short-right Wdate"
+						   id="emg_startdate" name="startDate"
+						   onfocus="new WdatePicker({dateFmt:'yyyy/MM'})"> 至
+					<input type="text" class="input-base short-right Wdate"
+						   id="emg_enddate" name="endDate"
+						   onfocus="new WdatePicker({dateFmt:'yyyy/MM'})" />
+					<span class="f-left">&nbsp;查询时间：</span>
+				</li>
+				<li class="queryuser-btn m-l5">
+					<a class="easyui-linkbutton" iconCls="icon-search" id="btn"
+					   onclick="medianquery()">查询</a>
+				</li>
+			</ul>
 		</div>
 	</div>
-	
-	<script type="text/javascript">
-       //enter按键默认触发查询
-       $(document).keydown(function(event) {
-            switch (event.keyCode) {
-            case 13:
-                medianquery()
-            }
-        });
+</form>
+<div class="dashboard" id="iframe-div">
+	<iframe id="ciframe"></iframe>
+</div>
 
-        var chart;
-        
-        function reload(){
-            medianquery();
-        }
-        
-        // 初始化图表
-        function initChart(){
-        	Highcharts.setOptions({
-                lang: {
-                    months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-                    shortMonths: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-                    weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-                    contextButtonTitle: "图表导出菜单",
-                    downloadJPEG: "下载 JPEG 图片",
-                    downloadPDF: "下载 PDF 文件",
-                    downloadPNG: "下载 PNG 文件",
-                    downloadSVG: "下载 TIF文件",
-                    printChart: "打印图表"
-                }
-            });
-            
-            // 默认的导出菜单选项，是一个数据
-            var dafaultMenuItem = Highcharts.getOptions().exporting.buttons.contextButton.menuItems;
-            chart = Highcharts.chart('container', {
-                chart: { //图标配置
-                    zoomType: 'x',
-                    backgroundColor: '#e4efff'
-                },
-                title: { //大标题
-                    text: ''
-                },
-                xAxis: {
-                    type: 'datetime',
-                    dateTimeLabelFormats: {
-                        day: '%y-%b-%e'
-                    }
-                },
-                yAxis: { //Y轴设置
-                    min: 0,
-                    title: {
-                        text: '平均时间（分钟）'
-                    }
-                },
-                credits: { //版权信息
-                    enabled: false
-                },
-                exporting: {
-                    enabled: false,
-                    type: 'image/png',
-                    url: 'report/exportChart.do',
-                    width: 1200, //导出报表的宽度  
-                    filename: '患者从入院到给予促凝血治疗后 INR 达标的平均时间（INR 升高（INR＞1.4）',
-                    buttons: {
-                        contextButton: {
-                            // 自定义导出菜单项目及顺序
-                            menuItems: [
-                                dafaultMenuItem[0], {
-                                    separator: true
-                                },
-                                dafaultMenuItem[3],
-                                dafaultMenuItem[5],
-                                dafaultMenuItem[2],
-                            ]
-                        }
-                    }
-                },
-                tooltip: { //数据提示框
-                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
-                    shared: true
-                },
-                legend: {
-                    enabled: true
-                },
-                plotOptions: { //数据列配置
-                    column: {
-                        stacking: 'normal' // percent百分比
-                    },
-                    line: {
-                    	dataLabels: {
-                    		enabled: true
-                    	},
-                    	enableMouseTracking: false
-                    }
-                },
-                series: [{ //数据列
-                    type: 'line',
-                    name: '平均时间',
-                    color: '#1981E4'
-                },{ //数据列
-                    type: 'line',
-                    name: '标准时间',
-                    color: 'red'
-                }]
-            });
-        }
-        
-        //加载chart和datagrid
-        $(function() {
-            var height = $("#tabs", parent.document).height() * 0.75;
-            $("#dtoblist").height(height);
-            var chartheight = $("#tabs", parent.document).height() * 0.75 - 67;
-            $("#container").height(chartheight);
-			
-            // 初始化搜索框的值
-            setTime();
-            // 初始化图表的配置
-            initChart();
-            // 初始化表格，并用数据渲染
-            datagridshow();
-            
-            $(window).resize(function() {
-                $('#dtoblist').datagrid('reload');
-            });
-        });
 
-        //datagrid列定义
-        var columns_v = [[
-            {
-                field: 'yarmon',
-                title: '年月',
-                width: getWidth(0.2)
-            }, {
-                field: 'avgTime',
-                title: '平均时间（分钟）',
-                width: getWidth(0.2)
-            }, {
-                field: 'minMin',
-                title: '最小值（分钟）',
-                width: getWidth(0.2)
-            }, {
-                field: 'maxMin',
-                title: '最大值（分钟）',
-                width: getWidth(0.2)
-            }, {
-                field: 'patNumb',
-                title: '总数',
-                width: getWidth(0.2)
-            }
-        ]];
-        //定义datagrid工具
-        var toolbar_v = [{
-            id: 'btnadd',
-            text: '导出',
-            iconCls: 'icon-redo',
-            handler: function() {
-                _confirm('您确认导出吗？', null, function() {
-                    jquerySubByFId('querymqform', medianExprot_callback, null, "json");
-                });
-            }
-        }];
-        //导出回调
-        function medianExprot_callback(data) {
-            //在这里提示信息中有文件下载链接
-            message_alert(data);
-        }
+<script type="text/javascript">
+	//enter按键默认触发查询
+	$(document).keydown(function(event) {
+		switch (event.keyCode) {
+			case 13:
+				medianquery()
+		}
+	});
 
-        function datagridshow(){
-            var start = $("#emg_startdate").val();
-            var end = $("#emg_enddate").val();
-            $('#dtoblist').datagrid({
-                title: "患者从入院到给予促凝血治疗后 INR 达标的平均时间（INR 升高（INR＞1.4）统计图",
-                nowrap: true,
-                //view: transposedview,
-                striped: true,
-                singleSelect: true,
-                url: "edpcReport/xtReport_result.do",
-                //idField: '1',
-                loadMsg: '',
-                queryParams: {
-                    startDate: start,
-                    endDate: end,
-                    reportTypeFlag: 'D2W'
-                },
-                columns: columns_v,
-                pagination: false,
-                rownumbers: true,	
-                toolbar: toolbar_v,
-                onLoadSuccess: function(data) {
-                	var xcategories = [];
-                	var seriesData = [];
-                	var standardData= [];
-                	var dataArray = data.rows;
-               	 	if ($.isArray(dataArray)) {
-                        for (var i = 0; i < dataArray.length; i++) {
-                        	xcategories.push(dataArray[i].yarmon);
-                        	seriesData.push(dataArray[i].avgTime);
-                        	standardData.push(90);
-                        }
-                    }
-                	chart.series[0].setData(seriesData);
-                	chart.series[1].setData(standardData);
-                	chart.xAxis[0].setCategories(xcategories);
-                }
-            });
-        }
-        
-        function avg(colName, data) {
-            var rows = data.rows;
-            var avg = 0;
-            var total = 0;
-            for (var i = 0; i < rows.length; i++) {
-                total += parseFloat(rows[i][colName]);
-            }
-            avg = total / rows.length;
-            avg = avg.toFixed(1);
-            return avg;
-        }
+	//入口函数
+	$(function() {
+		setTime();
+	});
 
-        function setTime() {
-            //var _today;
-            var _startdate;
-            var _enddate;
-            var _data;
-            var _dataYY, _dataMM, _dataDD;
-            _data = new Date();
-            _dataYY = _data.getFullYear();
-            _dataMM = _data.getMonth() + 1;
-            _dataMM = _dataMM >= 10 ? _dataMM.toString() : "0" + _dataMM;
-            _dataDD = _data.getDate();
-            _dataDD = _dataDD >= 10 ? _dataDD.toString() : "0" + _dataDD;
-            //_today = _dataYY + "/" + _dataMM;
-            _startdate = _dataYY + "/" + "01";
-            _enddate = _dataYY + "/" + "12";
-            $("#emg_startdate").val(_startdate);
-            $("#emg_enddate").val(_enddate);
-        };
+	//初始化查询寻条件
+	function setTime() {
+		var _startdate;
+		var _enddate;
+		var _data;
+		var _dataYY, _dataMM, _dataDD;
+		_data = new Date();
+		_dataYY = _data.getFullYear();
+		_dataMM = _data.getMonth() + 1;
+		_dataMM = _dataMM >= 10 ? _dataMM.toString() : "0" + _dataMM;
+		_dataDD = _data.getDate();
+		_dataDD = _dataDD >= 10 ? _dataDD.toString() : "0" + _dataDD;
+		_startdate = _dataYY + "/" + "01";
+		_enddate = _dataYY + "/" + "12";
+		$("#emg_startdate").val(_startdate);
+		$("#emg_enddate").val(_enddate);
+		medianquery();
+	};
 
-        function getWidth(proportion) {
-            var width = $("body").width() * 0.29 - 4;
-            return Math.round(proportion * width);
-        }
-        //查询方法
-        function medianquery() {
-            var start = $("#emg_startdate").val();
-            var end = $("#emg_enddate").val();
-            if(publicFun.searchTime(start,end)){
-            	$('#dtoblist').datagrid('load', {"startDate":start,"endDate":end, reportTypeFlag: 'D2W'});
-            }
-        }
-    </script>
+	//查询方法
+	function medianquery() {
+		var start = $("#emg_startdate").val();
+		var end = $("#emg_enddate").val();
+
+		var _ifrmSrc = 'http://192.168.3.26:8080/superset/dashboard/4/?native_filters_key=GNksxcUT30qh4ZRi5n2WZTMQRGHgPHhdc0v5aEVU4287EFHG8i20sOcnHn7ajV-2';
+		_ifrmSrc += ('&startdate=' + start);
+		_ifrmSrc += ('&enddate=' + end)
+		$('#ciframe').attr("src", _ifrmSrc);
+	}
+
+</script>
 </body>
 
 </html>
