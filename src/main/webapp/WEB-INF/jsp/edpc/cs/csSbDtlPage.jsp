@@ -616,11 +616,11 @@
                               <div class="inputs">
                                   <div class="input-group">
                                       <div class="lb">接诊医生</div>
-                                      <div class="input"><input type="text" class="input" /></div>
+                                      <div class="input"><input type="text" class="input" v-model="info.jzys"/></div>
                                   </div>
                                   <div class="input-group">
                                       <div class="lb">接诊护士</div>
-                                      <div class="input"><input type="text" class="input"  /></div>
+                                      <div class="input"><input type="text" class="input"  v-model="info.jzhs"/></div>
                                   </div>
                               </div>
                               <div class="inputs">
@@ -691,7 +691,7 @@
                                   <div class="input-group">
                                       <div class="lb">急诊接诊时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"/>
+                                          <input type="text" class="Wdate input" ref="JZSJ" onclick="WdatePickerEnd('JZSJ','info.JZSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.JZSJ" />
                                       </div>
                                   </div>
                               </div>
@@ -2217,24 +2217,27 @@
                             emgSeq: _emgSeq,
                         }),
                         success: function (res) {
-                            sub.aboutSco.ISSList = []
-                            sub.aboutSco.AISMax = 0
-                            sub.aboutSco.ISSMax = 0
-                            let crtTime = res.resultInfo.sysdata.hadChecked[0].crtTime
-                            if(sub.aboutSco.hasOwnProperty('ISSNowData')) {
-                                sub.aboutSco.ISSNowData = publicFun.timeFormat(crtTime, 'yyyy-MM-dd hh:mm:ss')
-                            }
-                            sub.aboutSco.ISSList = res.resultInfo.sysdata.hadChecked.sort(function (a, b) {
-                                return b.optScoe - a.optScoe
-                            })
-                            for(var i = 0;i < sub.aboutSco.ISSList.length;i++) {
-                                sub.aboutSco.AISMax += sub.aboutSco.ISSList[i].optScoe
-                                if(i < 3) {
-                                    sub.aboutSco.ISSMax += Math.pow(sub.aboutSco.ISSList[i].optScoe, 2)
+                            if (res && res.resultInfo.success) {
+                                sub.aboutSco.ISSList = []
+                                sub.aboutSco.AISMax = 0
+                                sub.aboutSco.ISSMax = 0
+                                let crtTime = res.resultInfo.sysdata.hadChecked[0].crtTime
+                                if(sub.aboutSco.hasOwnProperty('ISSNowData')) {
+                                    sub.aboutSco.ISSNowData = publicFun.timeFormat(crtTime, 'yyyy-MM-dd hh:mm:ss')
                                 }
+                                sub.aboutSco.ISSList = res.resultInfo.sysdata.hadChecked.sort(function (a, b) {
+                                    return b.optScoe - a.optScoe
+                                })
+                                for(var i = 0;i < sub.aboutSco.ISSList.length;i++) {
+                                    sub.aboutSco.AISMax += sub.aboutSco.ISSList[i].optScoe
+                                    if(i < 3) {
+                                        sub.aboutSco.ISSMax += Math.pow(sub.aboutSco.ISSList[i].optScoe, 2)
+                                    }
+                                }
+                                console.log(sub.aboutSco.ISSList, 'okkkkkkkkkkkk')
                             }
-                            console.log(sub.aboutSco.ISSList, 'okkkkkkkkkkkk')
-                        }
+                            }
+
                 })
             },
             getTiSco() {
@@ -2246,11 +2249,13 @@
                         xtpgSeq: _emgSeq
                     },
                     success: function (res) {
-                        console.log(res,'获取ti数据')
-                        sub.tiProps = res
-                        sub.aboutSco.tiSco = res.tiSco;
-                        if(sub.aboutSco.hasOwnProperty('tiNowData')) {
-                            sub.aboutSco.tiNowData = publicFun.timeFormat(res.cratDat, 'yyyy-MM-dd hh:mm:ss')
+                        if (res) {
+                            console.log(res,'获取ti数据')
+                            sub.tiProps = res
+                            sub.aboutSco.tiSco = res.tiSco;
+                            if(sub.aboutSco.hasOwnProperty('tiNowData')) {
+                                sub.aboutSco.tiNowData = publicFun.timeFormat(res.cratDat, 'yyyy-MM-dd hh:mm:ss')
+                            }
                         }
 
                     }
@@ -2265,11 +2270,13 @@
                         emgSeq: _emgSeq
                     },
                     success: function (res) {
-                        sub.aboutSco.gcsSco = res.totSco;
-                        if(sub.aboutSco.hasOwnProperty('gcsNowData')) {
-                            sub.aboutSco.gcsNowData = publicFun.timeFormat(res.updTime, 'yyyy-MM-dd hh:mm:ss')
+                        if (res) {
+                            sub.aboutSco.gcsSco = res.totSco;
+                            if(sub.aboutSco.hasOwnProperty('gcsNowData')) {
+                                sub.aboutSco.gcsNowData = publicFun.timeFormat(res.updTime, 'yyyy-MM-dd hh:mm:ss')
+                            }
+                            console.log(res,'获取GCS数据')
                         }
-                        console.log(res,'获取GCS数据')
                     }
                 })
             },
@@ -2282,11 +2289,13 @@
                         tashSeq: _emgSeq
                     },
                     success: function (res) {
-                        sub.props = res
-                        sub.aboutSco.tashSco = res.tashSco;
-                        sub.aboutSco.tashPr = res.tashPr
-                        if(sub.aboutSco.hasOwnProperty('tashNowData')) {
-                            sub.aboutSco.tashNowData = publicFun.timeFormat(res.crtDat, 'yyyy-MM-dd hh:mm:ss')
+                        if (res) {
+                            sub.props = res
+                            sub.aboutSco.tashSco = res.tashSco;
+                            sub.aboutSco.tashPr = res.tashPr
+                            if(sub.aboutSco.hasOwnProperty('tashNowData')) {
+                                sub.aboutSco.tashNowData = publicFun.timeFormat(res.crtDat, 'yyyy-MM-dd hh:mm:ss')
+                            }
                         }
                     }
                 })
@@ -2312,8 +2321,10 @@
                         emgSeq: _emgSeq
                     },
                     success: function (res) {
-                        sub.timeList = res.resultInfo.sysdata.czTimeline
-                        console.log(res,'获取时间轴数据', sub.timeList)
+                        if (res && res.resultInfo.success) {
+                            sub.timeList = res.resultInfo.sysdata.czTimeline
+                            console.log(res,'获取时间轴数据', sub.timeList)
+                        }
                     }
                 })
             },
@@ -2328,36 +2339,39 @@
                     dataType: 'json',
                     contentType: 'application/json;charset=UTF-8',
                     success: function (res) {
-                        sub.hspEmgInf = res.resultInfo.sysdata.hspEmgInf
-                        for(var item of res.resultInfo.sysdata.cszlList) {
-                            sub.info[item.proCode] = item.proVal
-                            if (item.proCode == 'JZJYJC' && item.proVal) {
-                                sub.query.JZJYJCSel = item.proVal.split(',')
-                                console.log(sub.query, ']]]]]]]]]]]]')
-                            }else if(item.proCode == 'YQQJCS' && item.proVal) {
-                                sub.query.YQQJCSSel = item.proVal.split(',')
-                            }else if(item.proCode == 'JZQJCS' && item.proVal) {
-                                sub.query.JZQJCSSel = item.proVal.split(',')
+                        if (res && res.resultInfo.success) {
+                            sub.hspEmgInf = res.resultInfo.sysdata.hspEmgInf || {}
+                            for(var item of res.resultInfo.sysdata.cszlList) {
+                                sub.info[item.proCode] = item.proVal
+                                if (item.proCode == 'JZJYJC' && item.proVal) {
+                                    sub.query.JZJYJCSel = item.proVal.split(',')
+                                    console.log(sub.query, ']]]]]]]]]]]]')
+                                }else if(item.proCode == 'YQQJCS' && item.proVal) {
+                                    sub.query.YQQJCSSel = item.proVal.split(',')
+                                }else if(item.proCode == 'JZQJCS' && item.proVal) {
+                                    sub.query.JZQJCSSel = item.proVal.split(',')
+                                }
                             }
-                        }
-                        console.log(sub.hspEmgInf)
-                        if (sub.hspEmgInf.cstAge > 6) {
-                            sub.info.NIANL = '01'
-                        }else if(sub.hspEmgInf.cstAge <= 6 && sub.hspEmgInf.cstAge > 1) {
-                            sub.info.NIANL = '02'
-                        }else {
-                            sub.info.NIANL = '03'
-                        }
+                            console.log(sub.hspEmgInf)
+                            if (sub.hspEmgInf.cstAge > 6) {
+                                sub.info.NIANL = '01'
+                            }else if(sub.hspEmgInf.cstAge <= 6 && sub.hspEmgInf.cstAge > 1) {
+                                sub.info.NIANL = '02'
+                            }else {
+                                sub.info.NIANL = '03'
+                            }
 
-                        console.log(sub.info, 'infoooooo')
-                        sub.aidPatient.allJTZZ = sub.info.JTZZ
-                        if(sub.aidPatient.allJTZZ) {
-                            sub.aidPatient.scePrvCod = sub.aidPatient.allJTZZ.slice(0, 6)
+                            console.log(sub.info, 'infoooooo')
+                            sub.aidPatient.allJTZZ = sub.info.JTZZ
+                            if(sub.aidPatient.allJTZZ) {
+                                sub.aidPatient.scePrvCod = sub.aidPatient.allJTZZ.slice(0, 6)
+                            }
                         }
                     }
                 });
             },
             commit() {
+                    parent.publicFun.ajaxLoading('保存中，请稍等。。。')
                     console.log(this.info, '???', )
                     var list = [];
                     for (var prop in this.info) {
@@ -2380,9 +2394,12 @@
                         }),
                         success: function(res) {
                             if(res.resultInfo.success) {
-                                parent.publicFun.alert("保存成功");
+                                parent.publicFun.ajaxLoadEnd()
+                                parent.publicFun.successalert('保存成功')
                                 sub.getCsinfo()
                                 sub.getTimeList()
+                            }else {
+                                parent.publicFun.alert('保存失败')
                             }
                         }
                     });
