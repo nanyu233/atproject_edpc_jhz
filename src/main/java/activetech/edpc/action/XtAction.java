@@ -241,7 +241,7 @@ public class XtAction {
 	 * */
 	@RequestMapping("/queryTimeLineHis")
 	@ResponseBody
-	public DataGridResultInfo queryTimeLineHis(@RequestBody HspTimDiffQueryDto hspTimDiffQueryDto)throws Exception{
+	public DataGridResultInfo queryTimeLineHis(HspTimDiffQueryDto hspTimDiffQueryDto)throws Exception{
 		DataGridResultInfo dataGridResultInfo = xtService.queryTimeLineHis(hspTimDiffQueryDto);
 		return dataGridResultInfo;
 	}
