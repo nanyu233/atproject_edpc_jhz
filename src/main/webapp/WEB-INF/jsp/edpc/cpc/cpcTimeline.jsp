@@ -137,14 +137,20 @@
             background: #fff;
             position: relative;
             display: flex;
-            justify-content: center;
             font-size: 16px;
         }
         .g-container span{
             position: absolute;
             top: 0;
+            left: 50%;
+            -webkit-transform: translate(-50%);
+            -moz-transform: translate(-50%);
+            -ms-transform: translate(-50%);
+            -o-transform:translate(-50%) ;
+            transform:translate(-50%);
         }
         .g-progress {
+            width: 0%;
             height: inherit;
             background: #95f204;
             transition: width .2s linear;
@@ -297,7 +303,7 @@
                             {{el.objDes}}:
                         </div>
                         <div class="timeGtEnd_itemR">
-                            <div class="g-container" style="width: 100px;">
+                            <div class="g-container">
                                 <div class="g-progress">
                                 </div>
                                 <span>{{el.hzTimDif / 60}} / {{el.timDif / 60}} 分钟</span>
