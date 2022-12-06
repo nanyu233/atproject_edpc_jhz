@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspTimDiffHisMapper" >
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspTimDiffHis" >
+    <result column="DAT_DAT" property="datDat" jdbcType="VARCHAR" />
+    <result column="DIS_TYP" property="disTyp" jdbcType="CHAR" />
+    <result column="OBJ_TYP" property="objTyp" jdbcType="CHAR" />
+    <result column="OBJ_ENM" property="objEnm" jdbcType="VARCHAR" />
+    <result column="OBJ_NAM" property="objNam" jdbcType="VARCHAR" />
+    <result column="OBJ_DES" property="objDes" jdbcType="VARCHAR" />
+    <result column="OBJ_ODR" property="objOdr" jdbcType="DECIMAL" />
+    <result column="TIM_BEG_COD" property="timBegCod" jdbcType="VARCHAR" />
+    <result column="TIM_BEG_NAM" property="timBegNam" jdbcType="VARCHAR" />
+    <result column="TIM_END_COD" property="timEndCod" jdbcType="VARCHAR" />
+    <result column="TIM_END_NAM" property="timEndNam" jdbcType="VARCHAR" />
+    <result column="TIM_DIF" property="timDif" jdbcType="DECIMAL" />
+    <result column="OBJ_MEM" property="objMem" jdbcType="VARCHAR" />
+    <result column="CHG_TIM" property="chgTim" jdbcType="TIMESTAMP" />
+    <result column="CHG_USR_NO" property="chgUsrNo" jdbcType="VARCHAR" />
+    <result column="CHG_USR_NAM" property="chgUsrNam" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DAT_DAT, DIS_TYP, OBJ_TYP, OBJ_ENM, OBJ_NAM, OBJ_DES, OBJ_ODR, TIM_BEG_COD, TIM_BEG_NAM, 
+    TIM_END_COD, TIM_END_NAM, TIM_DIF, OBJ_MEM, CHG_TIM, CHG_USR_NO, CHG_USR_NAM
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.edpc.pojo.domain.HspTimDiffHisExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_TIM_DIFF_HIS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspTimDiffHisExample" >
+    delete from HSP_TIM_DIFF_HIS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspTimDiffHis" >
+    insert into HSP_TIM_DIFF_HIS (DAT_DAT, DIS_TYP, OBJ_TYP, 
+      OBJ_ENM, OBJ_NAM, OBJ_DES, 
+      OBJ_ODR, TIM_BEG_COD, TIM_BEG_NAM, 
+      TIM_END_COD, TIM_END_NAM, TIM_DIF, 
+      OBJ_MEM, CHG_TIM, CHG_USR_NO, 
+      CHG_USR_NAM)
+    values (#{datDat,jdbcType=VARCHAR}, #{disTyp,jdbcType=CHAR}, #{objTyp,jdbcType=CHAR}, 
+      #{objEnm,jdbcType=VARCHAR}, #{objNam,jdbcType=VARCHAR}, #{objDes,jdbcType=VARCHAR}, 
+      #{objOdr,jdbcType=DECIMAL}, #{timBegCod,jdbcType=VARCHAR}, #{timBegNam,jdbcType=VARCHAR}, 
+      #{timEndCod,jdbcType=VARCHAR}, #{timEndNam,jdbcType=VARCHAR}, #{timDif,jdbcType=DECIMAL}, 
+      #{objMem,jdbcType=VARCHAR}, #{chgTim,jdbcType=TIMESTAMP}, #{chgUsrNo,jdbcType=VARCHAR}, 
+      #{chgUsrNam,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspTimDiffHis" >
+    insert into HSP_TIM_DIFF_HIS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="datDat != null" >
+        DAT_DAT,
+      </if>
+      <if test="disTyp != null" >
+        DIS_TYP,
+      </if>
+      <if test="objTyp != null" >
+        OBJ_TYP,
+      </if>
+      <if test="objEnm != null" >
+        OBJ_ENM,
+      </if>
+      <if test="objNam != null" >
+        OBJ_NAM,
+      </if>
+      <if test="objDes != null" >
+        OBJ_DES,
+      </if>
+      <if test="objOdr != null" >
+        OBJ_ODR,
+      </if>
+      <if test="timBegCod != null" >
+        TIM_BEG_COD,
+      </if>
+      <if test="timBegNam != null" >
+        TIM_BEG_NAM,
+      </if>
+      <if test="timEndCod != null" >
+        TIM_END_COD,
+      </if>
+      <if test="timEndNam != null" >
+        TIM_END_NAM,
+      </if>
+      <if test="timDif != null" >
+        TIM_DIF,
+      </if>
+      <if test="objMem != null" >
+        OBJ_MEM,
+      </if>
+      <if test="chgTim != null" >
+        CHG_TIM,
+      </if>
+      <if test="chgUsrNo != null" >
+        CHG_USR_NO,
+      </if>
+      <if test="chgUsrNam != null" >
+        CHG_USR_NAM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="datDat != null" >
+        #{datDat,jdbcType=VARCHAR},
+      </if>
+      <if test="disTyp != null" >
+        #{disTyp,jdbcType=CHAR},
+      </if>
+      <if test="objTyp != null" >
+        #{objTyp,jdbcType=CHAR},
+      </if>
+      <if test="objEnm != null" >
+        #{objEnm,jdbcType=VARCHAR},
+      </if>
+      <if test="objNam != null" >
+        #{objNam,jdbcType=VARCHAR},
+      </if>
+      <if test="objDes != null" >
+        #{objDes,jdbcType=VARCHAR},
+      </if>
+      <if test="objOdr != null" >
+        #{objOdr,jdbcType=DECIMAL},
+      </if>
+      <if test="timBegCod != null" >
+        #{timBegCod,jdbcType=VARCHAR},
+      </if>
+      <if test="timBegNam != null" >
+        #{timBegNam,jdbcType=VARCHAR},
+      </if>
+      <if test="timEndCod != null" >
+        #{timEndCod,jdbcType=VARCHAR},
+      </if>
+      <if test="timEndNam != null" >
+        #{timEndNam,jdbcType=VARCHAR},
+      </if>
+      <if test="timDif != null" >
+        #{timDif,jdbcType=DECIMAL},
+      </if>
+      <if test="objMem != null" >
+        #{objMem,jdbcType=VARCHAR},
+      </if>
+      <if test="chgTim != null" >
+        #{chgTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chgUsrNo != null" >
+        #{chgUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="chgUsrNam != null" >
+        #{chgUsrNam,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspTimDiffHisExample" resultType="java.lang.Integer" >
+    select count(*) from HSP_TIM_DIFF_HIS
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update HSP_TIM_DIFF_HIS
+    <set >
+      <if test="record.datDat != null" >
+        DAT_DAT = #{record.datDat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disTyp != null" >
+        DIS_TYP = #{record.disTyp,jdbcType=CHAR},
+      </if>
+      <if test="record.objTyp != null" >
+        OBJ_TYP = #{record.objTyp,jdbcType=CHAR},
+      </if>
+      <if test="record.objEnm != null" >
+        OBJ_ENM = #{record.objEnm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.objNam != null" >
+        OBJ_NAM = #{record.objNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.objDes != null" >
+        OBJ_DES = #{record.objDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.objOdr != null" >
+        OBJ_ODR = #{record.objOdr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.timBegCod != null" >
+        TIM_BEG_COD = #{record.timBegCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timBegNam != null" >
+        TIM_BEG_NAM = #{record.timBegNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timEndCod != null" >
+        TIM_END_COD = #{record.timEndCod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timEndNam != null" >
+        TIM_END_NAM = #{record.timEndNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timDif != null" >
+        TIM_DIF = #{record.timDif,jdbcType=DECIMAL},
+      </if>
+      <if test="record.objMem != null" >
+        OBJ_MEM = #{record.objMem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chgTim != null" >
+        CHG_TIM = #{record.chgTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.chgUsrNo != null" >
+        CHG_USR_NO = #{record.chgUsrNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chgUsrNam != null" >
+        CHG_USR_NAM = #{record.chgUsrNam,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update HSP_TIM_DIFF_HIS
+    set DAT_DAT = #{record.datDat,jdbcType=VARCHAR},
+      DIS_TYP = #{record.disTyp,jdbcType=CHAR},
+      OBJ_TYP = #{record.objTyp,jdbcType=CHAR},
+      OBJ_ENM = #{record.objEnm,jdbcType=VARCHAR},
+      OBJ_NAM = #{record.objNam,jdbcType=VARCHAR},
+      OBJ_DES = #{record.objDes,jdbcType=VARCHAR},
+      OBJ_ODR = #{record.objOdr,jdbcType=DECIMAL},
+      TIM_BEG_COD = #{record.timBegCod,jdbcType=VARCHAR},
+      TIM_BEG_NAM = #{record.timBegNam,jdbcType=VARCHAR},
+      TIM_END_COD = #{record.timEndCod,jdbcType=VARCHAR},
+      TIM_END_NAM = #{record.timEndNam,jdbcType=VARCHAR},
+      TIM_DIF = #{record.timDif,jdbcType=DECIMAL},
+      OBJ_MEM = #{record.objMem,jdbcType=VARCHAR},
+      CHG_TIM = #{record.chgTim,jdbcType=TIMESTAMP},
+      CHG_USR_NO = #{record.chgUsrNo,jdbcType=VARCHAR},
+      CHG_USR_NAM = #{record.chgUsrNam,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

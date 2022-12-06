@@ -150,4 +150,6 @@ public interface XtService {
 	public DataGridResultInfo getTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto);
 
 	ResultInfo updateTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto,ActiveUser activeUser) throws Exception;
+
+	DataGridResultInfo queryTimeLineHis(HspTimDiffQueryDto hspTimDiffQueryDto) throws Exception;
 }

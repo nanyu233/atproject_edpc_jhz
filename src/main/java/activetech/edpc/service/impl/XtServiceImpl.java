@@ -129,6 +129,8 @@ public class XtServiceImpl implements XtService{
 	private HspTimDiffMapper hspTimDiffMapper;
 	@Autowired
 	private HspTimDiffCustomMapper hspTimDiffCustomMapper;
+	@Autowired
+	private HspTimDiffHisMapper hspTimDiffHisMapper;
 
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
@@ -1546,7 +1548,10 @@ public class XtServiceImpl implements XtService{
 		HspTimDiffExample hspTimDiffExample = new HspTimDiffExample();
 		HspTimDiffExample.Criteria criteria = hspTimDiffExample.createCriteria();
 		criteria.andDisTypEqualTo(questParam.getDisTyp());
-		criteria.andObjTypEqualTo(questParam.getObjTyp());
+		//9为查询全部
+		if (!"9".equals(questParam.getObjTyp())){
+			criteria.andObjTypEqualTo(questParam.getObjTyp());
+		}
 		hspTimDiffExample.setOrderByClause("OBJ_ODR");
 		List<HspTimDiff> hspTimDiffs = hspTimDiffMapper.selectByExample(hspTimDiffExample);
 
@@ -1573,5 +1578,26 @@ public class XtServiceImpl implements XtService{
 
 
 		return resultInfo;
+	}
+
+	@Override
+	public DataGridResultInfo queryTimeLineHis(HspTimDiffQueryDto hspTimDiffQueryDto) throws Exception {
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		if (Objects.nonNull(hspTimDiffQueryDto) && Objects.nonNull(hspTimDiffQueryDto.getHspTimDiffHisCustom())){
+			HspTimDiffHisCustom hspTimDiffHisCustom = hspTimDiffQueryDto.getHspTimDiffHisCustom();
+			HspTimDiffHisExample hspTimDiffHisExample = new HspTimDiffHisExample();
+			HspTimDiffHisExample.Criteria criteria = hspTimDiffHisExample.createCriteria();
+			criteria.andDisTypEqualTo(hspTimDiffHisCustom.getDisTyp());
+			criteria.andObjTypEqualTo(hspTimDiffHisCustom.getObjTyp());
+			hspTimDiffHisExample.setOrderByClause("DAT_DAT DESC");
+
+			List<HspTimDiffHis> hspTimDiffHis = hspTimDiffHisMapper.selectByExample(hspTimDiffHisExample);
+			if (Objects.nonNull(hspTimDiffHis)&&hspTimDiffHis.size()>0){
+				dataGridResultInfo.setRows(hspTimDiffHis);
+				dataGridResultInfo.setTotal(hspTimDiffHis.size());
+			}
+		}
+
+		return dataGridResultInfo;
 	}
 }

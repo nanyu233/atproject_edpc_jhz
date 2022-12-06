@@ -222,10 +222,19 @@ public class XtAction {
 	 * 质控时间标准修改
 	 * */
 	@RequestMapping("updateTimeLineCriterion")
-	public SubmitResultInfo updateTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto,ActiveUser activeUser)throws Exception{
+	public SubmitResultInfo updateTimeLineCriterion(@RequestBody HspTimDiffQueryDto hspTimDiffQueryDto,ActiveUser activeUser)throws Exception{
 		ResultInfo resultInfo = xtService.updateTimeLineCriterion(hspTimDiffQueryDto,activeUser);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
+	/**
+	 * 质控时间标准查询历史数据
+	 * */
+	@RequestMapping("queryTimeLineHis")
+	public DataGridResultInfo queryTimeLineHis(@RequestBody HspTimDiffQueryDto hspTimDiffQueryDto)throws Exception{
+		DataGridResultInfo dataGridResultInfo = xtService.queryTimeLineHis(hspTimDiffQueryDto);
+		return dataGridResultInfo;
+	}
+
 
 	/**
 	 * 获取最近1天的胸痛患者列表
