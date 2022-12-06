@@ -18,6 +18,7 @@ import activetech.edpc.service.XtService;
 import activetech.external.pojo.domain.HspEcgInf;
 import activetech.external.service.EsbService;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -212,7 +213,7 @@ public class XtAction {
 	/**
 	 * 质控时间标准查询
 	 * */
-	@RequestMapping("queryTimeLineCriterion")
+	@RequestMapping("/queryTimeLineCriterion")
 	@ResponseBody
 	public DataGridResultInfo  queryTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto)throws Exception{
 		DataGridResultInfo dataGridResultInfo = xtService.getTimeLineCriterion(hspTimDiffQueryDto);
@@ -221,15 +222,25 @@ public class XtAction {
 	/**
 	 * 质控时间标准修改
 	 * */
-	@RequestMapping("updateTimeLineCriterion")
+	@RequestMapping("/updateTimeLineCriterion")
+	@ResponseBody
 	public SubmitResultInfo updateTimeLineCriterion(@RequestBody HspTimDiffQueryDto hspTimDiffQueryDto,ActiveUser activeUser)throws Exception{
 		ResultInfo resultInfo = xtService.updateTimeLineCriterion(hspTimDiffQueryDto,activeUser);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	/**
+	 * 跳转质控时间标准查询历史数据
+	 * */
+	@RequestMapping("/toQCHistory")
+	public String toQCHistory(Model model){
+
+		return View.toEDPC("/cpc/qchistory");
+	}
+	/**
 	 * 质控时间标准查询历史数据
 	 * */
-	@RequestMapping("queryTimeLineHis")
+	@RequestMapping("/queryTimeLineHis")
+	@ResponseBody
 	public DataGridResultInfo queryTimeLineHis(@RequestBody HspTimDiffQueryDto hspTimDiffQueryDto)throws Exception{
 		DataGridResultInfo dataGridResultInfo = xtService.queryTimeLineHis(hspTimDiffQueryDto);
 		return dataGridResultInfo;

@@ -1566,7 +1566,7 @@ public class XtServiceImpl implements XtService{
 
 	@Override
 	public ResultInfo updateTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto,ActiveUser activeUser) throws Exception {
-		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE,901,null);
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE,906,null);
 		if (Objects.nonNull(hspTimDiffQueryDto) && Objects.nonNull(hspTimDiffQueryDto.getHspTimDiffCustom())){
 			HspTimDiffCustom questParam = hspTimDiffQueryDto.getHspTimDiffCustom();
 			questParam.setChgTim(new Date());
