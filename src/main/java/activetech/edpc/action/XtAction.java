@@ -827,7 +827,7 @@ public class XtAction {
 	 * */
 	@RequestMapping("toXtTimeLineSetup")
 	public String toXtTimeLineSetup(Model model) throws Exception{
-		return View.toEDPC("cpc/toXtTimeLineSetup");
+		return View.toEDPC("/cpc/toXtTimeLineSetup");
 	}
 
 
