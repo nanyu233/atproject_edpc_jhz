@@ -122,6 +122,7 @@
             display: flex;
         }
         .timeGt .timeGtEnd .timeGtEnd_item .timeGtEnd_itemL{
+            font-weight: 600;
             width: 200px;
             line-height: 25px;
             display: flex;
@@ -617,7 +618,7 @@
                             var red_progress = document.querySelectorAll('.red-progress')
                             container[index].style.width = (item.timDif / 60) * 10 + 'px'
                             if (item.hzTimDif > item.timDif) {
-                                progress[index].style.width = '100%'
+                                    progress[index].style.width = '100%'
                                 //超出时间  小于100分钟减去绿色进度条
                                 if ((item.hzTimDif - item.timDif) / 60 < 100 - item.timDif / 60) {
                                     red_progress[index].style.width = (item.hzTimDif - item.timDif) / 60 * 10 + 'px'
@@ -625,7 +626,7 @@
                                     red_progress[index].style.width = 1000 - (item.timDif / 60) * 10 + 'px'
                                 }
                             }else {
-                                progress[index].style.width = item.hzTimDif / item.timDif * 100 + '%'
+                                    progress[index].style.width = item.hzTimDif / item.timDif * 100 + '%'
                             }
 
                         }
