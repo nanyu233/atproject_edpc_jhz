@@ -7,13 +7,13 @@
         select * from HSP_TIM_DIFF_HIS
         <where>
             <if test="hspTimDiffHisCustom!=null">
-                <if test="hspPatInfCustom.disTyp!=null and hspPatInfCustom.disTyp != ''.toString()">
+                <if test="hspTimDiffHisCustom.disTyp!=null and hspTimDiffHisCustom.disTyp != ''.toString()">
                     and DIS_TYP = #{hspPatInfCustom.disTyp}
                 </if>
-                <if test="hspPatInfCustom.objTyp!=null and hspPatInfCustom.objTyp != ''.toString()">
+                <if test="hspTimDiffHisCustom.objTyp!=null and hspTimDiffHisCustom.objTyp != ''.toString()">
                     and OBJ_TYP = #{hspPatInfCustom.objTyp}
                 </if>
-                <if test="hspPatInfCustom.objEnm!=null and hspPatInfCustom.objTyp != ''.toString()">
+                <if test="hspTimDiffHisCustom.objEnm!=null and hspTimDiffHisCustom.objTyp != ''.toString()">
                     and OBJ_ENM = #{hspPatInfCustom.objEnm}
                 </if>
             </if>
@@ -25,13 +25,13 @@
         select count(*)from HSP_TIM_DIFF_HIS
         <where>
             <if test="hspTimDiffHisCustom!=null">
-                <if test="hspPatInfCustom.disTyp!=null and hspPatInfCustom.disTyp != ''.toString()">
+                <if test="hspTimDiffHisCustom.disTyp!=null and hspTimDiffHisCustom.disTyp != ''.toString()">
                     and DIS_TYP = #{hspPatInfCustom.disTyp}
                 </if>
-                <if test="hspPatInfCustom.objTyp!=null and hspPatInfCustom.objTyp != ''.toString()">
+                <if test="hspTimDiffHisCustom.objTyp!=null and hspTimDiffHisCustom.objTyp != ''.toString()">
                     and OBJ_TYP = #{hspPatInfCustom.objTyp}
                 </if>
-                <if test="hspPatInfCustom.objEnm!=null and hspPatInfCustom.objTyp != ''.toString()">
+                <if test="hspTimDiffHisCustom.objEnm!=null and hspTimDiffHisCustom.objTyp != ''.toString()">
                     and OBJ_ENM = #{hspPatInfCustom.objEnm}
                 </if>
             </if>
