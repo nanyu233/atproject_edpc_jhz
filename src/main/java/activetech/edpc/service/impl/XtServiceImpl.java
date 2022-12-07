@@ -1589,6 +1589,7 @@ public class XtServiceImpl implements XtService{
 			HspTimDiffHisExample.Criteria criteria = hspTimDiffHisExample.createCriteria();
 			criteria.andDisTypEqualTo(hspTimDiffHisCustom.getDisTyp());
 			criteria.andObjTypEqualTo(hspTimDiffHisCustom.getObjTyp());
+			criteria.andObjEnmEqualTo(hspTimDiffHisCustom.getObjEnm());
 			hspTimDiffHisExample.setOrderByClause("DAT_DAT DESC");
 
 			List<HspTimDiffHis> hspTimDiffHis = hspTimDiffHisMapper.selectByExample(hspTimDiffHisExample);
