@@ -5359,7 +5359,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
-					regSeq: _regSeq
+					regSeq: _regSeq,
 					emgSeq: _emgSeq,
 					xtzlInfs: list,
 				}),
