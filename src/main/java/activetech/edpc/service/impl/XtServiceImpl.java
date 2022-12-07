@@ -1593,7 +1593,7 @@ public class XtServiceImpl implements XtService{
 			List<HspTimDiffHisCustom> hspTimDiffHisCustoms = hspTimDiffHisCustomMapper.selectByConditions(hspTimDiffQueryDto);
 			if (Objects.nonNull(hspTimDiffHisCustoms)&&hspTimDiffHisCustoms.size()>0){
 				dataGridResultInfo.setRows(hspTimDiffHisCustoms);
-				dataGridResultInfo.setTotal(hspTimDiffHisCustoms.size());
+				dataGridResultInfo.setTotal(total);
 			}
 		}
 

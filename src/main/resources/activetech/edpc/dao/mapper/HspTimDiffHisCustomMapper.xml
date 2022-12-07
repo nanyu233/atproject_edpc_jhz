@@ -8,13 +8,13 @@
         <where>
             <if test="hspTimDiffHisCustom!=null">
                 <if test="hspTimDiffHisCustom.disTyp!=null and hspTimDiffHisCustom.disTyp != ''.toString()">
-                    and DIS_TYP = #{hspPatInfCustom.disTyp}
+                    and DIS_TYP = #{hspTimDiffHisCustom.disTyp}
                 </if>
                 <if test="hspTimDiffHisCustom.objTyp!=null and hspTimDiffHisCustom.objTyp != ''.toString()">
-                    and OBJ_TYP = #{hspPatInfCustom.objTyp}
+                    and OBJ_TYP = #{hspTimDiffHisCustom.objTyp}
                 </if>
                 <if test="hspTimDiffHisCustom.objEnm!=null and hspTimDiffHisCustom.objTyp != ''.toString()">
-                    and OBJ_ENM = #{hspPatInfCustom.objEnm}
+                    and OBJ_ENM = #{hspTimDiffHisCustom.objEnm}
                 </if>
             </if>
         </where>
@@ -26,16 +26,15 @@
         <where>
             <if test="hspTimDiffHisCustom!=null">
                 <if test="hspTimDiffHisCustom.disTyp!=null and hspTimDiffHisCustom.disTyp != ''.toString()">
-                    and DIS_TYP = #{hspPatInfCustom.disTyp}
+                    and DIS_TYP = #{hspTimDiffHisCustom.disTyp}
                 </if>
                 <if test="hspTimDiffHisCustom.objTyp!=null and hspTimDiffHisCustom.objTyp != ''.toString()">
-                    and OBJ_TYP = #{hspPatInfCustom.objTyp}
+                    and OBJ_TYP = #{hspTimDiffHisCustom.objTyp}
                 </if>
                 <if test="hspTimDiffHisCustom.objEnm!=null and hspTimDiffHisCustom.objTyp != ''.toString()">
-                    and OBJ_ENM = #{hspPatInfCustom.objEnm}
+                    and OBJ_ENM = #{hspTimDiffHisCustom.objEnm}
                 </if>
             </if>
         </where>
-        order by DAT_DAT desc
     </select>
 </mapper>
