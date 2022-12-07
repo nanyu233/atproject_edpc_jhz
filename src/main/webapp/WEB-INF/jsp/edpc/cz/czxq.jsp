@@ -2266,7 +2266,7 @@
                         dataType: 'json',
                         contentType: 'application/json;charset=UTF-8',
                         data: JSON.stringify({
-                            emgSeq: _emgSeq,
+                            emgSeq: _regSeq,
                             czzlInfList: list,
                         }),
                         success: function (res) {
@@ -2291,7 +2291,7 @@
                         dataType: 'json',
                         contentType: 'application/json;charset=UTF-8',
                         data: JSON.stringify({
-                            emgSeq: _emgSeq
+                            emgSeq: _regSeq
                         }),
                         success: function (res) {
                         	vm.timeList = res.resultInfo.sysdata.czTimeline
@@ -2396,7 +2396,7 @@
                         dataType: 'json',
                         contentType: 'application/json;charset=UTF-8',
                         data: JSON.stringify({
-                            emgSeq: _emgSeq,
+                            emgSeq: _regSeq,
 	                        czzlInfList: [{
 	                            sysdata: sysdata
 	                        }]

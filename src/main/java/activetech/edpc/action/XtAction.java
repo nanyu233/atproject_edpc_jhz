@@ -489,7 +489,7 @@ public class XtAction {
 	@ResponseBody
 	public SubmitResultInfo xtPatietSubmit(@RequestBody XtHspEmgInfQueryDto xtHspEmgInfQueryDto,ActiveUser activeUser){
 		ResultInfo resultInfo = xtService.xtPatietSubmitBatch(
-				xtHspEmgInfQueryDto.getXtzlInfs(), xtHspEmgInfQueryDto.getEmgSeq(), activeUser);
+				xtHspEmgInfQueryDto.getXtzlInfs(), xtHspEmgInfQueryDto.getEmgSeq(), xtHspEmgInfQueryDto.getRegSeq(), activeUser);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 

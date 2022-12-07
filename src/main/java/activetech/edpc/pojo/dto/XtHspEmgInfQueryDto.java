@@ -22,6 +22,7 @@ public class XtHspEmgInfQueryDto extends HspEmgInf{
 	private String fbsj;			//发病时间
 	private String scyljcsj;
 	private List<HspXtzlInfCustom> xtzlInfs;
+	private String regSeq;   //Hsp_dbzl_bas的主键
 	
 	private String wayTyp;//区别绕行，院内，普通急诊的胸痛患者
 	
@@ -112,5 +113,12 @@ public class XtHspEmgInfQueryDto extends HspEmgInf{
 	public void setYqrscs(String yqrscs) {
 		this.yqrscs = yqrscs;
 	}
-	
+
+	public String getRegSeq() {
+		return regSeq;
+	}
+
+	public void setRegSeq(String regSeq) {
+		this.regSeq = regSeq;
+	}
 }

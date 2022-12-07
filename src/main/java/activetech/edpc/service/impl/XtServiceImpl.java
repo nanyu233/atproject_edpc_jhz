@@ -420,14 +420,14 @@ public class XtServiceImpl implements XtService{
 	}
 	
 	@Override
-	public ResultInfo xtPatietSubmitBatch(List<HspXtzlInfCustom> xtzlInfs,String emgSeq,ActiveUser activeUser) {
+	public ResultInfo xtPatietSubmitBatch(List<HspXtzlInfCustom> xtzlInfs,String emgSeq, String reqSeq, ActiveUser activeUser) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		externalDataService.mergeFzInf(xtzlInfs, emgSeq, activeUser.getUsrno());
 		String d2w = externalDataService.getD2W(emgSeq);
 		HspXtzlInfCustom hspXtzlInfCustom = new HspXtzlInfCustom();
 		hspXtzlInfCustom.setProCode("DDYYDMSJ");
 		hspXtzlInfCustom.setProVal(d2w);
-		hspXtzlInfCustom.setEmgNo(emgSeq);
+		hspXtzlInfCustom.setEmgNo(reqSeq);
 		hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
 		return resultInfo;
 	}

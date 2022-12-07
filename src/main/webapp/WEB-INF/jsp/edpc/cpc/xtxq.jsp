@@ -5359,6 +5359,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
+					regSeq: _regSeq
 					emgSeq: _emgSeq,
 					xtzlInfs: list,
 				}),
@@ -5691,7 +5692,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
-					emgSeq: _emgSeq,
+					emgSeq: _regSeq,
 				}),
 				success: function(res) {
 					try {
@@ -5812,7 +5813,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
-					emgSeq: _emgSeq,
+					emgSeq: _regSeq,
 					xtzlInfs: [{
 						busStep: busStep
 					}]
@@ -6125,7 +6126,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
-					emgSeq: _emgSeq
+					emgSeq: _regSeq
 				}),
 				success: function (res) {
 					var tempJson = res.resultInfo.sysdata.hspXtzlInf;
@@ -6175,7 +6176,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
-					emgSeq: _emgSeq,
+					emgSeq: _regSeq,
 					xtzlInfs: [{
 						busStep: 'baseinfo'
 					}, {

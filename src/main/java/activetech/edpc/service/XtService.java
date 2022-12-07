@@ -60,7 +60,7 @@ public interface XtService {
 	 * @param activeUser
 	 * @return
 	 */
-	public ResultInfo xtPatietSubmitBatch(List<HspXtzlInfCustom> xtzlInfs,String emgSeq,ActiveUser activeUser);
+	public ResultInfo xtPatietSubmitBatch(List<HspXtzlInfCustom> xtzlInfs,String emgSeq, String regSeq, ActiveUser activeUser);
 
 	/**
 	 * 胸痛登记页面基本信息提交
