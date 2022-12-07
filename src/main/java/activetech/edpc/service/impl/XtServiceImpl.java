@@ -131,6 +131,8 @@ public class XtServiceImpl implements XtService{
 	private HspTimDiffCustomMapper hspTimDiffCustomMapper;
 	@Autowired
 	private HspTimDiffHisMapper hspTimDiffHisMapper;
+	@Autowired
+	private HspTimDiffHisCustomMapper hspTimDiffHisCustomMapper;
 
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
@@ -1584,20 +1586,14 @@ public class XtServiceImpl implements XtService{
 	public DataGridResultInfo queryTimeLineHis(HspTimDiffQueryDto hspTimDiffQueryDto) throws Exception {
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
 		if (Objects.nonNull(hspTimDiffQueryDto) && Objects.nonNull(hspTimDiffQueryDto.getHspTimDiffHisCustom())){
-			HspTimDiffHisCustom hspTimDiffHisCustom = hspTimDiffQueryDto.getHspTimDiffHisCustom();
-			HspTimDiffHisExample hspTimDiffHisExample = new HspTimDiffHisExample();
-			HspTimDiffHisExample.Criteria criteria = hspTimDiffHisExample.createCriteria();
-			criteria.andDisTypEqualTo(hspTimDiffHisCustom.getDisTyp());
-			criteria.andObjTypEqualTo(hspTimDiffHisCustom.getObjTyp());
-			if (activetech.util.StringUtils.isNotNullAndEmptyByTrim(hspTimDiffHisCustom.getObjEnm())){
-				criteria.andObjEnmEqualTo(hspTimDiffHisCustom.getObjEnm());
-			}
-			hspTimDiffHisExample.setOrderByClause("DAT_DAT DESC");
-
-			List<HspTimDiffHis> hspTimDiffHis = hspTimDiffHisMapper.selectByExample(hspTimDiffHisExample);
-			if (Objects.nonNull(hspTimDiffHis)&&hspTimDiffHis.size()>0){
-				dataGridResultInfo.setRows(hspTimDiffHis);
-				dataGridResultInfo.setTotal(hspTimDiffHis.size());
+			int total = hspTimDiffHisCustomMapper.selectCountByConditions(hspTimDiffQueryDto);
+			PageQuery pageQuery = new PageQuery();
+			pageQuery.setPageParams(total, hspTimDiffQueryDto.getRows(), hspTimDiffQueryDto.getPage());
+			hspTimDiffQueryDto.setPageQuery(pageQuery);
+			List<HspTimDiffHisCustom> hspTimDiffHisCustoms = hspTimDiffHisCustomMapper.selectByConditions(hspTimDiffQueryDto);
+			if (Objects.nonNull(hspTimDiffHisCustoms)&&hspTimDiffHisCustoms.size()>0){
+				dataGridResultInfo.setRows(hspTimDiffHisCustoms);
+				dataGridResultInfo.setTotal(hspTimDiffHisCustoms.size());
 			}
 		}
 

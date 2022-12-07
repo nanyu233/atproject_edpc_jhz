@@ -1,6 +1,8 @@
 package activetech.edpc.pojo.dto;
 
-public class HspTimDiffQueryDto {
+import activetech.base.pojo.domain.PageCond;
+
+public class HspTimDiffQueryDto extends PageCond {
     private HspTimDiffCustom hspTimDiffCustom;
     private HspTimDiffHisCustom hspTimDiffHisCustom;
     private String emgSeq;

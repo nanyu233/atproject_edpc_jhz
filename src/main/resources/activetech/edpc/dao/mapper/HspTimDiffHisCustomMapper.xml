@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspTimDiffHisCustomMapper" >
+
+    <select id="selectByConditions" resultType="activetech.edpc.pojo.dto.HspTimDiffHisCustom">
+        <include refid="activetech.base.CommonSql.page_start"/>
+        select * from HSP_TIM_DIFF_HIS
+        <where>
+            <if test="hspTimDiffHisCustom!=null">
+                <if test="hspPatInfCustom.disTyp!=null and hspPatInfCustom.disTyp != ''.toString()">
+                    and DIS_TYP = #{hspPatInfCustom.disTyp}
+                </if>
+                <if test="hspPatInfCustom.objTyp!=null and hspPatInfCustom.objTyp != ''.toString()">
+                    and OBJ_TYP = #{hspPatInfCustom.objTyp}
+                </if>
+                <if test="hspPatInfCustom.objEnm!=null and hspPatInfCustom.objTyp != ''.toString()">
+                    and OBJ_ENM = #{hspPatInfCustom.objEnm}
+                </if>
+            </if>
+        </where>
+        order by DAT_DAT desc
+        <include refid="activetech.base.CommonSql.page_end"/>
+    </select>
+    <select id="selectCountByConditions" resultType="java.lang.Integer">
+        select count(*)from HSP_TIM_DIFF_HIS
+        <where>
+            <if test="hspTimDiffHisCustom!=null">
+                <if test="hspPatInfCustom.disTyp!=null and hspPatInfCustom.disTyp != ''.toString()">
+                    and DIS_TYP = #{hspPatInfCustom.disTyp}
+                </if>
+                <if test="hspPatInfCustom.objTyp!=null and hspPatInfCustom.objTyp != ''.toString()">
+                    and OBJ_TYP = #{hspPatInfCustom.objTyp}
+                </if>
+                <if test="hspPatInfCustom.objEnm!=null and hspPatInfCustom.objTyp != ''.toString()">
+                    and OBJ_ENM = #{hspPatInfCustom.objEnm}
+                </if>
+            </if>
+        </where>
+        order by DAT_DAT desc
+    </select>
+</mapper>
