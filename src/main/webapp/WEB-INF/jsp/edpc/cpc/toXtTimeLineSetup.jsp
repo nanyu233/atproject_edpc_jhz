@@ -103,7 +103,7 @@
             <div class="search-btn search" onclick="search()">查询</div>
             <div class="search-btn" onclick="updata()">修改</div>
             <div class="search-btn" onclick="histclick()">历史记录</div>
-            <div class="attention">注意：历史记录只对<span>月平均、</span><span>月中位、</span><span>年平均、</span><span>年中位、</span><span>全年</span>进行历史数据保留</div>
+<%--            <div class="attention">注意：历史记录只对<span>月平均、</span><span>月中位、</span><span>年平均、</span><span>年中位、</span><span>全年</span>进行历史数据保留</div>--%>
         </div>
         <table id="nodeList"></table>
     </div>

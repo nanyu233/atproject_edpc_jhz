@@ -46,6 +46,10 @@
             height: 32px !important;
             line-height: 32px !important;
         }
+        .datagrid-btable tr{
+            height: 32px;
+            line-height: 32px;
+        }
     </style>
 </head>
 
@@ -54,20 +58,15 @@
 <div class="timeset">
     <div class="row">
         <select id="entity" ms-duplex="disTyp">
-            <option value="">请选择病种</option>
             <option value="1">胸痛</option>
-            <option value="2">卒中</option>
+            <option value="2">卒中</o ption>
             <option value="3">创伤</option>
         </select>
         <select id="standard" ms-duplex="objTyp">
-            <option value="">请选择基准类型</option>
-<%--            <option value="1">国标</option>--%>
-<%--            <option value="2">院标</option>--%>
             <option value="3">月平均</option>
             <option value="4">月中位</option>
-            <option value="5">年均</option>
+            <option value="5">年平均</option>
             <option value="6">年中位</option>
-<%--            <option value="9">全部</option>--%>
         </select>
         <select  ms-duplex="objEnm">
             <option value="">请选择</option>
@@ -119,11 +118,11 @@
             },{
                 field: 'objNam',
                 title: '质控中文名称',
-                width: getWidth(0.2)
+                width: getWidth(0.15)
             },{
                 field: 'objDes',
                 title: '质控描述',
-                width: getWidth(0.5)
+                width: getWidth(0.53)
             },{
                 field: 'timDif',
                 title: '质控时间（秒）',
