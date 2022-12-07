@@ -250,7 +250,7 @@
         }
     }
     function histclick(){
-        createmodalwindow("历史记录", 900, 500, '${baseurl}cpc/toQCHistory.do', 'no');
+        createmodalwindow("历史记录",1200, 600, '${baseurl}cpc/toQCHistory.do', 'no');
     }
     function getnodeList(){
         h3 = height-135;
