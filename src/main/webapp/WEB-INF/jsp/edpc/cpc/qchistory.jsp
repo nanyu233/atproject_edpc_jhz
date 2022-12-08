@@ -59,7 +59,7 @@
     <div class="row">
         <select id="entity" ms-duplex="disTyp">
             <option value="1">胸痛</option>
-            <option value="2">卒中</o ption>
+            <option value="2">卒中</option>
             <option value="3">创伤</option>
         </select>
         <select id="standard" ms-duplex="objTyp">
