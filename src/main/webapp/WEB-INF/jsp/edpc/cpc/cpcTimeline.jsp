@@ -144,6 +144,9 @@
             position: absolute;
             top: 0;
             left: 50%;
+            display: flex;
+            justify-content: center;
+            width: 100%;
             -webkit-transform: translate(-50%);
             -moz-transform: translate(-50%);
             -ms-transform: translate(-50%);
