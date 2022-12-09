@@ -21,7 +21,7 @@ public interface HspXtzlInfCustomMapper {
 	
 	List<HspXtzlInfCustom> getHspXtzlInfByEmgSeqAndStep(@Param(value="emgSeq")String emgSeq,@Param(value="nodeId")String nodeId);
 
-	List<HspXtzlInf> getHspXtzlInfByEmgSeqAndProCodeList(@Param(value="emgSeq")String emgSeq,@Param(value="list")List<String> list);
+	List<HspXtzlInf> getHspXtzlInfByEmgSeqAndProCodeList(@Param(value="regSeq")String regSeq,@Param(value="list")List<String> list);
 	
 	List<HspXtzlInfCustom> getCpcTimeline(String emgSeq);
 	

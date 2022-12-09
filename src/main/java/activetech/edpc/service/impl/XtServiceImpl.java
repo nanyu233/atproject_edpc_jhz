@@ -154,10 +154,11 @@ public class XtServiceImpl implements XtService{
 	public ResultInfo getCpcPatientRouteInfoByEmgSeq(String emgSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> map = new HashMap<>();
+		String regSeq = hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq).getRegSeq();
 		//	第一步从cpc_route表获取该病人的关键点组成的路径
 		HspFlowChartInfExample example = new HspFlowChartInfExample();
 		HspFlowChartInfExample.Criteria criteria = example.createCriteria();
-		criteria.andEmgSeqEqualTo(emgSeq);
+		criteria.andEmgSeqEqualTo(regSeq);
 		criteria.andFlowTypeEqualTo("xt");
 		List<HspFlowChartInf> list = hspFlowChartInfMapper.selectByExample(example);
 		map.put("list", list);
@@ -180,12 +181,12 @@ public class XtServiceImpl implements XtService{
 		// 导丝通过时间 
 		// paramList.add(ProCodeDef.DSTGSJ);
 		
-		List<HspXtzlInf> hspXtzlInfList	= hspXtzlInfCustomMapper.getHspXtzlInfByEmgSeqAndProCodeList(emgSeq,paramList);
+		List<HspXtzlInf> hspXtzlInfList	= hspXtzlInfCustomMapper.getHspXtzlInfByEmgSeqAndProCodeList(regSeq,paramList);
 		
 		HspEcgInfExample ecgExample = new HspEcgInfExample();
 		HspEcgInfExample.Criteria ecgCriteria = ecgExample.createCriteria();
 		ecgExample.setOrderByClause("file_date");
-		ecgCriteria.andRefIdEqualTo(emgSeq);
+		ecgCriteria.andRefIdEqualTo(regSeq);
 		// 11代表院内心电图
 		ecgCriteria.andEcgTypeEqualTo("11");
 		List<HspEcgInf> ecgList = hspEcgInfMapper.selectByExample(ecgExample);
@@ -197,13 +198,13 @@ public class XtServiceImpl implements XtService{
 		}
 		
 		HspXtzlInf ynsfxdtsj = new HspXtzlInf();
-		ynsfxdtsj.setEmgNo(emgSeq);
+		ynsfxdtsj.setEmgNo(regSeq);
 		ynsfxdtsj.setProCode(ProCodeDef.YNSFXDTSJ);
 		ynsfxdtsj.setProVal(DateUtil.formatDateByFormat(hspEcgInf.getFileDate(), DateUtil.DATETIME_FORMAT) );
 		hspXtzlInfList.add(ynsfxdtsj);
 		
 		HspXtzlInf ynsfxdtqzsj = new HspXtzlInf();
-		ynsfxdtqzsj.setEmgNo(emgSeq);
+		ynsfxdtqzsj.setEmgNo(regSeq);
 		ynsfxdtqzsj.setProCode(ProCodeDef.YNSFXDTQZSJ);
 		ynsfxdtqzsj.setProVal(DateUtil.formatDateByFormat(hspEcgInf.getFileDiaDate(), DateUtil.DATETIME_FORMAT) );
 		hspXtzlInfList.add(ynsfxdtqzsj);
@@ -214,7 +215,7 @@ public class XtServiceImpl implements XtService{
 		
 		if(jgdbbgsj!=null) {
 			HspXtzlInf jgdbbgsjHspXtzlInf = new HspXtzlInf();
-			jgdbbgsjHspXtzlInf.setEmgNo(emgSeq);
+			jgdbbgsjHspXtzlInf.setEmgNo(regSeq);
 			jgdbbgsjHspXtzlInf.setProCode(ProCodeDef.JGDBBGSJ);
 			jgdbbgsjHspXtzlInf.setProVal(jgdbbgsj);
 			hspXtzlInfList.add(jgdbbgsjHspXtzlInf);
@@ -224,12 +225,12 @@ public class XtServiceImpl implements XtService{
 		HspCrivelInfExample hspCrivelInfExample = new HspCrivelInfExample();
 		hspCrivelInfExample.setOrderByClause("dstgsj");
 		HspCrivelInfExample.Criteria hspCrivelInfcriteria = hspCrivelInfExample.createCriteria();
-		hspCrivelInfcriteria.andEmgSeqEqualTo(emgSeq);
+		hspCrivelInfcriteria.andEmgSeqEqualTo(regSeq);
 		hspCrivelInfcriteria.andDstgsjIsNotNull();
 		List<HspCrivelInf> hspCrivelInfList = hspCrivelInfMapper.selectByExample(hspCrivelInfExample);
 		if(hspCrivelInfList.size()>0) {
 			HspXtzlInf hspCrivelInfHspXtzlInf = new HspXtzlInf();
-			hspCrivelInfHspXtzlInf.setEmgNo(emgSeq);
+			hspCrivelInfHspXtzlInf.setEmgNo(regSeq);
 			hspCrivelInfHspXtzlInf.setProCode(ProCodeDef.DSTGSJ);
 			hspCrivelInfHspXtzlInf.setProVal(
 					DateUtil.formatDateByFormat(hspCrivelInfList.get(0).getDstgsj(), DateUtil.DATETIME_FORMAT));
@@ -247,6 +248,7 @@ public class XtServiceImpl implements XtService{
 		ResultInfo resultInfo = null;
 		resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> map = new HashMap<String,Object>();
+		String regSeq = hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq).getRegSeq();
 		// 实验室检查
 		if(FlowChartNodeDef.SYSJC.equals(nodeId)) {
 			
@@ -336,7 +338,7 @@ public class XtServiceImpl implements XtService{
 		}else if(FlowChartNodeDef.DGS.equals(nodeId)) {
 			
 		}else{
-			List<HspXtzlInfCustom> list = hspXtzlInfCustomMapper.getHspXtzlInfByEmgSeqAndStep(emgSeq, nodeId);
+			List<HspXtzlInfCustom> list = hspXtzlInfCustomMapper.getHspXtzlInfByEmgSeqAndStep(regSeq, nodeId);
 			map.put("list", list);
 		}
 		
@@ -446,7 +448,8 @@ public class XtServiceImpl implements XtService{
 	public ResultInfo getXtTimeLine(String emgSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
-		List<HspXtzlInfCustom> list = hspXtzlInfCustomMapper.getCpcTimeline(emgSeq);
+		String regSeq = hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq).getRegSeq();
+		List<HspXtzlInfCustom> list = hspXtzlInfCustomMapper.getCpcTimeline(regSeq);
 		for (HspXtzlInfCustom hspXtzlInfCustom:list) {
 			if(hspXtzlInfCustom.getProCode().equals("ASPLSJ")){
 				HspXtzlInfCustom hspXtzlInfCustom2=new HspXtzlInfCustom();
@@ -461,7 +464,7 @@ public class XtServiceImpl implements XtService{
 		HspEcgInfExample ecgExample = new HspEcgInfExample();
 		HspEcgInfExample.Criteria ecgCriteria = ecgExample.createCriteria();
 		ecgExample.setOrderByClause("file_date");
-		ecgCriteria.andRefIdEqualTo(emgSeq);
+		ecgCriteria.andRefIdEqualTo(regSeq);
 		// 11代表院内心电图
 		ecgCriteria.andEcgTypeEqualTo("11");
 		List<HspEcgInf> ecgList = hspEcgInfMapper.selectByExample(ecgExample);
@@ -469,7 +472,7 @@ public class XtServiceImpl implements XtService{
 			HspEcgInf hspEcgInf = ecgList.get(0);
 			if(hspEcgInf.getFileDate()!=null) {
 				HspXtzlInfCustom ynsfxdtsj = new HspXtzlInfCustom();
-				ynsfxdtsj.setEmgNo(emgSeq);
+				ynsfxdtsj.setEmgNo(regSeq);
 				ynsfxdtsj.setProName("院内首份心电图时间");
 				ynsfxdtsj.setProCode(ProCodeDef.YNSFXDTSJ);
 				ynsfxdtsj.setProVal(DateUtil.formatDateByFormat(hspEcgInf.getFileDate(), DateUtil.DATETIME_FORMAT) );
@@ -477,7 +480,7 @@ public class XtServiceImpl implements XtService{
 			}
 			if(hspEcgInf.getFileDiaDate()!=null) {
 				HspXtzlInfCustom ynsfxdtqzsj = new HspXtzlInfCustom();
-				ynsfxdtqzsj.setEmgNo(emgSeq);
+				ynsfxdtqzsj.setEmgNo(regSeq);
 				ynsfxdtqzsj.setProName("院内首份心电图确诊时间");
 				ynsfxdtqzsj.setProCode(ProCodeDef.YNSFXDTQZSJ);
 				ynsfxdtqzsj.setProVal(DateUtil.formatDateByFormat(hspEcgInf.getFileDiaDate(), DateUtil.DATETIME_FORMAT) );
@@ -488,7 +491,7 @@ public class XtServiceImpl implements XtService{
 		String jgdbbgsj = vHemsJyjgMapperCustom.getJgdbDate(emgSeq);
 		if(jgdbbgsj!=null) {
 			HspXtzlInfCustom jgdbbgsjHspXtzlInf = new HspXtzlInfCustom();
-			jgdbbgsjHspXtzlInf.setEmgNo(emgSeq);
+			jgdbbgsjHspXtzlInf.setEmgNo(regSeq);
 			jgdbbgsjHspXtzlInf.setProName("肌钙蛋白报告时间");
 			jgdbbgsjHspXtzlInf.setProCode(ProCodeDef.JGDBBGSJ);
 			jgdbbgsjHspXtzlInf.setProVal(jgdbbgsj);

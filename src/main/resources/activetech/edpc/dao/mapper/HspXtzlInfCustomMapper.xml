@@ -94,7 +94,7 @@
 		       a.mod_time,
 		       a.mod_user
 		  from hsp_xtzl_inf a
-		 where emg_no = #{emgSeq, jdbcType = VARCHAR}
+		 where emg_no = #{regSeq, jdbcType = VARCHAR}
 		   and pro_code in
 		       <foreach item="item" index="index" collection="list"
                         open="(" separator="," close=")">
