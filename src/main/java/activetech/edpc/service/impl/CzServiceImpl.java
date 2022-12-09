@@ -590,7 +590,9 @@ public class CzServiceImpl implements CzService{
 	@Override
 	public ResultInfo getCzPatientBasicInfo(String regSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		HspDbzlBas hspDbzlBas = hspDbzlBasMapper.selectByPrimaryKey(regSeq);
+		HspDbzlBasQueryDto hspDbzlBasQueryDto = new HspDbzlBasQueryDto();
+		hspDbzlBasQueryDto.setRegSeq(regSeq);
+		HspDbzlBas hspDbzlBas = hspDbzlBasMapperCustom.getHspDbzlBasinf(hspDbzlBasQueryDto);
 		Map<String,Object> sysdata = new HashMap<>();
 		sysdata.put("hspDbzlBasInf", hspDbzlBas);
 		resultInfo.setSysdata(sysdata);

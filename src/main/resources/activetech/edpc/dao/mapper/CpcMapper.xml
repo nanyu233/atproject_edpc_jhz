@@ -110,7 +110,7 @@
 			   a.id_nbr,
 			   a.cst_age_cod,
 			   (select info from dstdictinfo where typecode='CST_AGE_COD' and infocode=a.cst_age_cod) cst_age_cod_inf,
-			   a.cst_age,
+			   decode(a.cst_age_cod, '0', a.cst_age, '0') cstAge,
 			   a.pat_wgt,
 			   a.pat_hgt,
 			   a.bth_dat,

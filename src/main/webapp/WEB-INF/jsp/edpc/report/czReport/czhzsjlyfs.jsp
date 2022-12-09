@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 
 <head>
-	<title>患者时间以及来院方式分布</title>
+	<title>患者来院方式以及时间构成</title>
 	<base href="<%=basePath%>" target="_self">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var start = $("#emg_startdate").val();
 		var end = $("#emg_enddate").val();
 
-		var _ifrmSrc = 'http://192.168.3.26:8080/superset/dashboard/4/?native_filters_key=GNksxcUT30qh4ZRi5n2WZTMQRGHgPHhdc0v5aEVU4287EFHG8i20sOcnHn7ajV-2';
+		var _ifrmSrc = 'http://192.168.3.26:8080/superset/dashboard/7/?native_filters_key=ZH6FPqotl9Fd26VnbMFHpR6NREb_D7RLGeRZVExuVJ7v7HLi-1_DcEDuiCrD2S5I';
 		_ifrmSrc += ('&startdate=' + start);
 		_ifrmSrc += ('&enddate=' + end)
 		$('#ciframe').attr("src", _ifrmSrc);

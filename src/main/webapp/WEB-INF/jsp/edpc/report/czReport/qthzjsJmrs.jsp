@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var start = $("#emg_startdate").val();
 		var end = $("#emg_enddate").val();
 
-		var _ifrmSrc = 'http://192.168.3.26:8080/superset/dashboard/4/?native_filters_key=GNksxcUT30qh4ZRi5n2WZTMQRGHgPHhdc0v5aEVU4287EFHG8i20sOcnHn7ajV-2';
+		var _ifrmSrc = 'http://192.168.3.26:8080/superset/dashboard/6/?native_filters_key=kHr2pnDoHViCzp37rPZi_k549MDvJm0lX4g5sYJQpp9VNmB1w4aZsKK1xzwESsmV';
 		_ifrmSrc += ('&startdate=' + start);
 		_ifrmSrc += ('&enddate=' + end)
 		$('#ciframe').attr("src", _ifrmSrc);
