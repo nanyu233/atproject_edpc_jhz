@@ -1615,7 +1615,7 @@ public class XtServiceImpl implements XtService{
 		for (HspTimDiff hspTimDiff : hspTimDiffs) {
 			//获取中位数
 			int timDif = hspTimDiffCustomMapper.getMedianMonth(hspTimDiff);
-			hspTimDiff.setObjTyp("3");
+			hspTimDiff.setObjTyp("4");
 			hspTimDiff.setTimDif(timDif);
 			hspTimDiff.setChgTim(new Date());
 			//更新质控数据
@@ -1625,7 +1625,7 @@ public class XtServiceImpl implements XtService{
 			hspTimDiffHisMapper.insert(hspTimDiffHis);
 			//获取平均数
 			timDif = hspTimDiffCustomMapper.getAverageMonth(hspTimDiff);
-			hspTimDiff.setObjTyp("4");
+			hspTimDiff.setObjTyp("3");
 			hspTimDiff.setTimDif(timDif);
 			//更新数据
 			hspTimDiffCustomMapper.updateOrInsertHspTimDiff(hspTimDiff);
@@ -1648,7 +1648,7 @@ public class XtServiceImpl implements XtService{
 		//年平均 年中位
 		for (HspTimDiff hspTimDiff : hspTimDiffs) {
 			int timDif = hspTimDiffCustomMapper.getMedianYear(hspTimDiff);
-			hspTimDiff.setObjTyp("5");
+			hspTimDiff.setObjTyp("6");
 			hspTimDiff.setTimDif(timDif);
 			hspTimDiff.setChgTim(new Date());
 			//更新质控数据
@@ -1658,7 +1658,7 @@ public class XtServiceImpl implements XtService{
 			hspTimDiffHisMapper.insert(hspTimDiffHis);
 
 			timDif = hspTimDiffCustomMapper.getAverageYear(hspTimDiff);
-			hspTimDiff.setObjTyp("6");
+			hspTimDiff.setObjTyp("5");
 			hspTimDiff.setTimDif(timDif);
 			//更新数据
 			hspTimDiffCustomMapper.updateOrInsertHspTimDiff(hspTimDiff);
