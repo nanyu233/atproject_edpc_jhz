@@ -783,4 +783,66 @@ public class UserServiceImpl implements UserService {
 		activeUser.setOperationList(operations);//将用户操作权限存入用户身份对象中
 		return activeUser;
 	}
+
+
+
+	@Override
+	public ActiveUser loginDing(String unionid, String userid) throws Exception {
+		DstuserExample example = new DstuserExample();
+		DstuserExample.Criteria criteria = example.createCriteria();
+		criteria.andUsrnoEqualTo("admin");
+		criteria.andUserstateEqualTo("1");
+		List<Dstuser> userlist = dstuserMapper.selectByExample(example);
+
+		ActiveUser activeUser = new ActiveUser();
+		if(userlist == null || userlist.size() == 0) {
+			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE,204, null));
+		}
+
+		Dstuser dstuser = userlist.get(0);
+		String usrno = dstuser.getUsrno();
+		List<Dstappoption> list = appoptionService.findAppoptionList();
+		for (Dstappoption dstappoption : list) {
+			if ("HSPLP".equals(dstappoption.getOptkey())) {
+				activeUser.setHospitalCategory(dstappoption.getOptvalue());
+			}
+		}
+		activeUser.setUsrno(usrno);
+		activeUser.setUsrname(dstuser.getUsrname());
+		activeUser.setGroupid(dstuser.getGroupid());
+		activeUser.setSysid(dstuser.getSysid());// 单位id（重要）
+		String sysmc = null;// 单位名称
+		// 根据sysid查询单位名称
+		String groupid = dstuser.getGroupid();
+		String sysid = dstuser.getSysid();// 单位id
+		//每个用户根据用户分组区分，所属单位来源会不一致；其中系统管理员不归属任何单位
+		if (groupid.equals("1")) {
+			//常规机构
+			Dstcompctl dstcompctl = dstcompctlMapper.selectByPrimaryKey(sysid);
+			if (dstcompctl == null) {
+				// 抛出异常，可预知异常
+				ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE,204, null));
+			}
+			sysmc = dstcompctl.getComcname();
+		}else{
+			//如果存在多个分组
+		}
+		activeUser.setSysmc(sysmc);// 单位名称
+		//取出用户所属的角色
+		List<String> roles = this.findRoleByUsrno(usrno);
+		//如果用户不存在任何角色，则抛出异常
+		if(roles == null){
+			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE,102, null));
+		}
+		activeUser.setDstroleList(roles);//将用户角色存入用户身份对象中
+		//根据角色id获取菜单（可能有多个）
+		List<Menu> menu_list = this.findMenuByroleid(roles);
+		Menu menu = new Menu();
+		menu.setMenus(menu_list);
+		activeUser.setMenu(menu);//将用户菜单存入用户身份对象中
+		//根据用户角色获取操作权限
+		List<Operation> operations = this.findOperatByRoleid(roles);
+		activeUser.setOperationList(operations);//将用户操作权限存入用户身份对象中
+		return activeUser;
+	}
 }

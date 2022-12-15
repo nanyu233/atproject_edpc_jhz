@@ -151,4 +151,45 @@ public class SystemConfigServiceImpl  implements SystemConfigService{
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
 	}
+
+
+	/**
+	 * 钉钉权鉴获取accessToken
+	 * accessToken 有效去7200秒
+	 * 判断6500秒后过期重新获取
+	 * @param appKey appKey
+	 * @return return
+	 * @throws Exception Exception
+	 */
+	@Override
+	public String queryDingAccessToken(String appKey) throws Exception {
+		long minDate = System.currentTimeMillis() - 6500000;
+		Dstappoption app = DstappoptionMapper.selectByPrimaryKey(appKey);
+		if(null == app || Long.parseLong(app.getVchar3()) < minDate) {
+			return "";
+		}
+		return app.getOptvalue();
+	}
+
+	/**
+	 * 钉钉权鉴存储accessToken
+	 * @param appKey appKey
+	 * @param accessToken accessToken
+	 * @throws Exception
+	 */
+	@Override
+	public void saveDingAccessToken(String appKey, String accessToken) throws Exception {
+		//删除原来的
+		DstappoptionMapper.deleteByPrimaryKey(appKey);
+		//重新插入
+		long curDate = System.currentTimeMillis();
+		Dstappoption app = new Dstappoption();
+		app.setOptkey(appKey);
+		app.setOptname("dingAccessToken");
+		app.setOpttype("0");
+		app.setOptvalue(accessToken);
+		app.setVchar3(String.valueOf(curDate));
+		DstappoptionMapper.insert(app);
+	}
+
 }

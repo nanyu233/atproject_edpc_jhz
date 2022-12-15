@@ -3,7 +3,11 @@ package activetech.base.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import activetech.base.config.DingTalkConfig;
 import activetech.base.process.result.ResultInfo;
+import activetech.base.util.DingTalkUtil;
+import com.dingtalk.api.response.OapiSnsGetuserinfoBycodeResponse;
+import com.dingtalk.api.response.OapiV2UserGetuserinfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,7 +71,44 @@ public class LoginAction {
 		System.out.println(">>>>>>>>>>>>>>>>acativeUser-ip:"+activeUser.getIp());
 		return ResultUtil.createSubmitResult(ResultUtil.createSuccess(Config.MESSAGE, 107, new Object[] { "" }));
 	}
-	
+
+	@RequestMapping("/loginDing")
+	@ResponseBody
+	public
+	SubmitResultInfo
+//	String
+	loginDing(HttpSession session, String authCode, String hospitalCategory, ActiveUser activeUser) throws Exception{
+		System.out.println("免登授权码："+ authCode);
+		//1、判断accessToken是否在有效期内 获取企业accessToken
+		String accessToken = systemConfigService.queryDingAccessToken(DingTalkConfig.getAppKey());
+		//2、获取用户id
+		OapiV2UserGetuserinfoResponse.UserGetByCodeResponse dingUser = DingTalkUtil.getUserinfo(accessToken, authCode);
+		activeUser = userService.loginDing(dingUser.getUnionid(), dingUser.getUserid());
+		// 将用户身份信息写入session
+		activeUser.setHospitalCategory(hospitalCategory);
+		session.setAttribute(Config.ACTIVEUSER_KEY, activeUser);
+		System.out.println(">>>>>>>>>>>>>>>>acativeUser-ip:"+activeUser.getIp());
+
+		return ResultUtil.createSubmitResult(ResultUtil.createSuccess(Config.MESSAGE, 107, new Object[] { "" }));
+//		return View.toBase("/login/dinglogintmp");
+	}
+
+	@RequestMapping("/loginDingSns")
+//	@ResponseBody
+	public
+//	SubmitResultInfo
+	String
+	loginDingSns(HttpSession session, String code, String state, ActiveUser activeUser) throws Exception{
+		OapiSnsGetuserinfoBycodeResponse.UserInfo dingUser = DingTalkUtil.getUserinfoByCode(code);
+		activeUser = userService.loginDing(dingUser.getUnionid(), null);
+		activeUser.setHospitalCategory("1");
+		session.setAttribute(Config.ACTIVEUSER_KEY, activeUser);
+//		return ResultUtil.createSubmitResult(ResultUtil.createSuccess(Config.MESSAGE, 107, new Object[] { "" }));
+		return View.toBase("/login/dinglogintmp");
+	}
+
+
+
 	/**
 	 * 登出交易
 	 * @param model

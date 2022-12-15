@@ -222,4 +222,7 @@ public interface UserService {
 	 */
 	public List<DstuserCustom> findUserListByNameAndNo(DstuserQueryDto dstuserQueryDto);
 	public ActiveUser insertUserByHis(String usrno) throws Exception;
+
+	ActiveUser loginDing(String unionid, String userid) throws Exception;
+
 }

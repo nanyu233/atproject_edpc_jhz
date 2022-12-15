@@ -27,6 +27,9 @@
 
 
 <bean class="activetech.base.util.MinIoUtil"  id="minIoUtil" />
+<!--    钉钉-->
+    <bean class="activetech.base.config.DingTalkConfig"  id="DingTalkConfig" />
+    <bean class="activetech.base.util.DingTalkUtil"  id="DingTalkUtil" />
 
     <!-- 试用下hikari 连接池，据说是java速度最快的数据库连接池 -->
 <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
