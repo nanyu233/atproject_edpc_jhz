@@ -141,9 +141,9 @@ public class CzServiceImpl implements CzService{
 
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		//	第一步从cpc_route表获取该病人的关键点组成的路径
-		
+		String regSeq = hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq).getRegSeq();
 		HspFlowChartInf hspFlowChartInf = new HspFlowChartInf();
-		hspFlowChartInf.setEmgSeq(emgSeq);
+		hspFlowChartInf.setEmgSeq(regSeq);
 		List<HspFlowChartInfCustom> flowChartList = 
 				hspFlowChartInfMapperCustom.getHspFlowChartInfCustomList(hspFlowChartInf);
 		List<String> paramList = new ArrayList<>();
@@ -158,7 +158,7 @@ public class CzServiceImpl implements CzService{
 		
 		paramList.add("RSZLKSSJ");
 		
-		List<HspCzzlInf> hspCzzlInfList	= hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq,paramList);
+		List<HspCzzlInf> hspCzzlInfList	= hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndProCodeList(regSeq,paramList);
 		Map<String,Object> map = new HashMap<>();
 		map.put("flowChartList", flowChartList);
 		map.put("hspCzzlInfList", hspCzzlInfList);
@@ -171,6 +171,7 @@ public class CzServiceImpl implements CzService{
 		ResultInfo resultInfo = null;
 		resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> map = new HashMap<String,Object>();
+		String regSeq = hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq).getRegSeq();
 		List<HspCzzlInfCustom> list = null;
 		// 神经内科 神经外科 转归 分别处理
 		if("tzczyshz".equals(nodeId)||"sjwkhz".equals(nodeId)){
@@ -235,7 +236,7 @@ public class CzServiceImpl implements CzService{
 			map.put("jyjgList", jyjgList);
 			
 		}else{
-			list = hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndStep(emgSeq, nodeId);
+			list = hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndStep(regSeq, nodeId);
 		} 
 		map.put("list", list);
 		resultInfo.setSysdata(map);

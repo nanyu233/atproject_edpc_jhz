@@ -181,6 +181,7 @@
 			parameterType="activetech.edpc.pojo.dto.QueryDto">
          <include refid="activetech.base.CommonSql.page_start"/>
 		 select a.emg_seq,
+		       a.reg_seq,
 			   a.reg_tim,
 			   a.cst_nam,
 			   a.cst_age,

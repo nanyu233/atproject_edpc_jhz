@@ -425,7 +425,7 @@
         },
         // 根据emgSeq获取并设置每个病人的左侧流程图以及流程图上方的信息栏数据
         setNodesAndInfo: function (_emgSeq) {
-        	
+
             $.ajax({
                 url: 'cpc/getCpcPatientRouteInfoByEmgSeq.do',
                 type: 'post',
@@ -437,37 +437,37 @@
                 success: function (res) {
                 	// 1.处理绿色节点
                 	// 2.处理倒计时
-                	
+
                     // 获取节点集合
                     var list = res.resultInfo.sysdata.list;
-                	
+
                     list.forEach(function(item,index){
                     	if(!flowChart.hasOwnProperty(item.nodeId)){
                     		console.log('后台传递的节点：'+item.nodeId+'在流程图中没有定义，请检查');
-                    		
+
                     	}else{
                     		flowChart[item.nodeId].status = item.status;
                     		flowChart[item.nodeId].task.attr(item.status==='1'?finishedNodeAttr:unfinishedNodeAttr);
                     	}
-                    	
+
                     });
-                    
+
 
                     //获取该病人的节点倒计时信息
                     var countInfoList = res.resultInfo.sysdata.hspXtzlInfList;
                     // console.log('countInfoList',countInfoList);
-                    
+
                     // 先关闭定时器
                     clearInterval(cd1);
-                    
+
                     for(var a in countdownTime1){
                     	$('#' + a + ' div').css('background-color', '');
                     }
-                    
+
                     $('#ynsfxdtqzsj'  + ' div').css('background-color', '');
                     $('#dgsjhsj'  + ' div').css('background-color', '');
-                    
-                    
+
+
                     vm.currPatientInfo.ynsfxdtsj = '';
                     vm.currPatientInfo.ynsfxdtqzsj = '';
                     vm.currPatientInfo.jgdbbgsj = '';
@@ -475,8 +475,8 @@
                     vm.currPatientInfo.qddgssj = '';
                     vm.currPatientInfo.dgsjhsj = '';
                     vm.currPatientInfo.dstgsj = '';
-                    
-                    
+
+
 		        	countInfoList.forEach(function(item,index){
 		        		if(item.proCode ==='SCYLJCSJ'){
 		        			// vm.currPatientInfo.scyljcsj = item.proVal;
@@ -1720,6 +1720,8 @@
     	
         ws.onmessage = function (evt) {
         	webSocketMessageHandler(evt);
+            console.log(evt);
+            console.log(vm.currPatientInfo.emgSeq)
         };
     }
 	
@@ -1755,7 +1757,7 @@
         var msg = info.sysdata;
         
         // 判断是否为当前展示的胸痛病人相关的信息更新,若不是当前病人则进行提示
-        if (msg.emgSeq == vm.currPatientInfo.emgSeq) {
+        if (msg.emgSeq == vm.currPatientInfo.regSeq) {
         	var nodeId = msg.greenNodeId;
         	// 通过msg.greenNodeId 传递要变绿的节点信息;
         	console.log('nodeId',nodeId);
@@ -1982,6 +1984,49 @@
         // console.log('刷新局部');
         getPatients();
     }
+
+// -------------------------------------------------------------------
+//     var websocket_nn = null;
+//
+//     //判断当前浏览器是否支持WebSocket
+//     if ('WebSocket' in window) {
+//         //创建一个WebSocket连接，URL：127.0.0.1:8080/realTimeWebSocket/webSocket
+//         websocket_nn = new WebSocket("ws://localhost:8090/atproject_edpc/webSocketXt.do");
+//     }
+//     else {
+//         alert('当前浏览器 不支持WebSocket')
+//     }
+//
+//     //连接发生错误的回调方法
+//     websocket_nn.onerror = function () {
+//         setMessageInnerHTML("连接发生错误");
+//     };
+//
+//     //连接成功建立的回调方法
+//     websocket_nn.onopen = function () {
+//         setMessageInnerHTML("连接成功");
+//     }
+//
+//     //接收到消息的回调方法，此处添加处理接收消息方法，当前是将接收到的信息显示在网页上
+//     websocket_nn.onmessage = function (event) {
+//         setMessageInnerHTML(event.data);
+//     }
+//
+//     //连接关闭的回调方法
+//     websocket_nn.onclose = function () {
+//         setMessageInnerHTML("连接关闭,如需登录请刷新页面。");
+//     }
+//
+//     //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+//     window.onbeforeunload = function () {
+//         closeWebSocket();
+//     }
+//
+//     //将消息显示在网页上，如果不需要显示在网页上，则不调用该方法
+//     function setMessageInnerHTML(innerHTML) {
+//         var json = JSON.stringify(document.getElementById('message').innerHTML += innerHTML + '<br/>');
+//         console.log(json)
+//     }
 </script>
 </body>
 </html>
