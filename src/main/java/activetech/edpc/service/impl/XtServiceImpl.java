@@ -1602,4 +1602,91 @@ public class XtServiceImpl implements XtService{
 
 		return dataGridResultInfo;
 	}
+
+	@Override
+	public void addMedianMonthAndAverageMonth() {
+		//胸痛国标标准
+		HspTimDiffExample hspTimDiffExample = new HspTimDiffExample();
+		HspTimDiffExample.Criteria criteria = hspTimDiffExample.createCriteria();
+		criteria.andDisTypEqualTo("1");
+		criteria.andObjTypEqualTo("1");
+		List<HspTimDiff> hspTimDiffs = hspTimDiffMapper.selectByExample(hspTimDiffExample);
+		//月平均 月中位
+		for (HspTimDiff hspTimDiff : hspTimDiffs) {
+			//获取中位数
+			int timDif = hspTimDiffCustomMapper.getMedianMonth(hspTimDiff);
+			hspTimDiff.setObjTyp("3");
+			hspTimDiff.setTimDif(timDif);
+			hspTimDiff.setChgTim(new Date());
+			//更新质控数据
+			hspTimDiffCustomMapper.updateOrInsertHspTimDiff(hspTimDiff);
+			//新增历史数据
+			HspTimDiffHis hspTimDiffHis = TimDiffConvertTimDiffHis(hspTimDiff);
+			hspTimDiffHisMapper.insert(hspTimDiffHis);
+			//获取平均数
+			timDif = hspTimDiffCustomMapper.getAverageMonth(hspTimDiff);
+			hspTimDiff.setObjTyp("4");
+			hspTimDiff.setTimDif(timDif);
+			//更新数据
+			hspTimDiffCustomMapper.updateOrInsertHspTimDiff(hspTimDiff);
+			//新增历史数据
+			hspTimDiffHis = TimDiffConvertTimDiffHis(hspTimDiff);
+			hspTimDiffHisMapper.insert(hspTimDiffHis);
+		}
+
+
+	}
+
+	@Override
+	public void addMedianYearAndAverageYear() {
+		//胸痛国标标准
+		HspTimDiffExample hspTimDiffExample = new HspTimDiffExample();
+		HspTimDiffExample.Criteria criteria = hspTimDiffExample.createCriteria();
+		criteria.andDisTypEqualTo("1");
+		criteria.andObjTypEqualTo("1");
+		List<HspTimDiff> hspTimDiffs = hspTimDiffMapper.selectByExample(hspTimDiffExample);
+		//年平均 年中位
+		for (HspTimDiff hspTimDiff : hspTimDiffs) {
+			int timDif = hspTimDiffCustomMapper.getMedianYear(hspTimDiff);
+			hspTimDiff.setObjTyp("5");
+			hspTimDiff.setTimDif(timDif);
+			hspTimDiff.setChgTim(new Date());
+			//更新质控数据
+			hspTimDiffCustomMapper.updateOrInsertHspTimDiff(hspTimDiff);
+			//新增历史数据
+			HspTimDiffHis hspTimDiffHis = TimDiffConvertTimDiffHis(hspTimDiff);
+			hspTimDiffHisMapper.insert(hspTimDiffHis);
+
+			timDif = hspTimDiffCustomMapper.getAverageYear(hspTimDiff);
+			hspTimDiff.setObjTyp("6");
+			hspTimDiff.setTimDif(timDif);
+			//更新数据
+			hspTimDiffCustomMapper.updateOrInsertHspTimDiff(hspTimDiff);
+			//新增历史数据
+			hspTimDiffHis = TimDiffConvertTimDiffHis(hspTimDiff);
+			hspTimDiffHisMapper.insert(hspTimDiffHis);
+		}
+
+	}
+	private HspTimDiffHis TimDiffConvertTimDiffHis(HspTimDiff hspTimDiff) {
+		HspTimDiffHis hspTimDiffHis = new HspTimDiffHis();
+		String datDAt = DateUtil.formatDateByFormat(new Date(), "yyyyMM");
+		hspTimDiffHis.setDatDat(datDAt);
+		hspTimDiffHis.setDisTyp(hspTimDiff.getDisTyp());
+		hspTimDiffHis.setObjTyp(hspTimDiff.getObjTyp());
+		hspTimDiffHis.setObjEnm(hspTimDiff.getObjEnm());
+		hspTimDiffHis.setObjNam(hspTimDiff.getObjNam());
+		hspTimDiffHis.setObjDes(hspTimDiff.getObjDes());
+		hspTimDiffHis.setObjOdr(hspTimDiff.getObjOdr());
+		hspTimDiffHis.setTimBegCod(hspTimDiff.getTimBegCod());
+		hspTimDiffHis.setTimBegNam(hspTimDiff.getTimBegNam());
+		hspTimDiffHis.setTimEndCod(hspTimDiff.getTimEndCod());
+		hspTimDiffHis.setTimEndNam(hspTimDiff.getTimEndNam());
+		hspTimDiffHis.setTimDif(hspTimDiff.getTimDif());
+		hspTimDiffHis.setObjMem(hspTimDiff.getObjMem());
+		hspTimDiffHis.setChgTim(new Date());
+		hspTimDiffHis.setChgUsrNam(hspTimDiff.getChgUsrNam());
+		hspTimDiffHis.setChgUsrNo(hspTimDiff.getChgUsrNo());
+		return hspTimDiffHis;
+	}
 }

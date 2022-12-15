@@ -152,4 +152,8 @@ public interface XtService {
 	ResultInfo updateTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto,ActiveUser activeUser) throws Exception;
 
 	DataGridResultInfo queryTimeLineHis(HspTimDiffQueryDto hspTimDiffQueryDto) throws Exception;
+
+	void addMedianMonthAndAverageMonth();
+
+	void addMedianYearAndAverageYear();
 }

@@ -62,6 +62,147 @@
         and OBJ_TYP = #{objTyp,jdbcType=CHAR}
         and OBJ_ENM = #{objEnm,jdbcType=VARCHAR}
     </update>
+    <update id="updateOrInsertHspTimDiff">
+        merge into HSP_TIM_DIFF a
+            using(select
+                      #{disTyp,jdbcType=CHAR} DIS_TYP,
+                      #{objTyp,jdbcType=CHAR} OBJ_TYP,
+                      #{objEnm,jdbcType=VARCHAR} OBJ_ENM,
+                      #{objNam,jdbcType=VARCHAR} OBJ_NAM,
+                      #{objDes,jdbcType=VARCHAR} OBJ_DES,
+                      #{objOdr,jdbcType=DECIMAL} OBJ_ODR,
+                      #{timBegCod,jdbcType=VARCHAR} TIM_BEG_COD,
+                      #{timBegNam,jdbcType=VARCHAR} TIM_BEG_NAM,
+                      #{timEndCod,jdbcType=VARCHAR} TIM_END_COD,
+                      #{timEndNam,jdbcType=VARCHAR} TIM_END_NAM,
+                      #{timDif,jdbcType=DECIMAL} TIM_DIF,
+                      #{objMem,jdbcType=VARCHAR} OBJ_MEM,
+                      #{chgTim,jdbcType=TIMESTAMP} CHG_TIM,
+                      #{chgUsrNo,jdbcType=TIMESTAMP} CHG_USR_NO,
+                      #{chgUsrNam,jdbcType=TIMESTAMP} CHG_USR_NAM
+                  from dual)b
+            on(a.DIS_TYP = b.DIS_TYP and a.OBJ_TYP = b.OBJ_TYP and a.OBJ_ENM = b.OBJ_ENM)
+         when matched then
+            update
+                set a.TIM_DIF = b.TIM_DIF
+         when not matched then
+            insert
+            (
+             DIS_TYP,
+             OBJ_TYP,
+             OBJ_ENM,
+             OBJ_NAM,
+             OBJ_DES,
+             OBJ_ODR,
+             TIM_BEG_COD,
+             TIM_BEG_NAM,
+             TIM_END_COD,
+             TIM_END_NAM,
+             TIM_DIF,
+             OBJ_MEM,
+             CHG_TIM,
+             CHG_USR_NO,
+             CHG_USR_NAM
+            )
+            values
+            (
+                #{disTyp,jdbcType=CHAR},
+                #{objTyp,jdbcType=CHAR},
+                #{objEnm,jdbcType=VARCHAR},
+                #{objNam,jdbcType=VARCHAR},
+                #{objDes,jdbcType=VARCHAR},
+                #{objOdr,jdbcType=DECIMAL},
+                #{timBegCod,jdbcType=VARCHAR},
+                #{timBegNam,jdbcType=VARCHAR},
+                #{timEndCod,jdbcType=VARCHAR},
+                #{timEndNam,jdbcType=VARCHAR},
+                #{timDif,jdbcType=DECIMAL},
+                #{objMem,jdbcType=VARCHAR},
+                #{chgTim,jdbcType=TIMESTAMP},
+                #{chgUsrNo,jdbcType=TIMESTAMP},
+                #{chgUsrNam,jdbcType=TIMESTAMP}
+                )
+    </update>
+    <select id="getMedianMonth" resultType="java.lang.Integer">
+        with temp as
+                 (select
+                         (select pro_val
+                          from HSP_XTZL_INF
+                          where pro_code = #{timBegCod,jdbcType=VARCHAR}
+                            and emg_no = emg.emg_seq) begtime,
+                         (select pro_val
+                          from HSP_XTZL_INF
+                          where pro_code = #{timEndCod,jdbcType=VARCHAR}
+                            and emg_no = emg.emg_seq) endtime,
+                         to_char(emg.emg_dat, 'yyyy/mm') emg_dat
+                  from hsp_emg_inf emg
+                  where XTLCFLG = '1'
+                    and emg.emg_dat > (sysdate -30) )
+
+
+        select  nvl(median(to_date(temp.endtime,'yyyy-mm-dd hh24:mi:ss') - to_date(temp.begtime,'yyyy-mm-dd hh24:mi:ss'))*24*60*60,0) timDif
+        from temp
+    </select>
+    <select id="getAverageMonth" resultType="java.lang.Integer">
+        with temp as
+                 (select
+                      (select pro_val
+                       from HSP_XTZL_INF
+                       where pro_code = #{timBegCod,jdbcType=VARCHAR}
+                         and emg_no = emg.emg_seq) begtime,
+                      (select pro_val
+                       from HSP_XTZL_INF
+                       where pro_code = #{timEndCod,jdbcType=VARCHAR}
+                         and emg_no = emg.emg_seq) endtime,
+                      to_char(emg.emg_dat, 'yyyy/mm') emg_dat
+                  from hsp_emg_inf emg
+                  where XTLCFLG = '1'
+                    and emg.emg_dat > (sysdate -30) )
+
+
+        select  nvl(avg(to_date(temp.endtime,'yyyy-mm-dd hh24:mi:ss') - to_date(temp.begtime,'yyyy-mm-dd hh24:mi:ss'))*24*60*60,0) timDif
+        from temp
+    </select>
+    <select id="getMedianYear" resultType="java.lang.Integer">
+        with temp as
+                 (select
+                      (select pro_val
+                       from HSP_XTZL_INF
+                       where pro_code = #{timBegCod,jdbcType=VARCHAR}
+                         and emg_no = emg.emg_seq) begtime,
+                      (select pro_val
+                       from HSP_XTZL_INF
+                       where pro_code = #{timEndCod,jdbcType=VARCHAR}
+                         and emg_no = emg.emg_seq) endtime,
+                      to_char(emg.emg_dat, 'yyyy/mm') emg_dat
+                  from hsp_emg_inf emg
+                  where XTLCFLG = '1'
+                    and emg.emg_dat > trunc(sysdate, 'yyyy'))
+
+
+        select  nvl(median(to_date(temp.endtime,'yyyy-mm-dd hh24:mi:ss') - to_date(temp.begtime,'yyyy-mm-dd hh24:mi:ss'))*24*60*60,0) timDif
+        from temp
+    </select>
+    <select id="getAverageYear" resultType="java.lang.Integer">
+        with temp as
+                 (select
+                      (select pro_val
+                       from HSP_XTZL_INF
+                       where pro_code = #{timBegCod,jdbcType=VARCHAR}
+                         and emg_no = emg.emg_seq) begtime,
+                      (select pro_val
+                       from HSP_XTZL_INF
+                       where pro_code = #{timEndCod,jdbcType=VARCHAR}
+                         and emg_no = emg.emg_seq) endtime,
+                      to_char(emg.emg_dat, 'yyyy/mm') emg_dat
+                  from hsp_emg_inf emg
+                  where XTLCFLG = '1'
+                    and emg.emg_dat > trunc(sysdate, 'yyyy'))
+
+
+        select  nvl(avg(to_date(temp.endtime,'yyyy-mm-dd hh24:mi:ss') - to_date(temp.begtime,'yyyy-mm-dd hh24:mi:ss'))*24*60*60,0) timDif
+        from temp
+    </select>
 
 
 </mapper>
