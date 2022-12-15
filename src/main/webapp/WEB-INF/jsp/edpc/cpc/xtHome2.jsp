@@ -228,7 +228,7 @@
     </div>
     <ul ms-if="patientList.length">
         <li ms-repeat-el="patientList" ms-click="clickPatient(el)"
-            ms-class="selected:el.emgSeq===currPatientInfo.emgSeq">
+            ms-class="selected:el.regSeq===currPatientInfo.regSeq">
             <div class="bedNo" ms-if="el.bedNum">
                 <span class="num">{{el.bedNum}}</span><span class="bed">床</span>
             </div>
@@ -552,7 +552,7 @@
                 //获取hisSelPat中保存的选中用户点击选择的胸痛病人
                 if(Object.keys(hisSelPat).length){
                     //若hisSelPat中有历史选中的病人，左侧流程图立即渲染历史选中病人的数据
-                    vm.clickPatient(sessionPatient);
+                    vm.clickPatient(hisSelPat);
                 }else {
                     //左侧流程图立即渲染右侧列表的第一个病人的数据
                     vm.clickPatient(list[0]);

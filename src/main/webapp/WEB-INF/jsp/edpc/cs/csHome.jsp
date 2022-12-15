@@ -1162,7 +1162,7 @@
         </div>
         <ul ms-if="patientList.length">
             <li ms-repeat-el="patientList" ms-click="clickPatient(el)"
-                ms-class="selected:el.emgSeq===currPatientInfo.emgSeq">
+                ms-class="selected:el.regSeq===currPatientInfo.regSeq">
                 <div class="bedNo" ms-if="el.bedNum">
                     <span class="num">{{el.bedNum}}</span><span class="bed">床</span>
                 </div>

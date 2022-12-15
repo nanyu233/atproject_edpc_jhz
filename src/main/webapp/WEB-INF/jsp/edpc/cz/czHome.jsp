@@ -165,7 +165,7 @@
             </label>
         </div>
         <ul ms-if="patientList.length">
-            <li ms-repeat-el="patientList" ms-click="clickPatient(el)" ms-class="selected:el.emgSeq===currPatientInfo.emgSeq">
+            <li ms-repeat-el="patientList" ms-click="clickPatient(el)" ms-class="selected:el.regSeq===currPatientInfo.regSeq">
                 <div class="bedNo" ms-if="el.bedNum">
                     <span class="num">{{el.bedNum}}</span><span class="bed">床</span>
                 </div>
@@ -242,7 +242,8 @@
             cstSexCod: '',
             vstCad: '',
             preDgnCod: '',
-            emgSeq: ''
+            emgSeq: '',
+            regSeq: ''
         },
         showHis: false, //是否包含历史
         searchKey: '', //搜索框输入内容
@@ -507,6 +508,7 @@
                     vstCad: '',
                     preDgnCod: '',
                     emgSeq: '',
+                    regSeq: ''
                 }
             }
 
@@ -522,6 +524,7 @@
      *根据病人的emgSeq获取该病人倒计时、流程节点的数据
      **/
     function clickPatient(patient) {
+        fishPool.currPatientInfo.regSeq = patient.regSeq;
         fishPool.currPatientInfo.emgSeq = patient.emgSeq;
         fishPool.currPatientInfo.emgDatStr = patient.emgDatStr;
         fishPool.currPatientInfo.cstNam = patient.cstNam;
