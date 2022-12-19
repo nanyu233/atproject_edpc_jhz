@@ -91,48 +91,59 @@
             border: 1px solid #a4a8ae;
             padding-bottom: 20px;
         }
+
         .timeGtTop {
             display: flex;
         }
+
         .timeGt .timeGt_left {
-            width: 200px;
+            width: 220px;
         }
+
         .timeGt .timeGt_leftT, .timeGt_rightT {
             height: 20px;
         }
+
         .timeGt .timeGt_left .timeGt_leftT {
             border-right: 1px solid #a4a8ae;
             margin-top: -1px;
         }
+
         .timeGt .timeGt_right .timeGt_rightT {
             display: flex;
         }
+
         .timeGt .timeGt_right .timeGt_rightT .timeGt_rightT_item {
             width: 100px;
             border-right: 1px solid #a4a8ae;
             margin-top: -1px;
             position: relative;
         }
-        .timeGt .timeGt_right .timeGt_rightT .timeGt_rightT_item span{
+
+        .timeGt .timeGt_right .timeGt_rightT .timeGt_rightT_item span {
             position: absolute;
             right: -20px;
         }
+
         .timeGt .timeGtEnd .timeGtEnd_item {
             margin-top: 10px;
             display: flex;
         }
-        .timeGt .timeGtEnd .timeGtEnd_item .timeGtEnd_itemL{
+
+        .timeGt .timeGtEnd .timeGtEnd_item .timeGtEnd_itemL {
             font-weight: 600;
-            width: 200px;
+            width: 220px;
             line-height: 25px;
             display: flex;
             justify-content: flex-end;
             box-sizing: border-box;
             padding-right: 5px;
         }
-        .timeGt .timeGtEnd .timeGtEnd_item .timeGtEnd_itemR{
-           display: flex;
+
+        .timeGt .timeGtEnd .timeGtEnd_item .timeGtEnd_itemR {
+            display: flex;
         }
+
         .g-container {
             height: 25px;
             background: #fff;
@@ -140,7 +151,8 @@
             display: flex;
             font-size: 16px;
         }
-        .g-container span{
+
+        .g-container span {
             position: absolute;
             top: 0;
             left: 50%;
@@ -150,15 +162,17 @@
             -webkit-transform: translate(-50%);
             -moz-transform: translate(-50%);
             -ms-transform: translate(-50%);
-            -o-transform:translate(-50%) ;
-            transform:translate(-50%);
+            -o-transform: translate(-50%);
+            transform: translate(-50%);
         }
+
         .g-progress {
             width: 0%;
             height: inherit;
             background: #95f204;
             transition: width .2s linear;
         }
+
         .red-progress {
             height: inherit;
             background: #d9001b;
@@ -312,7 +326,7 @@
                                 </div>
                                 <span>{{el.hzTimDif / 60}} / {{el.timDif / 60}} 分钟</span>
                             </div>
-                            <div class="red-progress" style="margin-left: 5px" ms-if="el.hzTimDif > el.timDif">
+                            <div class="red-progress" style="margin-left: 5px">
                             </div>
                             <div style="color: #d9001b;margin-left: 2px" ms-if="el.hzTimDif > el.timDif">
                                 超出基准{{el.hzTimDif / 60 - el.timDif / 60}}分钟
@@ -360,7 +374,7 @@
                     infocode: '4'
                 }
             ],
-            timeGt: [10,20,30,40,50,60,70,80,90,100],
+            timeGt: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
             timeGtList: [],
         },
     });
@@ -607,7 +621,7 @@
             data: JSON.stringify({
                 emgSeq: "${emgSeq}",
                 hspTimDiffCustom: {
-                    disTyp:"1",
+                    disTyp: "1",
                     objTyp: vm.timeline.benchmark
                 }
             }),
@@ -616,32 +630,35 @@
                     vm.timeline.timeGtList = res.resultInfo.sysdata.list || []
                     vm.timeline.timeGtList.forEach(function (item, index) {
                         if (item.timDif) {
-                            var container = document.querySelectorAll('.g-container')
-                            var progress = document.querySelectorAll('.g-progress')
-                            var red_progress = document.querySelectorAll('.red-progress')
-                            container[index].style.width = (item.timDif / 60) * 10 + 'px'
+                            $('#timeGt').show()
+                            $('.g-container').eq(index).width((item.timDif / 60) * 10 + 'px')
                             if (item.hzTimDif > item.timDif) {
-                                    progress[index].style.width = '100%'
+                                $('.g-progress').eq(index).width('100%')
                                 //超出时间  小于100分钟减去绿色进度条
-                                if ((item.hzTimDif - item.timDif) / 60 < 100 - item.timDif / 60) {
-                                    red_progress[index].style.width = (item.hzTimDif - item.timDif) / 60 * 10 + 'px'
-                                }else {
-                                    red_progress[index].style.width = 1000 - (item.timDif / 60) * 10 + 'px'
+                                var outTime = (item.hzTimDif - item.timDif) / 60
+                                var redLine = 100 - item.timDif / 60
+                                if (outTime < redLine) {
+                                    $('.red-progress').eq(index).width(outTime * 10 + 'px')
+                                } else {
+                                    $('.red-progress').eq(index).width(1000 - (item.timDif / 60) * 10 + 'px')
                                 }
-                            }else {
-                                    progress[index].style.width = item.hzTimDif / item.timDif * 100 + '%'
+                            } else {
+                                $('.g-progress').eq(index).width(item.hzTimDif / item.timDif * 100 + '%')
                             }
-
+                        }else {
+                            $('#timeGt').hide()
                         }
+
                     })
                 }
             }
+
         });
     }
-    vm.timeline.$watch('benchmark',function (newVal, oldVal) {
+
+    vm.timeline.$watch('benchmark', function (newVal, oldVal) {
         getTimDiff()
     })
-
 
 
     function getWidth(proportion) {
