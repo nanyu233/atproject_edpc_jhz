@@ -1515,6 +1515,7 @@ public class XtServiceImpl implements XtService{
 
 			HspTimDiffCustom hspTimDiffCustom = new HspTimDiffCustom();
 			BeanUtils.copyProperties(hspTimDiff,hspTimDiffCustom);
+			hspTimDiffCustom.setHzTimDif(0);
 
 			//获取质控开始与结束时间
 			for (HspXtzlInfCustom hspXtzlInfCustom : list) {
@@ -1536,9 +1537,9 @@ public class XtServiceImpl implements XtService{
 				hspTimDiffCustom.setBeginTim(begDat);
 				hspTimDiffCustom.setEndTim(endDat);
 				hspTimDiffCustom.setHzTimDif(diff);
-				hspTimDiffCustomList.add(hspTimDiffCustom);
-			}
 
+			}
+			hspTimDiffCustomList.add(hspTimDiffCustom);
 		}
 		map.put("list",hspTimDiffCustomList);
 		resultInfo.setSysdata(map);
