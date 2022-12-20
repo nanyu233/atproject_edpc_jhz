@@ -24,7 +24,7 @@ public class ExternalDataServiceImpl implements ExternalDataService{
 	@Override
 	public void mergeFzInf(List<HspXtzlInfCustom> list, String emgSeq, String regSeq, String crtUser) {
 		
-		if(emgSeq!=null && list!=null && list.size()>0) {
+		if(regSeq!=null && list!=null && list.size()>0) {
 			for(HspXtzlInfCustom hspXtzlInfCustom:list) {
 				hspXtzlInfCustom.setCrtUser(crtUser);
 				hspXtzlInfCustom.setEmgNo(regSeq);

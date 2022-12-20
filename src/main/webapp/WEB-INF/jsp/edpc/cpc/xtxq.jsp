@@ -5767,7 +5767,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
-					emgNo: _emgSeq,
+					emgNo: _regSeq,
 					proCode: item,
 				}),
 				success: function(res) {
@@ -5784,7 +5784,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
-					emgNo: _emgSeq,
+					emgNo: _regSeq,
 					proCode: item,
 					proVal: vn.info[item].hspCrivelInf.velSeq
 				}),
@@ -5793,7 +5793,7 @@
 		}
 		// 冠脉造影修改接口
 		function updateFzxg(item) {
-			item.hspCrivelInf.emgSeq = _emgSeq;
+			item.hspCrivelInf.emgSeq = _regSeq;
 			$.ajax({
 				url: '${baseurl}cpc/updateHspCrivelInf.do',
 				type: 'post',
@@ -5904,8 +5904,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
-					emgSeq: _emgSeq,
-					wayTyp: _wayTyp
+					regSeq: _regSeq
 				}),
 				success: function(res) {
 					var _jyjgList = res.resultInfo.sysdata.jyjgList;
@@ -5968,7 +5967,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
-					emgSeq: _emgSeq
+					regSeq: _regSeq
 				}),
 				success: function(res) {
 					var _hspEcgInf = res.resultInfo.sysdata.hspEcgInf;
@@ -5995,7 +5994,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
-					emgSeq: _emgSeq,
+					emgSeq: _regSeq,
 					graceType: 0
 				}),
 				success: function(res) {
@@ -6103,7 +6102,7 @@
 				dataType: 'json',
 				contentType: 'application/json;charset=UTF-8',
 				data: JSON.stringify({
-					emgSeq: _emgSeq
+					emgSeq: _regSeq
 				}),
 				success: function(res) {
 					var consulationDate = res.resultInfo.sysdata.consulationDate;

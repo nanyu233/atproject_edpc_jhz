@@ -6,9 +6,9 @@ import activetech.external.pojo.domain.HspEcgInf;
 
 public interface EsbService {
 	
-	public ResultInfo getJyjcInfo(String emgSeq, String wayTyp);
+	public ResultInfo getJyjcInfo(String regSeq);
 	
-	public ResultInfo getECGInfo(String emgSeq, String wayTyp);
+	public ResultInfo getECGInfo(String regSeq, String wayTyp);
 
 	/**
 	 * 添加或者更新心电图信息

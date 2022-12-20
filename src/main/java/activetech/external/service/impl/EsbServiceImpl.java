@@ -4,7 +4,9 @@ import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
+import activetech.edpc.dao.mapper.HspDbzlBasMapper;
 import activetech.edpc.dao.mapper.HspXtAddMapper;
+import activetech.edpc.pojo.domain.HspDbzlBas;
 import activetech.edpc.pojo.domain.HspXtAdd;
 import activetech.external.dao.mapper.HspEcgInfMapper;
 import activetech.external.dao.mapper.HspEcgInfMapperCustom;
@@ -43,30 +45,38 @@ public class EsbServiceImpl implements EsbService{
 	@Autowired
 	private HspEcgInfMapperCustom hspEcgInfMapperCustom;
 
+	@Autowired
+	private HspDbzlBasMapper hspDbzlBasMapper;
+
 	@Override
-	public ResultInfo getJyjcInfo(String emgSeq, String wayTyp) {
+	public ResultInfo getJyjcInfo(String regSeq) {
 		
 		ResultInfo resultInfo = null;
 		// 通过胸痛患者类型获取mpi 和jzxh
 		String mpi = "";
 		String jzxh = "";
-		if("0".equals(wayTyp)) {
-			// 分诊的胸痛病人
-			HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(emgSeq);
-			mpi = hspEmgInf.getMpi();
-			if(hspEmgInf.getJzxh()!=null) {
-				jzxh = hspEmgInf.getJzxh().toString();
-			}
-		}else{
-			// 院内发病和绕行的胸痛病人
-			HspXtAdd hspXtAdd = hspXtAddMapper.selectByPrimaryKey(emgSeq);
-			if(hspXtAdd!=null) {
-				mpi = hspXtAdd.getMpiNo();
-				jzxh = hspXtAdd.getSadId();
-			}
-			
-		}
-		
+//		if("0".equals(wayTyp)) {
+//			// 分诊的胸痛病人
+//			HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(emgSeq);
+//			mpi = hspEmgInf.getMpi();
+//			if(hspEmgInf.getJzxh()!=null) {
+//				jzxh = hspEmgInf.getJzxh().toString();
+//			}
+//		}else{
+//			// 院内发病和绕行的胸痛病人
+//			HspXtAdd hspXtAdd = hspXtAddMapper.selectByPrimaryKey(emgSeq);
+//			if(hspXtAdd!=null) {
+//				mpi = hspXtAdd.getMpiNo();
+//				jzxh = hspXtAdd.getSadId();
+//			}
+//
+//		}
+
+		HspDbzlBas hspDbzlBas = hspDbzlBasMapper.selectByPrimaryKey(regSeq);
+		mpi = hspDbzlBas.getMpi();
+		jzxh = hspDbzlBas.getJzxh().toString();
+
+
 		if(StringUtils.isNotEmpty(mpi) && StringUtils.isNotEmpty(jzxh)) {
 			Map<String,Object> sysdata = new HashMap<>();
 			// 获取检查结果
@@ -133,7 +143,7 @@ public class EsbServiceImpl implements EsbService{
 	}
 
 	@Override
-	public ResultInfo getECGInfo(String emgSeq, String wayTyp) {
+	public ResultInfo getECGInfo(String regSeq, String wayTyp) {
 		
 		ResultInfo resultInfo = null;
 		
@@ -141,7 +151,7 @@ public class EsbServiceImpl implements EsbService{
 		// 获取心电图路径
 		HspEcgInfExample example = new HspEcgInfExample();
 		HspEcgInfExample.Criteria criteria = example.createCriteria();
-		criteria.andRefIdEqualTo(emgSeq);
+		criteria.andRefIdEqualTo(regSeq);
 		criteria.andEcgTypeEqualTo("11");
 		List<HspEcgInf> list = hspEcgInfMapper.selectByExample(example);
 		HspEcgInf hspEcgInf = null;

@@ -596,17 +596,14 @@ public class XtAction {
 	@RequestMapping("/getJyjcInfo")
 	@ResponseBody
 	public SubmitResultInfo getJyjcInfo(@RequestBody(required=false) Map<String, Object> map){
-		
-		String emgSeq = "";
-		String wayTyp = "";
-		if(map.containsKey("emgSeq")){
-			emgSeq = (String) map.get("emgSeq");
-		}
-		if(map.containsKey("wayTyp")){
-			wayTyp = (String) map.get("wayTyp");
+
+		String regSeq = "";
+
+		if(map.containsKey("regSeq")){
+			regSeq = (String) map.get("regSeq");
 		}
 		
-		ResultInfo resultInfo = esbService.getJyjcInfo(emgSeq,wayTyp);
+		ResultInfo resultInfo = esbService.getJyjcInfo(regSeq);
 
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
@@ -620,17 +617,17 @@ public class XtAction {
 	@ResponseBody
 	public SubmitResultInfo getECGInfo(@RequestBody(required=false) Map<String, Object> map){
 		
-		String emgSeq = "";
+		String regSeq = "";
 		String wayTyp = "";
-		if(map.containsKey("emgSeq")){
-			emgSeq = (String) map.get("emgSeq");
+		if(map.containsKey("regSeq")){
+			regSeq = (String) map.get("regSeq");
 		}
 		
 		if(map.containsKey("wayTyp")){
 			wayTyp = (String) map.get("wayTyp");
 		}
 		
-		ResultInfo resultInfo = esbService.getECGInfo(emgSeq,wayTyp);
+		ResultInfo resultInfo = esbService.getECGInfo(regSeq,wayTyp);
 		
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
