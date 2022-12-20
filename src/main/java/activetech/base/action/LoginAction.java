@@ -1,10 +1,12 @@
 package activetech.base.action;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import activetech.base.config.DingTalkConfig;
+import activetech.base.pojo.dto.ActiveUser;
+import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
+import activetech.base.process.result.ResultUtil;
+import activetech.base.process.result.SubmitResultInfo;
+import activetech.base.service.SystemConfigService;
+import activetech.base.service.UserService;
 import activetech.base.util.DingTalkUtil;
 import com.dingtalk.api.response.OapiSnsGetuserinfoBycodeResponse;
 import com.dingtalk.api.response.OapiV2UserGetuserinfoResponse;
@@ -14,13 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import activetech.base.pojo.dto.ActiveUser;
-import activetech.base.process.context.Config;
-import activetech.base.process.result.ResultUtil;
-import activetech.base.process.result.SubmitResultInfo;
-import activetech.base.service.SystemConfigService;
-import activetech.base.service.UserService;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -80,7 +77,7 @@ public class LoginAction {
 	loginDing(HttpSession session, String authCode, String hospitalCategory, ActiveUser activeUser) throws Exception{
 		System.out.println("免登授权码："+ authCode);
 		//1、判断accessToken是否在有效期内 获取企业accessToken
-		String accessToken = systemConfigService.queryDingAccessToken(DingTalkConfig.getAppKey());
+		String accessToken = DingTalkUtil.getAccessToken();
 		//2、获取用户id
 		OapiV2UserGetuserinfoResponse.UserGetByCodeResponse dingUser = DingTalkUtil.getUserinfo(accessToken, authCode);
 		activeUser = userService.loginDing(dingUser.getUnionid(), dingUser.getUserid());
@@ -100,7 +97,9 @@ public class LoginAction {
 	String
 	loginDingSns(HttpSession session, String code, String state, ActiveUser activeUser) throws Exception{
 		OapiSnsGetuserinfoBycodeResponse.UserInfo dingUser = DingTalkUtil.getUserinfoByCode(code);
-		activeUser = userService.loginDing(dingUser.getUnionid(), null);
+		String accessToken = DingTalkUtil.getAccessToken();
+		String userid = DingTalkUtil.getUseridByUnionid(accessToken, dingUser.getUnionid());
+		activeUser = userService.loginDing(dingUser.getUnionid(), userid);
 		activeUser.setHospitalCategory("1");
 		session.setAttribute(Config.ACTIVEUSER_KEY, activeUser);
 //		return ResultUtil.createSubmitResult(ResultUtil.createSuccess(Config.MESSAGE, 107, new Object[] { "" }));

@@ -74,18 +74,4 @@ public interface SystemConfigService {
 	 */
 	public ResultInfo getPasswordRule() throws IOException;
 
-	/**
-	 * 钉钉获取accessToken
-	 * @return return
-	 * @throws Exception Exception
-	 */
-	String queryDingAccessToken(String appKey) throws Exception;
-
-	/**
-	 * 钉钉保存accessToken
-	 * @param appKey appKey
-	 * @param accessToken accessToken
-	 * @throws Exception Exception
-	 */
-	void saveDingAccessToken(String appKey, String accessToken) throws Exception;
 }

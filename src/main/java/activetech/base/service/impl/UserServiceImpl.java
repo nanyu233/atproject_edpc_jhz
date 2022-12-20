@@ -1,37 +1,10 @@
 package activetech.base.service.impl;
-import java.util.*;
-
-import activetech.base.process.result.ResultInfo;
-import cn.hutool.core.date.DateUtil;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import activetech.base.dao.mapper.DstcompctlMapper;
-import activetech.base.dao.mapper.DstroleCustomMapper;
-import activetech.base.dao.mapper.DstroleMapper;
-import activetech.base.dao.mapper.DstuserCustomMapper;
-import activetech.base.dao.mapper.DstuserMapper;
-import activetech.base.dao.mapper.DstuserroleCustomMapper;
-import activetech.base.dao.mapper.DstuserroleMapper;
-import activetech.base.dao.mapper.HspYsczlsjlInfMapper;
-import activetech.base.pojo.domain.Dstappoption;
-import activetech.base.pojo.domain.Dstcompctl;
-import activetech.base.pojo.domain.Dstrole;
-import activetech.base.pojo.domain.DstroleExample;
-import activetech.base.pojo.domain.Dstuser;
-import activetech.base.pojo.domain.DstuserExample;
-import activetech.base.pojo.domain.Dstuserrole;
-import activetech.base.pojo.domain.DstuserroleExample;
-import activetech.base.pojo.domain.HspYsczlsjlInf;
-import activetech.base.pojo.dto.ActiveUser;
-import activetech.base.pojo.dto.DstroleCustom;
-import activetech.base.pojo.dto.DstuserCustom;
-import activetech.base.pojo.dto.DstuserQueryDto;
-import activetech.base.pojo.dto.DstuserroleCustom;
-import activetech.base.pojo.dto.Menu;
-import activetech.base.pojo.dto.Operation;
+import activetech.base.dao.mapper.*;
+import activetech.base.pojo.domain.*;
+import activetech.base.pojo.dto.*;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ExceptionResultInfo;
+import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.service.AppoptionService;
 import activetech.base.service.SystemConfigService;
@@ -41,8 +14,11 @@ import activetech.util.MD5;
 import activetech.util.ResourcesUtil;
 import activetech.util.StringUtils;
 import activetech.util.UUIDBuild;
+import cn.hutool.core.date.DateUtil;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.cn;
+import java.util.*;
 
 /**
  * 
@@ -790,7 +766,7 @@ public class UserServiceImpl implements UserService {
 	public ActiveUser loginDing(String unionid, String userid) throws Exception {
 		DstuserExample example = new DstuserExample();
 		DstuserExample.Criteria criteria = example.createCriteria();
-		criteria.andUsrnoEqualTo("admin");
+		criteria.andUseridEqualTo(userid);
 		criteria.andUserstateEqualTo("1");
 		List<Dstuser> userlist = dstuserMapper.selectByExample(example);
 

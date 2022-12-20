@@ -1,8 +1,6 @@
 package activetech.base.util;
 
 import activetech.base.config.DingTalkConfig;
-import activetech.base.service.SystemConfigService;
-import activetech.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.aliyun.dingtalkoauth2_1_0.models.CreateJsapiTicketHeaders;
 import com.aliyun.dingtalkoauth2_1_0.models.CreateJsapiTicketResponse;
@@ -12,10 +10,8 @@ import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.*;
 import com.dingtalk.api.response.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.security.MessageDigest;
@@ -28,31 +24,13 @@ import java.util.Random;
 public class DingTalkUtil {
     public static DingTalkUtil dingTalkUtil;
 
-    @Autowired
-    private SystemConfigService systemConfigService;
-
-    @PostConstruct
-    public void init() {
-        dingTalkUtil = this;
-        dingTalkUtil.systemConfigService = this.systemConfigService;
-    }
-
+    private static Map<String, String> tokenMap = null;
 
     public static com.aliyun.dingtalkoauth2_1_0.Client createClient() throws Exception {
         com.aliyun.teaopenapi.models.Config config = new com.aliyun.teaopenapi.models.Config();
         config.protocol = "https";
         config.regionId = "central";
         return new com.aliyun.dingtalkoauth2_1_0.Client(config);
-    }
-
-    public static String getAccessTokenPub() throws Exception {
-        String accessToken = dingTalkUtil.systemConfigService.queryDingAccessToken(DingTalkConfig.getAppKey());
-        if (!StringUtils.isNotNullAndEmptyByTrim(accessToken)) {
-            System.out.println("重新获取accessToken" + accessToken);
-            accessToken = getAccessToken();
-            dingTalkUtil.systemConfigService.saveDingAccessToken(DingTalkConfig.getAppKey(), accessToken);
-        }
-        return accessToken;
     }
 
     /**
@@ -62,13 +40,23 @@ public class DingTalkUtil {
      * @return return accessToken
      * @throws Exception Exception
      */
-    private static String getAccessToken() throws Exception{
+    public static String getAccessToken() throws Exception {
+        Map<String, String> tokenMap = DingTalkUtil.tokenMap;
+        if (tokenMap != null && Long.parseLong(tokenMap.get("date")) >= (System.currentTimeMillis() - (6500 * 1000))) {
+            return tokenMap.get("access_token");
+        }
         com.aliyun.dingtalkoauth2_1_0.Client client = DingTalkUtil.createClient();
         com.aliyun.dingtalkoauth2_1_0.models.GetAccessTokenRequest getAccessTokenRequest = new com.aliyun.dingtalkoauth2_1_0.models.GetAccessTokenRequest()
                 .setAppKey(DingTalkConfig.getAppKey())
                 .setAppSecret(DingTalkConfig.getAppSecret());
-        GetAccessTokenResponse accessToken = client.getAccessToken(getAccessTokenRequest);
-        return accessToken.getBody().getAccessToken();
+        GetAccessTokenResponse accessTokenResponse = client.getAccessToken(getAccessTokenRequest);
+        String access_token = accessTokenResponse.getBody().getAccessToken();
+        DingTalkUtil.tokenMap = new HashMap<>();
+        DingTalkUtil.tokenMap.put("date", String.valueOf(System.currentTimeMillis()));
+        DingTalkUtil.tokenMap.put("access_token", access_token);
+        System.out.println("重新获取accessToken" + access_token);
+
+        return access_token;
     }
 
     /**
@@ -190,6 +178,23 @@ public class DingTalkUtil {
     }
 
     /**
+     * 根据unionid获取用户userid 根据unionid查询用户
+     * https://oapi.dingtalk.com/topapi/user/getbyunionid
+     * 不纳入每月调用量限制的接口
+     * @param accessToken accessToken
+     * @param unionid unionid
+     * @return return
+     * @throws Exception Exception
+     */
+    public static String getUseridByUnionid(String accessToken, String unionid) throws Exception{
+        DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/topapi/user/getbyunionid");
+        OapiUserGetbyunionidRequest req = new OapiUserGetbyunionidRequest();
+        req.setUnionid(unionid);
+        OapiUserGetbyunionidResponse rsp = client.execute(req, "10e7e86c6d8c353f92e02c6762f09253");
+        return rsp.getResult().getUserid();
+    }
+
+    /**
      * 创建jsapi ticket
      * https://oapi.dingtalk.com/get_jsapi_ticket
      * 不纳入每月调用量限制的接口
@@ -242,12 +247,6 @@ public class DingTalkUtil {
         return result;
     }
 
-    /**
-     * 前端页面获取钉钉config信息
-     * @param request request
-     * @return return
-     * @throws Exception Exception
-     */
     public static String getConfig(HttpServletRequest request) throws Exception {
         //获取当前页面的完整URL路径，用于获取签名signature
         String urlString = request.getRequestURL().toString();
@@ -260,7 +259,7 @@ public class DingTalkUtil {
         //随机字符串，用于获取签名signature，并返回给页面
         String signedUrl = sb.toString();
 
-        String accessToken = getAccessTokenPub();
+        String accessToken = getAccessToken();
         String ticket = getJsapiTicket(accessToken);
         String nonceStr = random();
         //时间戳，用于获取签名signature，并返回给页面
