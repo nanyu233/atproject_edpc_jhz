@@ -187,10 +187,10 @@ public class XtAction {
 	@ResponseBody
 	public SubmitResultInfo queryCpcTimeline(@RequestBody JSONObject jsonObject){
 		//急救时间轴数据 - 和胸痛中心的时间轴数据公用同一个方法
-		String emgSeq="";
-		if (jsonObject.containsKey("emgSeq"))
-			emgSeq=jsonObject.getString("emgSeq");
-		ResultInfo resultInfo = xtService.getXtTimeLine(emgSeq);
+		String regSeq="";
+		if (jsonObject.containsKey("regSeq"))
+			regSeq=jsonObject.getString("regSeq");
+		ResultInfo resultInfo = xtService.getXtTimeLine(regSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
@@ -200,9 +200,9 @@ public class XtAction {
 	@RequestMapping("/queryCpcTimelineGt")
 	@ResponseBody
 	public SubmitResultInfo queryCpcTimelineGt(@RequestBody HspTimDiffQueryDto hspTimDiffQueryDto){
-		String emgSeq=hspTimDiffQueryDto.getEmgSeq();
+		String regSeq=hspTimDiffQueryDto.getRegSeq();
 		//获取当前病人的各个质控时间节点
-		ResultInfo xtTimeLine = xtService.getXtTimeLine(emgSeq);
+		ResultInfo xtTimeLine = xtService.getXtTimeLine(regSeq);
 		Map<String, Object> sysdata = xtTimeLine.getSysdata();
 		List<HspXtzlInfCustom> list = (List<HspXtzlInfCustom>) sysdata.get("list");
 		//获取甘特图数据
@@ -607,7 +607,7 @@ public class XtAction {
 		}
 		
 		ResultInfo resultInfo = esbService.getJyjcInfo(emgSeq,wayTyp);
-		
+
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	

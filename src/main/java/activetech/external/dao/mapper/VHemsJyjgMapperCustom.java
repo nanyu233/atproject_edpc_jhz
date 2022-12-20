@@ -7,7 +7,7 @@ import activetech.external.pojo.dto.VHemsJyjgQueryDto;
 
 public interface VHemsJyjgMapperCustom {
     
-	public String getJgdbDate(String emgSeq);
+	public String getJgdbDate(String regSeq);
 	
 	public int findvhemsjyjgcount(VHemsJyjgQueryDto vHemsJyjgQueryDto);
 	

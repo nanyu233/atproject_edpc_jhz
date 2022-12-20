@@ -152,9 +152,9 @@
 	<select id="getJgdbDate" parameterType="java.lang.String" resultType="java.lang.String">
 		select to_char(min(result_date_time),'yyyy-mm-dd hh24:mi:ss')
 		  from v_hems_jyjg
-		 where mpi = (select mpi from hsp_emg_inf where emg_seq = #{emgSeq,jdbcType=VARCHAR})
+		 where mpi = (select mpi from hsp_dbzl_bas where reg_seq = #{regSeq,jdbcType=VARCHAR})
 		   and seek_medical_times =
-		       (select jzxh from hsp_emg_inf where emg_seq = #{emgSeq,jdbcType=VARCHAR})
+		       (select jzxh from hsp_dbzl_bas where reg_seq = #{regSeq,jdbcType=VARCHAR})
 		   and report_item_name = '肌钙蛋白I'
 	</select>
   		

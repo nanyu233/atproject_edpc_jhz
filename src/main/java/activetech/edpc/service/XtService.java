@@ -75,7 +75,7 @@ public interface XtService {
 	 * @param emgSeq emgSeq
 	 * @return ResultInfo
 	 */
-	ResultInfo getXtTimeLine(String emgSeq);
+	ResultInfo getXtTimeLine(String regSeq);
 	
 	public ResultInfo getHspFlowChartDef(String flowType);
 

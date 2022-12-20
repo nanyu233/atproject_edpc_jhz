@@ -426,7 +426,7 @@ public class XtServiceImpl implements XtService{
 	@Override
 	public ResultInfo xtPatietSubmitBatch(List<HspXtzlInfCustom> xtzlInfs,String emgSeq, String reqSeq, ActiveUser activeUser) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		externalDataService.mergeFzInf(xtzlInfs, emgSeq, activeUser.getUsrno());
+		externalDataService.mergeFzInf(xtzlInfs, emgSeq, reqSeq, activeUser.getUsrno());
 		String d2w = externalDataService.getD2W(emgSeq);
 		HspXtzlInfCustom hspXtzlInfCustom = new HspXtzlInfCustom();
 		hspXtzlInfCustom.setProCode("DDYYDMSJ");
@@ -445,10 +445,9 @@ public class XtServiceImpl implements XtService{
 	}
 
 	@Override
-	public ResultInfo getXtTimeLine(String emgSeq) {
+	public ResultInfo getXtTimeLine(String regSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
-		String regSeq = hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq).getRegSeq();
 		List<HspXtzlInfCustom> list = hspXtzlInfCustomMapper.getCpcTimeline(regSeq);
 		for (HspXtzlInfCustom hspXtzlInfCustom:list) {
 			if(hspXtzlInfCustom.getProCode().equals("ASPLSJ")){
@@ -488,7 +487,7 @@ public class XtServiceImpl implements XtService{
 			}
 		}
 		// FIXME 肌酐蛋白报告时间 || 暂未持久到诊疗表中，先保留后期持久化之后删除这段
-		String jgdbbgsj = vHemsJyjgMapperCustom.getJgdbDate(emgSeq);
+		String jgdbbgsj = vHemsJyjgMapperCustom.getJgdbDate(regSeq);
 		if(jgdbbgsj!=null) {
 			HspXtzlInfCustom jgdbbgsjHspXtzlInf = new HspXtzlInfCustom();
 			jgdbbgsjHspXtzlInf.setEmgNo(regSeq);

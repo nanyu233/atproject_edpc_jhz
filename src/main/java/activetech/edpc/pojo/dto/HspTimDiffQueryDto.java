@@ -6,6 +6,7 @@ public class HspTimDiffQueryDto extends PageCond {
     private HspTimDiffCustom hspTimDiffCustom;
     private HspTimDiffHisCustom hspTimDiffHisCustom;
     private String emgSeq;
+    private String regSeq;
 
     public HspTimDiffCustom getHspTimDiffCustom() {
         return hspTimDiffCustom;
@@ -29,5 +30,13 @@ public class HspTimDiffQueryDto extends PageCond {
 
     public void setHspTimDiffHisCustom(HspTimDiffHisCustom hspTimDiffHisCustom) {
         this.hspTimDiffHisCustom = hspTimDiffHisCustom;
+    }
+
+    public String getRegSeq() {
+        return regSeq;
+    }
+
+    public void setRegSeq(String regSeq) {
+        this.regSeq = regSeq;
     }
 }

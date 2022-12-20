@@ -22,12 +22,12 @@ public class ExternalDataServiceImpl implements ExternalDataService{
 	private SystemConfigService systemConfigService;
 
 	@Override
-	public void mergeFzInf(List<HspXtzlInfCustom> list, String emgSeq,String crtUser) {
+	public void mergeFzInf(List<HspXtzlInfCustom> list, String emgSeq, String regSeq, String crtUser) {
 		
 		if(emgSeq!=null && list!=null && list.size()>0) {
 			for(HspXtzlInfCustom hspXtzlInfCustom:list) {
 				hspXtzlInfCustom.setCrtUser(crtUser);
-				hspXtzlInfCustom.setEmgNo(emgSeq);
+				hspXtzlInfCustom.setEmgNo(regSeq);
 				//冠脉造影
 				if(hspXtzlInfCustom.getProCode().indexOf("GMZY")>0){
 					HspCrivelInf criVel = hspXtzlInfCustom.getHspCrivelInf();

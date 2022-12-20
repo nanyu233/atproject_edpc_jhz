@@ -7,7 +7,7 @@ import activetech.edpc.pojo.dto.HspXtzlInfCustom;
 
 public interface ExternalDataService {
 	
-	public void mergeFzInf(List<HspXtzlInfCustom> list,String emgSeq, String crtUser);
+	public void mergeFzInf(List<HspXtzlInfCustom> list,String emgSeq, String regSeq, String crtUser);
 	
 	/**
 	 * 获取B2W时间
