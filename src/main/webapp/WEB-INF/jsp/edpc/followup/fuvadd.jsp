@@ -164,7 +164,9 @@
 	height: 26px;
 	line-height: 26px;
 }
-
+.required {
+	color: red;
+}
 .cleanfloat::after{display: block; clear: both; content:""; visibility: hidden; height: 0;}/*清浮动*/
  ul li{list-style:none; float:left; font-size:30px; margin-left:5px; color:#ccc; cursor:pointer;}/*五角星样式*/
 .hs,.cs{color:#FF0000;}/*五角星点击后样式*/
@@ -281,6 +283,7 @@
                   		</select>
 					</td>
 					<td class="indentTd" colspan="1" style="text-align:center">
+						<span class="required">*</span>
 						<label>随访时间：</label>
 					</td>
 					<td class="indentTd" colspan="1">
@@ -297,6 +300,7 @@
 						ms-duplex-string="hspFuvPatCustom.patTel" maxlength="30" value="${hspFuvPatCustom.patTel}" readonly="readonly"/>
 					</td>
 					<td class="indentTd" colspan="1" style="text-align:right">
+						<span class="required">*</span>
 						<label>随访组：</label>
 					</td>
 					<td class="indentTd" colspan="1">
@@ -306,6 +310,7 @@
                   		</select>
 					</td>
 					<td class="indentTd" colspan="1" style="text-align:right">
+						<span class="required">*</span>
 						<label>本次随访医生：</label>
 					</td>
 					<td class="indentTd" colspan="1">
@@ -587,6 +592,7 @@
 				</tr>
 				<tr>
 					<td class="indentTd" colspan="1" style="text-align:right">
+						<span class="required">*</span>
 						<label>下次随访：</label>
 					</td>
 					<td class="indentTd" colspan="7">
