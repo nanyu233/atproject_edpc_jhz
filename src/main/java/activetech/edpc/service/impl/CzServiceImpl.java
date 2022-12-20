@@ -399,11 +399,11 @@ public class CzServiceImpl implements CzService{
 	}
 
 	@Override
-	public ResultInfo getCzTimeline(String emgSeq) {
+	public ResultInfo getCzTimeline(String regSeq) {
 		// TODO Auto-generated method stub
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
-		List<HspCzzlInfCustom> list = hspCzzlInfMapperCustom.getCzTimeline(emgSeq);
+		List<HspCzzlInfCustom> list = hspCzzlInfMapperCustom.getCzTimeline(regSeq);
 		list.sort(Comparator.comparing(HspCzzlInfCustom::getProVal));
 		sysdata.put("czTimeline", list);
 		resultInfo.setSysdata(sysdata);
@@ -517,30 +517,29 @@ public class CzServiceImpl implements CzService{
 	}
 
 	@Override
-	public ResultInfo getCzPatientDetail(String emgSeq) {
+	public ResultInfo getCzPatientDetail(String regSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> sysdata = new HashMap<String, Object>();
 		//患者信息
-//		HspemginfCustom hspemgInfCustom = hspemginfCustomMapper.findHspemginfCustom(emgSeq);
-		HspDbzlBas hspDbzlBas = hspDbzlBasMapperCustom.selectByPrimaryByEmgSeq(emgSeq);
+		HspDbzlBas hspDbzlBas = hspDbzlBasMapper.selectByPrimaryKey(regSeq);
 		//卒中表信息
 		HspCzzlInfExample czzlExample = new HspCzzlInfExample();
 		HspCzzlInfExample.Criteria czzlCriteria = czzlExample.createCriteria();
-		czzlCriteria.andEmgNoEqualTo(emgSeq);
+		czzlCriteria.andEmgNoEqualTo(regSeq);
 		List<HspCzzlInf> czzlList = hspCzzlInfMapper.selectByExample(czzlExample);
 		//会诊信息
 		HspConsultationRecordsExample consultationExample = new HspConsultationRecordsExample();
 		HspConsultationRecordsExample.Criteria consultationCriteria = consultationExample.createCriteria();
-		consultationCriteria.andEmgSeqCrEqualTo(emgSeq);
+		consultationCriteria.andEmgSeqCrEqualTo(regSeq);
 		consultationExample.setOrderByClause("invitation_date");
 //		consultationExample.setOrderByClause("consultation_date");
 		List<HspConsultationRecords> consultationList = hspConsultationRecordsMapper.selectByExample(consultationExample);
 		//介入通知时间，介入到达时间
-		HspConsultationRecordsCustom hspConsultationRecordsCustomJr  = hspConsultationRecordsCustomMapper.findCzHzInfEmgSeqJR(emgSeq);
+		HspConsultationRecordsCustom hspConsultationRecordsCustomJr  = hspConsultationRecordsCustomMapper.findCzHzInfEmgSeqJR(regSeq);
 		// 图片信息
 		DstarchivesExample example = new DstarchivesExample();
 		DstarchivesExample.Criteria criteria = example.createCriteria();
-		criteria.andRefIdEqualTo(emgSeq);
+		criteria.andRefIdEqualTo(regSeq);
 		List<Dstarchives> picList = dstarchivesMapper.selectByExample(example);
 		for(Dstarchives dstarchives:picList){
 			if("ecg".equals(dstarchives.getFileType())){

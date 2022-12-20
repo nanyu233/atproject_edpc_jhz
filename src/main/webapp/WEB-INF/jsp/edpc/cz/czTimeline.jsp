@@ -78,7 +78,7 @@
 <body ms-controller="timeLine">
 <!-- html的静态布局 -->
 <form id="timelineform" name="timelineform" action="${baseurl}report/exportjhz.do" method="post">
-    <input type="text" class="hidden" id="emgSeq" name="emgSeq" value="${emgSeq }"/>
+    <input type="text" class="hidden" id="regSeq" name="regSeq" value="${regSeq}"/>
     <div class="chart_grp chartbox">
         <div class="form_cat border-radius box-shadow">
             <div class="basic-info">
@@ -380,7 +380,7 @@
     function loadTimeline() {
         var url = "${baseurl}cz/queryCzTimeline.do";
         var params = {
-            emgSeq: "${emgSeq}"
+            regSeq: "${regSeq}"
         };
 //    		console.log("query cpc timeline data url: ", url);
 //    		console.log("request param: ", params);
@@ -416,7 +416,7 @@
             dataType: 'json',
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify({
-                emgSeq: "${emgSeq}"
+                regSeq: "${regSeq}"
             }),
             success: function (res) {
                 var czList = {};

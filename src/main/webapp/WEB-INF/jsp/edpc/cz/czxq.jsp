@@ -2291,7 +2291,7 @@
                         dataType: 'json',
                         contentType: 'application/json;charset=UTF-8',
                         data: JSON.stringify({
-                            emgSeq: _regSeq
+                            regSeq: _regSeq
                         }),
                         success: function (res) {
                         	vm.timeList = res.resultInfo.sysdata.czTimeline
@@ -2396,7 +2396,7 @@
                         dataType: 'json',
                         contentType: 'application/json;charset=UTF-8',
                         data: JSON.stringify({
-                            emgSeq: _regSeq,
+                            regSeq: _regSeq,
 	                        czzlInfList: [{
 	                            sysdata: sysdata
 	                        }]
@@ -2546,39 +2546,6 @@
                         }
                     })
                 }
-                <%--    $.ajax({--%>
-                <%--        url: '${baseurl}cz/getAidPatientByEmgSeq.do',--%>
-                <%--        type: 'post',--%>
-                <%--        dataType: 'json',--%>
-                <%--        contentType: 'application/json;charset=UTF-8',--%>
-                <%--        data: JSON.stringify({--%>
-                <%--            emgSeq: _emgSeq--%>
-                <%--        }),--%>
-                <%--        success: function(res) {--%>
-                <%--        	console.log('获取院前病人信息', res);--%>
-                <%--        	var _aidPatientXt = res.resultInfo.sysdata.aidPatientXt;--%>
-                <%--            var _aidPatient = res.resultInfo.sysdata.aidPatient;--%>
-                <%--            var _ynfb = res.resultInfo.sysdata.ynfb;--%>
-                <%--            if (_aidPatient) {--%>
-                <%--                for (var a in vm.aidPatient) {--%>
-                <%--                    if (_aidPatient.hasOwnProperty(a)) {--%>
-                <%--                        vm.aidPatient[a] = _aidPatient[a];--%>
-                <%--                    }--%>
-                <%--                }--%>
-                <%--            }--%>
-                <%--            if (_aidPatientXt) {--%>
-                <%--                for (var a in vm.aidPatientXt) {--%>
-                <%--                    if (_aidPatientXt.hasOwnProperty(a)) {--%>
-                <%--                        vm.aidPatientXt[a] = _aidPatientXt[a];--%>
-                <%--                        if (a == 'ddfs' && _aidPatientXt[a] == 1) {--%>
-                <%--                            vm.aidPatientXt.ccdw = 1;--%>
-                <%--                        }--%>
-                <%--                    }--%>
-                <%--                }--%>
-                <%--            }--%>
-                <%--        }--%>
-                <%--    });--%>
-                <%--}--%>
               
              // 检验检查
                 function getXtInspection() {

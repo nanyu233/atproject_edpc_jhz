@@ -254,11 +254,11 @@ public class CzAction {
 	@RequestMapping("/getCzInfo")
 	@ResponseBody
 	public SubmitResultInfo getCzInfo(@RequestBody(required=false) Map<String,Object> map){
-		String emgSeq = "";
+		String regSeq = "";
 		if(map!=null){
-			emgSeq = (String) map.get("emgSeq");
+			regSeq = (String) map.get("regSeq");
 		}
-		ResultInfo resultInfo = czService.getCzPatientDetail(emgSeq);
+		ResultInfo resultInfo = czService.getCzPatientDetail(regSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
@@ -294,8 +294,8 @@ public class CzAction {
 	 */
 	@RequestMapping("/queryCzTimeline")
 	@ResponseBody
-	public SubmitResultInfo queryCzTimeline(@RequestParam(required=true)String emgSeq){
-		ResultInfo resultInfo = czService.getCzTimeline(emgSeq);
+	public SubmitResultInfo queryCzTimeline(@RequestParam(required=true)String regSeq){
+		ResultInfo resultInfo = czService.getCzTimeline(regSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
@@ -306,8 +306,8 @@ public class CzAction {
 	@RequestMapping("/queryCzTimelineother")
 	@ResponseBody
 	public SubmitResultInfo queryCzTimeline(@RequestBody Map<String,Object> params){
-		String emgSeq = params.get("emgSeq").toString();
-		ResultInfo resultInfo = czService.getCzTimeline(emgSeq);
+		String regSeq = params.get("regSeq").toString();
+		ResultInfo resultInfo = czService.getCzTimeline(regSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 

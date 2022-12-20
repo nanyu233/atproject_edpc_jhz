@@ -37,7 +37,7 @@ public interface CzService {
 	
 	public ResultInfo getCzReportHelperData(String emgSeq);
 	
-	public ResultInfo getCzTimeline(String emgSeq);
+	public ResultInfo getCzTimeline(String regSeq);
 
 //	public DataGridResultInfo getCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto,int page,int rows);
 
@@ -52,7 +52,7 @@ public interface CzService {
 	
 	public ResultInfo getCzhcbInfoByEmgSeq(String emgSeq);
 	
-	public ResultInfo getCzPatientDetail(String emgSeq);
+	public ResultInfo getCzPatientDetail(String regSeq);
 
 	public ResultInfo czPatietBasicInfSubmit(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser);
 	

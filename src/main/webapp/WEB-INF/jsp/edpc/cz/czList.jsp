@@ -187,8 +187,8 @@
                     createmodalwindow("新增院内/绕行发病患者", 430, 300, '${baseurl}cz/toadd.do', 'no');
                 }
 
-                function toCzTimeline(emgSeq, cstNam, wayTyp, regSeq) {
-                    var url = 'cz/toCzTimeline.do?emgSeq=' + emgSeq + '&wayTyp=' + wayTyp + '&regSeq=' + regSeq;
+                function toCzTimeline(emgSeq, cstNam, regSeq) {
+                    var url = 'cz/toCzTimeline.do?emgSeq=' + emgSeq + '&cstNam=' + cstNam + '&regSeq=' + regSeq;
                     if (cstNam == 'null') {
                         cstNam = "";
                     }

@@ -13,7 +13,8 @@ public class HspCzzlInfCustom extends HspCzzlInf{
 	private String proUnit;
 	
 	private String keyTime;
-	
+
+	private String regSeq;
 
 	public String getKeyTime() {
 		return keyTime;
@@ -54,7 +55,12 @@ public class HspCzzlInfCustom extends HspCzzlInf{
 	public void setProName(String proName) {
 		this.proName = proName;
 	}
-	
-	
 
+	public String getRegSeq() {
+		return regSeq;
+	}
+
+	public void setRegSeq(String regSeq) {
+		this.regSeq = regSeq;
+	}
 }

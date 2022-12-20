@@ -18,7 +18,7 @@ public interface HspCzzlInfMapperCustom {
     
     List<HspemginfCustom> getCzPatientInfoList(QueryDto queryDto);
     
-    List<HspCzzlInfCustom> getCzTimeline(String emgSeq);
+    List<HspCzzlInfCustom> getCzTimeline(String regSeq);
 
 //    Integer countCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto);
 
