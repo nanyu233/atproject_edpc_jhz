@@ -1,58 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="activetech.edpc.dao.mapper.HspFuvPlnMapperCustom" >
-
-  <sql id="condition">
-    <where>
-       <if test="hspFuvPlnCustom!=null">
-       		<if test="hspFuvPlnCustom.plnSeq!=null">
-            	and a.pln_seq = #{hspFuvPlnCustom.plnSeq}
+<mapper namespace="activetech.edpc.dao.mapper.HspFuvPlnMapperCustom">
+    <sql id="condition">
+        <where>
+            <if test="hspFuvPlnCustom != null">
+                <if test="hspFuvPlnCustom.plnSeq != null">
+                    and a.pln_seq = #{hspFuvPlnCustom.plnSeq}
+                </if>
+            <if test="hspFuvPlnCustom.patId != null">
+                and a.pat_id = #{hspFuvPlnCustom.patId}
             </if>
-            <if test="hspFuvPlnCustom.patId!=null">
-            	and a.pat_id = #{hspFuvPlnCustom.patId}
-            </if>
-            <if test="hspFuvPlnCustom.patNam!=null">
+            <if test="hspFuvPlnCustom.patNam != null">
                 and b.pat_nam like '%' || #{hspFuvPlnCustom.patNam,jdbcType=VARCHAR} || '%'
-            </if>          
+            </if>
+            </if>
+        <if test="startDate != null and startDate != ''">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')
         </if>
-        <if test="startDate != null and startDate != '' ">            	
-           	and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[>=]]> to_char(#{startDate},'YYYY/MM/dd')	
-		</if>
-		<if test="endDate != null and endDate != '' ">				
-           	and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')	
-		</if>		
-    </where>
-  </sql>
+		<if test="endDate != null and endDate != ''">
+            and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<=]]> to_char(#{endDate},'YYYY/MM/dd')
+        </if>
+        </where>
+    </sql>
   <sql id="Base_Column_With_Translate_List">
-	 a.pln_seq,     
-     a.pat_id,     
-     a.pln_sta, 
-     (select info from dstdictinfo where typecode = 'PLN_STA' and infocode = a.pln_sta) plnStaStr,    
-     a.lst_fuv_tim, 
-     a.pln_fuv_tim, 
-     a.fuv_alm_tim, 
-     a.alm_usr_no, 
-     a.alm_usr_nme,
-     a.alm_red_flg, 
-     a.alm_red_tim,
-     a.crt_usr_no,  
-     a.crt_usr_nme, 
-     a.crt_tim,
-     a.pln_fuv_typ,
-     b.pat_nam,
-     c.fuv_tim,
-     c.fuv_seq
+      a.pln_seq,
+      a.pat_id,
+      a.pln_sta,
+      (select info from dstdictinfo where typecode = 'PLN_STA' and infocode = a.pln_sta) plnStaStr,
+      a.lst_fuv_tim,
+      a.pln_fuv_tim,
+      a.fuv_alm_tim,
+      a.alm_usr_no,
+      a.alm_usr_nme,
+      a.alm_red_flg,
+      a.alm_red_tim,
+      a.crt_usr_no,
+      a.crt_usr_nme,
+      a.crt_tim,
+      a.pln_fuv_typ,
+      -- b.pat_nam,
+      c.fuv_tim,
+      c.fuv_seq
   </sql>
-  <select id="countByCondition" resultType="java.lang.Integer" parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto">
-        select count(*)
+  <select id="countByCondition" resultType="java.lang.Integer"
+          parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto">
+      select count(*)
           from hsp_fuv_pln a
           left join hsp_fuv_pat b on a.pat_id=b.pat_id
           left join hsp_fuv_inf c on a.pln_seq=c.pln_seq
         <include refid="condition"/>
   </select>
   
-  <select id="selectByCondition" resultType="activetech.edpc.pojo.dto.HspFuvPlnCustom" parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto" >
-    <include refid="activetech.base.CommonSql.page_start"/>
+  <select id="selectByCondition" resultType="activetech.edpc.pojo.dto.HspFuvPlnCustom"
+          parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto">
+      <include refid="activetech.base.CommonSql.page_start"/>
       select <include refid="Base_Column_With_Translate_List"/>
         from hsp_fuv_pln a
         left join hsp_fuv_pat b on a.pat_id=b.pat_id
@@ -62,7 +63,8 @@
     <include refid="activetech.base.CommonSql.page_end"/>
   </select>
   
-  <select id="selectOneByCondition" resultType="activetech.edpc.pojo.dto.HspFuvPlnCustom" parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto" >
+  <select id="selectOneByCondition" resultType="activetech.edpc.pojo.dto.HspFuvPlnCustom"
+          parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto">
       select <include refid="Base_Column_With_Translate_List"/>
         from hsp_fuv_pln a
         left join hsp_fuv_pat b on a.pat_id=b.pat_id
@@ -70,19 +72,21 @@
     <include refid="condition"/>
   </select>
 
-  <select id="checkUnFinishPln" resultType="java.lang.Integer" parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto" >
+  <select id="checkUnFinishPln" resultType="java.lang.Integer"
+          parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto">
       select count(*)
         from hsp_fuv_pln a
         <where>
-  				and a.pat_id = #{hspFuvPlnCustom.patId}
+            and a.pat_id = #{hspFuvPlnCustom.patId}
            		and a.pln_sta != '3' 
   				and a.pln_sta != '9'
         	<if test="endDate != null and endDate != ''">
-  				and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<]]> to_char(#{endDate},'YYYY/MM/dd')
-        	</if>
+                and to_char(a.pln_fuv_tim,'YYYY/MM/dd') <![CDATA[<]]> to_char(#{endDate},'YYYY/MM/dd')
+            </if>
         </where>
   </select>
-    <select id="selectReminderDue" resultType="activetech.edpc.pojo.dto.HspFuvPlnCustom"  parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto" >
+    <select id="selectReminderDue" resultType="activetech.edpc.pojo.dto.HspFuvPlnCustom"
+            parameterType="activetech.edpc.pojo.dto.HspFuvPlnQueryDto">
         select a.PLN_SEQ,
                a.PLN_FUV_TIM,
                a.CRT_USR_NO,
@@ -102,5 +106,4 @@
             and trunc(a.PLN_FUV_TIM+#{expireTim}, 'dd') = trunc(sysdate, 'dd')
         </if>
     </select>
-  
 </mapper>
