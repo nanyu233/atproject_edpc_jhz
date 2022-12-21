@@ -27,23 +27,23 @@
         }
 
         .form_item .row {
-            margin: 10px 0 10px 3%;
+            margin: 5px 0 5px 0;
         }
 
         .row label {
             display: inline-block;
-            width: 90px;
+            /* width: 90px; */
             text-align: right;
             margin-left: 10px;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .row input,
         .row select {
-            height: 34px;
+            height: 24px;
             padding: 3px 3px;
-            font-size: 14px;
-            line-height: 1.428571429;
+            font-size: 12px;
+            line-height: 24px;
             color: #555;
             vertical-align: middle;
             background-color: #fff;
@@ -53,15 +53,18 @@
         }
 
         .row .search-btn {
-            width: 140px;
-            font-size: 14px;
+						cursor: pointer;
+						width: 80px;
+            font-size: 12px;
             border-radius: 5px;
             color: #fff;
             background-color: #428bca;
             border-color: #357ebd;
-            height: 32px;
+            height: 24px;
             text-align: center;
-            line-height: 26px;
+            line-height: 24px;
+						vertical-align: middle;
+						margin-left: 10%;
         }
 
         table .btn {
@@ -115,9 +118,9 @@
     <div class="form_item">
         <div class="row">
             <label>登记时间：</label>
-            <input type="input" style="width: 37%;" class="input-date Wdate" ref="startdate"
+            <input type="input" style="width: 30%;" class="input-date Wdate" ref="startdate"
                    onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" v-model="queryParams.startdate"/>-
-            <input type="input" style="width: 37%;" class="input-date Wdate" ref="enddate"
+            <input type="input" style="width: 30%;" class="input-date Wdate" ref="enddate"
                    onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" v-model="queryParams.enddate"/>
         </div>
         <div class="row">
@@ -130,7 +133,8 @@
             <input type="text" style="width: 60%" placeholder="请输入就诊卡号" v-else v-model="queryParams.vstCad">
         </div>
         <div class="row">
-            <input type="button" class="search-btn" @click="search" value="查询" style="cursor: pointer">
+					<div class="search-btn" @click="search()">查询</div>
+            <!-- <input type="button" class="search-btn" @click="search" value="查询" style="cursor: pointer"> -->
         </div>
     </div>
     <table id="dg"></table>
@@ -166,12 +170,12 @@
                     {
                         field: 'cstNam',
                         title: '姓名',
-                        width: this.setWidth(0.1)
+                        width: this.setWidth(0.08)
                     },
                     {
                         field: 'cstSexCod',
                         title: '性别',
-                        width: this.setWidth(0.11),
+                        width: this.setWidth(0.03),
                         formatter: function (value, row, index) {
                             if (value == 0) {
                                 return '男'
@@ -183,7 +187,7 @@
                     {
                         field: 'cstAge',
                         title: '年龄',
-                        width: this.setWidth(0.1),
+                        width: this.setWidth(0.03),
                         formatter: function (value, row, index) {
                             return value == null ? '-' : value + '岁';
                         }
@@ -231,7 +235,7 @@
                     }, {
                         field: 'chkTim',
                         title: '审核时间',
-                        width: this.setWidth(0.06),
+                        width: this.setWidth(0.075),
                         formatter: function (value, row, index) {
                             if (value) {
                                 return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
@@ -241,7 +245,7 @@
                     }, {
                         field: 'chkNam',
                         title: '审核人',
-                        width: this.setWidth(0.04)
+                        width: this.setWidth(0.05)
                     }, {
                         field: 'chkMsg',
                         title: '审核意见',
@@ -284,7 +288,7 @@
                     }, {
                         field: 'dd',
                         title: '操作',
-                        width: this.setWidth(0.18),
+                        width: this.setWidth(0.22),
                         formatter: function (value, row, index) {
                             var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">查看</span>' +
                                 '<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">时间轴</span>' +
@@ -326,12 +330,8 @@
                 }
             },
             setWidth(pct) {
-                var pWidth = $('.form').width();
-                if (pct < 1 && pct >= 0) {
-                    return pWidth * pct;
-                } else {
-                    return undefined;
-                }
+							var pWidth = $('body').width();
+							return Math.round(pct * pWidth);
             }
         }
     })

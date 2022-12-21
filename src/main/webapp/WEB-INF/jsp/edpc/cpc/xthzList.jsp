@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="lib/easyui1.3/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="css/hems/global.css">
 	<link rel="stylesheet" type="text/css" href="css/common/querylist.css" />
+	<link rel="stylesheet" type="text/css" href="${baseurl}lib/easyui1.3/themes/icon.css">
     <script type="text/javascript" src="lib/moment.min.js"></script>
     <script type="text/javascript" src="lib/easyui1.3/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="lib/easyui1.3/jquery.easyui.min.js"></script>
@@ -30,30 +31,30 @@
         }
 
         .form .row {
-            margin: 10px 0;
+            margin: 5px 0;
             /*border: 1px solid red;*/
         }
 
         .form .row .form-item {
-            width: 24%;
+            /* width: 24%; */
             display: inline-block;
             vertical-align: middle;
         }
 
         .form-item label {
-            display: inline-block;
-            width: 90px;
+            /* display: inline-block;
+            width: 90px; */
             text-align: right;
             margin-left: 10px;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .form-item input,
         .form-item select {
-            width: calc(100% - 110px);
-            height: 34px;
+            /* width: calc(100% - 110px); */
+            height: 24px;
             padding: 3px 3px;
-            font-size: 14px;
+            font-size: 12px;
             line-height: 1.428571429;
             color: #555;
             vertical-align: middle;
@@ -75,22 +76,22 @@
             cursor: pointer;
             float: right;
             margin: 0 5px;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .row .search-btn {
             cursor: pointer;
             position: absolute;
-            top: 10px;
-            right: 160px;
-            width: 140px;
+            right: 20px;
+            width: 80px;
             border-radius: 5px;
             color: #fff;
             background-color: #428bca;
             border-color: #357ebd;
-            height: 32px;
+            height: 24px;
             text-align: center;
-            line-height: 32px;
+            line-height: 24px;
+						font-size: 12px;
         }
         .row .add-btn {
             cursor: pointer;
@@ -155,9 +156,7 @@
 
 <div class="form">
     <div class="row">
-        <div class="search-btn" onclick="batchChkConf()" style="right: 310px">批量复核</div>
         <div class="search-btn" onclick="search()">查询</div>
-        <div class="add-btn" onclick="addNewPatient()">新增患者</div>
     </div>
     <div class="row">
         <div class="form-item">
@@ -171,48 +170,39 @@
                 <option ms-repeat="cbzdArr" ms-attr-value="el.infocode">{{el.info}}</option>
             </select>
         </div>
-        <div class="form-item">
-            <div class="btn-group">
-                <div class="btn Search" ms-click="radioClick('advSearch')" ms-class="{{advSearch ? 'active' : ''}}">高级查询</div>
-<%--                <div class="btn">疑问病历</div>--%>
-            </div>
-        </div>
+					<div class="form-item">
+							<label>来院方式</label>
+							<select name="" ms-duplex="condition.ddfs" data-duplex-changed="selectchange">
+									<option value="">请选择</option>
+									<option ms-repeat="ddfsArr" ms-attr-value="el.infocode">{{el.info}}</option>
+							</select>
+					</div>
+					<div class="form-item">
+							<label>出车单位</label>
+							<select name="" ms-duplex="condition.ccdw" data-duplex-changed="selectchange">
+									<option value="">请选择</option>
+									<option ms-repeat="ccdwArr" ms-attr-value="el.infocode">{{el.info}}</option>
+							</select>
+					</div>
+					<div class="form-item">
+							<label>溶栓地点</label>
+							<select name="" ms-duplex="condition.yqrscs" data-duplex-changed="selectchange">
+									<option value="">请选择</option>
+									<option ms-repeat="yqrscsArr" ms-attr-value="el.infocode">{{el.info}}</option>
+							</select>
+					</div>
+					<div class="form-item">
+							<label>开始时间</label>
+							<input type="text" class="input-date Wdate" ms-duplex-string="condition.startDate"
+										 onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})" placeholder="请输入开始时间"/>
+					</div>
+					<div class="form-item">
+							<label>结束时间</label>
+							<input type="text" class="input-date Wdate" ms-duplex-string="condition.endDate"
+										 onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})" placeholder="请输入结束时间"/>
+					</div>
     </div>
-    <div ms-if="advSearch" class="row">
-        <div class="form-item">
-            <label>来院方式</label>
-            <select name="" ms-duplex="condition.ddfs" data-duplex-changed="selectchange">
-                <option value="">请选择</option>
-                <option ms-repeat="ddfsArr" ms-attr-value="el.infocode">{{el.info}}</option>
-            </select>
-        </div>
-        <div class="form-item">
-            <label>出车单位</label>
-            <select name="" ms-duplex="condition.ccdw" data-duplex-changed="selectchange">
-                <option value="">请选择</option>
-                <option ms-repeat="ccdwArr" ms-attr-value="el.infocode">{{el.info}}</option>
-            </select>
-        </div>
-        <div class="form-item">
-            <label>溶栓地点</label>
-            <select name="" ms-duplex="condition.yqrscs" data-duplex-changed="selectchange">
-                <option value="">请选择</option>
-                <option ms-repeat="yqrscsArr" ms-attr-value="el.infocode">{{el.info}}</option>
-            </select>
-        </div>
-    </div>
-    <div ms-if="advSearch" class="row">
-        <div class="form-item">
-            <label>开始时间</label>
-            <input type="text" class="input-date Wdate" ms-duplex-string="condition.startDate"
-                   onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})" placeholder="请输入开始时间"/>
-        </div>
-        <div class="form-item">
-            <label>结束时间</label>
-            <input type="text" class="input-date Wdate" ms-duplex-string="condition.endDate"
-                   onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})" placeholder="请输入结束时间"/>
-        </div>
-    </div>
+   
 </div>
 <table id="dg"></table>
 </body>
@@ -277,12 +267,8 @@
     //设置表格的列宽
     //pct --- 百分比（取小于1的小数）
     function setWidth(pct) {
-        var pWidth = $('.form').width();
-        if (pct < 1 && pct >= 0) {
-            return pWidth * pct;
-        } else {
-            return undefined;
-        }
+        var pWidth = $('body').width();
+				return Math.round(pct * pWidth);
     }
 
     function toDetail(emgSeq,cstNam,wayTyp,regSeq) {
@@ -399,7 +385,24 @@
             )
         });
     }
-
+		var toolbars = [
+    		{
+    		  id: 'examine',
+    		  text: '批量复核',
+    		  iconCls: 'icon-ok',
+    		  handler: function(){
+    		    batchChkConf()
+    		  }
+    		},
+    		{
+    		  id: 'add',
+    		  text: '新增患者',
+    		  iconCls: 'icon-add',
+    		  handler: function(){
+    		    addNewPatient()
+    		  }
+    		}
+		]
     $(function () {
 		if(vm.advSearch==false){
 			h3 = height-56;
@@ -417,6 +420,7 @@
                 'startDate': vm.condition.startDate,
                 'endDate': vm.condition.endDate
             },
+						toolbar:toolbars,
             striped: true,
             singleSelect: false,
             pagination: true,
@@ -445,7 +449,7 @@
 				{
 					field : 'cstNam',	
 					title : '姓名',
-					width : setWidth(0.08)
+					width : setWidth(0.07)
 				},
 				{
 					field : 'cstSexCod',
@@ -471,7 +475,7 @@
 					// field : 'emgDat',
                     field : 'scyljcsj',
 					title : '首次医疗接触',
-					width : setWidth(0.07),
+					width : setWidth(0.075),
 					formatter : function(value, row, index) {
 						return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
 					}
@@ -479,7 +483,7 @@
 				{
 					field : 'fbsj',
 					title : '发病时间',
-					width : setWidth(0.07)
+					width : setWidth(0.08)
 				},
 				{
 					field : 'cbzd',
@@ -492,7 +496,7 @@
                 {
                     field : 'crtTim',
                     title : '建档时间',
-                    width : setWidth(0.07),
+                    width : setWidth(0.075),
                     formatter : function(value, row, index) {
                         return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
                     }
@@ -521,7 +525,7 @@
                 {
                     field : 'chkTim',
                     title : '审核时间',
-                    width : setWidth(0.06),
+                    width : setWidth(0.075),
                     formatter : function(value, row, index) {
                         if(value) {
                             return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
@@ -532,7 +536,7 @@
                 {
                     field : 'chkNam',
                     title : '审核人',
-                    width : setWidth(0.04)
+                    width : setWidth(0.047)
                 },
                 {
                     field : 'chkMsg',
@@ -560,7 +564,7 @@
                 {
                     field : 'smtTim',
                     title : '上报时间',
-                    width : setWidth(0.06),
+                    width : setWidth(0.075),
                     formatter : function(value, row, index) {
                         if(value) {
                             return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
@@ -581,7 +585,7 @@
 				{
 					field : 'dd',
 					title : '操作',
-					width : setWidth(0.14),
+					width : setWidth(0.18),
 					formatter : function(value, row, index) {
                         var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">查看</span>' +
 						'<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>';
