@@ -770,12 +770,30 @@ public class UserServiceImpl implements UserService {
 		criteria.andUserstateEqualTo("1");
 		List<Dstuser> userlist = dstuserMapper.selectByExample(example);
 
-		ActiveUser activeUser = new ActiveUser();
 		if(userlist == null || userlist.size() == 0) {
-			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE,204, null));
+			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE,101, null));
 		}
 
-		Dstuser dstuser = userlist.get(0);
+		return login(userlist.get(0));
+	}
+
+	@Override
+	public ActiveUser loginWeixin(String userid) throws Exception {
+		System.out.println("userid="+userid);
+		DstuserExample example = new DstuserExample();
+		DstuserExample.Criteria criteria = example.createCriteria();
+		criteria.andUseridEqualTo(userid);
+		criteria.andUserstateEqualTo("1");
+		List<Dstuser> userlist = dstuserMapper.selectByExample(example);
+
+		if(userlist == null || userlist.size() == 0) {
+			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE,101, null));
+		}
+		return login(userlist.get(0));
+	}
+
+	private ActiveUser login(Dstuser dstuser) throws Exception {
+		ActiveUser activeUser = new ActiveUser();
 		String usrno = dstuser.getUsrno();
 		List<Dstappoption> list = appoptionService.findAppoptionList();
 		for (Dstappoption dstappoption : list) {
@@ -821,4 +839,5 @@ public class UserServiceImpl implements UserService {
 		activeUser.setOperationList(operations);//将用户操作权限存入用户身份对象中
 		return activeUser;
 	}
+
 }

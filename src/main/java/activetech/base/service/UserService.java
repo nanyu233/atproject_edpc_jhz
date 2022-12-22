@@ -1,17 +1,11 @@
 package activetech.base.service;
 
-import java.util.List;
-
 import activetech.base.pojo.domain.Dstrole;
 import activetech.base.pojo.domain.Dstuser;
-import activetech.base.pojo.dto.ActiveUser;
-import activetech.base.pojo.dto.DstroleCustom;
-import activetech.base.pojo.dto.DstuserCustom;
-import activetech.base.pojo.dto.DstuserQueryDto;
-import activetech.base.pojo.dto.DstuserroleCustom;
-import activetech.base.pojo.dto.Menu;
-import activetech.base.pojo.dto.Operation;
+import activetech.base.pojo.dto.*;
 import activetech.base.process.result.ExceptionResultInfo;
+
+import java.util.List;
 /**
  * 
  * <p>Title:UserService</p>
@@ -225,4 +219,5 @@ public interface UserService {
 
 	ActiveUser loginDing(String unionid, String userid) throws Exception;
 
+    ActiveUser loginWeixin(String userid) throws Exception;
 }

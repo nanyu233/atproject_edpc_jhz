@@ -8,6 +8,7 @@ import activetech.base.process.result.SubmitResultInfo;
 import activetech.base.service.SystemConfigService;
 import activetech.base.service.UserService;
 import activetech.base.util.DingTalkUtil;
+import activetech.base.util.WeixinqyUtil;
 import com.dingtalk.api.response.OapiSnsGetuserinfoBycodeResponse;
 import com.dingtalk.api.response.OapiV2UserGetuserinfoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,6 +108,20 @@ public class LoginAction {
 	}
 
 
+	@RequestMapping("/loginWinxinSns")
+	//	@ResponseBody
+	public
+//	SubmitResultInfo
+	String
+	loginWinxinSns(HttpSession session, String code, String state, String appid, ActiveUser activeUser) throws Exception{
+		System.out.println("code="+code);
+		String accessToken = WeixinqyUtil.getAccessToken();
+		String userid = WeixinqyUtil.getuserinfo(accessToken, code);
+		activeUser = userService.loginWeixin(userid);
+		activeUser.setHospitalCategory("1");
+		session.setAttribute(Config.ACTIVEUSER_KEY, activeUser);
+		return View.toBase("/login/dinglogintmp");
+	}
 
 	/**
 	 * 登出交易

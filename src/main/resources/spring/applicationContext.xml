@@ -31,6 +31,10 @@
     <bean class="activetech.base.config.DingTalkConfig"  id="DingTalkConfig" />
     <bean class="activetech.base.util.DingTalkUtil"  id="DingTalkUtil" />
 
+<!--    微信-->
+<bean id="WeixinConfig" class="activetech.base.config.WeixinConfig"></bean>
+<bean id="WeixinUtil" class="activetech.base.util.WeixinqyUtil"></bean>
+
     <!-- 试用下hikari 连接池，据说是java速度最快的数据库连接池 -->
 <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
     <property name="driverClassName" value="${jdbc.driver}" />
