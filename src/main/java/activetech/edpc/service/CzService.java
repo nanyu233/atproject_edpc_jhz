@@ -8,7 +8,7 @@ import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspBase64Pic;
-import activetech.edpc.pojo.domain.HspCzzlInf;
+import activetech.edpc.pojo.domain.HspZlInf;
 import activetech.edpc.pojo.dto.*;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +27,7 @@ public interface CzService {
 	 */
 	public ResultInfo getCzNodeInfoByEmgSeq(String emgSeq,String nodeId);
 	
-	public List<HspCzzlInf> getCzNodeInfoByEmgSeqProCode(String emgSeq,List<String> paramList);
+	public List<HspZlInf> getCzNodeInfoByEmgSeqProCode(String emgSeq,List<String> paramList);
 	
 	public ResultInfo getRsInf(String emgSeq);
 	
@@ -39,7 +39,7 @@ public interface CzService {
 	
 	public ResultInfo getCzTimeline(String regSeq);
 
-//	public DataGridResultInfo getCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto,int page,int rows);
+//	public DataGridResultInfo getCzPatientList(HspZlInfQueryDto hspZlInfQueryDto,int page,int rows);
 
 	/**
 	 * 查询hspDbzlBas的卒中患者列表
@@ -56,7 +56,7 @@ public interface CzService {
 
 	public ResultInfo czPatietBasicInfSubmit(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser);
 	
-	public ResultInfo czPatientSubmit(List<HspCzzlInfCustom> czzlInfList,String emgSeq,ActiveUser activeUser);
+	public ResultInfo czPatientSubmit(List<HspZlInfCustom> czzlInfList,String emgSeq,ActiveUser activeUser);
 	
 	public Map<Integer,String> getYljgczzlqkdcb(HspemginfQueryDto hspemginfQueryDto);
 

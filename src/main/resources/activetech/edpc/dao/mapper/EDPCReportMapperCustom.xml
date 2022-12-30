@@ -33,7 +33,7 @@
 	                                                   to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM')) + 1) d
 	                  where d.yarmon = c.yarmon(+)) a,
 	                (select emg_no, count(*) cou
-	                   from hsp_czzl_inf
+	                   from hsp_zl_inf
 	                  where pro_code in ('NIHSSPF01', 'NIHSSPF02')
 	                  group by emg_no) b
 	          where a.emg_seq = b.emg_no(+))
@@ -55,15 +55,15 @@
 		  from (select b.emg_seq,
 					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-						from hsp_czzl_inf
+						from hsp_zl_inf
 						where emg_no = a.emg_no
 						  and pro_code = 'KSCCSJ') flowtime1,
 					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-						from hsp_czzl_inf
+						from hsp_zl_inf
 						where emg_no = a.emg_no
 						  and pro_code = 'DYSJ') flowtime2
 				from (select emg_no
-					  from hsp_czzl_inf
+					  from hsp_zl_inf
 					  where pro_code = 'ISQS'
 						and pro_val = '0') a,
 					 hsp_dbzl_bas b
@@ -96,14 +96,14 @@
 		  from (select b.emg_seq,
 					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-						from hsp_czzl_inf
+						from hsp_zl_inf
 						where emg_no = a.emg_no
 						  and pro_code = 'TLYXSJ') flowtime1,
 					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-						from hsp_czzl_inf
+						from hsp_zl_inf
 						where emg_no = a.emg_no
 						  and pro_code = 'DYSJ') flowtime2
-				from (select emg_no from hsp_czzl_inf where pro_code = 'TLYXSJ') a,
+				from (select emg_no from hsp_zl_inf where pro_code = 'TLYXSJ') a,
 					 hsp_dbzl_bas b
 				where a.emg_no = b.emg_seq
 				  and b.pat_typ = '2') c,
@@ -142,15 +142,15 @@
 		                                     from hsp_emg_inf
 		                                    where emg_seq = a.emg_no)) fbsj,
 		                  (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		                     from hsp_czzl_inf
+		                     from hsp_zl_inf
 		                    where emg_no = a.emg_no
 		                      and pro_code = 'RSZLKSSJ') rszlkssj,
 		                  (select pro_val
-		                     from hsp_czzl_inf
+		                     from hsp_zl_inf
 		                    where emg_no = a.emg_no
 		                      and pro_code = 'YWXZ') rsYwXz
 		             from (select emg_no
-		                     from hsp_czzl_inf
+		                     from hsp_zl_inf
 		                    where pro_code = 'CBZD'
 		                      and pro_val = '02') a,
 		                  hsp_emg_inf b
@@ -189,11 +189,11 @@
 		                                     from hsp_emg_inf
 		                                    where emg_seq = a.emg_no)) fbsj,
 		                  (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		                     from hsp_czzl_inf
+		                     from hsp_zl_inf
 		                    where emg_no = a.emg_no
 		                      and pro_code = 'RSZLKSSJ') rszlkssj
 		             from (select emg_no
-		                     from hsp_czzl_inf
+		                     from hsp_zl_inf
 		                    where pro_code = 'YXXZDJG'
 		                      and pro_val = '0') a,
 		                  hsp_emg_inf b
@@ -223,7 +223,7 @@
 		         t.crt_user,
 		         t.mod_time,
 		         t.mod_user
-		  FROM hsp_xtzl_inf t, hsp_dbzl_bas d
+		  FROM hsp_zl_inf t, hsp_dbzl_bas d
 		  WHERE t.emg_no = d.emg_seq
 			and d.pat_typ = '1'
 			and t.pro_code = 'CBZD')
@@ -275,7 +275,7 @@
 		                                     t.crt_user,
 		                                     t.mod_time,
 		                                     t.mod_user
-		                                from hsp_xtzl_inf t
+		                                from hsp_zl_inf t
 		                               where t.pro_code = 'CBZD')
 		                 select m.month yarmon,
 		                        d.info,
@@ -326,7 +326,7 @@
 			         t.crt_user,
 			         t.mod_time,
 			         t.mod_user
-				FROM hsp_xtzl_inf t, hsp_dbzl_bas d
+				FROM hsp_zl_inf t, hsp_dbzl_bas d
 				WHERE t.emg_no = d.emg_seq
 				and d.pat_typ = '1'
 				and t.pro_code = 'CBZD')
@@ -456,11 +456,11 @@
 						with temp as
 				 (select emg.emg_seq,
 				         (select pro_val
-				            from hsp_cszl_inf
+				            from hsp_zl_inf
 				           where pro_code = 'DYSJ'
 				             and emg_no = emg.emg_seq) dysj,
 				         (select pro_val
-				            from hsp_cszl_inf
+				            from hsp_zl_inf
 				           where pro_code = 'LCSJ'
 				             and emg_no = emg.emg_seq) lcsj,
 				         to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -487,11 +487,11 @@
 		with temp as
 		 (select emg.emg_seq,
 		         (select pro_val
-		            from hsp_cszl_inf
+		            from hsp_zl_inf
 		           where pro_code = 'YJSJ'
 		             and emg_no = emg.emg_seq) yjsj,
 		         (select pro_val
-		            from hsp_cszl_inf
+		            from hsp_zl_inf
 		           where pro_code = 'LYFS'
 		             and emg_no = emg.emg_seq) lyfs,
 		         to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -533,11 +533,11 @@
 		with temp as
 				 (select emg.emg_seq,
 				         (select pro_val
-				            from hsp_cszl_inf
+				            from hsp_zl_inf
 				           where pro_code = 'DDJZKSJ'
 				             and emg_no = emg.emg_seq) DDJZKSJ,
 				         (select pro_val
-				            from hsp_cszl_inf
+				            from hsp_zl_inf
 				           where pro_code = 'JZSJ'
 				             and emg_no = emg.emg_seq) JZSJ,
 				         to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -624,16 +624,16 @@
 		  from (select b.emg_seq,
 		               to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 		               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		                  from hsp_xtzl_inf
+		                  from hsp_zl_inf
 		                 where emg_no = a.emg_no
 		                   and pro_code = #{endProCode,jdbcType = VARCHAR}) flowtime1,
 		               		(select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-				                from hsp_xtzl_inf
+				                from hsp_zl_inf
 				                where emg_no = a.emg_no
 				                and pro_code = #{startProCode,jdbcType = VARCHAR} )
 		                   flowtime2
 		          from (select emg_no
-		                  from hsp_xtzl_inf
+		                  from hsp_zl_inf
 		                 where pro_code in (#{endProCode,jdbcType = VARCHAR}, #{startProCode,jdbcType = VARCHAR})
 		                 
 		                 <choose>
@@ -645,7 +645,7 @@
 		                 	<otherwise>
 		                 		and emg_no in(
 			                   		select emg_no 
-					                  from hsp_xtzl_inf
+					                  from hsp_zl_inf
 					                 where pro_code = 'CBZD'
 					                   and pro_val = '1'
 			                   )
@@ -704,21 +704,21 @@
 					   to_char(f.reg_tim, 'YYYY/MM') crtyarmon,
 					   flowtime1,
 					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-						from hsp_xtzl_inf
+						from hsp_zl_inf
 						where emg_no = f.emg_seq
 						  and pro_code = 'SCYLJCSJ') flowtime2
 				from (select emg_seq, (min(dstgsj) + 0) as flowtime1
 					  from hsp_crivel_inf
 					  where exists (select 1
-									from hsp_xtzl_inf
+									from hsp_zl_inf
 									where pro_code = 'CBZD'
 									  and pro_val = '1'
-									  and emg_seq = hsp_xtzl_inf.emg_no)
+									  and emg_seq = hsp_zl_inf.emg_no)
 						and exists (select 1
-									from hsp_xtzl_inf
+									from hsp_zl_inf
 									where pro_code = 'ZGZCS'
 									  and pro_val = '1'
-									  and emg_seq = hsp_xtzl_inf.emg_no)
+									  and emg_seq = hsp_zl_inf.emg_no)
 					  group by emg_seq) e,
 					 hsp_dbzl_bas f
 				where e.emg_seq = f.emg_seq
@@ -763,7 +763,7 @@
 		                 where file_date is not null
 		                   and file_dia_date is not null
 		                   and exists(select 1 
-		                                from hsp_xtzl_inf 
+		                                from hsp_zl_inf 
 		                               where emg_no = hsp_ecg_inf.ref_id
 		                                 and pro_code = 'CBZD'
 		                                 and pro_val = '1')	
@@ -813,7 +813,7 @@
 						  where rn = 1) b,
 						 (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS') scyljc,
 								 emg_no
-						  FROM hsp_xtzl_inf
+						  FROM hsp_zl_inf
 						  WHERE pro_code = 'SCYLJCSJ') c
 					where a.emg_seq = b.ref_id
 					  and a.emg_seq = c.emg_no)) c,
@@ -850,39 +850,39 @@
 					from (select emg_seq,
 								 to_char(reg_tim, 'YYYY/MM') crtyarmon,
 								 (select pro_val
-								  from hsp_xtzl_inf
-								  where hsp_xtzl_inf.pro_code = 'DYFS'
-									and hsp_xtzl_inf.emg_no = emg_seq) dyfs,
+								  from hsp_zl_inf
+								  where hsp_zl_inf.pro_code = 'DYFS'
+									and hsp_zl_inf.emg_no = emg_seq) dyfs,
 								 (select pro_val
-								  from hsp_xtzl_inf
-								  where hsp_xtzl_inf.pro_code = 'DDYYDMSJ01'
-									and hsp_xtzl_inf.emg_no = emg_seq) DDYYDMSJ01,
+								  from hsp_zl_inf
+								  where hsp_zl_inf.pro_code = 'DDYYDMSJ01'
+									and hsp_zl_inf.emg_no = emg_seq) DDYYDMSJ01,
 								 (select pro_val
-								  from hsp_xtzl_inf
-								  where hsp_xtzl_inf.pro_code = 'DDYYDMSJ02'
-									and hsp_xtzl_inf.emg_no = emg_seq) DDYYDMSJ02,
+								  from hsp_zl_inf
+								  where hsp_zl_inf.pro_code = 'DDYYDMSJ02'
+									and hsp_zl_inf.emg_no = emg_seq) DDYYDMSJ02,
 								 (select pro_val
-								  from hsp_xtzl_inf
-								  where hsp_xtzl_inf.pro_code = 'DDYYDMSJ03'
-									and hsp_xtzl_inf.emg_no = emg_seq) DDYYDMSJ03,
+								  from hsp_zl_inf
+								  where hsp_zl_inf.pro_code = 'DDYYDMSJ03'
+									and hsp_zl_inf.emg_no = emg_seq) DDYYDMSJ03,
 								 (select pro_val
-								  from hsp_xtzl_inf
-								  where hsp_xtzl_inf.pro_code = 'SCYLJCSJ'
-									and hsp_xtzl_inf.emg_no = emg_seq) scyljcsj
+								  from hsp_zl_inf
+								  where hsp_zl_inf.pro_code = 'SCYLJCSJ'
+									and hsp_zl_inf.emg_no = emg_seq) scyljcsj
 						  from hsp_dbzl_bas
 						  where pat_typ = '1') temp) a,
 				   (select emg_seq, (min(dstgsj) + 0) as flowtime1
 					from hsp_crivel_inf
 					where exists (select 1
-								  from hsp_xtzl_inf
+								  from hsp_zl_inf
 								  where pro_code = 'CBZD'
 									and pro_val = '1'
-									and emg_seq = hsp_xtzl_inf.emg_no)
+									and emg_seq = hsp_zl_inf.emg_no)
 					  and exists (select 1
-								  from hsp_xtzl_inf
+								  from hsp_zl_inf
 								  where pro_code = 'ZGZCS'
 									and pro_val = '1'
-									and emg_seq = hsp_xtzl_inf.emg_no)
+									and emg_seq = hsp_zl_inf.emg_no)
 					group by emg_seq) b
 			  where a.emg_seq = b.emg_seq) c,
 			 (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),
@@ -907,17 +907,17 @@
 		  from (select b.emg_seq,
 		               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
 		               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		                  from hsp_xtzl_inf
+		                  from hsp_zl_inf
 		                 where emg_no = a.emg_no
 		                   and pro_code = #{endProCode,jdbcType = VARCHAR}) flowtime1,
 		                   
                		   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		                  from hsp_xtzl_inf
+		                  from hsp_zl_inf
 		                 where emg_no = a.emg_no
 		                   and pro_code = #{startProCode,jdbcType = VARCHAR} ) flowtime2
 		                   
 		          from (select emg_no
-		                  from hsp_xtzl_inf
+		                  from hsp_zl_inf
 		                 where pro_code in(#{startProCode,jdbcType = VARCHAR}, #{endProCode,jdbcType = VARCHAR})
 		                 group by emg_no
 		                 having count(*) = 2
@@ -953,11 +953,11 @@
 		     from (select b.emg_seq,
 						  to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
 						  (select pro_val
-						   FROM hsp_xtzl_inf
+						   FROM hsp_zl_inf
 						   WHERE emg_no = a.emg_no
 							 and pro_code = 'HZZG')     zg
 				   FROM (select emg_no
-						 FROM hsp_xtzl_inf
+						 FROM hsp_zl_inf
 						 WHERE pro_code = 'CBZD'
 						   and pro_val = '1') a,
 						HSP_DBZL_BAS b
@@ -985,11 +985,11 @@
 		     from (select b.emg_seq,
 						  to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
 						  (select pro_val
-						   FROM hsp_xtzl_inf
+						   FROM hsp_zl_inf
 						   WHERE emg_no = a.emg_no
 							 and pro_code = 'TTZL')     tatin
 				   FROM (select emg_no
-						 FROM hsp_xtzl_inf
+						 FROM hsp_zl_inf
 						 WHERE pro_code = 'CBZD'
 						   and pro_val in ('1', '2', '3')) a,
 						HSP_DBZL_BAS b
@@ -1015,17 +1015,17 @@
 		     from ( select b.emg_seq,
 			               to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 			               (select pro_val
-			                  from hsp_xtzl_inf
+			                  from hsp_zl_inf
 			                 where emg_no = a.emg_no
 			                   and pro_code = 'RXCCU') rxccu
 			          from (
 			                select emg_no
-			                  from hsp_xtzl_inf
+			                  from hsp_zl_inf
 			                 where pro_code = 'CBZD'
 			                   and pro_val = '1'
 			                   and exists (select 1
-			                          from hsp_xtzl_inf
-			                         where emg_no = hsp_xtzl_inf.emg_no
+			                          from hsp_zl_inf
+			                         where emg_no = hsp_zl_inf.emg_no
 			                           and pro_code = 'ZGZCS'
 			                           and pro_val = '1')
 			                ) a,
@@ -1053,23 +1053,23 @@
 			  from (select b.emg_seq,
 						   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 						   (select pro_val
-							from hsp_xtzl_inf
+							from hsp_zl_inf
 							where emg_no = a.emg_no
 							  and pro_code = 'PCISSWCSJ') pcisswcsj
 					from (select emg_no
-						  from hsp_xtzl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'CBZD'
 							and pro_val = '1'
 							and exists (select 1
-										from hsp_xtzl_inf
-										where emg_no = hsp_xtzl_inf.emg_no
+										from hsp_zl_inf
+										where emg_no = hsp_zl_inf.emg_no
 										  and pro_code = 'ZGZCS'
 										  and pro_val = '1')) a,
 						 hsp_dbzl_bas b
 					where a.emg_no = b.emg_seq
 					  and b.pat_typ = '1'
 					  and exists (select 1
-								  from hsp_xtzl_inf
+								  from hsp_zl_inf
 								  where emg_no = b.emg_seq
 									and pro_code = 'DYFS'
 									and pro_val in ('1', '2'))
@@ -1092,19 +1092,19 @@
 		  from (select b.emg_seq,
 					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 					   (select 1
-						from hsp_xtzl_inf
+						from hsp_zl_inf
 						where emg_no = a.emg_no
 						  and pro_code = 'YCXDTCS'
 						  and pro_val = '1') ycxdtcs
 				from (select emg_no
-					  from hsp_xtzl_inf
+					  from hsp_zl_inf
 					  where pro_code = 'CBZD'
 						and pro_val = '1') a,
 					 hsp_dbzl_bas b
 				where a.emg_no = b.emg_seq
 				  and b.pat_typ = '1'
 				  and exists (select 1
-							  from hsp_xtzl_inf
+							  from hsp_zl_inf
 							  where emg_no = b.emg_seq
 								and pro_code = 'DYFS'
 								and pro_val in ('1', '2'))) c,
@@ -1135,17 +1135,17 @@
 					 to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
 					 cast(c.scyljc as date)        scyljc,
 					 (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss') fbsj
-					  FROM HSP_XTZL_INF
+					  FROM HSP_zl_INF
 					  WHERE emg_no = a.emg_no
 						and pro_code = 'FBSJ')     fbsj
 			  FROM (select emg_no
-					FROM hsp_xtzl_inf
+					FROM hsp_zl_inf
 					WHERE pro_code = 'CBZD'
 					  and pro_val = '1') a,
 				   HSP_DBZL_BAS b,
 				   (
 					   select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss') scyljc, emg_no
-					   FROM hsp_xtzl_inf
+					   FROM hsp_zl_inf
 					   WHERE pro_code = 'SCYLJCSJ'
 				   ) c
 			  WHERE a.emg_no = b.emg_seq
@@ -1177,17 +1177,17 @@
 			  from (select b.emg_seq,
 						   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 						   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-							from hsp_xtzl_inf
+							from hsp_zl_inf
 							where emg_no = b.emg_seq
 							  and pro_code = 'YNKSRSSJ') rssj,
 						   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-							from hsp_xtzl_inf
+							from hsp_zl_inf
 							where emg_no = b.emg_seq
 							  and pro_code = 'ZYKSSJ') zykssj
 					from hsp_dbzl_bas b
 					where b.pat_typ = '1'
 					  and exists (select 1
-								  from hsp_xtzl_inf
+								  from hsp_zl_inf
 								  where emg_no = b.emg_seq
 									and pro_code = 'YNKSRSSJ')) c,
 			        (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
@@ -1208,33 +1208,33 @@
 			select b.emg_seq,
 				   to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
 				   (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
-					FROM HSP_XTZL_INF
+					FROM HSP_zl_INF
 					WHERE emg_no = b.EMG_SEQ
 					  and pro_code = 'FBSJ')     fbsj,
 				   (select PRO_VAL
-					from HSP_XTZL_INF
+					from HSP_zl_INF
 					where EMG_NO = b.EMG_SEQ
 					  and PRO_CODE = 'ZGZCS')    zgzcs,
 				   (select PRO_VAL
-					from HSP_XTZL_INF
+					from HSP_zl_INF
 					where EMG_NO = b.EMG_SEQ
 					  and PRO_CODE = 'YNRSSC')   rnrssc,
 				   (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
-					from HSP_XTZL_INF
+					from HSP_zl_INF
 					where EMG_NO = b.EMG_SEQ
 					  and PRO_CODE = 'YNKSRSSJ') rnksrssj,
 				   (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
-					from HSP_XTZL_INF
+					from HSP_zl_INF
 					where EMG_NO = b.EMG_SEQ
 					  and PRO_CODE = 'KSCCSJ')   ksccsj,
 				   (select PRO_VAL
-					FROM hsp_xtzl_inf
+					FROM hsp_zl_inf
 					WHERE emg_no = b.emg_seq
 					  and pro_code = 'YWZGZCS')  ywzgzcs
 			FROM HSP_DBZL_BAS b
 			WHERE b.PAT_TYP = '1'
 			  and exists(select 1
-						 FROM hsp_xtzl_inf
+						 FROM hsp_zl_inf
 						 WHERE pro_code = 'CBZD'
 						   and pro_val = '1'
 						   and emg_no = b.emg_seq)
@@ -1292,15 +1292,15 @@
 		  from (select b.emg_seq,
 					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 					   (select to_date(pro_val,'yyyy-MM-dd hh24:mi')
-						from hsp_xtzl_inf
+						from hsp_zl_inf
 						where pro_code = 'FBSJ'
 						and emg_no = a.emg_no) flowtime2,
 					   (select to_date(pro_val,'yyyy-MM-dd hh24:mi')
-						from hsp_xtzl_inf
+						from hsp_zl_inf
 						where pro_code = 'SCYLJCSJ'
 						and emg_no = a.emg_no) flowtime1
 				from (select emg_no
-					  from hsp_xtzl_inf
+					  from hsp_zl_inf
 					  where pro_code = 'CBZD'
 						and pro_val = '1') a,
 					 hsp_dbzl_bas b
@@ -1358,7 +1358,7 @@
 		  and way_typ = '1'
 		union
 		select '3', count(*)
-		from hsp_dbzl_bas a, hsp_xtzl_inf b
+		from hsp_dbzl_bas a, hsp_zl_inf b
 		where a.emg_seq = b.emg_no(+)
 		  and b.pro_code = 'DYFS'
 		  and b.pro_val = '3'
@@ -1368,7 +1368,7 @@
 	<select id="getLyfstjData" resultType="activetech.edpc.pojo.dto.HomePageResult">
 		select pro_val as infocode, info, count(*) as total
 		from (select b.pro_val, c.info, a.emg_seq
-			  from hsp_dbzl_bas a, hsp_xtzl_inf b, dstdictinfo c
+			  from hsp_dbzl_bas a, hsp_zl_inf b, dstdictinfo c
 			  where a.emg_seq = b.emg_no(+)
 				and b.pro_val = c.infocode(+)
 				and b.pro_code = 'DYFS'
@@ -1380,7 +1380,7 @@
 	<select id="getZgqktjData" resultType="activetech.edpc.pojo.dto.HomePageResult">
 		select b.infocode, info, nvl(total, 0) total
 		FROM (select PRO_VAL, count(*) total
-			  from HSP_XTZL_INF a,
+			  from HSP_zl_INF a,
 				   HSP_DBZL_BAS b
 			  where a.EMG_NO = b.EMG_SEQ
 				and b.PAT_TYP = '1'
@@ -1405,11 +1405,11 @@
 		               (select to_date(to_char(emg_dat,'YYYY-MM-DD HH24:MI:SS'),'YYYY-MM-DD HH24:MI:SS') from hsp_emg_inf where emg_seq = a.emg_no) emg_dat,
 		               
 		               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		                  from hsp_xtzl_inf
+		                  from hsp_zl_inf
 		                 where emg_no = a.emg_no
 		                   and pro_code = #{endProCode,jdbcType = VARCHAR} ) endtime
 		          from (select emg_no
-		                  from hsp_xtzl_inf
+		                  from hsp_zl_inf
 		                 where pro_code in #{endProCode,jdbcType = VARCHAR}
 		                   and pro_val is not null
 		                ) a,
@@ -1438,15 +1438,15 @@
 		               to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
 		               
 		               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		                  from hsp_xtzl_inf
+		                  from hsp_zl_inf
 		                 where emg_no = a.emg_no
 		                   and pro_code = #{startProCode,jdbcType = VARCHAR} ) starttime,
 		               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		                  from hsp_xtzl_inf
+		                  from hsp_zl_inf
 		                 where emg_no = a.emg_no
 		                   and pro_code = #{endProCode,jdbcType = VARCHAR} ) endtime
 		          from (select emg_no
-		                  from hsp_xtzl_inf
+		                  from hsp_zl_inf
 		                 where pro_code in #{endProCode,jdbcType = VARCHAR}
 		                   and pro_val is not null
 		                ) a,
@@ -1515,15 +1515,15 @@
 			   count(*) as total
 		from (select a.*,
 					 (select pro_val
-					  from hsp_xtzl_inf
+					  from hsp_zl_inf
 					  where pro_code = 'DYFS'
 						and emg_no = a.emg_seq) as DYFS,
 					 (select pro_val
-					  from hsp_xtzl_inf
+					  from hsp_zl_inf
 					  where pro_code = 'ZYLX'
 						and emg_no = a.emg_seq) as ZYLX,
 					 (select pro_val
-					  from hsp_xtzl_inf
+					  from hsp_zl_inf
 					  where pro_code = 'YYMC'
 						and emg_no = a.emg_seq) as YYMC
 			  from hsp_dbzl_bas a
@@ -1569,11 +1569,11 @@
 	<select id="getZdtjCz" parameterType="activetech.edpc.pojo.dto.ReportCondition" 
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
 			with temp as
-			 (select czzl.emg_no, czzl.pro_val
-			    from hsp_czzl_inf czzl, hsp_emg_inf emg
-			   where czzl.emg_no = emg.emg_seq
+			 (select zl.emg_no, zl.pro_val
+			    from hsp_zl_inf zl, hsp_emg_inf emg
+			   where zl.emg_no = emg.emg_seq
 			     and emg.czlcflg = '1'
-			     and czzl.pro_code = 'CBZD'
+			     and zl.pro_code = 'CBZD'
 			     and emg_dat <![CDATA[ <= ]]> to_date(#{endDate, jdbcType = VARCHAR}, 'yyyy-mm-dd') + 1
 			     and emg_dat <![CDATA[ > ]]> to_date(#{startDate, jdbcType = VARCHAR}, 'yyyy-mm-dd'))
 			select count(*) patNumb,
@@ -1597,7 +1597,7 @@
 		         t.crt_user,
 		         t.mod_time,
 		         t.mod_user
-		    from hsp_czzl_inf t
+		    from hsp_zl_inf t
 		   where t.pro_code = 'CBZD')
 		select m.month yarmon,
 		       d.infocode,
@@ -1631,11 +1631,11 @@
                    (select emg_dat+0 from hsp_emg_inf where emg_seq = a.emg_no) emg_dat,
                    
                    (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-                      from hsp_czzl_inf
+                      from hsp_zl_inf
                      where emg_no = a.emg_no
                        and pro_code = #{endProCode,jdbcType = VARCHAR} ) endtime
               from (select emg_no
-                      from hsp_czzl_inf
+                      from hsp_zl_inf
                      where pro_code in #{endProCode,jdbcType = VARCHAR}
                        and pro_val is not null
                     ) a,
@@ -1669,15 +1669,15 @@
 		     from (select b.emg_seq,
 						  to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 						  (select pro_val
-						   from hsp_czzl_inf
+						   from hsp_zl_inf
 						   where pro_code = 'RSZLKSSJ'
 							 and emg_no = b.emg_seq) rszlkssj,
 						  (select pro_val
-						   from hsp_czzl_inf
+						   from hsp_zl_inf
 						   where pro_code = 'FBSJ'
 							 and emg_no = b.emg_seq) fbsj
 				   from (select emg_no
-						 from hsp_czzl_inf
+						 from hsp_zl_inf
 						 where pro_code = 'ISRS'
 						   and pro_val = '0') a,
 						hsp_dbzl_bas b
@@ -1710,16 +1710,16 @@
 		     from (select a.emg_seq,
 						  to_char(a.reg_tim, 'YYYY/MM') crtyarmon,
 						  (select pro_val
-						   from hsp_xtzl_inf
+						   from hsp_zl_inf
 						   where pro_code = 'SCYLJCSJ'
 							 and emg_no = a.emg_seq) emg_dat,
 						  (select pro_val
-						   from hsp_xtzl_inf
+						   from hsp_zl_inf
 						   where pro_code = 'FBSJ'
 							 and emg_no = a.emg_seq) fbsj
 				   from hsp_dbzl_bas a,
 						(select emg_no
-						 from hsp_xtzl_inf
+						 from hsp_zl_inf
 						 where pro_code = 'CBZD'
 						   and pro_val = '1') b
 				   where a.emg_seq = b.emg_no
@@ -1757,7 +1757,7 @@
 		                                     from hsp_emg_inf
 		                                    where emg_seq = a.emg_no)) fbsj
 							 from (select emg_no
-							        from hsp_xtzl_inf) a,
+							        from hsp_zl_inf) a,
 							         hsp_emg_inf b
 							         where b.jbzd_des = '急性心肌梗死'
 							           and b.xtlcflg = '1') c,
@@ -1811,15 +1811,15 @@
 		    from hsp_emg_inf
 		    where emg_seq = a.emg_no)) fbsj,
 		    (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		    from hsp_xtzl_inf
+		    from hsp_zl_inf
 		    where emg_no = a.emg_no
 		    and pro_code = 'YNKSRSSJ') ynksrssj,
 		    (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		    from hsp_xtzl_inf
+		    from hsp_zl_inf
 		    where emg_no = a.emg_no
 		    and pro_code = 'KSCCSJ') ksccsj
 		    from (select emg_no
-		            from hsp_xtzl_inf
+		            from hsp_zl_inf
 		           where pro_code = 'CBZD'
 		             and pro_val = '1') a,
 		         hsp_emg_inf b
@@ -1850,11 +1850,11 @@
                       to_char(b.emg_dat, 'YYYY/MM') crtyarmon,
                       cast(b.emg_dat as date) emg_dat,
               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
-		                  from hsp_xtzl_inf
+		                  from hsp_zl_inf
                       where emg_no = a.emg_no
                       and pro_code = 'YNKSRSSJ') ynksrssj
                  from (select emg_no
-                         from hsp_xtzl_inf
+                         from hsp_zl_inf
                         where pro_code = 'CBZD'
                           and pro_val = '1') a,
                       hsp_emg_inf b
@@ -1878,11 +1878,11 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'DYSJ'
 							and emg_no = emg.emg_seq) dysj,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'LCSJ'
 							and emg_no = emg.emg_seq) lcsj,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -1907,11 +1907,11 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'DDJZKSJ'
 							and emg_no = emg.emg_seq) DDJZKSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'JZSJ'
 							and emg_no = emg.emg_seq) JZSJ,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -1940,11 +1940,11 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'DDJZKSJ'
 							and emg_no = emg.emg_seq) DDJZKSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'QSKSCTWCSJ'
 							and emg_no = emg.emg_seq) QSKSCTWCSJ,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -1973,11 +1973,11 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'DDJZKSJ'
 							and emg_no = emg.emg_seq) DDJZKSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'XPXPWCSJ'
 							and emg_no = emg.emg_seq) XPXPWCSJ,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -2006,11 +2006,11 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'DDJZKSJ'
 							and emg_no = emg.emg_seq) DDJZKSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'GPXPWCSJ'
 							and emg_no = emg.emg_seq) GPXPWCSJ,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -2039,11 +2039,11 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'DDJZKSJ'
 							and emg_no = emg.emg_seq) DDJZKSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'FASTWCSJ'
 							and emg_no = emg.emg_seq) FASTWCSJ,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -2072,11 +2072,11 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'SQSXSJ'
 							and emg_no = emg.emg_seq) SQSXSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'ZXSXSJ'
 							and emg_no = emg.emg_seq) ZXSXSJ,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -2105,11 +2105,11 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'TCJLSJ'
 							and emg_no = emg.emg_seq) TCJLSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'CGJLSJ'
 							and emg_no = emg.emg_seq) CGJLSJ,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -2138,11 +2138,11 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'TCSSYZSJ'
 							and emg_no = emg.emg_seq) TCSSYZSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'KSSSJ'
 							and emg_no = emg.emg_seq) KSSSJ,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -2171,35 +2171,35 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'TCSSYZSJ'
 							and emg_no = emg.emg_seq) TCSSYZSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'SWSJ'
 							and emg_no = emg.emg_seq) SWSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'JZLYSJ'
 							and emg_no = emg.emg_seq) JZLYSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'BLZYSJ'
 							and emg_no = emg.emg_seq) BLZYSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'DDICUSJ'
 							and emg_no = emg.emg_seq) DDICUSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'JJSJ'
 							and emg_no = emg.emg_seq) JJSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'LGSJ'
 							and emg_no = emg.emg_seq) LGSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'ZGSJ'
 							and emg_no = emg.emg_seq) ZGSJ,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -2236,11 +2236,11 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'BLZYSJ'
 							and emg_no = emg.emg_seq) BLZYSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'JSZYSJ'
 							and emg_no = emg.emg_seq) JSZYSJ,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -2269,11 +2269,11 @@
 		with temp as
 				 (select emg.emg_seq,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'DDICUSJ'
 							and emg_no = emg.emg_seq) DDICUSJ,
 						 (select pro_val
-						  from hsp_cszl_inf
+						  from hsp_zl_inf
 						  where pro_code = 'LKICUSJ'
 							and emg_no = emg.emg_seq) LKICUSJ,
 						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -2311,7 +2311,7 @@
 					   hsp_iss_inf iss
 				  where emg.emg_seq = iss.emg_seq(+)
 					and not exists (select *
-									from hsp_cszl_inf
+									from hsp_zl_inf
 									where pro_code = 'ISDYYSW'
 									  and pro_val = '1'
 									  and emg_no = emg.emg_seq)

@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import activetech.base.pojo.dto.ActiveUser;
-import activetech.edpc.dao.mapper.HspCzzlInfMapperCustom;
 import activetech.edpc.dao.mapper.HspFlowChartInfMapperCustom;
-import activetech.edpc.dao.mapper.HspXtzlInfCustomMapper;
-import activetech.edpc.pojo.domain.HspCzzlInf;
+import activetech.edpc.dao.mapper.HspZlInfCustomMapper;
+import activetech.edpc.pojo.domain.HspZlInf;
 import activetech.edpc.pojo.domain.HspFlowChartInf;
 import activetech.edpc.pojo.dto.FlowChartNodeDef;
-import activetech.edpc.pojo.dto.HspXtzlInfCustom;
+import activetech.edpc.pojo.dto.HspZlInfCustom;
 import activetech.edpc.pojo.dto.ProCodeDef;
 import activetech.util.DateUtil;
 import activetech.websocket.action.WebSocketXT;
@@ -35,10 +34,8 @@ public class WebSocketAction {
 	private HspFlowChartInfMapperCustom hspFlowChartInfMapperCustom;
 	
 	@Autowired
-	private HspXtzlInfCustomMapper hspXtzlInfCustomMapper;
+	private HspZlInfCustomMapper hspZlInfCustomMapper;
 	
-	@Autowired
-	private HspCzzlInfMapperCustom hspCzzlInfMapperCustom;
 	
 	/**
 	 *   模拟通知胸痛心电图完成
@@ -70,13 +67,13 @@ public class WebSocketAction {
 	    record.setFlowType("xt");
 	    hspFlowChartInfMapperCustom.mergeFlowChartInf(record);
 	    
-	    HspXtzlInfCustom hspXtzlInfCustom = new HspXtzlInfCustom();
-	    hspXtzlInfCustom.setEmgNo(emgSeq);
-	    hspXtzlInfCustom.setCrtUser(activeUser.getUsrno());
+	    HspZlInfCustom hspZlInfCustom = new HspZlInfCustom();
+	    hspZlInfCustom.setEmgNo(emgSeq);
+	    hspZlInfCustom.setCrtUser(activeUser.getUsrno());
 	    
-	    hspXtzlInfCustom.setProCode(ProCodeDef.YNSFXDTSJ);
-	    hspXtzlInfCustom.setProVal(DateUtil.formatDateByFormat(date, DateUtil.DATETIME_FORMAT));
-	    hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+	    hspZlInfCustom.setProCode(ProCodeDef.YNSFXDTSJ);
+	    hspZlInfCustom.setProVal(DateUtil.formatDateByFormat(date, DateUtil.DATETIME_FORMAT));
+	    hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 		
 		return null;
 	}
@@ -114,13 +111,13 @@ public class WebSocketAction {
 	    hspFlowChartInfMapperCustom.mergeFlowChartInf(record);	
 	    
 	    
-	    HspXtzlInfCustom hspXtzlInfCustom = new HspXtzlInfCustom();
-	    hspXtzlInfCustom.setEmgNo(emgSeq);
-	    hspXtzlInfCustom.setCrtUser(activeUser.getUsrno());
+	    HspZlInfCustom hspZlInfCustom = new HspZlInfCustom();
+	    hspZlInfCustom.setEmgNo(emgSeq);
+	    hspZlInfCustom.setCrtUser(activeUser.getUsrno());
 	    
-	    hspXtzlInfCustom.setProCode(ProCodeDef.JGDBBGSJ);
-	    hspXtzlInfCustom.setProVal(DateUtil.formatDateByFormat(date, DateUtil.DATETIME_FORMAT));
-	    hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+	    hspZlInfCustom.setProCode(ProCodeDef.JGDBBGSJ);
+	    hspZlInfCustom.setProVal(DateUtil.formatDateByFormat(date, DateUtil.DATETIME_FORMAT));
+	    hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 	    
 	    
 	    
@@ -214,126 +211,126 @@ public class WebSocketAction {
 	    
 	    
 	    //3  持久到卒中信息表
-	 	HspCzzlInf hspCzzlInf = new HspCzzlInf();
-	 	hspCzzlInf.setEmgNo(emgSeq);
-	 	hspCzzlInf.setProCode("XHYSJ");
+	 	HspZlInf hspZlInf = new HspZlInf();
+	 	hspZlInf.setEmgNo(emgSeq);
+	 	hspZlInf.setProCode("XHYSJ");
 	 	String d = DateUtil.formatDateByFormat(date,"yyyy-MM-dd HH:mm:ss");
-	 	hspCzzlInf.setProVal(d);
-	 	hspCzzlInf.setCrtUser(activeUser.getUsrno());
-	 	hspCzzlInf.setCrtTime(date);
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	 	hspZlInf.setProVal(d);
+	 	hspZlInf.setCrtUser(activeUser.getUsrno());
+	 	hspZlInf.setCrtTime(date);
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	      
-	    hspCzzlInf.setProCode("HONGXB");
-	    hspCzzlInf.setProVal("4.76");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-	    hspCzzlInf.setProCode("HONGXBFLG");
-	    hspCzzlInf.setProVal("0");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("HONGXB");
+	    hspZlInf.setProVal("4.76");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+	    hspZlInf.setProCode("HONGXBFLG");
+	    hspZlInf.setProVal("0");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("XHDB");
-	    hspCzzlInf.setProVal("108");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("XHDB");
+	    hspZlInf.setProVal("108");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("XHDBflg");
-	    hspCzzlInf.setProVal("0");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("XHDBflg");
+	    hspZlInf.setProVal("0");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("XXBJS");
-	    hspCzzlInf.setProVal("215");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("XXBJS");
+	    hspZlInf.setProVal("215");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("XXBJSFLG");
-	    hspCzzlInf.setProVal("0");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("XXBJSFLG");
+	    hspZlInf.setProVal("0");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("HHBFNXHMSJ");
-	    hspCzzlInf.setProVal("57.2");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("HHBFNXHMSJ");
+	    hspZlInf.setProVal("57.2");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("HHBFNXHMSJFLG");
-	    hspCzzlInf.setProVal("2");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("HHBFNXHMSJFLG");
+	    hspZlInf.setProVal("2");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("NXMYSJ");
-	    hspCzzlInf.setProVal("11.2");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("NXMYSJ");
+	    hspZlInf.setProVal("11.2");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("NXMYSJFLG");
-	    hspCzzlInf.setProVal("0");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("NXMYSJFLG");
+	    hspZlInf.setProVal("0");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("NXMSJ");
-	    hspCzzlInf.setProVal("122.5");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("NXMSJ");
+	    hspZlInf.setProVal("122.5");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("NXMSJFLG");
-	    hspCzzlInf.setProVal("2");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("NXMSJFLG");
+	    hspZlInf.setProVal("2");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("GJBZBZ");
-	    hspCzzlInf.setProVal("1.00");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("GJBZBZ");
+	    hspZlInf.setProVal("1.00");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("GJBZBZFLG");
-	    hspCzzlInf.setProVal("0");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("GJBZBZFLG");
+	    hspZlInf.setProVal("0");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("DEJT");
-	    hspCzzlInf.setProVal("0.14");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("DEJT");
+	    hspZlInf.setProVal("0.14");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("DEJTFLG");
-	    hspCzzlInf.setProVal("0");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("DEJTFLG");
+	    hspZlInf.setProVal("0");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("PUTT");
-	    hspCzzlInf.setProVal("6.9");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("PUTT");
+	    hspZlInf.setProVal("6.9");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("PUTTFLG");
-	    hspCzzlInf.setProVal("2");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("PUTTFLG");
+	    hspZlInf.setProVal("2");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	     
-	    hspCzzlInf.setProCode("XUEJG");
-	    hspCzzlInf.setProVal("109");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("XUEJG");
+	    hspZlInf.setProVal("109");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("XUEJGFLG");
-	    hspCzzlInf.setProVal("0");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("XUEJGFLG");
+	    hspZlInf.setProVal("0");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("GCZAM");
-	    hspCzzlInf.setProVal("25");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("GCZAM");
+	    hspZlInf.setProVal("25");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("GCZAMFLG");
-	    hspCzzlInf.setProVal("0");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("GCZAMFLG");
+	    hspZlInf.setProVal("0");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
-	    hspCzzlInf.setProCode("GBZAM");
-	    hspCzzlInf.setProVal("28");
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("GBZAM");
+	    hspZlInf.setProVal("28");
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	      
-	    hspCzzlInf.setProCode("GBZAMFLG");
-	    hspCzzlInf.setProVal("0");
+	    hspZlInf.setProCode("GBZAMFLG");
+	    hspZlInf.setProVal("0");
 	    
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-	    hspCzzlInf.setProCode("XTSJ");
-	    hspCzzlInf.setProVal(d);
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-	    hspCzzlInf.setProCode("XCGSJ");
-	    hspCzzlInf.setProVal(d);
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-	    hspCzzlInf.setProCode("NXGNSJ");
-	    hspCzzlInf.setProVal(d);
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-	    hspCzzlInf.setProCode("GGNSJ");
-	    hspCzzlInf.setProVal(d);
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-	    hspCzzlInf.setProCode("SGNSJ");
-	    hspCzzlInf.setProVal(d);
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+	    hspZlInf.setProCode("XTSJ");
+	    hspZlInf.setProVal(d);
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+	    hspZlInf.setProCode("XCGSJ");
+	    hspZlInf.setProVal(d);
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+	    hspZlInf.setProCode("NXGNSJ");
+	    hspZlInf.setProVal(d);
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+	    hspZlInf.setProCode("GGNSJ");
+	    hspZlInf.setProVal(d);
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+	    hspZlInf.setProCode("SGNSJ");
+	    hspZlInf.setProVal(d);
 	    
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 		return null;
 	}
 	
@@ -372,15 +369,15 @@ public class WebSocketAction {
 	    
 	    
 	    //3  持久到卒中信息表
-	 	HspCzzlInf hspCzzlInf = new HspCzzlInf();
-	 	hspCzzlInf.setEmgNo(emgSeq);
-	 	hspCzzlInf.setCrtUser(activeUser.getUsrno());
-	 	hspCzzlInf.setCrtTime(date);
+	 	HspZlInf hspZlInf = new HspZlInf();
+	 	hspZlInf.setEmgNo(emgSeq);
+	 	hspZlInf.setCrtUser(activeUser.getUsrno());
+	 	hspZlInf.setCrtTime(date);
 	 	
 	 	// 时间
-	 	hspCzzlInf.setProCode("YXXJCSJ");
-	 	hspCzzlInf.setProVal(DateUtil.formatDateByFormat(date,"yyyy-MM-dd HH:mm:ss"));
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	 	hspZlInf.setProCode("YXXJCSJ");
+	 	hspZlInf.setProVal(DateUtil.formatDateByFormat(date,"yyyy-MM-dd HH:mm:ss"));
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
 	  
 		return null;
@@ -421,13 +418,13 @@ public class WebSocketAction {
 	    
 	    
 	    //3  持久到卒中信息表
-	 	HspCzzlInf hspCzzlInf = new HspCzzlInf();
-	 	hspCzzlInf.setEmgNo(emgSeq);
-	 	hspCzzlInf.setProCode("XDTSJ");
-	 	hspCzzlInf.setProVal(DateUtil.formatDateByFormat(date,"yyyy-MM-dd HH:mm:ss"));
-	 	hspCzzlInf.setCrtUser(activeUser.getUsrno());
-	 	hspCzzlInf.setCrtTime(date);
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	 	HspZlInf hspZlInf = new HspZlInf();
+	 	hspZlInf.setEmgNo(emgSeq);
+	 	hspZlInf.setProCode("XDTSJ");
+	 	hspZlInf.setProVal(DateUtil.formatDateByFormat(date,"yyyy-MM-dd HH:mm:ss"));
+	 	hspZlInf.setCrtUser(activeUser.getUsrno());
+	 	hspZlInf.setCrtTime(date);
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
 		return null;
 	}

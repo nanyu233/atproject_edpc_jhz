@@ -1,12 +1,12 @@
 package activetech.edpc.service.impl;
 
 import activetech.edpc.dao.mapper.*;
-import activetech.edpc.pojo.domain.HspCzzlInf;
+import activetech.edpc.pojo.domain.HspZlInf;
 import activetech.edpc.pojo.domain.HspFlowChartInf;
 import activetech.edpc.pojo.domain.VHemsJcjgHz;
 import activetech.edpc.pojo.domain.VHemsJyjgHz;
 import activetech.edpc.pojo.dto.FlowChartNodeDef;
-import activetech.edpc.pojo.dto.HspXtzlInfCustom;
+import activetech.edpc.pojo.dto.HspZlInfCustom;
 import activetech.edpc.pojo.dto.VHemsJyjgHzCustom;
 import activetech.edpc.service.SysIntergratingService;
 import activetech.external.dao.mapper.VHemsJyjgMapper;
@@ -30,9 +30,7 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 	@Autowired
 	private VHemsJcjgHzMapperCustom vHemsJcjgHzMapperCustom;
 	@Autowired
-	private HspXtzlInfCustomMapper hspXtzlInfCustomMapper;
-	@Autowired
-	private HspCzzlInfMapperCustom hspCzzlInfMapperCustom;
+	private HspZlInfCustomMapper hspZlInfCustomMapper;
 	@Autowired
 	private HspFlowChartInfMapperCustom hspFlowChartInfMapperCustom;
 	@Autowired
@@ -48,8 +46,8 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 	}
 
 	@Override
-	public void mergeHspXtzlInf(HspXtzlInfCustom hspXtzlInfCustom) {
-		hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+	public void mergeHspXtzlInf(HspZlInfCustom hspZlInfCustom) {
+		hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 		
 	}
 
@@ -68,9 +66,9 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 		String xtFlg = emginf.getXtlcflg();
 		String czFlg = emginf.getCzlcflg();
 	    String emgSeq = emginf.getEmgSeq();
-	    HspXtzlInfCustom hspXtzlInfCustom = new HspXtzlInfCustom();
-		hspXtzlInfCustom.setEmgNo(emgSeq);
-		hspXtzlInfCustom.setCrtUser("system");
+	    HspZlInfCustom hspZlInfCustom = new HspZlInfCustom();
+		hspZlInfCustom.setEmgNo(emgSeq);
+		hspZlInfCustom.setCrtUser("system");
 	    if("1".equals(xtFlg)) {
 	    	if (vHemsJyjgHzCustom.getExaminaim().indexOf("肌钙蛋白")>-1 || vHemsJyjgHzCustom.getExaminaim().indexOf("心脏五联")>-1) {
 				//以肌钙蛋白判定检验是否完成
@@ -94,34 +92,34 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 				mapxt.put("emgSeq", emgSeq);
 				mapxt.put("greenNodeId", "4");
 				mapxt.put("CTNI报告时间", vHemsJyjgHzCustom.getResultDateTime());
-				hspXtzlInfCustom.setProCode("CTNIBGSJ");
-				hspXtzlInfCustom.setProVal(
+				hspZlInfCustom.setProCode("CTNIBGSJ");
+				hspZlInfCustom.setProVal(
 						DateUtil.formatDateByFormat(vHemsJyjgHzCustom.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
-				hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+				hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 	    	}
 	    	if (vHemsJyjgHzCustom.getExaminaim().indexOf("电肾糖") > -1 && "肌酐".equals(vHemsJyjgHzCustom.getReportItemName())) {
 				mapxt.put("血清肌酐含量", vHemsJyjgHzCustom.getResult());
-				hspXtzlInfCustom.setProCode("XQJGZ");
-				hspXtzlInfCustom.setProVal(vHemsJyjgHzCustom.getResult());
-				hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+				hspZlInfCustom.setProCode("XQJGZ");
+				hspZlInfCustom.setProVal(vHemsJyjgHzCustom.getResult());
+				hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 				mapxt.put("血清肌酐单位", vHemsJyjgHzCustom.getUnits());
-				hspXtzlInfCustom.setProCode("XQJGDW");
-				hspXtzlInfCustom.setProVal(vHemsJyjgHzCustom.getUnits());
-				hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+				hspZlInfCustom.setProCode("XQJGDW");
+				hspZlInfCustom.setProVal(vHemsJyjgHzCustom.getUnits());
+				hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 
 			}
 			if (vHemsJyjgHzCustom.getExaminaim().indexOf("急诊凝血+急诊D二聚体") > -1
 					&& vHemsJyjgHzCustom.getReportItemName().indexOf("D二聚体") > -1) {
 				mapxt.put("D-二聚体结果时间", vHemsJyjgHzCustom.getResultDateTime());
-				hspXtzlInfCustom.setProCode("DEJTJGSJ");
-				hspXtzlInfCustom.setProVal(
+				hspZlInfCustom.setProCode("DEJTJGSJ");
+				hspZlInfCustom.setProVal(
 						DateUtil.formatDateByFormat(vHemsJyjgHzCustom.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
-				hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+				hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 			}
 			if (vHemsJyjgHzCustom.getExaminaim().indexOf("BNP") > -1) {
 				mapxt.put("BNP结果时间", vHemsJyjgHzCustom.getResultDateTime());
-				hspXtzlInfCustom.setProCode("BNPJCJGSJ");
-				hspXtzlInfCustom.setProVal(
+				hspZlInfCustom.setProCode("BNPJCJGSJ");
+				hspZlInfCustom.setProVal(
 						DateUtil.formatDateByFormat(vHemsJyjgHzCustom.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
 			}
 	    }
@@ -129,21 +127,21 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 			if ("1".equals(xtFlg)) {
 				if (jyjg.getReportItemName().indexOf("肌钙蛋白I") > -1) {
 					mapxt.put("CTNI含量", jyjg.getResult());
-					hspXtzlInfCustom.setProCode("CTNISZ");
-					hspXtzlInfCustom.setProVal("6");
-					hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+					hspZlInfCustom.setProCode("CTNISZ");
+					hspZlInfCustom.setProVal("6");
+					hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 					mapxt.put("CTNI单位", jyjg.getUnits());
-					hspXtzlInfCustom.setProCode("CTNIDW");
-					hspXtzlInfCustom.setProVal(vHemsJyjgHzCustom.getUnits());
-					hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+					hspZlInfCustom.setProCode("CTNIDW");
+					hspZlInfCustom.setProVal(vHemsJyjgHzCustom.getUnits());
+					hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 				}
 			}
 
 			if ("1".equals(czFlg)) {
-				HspCzzlInf hspCzzlInf = new HspCzzlInf();
-				hspCzzlInf.setEmgNo(emgSeq);
-				hspCzzlInf.setCrtUser("system");
-				hspCzzlInf.setCrtTime(new Date());
+				HspZlInf hspZlInf = new HspZlInf();
+				hspZlInf.setEmgNo(emgSeq);
+				hspZlInf.setCrtUser("system");
+				hspZlInf.setCrtTime(new Date());
 				if (vHemsJyjgHzCustom.getExaminaim().indexOf("血常规") > -1) {
 					
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("红细胞") > -1) {
@@ -154,10 +152,10 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 						mapcz.put("messageCode", "xuehy");
 						mapcz.put("time", vHemsJyjgHzCustom.getResultDateTime());
 						//血常规时间
-						hspCzzlInf.setProCode("XCGSJ");
-						hspCzzlInf.setProVal(
+						hspZlInf.setProCode("XCGSJ");
+						hspZlInf.setProVal(
 								DateUtil.formatDateByFormat(vHemsJyjgHzCustom.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 						
 						//更新节点记录
 						HspFlowChartInf record = new HspFlowChartInf();
@@ -169,83 +167,83 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 						
 						
 						mapcz.put("红细胞", vHemsJyjgHzCustom.getResult());
-						hspCzzlInf.setProCode("HONGXB");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-//						hspCzzlInf.setProCode("HONGXBFLG");
-//						hspCzzlInf.setProVal(doubleStrCompare(
+						hspZlInf.setProCode("HONGXB");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+//						hspZlInf.setProCode("HONGXBFLG");
+//						hspZlInf.setProVal(doubleStrCompare(
 //								vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-//						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+//						hspZlInfCustomMapper.mergeHspZlInf(hspZlInf);
 						
 					}
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("血红蛋白") > -1) {
-						hspCzzlInf.setProCode("XHDB");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+						hspZlInf.setProCode("XHDB");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 //						hspCzzlInf.setProCode("XHDBFLG");
 //						hspCzzlInf.setProVal(
 //								doubleStrCompare(vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-//						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+//						hspZlInfCustomMapper.mergeHspCzzlInf(hspCzzlInf);
 					}
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("血小板计数") > -1) {
-						hspCzzlInf.setProCode("XXBJS");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+						hspZlInf.setProCode("XXBJS");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 //						hspCzzlInf.setProCode("XXBJSFLG");
 //						hspCzzlInf.setProVal(
 //								doubleStrCompare(vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-//						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+//						hspZlInfCustomMapper.mergeHspCzzlInf(hspCzzlInf);
 					}
 
 				}
 				if (vHemsJyjgHzCustom.getExaminaim().indexOf("急诊凝血") > -1) {
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("凝血酶原时间") > -1) {
-						hspCzzlInf.setProCode("NXGNSJ");
-						hspCzzlInf.setProVal(DateUtil.formatDateByFormat(vHemsJyjgHzCustom.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-						hspCzzlInf.setProCode("NXMYSJ");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+						hspZlInf.setProCode("NXGNSJ");
+						hspZlInf.setProVal(DateUtil.formatDateByFormat(vHemsJyjgHzCustom.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+						hspZlInf.setProCode("NXMYSJ");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 //						hspCzzlInf.setProCode("NXMYSJFLG");
 //						hspCzzlInf.setProVal(
 //								doubleStrCompare(vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-//						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+//						hspZlInfCustomMapper.mergeHspCzzlInf(hspCzzlInf);
 					}
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("部分凝血活酶时间") > -1) {//d
-						hspCzzlInf.setProCode("BFNXMSJ");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-//						hspCzzlInf.setProCode("HHBFNXHMSJFLG");
-//						hspCzzlInf.setProVal(
+						hspZlInf.setProCode("BFNXMSJ");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+//						hspZlInf.setProCode("HHBFNXHMSJFLG");
+//						hspZlInf.setProVal(
 //								doubleStrCompare(vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-//						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+//						hspZlInfCustomMapper.mergeHspCzzlInf(hspCzzlInf);
 					}
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("凝血酶时间") > -1) {
-						hspCzzlInf.setProCode("NXMSJ");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+						hspZlInf.setProCode("NXMSJ");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 //						hspCzzlInf.setProCode("NXMSJFLG");
 //						hspCzzlInf.setProVal(
 //								doubleStrCompare(vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-//						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+//						hspZlInfCustomMapper.mergeHspCzzlInf(hspCzzlInf);
 					}
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("INR") > -1) {
-						hspCzzlInf.setProCode("GJBZBZ");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+						hspZlInf.setProCode("GJBZBZ");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 //						hspCzzlInf.setProCode("GJBZBZFLG");
 //						hspCzzlInf.setProVal(
 //								doubleStrCompare(vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-//						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+//						hspZlInfCustomMapper.mergeHspCzzlInf(hspCzzlInf);
 					}
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("二聚体") > -1) {
-						hspCzzlInf.setProCode("DEJT");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+						hspZlInf.setProCode("DEJT");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 //						hspCzzlInf.setProCode("DEJTFLG");
 //						hspCzzlInf.setProVal(
 //								doubleStrCompare(vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-//						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+//						hspZlInfCustomMapper.mergeHspCzzlInf(hspCzzlInf);
 					}
 
 				}
@@ -253,52 +251,52 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 						|| vHemsJyjgHzCustom.getExaminaim().indexOf("肝功能") > -1) {
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("葡萄糖") > -1) {
 
-						hspCzzlInf.setProCode("XTSJ");
-						hspCzzlInf.setProVal(
+						hspZlInf.setProCode("XTSJ");
+						hspZlInf.setProVal(
 								DateUtil.formatDateByFormat(vHemsJyjgHzCustom.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-						hspCzzlInf.setProCode("PUTT");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-//						hspCzzlInf.setProCode("PUTTFLG");
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+						hspZlInf.setProCode("PUTT");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+//						hspZlInf.setProCode("PUTTFLG");
 //						hspCzzlInf.setProVal(
 //								doubleStrCompare(vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-//						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+//						hspZlInfCustomMapper.mergeHspCzzlInf(hspCzzlInf);
 					}
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("血肌酐") > -1) {
-						hspCzzlInf.setProCode("SGNSJ");
-						hspCzzlInf.setProVal(
+						hspZlInf.setProCode("SGNSJ");
+						hspZlInf.setProVal(
 								DateUtil.formatDateByFormat(vHemsJyjgHzCustom.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-						hspCzzlInf.setProCode("XUEJG");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-						hspCzzlInf.setProCode("XUEJGFLG");
-						hspCzzlInf.setProVal(
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+						hspZlInf.setProCode("XUEJG");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+						hspZlInf.setProCode("XUEJGFLG");
+						hspZlInf.setProVal(
 								doubleStrCompare(vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 					}
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("谷草转氨酶") > -1) {
-						hspCzzlInf.setProCode("GGNSJ");
-						hspCzzlInf.setProVal(
+						hspZlInf.setProCode("GGNSJ");
+						hspZlInf.setProVal(
 								DateUtil.formatDateByFormat(vHemsJyjgHzCustom.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-						hspCzzlInf.setProCode("GCZAM");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-						hspCzzlInf.setProCode("GCZAMFLG");
-						hspCzzlInf.setProVal(
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+						hspZlInf.setProCode("GCZAM");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+						hspZlInf.setProCode("GCZAMFLG");
+						hspZlInf.setProVal(
 								doubleStrCompare(vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 					}
 					if (vHemsJyjgHzCustom.getReportItemName().indexOf("谷丙转氨酶") > -1) {
-						hspCzzlInf.setProCode("GBZAM");
-						hspCzzlInf.setProVal(vHemsJyjgHzCustom.getResult());
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
-						hspCzzlInf.setProCode("GBZAMFLG");
-						hspCzzlInf.setProVal(
+						hspZlInf.setProCode("GBZAM");
+						hspZlInf.setProVal(vHemsJyjgHzCustom.getResult());
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
+						hspZlInf.setProCode("GBZAMFLG");
+						hspZlInf.setProVal(
 								doubleStrCompare(vHemsJyjgHzCustom.getResult(),vHemsJyjgHzCustom.getUpperLimit(),vHemsJyjgHzCustom.getLowerLimit()));
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 					}
 
 				}
@@ -369,9 +367,9 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 		String xtFlg = emginf.getXtlcflg();
 		String czFlg = emginf.getCzlcflg();
 	    String emgSeq = emginf.getEmgSeq();
-	    HspXtzlInfCustom hspXtzlInfCustom = new HspXtzlInfCustom();
-		hspXtzlInfCustom.setEmgNo(emgSeq);
-		hspXtzlInfCustom.setCrtUser("system");
+	    HspZlInfCustom hspZlInfCustom = new HspZlInfCustom();
+		hspZlInfCustom.setEmgNo(emgSeq);
+		hspZlInfCustom.setCrtUser("system");
 		 if("1".equals(xtFlg)) {
 		    	if (vHemsJyjg.getExaminaim().indexOf("肌钙蛋白")>-1 || vHemsJyjg.getExaminaim().indexOf("心脏五联")>-1) {
 					//以肌钙蛋白判定检验是否完成
@@ -395,42 +393,42 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 					mapxt.put("emgSeq", emgSeq);
 					mapxt.put("greenNodeId", "4");
 					mapxt.put("CTNI报告时间", vHemsJyjg.getResultDateTime());
-					hspXtzlInfCustom.setProCode("CTNIBGSJ");
-					hspXtzlInfCustom.setProVal(
+					hspZlInfCustom.setProCode("CTNIBGSJ");
+					hspZlInfCustom.setProVal(
 							DateUtil.formatDateByFormat(vHemsJyjg.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
-					hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+					hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 		    	}
 		    	if (vHemsJyjg.getExaminaim().indexOf("电肾糖") > -1 && "肌酐".equals(vHemsJyjg.getReportItemName())) {
 					mapxt.put("血清肌酐含量", vHemsJyjg.getResult());
-					hspXtzlInfCustom.setProCode("XQJGZ");
-					hspXtzlInfCustom.setProVal(vHemsJyjg.getResult());
-					hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+					hspZlInfCustom.setProCode("XQJGZ");
+					hspZlInfCustom.setProVal(vHemsJyjg.getResult());
+					hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 					mapxt.put("血清肌酐单位", vHemsJyjg.getUnits());
-					hspXtzlInfCustom.setProCode("XQJGDW");
-					hspXtzlInfCustom.setProVal(vHemsJyjg.getUnits());
-					hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+					hspZlInfCustom.setProCode("XQJGDW");
+					hspZlInfCustom.setProVal(vHemsJyjg.getUnits());
+					hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 
 				}
 				if (vHemsJyjg.getExaminaim().indexOf("急诊凝血+急诊D二聚体") > -1
 						&& vHemsJyjg.getReportItemName().indexOf("D二聚体") > -1) {
 					mapxt.put("D-二聚体结果时间", vHemsJyjg.getResultDateTime());
-					hspXtzlInfCustom.setProCode("DEJTJGSJ");
-					hspXtzlInfCustom.setProVal(
+					hspZlInfCustom.setProCode("DEJTJGSJ");
+					hspZlInfCustom.setProVal(
 							DateUtil.formatDateByFormat(vHemsJyjg.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
-					hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+					hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 				}
 				if (vHemsJyjg.getExaminaim().indexOf("BNP") > -1) {
 					mapxt.put("BNP结果时间", vHemsJyjg.getResultDateTime());
-					hspXtzlInfCustom.setProCode("BNPJCJGSJ");
-					hspXtzlInfCustom.setProVal(
+					hspZlInfCustom.setProCode("BNPJCJGSJ");
+					hspZlInfCustom.setProVal(
 							DateUtil.formatDateByFormat(vHemsJyjg.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
 				}
 		    }
 		 if ("1".equals(czFlg)) {
-				HspCzzlInf hspCzzlInf = new HspCzzlInf();
-				hspCzzlInf.setEmgNo(emgSeq);
-				hspCzzlInf.setCrtUser("system");
-				hspCzzlInf.setCrtTime(new Date());
+				HspZlInf hspZlInf = new HspZlInf();
+				hspZlInf.setEmgNo(emgSeq);
+				hspZlInf.setCrtUser("system");
+				hspZlInf.setCrtTime(new Date());
 				if (vHemsJyjg.getExaminaim().indexOf("血常规") > -1) {
 					
 					if (vHemsJyjg.getReportItemName().indexOf("红细胞") > -1) {
@@ -441,10 +439,10 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 						mapcz.put("messageCode", "xuehy");
 						mapcz.put("time", vHemsJyjg.getResultDateTime());
 						//血常规时间
-						hspCzzlInf.setProCode("XCGSJ");
-						hspCzzlInf.setProVal(
+						hspZlInf.setProCode("XCGSJ");
+						hspZlInf.setProVal(
 								DateUtil.formatDateByFormat(vHemsJyjg.getResultDateTime(), "yyyy-MM-dd hh:mm:ss"));
-						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+						hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 						
 						//更新节点记录
 						HspFlowChartInf record = new HspFlowChartInf();
@@ -463,11 +461,11 @@ public class SysIntergratingServiceImpl implements SysIntergratingService {
 //						mapcz.put("红细胞", vHemsJyjg.getResult());
 //						hspCzzlInf.setProCode("HONGXB");
 //						hspCzzlInf.setProVal(vHemsJyjg.getResult());
-//						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+//						hspZlInfCustomMapper.mergeHspCzzlInf(hspCzzlInf);
 //						hspCzzlInf.setProCode("HONGXBFLG");
 //						hspCzzlInf.setProVal(doubleStrCompare(
 //								vHemsJyjg.getResult(),vHemsJyjg.getUpperLimit(),vHemsJyjg.getLowerLimit()));
-//						hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+//						hspZlInfCustomMapper.mergeHspCzzlInf(hspCzzlInf);
 						
 					}
 

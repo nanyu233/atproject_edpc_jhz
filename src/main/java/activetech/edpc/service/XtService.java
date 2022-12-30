@@ -5,7 +5,7 @@ import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
 import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.domain.HspGraceInf;
-import activetech.edpc.pojo.domain.HspXtzlInf;
+import activetech.edpc.pojo.domain.HspZlInf;
 import activetech.edpc.pojo.dto.*;
 import org.checkerframework.checker.units.qual.A;
 
@@ -60,7 +60,7 @@ public interface XtService {
 	 * @param activeUser
 	 * @return
 	 */
-	public ResultInfo xtPatietSubmitBatch(List<HspXtzlInfCustom> xtzlInfs,String emgSeq, String regSeq, ActiveUser activeUser);
+	public ResultInfo xtPatietSubmitBatch(List<HspZlInfCustom> xtzlInfs,String emgSeq, String regSeq, ActiveUser activeUser);
 
 	/**
 	 * 胸痛登记页面基本信息提交
@@ -87,14 +87,14 @@ public interface XtService {
 	 * @param activeUser activeUser
 	 * @return
 	 */
-	public ResultInfo addFzxg(HspXtzlInfCustom hspXtzlInfCustom,ActiveUser activeUser);
+	public ResultInfo addFzxg(HspZlInfCustom hspZlInfCustom,ActiveUser activeUser);
 	
 	/**
 	 * 删除犯罪血管
 	 * @param hspXtzlInf
 	 * @return
 	 */
-	public ResultInfo delFzxg(HspXtzlInf hspXtzlInf);
+	public ResultInfo delFzxg(HspZlInf hspZlInf);
 	
 	/**
 	 * 更新犯罪血管信息
@@ -145,7 +145,7 @@ public interface XtService {
 
 	List<HspDbzlBasCustom> getCpcPatientInfoListByPage(QueryDto queryDto);
 
-	ResultInfo getTimelineGt(List<HspXtzlInfCustom> list, HspTimDiffQueryDto hspTimDiffQueryDto);
+	ResultInfo getTimelineGt(List<HspZlInfCustom> list, HspTimDiffQueryDto hspTimDiffQueryDto);
 
 	public DataGridResultInfo getTimeLineCriterion(HspTimDiffQueryDto hspTimDiffQueryDto);
 

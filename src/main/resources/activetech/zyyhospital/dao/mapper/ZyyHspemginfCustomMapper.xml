@@ -3070,10 +3070,10 @@
   	</select>
   	
   	<select id="findXtlcCount" resultType="int" parameterType="java.lang.String">
-  		select count(*) from hsp_xtzl_inf where emg_no = #{emgSeq}
+  		select count(*) from hsp_zl_inf where emg_no = #{emgSeq}
   	</select>
   	
   	<select id="findCzlcCount" resultType="int" parameterType="java.lang.String">
-  		select count(*) from hsp_czzl_inf where emg_no = #{emgSeq}
+  		select count(*) from hsp_zl_inf where emg_no = #{emgSeq}
   	</select>
   </mapper>

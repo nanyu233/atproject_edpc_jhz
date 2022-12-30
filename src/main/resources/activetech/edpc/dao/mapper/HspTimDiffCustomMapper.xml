@@ -127,11 +127,11 @@
         with temp as
                  (select
                          (select pro_val
-                          from HSP_XTZL_INF
+                          from HSP_ZL_INF
                           where pro_code = #{timBegCod,jdbcType=VARCHAR}
                             and emg_no = emg.emg_seq) begtime,
                          (select pro_val
-                          from HSP_XTZL_INF
+                          from HSP_ZL_INF
                           where pro_code = #{timEndCod,jdbcType=VARCHAR}
                             and emg_no = emg.emg_seq) endtime,
                          to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -147,11 +147,11 @@
         with temp as
                  (select
                       (select pro_val
-                       from HSP_XTZL_INF
+                       from HSP_ZL_INF
                        where pro_code = #{timBegCod,jdbcType=VARCHAR}
                          and emg_no = emg.emg_seq) begtime,
                       (select pro_val
-                       from HSP_XTZL_INF
+                       from HSP_ZL_INF
                        where pro_code = #{timEndCod,jdbcType=VARCHAR}
                          and emg_no = emg.emg_seq) endtime,
                       to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -167,11 +167,11 @@
         with temp as
                  (select
                       (select pro_val
-                       from HSP_XTZL_INF
+                       from HSP_ZL_INF
                        where pro_code = #{timBegCod,jdbcType=VARCHAR}
                          and emg_no = emg.emg_seq) begtime,
                       (select pro_val
-                       from HSP_XTZL_INF
+                       from HSP_ZL_INF
                        where pro_code = #{timEndCod,jdbcType=VARCHAR}
                          and emg_no = emg.emg_seq) endtime,
                       to_char(emg.emg_dat, 'yyyy/mm') emg_dat
@@ -187,11 +187,11 @@
         with temp as
                  (select
                       (select pro_val
-                       from HSP_XTZL_INF
+                       from HSP_ZL_INF
                        where pro_code = #{timBegCod,jdbcType=VARCHAR}
                          and emg_no = emg.emg_seq) begtime,
                       (select pro_val
-                       from HSP_XTZL_INF
+                       from HSP_ZL_INF
                        where pro_code = #{timEndCod,jdbcType=VARCHAR}
                          and emg_no = emg.emg_seq) endtime,
                       to_char(emg.emg_dat, 'yyyy/mm') emg_dat

@@ -3,11 +3,11 @@ package activetech.edpc.service.impl;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.service.SystemConfigService;
 import activetech.edpc.dao.mapper.HspDbzlBasMapper;
-import activetech.edpc.dao.mapper.HspXtzlInfCustomMapper;
-import activetech.edpc.dao.mapper.HspXtzlInfMapper;
+import activetech.edpc.dao.mapper.HspZlInfCustomMapper;
+import activetech.edpc.dao.mapper.HspZlInfMapper;
 import activetech.edpc.pojo.domain.HspDbzlBas;
-import activetech.edpc.pojo.domain.HspXtzlInf;
-import activetech.edpc.pojo.dto.HspXtzlInfCustom;
+import activetech.edpc.pojo.domain.HspZlInf;
+import activetech.edpc.pojo.dto.HspZlInfCustom;
 import activetech.edpc.service.JzbrService;
 import activetech.hospital.pojo.domain.HspMewsInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
@@ -28,9 +28,9 @@ public class JzbrServiceImpl implements JzbrService {
     @Autowired
     private HspDbzlBasMapper hspDbzlBasMapper;
     @Autowired
-    private HspXtzlInfMapper hspXtzlInfMapper;
+    private HspZlInfMapper hspZlInfMapper;
     @Autowired
-    private HspXtzlInfCustomMapper hspXtzlInfCustomMapper;
+    private HspZlInfCustomMapper hspZlInfCustomMapper;
 
     /**
      * 急诊病人进入多病种中心
@@ -59,25 +59,25 @@ public class JzbrServiceImpl implements JzbrService {
      * @throws Exception Exception
      */
     private void addXtPg(HspemginfCustom hspemginfCustom, String regSeq) {
-        HspXtzlInf hspXtzlInf = new HspXtzlInf();
-        hspXtzlInf.setEmgNo(regSeq);
-        hspXtzlInf.setCrtTime(new Date());
-        hspXtzlInf.setModUser(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getPreUsrNbr()) ? hspemginfCustom.getPreUsrNbr() : "admin");
-        hspXtzlInf.setModTime(new Date());
-        hspXtzlInf.setModUser(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getModUsrNbr()) ? hspemginfCustom.getModUsrNbr() : "admin");
+        HspZlInf hspZlInf = new HspZlInf();
+        hspZlInf.setEmgNo(regSeq);
+        hspZlInf.setCrtTime(new Date());
+        hspZlInf.setModUser(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getPreUsrNbr()) ? hspemginfCustom.getPreUsrNbr() : "admin");
+        hspZlInf.setModTime(new Date());
+        hspZlInf.setModUser(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getModUsrNbr()) ? hspemginfCustom.getModUsrNbr() : "admin");
         if(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getXtCod())) {
-            String seqNo = systemConfigService.findSequences("HSPXTZLINF_SEQ", "6", null);
-            hspXtzlInf.setSeqNo(seqNo);
-            hspXtzlInf.setProCode("BQPG");
-            hspXtzlInf.setProVal(hspemginfCustom.getXtCod());
-            hspXtzlInfMapper.insert(hspXtzlInf);
+            String seqNo = systemConfigService.findSequences("HSPZlInf_SEQ", "6", null);
+            hspZlInf.setSeqNo(seqNo);
+            hspZlInf.setProCode("BQPG");
+            hspZlInf.setProVal(hspemginfCustom.getXtCod());
+            hspZlInfMapper.insert(hspZlInf);
         }
         if(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getXtSubCod())) {
-            String seqNo = systemConfigService.findSequences("HSPXTZLINF_SEQ", "6", null);
-            hspXtzlInf.setSeqNo(seqNo);
-            hspXtzlInf.setProCode("BQPGMX");
-            hspXtzlInf.setProVal(hspemginfCustom.getXtSubCod());
-            hspXtzlInfMapper.insert(hspXtzlInf);
+            String seqNo = systemConfigService.findSequences("HSPZlInf_SEQ", "6", null);
+            hspZlInf.setSeqNo(seqNo);
+            hspZlInf.setProCode("BQPGMX");
+            hspZlInf.setProVal(hspemginfCustom.getXtSubCod());
+            hspZlInfMapper.insert(hspZlInf);
         }
 
     }
@@ -89,19 +89,19 @@ public class JzbrServiceImpl implements JzbrService {
      * @throws Exception Exception
      */
     private void addMewsInfo(HspemginfCustom hspemginfCustom, String regSeq) {
-        HspXtzlInfCustom baseXtzlInf = new HspXtzlInfCustom();
-        baseXtzlInf.setEmgNo(regSeq);
+        HspZlInfCustom baseZlInf = new HspZlInfCustom();
+        baseZlInf.setEmgNo(regSeq);
         //血压
         if(hspemginfCustom.getSbpUpNbr() != null && hspemginfCustom.getSbpUpNbr() != null){
-            baseXtzlInf.setProCode("XUEY");
-            baseXtzlInf.setProVal(hspemginfCustom.getSbpUpNbr() + "/" + hspemginfCustom.getSbpDownNbr());
-            hspXtzlInfCustomMapper.mergeHspXtzlInf(baseXtzlInf);
+            baseZlInf.setProCode("XUEY");
+            baseZlInf.setProVal(hspemginfCustom.getSbpUpNbr() + "/" + hspemginfCustom.getSbpDownNbr());
+            hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
         }
         //脉搏
         if(hspemginfCustom.getHrtRte() != null) {
-            baseXtzlInf.setProCode("MAIB");
-            baseXtzlInf.setProVal(hspemginfCustom.getHrtRte().toString());
-            hspXtzlInfCustomMapper.mergeHspXtzlInf(baseXtzlInf);
+            baseZlInf.setProCode("MAIB");
+            baseZlInf.setProVal(hspemginfCustom.getHrtRte().toString());
+            hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
         }
         //血氧
 //        if(hspemginfCustom.getOxyNbr() != null) {
@@ -112,9 +112,9 @@ public class JzbrServiceImpl implements JzbrService {
 
         //意识
         if(StringUtils.isNotNullAndEmptyByTrim(hspemginfCustom.getSenRctCod())) {
-            baseXtzlInf.setProCode("YISHI");
-            baseXtzlInf.setProVal(hspemginfCustom.getSenRctCod());
-            hspXtzlInfCustomMapper.mergeHspXtzlInf(baseXtzlInf);
+            baseZlInf.setProCode("YISHI");
+            baseZlInf.setProVal(hspemginfCustom.getSenRctCod());
+            hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
         }
     }
 

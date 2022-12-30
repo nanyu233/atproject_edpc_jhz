@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSONObject;
 
 import activetech.base.pojo.dto.ActiveUser;
-import activetech.edpc.dao.mapper.HspCzzlInfMapperCustom;
+import activetech.edpc.dao.mapper.HspZlInfCustomMapper;
 import activetech.edpc.dao.mapper.HspFlowChartInfMapperCustom;
-import activetech.edpc.pojo.domain.HspCzzlInf;
+import activetech.edpc.pojo.domain.HspZlInf;
 import activetech.edpc.pojo.domain.HspFlowChartInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.pda.pojo.dto.HspCfxxInfoCustom;
@@ -32,7 +32,7 @@ import activetech.zyyhospital.service.HspHljldInfService;
 public class HuzHspHljldInfServiceImpl extends DecoratorHspHljldInfService{
 	
 	@Autowired
-	private HspCzzlInfMapperCustom hspCzzlInfMapperCustom;
+	private HspZlInfCustomMapper hspZlInfCustomMapper;
 	
 	@Autowired
 	private HspFlowChartInfMapperCustom hspFlowChartInfMapperCustom;
@@ -65,13 +65,13 @@ public class HuzHspHljldInfServiceImpl extends DecoratorHspHljldInfService{
 			if(hspHljldInfCustom.getJchl().indexOf("121")>-1){
 				
 				String rszjkssj = DateUtil.formatDateByFormat(hspHljldInfCustom.getCrtDat(),"yyyy-MM-dd HH:mm:ss");
-				HspCzzlInf hspCzzlInf = new HspCzzlInf();
-				hspCzzlInf.setEmgNo(hspHljldInfCustom.getEmgSeq());
-				hspCzzlInf.setCrtUser(hspHljldInfCustom.getCrtNur());
-				hspCzzlInf.setCrtTime(new Date());
-				hspCzzlInf.setProCode("RSZLKSSJ");
-			 	hspCzzlInf.setProVal(rszjkssj);
-			    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+				HspZlInf hspZlInf = new HspZlInf();
+				hspZlInf.setEmgNo(hspHljldInfCustom.getEmgSeq());
+				hspZlInf.setCrtUser(hspHljldInfCustom.getCrtNur());
+				hspZlInf.setCrtTime(new Date());
+				hspZlInf.setProCode("RSZLKSSJ");
+			 	hspZlInf.setProVal(rszjkssj);
+			    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 			    
 			    HspFlowChartInf record = new HspFlowChartInf();
 			    record.setEmgSeq(hspHljldInfCustom.getEmgSeq());
@@ -119,13 +119,13 @@ public class HuzHspHljldInfServiceImpl extends DecoratorHspHljldInfService{
 			if(hspHljldInfCustom.getJchl().indexOf("121")>-1){
 				
 				String rszlkssj = DateUtil.formatDateByFormat(hspHljldInfCustom.getCrtDat(),"yyyy-MM-dd HH:mm:ss");
-				HspCzzlInf hspCzzlInf = new HspCzzlInf();
-				hspCzzlInf.setEmgNo(hspHljldInfCustom.getEmgSeq());
-				hspCzzlInf.setCrtUser(activeuser.getUsrno());
-				hspCzzlInf.setCrtTime(new Date());
-				hspCzzlInf.setProCode("RSZLKSSJ");
-			 	hspCzzlInf.setProVal(rszlkssj);
-			    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+				HspZlInf hspZlInf = new HspZlInf();
+				hspZlInf.setEmgNo(hspHljldInfCustom.getEmgSeq());
+				hspZlInf.setCrtUser(activeuser.getUsrno());
+				hspZlInf.setCrtTime(new Date());
+				hspZlInf.setProCode("RSZLKSSJ");
+			 	hspZlInf.setProVal(rszlkssj);
+			    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 			    
 			    HspFlowChartInf record = new HspFlowChartInf();
 			    record.setEmgSeq(hspHljldInfCustom.getEmgSeq());

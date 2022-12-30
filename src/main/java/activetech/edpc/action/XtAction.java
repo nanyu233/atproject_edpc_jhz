@@ -11,7 +11,7 @@ import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.domain.HspGraceInf;
-import activetech.edpc.pojo.domain.HspXtzlInf;
+import activetech.edpc.pojo.domain.HspZlInf;
 import activetech.edpc.pojo.dto.*;
 import activetech.edpc.service.CrfplaneService;
 import activetech.edpc.service.XtService;
@@ -204,7 +204,7 @@ public class XtAction {
 		//获取当前病人的各个质控时间节点
 		ResultInfo xtTimeLine = xtService.getXtTimeLine(regSeq);
 		Map<String, Object> sysdata = xtTimeLine.getSysdata();
-		List<HspXtzlInfCustom> list = (List<HspXtzlInfCustom>) sysdata.get("list");
+		List<HspZlInfCustom> list = (List<HspZlInfCustom>) sysdata.get("list");
 		//获取甘特图数据
 		ResultInfo resultInfo = xtService.getTimelineGt(list,hspTimDiffQueryDto);
 
@@ -667,9 +667,9 @@ public class XtAction {
 	 */
 	@RequestMapping("/addFzxg")
 	@ResponseBody
-	public SubmitResultInfo addFzxg(@RequestBody HspXtzlInfCustom hspXtzlInfCustom,ActiveUser activeUser){
+	public SubmitResultInfo addFzxg(@RequestBody HspZlInfCustom hspZlInfCustom,ActiveUser activeUser){
 		
-		ResultInfo resultInfo = xtService.addFzxg(hspXtzlInfCustom, activeUser);
+		ResultInfo resultInfo = xtService.addFzxg(hspZlInfCustom, activeUser);
 		
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
@@ -681,9 +681,9 @@ public class XtAction {
 	 */
 	@RequestMapping("/delFzxg")
 	@ResponseBody
-	public SubmitResultInfo delFzxg(@RequestBody HspXtzlInf hspXtzlInf){
+	public SubmitResultInfo delFzxg(@RequestBody HspZlInf hspZlInf){
 		
-		ResultInfo resultInfo = xtService.delFzxg(hspXtzlInf);
+		ResultInfo resultInfo = xtService.delFzxg(hspZlInf);
 		
 		return ResultUtil.createSubmitResult(resultInfo);
 	}

@@ -175,31 +175,31 @@
 		</if>
 		<if test="dyfs!=null and dyfs!=''">
 	   	and exists (select *
-      		from hsp_xtzl_inf
- 		    where hsp_xtzl_inf.emg_no = a.emg_seq
- 		    and hsp_xtzl_inf.pro_code = 'DYFS'
- 		    and hsp_xtzl_inf.pro_val = #{dyfs,jdbcType=VARCHAR})
+      		from hsp_zl_inf
+ 		    where hsp_zl_inf.emg_no = a.emg_seq
+ 		    and hsp_zl_inf.pro_code = 'DYFS'
+ 		    and hsp_zl_inf.pro_val = #{dyfs,jdbcType=VARCHAR})
 		</if>
 		<if test="cbzd!=null and cbzd!=''">
 		and exists (select *
-  		    from hsp_xtzl_inf
-  		    where hsp_xtzl_inf.emg_no = a.emg_seq
-  		    and hsp_xtzl_inf.pro_code = 'CBZD'
- 		    and hsp_xtzl_inf.pro_val = #{cbzd,jdbcType=VARCHAR})
+  		    from hsp_zl_inf
+  		    where hsp_zl_inf.emg_no = a.emg_seq
+  		    and hsp_zl_inf.pro_code = 'CBZD'
+ 		    and hsp_zl_inf.pro_val = #{cbzd,jdbcType=VARCHAR})
 		</if>
 		<if test="ccdw!=null and ccdw!=''">
 		and exists (select *
-  		    from hsp_xtzl_inf
-  		    where hsp_xtzl_inf.emg_no = a.emg_seq
- 		    and hsp_xtzl_inf.pro_code = 'CCDW'
- 		    and hsp_xtzl_inf.pro_val = #{ccdw,jdbcType=VARCHAR})
+  		    from hsp_zl_inf
+  		    where hsp_zl_inf.emg_no = a.emg_seq
+ 		    and hsp_zl_inf.pro_code = 'CCDW'
+ 		    and hsp_zl_inf.pro_val = #{ccdw,jdbcType=VARCHAR})
 		</if>
 		<if test="yqrscs!=null and yqrscs!=''">
 			and exists (select *
-  		    from hsp_xtzl_inf
-  		    where hsp_xtzl_inf.emg_no = a.emg_seq
-   		    and hsp_xtzl_inf.pro_code = 'YQRSCS'
-  		    and hsp_xtzl_inf.pro_val = #{yqrscs,jdbcType=VARCHAR})
+  		    from hsp_zl_inf
+  		    where hsp_zl_inf.emg_no = a.emg_seq
+   		    and hsp_zl_inf.pro_code = 'YQRSCS'
+  		    and hsp_zl_inf.pro_val = #{yqrscs,jdbcType=VARCHAR})
 		</if>
   </sql>
 
@@ -271,17 +271,17 @@
                a.smt_nam,
                a.smt_tim,
                (select pro_val
-                    from hsp_xtzl_inf
-                 where hsp_xtzl_inf.pro_code = 'SCYLJCSJ'
-                   and hsp_xtzl_inf.emg_no = reg_seq) scyljcsj,
+                    from hsp_zl_inf
+                 where hsp_zl_inf.pro_code = 'SCYLJCSJ'
+                   and hsp_zl_inf.emg_no = reg_seq) scyljcsj,
                  (select pro_val
-                  from hsp_xtzl_inf
-                 where hsp_xtzl_inf.pro_code = 'FBSJ'
-                   and hsp_xtzl_inf.emg_no = reg_seq) fbsj,
+                  from hsp_zl_inf
+                 where hsp_zl_inf.pro_code = 'FBSJ'
+                   and hsp_zl_inf.emg_no = reg_seq) fbsj,
                  (select pro_val
-                  from hsp_xtzl_inf
-                 where hsp_xtzl_inf.pro_code = 'CBZD'
-                   and hsp_xtzl_inf.emg_no = reg_seq) cbzd
+                  from hsp_zl_inf
+                 where hsp_zl_inf.pro_code = 'CBZD'
+                   and hsp_zl_inf.emg_no = reg_seq) cbzd
 		from hsp_dbzl_bas a
 		where a.PAT_TYP = '1'
 		<include refid="xtdbzl_where"/>

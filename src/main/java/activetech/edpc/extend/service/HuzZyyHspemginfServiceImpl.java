@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.edpc.dao.mapper.HspFlowChartInfMapperCustom;
-import activetech.edpc.dao.mapper.HspXtzlInfCustomMapper;
-import activetech.edpc.pojo.dto.HspXtzlInfCustom;
+import activetech.edpc.dao.mapper.HspZlInfCustomMapper;
+import activetech.edpc.pojo.dto.HspZlInfCustom;
 import activetech.hospital.pojo.dto.HspScoCustom;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
@@ -26,7 +26,7 @@ public class HuzZyyHspemginfServiceImpl extends DecoratorZyyHspemginfService{
 	private HspFlowChartInfMapperCustom hspFlowChartInfMapperCustom;
 	
 	@Autowired
-	private HspXtzlInfCustomMapper hspXtzlInfCustomMapper;
+	private HspZlInfCustomMapper hspZlInfCustomMapper;
 	
 	public HuzZyyHspemginfServiceImpl(ZyyHspemginfService zyyHspemginfService) {
 		this.zyyHspemginfService = zyyHspemginfService;
@@ -200,10 +200,10 @@ public class HuzZyyHspemginfServiceImpl extends DecoratorZyyHspemginfService{
 	*/
 	
 	
-	private void mergeHspXtzlInfCustom(HspXtzlInfCustom hspXtzlInfCustom,String proVal,String proCode){
-		hspXtzlInfCustom.setProVal(proVal);
-		hspXtzlInfCustom.setProCode(proCode);
-		hspXtzlInfCustomMapper.mergeHspXtzlInf(hspXtzlInfCustom);
+	private void mergeHspXtzlInfCustom(HspZlInfCustom hspZlInfCustom,String proVal,String proCode){
+		hspZlInfCustom.setProVal(proVal);
+		hspZlInfCustom.setProCode(proCode);
+		hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 	}
 	
 	/*

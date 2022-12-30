@@ -60,7 +60,7 @@ import java.util.stream.Collectors;
 public class CzServiceImpl implements CzService{
 	
 	@Autowired
-	private HspCzzlInfMapperCustom hspCzzlInfMapperCustom;
+	private HspZlInfCustomMapper hspZlInfCustomMapper;
 	
 	@Autowired
 	private HspFlowChartInfMapperCustom hspFlowChartInfMapperCustom;
@@ -90,7 +90,7 @@ public class CzServiceImpl implements CzService{
 	private HspHljldInfMapper hspHljldInfMapper;
 	
 	@Autowired
-	private HspCzzlInfMapper hspCzzlInfMapper;
+	private HspZlInfMapper hspZlInfMapper;
 	
 	@Autowired
 	private AidPatientMapper aidPatientMapper;
@@ -123,8 +123,8 @@ public class CzServiceImpl implements CzService{
 	@Override
 	public ResultInfo getCzPatientInfoList(QueryDto queryDto) {
 		ResultInfo resultInfo = null;
-		//List<HspemginfCustom> list = hspCzzlInfMapperCustom.getCzPatientInfoList(queryDto);
-		List<HspDbzlBasCustom> list = hspCzzlInfMapperCustom.getCzPatientInfoListForDbzlBas(queryDto);
+		//List<HspemginfCustom> list = hspZlInfCustomMapper.getCzPatientInfoList(queryDto);
+		List<HspDbzlBasCustom> list = hspZlInfCustomMapper.getCzPatientInfoListForDbzlBas(queryDto);
 		if(list.size()>0){
 			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 			Map<String,Object> map = new HashMap<>();
@@ -158,10 +158,10 @@ public class CzServiceImpl implements CzService{
 		
 		paramList.add("RSZLKSSJ");
 		
-		List<HspCzzlInf> hspCzzlInfList	= hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndProCodeList(regSeq,paramList);
+		List<HspZlInf> hspZlInfList	= hspZlInfCustomMapper.getHspCzzlInfByEmgSeqAndProCodeList(regSeq,paramList);
 		Map<String,Object> map = new HashMap<>();
 		map.put("flowChartList", flowChartList);
-		map.put("hspCzzlInfList", hspCzzlInfList);
+		map.put("hspCzzlInfList", hspZlInfList);
 		resultInfo.setSysdata(map);
 		return resultInfo;
 	}
@@ -172,7 +172,7 @@ public class CzServiceImpl implements CzService{
 		resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> map = new HashMap<String,Object>();
 		String regSeq = hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq).getRegSeq();
-		List<HspCzzlInfCustom> list = null;
+		List<HspZlInfCustom> list = null;
 		// 神经内科 神经外科 转归 分别处理
 		if("tzczyshz".equals(nodeId)||"sjwkhz".equals(nodeId)){
 			
@@ -184,31 +184,31 @@ public class CzServiceImpl implements CzService{
 				HspConsultationRecords HspConsultationRecords = _list.get(0);
 				list = new ArrayList<>();
 				
-				HspCzzlInfCustom hspCzzlInfCustom1 = new HspCzzlInfCustom();
-				hspCzzlInfCustom1.setProType("time2");
-				hspCzzlInfCustom1.setProVal(DateUtil.formatDateByFormat( HspConsultationRecords.getInvitationDate(),DateUtil.DATETIME_FORMAT));
-				hspCzzlInfCustom1.setProName("会诊邀请时间");
-				list.add(hspCzzlInfCustom1);
+				HspZlInfCustom hspZlInfCustom1 = new HspZlInfCustom();
+				hspZlInfCustom1.setProType("time2");
+				hspZlInfCustom1.setProVal(DateUtil.formatDateByFormat( HspConsultationRecords.getInvitationDate(),DateUtil.DATETIME_FORMAT));
+				hspZlInfCustom1.setProName("会诊邀请时间");
+				list.add(hspZlInfCustom1);
 				
-				HspCzzlInfCustom hspCzzlInfCustom2 = new HspCzzlInfCustom();
-				hspCzzlInfCustom2.setProType("input");
+				HspZlInfCustom hspZlInfCustom2 = new HspZlInfCustom();
+				hspZlInfCustom2.setProType("input");
 				DstcompctlCustom dstcompctlCustom = dstcompctlCustomMapper.selectCompctlByComno(HspConsultationRecords.getInvitationDep());
-				hspCzzlInfCustom2.setProVal(dstcompctlCustom.getComcname());
-				hspCzzlInfCustom2.setProName("会诊邀请科室");
-				list.add(hspCzzlInfCustom2);
+				hspZlInfCustom2.setProVal(dstcompctlCustom.getComcname());
+				hspZlInfCustom2.setProName("会诊邀请科室");
+				list.add(hspZlInfCustom2);
 				
-				HspCzzlInfCustom hspCzzlInfCustom3 = new HspCzzlInfCustom();
-				hspCzzlInfCustom3.setProType("input");
-				hspCzzlInfCustom3.setProVal(HspConsultationRecords.getInvitationDocNme());
-				hspCzzlInfCustom3.setProName("会诊邀请医生");
-				list.add(hspCzzlInfCustom3);
+				HspZlInfCustom hspZlInfCustom3 = new HspZlInfCustom();
+				hspZlInfCustom3.setProType("input");
+				hspZlInfCustom3.setProVal(HspConsultationRecords.getInvitationDocNme());
+				hspZlInfCustom3.setProName("会诊邀请医生");
+				list.add(hspZlInfCustom3);
 				
 				
-				HspCzzlInfCustom hspCzzlInfCustom4 = new HspCzzlInfCustom();
-				hspCzzlInfCustom4.setProType("time2");
-				hspCzzlInfCustom4.setProVal(DateUtil.formatDateByFormat( HspConsultationRecords.getConsultationDate(), DateUtil.DATETIME_FORMAT));
-				hspCzzlInfCustom4.setProName("会诊签到时间");
-				list.add(hspCzzlInfCustom4);
+				HspZlInfCustom hspZlInfCustom4 = new HspZlInfCustom();
+				hspZlInfCustom4.setProType("time2");
+				hspZlInfCustom4.setProVal(DateUtil.formatDateByFormat( HspConsultationRecords.getConsultationDate(), DateUtil.DATETIME_FORMAT));
+				hspZlInfCustom4.setProName("会诊签到时间");
+				list.add(hspZlInfCustom4);
 				
 			}
 			
@@ -236,7 +236,7 @@ public class CzServiceImpl implements CzService{
 			map.put("jyjgList", jyjgList);
 			
 		}else{
-			list = hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndStep(regSeq, nodeId);
+			list = hspZlInfCustomMapper.getHspCzzlInfByEmgSeqAndStep(regSeq, nodeId);
 		} 
 		map.put("list", list);
 		resultInfo.setSysdata(map);
@@ -244,8 +244,8 @@ public class CzServiceImpl implements CzService{
 	}
 
 	@Override
-	public List<HspCzzlInf> getCzNodeInfoByEmgSeqProCode(String emgSeq,List<String> paramList) {
-		return hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq,paramList);
+	public List<HspZlInf> getCzNodeInfoByEmgSeqProCode(String emgSeq,List<String> paramList) {
+		return hspZlInfCustomMapper.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq,paramList);
 	}
 
 	@Override
@@ -254,17 +254,17 @@ public class CzServiceImpl implements CzService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<String> paramlist = new ArrayList<String>();
 		paramlist.add("YWXZ");
-		List<HspCzzlInf> YWXZ = hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq,paramlist);
+		List<HspZlInf> YWXZ = hspZlInfCustomMapper.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq,paramlist);
 		String retStr = "0|暂未查找到该病人溶栓信息";
 		if(YWXZ!=null && YWXZ.size()>0){
 			if("0".equals(YWXZ.get(0).getProVal())){
 				paramlist.clear();
 				paramlist.add("RTPAZJL");
 				paramlist.add("TIZHONG");
-				List<HspCzzlInf> rtPAList = hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq,paramlist);
+				List<HspZlInf> rtPAList = hspZlInfCustomMapper.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq,paramlist);
 				String TIZHONG = "";
 				String RTPAZJL = "";
-				for (HspCzzlInf rtPA : rtPAList) {
+				for (HspZlInf rtPA : rtPAList) {
 					if("TIZHONG".equals(rtPA.getProCode())){
 						TIZHONG = rtPA.getProVal();
 					}
@@ -285,7 +285,7 @@ public class CzServiceImpl implements CzService{
 			}else{
 				paramlist.clear();
 				paramlist.add("NJMDZL");
-				List<HspCzzlInf> njmList = hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq,paramlist);
+				List<HspZlInf> njmList = hspZlInfCustomMapper.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq,paramlist);
 				if(njmList != null 
 						&& "NJMDZL".equals( njmList.get(0).getProCode())){
 					retStr = "1|溶栓使用药物尿激酶，滴注剂量" + njmList.get(0).getProVal() + "u;";
@@ -354,25 +354,25 @@ public class CzServiceImpl implements CzService{
 		sysdata.put("hspDbzlBas", hspDbzlBas);
 
 		//获取卒中诊疗表信息
-		HspCzzlInfExample hspCzzlInfExample = new HspCzzlInfExample();
-		HspCzzlInfExample.Criteria hspCzzlInfCriteria = hspCzzlInfExample.createCriteria();
-		hspCzzlInfCriteria.andEmgNoEqualTo(emgSeq);
-		List<HspCzzlInf> hspCzzlInfList = hspCzzlInfMapper.selectByExample(hspCzzlInfExample);
-		sysdata.put("hspCzzlInfList", hspCzzlInfList);
+		HspZlInfExample hspZlInfExample = new HspZlInfExample();
+		HspZlInfExample.Criteria hspZlInfCriteria = hspZlInfExample.createCriteria();
+		hspZlInfCriteria.andEmgNoEqualTo(emgSeq);
+		List<HspZlInf> hspZlInfList = hspZlInfMapper.selectByExample(hspZlInfExample);
+		sysdata.put("hspCzzlInfList", hspZlInfList);
 
 		//分诊图片  |   化验项目图片 | 护理记录单截图
-		Map<String ,String> hspCzzlInfMap= hspCzzlInfList.stream().filter(hspCzzlInf-> hspCzzlInf.getProVal()!=null).collect(Collectors.toMap(HspCzzlInf::getProCode, HspCzzlInf::getProVal, (key1, key2) -> key2));
+		Map<String ,String> hspZlInfMap= hspZlInfList.stream().filter(hspZlInf-> hspZlInf.getProVal()!=null).collect(Collectors.toMap(HspZlInf::getProCode, HspZlInf::getProVal, (key1, key2) -> key2));
 		try {
-			if (hspCzzlInfMap.containsKey("FZJT")){
-				String fileSeq=hspCzzlInfMap.get("FZJT");
+			if (hspZlInfMap.containsKey("FZJT")){
+				String fileSeq=hspZlInfMap.get("FZJT");
 				sysdata.put("fzPicData",this.getPictureBase64(fileSeq));
 			}
-			if (hspCzzlInfMap.containsKey("HYXMJT")){
-				String fileSeq=hspCzzlInfMap.get("HYXMJT");
+			if (hspZlInfMap.containsKey("HYXMJT")){
+				String fileSeq=hspZlInfMap.get("HYXMJT");
 				sysdata.put("hyPicData",this.getPictureBase64(fileSeq));
 			}
-			if (hspCzzlInfMap.containsKey("HLJLDJT")){
-				String fileSeq=hspCzzlInfMap.get("HYXMJT");
+			if (hspZlInfMap.containsKey("HLJLDJT")){
+				String fileSeq=hspZlInfMap.get("HYXMJT");
 				sysdata.put("hlPicData",this.getPictureBase64(fileSeq));
 			}
 		} catch (Exception e) {
@@ -403,8 +403,8 @@ public class CzServiceImpl implements CzService{
 		// TODO Auto-generated method stub
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
-		List<HspCzzlInfCustom> list = hspCzzlInfMapperCustom.getCzTimeline(regSeq);
-		list.sort(Comparator.comparing(HspCzzlInfCustom::getProVal));
+		List<HspZlInfCustom> list = hspZlInfCustomMapper.getCzTimeline(regSeq);
+		list.sort(Comparator.comparing(HspZlInfCustom::getProVal));
 		sysdata.put("czTimeline", list);
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
@@ -413,11 +413,11 @@ public class CzServiceImpl implements CzService{
 //	@Override
 //	public DataGridResultInfo getCzPatientList(HspCzzlInfQueryDto hspCzzlInfQueryDto,int page,int rows) {
 //		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-//		int total = hspCzzlInfMapperCustom.countCzPatientList(hspCzzlInfQueryDto);
+//		int total = hspZlInfCustomMapper.countCzPatientList(hspCzzlInfQueryDto);
 //		PageQuery pageQuery = new PageQuery();
 //		pageQuery.setPageParams(total, rows, page);
 //		hspCzzlInfQueryDto.setPageQuery(pageQuery);
-//		List<HspCzzlInfQueryDto> list = hspCzzlInfMapperCustom.getCzPatientList(hspCzzlInfQueryDto);
+//		List<HspCzzlInfQueryDto> list = hspZlInfCustomMapper.getCzPatientList(hspCzzlInfQueryDto);
 //		dataGridResultInfo.setRows(list);
 //		dataGridResultInfo.setTotal(total);
 //		return dataGridResultInfo;
@@ -426,11 +426,11 @@ public class CzServiceImpl implements CzService{
 	@Override
 	public DataGridResultInfo getCzPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto) {
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		int total = hspCzzlInfMapperCustom.countCzPatientList(hspDbzlBasQueryDto);
+		int total = hspZlInfCustomMapper.countCzPatientList(hspDbzlBasQueryDto);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total,hspDbzlBasQueryDto.getRows(), hspDbzlBasQueryDto.getPage());
 		hspDbzlBasQueryDto.setPageQuery(pageQuery);
-		List<HspDbzlBasCustom> list = hspCzzlInfMapperCustom.getCzPatientList(hspDbzlBasQueryDto);
+		List<HspDbzlBasCustom> list = hspZlInfCustomMapper.getCzPatientList(hspDbzlBasQueryDto);
 		dataGridResultInfo.setRows(list);
 		dataGridResultInfo.setTotal(total);
 		return dataGridResultInfo;
@@ -440,7 +440,7 @@ public class CzServiceImpl implements CzService{
 	public ResultInfo getCzhcbInfoByEmgSeq(String emgSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> sysdata = new HashMap<String, Object>();
-		HspemginfCustom hspemginfCustom = hspCzzlInfMapperCustom.getCzhcbInfoByEmgseq(emgSeq);
+		HspemginfCustom hspemginfCustom = hspZlInfCustomMapper.getCzhcbInfoByEmgseq(emgSeq);
 		
 		String clbzCod = hspemginfCustom.getClbzCod();
 		String clbzFlg = "0";
@@ -464,7 +464,7 @@ public class CzServiceImpl implements CzService{
 		
 		
 		
-		List<HspCzzlInf> list = hspCzzlInfMapperCustom.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq, proList);
+		List<HspZlInf> list = hspZlInfCustomMapper.getHspCzzlInfByEmgSeqAndProCodeList(emgSeq, proList);
 		
 		HspConsentInfExample consentExample = new HspConsentInfExample();
 		HspConsentInfExample.Criteria  consentCriteria = consentExample.createCriteria();
@@ -523,10 +523,10 @@ public class CzServiceImpl implements CzService{
 		//患者信息
 		HspDbzlBas hspDbzlBas = hspDbzlBasMapper.selectByPrimaryKey(regSeq);
 		//卒中表信息
-		HspCzzlInfExample czzlExample = new HspCzzlInfExample();
-		HspCzzlInfExample.Criteria czzlCriteria = czzlExample.createCriteria();
+		HspZlInfExample czzlExample = new HspZlInfExample();
+		HspZlInfExample.Criteria czzlCriteria = czzlExample.createCriteria();
 		czzlCriteria.andEmgNoEqualTo(regSeq);
-		List<HspCzzlInf> czzlList = hspCzzlInfMapper.selectByExample(czzlExample);
+		List<HspZlInf> czzlList = hspZlInfMapper.selectByExample(czzlExample);
 		//会诊信息
 		HspConsultationRecordsExample consultationExample = new HspConsultationRecordsExample();
 		HspConsultationRecordsExample.Criteria consultationCriteria = consultationExample.createCriteria();
@@ -565,16 +565,16 @@ public class CzServiceImpl implements CzService{
 	}
 
 	@Override
-	public ResultInfo czPatientSubmit(List<HspCzzlInfCustom> czzlInfList, String emgSeq, ActiveUser activeUser) {
+	public ResultInfo czPatientSubmit(List<HspZlInfCustom> czzlInfList, String emgSeq, ActiveUser activeUser) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		for(HspCzzlInfCustom hspCzzlInfCustom : czzlInfList){
-			HspCzzlInf hspCzzlInf = new HspCzzlInf();
-			hspCzzlInf.setProCode(hspCzzlInfCustom.getProCode());
-			hspCzzlInf.setProVal(hspCzzlInfCustom.getProVal());
-			hspCzzlInf.setEmgNo(emgSeq);
-			hspCzzlInf.setModUser(activeUser.getUsrno());
-			hspCzzlInf.setCrtUser(activeUser.getUsrno());
-			hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+		for(HspZlInfCustom hspZlInfCustom : czzlInfList){
+			HspZlInf hspZlInf = new HspZlInf();
+			hspZlInf.setProCode(hspZlInfCustom.getProCode());
+			hspZlInf.setProVal(hspZlInfCustom.getProVal());
+			hspZlInf.setEmgNo(emgSeq);
+			hspZlInf.setModUser(activeUser.getUsrno());
+			hspZlInf.setCrtUser(activeUser.getUsrno());
+			hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 		}
 		return resultInfo;
 	}
@@ -743,12 +743,12 @@ public class CzServiceImpl implements CzService{
 
 	@Override
 	public int getCzPatientInfoListCount(QueryDto queryDto) {
-		return hspCzzlInfMapperCustom.getCzPatientInfoListCount(queryDto);
+		return hspZlInfCustomMapper.getCzPatientInfoListCount(queryDto);
 	}
 
 	@Override
 	public List<HspDbzlBasCustom> getCzPatientInfoListByPage(QueryDto queryDto) {
-		return hspCzzlInfMapperCustom.getCzPatientInfoListForDbzlBas(queryDto);
+		return hspZlInfCustomMapper.getCzPatientInfoListForDbzlBas(queryDto);
 	}
 
 	@Override

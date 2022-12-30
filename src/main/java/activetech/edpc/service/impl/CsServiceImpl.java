@@ -68,10 +68,10 @@ public class CsServiceImpl implements CsService{
 	private HspemginfCustomMapper hspemginfCustomMapper;
 	
 	@Autowired
-	private HspCszlInfMapper hspCszlInfMapper;
+	private HspZlInfMapper hspZlInfMapper;
 	
 	@Autowired
-	private HspCszlInfMapperCustom hspCszlInfMapperCustom;
+	private HspZlInfCustomMapper hspZlInfMapperCustom;
 	
 	@Autowired
 	private HspEmgInfMapper hspEmgInfMapper;
@@ -510,26 +510,26 @@ public class CsServiceImpl implements CsService{
 		String emgSeq = hspemginfCustom.getEmgSeq();
 		HspemginfCustom hspEmgInf = hspemginfCustomMapper.findEmgByEmgSeq(hspemginfCustom);
 		sysdata.put("hspEmgInf",hspEmgInf);
-		HspCszlInfExample example = new HspCszlInfExample();
-		HspCszlInfExample.Criteria criteria = example.createCriteria();
+		HspZlInfExample example = new HspZlInfExample();
+		HspZlInfExample.Criteria criteria = example.createCriteria();
 		criteria.andEmgNoEqualTo(emgSeq);
 		
 		
-		List<HspCszlInf> cszlList = hspCszlInfMapper.selectByExample(example);
+		List<HspZlInf> cszlList = hspZlInfMapper.selectByExample(example);
 		sysdata.put("cszlList", cszlList);
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
 	}
 
 	@Override
-	public DataGridResultInfo getCsPatientList(HspCszlInfQueryDto hspCszlInfQueryDto, int page, int rows) {
+	public DataGridResultInfo getCsPatientList(HspZlInfQueryDto hspZlInfQueryDto, int page, int rows) {
 		// TODO Auto-generated method stub
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		int total = hspCszlInfMapperCustom.countCsPatientList(hspCszlInfQueryDto);
+		int total = hspZlInfMapperCustom.countCsPatientList(hspZlInfQueryDto);
 		PageQuery pageQuery = new PageQuery();
 		pageQuery.setPageParams(total, rows, page);
-		hspCszlInfQueryDto.setPageQuery(pageQuery);
-		List<HspDbzlBasCustom> list = hspCszlInfMapperCustom.getCsPatientList(hspCszlInfQueryDto);
+		hspZlInfQueryDto.setPageQuery(pageQuery);
+		List<HspDbzlBasCustom> list = hspZlInfMapperCustom.getCsPatientList(hspZlInfQueryDto);
 		dataGridResultInfo.setRows(list);
 		dataGridResultInfo.setTotal(total);
 		return dataGridResultInfo;
@@ -540,7 +540,7 @@ public class CsServiceImpl implements CsService{
 		// TODO Auto-generated method stub
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
-		List<HspCzzlInfCustom> list = hspCszlInfMapperCustom.getCzTimeline(emgSeq);
+		List<HspZlInfCustom> list = hspZlInfMapperCustom.getCzTimeline(emgSeq);
 		
 		
 		
@@ -590,18 +590,18 @@ public class CsServiceImpl implements CsService{
 	}
 
 	@Override
-	public ResultInfo submitCsInf(List<HspCszlInfCustom> cszlInfList, String emgSeq, ActiveUser activeUser) {
+	public ResultInfo submitCsInf(List<HspZlInfCustom> cszlInfList, String emgSeq, ActiveUser activeUser) {
 		// TODO Auto-generated method stub
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		for(HspCszlInfCustom hspCszlInfCustom : cszlInfList){
-			HspCszlInf hspCszlInf = new HspCszlInf();
-			hspCszlInf.setSeqNo(UUIDBuild.getUUID());
-			hspCszlInf.setProCode(hspCszlInfCustom.getProCode());
-			hspCszlInf.setProVal(hspCszlInfCustom.getProVal());
-			hspCszlInf.setEmgNo(emgSeq);
-			hspCszlInf.setModUser(activeUser.getUsrno());
-			hspCszlInf.setCrtUser(activeUser.getUsrno());
-			hspCszlInfMapperCustom.mergeHspCszlInf(hspCszlInf);
+		for(HspZlInfCustom hspZlInfCustom : cszlInfList){
+			HspZlInf hspZlInf = new HspZlInf();
+			hspZlInf.setSeqNo(UUIDBuild.getUUID());
+			hspZlInf.setProCode(hspZlInfCustom.getProCode());
+			hspZlInf.setProVal(hspZlInfCustom.getProVal());
+			hspZlInf.setEmgNo(emgSeq);
+			hspZlInf.setModUser(activeUser.getUsrno());
+			hspZlInf.setCrtUser(activeUser.getUsrno());
+			hspZlInfMapperCustom.mergeHspCszlInf(hspZlInf);
 		}
 		return resultInfo;
 	}

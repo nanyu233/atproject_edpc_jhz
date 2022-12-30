@@ -58,12 +58,12 @@ public interface CsService {
 	
 	/**
 	 * 获取创伤患者列表
-	 * @param hspCszlInfQueryDto
+	 * @param hspZlInfQueryDto
 	 * @param page
 	 * @param rows
 	 * @return
 	 */
-	public DataGridResultInfo getCsPatientList(HspCszlInfQueryDto hspCszlInfQueryDto,int page,int rows);
+	public DataGridResultInfo getCsPatientList(HspZlInfQueryDto hspZlInfQueryDto,int page,int rows);
 	
 	/**
 	 * 获取创伤时间轴
@@ -74,12 +74,12 @@ public interface CsService {
 	
 	/**
 	 * 创伤信息保存
-	 * @param hspCszlInfQueryDto
+	 * @param hspZlInfQueryDto
 	 * @param emgSeq
 	 * @param activeUser
 	 * @return
 	 */
-	public ResultInfo submitCsInf(List<HspCszlInfCustom> cszlInfList,String emgSeq,ActiveUser activeUser);
+	public ResultInfo submitCsInf(List<HspZlInfCustom> cszlInfList,String emgSeq,ActiveUser activeUser);
 	
 	public ResultInfo getHspCsfDef(String emgSeq);
 	

@@ -4,7 +4,7 @@ import java.util.List;
 
 import activetech.edpc.pojo.domain.VHemsJcjgHz;
 import activetech.edpc.pojo.domain.VHemsJyjgHz;
-import activetech.edpc.pojo.dto.HspXtzlInfCustom;
+import activetech.edpc.pojo.dto.HspZlInfCustom;
 import activetech.edpc.pojo.dto.VHemsJyjgHzCustom;
 import activetech.external.pojo.domain.VHemsJyjg;
 
@@ -12,7 +12,7 @@ public interface SysIntergratingService {
 	
 	List<VHemsJyjgHzCustom> getJyjgListBySampleno(VHemsJyjgHz vHemsJyjgHz);
 	
-	void mergeHspXtzlInf(HspXtzlInfCustom hspXtzlInfCustom);
+	void mergeHspXtzlInf(HspZlInfCustom hspZlInfCustom);
 	
 	void JyjgIntergrat(VHemsJyjgHzCustom vHemsJyjgHzCustom);
 	

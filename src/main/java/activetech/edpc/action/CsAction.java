@@ -340,11 +340,11 @@ public class CsAction {
 	
 	@RequestMapping("/getCsPatientList")
 	@ResponseBody
-	public DataGridResultInfo getCsPatientList(HspCszlInfQueryDto hspCszlInfQueryDto,
+	public DataGridResultInfo getCsPatientList(HspZlInfQueryDto hspZlInfQueryDto,
 			int page,//当前页码
 			int rows//每页显示个数
 			){
-		DataGridResultInfo dataGridResultInfo = csService.getCsPatientList(hspCszlInfQueryDto,page,rows);
+		DataGridResultInfo dataGridResultInfo = csService.getCsPatientList(hspZlInfQueryDto,page,rows);
 		return dataGridResultInfo;		
 	}
 	
@@ -364,14 +364,14 @@ public class CsAction {
 	
 	/**
 	 * 创伤数据提交
-	 * @param hspCszlInfQueryDto
+	 * @param hspZlInfQueryDto
 	 * @param activeUser
 	 * @return
 	 */
 	@RequestMapping("/submitCsInf")
 	@ResponseBody
-	public SubmitResultInfo submitCsInf(@RequestBody HspCszlInfQueryDto hspCszlInfQueryDto,ActiveUser activeUser){
-		ResultInfo resultInfo = csService.submitCsInf(hspCszlInfQueryDto.getCszlInfList(),hspCszlInfQueryDto.getEmgSeq(),activeUser);
+	public SubmitResultInfo submitCsInf(@RequestBody HspZlInfQueryDto hspZlInfQueryDto,ActiveUser activeUser){
+		ResultInfo resultInfo = csService.submitCsInf(hspZlInfQueryDto.getZlInfList(),hspZlInfQueryDto.getEmgSeq(),activeUser);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	

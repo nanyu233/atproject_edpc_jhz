@@ -208,29 +208,29 @@
             <table style='text-align:left;margin: 20px;' border='0' cellspacing='0' cellpadding='0'>
                 <tr>
                     <td style='text-align: center;' rowspan='4'>时间节点：</td>
-                    <td ms-repeat="pointArr" ms-class="odd:($index+1)%2 !=0" ms-class-1="orange:el.keyTime==2"
+                    <td ms-repeat="pointArr" ms-class="odd:($index+1)%2 !=0" ms-class-1="orange:el.keyTime==200"
                         ms-attr-rowspan="($index+1)%2 !=0 ?'4':''">
                         {{el.proName}}
                     </td>
                 </tr>
                 <tr>
-                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==2"
+                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==200"
                         ms-visible="($index+1)%2==0">↑
                     </td>
                 </tr>
                 <tr>
-                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==2"
+                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==200"
                         ms-visible="($index+1)%2==0">︱
                     </td>
                 </tr>
                 <tr>
-                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==2"
+                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==200"
                         ms-visible="($index+1)%2==0">︱
                     </td>
                 </tr>
                 <tr>
                     <td class="time">&nbsp;</td>
-                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==2">
+                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==200">
                         <span ms-if="($index+1)%2!=0">↑</span>
                         <span ms-if="($index+1)%2==0">︱</span>
                     </td>
@@ -239,7 +239,7 @@
                 <tr>
                     <td class="line"></td>
                     <td class="line" ms-repeat="pointArr">
-                        <span ms-class="orange:el.keyTime==2">︱</span>
+                        <span ms-class="orange:el.keyTime==200">︱</span>
                     </td>
                     <td class="line"></td>
                 </tr>
@@ -257,13 +257,13 @@
                 <tr>
                     <td class="line">&nbsp;</td>
                     <td ms-repeat="pointArr" class="line">
-                        <span ms-class="orange:el.keyTime==2">︱</span>
+                        <span ms-class="orange:el.keyTime==200">︱</span>
                     </td>
                     <td class="line"></td>
                 </tr>
                 <tr>
                     <td class="time">&nbsp;</td>
-                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==2">
+                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==200">
                         <span ms-if="($index+1)%2 != 0">↓</span>
                         <span ms-if="($index+1)%2 == 0">︱</span>
                     </td>
@@ -271,7 +271,7 @@
                 </tr>
                 <tr>
                     <td class="time">发生时间：</td>
-                    <td ms-repeat="pointArr" class="time" ms-class="orange:el.keyTime==2">
+                    <td ms-repeat="pointArr" class="time" ms-class="orange:el.keyTime==200">
                         <span ms-if="($index+1)%2 !=0">{{el.timeStr}}</span>
                         <span ms-if="($index+1)%2 ==0">↓</span>
                     </td>
@@ -279,7 +279,7 @@
                 </tr>
                 <tr>
                     <td class="time">&nbsp;</td>
-                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==2">
+                    <td class="time" ms-repeat="pointArr" ms-class="orange:el.keyTime==200">
                         <span ms-if="($index+1)%2 !=0"></span>
                         <span ms-if="($index+1)%2 ==0">{{el.timeStr}}</span>
                     </td>
@@ -298,7 +298,7 @@
                 </tr>
                 <tr>
                     <td class="cost">实际时长：</td>
-                    <td class="cost" ms-repeat="pointArr" ms-class="orange:el.keyTime==2">{{el.cost}}</td>
+                    <td class="cost" ms-repeat="pointArr" ms-class="orange:el.keyTime==200">{{el.cost}}</td>
                     <td class="cost"></td>
                 </tr>
             </table>

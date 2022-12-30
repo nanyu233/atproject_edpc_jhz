@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import activetech.edpc.dao.mapper.HspZlInfCustomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import activetech.base.dao.mapper.DstcompctlCustomMapper;
@@ -13,7 +14,7 @@ import activetech.base.pojo.dto.DstcompctlCustom;
 import activetech.edpc.dao.mapper.HspCzzlInfMapperCustom;
 import activetech.edpc.dao.mapper.HspFlowChartInfMapperCustom;
 import activetech.edpc.dao.mapper.HspXtzlInfCustomMapper;
-import activetech.edpc.pojo.domain.HspCzzlInf;
+import activetech.edpc.pojo.domain.HspZlInf;
 import activetech.edpc.pojo.domain.HspFlowChartInf;
 import activetech.edpc.pojo.dto.HspXtzlInfCustom;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
@@ -29,7 +30,7 @@ public class HuzZyyHspQjsInfServiceImpl extends DecoratorZyyHspQjsInfService{
 	private HspXtzlInfCustomMapper hspXtzlInfCustomMapper;
 	
 	@Autowired
-	private HspCzzlInfMapperCustom hspCzzlInfMapperCustom;
+	private HspZlInfCustomMapper hspZlInfCustomMapper;
 	
 	@Autowired
 	private HspFlowChartInfMapperCustom hspFlowChartInfMapperCustom;
@@ -72,26 +73,26 @@ public class HuzZyyHspQjsInfServiceImpl extends DecoratorZyyHspQjsInfService{
 		 */
 		String emgSeq = hspemginfQueryDto.getHspemginfCustom().getEmgSeq();
 		// 1
-		HspCzzlInf hspCzzlInf = new HspCzzlInf(); 
-	 	hspCzzlInf.setEmgNo(emgSeq);
+		HspZlInf hspZlInf = new HspZlInf();
+	 	hspZlInf.setEmgNo(emgSeq);
 	 	// hspCzzlInf.setCrtUser(activeUser.getUsrno());
-	 	hspCzzlInf.setCrtTime(new Date());
+	 	hspZlInf.setCrtTime(new Date());
 	 	
 	 	// 转归时间
-	 	hspCzzlInf.setProCode("ZGSJ");
-	 	hspCzzlInf.setProVal(DateUtil.formatDateByFormat(hspsqlinfCustom.getSqlDat(),"yyyy-MM-dd HH:mm:ss"));
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	 	hspZlInf.setProCode("ZGSJ");
+	 	hspZlInf.setProVal(DateUtil.formatDateByFormat(hspsqlinfCustom.getSqlDat(),"yyyy-MM-dd HH:mm:ss"));
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    // 转归去向
-	    hspCzzlInf.setProCode("ZGQX");
-	 	hspCzzlInf.setProVal(hspsqlinfCustom.getSqlStaCod());
-	    hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+	    hspZlInf.setProCode("ZGQX");
+	 	hspZlInf.setProVal(hspsqlinfCustom.getSqlStaCod());
+	    hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    
 	    // 如果转归方向为住院，则记录转归科室
 	    if("2".equals(hspsqlinfCustom.getSqlStaCod())){
-	    	hspCzzlInf.setProCode("ZGKS");
+	    	hspZlInf.setProCode("ZGKS");
 	    	DstcompctlCustom dstcompctlCustom = dstcompctlCustomMapper.selectCompctlByComno(hspsqlinfCustom.getSqlDepCod());
-		 	hspCzzlInf.setProVal(dstcompctlCustom.getComcname());
-		 	hspCzzlInfMapperCustom.mergeHspCzzlInf(hspCzzlInf);
+		 	hspZlInf.setProVal(dstcompctlCustom.getComcname());
+		 	hspZlInfCustomMapper.mergeHspCzzlInf(hspZlInf);
 	    }
 	    
 		

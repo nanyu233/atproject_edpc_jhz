@@ -9,7 +9,7 @@ import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspBase64Pic;
-import activetech.edpc.pojo.dto.HspCzzlInfQueryDto;
+import activetech.edpc.pojo.dto.HspZlInfQueryDto;
 import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.QueryDto;
@@ -277,14 +277,14 @@ public class CzAction {
 	
 	/**
 	 * 卒中患者信息保存
-	 * @param hspCzzlInfQueryDto
+	 * @param hspZlInfQueryDto
 	 * @return
 	 */
 	@RequestMapping("/submitCzInfo")
 	@ResponseBody
-	public SubmitResultInfo submitCzInfo(@RequestBody HspCzzlInfQueryDto hspCzzlInfQueryDto,ActiveUser activeUser){
+	public SubmitResultInfo submitCzInfo(@RequestBody HspZlInfQueryDto hspZlInfQueryDto,ActiveUser activeUser){
 		ResultInfo resultInfo = czService.czPatientSubmit(
-				hspCzzlInfQueryDto.getCzzlInfList(),hspCzzlInfQueryDto.getEmgSeq(),activeUser);
+				hspZlInfQueryDto.getCzzlInfList(),hspZlInfQueryDto.getEmgSeq(),activeUser);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	

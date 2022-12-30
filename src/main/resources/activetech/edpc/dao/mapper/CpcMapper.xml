@@ -38,23 +38,26 @@
 			a.phe_nbr,
 			a.hsp_ara,
 			(select pro_val
-			FROM hsp_xtzl_inf
+			FROM hsp_zl_inf
 			WHERE emg_no = a.emg_seq
 			and pro_code = 'BQPG') bqpg,
 			(select pro_val
-			FROM hsp_xtzl_inf
+			FROM hsp_zl_inf
 			WHERE emg_no = a.emg_seq
+
+
+
 			and pro_code = 'BQPGMX') bqpgmx,
 			(select pro_val
-			FROM hsp_xtzl_inf
+			FROM hsp_zl_inf
 			WHERE emg_no = a.emg_seq
 			and pro_code = 'KILLIP') killip,
 			(select pro_val
-			FROM hsp_xtzl_inf
+			FROM hsp_zl_inf
 			WHERE emg_no = a.emg_seq
 			and pro_code = 'XUEY') xuey,
 			(select pro_val
-			FROM hsp_xtzl_inf
+			FROM hsp_zl_inf
 			WHERE emg_no = a.emg_seq
 			and pro_code = 'XINL') xinl
 		from hsp_dbzl_bas a
@@ -79,7 +82,7 @@
 			   a.pre_dgn_cod,
 			   a.sym_sit_des,
 			   (select bed_num from hsp_bed_inf where emg_seq = a.emg_seq) bed_num,
-			   (select pro_val from hsp_xtzl_inf where emg_no = a.emg_seq and pro_code = 'KILLIP') killip,
+			   (select pro_val from hsp_zl_inf where emg_no = a.emg_seq and pro_code = 'KILLIP') killip,
 			   (select ill_tim from aid_patient where patid = a.patid) illTim
 		  from hsp_emg_inf a, hsp_mews_inf b
 		 where a.emg_seq = b.emg_seq(+)
@@ -151,19 +154,19 @@
 			   a.smt_seq,
 			   a.smt_msg,
 			   (select pro_val
-				FROM hsp_xtzl_inf
+				FROM hsp_zl_inf
 				WHERE emg_no = a.emg_seq
 				  and pro_code = 'BQPG') bqpg,
 			   (select pro_val
-				FROM hsp_xtzl_inf
+				FROM hsp_zl_inf
 				WHERE emg_no = a.emg_seq
 				  and pro_code = 'XUEY') xuey,
 			   (select pro_val
-				FROM hsp_xtzl_inf
+				FROM hsp_zl_inf
 				WHERE emg_no = a.emg_seq
 				  and pro_code = 'XINL') xinl,
 		       (select pro_val
-				FROM hsp_xtzl_inf
+				FROM hsp_zl_inf
 				WHERE emg_no = a.emg_seq
 				  and pro_code = 'CBZD') cbzd
 		from Hsp_Dbzl_Bas a
@@ -186,20 +189,20 @@
 			   a.cst_nam,
 			   a.cst_age,
 			   a.cst_sex_cod,
-			   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XTZBNH') xtzbnh,
-			   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XUEYANG') xueyang,
-				   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XUEY') xuey,
-				   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'XINL') xinl,
+			   (select pro_val FROM hsp_zl_inf WHERE emg_no = a.emg_seq and pro_code = 'XTZBNH') xtzbnh,
+			   (select pro_val FROM hsp_zl_inf WHERE emg_no = a.emg_seq and pro_code = 'XUEYANG') xueyang,
+				   (select pro_val FROM hsp_zl_inf WHERE emg_no = a.emg_seq and pro_code = 'XUEY') xuey,
+				   (select pro_val FROM hsp_zl_inf WHERE emg_no = a.emg_seq and pro_code = 'XINL') xinl,
 			   a.id_nbr,
 			   a.phe_nbr,
-			   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'CBYX') cbyx,
-				   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'BRZSZZ') brzszz,
+			   (select pro_val FROM hsp_zl_inf WHERE emg_no = a.emg_seq and pro_code = 'CBYX') cbyx,
+				   (select pro_val FROM hsp_zl_inf WHERE emg_no = a.emg_seq and pro_code = 'BRZSZZ') brzszz,
 			   (select bed_num from hsp_bed_inf where emg_seq = a.emg_seq) bed_num,
 			   (select pro_val
-				  from hsp_xtzl_inf
+				  from hsp_zl_inf
 				 where emg_no = a.emg_seq
 				   and pro_code = 'KILLIP') killip,
-			   (select pro_val FROM hsp_xtzl_inf WHERE emg_no = a.emg_seq and pro_code = 'FBSJ') fbsj
+			   (select pro_val FROM hsp_zl_inf WHERE emg_no = a.emg_seq and pro_code = 'FBSJ') fbsj
 		   from HSP_DBZL_BAS a
 		   where a.pat_typ = '3'
 	   		<if test="cstNam !=null and cstNam.length()>0">

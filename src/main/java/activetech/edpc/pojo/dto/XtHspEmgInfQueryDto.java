@@ -21,7 +21,7 @@ public class XtHspEmgInfQueryDto extends HspEmgInf{
 	private	String yqrscs;		//院前溶栓场所
 	private String fbsj;			//发病时间
 	private String scyljcsj;
-	private List<HspXtzlInfCustom> xtzlInfs;
+	private List<HspZlInfCustom> xtzlInfs;
 	private String regSeq;   //Hsp_dbzl_bas的主键
 	
 	private String wayTyp;//区别绕行，院内，普通急诊的胸痛患者
@@ -33,10 +33,10 @@ public class XtHspEmgInfQueryDto extends HspEmgInf{
 	public void setWayTyp(String wayTyp) {
 		this.wayTyp = wayTyp;
 	}
-	public List<HspXtzlInfCustom> getXtzlInfs() {
+	public List<HspZlInfCustom> getXtzlInfs() {
 		return xtzlInfs;
 	}
-	public void setXtzlInfs(List<HspXtzlInfCustom> xtzlInfs) {
+	public void setXtzlInfs(List<HspZlInfCustom> xtzlInfs) {
 		this.xtzlInfs = xtzlInfs;
 	}
 	

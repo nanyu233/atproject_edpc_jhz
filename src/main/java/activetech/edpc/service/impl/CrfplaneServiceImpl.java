@@ -13,8 +13,8 @@ import activetech.base.util.MinIoUtil;
 import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.HspCrivelInf;
 import activetech.edpc.pojo.domain.HspDbzlBas;
-import activetech.edpc.pojo.domain.HspXtzlInf;
-import activetech.edpc.pojo.domain.HspXtzlInfExample;
+import activetech.edpc.pojo.domain.HspZlInf;
+import activetech.edpc.pojo.domain.HspZlInfExample;
 import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.service.CrfplaneService;
 import activetech.external.dao.mapper.HspEcgInfMapper;
@@ -48,7 +48,7 @@ import java.util.*;
 public class CrfplaneServiceImpl implements CrfplaneService {
 
 	@Autowired
-	private HspXtzlInfMapper hspXtzlInfMapper;
+	private HspZlInfMapper hspZlInfMapper;
 	@Autowired
 	private HspEmgInfMapper hspEmgInfMapper;
 	@Autowired
@@ -166,12 +166,12 @@ public class CrfplaneServiceImpl implements CrfplaneService {
 	@Override
 	public String registerInfoCrfplane(String regSeq) throws Exception {
 		Map<String, String> xtzlMap = new HashMap<>();
-		HspXtzlInfExample hspXtzlInfExample = new HspXtzlInfExample();
-		HspXtzlInfExample.Criteria criteria = hspXtzlInfExample.createCriteria();
+		HspZlInfExample hspZlInfExample = new HspZlInfExample();
+		HspZlInfExample.Criteria criteria = hspZlInfExample.createCriteria();
 		criteria.andEmgNoEqualTo(regSeq);
-		List<HspXtzlInf> list2 = hspXtzlInfMapper.selectByExample(hspXtzlInfExample);
-		for (HspXtzlInf hspXtzlInf : list2) {
-			xtzlMap.put(hspXtzlInf.getProCode(), hspXtzlInf.getProVal());
+		List<HspZlInf> list2 = hspZlInfMapper.selectByExample(hspZlInfExample);
+		for (HspZlInf hspZlInf : list2) {
+			xtzlMap.put(hspZlInf.getProCode(), hspZlInf.getProVal());
 		}
 
 		HspDbzlBas hspDbzlBas =hspDbzlBasMapper.selectByPrimaryKey(regSeq);
