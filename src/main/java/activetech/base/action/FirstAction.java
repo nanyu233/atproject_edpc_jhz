@@ -98,6 +98,18 @@ public class FirstAction {
 		firstService.indexmng(model);
 		return View.toBase("/index/indexmng_cz");
 	}
+
+	/**
+	 * 首页数据获取公用方法_创伤
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/indexmng_cs")
+	public String indexmng_cs(Model model) throws Throwable{
+		firstService.indexmng(model);
+		return View.toBase("/index/indexmng_cs");
+	}
 	
 	/**
 	 * 获取急诊大屏展示硬数据
