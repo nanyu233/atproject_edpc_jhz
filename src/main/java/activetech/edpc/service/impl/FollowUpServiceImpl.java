@@ -238,7 +238,38 @@ public class FollowUpServiceImpl implements FollowUpService {
 	
 	@Override
 	public HspFuvPatCustom selectOneByCondition(HspFuvPatQueryDto hspFuvPatQueryDto) {
-		return hspFuvPatMapperCustom.selectOneByCondition(hspFuvPatQueryDto);
+		HspFuvPatCustom hspFuvPatCustom = hspFuvPatMapperCustom.selectOneByCondition(hspFuvPatQueryDto);
+		// HSP_FUV_PAT 表中无记录则从 HSP_DBZL_BAS 表中查询患者信息并同步到 HSP_FUV_PAT 表
+		if (hspFuvPatCustom == null) {
+			hspFuvPatCustom = new HspFuvPatCustom();
+			HspDbzlBas hspDbzlBas = hspDbzlBasMapper.selectByPrimaryKey(hspFuvPatQueryDto.getHspFuvPatCustom().getPatId());
+			// 赋值给hspFuvPatCustom
+			// 患者编号
+			hspFuvPatCustom.setPatId(hspDbzlBas.getRegSeq());
+			// 患者姓名
+			hspFuvPatCustom.setPatNam(hspDbzlBas.getCstNam());
+			// 患者性别
+			hspFuvPatCustom.setCstSexCod(hspDbzlBas.getCstSexCod());
+			// 出生日期
+			hspFuvPatCustom.setBthDat(hspDbzlBas.getBthDat());
+			// 联系电话
+			hspFuvPatCustom.setLnkNbr(hspDbzlBas.getLnkWay());
+			// 民族
+			hspFuvPatCustom.setPatNatCod(hspDbzlBas.getNation());
+			// 婚姻状况
+			hspFuvPatCustom.setMarStaCod(hspDbzlBas.getMaritalStatus());
+			// 职业
+			hspFuvPatCustom.setPatJob(hspDbzlBas.getEmgJob());
+			// 证件号码
+			hspFuvPatCustom.setIdNbr(hspDbzlBas.getIdNbr());
+			// 地址
+			hspFuvPatCustom.setPatTel(hspDbzlBas.getPheNbr());
+			// 电话
+			hspFuvPatCustom.setLnkNbr(hspDbzlBas.getLnkWay());
+			// 插入 HSP_FUV_PAT 表
+			hspFuvPatMapper.insert(hspFuvPatCustom);
+		}
+		return hspFuvPatCustom;
 	}
 	
 	@Override

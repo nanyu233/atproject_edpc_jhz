@@ -61,7 +61,7 @@ public interface FollowUpService {
 	public int queryCountfuvInfResult(HspFuvInfQueryDto hspFuvInfQueryDto);
 	 /**
      * 随访记录列表
-     * @param hspPatInfQueryDto
+     * @param hspFuvInfQueryDto
      * @return
      */
 	List<HspFuvInfCustom> queryfuvInfResult(HspFuvInfQueryDto hspFuvInfQueryDto);
