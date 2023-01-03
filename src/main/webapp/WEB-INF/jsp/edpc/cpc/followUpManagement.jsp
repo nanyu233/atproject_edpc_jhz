@@ -28,6 +28,7 @@
         .form .row {
             margin: 10px 0;
             /*border: 1px solid red;*/
+            padding-bottom: 5px;
         }
 
         .form .row .form-item {
@@ -134,34 +135,24 @@
     </style>
 </head>
 <body id="container">
-<div ms-controller="list" style="width:100%;height:5%;">
+<div ms-controller="list" style="width:100%;height:5%;padding-bottom: 2px">
     <div class="form">
         <div class="row">
             <div class="search-btn" onclick="cmdaddpln()" style="margin-right:150px;left: 10px">创建计划</div>
+            <div class="search-btn" onclick="delFuvPln()" style="margin-left:150px;">删除计划</div>
+            <div class="search-btn" onclick="tofuvpln()" style="margin-left:300px;">计划详情</div>
+            <div class="search-btn" onclick="redirectTosfgladd()" style="margin-left:450px;">随访登记</div>
         </div>
     </div>
 </div>
-<div style="width:100%;height:50%;">
-    <div style="float:left;width:50%;">
-        <div class="form">
-            <div class="row" style="min-height:30px;">
-                <div class="search-btn" onclick="delFuvPln()">计划删除</div>
-            </div>
-            <div class="row">
-                <div class="search-btn" onclick="tofuvpln()" style="margin-left:150px;">计划详情</div>
-            </div>
-            <div class="row">
-                <div class="search-btn" onclick="redirectTosfgladd()" style="margin-left:300px;">随访登记</div>
-            </div>
-        </div>
+<div style="width:100%;">
+    <div style="width:100%;">
         <table id="fuvplndg"></table>
     </div>
-    <div style="float:left;width:49%;margin-left:10px;">
+    <div>
         <div class="form">
             <div class="row" style="min-height:30px;">
                 <div class="search-btn" onclick="toFuvInf()" >随访详情</div>
-            </div>
-            <div class="row">
                 <div class="search-btn" onclick="editFuvInf()" style="margin-left:150px;">随访修改</div>
             </div>
         </div>
@@ -171,7 +162,7 @@
 
 </body>
 <script>
-    var height = $('#container').height() * 0.88;
+    var height = $('#container').height() * 0.43;
 
     var cstSexCodArray = publicFun.getDict("CST_SEX_COD") || [];
 
