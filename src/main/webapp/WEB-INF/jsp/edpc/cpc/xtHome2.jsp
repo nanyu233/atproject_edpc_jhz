@@ -297,7 +297,7 @@
     var flowChartLine = {};
     // 存放所有的流程组件，包括任务，分支
     var flowChart = {};
-    
+
     // 当前的矩形节点
     var nodeArrayFromGateWay1; //存放初步诊断节点
     var nodeArrayByTask1;//存放非ACS节点
@@ -306,7 +306,7 @@
 
     var baseX = 0;
     var baseY = 40;
-    
+
     var finishedNodeAttr = {
     	'fill': '44b548'
     },
@@ -351,9 +351,9 @@
         	qddgssj:'',   // 导管室启动时间
         	dgsjhsj:'',   // 导管室激活时间
         	dstgsj:''     // 导丝通过时间
-        	
-        }, 
-        
+
+        },
+
         grace: {
             ageScore: 0,
             hrtScore: 0,
@@ -398,7 +398,9 @@
         	resetFlowChart();
             clearWindow();
             vm.currPatientInfo.regSeq = patient.regSeq;
-            vm.currPatientInfo.emgSeq = patient.emgSeq;
+            if (!'${emgSeq}')  {
+                vm.currPatientInfo.emgSeq = patient.emgSeq;
+            }
         	vm.currPatientInfo.cstNam = patient.cstNam;
         	vm.currPatientInfo.emgDat = patient.regTim;
         	vm.currPatientInfo.emgDatStr = patient.emgDatStr;
@@ -406,9 +408,9 @@
         	// vm.currPatientInfo.xtCod = patient.xtCod;
         	// vm.currPatientInfo.xtSubCod = patient.xtSubCod;
         	vm.currPatientInfo.wayTyp = patient.wayTyp;
-        	
+
         	vm.currPatientInfo.bqpg = publicFun.codingEscape(publicFun.getDict('XT_BQPG_COD'),patient.bqpg)     ;
-        	
+
         	vm.currPatientInfo.mpi = patient.mpi;
             // 设置左侧流程图以及流程图上方的信息栏数据
             vm.setNodesAndInfo(patient.emgSeq);
@@ -578,20 +580,61 @@
                    	dgsjhsj:'',   // 导管室激活时间
                    	dstgsj:''     // 导丝通过时间
                 };
-                
+
+            }
+        });
+    }
+    function getPatientsBycreated(){
+        publicFun.httpServ('post', 'cpc/getCpcPatientListInfo.do', {
+            cstNam: vm.searchKey,
+            bhls: true,
+            patTyp : "1",// 1胸痛 2 卒中 3 创伤
+            page: 1,
+            rows: 1000
+        }, function (res) {
+            var list = res.rows;
+            vm.pageInfo.total = res.total
+            if (list && list.length) {
+                var checked = list.filter(function (item) {
+                    return item.regSeq == '${regSeq}'
+                })
+                vm.patientList = [checked[0]]
+                vm.clickPatient(checked[0])
+            }else {
+                vm.patientList = [];
+                vm.patientGreenNodes = [];
+                vm.currPatientInfo ={
+                    regSeq:'',
+                    emgSeq:'',
+                    mpi:'',
+                    cstNam:'',
+                    emgDat:'',
+                    emgDatStr:'',
+                    // xtCod:'',
+                    bqpg:'',
+                    scyljcsj:'', // 首次医疗接触时间
+                    ynsfxdtsj:'',  // 首份心电图时间
+                    ynsfxdtqzsj:'',  // 心电图确诊时间
+                    jgdbbgsj:'', // 血化验时间（肌钙蛋白报告时间）
+                    kxxbywgysj:'',
+                    qddgssj:'',   // 导管室启动时间
+                    dgsjhsj:'',   // 导管室激活时间
+                    dstgsj:''     // 导丝通过时间
+                };
+
             }
         });
     }
     // 初始化流程图节点
     function resetFlowChart(){
         // 重置流程图
-        
+
         for(var i in flowChart){
         	flowChart[i].status = '0';
         	flowChart[i].task.attr(unfinishedNodeAttr);
         }
     }
-    
+
     // 定义质控时间
     var countdownTime1 = {
         ynsfxdtsj: 10,   // 首份心电图时间质控
@@ -599,30 +642,30 @@
         kxxbywgysj: 30,  // 抗凝药给药时间质控
         dstgsj: 90     // 导丝通过时间质控
     };
-	
+
     var countdownTime2 = {
         ynsfxdtqzsj: 10  // 心电图诊断时间
     };
-    
+
     var countdownTime3 = {
-        dgsjhsj: 30  // 导管室激活质控 
+        dgsjhsj: 30  // 导管室激活质控
     };
 
     function countDown(){
-    	
+
     	// 质控比较的开始时间
         var emgDat = new Date(vm.currPatientInfo.emgDat);
-    	
+
     	// 获取当前时间
     	var currentTime = new Date();
-    	
+
     	for(var a in countdownTime1){
-    		
+
     		if(vm.currPatientInfo[a] == ''){
-    			
+
     			// 获取剩余时间的毫秒数
                 var leftTime = parseInt((emgDat.getTime() + countdownTime1[a] * 60 * 1000 - currentTime.getTime()) / 1000);
-    			
+
              	// 如果毫秒数大于等于0
                 if (leftTime >= 0) {
 
@@ -641,30 +684,30 @@
                     // 超时的分钟数
                     var sec_after = parseInt(Math.abs(leftTime) / 60);
                     // 超时的秒数
-                    
+
                     var text = '';
-					
+
 					var min_after = Math.abs(leftTime) % 60;
 					text = '超时 ' + sec_after + '分' + min_after + '秒'
-					
+
                     $('#' + a).progressbar({
                         value: 0,
                         text: text
                     });
                     $('#' + a + ' div').css('background-color', 'red');
                 }
-    		
+
     		}
-    		
+
     	}
-    	
+
     	// 首份心电图时间倒计时
     	// 如果有首份心电图时间，没有心电图确诊时间，则启用倒计时
     	if(vm.currPatientInfo.ynsfxdtsj !='' && vm.currPatientInfo.ynsfxdtqzsj == ''){
-    		
+
     		// 获取剩余时间的毫秒数
             var leftTime = parseInt((new Date(vm.currPatientInfo.ynsfxdtsj).getTime() + 10 * 60 * 1000 - currentTime.getTime()) / 1000);
-         	
+
     		// 如果毫秒数大于等于0
             if (leftTime >= 0) {
 
@@ -683,12 +726,12 @@
                 // 超时的分钟数
                 var sec_after = parseInt(Math.abs(leftTime) / 60);
                 // 超时的秒数
-                
+
                 var text = '';
-				
+
 				var min_after = Math.abs(leftTime) % 60;
 				text = '超时 ' + sec_after + '分' + min_after + '秒'
-				
+
                 $('#ynsfxdtqzsj').progressbar({
                     value: 0,
                     text: text
@@ -696,15 +739,15 @@
                 $('#ynsfxdtqzsj' + ' div').css('background-color', 'red');
             }
     	}else{
-    		
+
     	}
-    	
+
     	// 导管室启动倒计时
     	// 如果导管室启动有时间，导管室激活没时间，则启动倒计时
     	if(vm.currPatientInfo.qddgssj !='' && vm.currPatientInfo.dgsjhsj == ''){
     		// 获取剩余时间的毫秒数
             var leftTime = parseInt((new Date(vm.currPatientInfo.qddgssj).getTime() + 30 * 60 * 1000 - currentTime.getTime()) / 1000);
-		
+
          	// 如果毫秒数大于等于0
             if (leftTime >= 0) {
 
@@ -723,24 +766,24 @@
                 // 超时的分钟数
                 var sec_after = parseInt(Math.abs(leftTime) / 60);
                 // 超时的秒数
-                
+
                 var text = '';
-				
+
 				var min_after = Math.abs(leftTime) % 60;
 				text = '超时 ' + sec_after + '分' + min_after + '秒'
-				
+
                 $('#dgsjhsj').progressbar({
                     value: 0,
                     text: text
                 });
                 $('#dgsjhsj' + ' div').css('background-color', 'red');
             }
-    		
+
     	}else{
-    		
+
     	}
     }
-    
+
     //跳转到胸痛登记页面
     function redirectToprint() {
         var url = 'cpc/toXtzlPrintPage.do?emgSeq=' + vm.currPatientInfo.emgSeq + '&regSeq=' + vm.currPatientInfo.regSeq
@@ -790,175 +833,175 @@
         window.top.addTab('检验结果', '${baseurl}cpc/toJyPage.do?emgSeq='+ vm.currPatientInfo.emgSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp,
             'icon icon-emergency-record');
     }
-    
+
 	function showGracepg(){
         window.top.addTab('GRACE评分详情', '${baseurl}cpc/toGracePage.do?emgSeq='+ vm.currPatientInfo.emgSeq,
             'icon icon-emergency-record');
     }
-	
+
 	function showCsyw(){
         window.top.addTab(vm.currPatientInfo.cstNam+'-初始药物', '${baseurl}cpc/toCsywPage.do?emgSeq='+ vm.currPatientInfo.emgSeq,
             'icon icon-emergency-record','2');
     }
-	
+
     /**
      * 画流程图节点和线
      */
     function drawFlow() {
-    	
+
 		var esp = createExpandedSubProcess(baseX + 530, baseY + 20, 400, 140, 10);
-		
+
         createTask(baseX + 560, baseY + 50, '急诊预查','jzyc',true);
-        
+
         createTask(baseX + 680, baseY + 50, '心电图','xdt',true);
-        
+
         createTask(baseX + 800, baseY + 50, '实验室检查','sysjc',true);
-        
+
         var cbzd = createBranch(baseX + 680, baseY + 200,'初步诊断','cbzd',true);
-        
+
         drawArrowLine(esp[2],cbzd[0]);
-        
+
         // STEMI
         var stemi = createTask(baseX + 800, baseY + 320, 'STEMI','stemi',false);
-        
+
         // 心功能分级
         var xgnfj = createTask(baseX + 920, baseY + 420, '心功能分级','xgnfj',true);
-        
+
      	// 初始药物
         var csyw = createTask(baseX + 920, baseY + 520, '初始药物','csyw',true);
-        
+
         drawArrowLine(xgnfj[2],csyw[0]);
-        
+
      	// 有无再灌注措施
         var ywzgz = createBranch(baseX + 800, baseY + 835,'有无再灌注措施','ywzgzcs',false);
-     	
+
         // drawArrowLine(csyw[2],ywzgz[0]);
-     	
+
         // 无再灌注措施原因
         var wzgzcsyy = createTask(baseX + 920, baseY + 820, '无再灌注\n措施原因','wzgzcsyy',true);
-     	
+
         drawArrowLine(ywzgz[1],wzgzcsyy[3]);
-        
+
         // 再灌注措施
         var zgzcs = createBranch(baseX + 800, baseY + 935,'再灌注措施','zgzcs',false);
-        
+
         drawArrowLine(ywzgz[2],zgzcs[0]);
-        
+
         // CABG
         var cabg1 = createTask(baseX + 800, baseY + 1020, 'CABG','cabg',false);
-        
+
         // 择期介入
         var zqjr = createTask(baseX + 560, baseY + 1020, '择期介入','zqjr',false);
-        
+
         // 溶栓
         var rs = createTask(baseX + 680, baseY + 1020, '溶栓','rs',false);
-        
+
         drawArrowLine(zgzcs[2],cabg1[0]);
-        
+
      	// 直接PCI
         var zjpci = createTask(baseX + 920, baseY + 1020, '直接PCI','zjpci',false);
-     
+
         // 溶栓后续
         var rshx = createBranch(baseX + 680, baseY + 1135,'溶栓后续','rshx',false);
-        
+
         drawArrowLine(rs[2],rshx[0]);
         // 无
         // var wu = createTask(baseX + 680, baseY + 1120, '无','wu',false);
-     	
+
         // drawArrowLine(rshx[3],wu[1]);
         // 溶栓后介入
         var rshjr = createTask(baseX + 800, baseY + 1120, '溶栓后介入','rshjr',false);
-        
-       
-        
+
+
+
         drawArrowLine(rshx[1],rshjr[3]);
-        
+
         // 补救PCI
         var bjpci = createTask(baseX + 680, baseY + 1220, '补救PCI','bjpci',false);
-        
+
         drawArrowLine(rshx[2],bjpci[0]);
-        
+
         // 执行PCI
         var zxpci = createTask(baseX + 920, baseY + 1120, '导管室','zxpci',true);
-        
+
         drawArrowLine(rshjr[1],zxpci[3]);
-        
+
         drawArrowLine(zjpci[2],zxpci[0]);
-        
+
     	// NSTEMI/UA
     	var nstemi = createTask(baseX + 1040, baseY + 320, 'NSTEMI/UA','nstemi',false);
-       
+
     	// GRACE评估
         var gracepg = createTask(baseX + 1040, baseY + 620, 'GRACE评估','gracepg',true);
-        
+
         // 再次危险分层
         // var zcwxfc = createBranch(baseX + 1040, baseY + 735,'再次危险分层','zcwxfc',false);
-        
+
         // drawArrowLine(gracepg[2],zcwxfc[0]);
-        
+
         // 转为STEMI
         // var zwstemi = createTask(baseX + 920, baseY + 720, '转为STEMI','zwstemi',false);
-        
+
         // drawArrowLine(zwstemi[3],{x:ywzgz[0].x,y:zwstemi[3].y});
-        
+
         // drawArrowLine(zcwxfc[3],zwstemi[1]);
-        
+
         // 未做，极高危，高危，中危，低危
         // var jgw = createTask(baseX + 1160, baseY + 720, '极高危，高危，\n中危，低危，\n未做','jgw',false);
-        
+
         // drawArrowLine(zcwxfc[1],jgw[3]);
-        
+
         // 处理策略
         var clcl = createBranch(baseX + 1160, baseY + 835,'处理策略','clcl',false);
-        
+
         // drawArrowLine(jgw[2],clcl[0]);
-        
+
         // 保守治疗
         var bszl = createTask(baseX + 1040, baseY + 820,'保守治疗','bszl',false);
-        
+
         drawArrowLine(clcl[3],bszl[1]);
-        
+
         // 侵入性策略
         // var qrxcl = createTask(baseX + 1280, baseY + 820,'侵入性策略','qrxcl',false);
-        
+
         // drawArrowLine(clcl[1],qrxcl[3]);
-        
+
         // 侵入性策略
         var jtqrxcl = createBranch(baseX + 1280, baseY + 935,'侵入性策略','qrxcl',false);
-        
+
         //drawArrowLine(qrxcl[2],jtqrxcl[0]);
-        
+
         // 2H紧急介入治疗
         var jjjrzl = createTask(baseX + 1040, baseY + 1020,'2H紧急介入治疗','jjjrzl',false);
-        
+
         // 24H内介入治疗
         var jr24 = createTask(baseX + 1160, baseY + 1020,'24H内介入治疗','jr24',true);
-        
+
         // 72H内介入治疗
         var jr72 = createTask(baseX + 1280, baseY + 1020,'72H内介入治疗','jr72',false);
         drawArrowLine(jtqrxcl[2],jr72[0]);
-        
+
      	// 择期介入治疗
         var zqjrzl = createTask(baseX + 1400, baseY + 1020,'择期介入治疗','zqjrzl',false);
-     	
+
      	// CABG
         var cabg = createTask(baseX + 1520, baseY + 1020,'CABG','cabgqr',false);
-		
+
         //非ACS部分
         var nonAcsNodeArrayBySubProcess = createExpandedSubProcess(baseX+50, baseY + 290, 640, 540, 10,'nonAcs');
         // 非ACS部分第一列节点
-		
+
         var nodeArrayByTask3 = createTask(baseX + 80, baseY + 320, '主动脉夹层', 'zdmjc',false);
         var nodeArrayByTask3_4 = createTask(baseX + 80, baseY + 420, '影像学检查', 'yxxjc',true);
         var nodeArrayByTask3_5 = createTask(baseX + 80, baseY + 520, '心外科会诊', 'xwkhz',true);
         var nodeArrayByTask3_6 = createTask(baseX + 80, baseY + 620, '夹层类型', 'jclx',true);
         var nodeArrayByTask3_7 = createTask(baseX + 80, baseY + 720, '治疗策略', 'zlcl',true);
-        
+
         drawArrowLine(nodeArrayByTask3[2],nodeArrayByTask3_4[0]);
         drawArrowLine(nodeArrayByTask3_4[2],nodeArrayByTask3_5[0]);
         drawArrowLine(nodeArrayByTask3_5[2],nodeArrayByTask3_6[0]);
         drawArrowLine(nodeArrayByTask3_6[2],nodeArrayByTask3_7[0]);
-        
+
         // 非ACS部分第二列节点
         var nodeArrayByTask4 = createTask(baseX + 200, baseY + 320, '肺动脉栓塞', 'fdmss',false);
         var nodeArrayByTask4_3 = createTask(baseX + 200, baseY + 420, '影像学检查', 'yxxjc',true);
@@ -967,14 +1010,14 @@
         drawArrowLine(nodeArrayByTask4[2],nodeArrayByTask4_3[0]);
         drawArrowLine(nodeArrayByTask4_3[2],nodeArrayByTask4_4[0]);
         drawArrowLine(nodeArrayByTask4_4[2],nodeArrayByTask4_5[0]);
-        
-        
+
+
         // 非ACS部分第三列节点
         var nodeArrayByTask5 = createTask(baseX + 320, baseY + 320, '非ACS心\n源性胸痛', 'facsxyxxt',false);
         var nodeArrayByTask5_1 = createTask(baseX + 320, baseY + 420, '非ACS心\n源性胸痛类型', 'facsxyxxtlx',true);
-       
+
         drawArrowLine(nodeArrayByTask5[2],nodeArrayByTask5_1[0]);
-        
+
         // 非ACS部分第四列节点
         var nodeArrayByTask6 = createTask(baseX +440, baseY + 320, '其它\n非心源性胸痛', 'qtfxyxxt',false);
         var nodeArrayByTask6_1 = createTask(baseX + 440, baseY + 420, '其他非心\n源性胸痛类型', 'qtfxyxxtlx',true);
@@ -983,14 +1026,14 @@
         drawArrowLine(nodeArrayByTask6[2],nodeArrayByTask6_1[0]);
         drawArrowLine(nodeArrayByTask6_1[2],nodeArrayByTask6_2[0]);
         drawArrowLine(nodeArrayByTask6_2[2],nodeArrayByTask6_3[0]);
-        
+
         // 非ACS部分第五列节点
         var nodeArrayByTask7 = createTask(baseX +560, baseY + 320, '待查', 'dc',false);
-        
-       
 
-        
-        
+
+
+
+
         var pathStr0 = 'm';
         pathStr0 += jtqrxcl[3].x + ' ' + jtqrxcl[3].y + ' ';
         pathStr0 += 'H';
@@ -1000,7 +1043,7 @@
         var line0 = paper.path(pathStr0);
         arrowSet.push(line0);
         // flowChartLine['line26'] = line26;
-     	
+
      	var pathStr1 = 'm';
      	pathStr1 += jtqrxcl[3].x + ' ' + jtqrxcl[3].y + ' ';
      	pathStr1 += 'H';
@@ -1009,7 +1052,7 @@
      	pathStr1 +=  jr24[0].y + ' ';
         var line1 = paper.path(pathStr1);
         arrowSet.push(line1);
-        
+
         var pathStr2 = 'm';
         pathStr2 += jtqrxcl[1].x + ' ' + jtqrxcl[1].y + ' ';
         pathStr2 += 'H';
@@ -1018,7 +1061,7 @@
         pathStr2 +=  zqjrzl[0].y + ' ';
         var line2 = paper.path(pathStr2);
         arrowSet.push(line2);
-        
+
         var pathStr3 = 'm';
         pathStr3 += jtqrxcl[1].x + ' ' + jtqrxcl[1].y + ' ';
         pathStr3 += 'H';
@@ -1027,7 +1070,7 @@
         pathStr3 +=  cabg[0].y + ' ';
         var line3 = paper.path(pathStr3);
         arrowSet.push(line3);
-        
+
         var pathStr4 = 'm';
         pathStr4 += zgzcs[3].x + ' ' + zgzcs[3].y + ' ';
         pathStr4 += 'H';
@@ -1036,7 +1079,7 @@
         pathStr4 +=  rs[0].y + ' ';
         var line4 = paper.path(pathStr4);
         arrowSet.push(line4);
-     	
+
         var pathStr5 = 'm';
         pathStr5 += zgzcs[3].x + ' ' + zgzcs[3].y + ' ';
         pathStr5 += 'H';
@@ -1045,8 +1088,8 @@
         pathStr5 +=  zqjr[0].y + ' ';
         var line5 = paper.path(pathStr5);
         arrowSet.push(line5);
-     	
-        
+
+
         var pathStr6 = 'm';
         pathStr6 += zgzcs[1].x + ' ' + zgzcs[1].y + ' ';
         pathStr6 += 'H';
@@ -1055,8 +1098,8 @@
         pathStr6 +=  zjpci[0].y + ' ';
         var line6 = paper.path(pathStr6);
         arrowSet.push(line6);
-        
-        
+
+
         var pathStr7 = 'm';
         pathStr7 += jjjrzl[2].x + ' ' + jjjrzl[2].y + ' ';
         pathStr7 += 'V';
@@ -1065,7 +1108,7 @@
         pathStr7 +=  zxpci[1].x + ' ';
         var line7 = paper.path(pathStr7);
         arrowSet.push(line7);
-        
+
         var pathStr8 = 'm';
         pathStr8 += cbzd[3].x + ' ' + cbzd[3].y + ' ';
         pathStr8 += 'H';
@@ -1074,7 +1117,7 @@
         pathStr8 +=  nodeArrayByTask3[0].y + ' ';
         var line8 = paper.path(pathStr8);
         arrowSet.push(line8);
-        
+
         var pathStr9 = 'm';
         pathStr9 += cbzd[3].x + ' ' + cbzd[3].y + ' ';
         pathStr9 += 'H';
@@ -1083,7 +1126,7 @@
         pathStr9 +=  nodeArrayByTask4[0].y + ' ';
         var line9 = paper.path(pathStr9);
         arrowSet.push(line9);
-        
+
         var pathStr10 = 'm';
         pathStr10 += cbzd[3].x + ' ' + cbzd[3].y + ' ';
         pathStr10 += 'H';
@@ -1092,8 +1135,8 @@
         pathStr10 +=  nodeArrayByTask5[0].y + ' ';
         var line10 = paper.path(pathStr10);
         arrowSet.push(line10);
-        
-        
+
+
         var pathStr11 = 'm';
         pathStr11 += cbzd[3].x + ' ' + cbzd[3].y + ' ';
         pathStr11 += 'H';
@@ -1102,7 +1145,7 @@
         pathStr11 +=  nodeArrayByTask6[0].y + ' ';
         var line11 = paper.path(pathStr11);
         arrowSet.push(line11);
-        
+
         var pathStr12 = 'm';
         pathStr12 += cbzd[3].x + ' ' + cbzd[3].y + ' ';
         pathStr12 += 'H';
@@ -1111,7 +1154,7 @@
         pathStr12 +=  nodeArrayByTask7[0].y + ' ';
         var line12 = paper.path(pathStr12);
         arrowSet.push(line12);
-        
+
         var pathStr13 = 'm';
         pathStr13 += cbzd[1].x + ' ' + cbzd[1].y + ' ';
         pathStr13 += 'H';
@@ -1120,7 +1163,7 @@
         pathStr13 +=  stemi[0].y + ' ';
         var line13 = paper.path(pathStr13);
         arrowSet.push(line13);
-        
+
         var pathStr14 = 'm';
         pathStr14 += cbzd[1].x + ' ' + cbzd[1].y + ' ';
         pathStr14 += 'H';
@@ -1129,7 +1172,7 @@
         pathStr14 +=  nstemi[0].y + ' ';
         var line14 = paper.path(pathStr14);
         arrowSet.push(line14);
-        
+
         var pathStr15 = 'm';
         pathStr15 += stemi[2].x + ' ' + stemi[2].y + ' ';
         pathStr15 += 'V';
@@ -1138,7 +1181,7 @@
         pathStr15 +=  xgnfj[3].x + ' ';
         var line15 = paper.path(pathStr15);
         arrowSet.push(line15);
-        
+
     	var pathStr16 = 'm';
     	pathStr16 += nstemi[2].x + ' ' + nstemi[2].y + ' ';
     	pathStr16 += 'V';
@@ -1147,7 +1190,7 @@
     	pathStr16 +=  xgnfj[1].x + ' ';
         var line16 = paper.path(pathStr16);
         arrowSet.push(line16);
-        
+
         var pathStr17 = 'm';
         pathStr17 += csyw[3].x + ' ' + csyw[3].y + ' ';
         pathStr17 += 'H';
@@ -1156,7 +1199,7 @@
         pathStr17 +=  ywzgz[0].y + ' ';
         var line17 = paper.path(pathStr17);
         arrowSet.push(line17);
-        
+
         var pathStr18 = 'm';
         pathStr18 += csyw[1].x + ' ' + csyw[1].y + ' ';
         pathStr18 += 'H';
@@ -1165,7 +1208,7 @@
         pathStr18 +=  gracepg[0].y + ' ';
         var line18 = paper.path(pathStr18);
         arrowSet.push(line18);
-        
+
         var pathStr19 = 'm';
         pathStr19 += nodeArrayByTask5_1[2].x + ' ' + nodeArrayByTask5_1[2].y + ' ';
         pathStr19 += 'V';
@@ -1183,7 +1226,7 @@
         pathStr20 +=  nodeArrayByTask6_2[1].x + ' ';
         var line20 = paper.path(pathStr20);
         arrowSet.push(line20);
-        
+
         var pathStr21 = 'm';
         pathStr21 += clcl[1].x + ' ' + clcl[1].y + ' ';
         pathStr21 += 'H';
@@ -1192,7 +1235,7 @@
         pathStr21 += jtqrxcl[0].y + ' ';
         var line21 = paper.path(pathStr21);
         arrowSet.push(line21);
-        
+
         var pathStr22 = 'm';
         pathStr22 += bjpci[1].x + ' ' + bjpci[1].y + ' ';
         pathStr22 += 'H';
@@ -1201,7 +1244,7 @@
         pathStr22 += zxpci[2].y + ' ';
         var line22 = paper.path(pathStr22);
         arrowSet.push(line22);
-        
+
         var pathStr23 = 'm';
         pathStr23 += gracepg[1].x + ' ' + gracepg[1].y + ' ';
         pathStr23 += 'H';
@@ -1210,15 +1253,15 @@
         pathStr23 += clcl[0].y + ' ';
         var line23 = paper.path(pathStr23);
         arrowSet.push(line23);
-        
-        
-        
+
+
+
         arrowSet.attr({
             'arrow-end': 'block-wide-long',
             'stroke-width': '2'
             //'stroke-dasharray':'-'
         });
-        
+
         console.log('flowChart',flowChart);
     }
 
@@ -1247,9 +1290,9 @@
         return txt;
     }
     function constructTxt(resList) {
-    	
+
         var maxNameLen = 0;
-        
+
         if (resList){
         	for(var i=0;i<resList.length;i++){
 				    var el = resList[i];
@@ -1282,7 +1325,7 @@
                                 'usrno': value
                             }),
                             success: function (res) {
-                            	
+
 								value = res.resultInfo.sysdata.dstuser.usrname;
                             },
                             error: function (err) {
@@ -1316,12 +1359,12 @@
         }
     }
     function getNodeRefInfo(parent,package) {
-    	
+
     	var nodeId = package.nodeId;
-        
+
         //  如果当前页面已有信息窗，先清除
         clearWindow();
-        
+
         $.ajax({
             url: 'cpc/getNodeInfoByEmgSeq.do',
             type: 'post',
@@ -1362,7 +1405,7 @@
             }
         });
     }
-    
+
 	   /**
 		 *   流程图-画节点
 		* @param x  x轴位置
@@ -1373,17 +1416,17 @@
 		* @param branchType  main-主干 nonAcs-非ACS分支 acs-Acs分支
 		* @returns {Array} 矩形的上右下左四条边中点的坐标数组
 		*/
-	function createTask(x, y, content, nodeId, canClick) {	
+	function createTask(x, y, content, nodeId, canClick) {
 		// 本模块矩形圆角
 		// var taskR = r ? r : taskR;
 		// 3层组成，第一层矩形框，填充背景颜色;第二层文字居中;第三层点击事件触发层，设为透明度0;
-		
+
 		if(!messageDefine.hasOwnProperty(nodeId)){
 			return;
 		}
-		
+
 		var task = paper.rect(x, y, taskWidth, taskHeight, taskR);
-		
+
 		var package = {
 			task:task,
 			nodeId:nodeId,
@@ -1409,7 +1452,7 @@
 		flowChart[nodeId] = package;
 		var p3 = paper.rect(x - 10, y - 10, taskWidth + 20, taskHeight + 20, taskR);
 		if(canClick){
-			
+
 			p3.attr({
 				'fill' : 'white',
 				'fill-opacity' : 0,
@@ -1546,20 +1589,20 @@
 	*/
 	function createBranch(x, y, content, nodeId, canClick) {
 		// paper.rect(x+25,y,50,50,0);
-		
+
 		// 验证节点id是否填错
 		if(!messageDefine.hasOwnProperty(nodeId)){
 			console.log(nodeId+' 没有定义!');
 			return;
 		}
-		
-		
+
+
 		x = x + 25;
 		var text;
 		var path = paper.path('m' + (25 + x) + ' ' + y + ' l50 25 l-50 25 l-50 -25 z');
-		
-		
-		
+
+
+
 		var package = {
 			task: path,
 			nodeId:nodeId,
@@ -1571,13 +1614,13 @@
 			},
 			get status(){
 				console.log('get val:',status);
-				return status; 
+				return status;
 			}
 			*/
 		}
 		package.status = '0';
 		flowChart[nodeId] = package;
-		
+
 		if (content) {
 			// 像素和字体转化
 			// var length = content.length;
@@ -1588,7 +1631,7 @@
 		}
 		var pathStr = 'm' + (25 + x) + ' ' + (y-10) + ' l70 35 l-70 35 l-70 -35 z';
 		var p4 = paper.path(pathStr);
-		
+
 		if(canClick){
 			p4.attr({
 				'fill' : 'white',
@@ -1629,11 +1672,11 @@
 					'stroke-opacity' : 0
 				});
 			});
-			
+
 		}
-		
-		
-		
+
+
+
 		var nodeArray = [];
 		nodeArray.push({
 			'x' : x + 25,
@@ -1687,7 +1730,7 @@
 		}
 	}
 	var messageDefine = {};
-	
+
 	function validateNodeId(){
 		$.ajax({
 		    url: 'cpc/getHspFlowChartDef.do',
@@ -1704,41 +1747,41 @@
 					messageDefine[el.nodeId] = el.nodeName;
 				}
 		        drawFlow();
-		        
+
 		    },
 		    error: function (err) {
 		        //console.log(err)
 		    }
 		});
-		
+
 	}
-	
+
 	//建立websocket连接，监听数据更新
 	function websocketConnect() {
-		
+
     	ws = new WebSocket(weburl);
-    	
+
         ws.onmessage = function (evt) {
         	webSocketMessageHandler(evt);
             console.log(evt);
             console.log(vm.currPatientInfo.emgSeq)
         };
     }
-	
+
 	var cbzdNodeIds = ['stemi','nstemi','zdmjc','fdmss','facsxyxxt','qtfxyxxt','dc'];
-	
+
 	var zgzcsNodeIds = ['zjpci','rs','zqjr','cabg'];
-	
+
 	var qrxclNodeIds = ['jjjrzl','jr24','jr72','zqjrzl','cabgqr'];
-	
+
 	var clclNodeIds = ['bszl','qrxcl'];
-	
+
 	var zcwxfcNodeIds = ['zwstemi','jgw'];
-	
+
 	var ywzgzcsNodeIds = ['wzgzcsyy','zgzcs'];
-	
+
 	var rshxNodeIds = ['bjpci','rshjr'];
-	
+
 	/**
 	 * @param {Object} evt
 	 * evt.emgSeq       推送的病人
@@ -1751,19 +1794,19 @@
 	 */
 	function webSocketMessageHandler(evt){
 
-	
+
         var info = JSON.parse(evt.data);
-    	
+
         var msg = info.sysdata;
-        
+
         // 判断是否为当前展示的胸痛病人相关的信息更新,若不是当前病人则进行提示
         if (msg.emgSeq == vm.currPatientInfo.regSeq) {
         	var nodeId = msg.greenNodeId;
         	// 通过msg.greenNodeId 传递要变绿的节点信息;
         	console.log('nodeId',nodeId);
-        	
+
             if (nodeId) {
-            	
+
             	if(flowChart.hasOwnProperty(nodeId)){
             		flowChart[nodeId].status = '1';
                 	flowChart[nodeId].task.attr(finishedNodeAttr);
@@ -1771,10 +1814,10 @@
             		console.log(nodeId+'节点未定义，请检查后台推送数据');
             		return;
             	}
-            	
-            	
+
+
             	// 处理初步诊断切换
-            	
+
             	if(cbzdNodeIds.indexOf(nodeId) >=0){
             		cbzdNodeIds.forEach(function(item,index){
             			if(nodeId!=item){
@@ -1831,9 +1874,9 @@
             			}
             		});
             	}
-            	
+
             }
-            
+
             var messageCode = msg.messageCode;
             console.log('messageCode',messageCode);
             if(messageCode){
@@ -1936,8 +1979,8 @@
             }
         });
     }
-    
-    
+
+
     function getXhyData() {
         $.ajax({
             url: '${baseurl}testWebSocket/noticeCheckComplete.do',
@@ -1976,9 +2019,18 @@
     }
 
     $(function () {
+        console.log('${regSeq}' , '${cstNam}' ,'${emgSeq}')
+
         getPatients();
         websocketConnect();
         validateNodeId();
+
+        if ('${emgSeq}') {
+            vm.showPatientList = false;
+            $('.flow').css('width','100%');
+            $('.rightBtn').hide()
+            getPatientsBycreated()
+        }
     });
     function reload() {
         // console.log('刷新局部');

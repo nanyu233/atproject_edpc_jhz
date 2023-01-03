@@ -23,10 +23,12 @@
 		<%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
 	</head>
 	<style>
-
+        .ms-controller {
+	        visibility: hidden;
+        }
 	</style>
 
-	<body ms-controller="report">
+	<body ms-controller="report" class="ms-controller">
 		<div class="time_axis fl">
 			<h4>
 				<span class="iconfont icon-time"></span>

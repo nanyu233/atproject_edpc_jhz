@@ -272,7 +272,8 @@
     }
 
     function toDetail(emgSeq,cstNam,wayTyp,regSeq) {
-        var url = 'cpc/toXtxqPage.do?emgSeq=' + emgSeq+'&wayTyp='+wayTyp +'&regSeq=' +regSeq;
+		window.sessionStorage.removeItem('currentIframeSrc' + regSeq)
+        var url = 'cpc/toXtxqList.do?emgSeq=' + emgSeq+'&wayTyp='+wayTyp +'&regSeq=' +regSeq + '&cstNam=' + cstNam;
         if(cstNam=='null'){
         	cstNam = "";
         }

@@ -71,7 +71,10 @@ public class XtAction {
 	 * @return
 	 */
 	@RequestMapping("/toXtHomePage")
-	public String toXtHomePage(){
+	public String toXtHomePage(String emgSeq,String regSeq,String cstNam,Model model){
+		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("regSeq", regSeq);
+		model.addAttribute("cstNam", cstNam);
 		return View.toEDPC("/cpc/xtHome2");
 	}
 	
@@ -446,14 +449,41 @@ public class XtAction {
 	 * @return
 	 */
 	@RequestMapping("/toXtxqPage")
-	public String toXtxqPage(String emgSeq,String wayTyp, String regSeq ,Model model){
+	public String toXtxqPage(String emgSeq,String wayTyp, String regSeq,String cstNam,Model model){
 		model.addAttribute("emgSeq", emgSeq);
 		model.addAttribute("wayTyp", wayTyp);
 		model.addAttribute("regSeq", regSeq);
+		model.addAttribute("cstNam", cstNam);
 		return View.toEDPC("/cpc/xtxq");
 	}
-	
-	
+	/**
+	 *
+	 * @param emgSeq
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/toXtxqList")
+	public String toXtxqList(String emgSeq,String wayTyp, String regSeq,String cstNam,Model model){
+		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("wayTyp", wayTyp);
+		model.addAttribute("regSeq", regSeq);
+		model.addAttribute("cstNam", cstNam);
+		return View.toEDPC("/cpc/xthz");
+	}
+	/**
+	 *
+	 * @param emgSeq
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/toFollowUpManagement")
+	public String toFollowUpManagement(String emgSeq,String wayTyp, String regSeq,String cstNam,Model model){
+		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("wayTyp", wayTyp);
+		model.addAttribute("regSeq", regSeq);
+		model.addAttribute("cstNam", cstNam);
+		return View.toEDPC("/cpc/followUpManagement");
+	}
 	/**
 	 * 
 	 * @param emgSeq
