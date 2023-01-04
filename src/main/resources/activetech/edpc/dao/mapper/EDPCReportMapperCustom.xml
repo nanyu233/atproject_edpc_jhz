@@ -6,7 +6,7 @@
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
 	  select yarmon,
 	        sum(case
-	              when emg_seq is not null then
+	              when reg_seq is not null then
 	               1
 	              else
 	               0
@@ -17,9 +17,9 @@
 	              else
 	               0
 	            end) as tnumb
-	   from (select a.yarmon, a.emg_seq, b.cou
-	           from (select d.yarmon, c.emg_seq
-	                   from (select emg_seq, to_char(reg_tim, 'yyyy/mm') yarmon
+	   from (select a.yarmon, a.reg_seq, b.cou
+	           from (select d.yarmon, c.reg_seq
+	                   from (select reg_seq, to_char(reg_tim, 'yyyy/mm') yarmon
 	                           from hsp_dbzl_bas
 	                          where pat_typ = '2') c,
 	                        (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR},
@@ -36,7 +36,7 @@
 	                   from hsp_zl_inf
 	                  where pro_code in ('NIHSSPF01', 'NIHSSPF02')
 	                  group by emg_no) b
-	          where a.emg_seq = b.emg_no(+))
+	          where a.reg_seq = b.emg_no(+))
 	  group by yarmon
 	  order by yarmon
 	</select>
@@ -44,15 +44,15 @@
 	<select id="getD2dmqsTime" parameterType="activetech.edpc.pojo.dto.ReportCondition"
 		resultType="activetech.edpc.pojo.dto.ReportDataResult" >
 		select d.yarmon,
-		       count(c.emg_seq) patNumb,
+		       count(c.reg_seq) patNumb,
 		       nvl(round(sum(c.flowtime1 - c.flowtime2) * 24 * 60 /
-		                 count(c.emg_seq),
+		                 count(c.reg_seq),
 		                 2),
 		           0) avgtime,
 		       nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,
 		       nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 		       nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
-		  from (select b.emg_seq,
+		  from (select b.reg_seq,
 					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
 						from hsp_zl_inf
@@ -67,7 +67,7 @@
 					  where pro_code = 'ISQS'
 						and pro_val = '0') a,
 					 hsp_dbzl_bas b
-				where a.emg_no = b.emg_seq
+				where a.emg_no = b.reg_seq
 				  and b.pat_typ = '2'
 			   ) c,
 		       (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),
@@ -84,16 +84,16 @@
 	<select id="getctAvgTime" parameterType="activetech.edpc.pojo.dto.ReportCondition"
 		resultType="activetech.edpc.pojo.dto.ReportDataResult" >
 		select d.yarmon,
-		       count(c.emg_seq) patNumb,
+		       count(c.reg_seq) patNumb,
 		       sum(case when round((c.flowtime1 - c.flowtime2) * 24 * 60, 2) <![CDATA[ < ]]> 25 then 1 else 0 end) tnumb,
 		       nvl(round(sum(c.flowtime1 - c.flowtime2) * 24 * 60 /
-		                 count(c.emg_seq),
+		                 count(c.reg_seq),
 		                 2),
 		           0) avgtime,
 		       nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,
 		       nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 		       nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
-		  from (select b.emg_seq,
+		  from (select b.reg_seq,
 					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
 						from hsp_zl_inf
@@ -105,7 +105,7 @@
 						  and pro_code = 'DYSJ') flowtime2
 				from (select emg_no from hsp_zl_inf where pro_code = 'TLYXSJ') a,
 					 hsp_dbzl_bas b
-				where a.emg_no = b.emg_seq
+				where a.emg_no = b.reg_seq
 				  and b.pat_typ = '2') c,
 		       (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),
 		                       'YYYY/MM') yarmon
@@ -224,7 +224,7 @@
 		         t.mod_time,
 		         t.mod_user
 		  FROM hsp_zl_inf t, hsp_dbzl_bas d
-		  WHERE t.emg_no = d.emg_seq
+		  WHERE t.emg_no = d.reg_seq
 			and d.pat_typ = '1'
 			and t.pro_code = 'CBZD')
 		select m.month yarmon,
@@ -327,7 +327,7 @@
 			         t.mod_time,
 			         t.mod_user
 				FROM hsp_zl_inf t, hsp_dbzl_bas d
-				WHERE t.emg_no = d.emg_seq
+				WHERE t.emg_no = d.reg_seq
 				and d.pat_typ = '1'
 				and t.pro_code = 'CBZD')
 			select d.infocode,
@@ -616,12 +616,12 @@
 	<select id="getXtReport" parameterType="activetech.edpc.pojo.dto.ReportCondition" 
 		resultType="activetech.edpc.pojo.dto.ReportDataResult" >
 		select d.yarmon,
-		       count(c.emg_seq) patNumb,
-		       nvl(round(sum(c.flowtime1 - c.flowtime2)*24*60 / count(c.emg_seq),2),0) avgtime,
+		       count(c.reg_seq) patNumb,
+		       nvl(round(sum(c.flowtime1 - c.flowtime2)*24*60 / count(c.reg_seq),2),0) avgtime,
 		       nvl(round(median((c.flowtime1 - c.flowtime2)*24*60), 2), 0) mediantime,
 		       nvl(round(max(c.flowtime1 - c.flowtime2)*24*60,2),0) maxMin,
 		       nvl(round(min(c.flowtime1 - c.flowtime2)*24*60,2),0) minMin
-		  from (select b.emg_seq,
+		  from (select b.reg_seq,
 		               to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 		               (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
 		                  from hsp_zl_inf
@@ -669,7 +669,7 @@
 		               
 		                ) a,
 					    hsp_dbzl_bas b
-		         where a.emg_no = b.emg_seq
+		         where a.emg_no = b.reg_seq
 		           and b.pat_typ = '1') c,
 		       (select to_char(add_months(to_date(#{startDate,
 		                                          jdbcType = VARCHAR},
@@ -692,15 +692,15 @@
     <select id="getXtReport02" parameterType="activetech.edpc.pojo.dto.ReportCondition"
             resultType="activetech.edpc.pojo.dto.ReportDataResult">
 		select d.yarmon,
-			   count(c.emg_seq) patNumb,
+			   count(c.reg_seq) patNumb,
 			   nvl(round(sum(c.flowtime1 - c.flowtime2) * 24 * 60 /
-						 count(c.emg_seq),
+						 count(c.reg_seq),
 						 2),
 				   0) avgtime,
 			   nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,
 			   nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 			   nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
-		  from (select f.emg_seq emg_seq,
+		  from (select f.reg_seq reg_seq,
 					   to_char(f.reg_tim, 'YYYY/MM') crtyarmon,
 					   flowtime1,
 					   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
@@ -721,7 +721,7 @@
 									  and emg_seq = hsp_zl_inf.emg_no)
 					  group by emg_seq) e,
 					 hsp_dbzl_bas f
-				where e.emg_seq = f.emg_seq
+				where e.emg_seq = f.reg_seq
 				  and f.pat_typ = '1') c,
 		       (select to_char(add_months(to_date(#{startDate,
 		                                          jdbcType = VARCHAR},
@@ -744,15 +744,15 @@
     <select id="getAvgXdtqzsj"  parameterType="activetech.edpc.pojo.dto.ReportCondition"
 		resultType="activetech.edpc.pojo.dto.ReportDataResult" >
 		select d.yarmon,
-		       count(c.emg_seq) patNumb,
+		       count(c.reg_seq) patNumb,
 		       nvl(round(sum(c.flowtime1 - c.flowtime2) * 24 * 60 /
-		                 count(c.emg_seq),
+		                 count(c.reg_seq),
 		                 2),
 		           0) avgtime,
 		       nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,
 		       nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 		       nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
-		  from (select b.emg_seq,
+		  from (select b.reg_seq,
 		               to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 		               a.file_dia_date+0 flowtime1,
 		               a.file_date+0 flowtime2
@@ -769,7 +769,7 @@
 		                                 and pro_val = '1')	
 		                 ) a,
 					   hsp_dbzl_bas b
-		         where a.ref_id = b.emg_seq
+		         where a.ref_id = b.reg_seq
 		           and b.pat_typ = '1') c,
 		       (select to_char(add_months(to_date(#{startDate,
 		                                              jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),
@@ -789,19 +789,19 @@
 	<select id="getSfxdtsj"  parameterType="activetech.edpc.pojo.dto.ReportCondition" 
 		resultType="activetech.edpc.pojo.dto.ReportDataResult" >
 		select d.yarmon,
-			   count(c.emg_seq)                                                patNumb,
+			   count(c.reg_seq)                                                patNumb,
 			   nvl(round(sum(c.flowtime1 - c.flowtime2) * 24 * 60 /
-						 count(c.emg_seq),
+						 count(c.reg_seq),
 						 2),
 				   0)                                                          avgtime,
 			   nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,
 			   nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0)      maxMin,
 			   nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0)      minMin
-		from (select emg_seq,
+		from (select reg_seq,
 					 to_char(reg_tim, 'YYYY/MM') crtyarmon,
 					 file_date + 0 flowtime1,
 					 scyljc + 0 flowtime2
-			  from (select a.emg_seq, a.reg_tim, b.file_date, c.scyljc
+			  from (select a.reg_seq, a.reg_tim, b.file_date, c.scyljc
 					from hsp_dbzl_bas a,
 						 (SELECT ref_id, file_date
 						  FROM (SELECT ref_id,
@@ -815,8 +815,8 @@
 								 emg_no
 						  FROM hsp_zl_inf
 						  WHERE pro_code = 'SCYLJCSJ') c
-					where a.emg_seq = b.ref_id
-					  and a.emg_seq = c.emg_no)) c,
+					where a.reg_seq = b.ref_id
+					  and a.reg_seq = c.emg_no)) c,
 			 (select to_char(add_months(to_date(#{startDate, jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),'YYYY/MM') yarmon
 			  from dual
 			  connect by rownum <![CDATA[ <= ]]> months_between(to_date(#{endDate, jdbcType = VARCHAR}, 'YYYY/MM'),
@@ -830,13 +830,13 @@
 	<select id="getD2Wsj" parameterType="activetech.edpc.pojo.dto.ReportCondition"
 			resultType="activetech.edpc.pojo.dto.ReportDataResult" >
 		select d.yarmon,
-			   count(c.emg_seq) patNumb,
-			   nvl(round(sum(c.flowtime1 - c.flowtime2) * 24 * 60 / count(c.emg_seq),2),0) avgtime,
+			   count(c.reg_seq) patNumb,
+			   nvl(round(sum(c.flowtime1 - c.flowtime2) * 24 * 60 / count(c.reg_seq),2),0) avgtime,
 			   nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,
 			   nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 			   nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
-		from (select a.emg_seq, a.crtyarmon, to_date(a.flowtime2, 'yyyy-MM-dd hh24:mi') flowtime2, b.flowtime1
-			  from (select temp.emg_seq, temp.crtyarmon, temp.dyfs,
+		from (select a.reg_seq, a.crtyarmon, to_date(a.flowtime2, 'yyyy-MM-dd hh24:mi') flowtime2, b.flowtime1
+			  from (select temp.reg_seq, temp.crtyarmon, temp.dyfs,
 						   (case
 								when temp.DYFS = '1' then
 									temp.DDYYDMSJ01
@@ -847,7 +847,7 @@
 								when temp.DYFS = '4' then
 									temp.SCYLJCSJ
 							   end) as flowtime2
-					from (select emg_seq,
+					from (select reg_seq,
 								 to_char(reg_tim, 'YYYY/MM') crtyarmon,
 								 (select pro_val
 								  from hsp_zl_inf
@@ -884,7 +884,7 @@
 									and pro_val = '1'
 									and emg_seq = hsp_zl_inf.emg_no)
 					group by emg_seq) b
-			  where a.emg_seq = b.emg_seq) c,
+			  where a.reg_seq = b.emg_seq) c,
 			 (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),
 							 'YYYY/MM') yarmon
 			  from dual
@@ -945,12 +945,12 @@
 	<select id="getYnswlReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult"   >
 		   select d.yarmon,
-		          count(c.emg_seq) patNumb,
+		          count(c.reg_seq) patNumb,
 		          sum(case
 		                when c.zg = '4' then
 		                 1 else 0
 		              end) tnumb
-		     from (select b.emg_seq,
+		     from (select b.reg_seq,
 						  to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
 						  (select pro_val
 						   FROM hsp_zl_inf
@@ -961,7 +961,7 @@
 						 WHERE pro_code = 'CBZD'
 						   and pro_val = '1') a,
 						HSP_DBZL_BAS b
-				   WHERE a.emg_no = b.emg_seq
+				   WHERE a.emg_no = b.reg_seq
 					 and b.PAT_TYP = '1') c,
 		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
@@ -978,11 +978,11 @@
 	<select id="getACS24tatinReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
 		   select d.yarmon,
-		          count(c.emg_seq) patNumb,
+		          count(c.reg_seq) patNumb,
 		          sum(case
 		                when c.tatin = '1' then
 		                 1 else 0 end) tnumb
-		     from (select b.emg_seq,
+		     from (select b.reg_seq,
 						  to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
 						  (select pro_val
 						   FROM hsp_zl_inf
@@ -993,7 +993,7 @@
 						 WHERE pro_code = 'CBZD'
 						   and pro_val in ('1', '2', '3')) a,
 						HSP_DBZL_BAS b
-				   WHERE a.emg_no = b.emg_seq
+				   WHERE a.emg_no = b.reg_seq
 					 and b.PAT_TYP = '1') c,
 		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
@@ -1010,9 +1010,9 @@
 	<select id="getRxccublReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
 		   select d.yarmon,
-		          count(c.emg_seq) patNumb,
+		          count(c.reg_seq) patNumb,
 		          sum(case when c.rxccu = '1' then 1 else 0 end) tnumb
-		     from ( select b.emg_seq,
+		     from ( select b.reg_seq,
 			               to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 			               (select pro_val
 			                  from hsp_zl_inf
@@ -1030,7 +1030,7 @@
 			                           and pro_val = '1')
 			                ) a,
 			               hsp_dbzl_bas b
-			         where a.emg_no = b.emg_seq
+			         where a.emg_no = b.reg_seq
 			           and b.pat_typ = '1'
 		              ) c,
 		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
@@ -1048,9 +1048,9 @@
 	<select id="getRxjzkccublReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
 		    select d.yarmon,
-			       count(c.emg_seq) patNumb,
+			       count(c.reg_seq) patNumb,
 			       sum(case when c.pcisswcsj is not null then 1 else 0 end) tnumb
-			  from (select b.emg_seq,
+			  from (select b.reg_seq,
 						   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 						   (select pro_val
 							from hsp_zl_inf
@@ -1066,11 +1066,11 @@
 										  and pro_code = 'ZGZCS'
 										  and pro_val = '1')) a,
 						 hsp_dbzl_bas b
-					where a.emg_no = b.emg_seq
+					where a.emg_no = b.reg_seq
 					  and b.pat_typ = '1'
 					  and exists (select 1
 								  from hsp_zl_inf
-								  where emg_no = b.emg_seq
+								  where emg_no = b.reg_seq
 									and pro_code = 'DYFS'
 									and pro_val in ('1', '2'))
 			           ) c, 
@@ -1088,8 +1088,8 @@
 	
 	<select id="getYccsxdtblReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult" >
-		select d.yarmon, count(c.emg_seq) patNumb, sum(nvl(c.ycxdtcs, 0)) tnumb
-		  from (select b.emg_seq,
+		select d.yarmon, count(c.reg_seq) patNumb, sum(nvl(c.ycxdtcs, 0)) tnumb
+		  from (select b.reg_seq,
 					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 					   (select 1
 						from hsp_zl_inf
@@ -1101,11 +1101,11 @@
 					  where pro_code = 'CBZD'
 						and pro_val = '1') a,
 					 hsp_dbzl_bas b
-				where a.emg_no = b.emg_seq
+				where a.emg_no = b.reg_seq
 				  and b.pat_typ = '1'
 				  and exists (select 1
 							  from hsp_zl_inf
-							  where emg_no = b.emg_seq
+							  where emg_no = b.reg_seq
 								and pro_code = 'DYFS'
 								and pro_val in ('1', '2'))) c,
 		       (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
@@ -1123,7 +1123,7 @@
 	<select id="getStemi2HdyljcReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
 		select d.yarmon,
-			   count(c.emg_seq)    patNumb,
+			   count(c.reg_seq)    patNumb,
 			   sum(case
 					   when c.fbsj is null then 0
 					   when nvl(round(round((c.scyljc - c.fbsj) * 24 * 60, 2)), 0) <![CDATA[ < ]]> 0 then
@@ -1131,7 +1131,7 @@
 					   when nvl(round(round((c.scyljc - c.fbsj) * 24 * 60, 2)), 0)<![CDATA[ <= ]]> 180 then
 						   1
 					   else 0 end) tnumb
-		from (select b.emg_seq,
+		from (select b.reg_seq,
 					 to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
 					 cast(c.scyljc as date)        scyljc,
 					 (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss') fbsj
@@ -1148,8 +1148,8 @@
 					   FROM hsp_zl_inf
 					   WHERE pro_code = 'SCYLJCSJ'
 				   ) c
-			  WHERE a.emg_no = b.emg_seq
-				and c.EMG_NO = b.EMG_SEQ
+			  WHERE a.emg_no = b.reg_seq
+				and c.EMG_NO = b.reg_seq
 				and b.PAT_TYP = '1') c,
 			 (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 										rownum - 1),
@@ -1167,28 +1167,28 @@
 	<select id="getRshzyblReport"  parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult" >
 			select d.yarmon,
-			       count(c.emg_seq) patNumb,
+			       count(c.reg_seq) patNumb,
 			       sum(case
 			             when (zykssj - rssj) <![CDATA[ < ]]> 1 then
 			              1
 			             else
 			              0
 			           end) tnumb
-			  from (select b.emg_seq,
+			  from (select b.reg_seq,
 						   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 						   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
 							from hsp_zl_inf
-							where emg_no = b.emg_seq
+							where emg_no = b.reg_seq
 							  and pro_code = 'YNKSRSSJ') rssj,
 						   (select to_date(pro_val, 'YYYY-MM-DD HH24:MI:SS')
 							from hsp_zl_inf
-							where emg_no = b.emg_seq
+							where emg_no = b.reg_seq
 							  and pro_code = 'ZYKSSJ') zykssj
 					from hsp_dbzl_bas b
 					where b.pat_typ = '1'
 					  and exists (select 1
 								  from hsp_zl_inf
-								  where emg_no = b.emg_seq
+								  where emg_no = b.reg_seq
 									and pro_code = 'YNKSRSSJ')) c,
 			        (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
@@ -1205,31 +1205,31 @@
 	<select id="getZgzblReport"  parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
 		with temp as (
-			select b.emg_seq,
+			select b.reg_seq,
 				   to_char(b.REG_TIM, 'YYYY/MM') crtyarmon,
 				   (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
 					FROM HSP_zl_INF
-					WHERE emg_no = b.EMG_SEQ
+					WHERE emg_no = b.reg_seq
 					  and pro_code = 'FBSJ')     fbsj,
 				   (select PRO_VAL
 					from HSP_zl_INF
-					where EMG_NO = b.EMG_SEQ
+					where EMG_NO = b.reg_seq
 					  and PRO_CODE = 'ZGZCS')    zgzcs,
 				   (select PRO_VAL
 					from HSP_zl_INF
-					where EMG_NO = b.EMG_SEQ
+					where EMG_NO = b.reg_seq
 					  and PRO_CODE = 'YNRSSC')   rnrssc,
 				   (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
 					from HSP_zl_INF
-					where EMG_NO = b.EMG_SEQ
+					where EMG_NO = b.reg_seq
 					  and PRO_CODE = 'YNKSRSSJ') rnksrssj,
 				   (select to_date(pro_val, 'yyyy-mm-dd hh24:mi:ss')
 					from HSP_zl_INF
-					where EMG_NO = b.EMG_SEQ
+					where EMG_NO = b.reg_seq
 					  and PRO_CODE = 'KSCCSJ')   ksccsj,
 				   (select PRO_VAL
 					FROM hsp_zl_inf
-					WHERE emg_no = b.emg_seq
+					WHERE emg_no = b.reg_seq
 					  and pro_code = 'YWZGZCS')  ywzgzcs
 			FROM HSP_DBZL_BAS b
 			WHERE b.PAT_TYP = '1'
@@ -1237,11 +1237,11 @@
 						 FROM hsp_zl_inf
 						 WHERE pro_code = 'CBZD'
 						   and pro_val = '1'
-						   and emg_no = b.emg_seq)
+						   and emg_no = b.reg_seq)
 		)
-		select d.yarmon, count(emg_seq) patNumb, sum(nvl(c.fhtj, 0)) tnumb
+		select d.yarmon, count(reg_seq) patNumb, sum(nvl(c.fhtj, 0)) tnumb
 		from (
-				 select EMG_SEQ,
+				 select reg_seq,
 						fbsj,
 						zgzsj,
 						crtyarmon,
@@ -1250,7 +1250,7 @@
 								 1
 							 else 0
 							end) fhtj
-				 from (select EMG_SEQ,
+				 from (select reg_seq,
 							  crtyarmon,
 							  fbsj,
 							  (case
@@ -1281,15 +1281,15 @@
 	<select id="getS2fmcReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
 		select d.yarmon,
-		       count(c.emg_seq) patNumb,
+		       count(c.reg_seq) patNumb,
 		       nvl(round(sum(c.flowtime1 - c.flowtime2) * 24 * 60 /
-		                 count(c.emg_seq),
+		                 count(c.reg_seq),
 		                 2),
 		           0) avgtime,
 		       nvl(round(median((c.flowtime1 - c.flowtime2) * 24 * 60), 2), 0) mediantime,
 		       nvl(round(max(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) maxMin,
 		       nvl(round(min(c.flowtime1 - c.flowtime2) * 24 * 60, 2), 0) minMin
-		  from (select b.emg_seq,
+		  from (select b.reg_seq,
 					   to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 					   (select to_date(pro_val,'yyyy-MM-dd hh24:mi')
 						from hsp_zl_inf
@@ -1304,7 +1304,7 @@
 					  where pro_code = 'CBZD'
 						and pro_val = '1') a,
 					 hsp_dbzl_bas b
-				where a.emg_no = b.emg_seq
+				where a.emg_no = b.reg_seq
 				  and b.pat_typ = '1') c,
 		       (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'), rownum - 1),
 		                       'YYYY/MM') yarmon
@@ -1359,7 +1359,7 @@
 		union
 		select '3', count(*)
 		from hsp_dbzl_bas a, hsp_zl_inf b
-		where a.emg_seq = b.emg_no(+)
+		where a.reg_seq = b.emg_no(+)
 		  and b.pro_code = 'DYFS'
 		  and b.pro_val = '3'
 		  and a.pat_typ = '1'
@@ -1367,9 +1367,9 @@
 	
 	<select id="getLyfstjData" resultType="activetech.edpc.pojo.dto.HomePageResult">
 		select pro_val as infocode, info, count(*) as total
-		from (select b.pro_val, c.info, a.emg_seq
+		from (select b.pro_val, c.info, a.reg_seq
 			  from hsp_dbzl_bas a, hsp_zl_inf b, dstdictinfo c
-			  where a.emg_seq = b.emg_no(+)
+			  where a.reg_seq = b.emg_no(+)
 				and b.pro_val = c.infocode(+)
 				and b.pro_code = 'DYFS'
 				and a.pat_typ = '1'
@@ -1382,7 +1382,7 @@
 		FROM (select PRO_VAL, count(*) total
 			  from HSP_zl_INF a,
 				   HSP_DBZL_BAS b
-			  where a.EMG_NO = b.EMG_SEQ
+			  where a.EMG_NO = b.reg_seq
 				and b.PAT_TYP = '1'
 				and a.PRO_CODE = 'HZZG'
 			  group by a.PRO_VAL
@@ -1517,15 +1517,15 @@
 					 (select pro_val
 					  from hsp_zl_inf
 					  where pro_code = 'DYFS'
-						and emg_no = a.emg_seq) as DYFS,
+						and emg_no = a.reg_seq) as DYFS,
 					 (select pro_val
 					  from hsp_zl_inf
 					  where pro_code = 'ZYLX'
-						and emg_no = a.emg_seq) as ZYLX,
+						and emg_no = a.reg_seq) as ZYLX,
 					 (select pro_val
 					  from hsp_zl_inf
 					  where pro_code = 'YYMC'
-						and emg_no = a.emg_seq) as YYMC
+						and emg_no = a.reg_seq) as YYMC
 			  from hsp_dbzl_bas a
 			  where pat_typ = '1') b
 		where DYFS = '2'
@@ -1657,7 +1657,7 @@
 	<select id="get6RSbRReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
 		   select d.yarmon,
-		          count(c.emg_seq) patNumb,
+		          count(c.reg_seq) patNumb,
 		          sum(case
 		                when c.fbsj is null then
 		                 0
@@ -1666,22 +1666,22 @@
 		                else
 		                 0
 		              end) tnumb
-		     from (select b.emg_seq,
+		     from (select b.reg_seq,
 						  to_char(b.reg_tim, 'YYYY/MM') crtyarmon,
 						  (select pro_val
 						   from hsp_zl_inf
 						   where pro_code = 'RSZLKSSJ'
-							 and emg_no = b.emg_seq) rszlkssj,
+							 and emg_no = b.reg_seq) rszlkssj,
 						  (select pro_val
 						   from hsp_zl_inf
 						   where pro_code = 'FBSJ'
-							 and emg_no = b.emg_seq) fbsj
+							 and emg_no = b.reg_seq) fbsj
 				   from (select emg_no
 						 from hsp_zl_inf
 						 where pro_code = 'ISRS'
 						   and pro_val = '0') a,
 						hsp_dbzl_bas b
-				   where a.emg_no = b.emg_seq
+				   where a.emg_no = b.reg_seq
 					 and b.pat_typ = '2') c,
 		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),
@@ -1698,7 +1698,7 @@
 	<select id="getStemi12HdyljcReport" parameterType="activetech.edpc.pojo.dto.ReportCondition"  
 		resultType="activetech.edpc.pojo.dto.ReportDataResult">
 		   select d.yarmon,
-       				count(c.emg_seq) patNumb,
+       				count(c.reg_seq) patNumb,
        				sum(case
              			when c.fbsj is null then
               			0
@@ -1707,22 +1707,22 @@
              			else
               			0
            			end) tnumb
-		     from (select a.emg_seq,
+		     from (select a.reg_seq,
 						  to_char(a.reg_tim, 'YYYY/MM') crtyarmon,
 						  (select pro_val
 						   from hsp_zl_inf
 						   where pro_code = 'SCYLJCSJ'
-							 and emg_no = a.emg_seq) emg_dat,
+							 and emg_no = a.reg_seq) emg_dat,
 						  (select pro_val
 						   from hsp_zl_inf
 						   where pro_code = 'FBSJ'
-							 and emg_no = a.emg_seq) fbsj
+							 and emg_no = a.reg_seq) fbsj
 				   from hsp_dbzl_bas a,
 						(select emg_no
 						 from hsp_zl_inf
 						 where pro_code = 'CBZD'
 						   and pro_val = '1') b
-				   where a.emg_seq = b.emg_no
+				   where a.reg_seq = b.emg_no
 					 and a.pat_typ = '1') c,
 		          (select to_char(add_months(to_date(#{startDate,jdbcType = VARCHAR}, 'YYYY/MM'),
 		                                     rownum - 1),

@@ -1944,12 +1944,12 @@
 
                     if(tempIsFromTiny(rowData.tempSeq)){
                         var url = '${baseurl}zyyconsent/toXtPageEdit.do?tempno=' +  rowData.tempSeq + '&tempname=' + rowData.tempName
-                            + '&refseqno=' + vm.currPatientInfo.emgSeq + '&cstNam=' + vm.currPatientInfo.cstNam + '&tempCode=' + vm.tempCode;
+                            + '&refseqno=' + vm.currPatientInfo.regSeq + '&cstNam=' + vm.currPatientInfo.cstNam + '&tempCode=' + vm.tempCode;
                         url = encodeURI(url);
                         // alert(url);
                     }
                     else{
-                        var url = '${baseurl}zyyconsent/ConsentInfByTempno.do?tempno='+rowData.tempSeq+'&tempname='+rowData.tempName+'&refseqno='+vm.currPatientInfo.emgSeq;
+                        var url = '${baseurl}zyyconsent/ConsentInfByTempno.do?tempno='+rowData.tempSeq+'&tempname='+rowData.tempName+'&refseqno='+ vm.currPatientInfo.regSeq;
                     }
                     window.top.addTab(rowData.tempName, url, 'icon icon-emergency-record');
                 }

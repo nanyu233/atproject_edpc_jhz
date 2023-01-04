@@ -1328,12 +1328,12 @@
 
                 if(tempIsFromTiny(rowData.tempSeq)){
                     var url = '${baseurl}zyyconsent/toXtPageEdit.do?tempno=' +  rowData.tempSeq + '&tempname=' + rowData.tempName
-                        + '&refseqno=' + fishPool.currPatientInfo.emgSeq + '&cstNam=' + fishPool.currPatientInfo.cstNam + '&tempCode=' + fishPool.tempCode;
+                        + '&refseqno=' + fishPool.currPatientInfo.regSeq + '&cstNam=' + fishPool.currPatientInfo.cstNam + '&tempCode=' + fishPool.tempCode;
                     url = encodeURI(url);
                     // alert(url);
                 }
                 else{
-                    var url = '${baseurl}zyyconsent/ConsentInfByTempno.do?tempno='+rowData.tempSeq+'&tempname='+rowData.tempName+'&refseqno='+fishPool.currPatientInfo.emgSeq;
+                    var url = '${baseurl}zyyconsent/ConsentInfByTempno.do?tempno='+rowData.tempSeq+'&tempname='+rowData.tempName+'&refseqno='+fishPool.currPatientInfo.regSeq;
                 }
                 window.top.addTab(rowData.tempName, url, 'icon icon-emergency-record');
             }
