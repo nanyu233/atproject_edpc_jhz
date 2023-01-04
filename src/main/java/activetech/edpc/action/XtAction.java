@@ -279,10 +279,10 @@ public class XtAction {
 	@ResponseBody
 	public SubmitResultInfo getCpcPatientRouteInfoByEmgSeq(@RequestBody(required=false) Map<String,Object> map){
 		ResultInfo resultInfo = null;  
-		String emgSeq = "";
+		String regSeq = "";
 		if(map!=null){
-			emgSeq = (String) map.get("emgSeq");
-			resultInfo = xtService.getCpcPatientRouteInfoByEmgSeq(emgSeq);
+			regSeq = (String) map.get("regSeq");
+			resultInfo = xtService.getCpcPatientRouteInfoByEmgSeq(regSeq);
 		}else{
 			resultInfo = ResultUtil.createWarning(Config.MESSAGE, 901, null);
 		}

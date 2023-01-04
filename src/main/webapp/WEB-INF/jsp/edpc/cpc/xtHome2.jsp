@@ -70,13 +70,13 @@
 
 <div class="flow">
     <div id="infoBar" class="infoBar">
-        <div ms-visible="currPatientInfo.emgSeq" class="printBtn" onclick="redirectToprint()">打印诊疗表</div>
+        <div ms-visible="currPatientInfo.regSeq" class="printBtn" onclick="redirectToprint()">打印诊疗表</div>
 <!--         <div ms-visible="currPatientInfo.emgSeq" class="printBtn" onclick="redirectTosf()">随访表</div> -->
-        <div ms-visible="currPatientInfo.emgSeq" class="printBtn" onclick="redirectTosfgl()">随访记录</div>
+<%--        <div ms-visible="currPatientInfo.regSeq" class="printBtn" onclick="redirectTosfgl()">随访记录</div>--%>
 <!--         <div ms-visible="currPatientInfo.emgSeq" class="printBtn" onclick="redirectTosfgladd()">随访add表</div> -->
-        <div ms-visible="currPatientInfo.emgSeq" class="printBtn" onclick="toReport()">上报助手</div>
-        <div ms-visible="currPatientInfo.emgSeq" class="printBtn" onclick="toCpcTimeline()">时间轴</div>
-        <div ms-visible="currPatientInfo.emgSeq" class="printBtn" onclick="showTable()">知情同意书</div>
+        <div ms-visible="currPatientInfo.regSeq" class="printBtn" onclick="toReport()">上报助手</div>
+        <div ms-visible="currPatientInfo.regSeq" class="printBtn" onclick="toCpcTimeline()">时间轴</div>
+        <div ms-visible="currPatientInfo.regSeq" class="printBtn" onclick="showTable()">知情同意书</div>
         <div><span>姓名：</span><span>{{currPatientInfo.cstNam}}</span></div>
         <div><span>预检时间：</span><span>{{currPatientInfo.emgDatStr}}</span></div>
         <div><span>病例号：</span><span>{{currPatientInfo.mpi}}</span></div>
@@ -413,7 +413,7 @@
 
         	vm.currPatientInfo.mpi = patient.mpi;
             // 设置左侧流程图以及流程图上方的信息栏数据
-            vm.setNodesAndInfo(patient.emgSeq);
+            vm.setNodesAndInfo(patient.regSeq);
         },
         listTrigger:function (flg) {
             if(flg == '1'){
@@ -426,7 +426,7 @@
             }
         },
         // 根据emgSeq获取并设置每个病人的左侧流程图以及流程图上方的信息栏数据
-        setNodesAndInfo: function (_emgSeq) {
+        setNodesAndInfo: function (_regSeq) {
 
             $.ajax({
                 url: 'cpc/getCpcPatientRouteInfoByEmgSeq.do',
@@ -434,7 +434,7 @@
                 dataType: 'json',
                 contentType: 'application/json;charset=UTF-8',
                 data: JSON.stringify({
-                    'emgSeq': _emgSeq
+                    'regSeq': _regSeq
                 }),
                 success: function (res) {
                 	// 1.处理绿色节点
@@ -792,17 +792,17 @@
     }
   //跳转到胸痛随访页面
     function redirectTosf() {
-        var url = 'followup/tofuvadd.do?emgSeq=' + vm.currPatientInfo.emgSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp;
+        var url = 'followup/tofuvadd.do?regSeq=' + vm.currPatientInfo.regSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp;
         window.top.addTab('胸痛随访表-' + vm.currPatientInfo.cstNam, url, 'icon icon-emergency-record');
     }
   //跳转到胸痛随访管理页面
     function redirectTosfgl() {
-        var url = 'followup/queryfuv.do?emgSeq=' + vm.currPatientInfo.emgSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp;
+        var url = 'followup/queryfuvXt.do?regSeq=' + vm.currPatientInfo.regSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp;
         window.top.addTab('胸痛随访管理-' + vm.currPatientInfo.cstNam, url, 'icon icon-emergency-record');
     }
   //跳转到胸痛随访增加
     function redirectTosfgladd() {
-        var url = 'followup/addfuv.do?emgSeq=' + vm.currPatientInfo.emgSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp;
+        var url = 'followup/addfuvXt.do?regSeq=' + vm.currPatientInfo.regSeq + '&wayTyp=' + vm.currPatientInfo.wayTyp;
         window.top.addTab('胸痛随访管理add-' + vm.currPatientInfo.cstNam, url, 'icon icon-emergency-record');
     }
     //跳转到胸痛上报页面

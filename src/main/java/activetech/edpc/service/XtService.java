@@ -15,7 +15,7 @@ public interface XtService {
 
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto);
 	
-	public ResultInfo getCpcPatientRouteInfoByEmgSeq(String emgSeq);
+	public ResultInfo getCpcPatientRouteInfoByEmgSeq(String regSeq);
 	/**
 	 * 走统一的接口获取节点上的信息
 	 * @param emgSeq

@@ -151,10 +151,10 @@ public class XtServiceImpl implements XtService{
 	}
 
 	@Override
-	public ResultInfo getCpcPatientRouteInfoByEmgSeq(String emgSeq) {
+	public ResultInfo getCpcPatientRouteInfoByEmgSeq(String regSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> map = new HashMap<>();
-		String regSeq = hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq).getRegSeq();
+//		String regSeq = hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq).getRegSeq();
 		//	第一步从cpc_route表获取该病人的关键点组成的路径
 		HspFlowChartInfExample example = new HspFlowChartInfExample();
 		HspFlowChartInfExample.Criteria criteria = example.createCriteria();
@@ -211,7 +211,7 @@ public class XtServiceImpl implements XtService{
 		
 		
 		
-		String jgdbbgsj = vHemsJyjgMapperCustom.getJgdbDate(emgSeq);
+		String jgdbbgsj = vHemsJyjgMapperCustom.getJgdbDate(regSeq);
 		
 		if(jgdbbgsj!=null) {
 			HspZlInf jgdbbgsjHspZlInf = new HspZlInf();
@@ -1159,10 +1159,10 @@ public class XtServiceImpl implements XtService{
 		HspDbzlBasCustom hspDbzlBasCustom = cpcMapper.getHspDbzlBasinf(queryDto);
 		JSONObject jsonHspDbzlBasCustom = jsonSerialize(hspDbzlBasCustom);
 		//获取诊疗表数据
-		List<HspZlInfCustom> dataList = hspZlInfCustomMapper.getHspXtzlInfByEmgSeq(hspDbzlBasCustom.getEmgSeq());
+		List<HspZlInfCustom> dataList = hspZlInfCustomMapper.getHspXtzlInfByEmgSeq(regSeq);
 		//添加一个or多个虚拟对象，用来转换值
 		addNewHspXtzlInfCustomFroEdit(dataList, "FBSJEDIT", "BNPNTPROBNPEDIT", "SZKNYWJLANDDW", "CYDYFNEDIT");
-		Map<String, Object> otherData = otherSourceForEdit(hspDbzlBasCustom.getEmgSeq());
+		Map<String, Object> otherData = otherSourceForEdit(regSeq);
 		JSONObject jsonHspCrivelInf = jsonSerialize(otherData.get("hspCrivelInf"));
 		JSONObject jsonHspEcgInfYq = jsonSerialize(otherData.get("hspEcgInfYq"));
 		JSONObject jsonHspEcgInfYn = jsonSerialize(otherData.get("hspEcgInfYn"));
