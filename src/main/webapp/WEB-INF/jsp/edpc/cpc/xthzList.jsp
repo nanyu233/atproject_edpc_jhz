@@ -461,18 +461,20 @@
 						}
 					},
 					{
+						field : 'fbsj',
+						title : '发病时间',
+						width : setWidth(0.08)
+					},
+					{
 						// field : 'emgDat',
 						field : 'scyljcsj',
 						title : '首次医疗接触',
 						width : setWidth(0.075),
 						formatter : function(value, row, index) {
-							return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+							if (value) {
+								return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+							}
 						}
-					},
-					{
-						field : 'fbsj',
-						title : '发病时间',
-						width : setWidth(0.08)
 					},
 					{
 						field : 'cbzd',
