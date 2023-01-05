@@ -117,6 +117,9 @@
 										bottom:0;
 										width:100%;
 								}
+								.queryTabs .datagrid-body, .norowTab .datagrid-body, .datagrid-body {
+									width: 100% !important;
+								}
 						</style>
 
 				</head>
@@ -182,7 +185,7 @@
 								$("#cztable").datagrid('reload');
 								console.log( vm.searchParam.cstNam,vm.searchParam.zd, vm.searchParam.zdys, queryParams['startdate'],queryParams['enddate'])
 						}
-						function addNewPatient(){
+						function cmdaddNewPatient(){
 								createmodalwindow("新增院内/绕行发病患者", 430, 300, '${baseurl}cz/toadd.do', 'no');
 						}
 					
@@ -205,16 +208,16 @@
 								}
 								window.top.addTab(cstNam + "-" + '卒中患者详情', url, 'icon icon-emergency-record');
 						}
-						var toolbars = [
-							{
-								id: 'add',
-								text: '新增患者',
-								iconCls: 'icon-add',
-								handler: function(){
-									addNewPatient()
-								}
-							}
-						]
+						// var toolbars = [
+						// 	{
+						// 		id: 'add',
+						// 		text: '新增患者',
+						// 		iconCls: 'icon-add',
+						// 		handler: function(){
+						// 			addNewPatient()
+						// 		}
+						// 	}
+						// ]
 						$(function() {
 								var h3 = height - 56;
 								$("#cztable").height(h3);
@@ -223,14 +226,17 @@
 								czCbzdCodList = publicFun.getItem("allDict").CZ_CBZD_COD;
 								vm.searchParam.startdate = "${startdate}";
 								vm.searchParam.enddate = "${enddate}";
-								$('#cztable').datagrid({
+							    var toolbars
+							    publicFun.ajaxVal('${moduleid}', toolbars, callBack);
+							    function callBack(toolbars) {
+									$('#cztable').datagrid({
 										url: '${baseurl}cz/getCzPatientList.do',
 										queryParams: {
-												'cstNam': vm.searchParam.cstNam,
-												'zd': vm.searchParam.zd,
-												'zdys': vm.searchParam.zdys,
-												'startDate': vm.searchParam.startdate,
-												'endDate': vm.searchParam.enddate
+											'cstNam': vm.searchParam.cstNam,
+											'zd': vm.searchParam.zd,
+											'zdys': vm.searchParam.zdys,
+											'startDate': vm.searchParam.startdate,
+											'endDate': vm.searchParam.enddate
 										},
 										striped: true,
 										toolbar:toolbars,
@@ -239,160 +245,161 @@
 										rownumbers: true,
 										pageList: [20, 30, 50],
 										columns: [
-												[{
-														field : 'wayTyp',
-														title : '患者类型',
-														width : setWidth(0.05),
-														formatter : function(value, row, index) {
-																if (value == 0) {
-																		return '分诊';
-																} else if (value == 1) {
-																		return '绕行';
-																} else if (value == 2) {
-																		return '院内发病';
-																}
-														}
-												}, {
-														field: 'cstNam',
-														title: '姓名',
-														width: setWidth(0.08)
-												}, {
-														field: 'cstSexCod',
-														title: '性别',
-														width: setWidth(0.03),
-														formatter: function(value, row, index) {
-																if (value == 0) {
-																		return '男'
-																} else if (value == 1) {
-																		return '女'
-																}
-														}
-												}, {
-														field: 'cstAge',
-														title: '年龄',
-														width: setWidth(0.03),
-														formatter: function(value, row, index) {
-																return value == null ? '-' : value + '岁';
-														}
-												}, {
-														field: 'fbsj',
-														title: '发病时间',
-														width: setWidth(0.1),
-														formatter: function(value, row, index) {
-																if (value != null)
-																		return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
-																return null;
-														}
-												}, {
-														field: 'cbzd',
-														title: '诊断',
-														width: setWidth(0.1),
-														formatter: function(value, row, index) {
-																return publicFun.codingEscape(czCbzdCodList, value);
-														}
-												},{
-														field : 'zdys',
-														title : '诊断医生',
-														width : setWidth(0.08),
-												},{
-														field: 'crtTim',
-														title: '建档时间',
-														width: setWidth(0.1),
-														formatter: function(value, row, index) {
-																if (value != null)
-																		return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
-																return null;
-														}
-												}, {
-														field : 'rcdSta',
-														title : '审核状态',
-														width : setWidth(0.04),
-														formatter : function(value, row, index) {
-																if (value == 1) {
-																		return '记录中'
-																} else if (value == 2) {
-																		return '审核中'
-																} else if (value == 3) {
-																		return '被驳回'
-																} else if (value == 4) {
-																		return '已审核'
-																}
-														}
-												}, {
-														field : 'chkTim',
-														title : '审核时间',
-														width : setWidth(0.06),
-														formatter : function(value, row, index) {
-																if(value) {
-																		return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
-																}
-																return "";
-														}
-												},{
-														field : 'chkNam',
-														title : '审核人',
-														width : setWidth(0.04)
-												},{
-														field : 'chkMsg',
-														title : '审核意见',
-														width : setWidth(0.06)
-												},{
-														field : 'smtSta',
-														title : '上报状态',
-														width : setWidth(0.04),
-														formatter : function(value, row, index) {
-																if (value == 1) {
-																		return '未上报'
-																} else if (value == 2) {
-																		return '上报中'
-																} else if (value == 3) {
-																		return '上报失败'
-																} else if (value == 4) {
-																		return '上报驳回'
-																} else if (value == 5) {
-																		return '上报完成'
-																}
-														}
-												},{
-														field : 'smtTim',
-														title : '上报时间',
-														width : setWidth(0.06),
-														formatter : function(value, row, index) {
-																if(value) {
-																		return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
-																}
-																return "";
-														}
-												},{
-														field : 'smtSeq',
-														title : '填报编号',
-														width : setWidth(0.1)
-												},{
-														field : 'smtMsg',
-														title : '上报信息',
-														width : setWidth(0.06)
-												},{
-														field: 'dd',
-														title: '操作',
-														width: setWidth(0.18),
-														formatter: function(value, row, index) {
-																var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">查看</span>' +
-																		'<span class="btn Timeline" onclick="toCzTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">时间轴</span>'+
-																		'<span class="btn Timeline" onclick="printCzhcb(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">核查表</span>';
-																if("1" == row.rcdSta || "3" == row.rcdSta) {
-																		_html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
-																} else if("2" == row.rcdSta) {
-																		_html += '<span class="btn detail" onclick="skipChkPage(\'' + row.regSeq + '\')">审核</span>'
-																}
-																if("4" == row.rcdSta) {
-																		_html += '<span class="btn detail" onclick="chkRowBak(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">解锁</span>'
-																		_html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\',\'' + row.patTyp + '\')">上报</span>'
-																}
-																return _html;
-														}
-												}]
+											[{
+												field : 'wayTyp',
+												title : '患者类型',
+												width : setWidth(0.05),
+												formatter : function(value, row, index) {
+													if (value == 0) {
+														return '分诊';
+													} else if (value == 1) {
+														return '绕行';
+													} else if (value == 2) {
+														return '院内发病';
+													}
+												}
+											}, {
+												field: 'cstNam',
+												title: '姓名',
+												width: setWidth(0.08)
+											}, {
+												field: 'cstSexCod',
+												title: '性别',
+												width: setWidth(0.03),
+												formatter: function(value, row, index) {
+													if (value == 0) {
+														return '男'
+													} else if (value == 1) {
+														return '女'
+													}
+												}
+											}, {
+												field: 'cstAge',
+												title: '年龄',
+												width: setWidth(0.03),
+												formatter: function(value, row, index) {
+													return value == null ? '-' : value + '岁';
+												}
+											}, {
+												field: 'fbsj',
+												title: '发病时间',
+												width: setWidth(0.1),
+												formatter: function(value, row, index) {
+													if (value != null)
+														return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+													return null;
+												}
+											}, {
+												field: 'cbzd',
+												title: '诊断',
+												width: setWidth(0.1),
+												formatter: function(value, row, index) {
+													return publicFun.codingEscape(czCbzdCodList, value);
+												}
+											},{
+												field : 'zdys',
+												title : '诊断医生',
+												width : setWidth(0.08),
+											},{
+												field: 'crtTim',
+												title: '建档时间',
+												width: setWidth(0.1),
+												formatter: function(value, row, index) {
+													if (value != null)
+														return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+													return null;
+												}
+											}, {
+												field : 'rcdSta',
+												title : '审核状态',
+												width : setWidth(0.04),
+												formatter : function(value, row, index) {
+													if (value == 1) {
+														return '记录中'
+													} else if (value == 2) {
+														return '审核中'
+													} else if (value == 3) {
+														return '被驳回'
+													} else if (value == 4) {
+														return '已审核'
+													}
+												}
+											}, {
+												field : 'chkTim',
+												title : '审核时间',
+												width : setWidth(0.06),
+												formatter : function(value, row, index) {
+													if(value) {
+														return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+													}
+													return "";
+												}
+											},{
+												field : 'chkNam',
+												title : '审核人',
+												width : setWidth(0.04)
+											},{
+												field : 'chkMsg',
+												title : '审核意见',
+												width : setWidth(0.06)
+											},{
+												field : 'smtSta',
+												title : '上报状态',
+												width : setWidth(0.04),
+												formatter : function(value, row, index) {
+													if (value == 1) {
+														return '未上报'
+													} else if (value == 2) {
+														return '上报中'
+													} else if (value == 3) {
+														return '上报失败'
+													} else if (value == 4) {
+														return '上报驳回'
+													} else if (value == 5) {
+														return '上报完成'
+													}
+												}
+											},{
+												field : 'smtTim',
+												title : '上报时间',
+												width : setWidth(0.06),
+												formatter : function(value, row, index) {
+													if(value) {
+														return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+													}
+													return "";
+												}
+											},{
+												field : 'smtSeq',
+												title : '填报编号',
+												width : setWidth(0.1)
+											},{
+												field : 'smtMsg',
+												title : '上报信息',
+												width : setWidth(0.06)
+											},{
+												field: 'dd',
+												title: '操作',
+												width: setWidth(0.18),
+												formatter: function(value, row, index) {
+													var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">查看</span>' +
+														'<span class="btn Timeline" onclick="toCzTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">时间轴</span>'+
+														'<span class="btn Timeline" onclick="printCzhcb(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">核查表</span>';
+													if("1" == row.rcdSta || "3" == row.rcdSta) {
+														_html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
+													} else if("2" == row.rcdSta) {
+														_html += '<span class="btn detail" onclick="skipChkPage(\'' + row.regSeq + '\')">审核</span>'
+													}
+													if("4" == row.rcdSta) {
+														_html += '<span class="btn detail" onclick="chkRowBak(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">解锁</span>'
+														_html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\',\'' + row.patTyp + '\')">上报</span>'
+													}
+													return _html;
+												}
+											}]
 										]
-								});
+									});
+								}
 								search()
 						});
 				</script>

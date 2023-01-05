@@ -48,7 +48,7 @@ public class CzAction {
 	 * @return
 	 */
 	@RequestMapping("/toCzListPage")
-	public String toCzListPage(Model model){
+	public String toCzListPage(Model model, String moduleid){
 		Date date = new Date();
 		int year = DateUtil.getYear(date);
 		int month = DateUtil.getMonth(date);
@@ -57,6 +57,7 @@ public class CzAction {
 		String enddate = year + "/" + (month>9? month:"0"+month) + "/" + (today>9? today:"0"+today);
 		model.addAttribute("startdate", startdate);
 		model.addAttribute("enddate", enddate);
+		model.addAttribute("moduleid", moduleid);
 		return View.toEDPC("/cz/czList");
 	}
 

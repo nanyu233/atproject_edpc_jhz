@@ -491,7 +491,8 @@ public class XtAction {
 	 * @return
 	 */
 	@RequestMapping("/toXthzListPage")
-	public String toXthzListPage(Model model){
+	public String toXthzListPage(Model model, String moduleid){
+		model.addAttribute("moduleid", moduleid);
 		return View.toEDPC("/cpc/xthzList");
 	}
 	
