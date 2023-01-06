@@ -163,7 +163,7 @@
                 this.collapse = !this.collapse
             },
             toIframe(item,index) {
-                this.iframeSrc = item.src
+                this.iframeSrc = item.src + '&time' + new Date().getTime()
                 window.sessionStorage.setItem('currentIframeSrc' + '${regSeq}',index)
             },
             handleOpen(key, keyPath) {

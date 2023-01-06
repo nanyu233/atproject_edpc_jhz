@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="lib/easyui1.3/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="css/hems/global.css">
     <link rel="stylesheet" type="text/css" href="css/common/querylist.css"/>
+    <link rel="stylesheet" type="text/css" href="${baseurl}lib/easyui1.3/themes/icon.css">
     <script type="text/javascript" src="lib/moment.min.js"></script>
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
     <script type="text/javascript" src="lib/raphael-min.js"></script>
@@ -248,6 +249,26 @@
         });
     })
     $(function () {
+        var toolbars = [
+            {
+                id: 'refresh',
+                text: '刷新',
+                iconCls: 'icon-reload',
+                handler: function(){
+                    refresh('#fuvplndg')
+                }
+            }
+        ]
+        var toolbars2 = [
+            {
+                id: 'refresh2',
+                text: '刷新',
+                iconCls: 'icon-reload',
+                handler: function(){
+                    refresh('#fuvinfdg')
+                }
+            }
+        ]
         $("#fuvplndg").height(height);
         $('.datagrid-wrap').height(height)
         $('#fuvplndg').datagrid({
@@ -255,6 +276,7 @@
             singleSelect: true,
             pagination: true,
             rownumbers: true,
+            toolbar: toolbars,
             pageList: [8, 15, 25],
             columns: columns_pln
         });
@@ -265,10 +287,15 @@
             singleSelect: true,
             pagination: true,
             rownumbers: true,
+            toolbar: toolbars2,
             pageList: [8, 15, 253],
             columns: column_fuvinf
         });
     })
+
+    function refresh(id) {
+        $(id).datagrid('reload');
+    }
 
 
     //跳转计划详情
