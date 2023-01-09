@@ -450,7 +450,7 @@ public class XtServiceImpl implements XtService{
 		Map<String, Object> sysdata = new HashMap<String, Object>();
 		List<HspZlInfCustom> list = hspZlInfCustomMapper.getCpcTimeline(regSeq);
 		for (HspZlInfCustom hspZlInfCustom:list) {
-			if(hspZlInfCustom.getProCode().equals("ASPLSJ")){
+			if("ASPLSJ".equals(hspZlInfCustom.getProCode())){
 				HspZlInfCustom hspZlInfCustom2=new HspZlInfCustom();
 				hspZlInfCustom2.setEmgNo(hspZlInfCustom.getEmgNo());
 				hspZlInfCustom2.setProName("抗血小板用药");

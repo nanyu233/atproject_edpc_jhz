@@ -117,7 +117,7 @@
       and inf.emg_no = #{emgSeq, jdbcType = VARCHAR}
       and def.pro_type = 'datetime'
       and inf.pro_val is not null
-      and def.key_time in ('100', '101','110','111','200','202','220','222')
+      and substr(def.key_time, 1, 1) in ('1', '2')
     order by inf.pro_val asc, def.fld_sort asc
   </select>
   
@@ -400,7 +400,7 @@
               where inf.pro_code = def.pro_code
                 and inf.emg_no = #{emgSeq, jdbcType = VARCHAR}
                 and def.pro_type = 'datetime'
-                and def.key_time in ('001', '101','011','111','002','202','022','222')
+                and substr(def.key_time, 3, 1) in ('1', '2')
                 and inf.pro_val is not null) temp
         order by temp.valsort asc
     </select>
@@ -584,7 +584,7 @@
         where inf.pro_code = def.pro_code
           and inf.emg_no = #{emgSeq, jdbcType = VARCHAR}
           and def.pro_type = 'time2'
-          and def.key_time in ('010', '110','011','111','020','220','022','222')
+          and substr(def.key_time, 2, 1) in ('1', '2')
           and inf.pro_val is not null
         order by inf.pro_val asc, def.fld_sort asc
     </select>
