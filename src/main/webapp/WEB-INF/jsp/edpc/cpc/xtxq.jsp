@@ -2855,7 +2855,7 @@
 									<div class="lb lb_check">合并疾病 <span class="required">*</span></div>
 									<div class="input">
 										<div id="HEBZ" class="checkbox-group">
-											<div ms-if="hspXtzlInf.YNXFXLSJ==0">
+											<div ms-if="hspXtzlInf.YNXFXLSJ==0 || hspXtzlInf.YNXFXLSJ==null">
 												<div ms-repeat="HEBZArr" class="btn" ms-class="{{isChecked('HEBZ',el.infocode) ? 'active':''}}" ms-click="onCheckClick('HEBZ',el.infocode)">
 													{{el.info}}
 												</div>
@@ -5793,9 +5793,10 @@
 					if(!vm.modalGraceInfo.wxys){
 						vm.modalGraceInfo.wxys = vm.hspXtzlInf.WXYS;
 					}
-					// if(!vm.modalGraceInfo.jgdb){
-					// 	vm.modalGraceInfo.jgdb = vm.hspXtzlInf.JGDBSZ;
-					// }
+					if(!vm.modalGraceInfo.jgdb){
+						//JGDBSZ的单位是ng/ml和ug/l乘以0.0001变换为mg/dl在乘以88.4变为umol/l
+						vm.modalGraceInfo.jgdb = parseFloat(vm.hspXtzlInf.JGDBSZ * 0.0001 * 88.4).toFixed(2);
+					}
 					if(!vm.modalGraceInfo.killip){
 						vm.modalGraceInfo.killip = vm.hspXtzlInf.KILLIP;
 					}
