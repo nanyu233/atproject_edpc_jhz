@@ -1717,7 +1717,7 @@
 								<div class="lb">Grace分值</div>
 								<div class="input">
 <%--									<input type="text" ms-duplex="info.gracefz" />--%>
-									<input type="text" ms-duplex="hspXtzlInf.GRACEFZ" />
+									<input type="text" ms-duplex="hspXtzlInf.GRACEFZ" disabled="disabled"/>
 									<div class="count" ms-click="computeGraceItem()">计算</div>
 								</div>
 							</div>
@@ -4079,6 +4079,10 @@
 				killipScore: 0,
 				dangerScore: 0
 			}, //grace评分细项展示
+
+			tempJgdb: '', //临时存放肌钙蛋白数值
+			tempHspGraceInf: {}, //临时存放graceInf数据
+
 			timeList: [], //时间轴信息
 			list: [], //心电图和肌钙蛋白的List
 			cstSexCodArr: [], //性别列表
@@ -4574,6 +4578,7 @@
 			//GRACE评分的计算
 			computeGraceItem: function() {
 				vm.info['pfxx'] = !vm.info['pfxx']
+				graceInfoFillOut();
 				var score = 0;
 				if (vm.modalGraceInfo.cstAge) {
 					var ageScore = 0;
@@ -4684,22 +4689,19 @@
 				// var wxys = vm.modalGraceInfo.wxys;
 				var wxys = vm.hspXtzlInf.WXYS;
 				var arr = vm.hspXtzlInf.WXYS.split(',');
-				console.log('arr', arr);
+				var max = parseInt(arr.reduce((a,b) => a>b ? a : b));
 				var _reasonArr = vm.arr_wxys;
 				vm.modalGraceInfo.wxys2 = '';
-				if (vm.modalGraceInfo.wxys) {
+				if (vm.hspXtzlInf.WXYS) {
 					for (var j = 0; j < _reasonArr.length; j++) {
 						if (wxys.indexOf(_reasonArr[j].infocode) >= 0) {
 							temp += _reasonArr[j].score;
-						}
-						if (wxys.indexOf(vm.WXYSArr[j].infocode) >= 0) {
 							vm.modalGraceInfo.wxys2 += vm.WXYSArr[j].info;
-							if (j >= 0 && j < arr.length - 1){
+							if(j !== (max - 1)){
 								vm.modalGraceInfo.wxys2 += ', ';
 							}
 						}
 					}
-					console.log('wxys2', vm.modalGraceInfo.wxys2);
 				}
 				vm.modalGraceScore.dangerScore = temp;
 
@@ -5673,24 +5675,33 @@
 							var el = _jyjgList[i];
 							if (_jyjgList[i].examinaim == '急诊心脏五联（POCT）') {
 								var obj = el;
-								vm.info.ISJGDB = '1';
-								vm.info.SCJGDB = '2';
+								vm.hspXtzlInf.ISJGDB = '1';
+								vm.hspXtzlInf.SCJGDB = '2';
 								var data = obj.data;
 								if (data && data.length) {
 									for (var j = 0; j < data.length; j++) {
 										var num = data[j];
 										if (data[j].reportItemName == '肌钙蛋白I') {
-											vm.info.JGDBSZ = num.result;
+											vm.hspXtzlInf.JGDBSZ = num.result;
 											if (num.errorFlag == null) {
-												vm.info.JGDBXZ = '0';
+												vm.hspXtzlInf.JGDBXZ = '0';
 											} else {
-												vm.info.JGDBXZ = '1';
+												vm.hspXtzlInf.JGDBXZ = '1';
 											}
-											break;
+											// break;
 										}
 									}
 								}
-								break;
+								// break;
+							}
+							var dataList = el.data;
+							if(dataList && dataList.length){
+								for (var k = 0; k < dataList.length; k++){
+									if (dataList[k].reportItemName == '肌酐'){
+										vm.tempJgdb = dataList[k].result;
+										break;
+									}
+								}
 							}
 						}
 					}
@@ -5758,50 +5769,53 @@
 					graceType: 0
 				}),
 				success: function(res) {
-					var _hspGraceInf = res.resultInfo.sysdata.hspGraceInf;
-					if (_hspGraceInf) {
-						if (_hspGraceInf.wxys) {
-							vm.hspXtzlInf.WXYS = _hspGraceInf.wxys;
-							vm.WXYSSel = _hspGraceInf.wxys ? _hspGraceInf.wxys.split(',') : [];
+					vm.tempHspGraceInf = res.resultInfo.sysdata.hspGraceInf;
+					if (tempHspGraceInf) {
+						if (vm.tempHspGraceInf.wxys) {
+							vm.hspXtzlInf.WXYS = vm.tempHspGraceInf.wxys;
+							vm.WXYSSel = vm.tempHspGraceInf.wxys ? vm.tempHspGraceInf.wxys.split(',') : [];
 						} else {
 							vm.hspXtzlInf.WXYS = '';
 							vm.WXYSSel = [];
 						}
-						if (_hspGraceInf.gracejgwtj) {
-							vm.hspXtzlInf.GRACEJGWTJ = _hspGraceInf.gracejgwtj;
-							vm.GRACEJGWTJSel = _hspGraceInf.gracejgwtj ? _hspGraceInf.gracejgwtj.split(',') : [];
+						if (vm.tempHspGraceInf.gracejgwtj) {
+							vm.hspXtzlInf.GRACEJGWTJ = vm.tempHspGraceInf.gracejgwtj;
+							vm.GRACEJGWTJSel = vm.tempHspGraceInf.gracejgwtj ? vm.tempHspGraceInf.gracejgwtj.split(',') : [];
 						} else {
 							vm.hspXtzlInf.GRACEJGWTJ = '';
 							vm.GRACEJGWTJSel = [];
 						}
 					}
 					for (var a in vm.modalGraceInfo) {
-						if (_hspGraceInf && _hspGraceInf.hasOwnProperty(a)) {
-							vm.modalGraceInfo[a] = _hspGraceInf[a];
+						if (vm.tempHspGraceInf && vm.tempHspGraceInf.hasOwnProperty(a)) {
+							vm.modalGraceInfo[a] = vm.tempHspGraceInf[a];
 						}
 					}
-					if(!vm.modalGraceInfo.cstAge){
-						vm.modalGraceInfo.cstAge = vm.baseInfo.cstAge;
-					}
-					if(!vm.modalGraceInfo.hrtRte){
-						vm.modalGraceInfo.hrtRte = vm.hspXtzlInf.XINL;
-					}
-					if(!vm.modalGraceInfo.sbpupNbr){
-						var pos = vm.hspXtzlInf.XUEY.indexOf('/');
-						vm.modalGraceInfo.sbpupNbr = vm.hspXtzlInf.XUEY.substring(0, pos);
-					}
-					if(!vm.modalGraceInfo.wxys){
-						vm.modalGraceInfo.wxys = vm.hspXtzlInf.WXYS;
-					}
-					if(!vm.modalGraceInfo.jgdb){
-						//JGDBSZ的单位是ng/ml和ug/l乘以0.0001变换为mg/dl在乘以88.4变为umol/l
-						vm.modalGraceInfo.jgdb = parseFloat(vm.hspXtzlInf.JGDBSZ * 0.0001 * 88.4).toFixed(2);
-					}
-					if(!vm.modalGraceInfo.killip){
-						vm.modalGraceInfo.killip = vm.hspXtzlInf.KILLIP;
-					}
+					graceInfoFillOut();
 				}
 			});
+		}
+		//HspGraceInf表中无相应数据时 从其他表中获取相应数据
+		function graceInfoFillOut(){
+			if(!vm.tempHspGraceInf.cstAge){
+				vm.modalGraceInfo.cstAge = vm.baseInfo.cstAge;
+			}
+			if(!vm.tempHspGraceInf.hrtRte){
+				vm.modalGraceInfo.hrtRte = vm.hspXtzlInf.XINL;
+			}
+			if(!vm.tempHspGraceInf.sbpupNbr){
+				var pos = vm.hspXtzlInf.XUEY.indexOf('/');
+				vm.modalGraceInfo.sbpupNbr = vm.hspXtzlInf.XUEY.substring(0, pos);
+			}
+			if(!vm.tempHspGraceInf.wxys){
+				vm.modalGraceInfo.wxys = vm.hspXtzlInf.WXYS;
+			}
+			if(!vm.tempHspGraceInf.jgdb){
+				vm.modalGraceInfo.jgdb = vm.tempJgdb;
+			}
+			if(!vm.tempHspGraceInf.killip){
+				vm.modalGraceInfo.killip = vm.hspXtzlInf.KILLIP;
+			}
 		}
 
 		//心内科会诊
