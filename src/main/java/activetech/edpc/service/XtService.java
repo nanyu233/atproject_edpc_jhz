@@ -103,6 +103,14 @@ public interface XtService {
 	public ResultInfo updateHspCrivelInf(HspCrivelInf hspCrivelInf,ActiveUser activeUser);
 
 	/**
+	 * 更新Grace信息
+	 * @param hspGraceInf
+	 * @param activeUser
+	 * @return
+	 */
+	public ResultInfo updateGraceInf(HspGraceInf hspGraceInf,ActiveUser activeUser);
+
+	/**
 	 * 获取手动上传的心电图信息
 	 * @param emgSeq
 	 * @return

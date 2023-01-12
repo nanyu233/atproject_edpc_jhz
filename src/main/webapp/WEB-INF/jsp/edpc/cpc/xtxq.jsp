@@ -1749,7 +1749,7 @@
 									<td>{{vm.modalGraceScore.creScore + '分'}}</td>
 									<td>{{vm.modalGraceScore.killipScore + '分'}}</td>
 									<td>{{vm.modalGraceScore.dangerScore + '分'}}</td>
-									<td>{{vm.modalGraceScore.total + '分'}}</td>
+									<td>{{vm.modalGraceInfo.total + '分'}}</td>
 								</tr>
 							</table>
 						</div>
@@ -3707,14 +3707,6 @@
 				cstEdu: '', //文化程度
 				maritalStatus: '', //婚姻状况
 				nation: '', //民族
-				// senRctCod: '', //意识
-				// breNbr: '', //呼吸
-				// hrtRte: '', //脉搏
-				// tmpNbr: '', //体温
-				// sbpUpNbr: '', //血压
-				// sbpDownNbr: '',
-				// preUsrNam: '', //医护人员
-				// emgDat: '', //院内首诊医师接诊时间
 				zyxh: '', //住院ID
 				jzxh: '', //门诊ID（就诊ID）
 			},
@@ -3954,7 +3946,7 @@
 				ZGQTFXYXXTLX: '',    //其它非心源性胸痛类型
 				QZSJ: '',    //确诊时间
 				COVID19: null,    //确诊时间
-					YNXFXLSJ: null,    //院内新发心力衰竭
+				YNXFXLSJ: null,    //院内新发心力衰竭
 				SFARNI: null,    //是否ARNI
 				ARNI: '',      //ARNI频次
 				ARNIDCJL: '',    //ARNI单次剂量
@@ -4045,287 +4037,20 @@
 			},
 
 			info: {
-				// ZHUYH: '', //住院ID
-				// MENZH: '', //门诊ID
-				// FBSJ: '', //时间轴发病时间
-				// SFSWLYY: 0, //是否是网络医院
-				// YBLX: '', //医保类型
-				// YBBH: '', //医保编号
-				// DBYB: null, //大病医保
-				// BQPG: '', //病情评估
-				// BQPGMX: '', //病情评估明细
-				// ZJZSSJYY: null, //直接转送上级医院
-				// ZDDGS: null, //直达导管室
-				// ZDDGS02: null,
-				// YCXDTCS02: null, //远程心电图传输
-				//YNSZYSJZSJ: '',//院内首诊医师接诊时间
-				//YHRY: '',//医护人员
-				// ZYLX: '', //转院类型
-				// YYMC: '', //医院名称
-				// ZCYYRMSJ: '', //转出医院入门时间
-				// JDZYSJ: '', //决定转院时间
-				// ZCYJCMSJ: '', //转出医院出门时间
-				// YNJZSJ: '', //院内接诊时间
 				CWYSJCSJ: '', //床位医生接触时间
-				//XINL: '',//心率
-				// XUEYA: '', //血压
-				// YQHZQKBZ: '', //患者情况备注
-				// YNHZQKBZ: '', //患者情况备注
-				// ZGHZQKBZ: '',
-				// YQZDRSCS: 0, //直达溶栓场所
-				// YNJL: '', //剂量
-				// YNRSZT: null, //溶栓再通
-				// YQBJPCI: 0, //补救PCI
-				// YQSJSSSJ: '', //实际手术时间
-				// YQSSDD: '', //手术地点
-				// YQCZJJZ: null, //存在禁忌症
-				// XINDT: null, //心电图
-				// WHDYY: '', //未获得原因
-				// CXSJ: '', //抽血完成时间
-				// POCTSJ: '', //获得报告时间
 				XDT: '', //心电图
-				// ZGCSFS: '',
-				// CSXDTZXZDWSJ: '', //传输心电图至协作单位时间
-				// ISJGDB: null, //肌钙蛋白
-				// ISXQJG: null, //血清肌酐
-				// XQJGSZ: '', //血清肌酐数值
-				// ISDEJT: null, //D-二聚体
-				// DEJTSZ: '', //D-二聚体数值
-				// DEJTDW: '', //D-二聚体单位
-				// ISBNP: null, //BNP
-				// BNPSZ: '', //BNP数值
-				// ISNTPROBNP: null, //NT-proBNP
-				// NTPROBNPSZ: '', //NT-proBNP数值
-				// ISMYO: null, //Myo
-				// MYOSZ: '', //Myo数值
-				// MYODW: '', //Myo单位
-				// ISCKMB: null, //CKMB
-				// CKMBSZ: '', //CKMB数值
-				// CKMBDW: '', //CKMB单位
-				// xnkhz: null, //心内科会诊
-				// hzlx: null, //会诊类型
-				// invitationDate: '', //通知会诊时间
-				// invitationDate: '', //会诊时间
-				// CBZD: null, //初步诊断
-				// HZZYFQHXZL: null, //患者自愿放弃后续治疗
-				// CBZDSJ: '', //初步诊断时间
 				JZZDSJ: '', //急诊诊断时间
-				// YISHENG: '', //医生
-				// KILLIP: null, //心功能分级
-				// RXJZ: null, //绕行急诊
-				// RXCCU: null, //绕行CCU
-				// KXXBZL: null, //抗血小板治疗
-				// ASPLJL: null, //阿司匹林剂量
-				// ASPLSJ: '', //阿司匹林时间
-				// LBGLJL: null, //氯吡格雷剂量
-				// LBGLSJ: '', //氯吡格雷时间
-				// TGRLJL: null, //替格瑞洛剂量
-				// TGRLSJ: '', //替格瑞洛时间
-				// KANGN: null, //抗凝
-				// KNYW: '', //抗凝药物
-				// KNYWJL: '', //抗凝药物剂量
-				// KNYWDW: '', //抗凝药物单位
-				// KNYWSJ: '', //抗凝药物时间
-				// TTZL: null, //他汀治疗
-				// BSTZZJ: null, //β受体阻滞剂
-				// YWZGZCS: null, //再灌注措施
-				// WZGZCSYY: '', //无灌注措施原因
-				// ZGZCS: null, //措施
-				// ZYPCI: null, //转运PCI
-				// ZYPCI02: null,
-				// ZGZRSCS: null, //溶栓措施（补充）
-				// YNRSSC: null, //院内溶栓筛查（补充）
-				// YNRSZL: null, //院内溶栓治疗（补充）
-				// YNCZJJZ: null, //院内存在禁忌症（补充）
-				// YNZDRSCS: null, //院内直达溶栓场所（补充）
-				// YNRSCS: null, //院内溶栓场所（补充）
-				// YNKSZQTYSJ: '', //院内开始知情同意时间（补充）
-				// YNQSZQTYSSJ: '', //院内签署知情同意书（补充）
-				// YNKSRSSJ: '', //院内开始溶栓时间（补充）
-				// YNRSJSSJ: '', //院内溶栓结束时间（补充）
-				// YNYW: '', //院内药物（补充）
-				// YNJL: '', //院内剂量（补充）
-				// JDXPCIYS: '', //决定行pci医生
-				// JDJRSSSJ: '', //决定介入手术时间
-				// KSCABGSJ: '', //开始CABG时间
-				// JDCABGSJ: '', //决定CABG时间
-				// QDDGSSJ: '', //启动导管室时间
-				// KSZQTYSJ: '', //开始知情同意时间
-				// QSZQTYSJ: '', //签署知情同意时间
-				// DGSJHSJ: '', //导管室激活时间
-				// HZJDGSSJ: '', //患者到达导管室时间
-				// JRYS: '', //介入医师
-				// KSCCSJ: '', //开始穿刺时间
-				// ZYKSSJ: '', //造影开始时间
-				// SZKNGYSJ: '', //术中抗凝给药时间
-				// SZKNYW: '', //术中抗凝药物
-				// SZKNYWJL: '', //术中抗凝药物剂量
-				// SZKNYWDW: '', //术中抗凝药物单位
-				// PCISSWCSJ: '', //手术结束时间
-				// D2WSJ: '', //D2W时间
-				// SFYW: null, //是否延误
-				// RULU: null, //入路
-				// QNYX: 4, //腔内影像
-				// GNJC: 3, //功能检测
-				// GNJCSZ: null, //功能检测数值
-				// IABP: 0, //IABP
-				// LSQBQ: 0, //临时起搏器
-				// ECMO: 0, //ECMO
-				// ZXSFZZZ: 0, //左心室辅助装置
-				// SZBFZ: '', //术中并发症
-				// WXYS: '', //Grace危险因素
-				// GRACEJGWTJ: '', //Grace极高危条件
-				// GRACEWXFC: null, //Grace危险分层
-				// ZCWXFC: null, //再次危险分层
-				// ZCWXFCSJ: '', //再次危险分层时间
-				// CLCL: null, //处理策略
-				// QRXCL: null, //侵入性策略
-				// SJJRZLSJ: '', //实际介入治疗时间
-				// CYZD: null, //初步诊断
-				// YXXJC: null, //影像学检查
-				// WXFC: null, //危险分层（补充）
-				// TZCTSSJ: '', //通知CT室时间
-				// CTSWCZBSJ: '', //CT室完成准备时间
-				// CTSMKSSJ: '', //CT扫描开始时间
-				// CTBGSJ: '', //CT报告时间
-				// TZCCSSJ: '', //通知彩超室时间
-				// CCJCSJ: '', //彩超检查时间
-				// CCCJGSJ: '', //彩超出结果时间
-				// TZXWKHZSJ: '', //通知心外科会诊时间
-				// XWKHZSJ: '', //心外科会诊时间
-				// ZLCL: null, //治疗策略
-				// KSKNZLSJ: '', //开始抗凝时间
-				// FACSXYXXTLX: '', //非ACS心源性胸痛类型
-				// ZGFACSXYXXTLX: '',
-				// CLCS: null, //处理措施
-				// QTFXYXXTLX: '', //其它非心源性胸痛类型
-				// ZGQTFXYXXTLX: '',
-				// LYXJ: '', //离院宣教
-				// JCLX: null, //夹层类型
-				// ZYQJBFZ: '', //住院期间并发症
-				// YNXFXLSJ: null, //院内新发心力衰竭
-				// XXGJBWXYS: '', //患者转归危险因素
-				// HEBZ: '', //合并疾病
-				// XYCJS: null, //血运重建史
-				// JGDB72: null, //72小时内积钙蛋白
 				JGDB72SZ: '',
-				// NNT: null, //脑钠肽
-				// NNTZGZ: '', //脑钠肽最高值
-				// ZDGC: null, //总胆固醇
-				// ZDGCSZ: '', //总胆固醇数值
-				// GYSZ: null, //甘油三酯
-				// GYSZSZ: '', //甘油三酯数值
-				// GMDZDB: null, //高密度脂蛋白
-				// GMDZDBSZ: '', //高密度脂蛋白数值
-				// DMDZDB: null, //低密度脂蛋白
-				// DMDZDBSZ: '', //低密度脂蛋白数值
-				// CSXDT: null, //超声心动图
-				// LVEF: '', //LVEF
-				// SHIBL: null, //室壁瘤
-				// JBSBHDYC: null, //局部室壁活动异常
-				// COVID19: null, //COVID-19
-				// XYZT: null, //吸烟状态
-				// XFCDFX: null, //心房颤动分型
-				// ZGNYHA: null, //NYHA分级
-				// NXGJBMS: null, //脑血管疾病描述
-				// JGDB72ZGZ: '', //72h内肌钙蛋白最高值
-				// JGDB72LX: null, //72h肌钙蛋白类型
-				// SCJGDB: null, //首次肌钙蛋白
-				// JGDB72DW: '',
 				JGDB02: null,
 				JGDB03: null,
-				// NNTLX: null, //脑钠肽类型
-				// HZZG: null, //患者转归
-				// ZLJG: null, //治疗结果
-				// SWYY: null, //死亡原因
-				// YWYY: '', //是否延误
-				// LKBYDMSJ: '', //离开本院大门时间
-				// YYMC02: '', //医院名称
-				// ZKYYMS: '', //转科原因描述
-				// SWMS: '', //死亡描述
-
-				// SJJRSSKSSJ: '', //实际介入手术开始时间
-				// CYSJ: '', //出院时间
-				// ZYTS: '', //住院天数
-				// FEIY: '', //费用
-				// QZSJ: '', //确诊时间
-				// ZKSJ: '', //转科时间
-				// JZKS: '', //接诊科室
-				// SWSJ: '', //死亡时间
 				GMZY: '', //冠脉造影
-				// CYDYSFKXXBYW: null, //是否抗血小板药物
-				// CYDYSFACEI: null, //是否ACEI/ARB
-				// CYDYSFTZYW: null, //是否调脂药物
-				// CYDYSFSTZZJ: null, //是否β受体阻滞剂
-				// CYDYKXXBYW: '', //抗血小板药物-药物名称
-				// CYDYACEI: '', //ACEI/ARB-药物名称
-				// CYDYTZYW: '', //调脂药物-药物名称
-				// CYDYSTZZJ: '', //β受体阻滞剂-药物名称
-				// CYDYKXXBYWYYPC: '', //抗血小板药物-服用频次
-				// CYDYACEIYYPC: '', //ACEI/ARB-服用频次
-				// CYDYTZYWYYPC: '', //调脂药物-服用频次
-				// CYDYSTZZJYYPC: '', //β受体阻滞剂-服用频次
-				// CYDYKXXBYWYYZQ: '', //抗血小板药物-用药周期
-				// CYDYACEIYYZQ: '', //ACEI/ARB-用药周期
-				// CYDYTZYWYYZQ: '', //调脂药物-用药周期
-				// CYDYSTZZJYYZQ: '', //β受体阻滞剂-用药周期
-				// CYDYKXXBYWDCJL: '', //抗血小板药物-单次剂量
-				// CYDYACEIDCJL: '', //ACEI/ARB-单次剂量
-				// CYDYTZYWDCJL: '', //调脂药物-单次剂量
-				// CYDYSTZZJDCJL: '', //β受体阻滞剂-单次剂量
-				// JGDBSZ: '', //肌钙蛋白数值
-				// JGDBXZ: '', //肌钙蛋白性质
-				// jyxm: 0,
-				// jcxm: 0,
-				// gracefz: '', //grace分值
 				pfxx: false, //grace评分细项
-				// SFARNI: null, //是否ARNI
 				ARNIQJ: '', //ARNI频次区间
-				// ARNI: '', //ARNI频次
-				// ARNIDCJL: '', //ARNI单次剂量
-				// SFJTYW: null, //是否降糖药物
-				// JTYW: '', //降糖药物
-				// SFKFKYYW: null, //是否口服抗凝药物
-				// KFKYYW: '', //口服抗凝药物
-				// SFPCSK9: null, //是否PCSK9
-				// PCSK9: '', //PCSK9
-				// PCSK9DCJL: '', //PCSK9单次剂量
 			},
-			aidPatient: {
-				// scePrvCod: '', //发病地址--省
-				// sceCtyCod: '', //发病地址--市
-				// sceAr0Cod: '', //发病地址--县/区
-				// almtime: '', //呼救时间
-				// illTim: '', //发病时间
-				// illTimFlg: null, //发病时间无法精确到分钟
-				// illperd: '', //发病区间
-				// sceAdr: '', //详细地址
-			},
-			aidPatientXt: {
-				// ddfs: '', //到达方式
-				// ccdw: '', //出车单位
-				// ddyydmsj: '', //到达医院大门时间
-				// scyljc: '', //首次医疗接触时间
-				// yqrssc: null, //院前溶栓筛查
-				// yqrs: null, //溶栓治疗
-				// rscs: null, //溶栓场所
-				// zqtyks: '', //开始知情同意
-				// qszqty: '', //签署知情同意
-				// rsks: '', //开始溶栓时间
-				// rsjs: '', //溶栓结束时间
-				// rszt: null, //溶栓再通
-				// rshzy: '', //溶栓后造影时间
-				// rsyw: null, //院前溶栓药物
-				// rsywjl: null, //院前溶栓药物剂量
-				// ycxdtcs: null, //远程心电图传输
-				// csfs: null, //心电图传输方式
-				// cssj: '', //心电图传输时间
-			},
+
 			ynfb: {
 				illTim: '',
 				fstTim: '', //本次发病后首次医疗接触时间
-				// illDep: null, //发病地点
-				// lveTim: '', //离开发病现场时间
 			},
 			hspEcgInf: {
 				ecgSeq: '',   //心电图序号
@@ -4335,6 +4060,7 @@
 				fileDiaDate: '', //心电图诊断时间
 			},
 			modalGraceInfo: {
+				graceSeq: '',
 				cstAge: '',
 				hrtRte: '',
 				sbpupNbr: '',
@@ -4343,6 +4069,7 @@
 				killip2: '',
 				wxys: '',
 				wxys2: '',
+				total: 0
 			},
 			modalGraceScore: {
 				ageScore: 0,
@@ -4350,8 +4077,7 @@
 				sbpScore: 0,
 				creScore: 0,
 				killipScore: 0,
-				dangerScore: 0,
-				total: 0,
+				dangerScore: 0
 			}, //grace评分细项展示
 			timeList: [], //时间轴信息
 			list: [], //心电图和肌钙蛋白的List
@@ -4715,19 +4441,13 @@
 			//监听多选点击事件
 			onCheckClick: function(prop, code) {
 				var list = vm[prop + 'Sel'];
-				console.log('list1', list);
 				if (list.indexOf(code) > -1) {
 					list.splice(list.indexOf(code), 1);
-					console.log('listDel', list);
 				} else {
 					list.push(code)
-					console.log('listAdd', list);
 				}
 				vm[prop + 'Sel'] = list;
-				// vm.info[prop] = list.join(',');
 				vm.hspXtzlInf[prop] = list.join(',');
-				console.log('list2', list);
-				console.log('prop', vm.hspXtzlInf[prop]);
 			},
 
 			// 点击无 选中状态全部为未选中状态 （当字典中00或者0代表无的时候）
@@ -4961,7 +4681,10 @@
 				}
 				//危险因素得分计算
 				var temp = 0;
-				var wxys = vm.modalGraceInfo.wxys;
+				// var wxys = vm.modalGraceInfo.wxys;
+				var wxys = vm.hspXtzlInf.WXYS;
+				var arr = vm.hspXtzlInf.WXYS.split(',');
+				console.log('arr', arr);
 				var _reasonArr = vm.arr_wxys;
 				vm.modalGraceInfo.wxys2 = '';
 				if (vm.modalGraceInfo.wxys) {
@@ -4971,13 +4694,36 @@
 						}
 						if (wxys.indexOf(vm.WXYSArr[j].infocode) >= 0) {
 							vm.modalGraceInfo.wxys2 += vm.WXYSArr[j].info;
-							if (j >= 0 && j < _reasonArr.length - 1){
+							if (j >= 0 && j < arr.length - 1){
 								vm.modalGraceInfo.wxys2 += ', ';
 							}
 						}
 					}
+					console.log('wxys2', vm.modalGraceInfo.wxys2);
 				}
 				vm.modalGraceScore.dangerScore = temp;
+
+				var total = 0;
+				for (var prop in vm.modalGraceScore) {
+					if (vm.modalGraceScore.hasOwnProperty(prop)) {
+						total += vm.modalGraceScore[prop];
+					}
+				}
+
+
+				vm.modalGraceInfo.total = total;
+				vm.hspXtzlInf.GRACEFZ = total;
+				if (vm.GRACEJGWTJSel.length != 0) {
+					vm.hspXtzlInf.GRACEWXFC = 1;
+				} else {
+					if (total > 140) {
+						vm.hspXtzlInf.GRACEWXFC = 2;
+					} else if (109 <= total && total <= 140) {
+						vm.hspXtzlInf.GRACEWXFC = 3;
+					} else if (109 > total) {
+						vm.hspXtzlInf.GRACEWXFC = 4;
+					}
+				}
 			},
 		});
 		var vn = new Vue({
@@ -5293,17 +5039,9 @@
 			commitBaseInfo();
 			commitXtzlInfo();
 			commitEcgInfo();
+			commitGraceInfo();
 		},500)
-		// function commit() {
-		// 	return console.log(13)
-		// 	var count = 0;
-		// 	count += commitBaseInfo();
-		// 	count += commitXtzlInfo();
-		// 	count += commitEcgInfo();
-		// 	if(count===3){
-		// 		parent.publicFun.alert("保存成功");
-		// 	}
-		// }
+
 		//提交基本信息
 		function commitBaseInfo(){
 			var dataSubmit = {};
@@ -5370,7 +5108,7 @@
 					if (res.resultInfo.success) {
 						vm.count++
 					}
-					if (vm.count === 3) {
+					if (vm.count === 4) {
 						parent.publicFun.successalert("保存成功");
 					}else {
 						parent.publicFun.alert("保存失败");
@@ -5393,6 +5131,33 @@
 					ecgSeq: vm.hspEcgInf.ecgSeq,
 					filePath: vm.hspEcgInf.filePath,
 					refId: vm.hspEcgInf.refId,
+				}),
+				success: function(res) {
+					if (res.resultInfo.success) {
+						vm.count++
+					}
+				},
+			});
+		}
+		//提交Grace信息
+		function commitGraceInfo(){
+			$.ajax({
+				url: '${baseurl}cpc/updateGraceInf.do',
+				type: 'post',
+				dataType: 'json',
+				contentType: 'application/json;charset=UTF-8',
+				data: JSON.stringify({
+					graceSeq: vm.modalGraceInfo.graceSeq,
+					emgSeq: _regSeq,
+					wxys: vm.hspXtzlInf.WXYS,
+					gracejgwtj: vm.hspXtzlInf.GRACEJGWTJ,
+					cstAge: vm.modalGraceInfo.cstAge,
+					jgdb: vm.modalGraceInfo.jgdb,
+					killip: vm.modalGraceInfo.killip,
+					total: vm.modalGraceInfo.total,
+					hrtRte: vm.modalGraceInfo.hrtRte,
+					sbpupNbr: vm.modalGraceInfo.sbpupNbr,
+					graceType: '0'
 				}),
 				success: function(res) {
 					if (res.resultInfo.success) {
@@ -5822,7 +5587,6 @@
 				}),
 				success: function(res) {
 					var _list = res.resultInfo.sysdata.list;
-					var resObj = {};
 					if (_list && _list.length) {
 						for (var i = 0; i < _list.length; i++) {
 							var el = _list[i];
@@ -5836,19 +5600,13 @@
 									vn.info[el.proCode] = el; // el.hspCrivelInf;
 									vn[el.proCode + 'szcl'] = el.hspCrivelInf.szcl ? el.hspCrivelInf.szcl.split(',') : [];
 								} else {
-									vm[el.proCode + 'Sel'] = el.proVal ? el.proVal.split(',') : [];
-									resObj[el.proCode] = el.proVal;
+									//去除grace评分中的危险因素和极高危险因素 在getHspGrace中从Grace表中获取
+									if(el.proCode != 'WXYS' && el.proCode != 'GRACEJGWTJ'){
+										vm[el.proCode + 'Sel'] = el.proVal ? el.proVal.split(',') : [];
+									}
 								}
-							} else {
-								resObj[el.proCode] = el.proVal;
 							}
 						}
-					}
-					for (var key in resObj) {
-						vm.info[key] = resObj[key];
-					}
-					if (vm.info.CBZDSJ == '' && vm.info.JZZDSJ) {
-						vm.info.CBZDSJ = vm.info.JZZDSJ;
 					}
 				}
 			});
@@ -6005,24 +5763,16 @@
 						if (_hspGraceInf.wxys) {
 							vm.hspXtzlInf.WXYS = _hspGraceInf.wxys;
 							vm.WXYSSel = _hspGraceInf.wxys ? _hspGraceInf.wxys.split(',') : [];
+						} else {
+							vm.hspXtzlInf.WXYS = '';
+							vm.WXYSSel = [];
 						}
 						if (_hspGraceInf.gracejgwtj) {
 							vm.hspXtzlInf.GRACEJGWTJ = _hspGraceInf.gracejgwtj;
 							vm.GRACEJGWTJSel = _hspGraceInf.gracejgwtj ? _hspGraceInf.gracejgwtj.split(',') : [];
-						}
-						var total = _hspGraceInf.total;
-						vm.modalGraceScore.total = total;
-						vm.hspXtzlInf.GRACEFZ = total;
-						if (vm.GRACEJGWTJSel.length != 0) {
-							vm.hspXtzlInf.GRACEWXFC = 1;
 						} else {
-							if (total > 140) {
-								vm.hspXtzlInf.GRACEWXFC = 2;
-							} else if (109 <= total && total <= 140) {
-								vm.hspXtzlInf.GRACEWXFC = 3;
-							} else if (109 > total) {
-								vm.hspXtzlInf.GRACEWXFC = 4;
-							}
+							vm.hspXtzlInf.GRACEJGWTJ = '';
+							vm.GRACEJGWTJSel = [];
 						}
 					}
 					for (var a in vm.modalGraceInfo) {
@@ -6030,72 +5780,29 @@
 							vm.modalGraceInfo[a] = _hspGraceInf[a];
 						}
 					}
+					if(!vm.modalGraceInfo.cstAge){
+						vm.modalGraceInfo.cstAge = vm.baseInfo.cstAge;
+					}
+					if(!vm.modalGraceInfo.hrtRte){
+						vm.modalGraceInfo.hrtRte = vm.hspXtzlInf.XINL;
+					}
+					if(!vm.modalGraceInfo.sbpupNbr){
+						var pos = vm.hspXtzlInf.XUEY.indexOf('/');
+						vm.modalGraceInfo.sbpupNbr = vm.hspXtzlInf.XUEY.substring(0, pos);
+					}
+					if(!vm.modalGraceInfo.wxys){
+						vm.modalGraceInfo.wxys = vm.hspXtzlInf.WXYS;
+					}
+					// if(!vm.modalGraceInfo.jgdb){
+					// 	vm.modalGraceInfo.jgdb = vm.hspXtzlInf.JGDBSZ;
+					// }
+					if(!vm.modalGraceInfo.killip){
+						vm.modalGraceInfo.killip = vm.hspXtzlInf.KILLIP;
+					}
 				}
 			});
 		}
-		//院前信息
-		<%--function getPatientInfo() {--%>
-		<%--	$.ajax({--%>
-		<%--		url: '${baseurl}cpc/getAidPatientByEmgSeq.do',--%>
-		<%--		type: 'post',--%>
-		<%--		dataType: 'json',--%>
-		<%--		contentType: 'application/json;charset=UTF-8',--%>
-		<%--		data: JSON.stringify({--%>
-		<%--			emgSeq: _emgSeq,--%>
-		<%--			wayTyp: _wayTyp--%>
-		<%--		}),--%>
-		<%--		success: function(res) {--%>
-		<%--			var _aidPatientXt = res.resultInfo.sysdata.aidPatientXt;--%>
-		<%--			var _aidPatient = res.resultInfo.sysdata.aidPatient;--%>
-		<%--			var _ynfb = res.resultInfo.sysdata.ynfb;--%>
-		<%--			if (_aidPatient) {--%>
-		<%--				for (var a in vm.aidPatient) {--%>
-		<%--					if (_aidPatient.hasOwnProperty(a)) {--%>
-		<%--						vm.aidPatient[a] = _aidPatient[a];--%>
-		<%--					}--%>
-		<%--				}--%>
-		<%--			}--%>
-		<%--			if (_aidPatientXt) {--%>
-		<%--				for (var a in vm.aidPatientXt) {--%>
-		<%--					if (_aidPatientXt.hasOwnProperty(a)) {--%>
-		<%--						vm.aidPatientXt[a] = _aidPatientXt[a];--%>
-		<%--						if (a == 'ddfs' && _aidPatientXt[a] == 1) {--%>
-		<%--							vm.aidPatientXt.ccdw = 1;--%>
-		<%--						}--%>
-		<%--					}--%>
-		<%--				}--%>
-		<%--			}--%>
-		<%--			if (_ynfb) {--%>
-		<%--				for (var a in vm.ynfb) {--%>
-		<%--					if (_ynfb.hasOwnProperty(a)) {--%>
-		<%--						vm.ynfb[a] = _ynfb[a];--%>
-		<%--					}--%>
-		<%--				}--%>
-		<%--			}--%>
-		<%--			if (vm.ynfb['illTim']) {--%>
-		<%--				var time = moment(vm.ynfb['illTim']).format('YYYY/MM/DD HH:mm')--%>
-		<%--				vm.aidPatient['illTim'] = time;--%>
-		<%--			}--%>
-		<%--			if (vm.ynfb['fstTim']) {--%>
-		<%--				vm.ynfb['fstTim'] = moment(vm.ynfb['fstTim']).format('YYYY/MM/DD HH:mm');--%>
-		<%--			}--%>
-		<%--			if (vm.ynfb['lveTim']) {--%>
-		<%--				vm.ynfb['lveTim'] = moment(vm.ynfb['lveTim']).format('YYYY/MM/DD HH:mm');--%>
-		<%--			}--%>
-		<%--			if (vm.aidPatient['illTim'] && vm.aidPatient['illTimFlg'] == 1) {--%>
-		<%--				var timer = vm.aidPatient['illTim'];--%>
-		<%--				var newTimer = moment(new Date(timer)).format('YYYY/MM/DD');--%>
-		<%--				vm.aidPatient['illTim'] = newTimer;--%>
-		<%--			}--%>
-		<%--			if (_wayTyp == 2) {--%>
-		<%--				vm.aidPatientXt.ddfs = 4;--%>
-		<%--			}--%>
-		<%--			if (_wayTyp == 1) {--%>
-		<%--				vm.aidPatientXt.ddfs = 2;--%>
-		<%--			}--%>
-		<%--		}--%>
-		<%--	});--%>
-		<%--}--%>
+
 		//心内科会诊
 		function getConsulationInf() {
 			$.ajax({
@@ -6132,9 +5839,12 @@
 				success: function (res) {
 					var tempJson = res.resultInfo.sysdata.hspXtzlInf;
 					if (tempJson) {
+						console.log('tempJson', tempJson);
 						for (var a in vm.hspXtzlInf) {
 							if (tempJson.hasOwnProperty(a)) {
-								vm.hspXtzlInf[a] = tempJson[a];
+								if(a != 'WXYS' && a != 'GRACEJGWTJ' && a != 'GRACEWXFC' && a != 'GRACEFZ'){
+									vm.hspXtzlInf[a] = tempJson[a];
+								}
 							}
 						}
 					}
@@ -6144,33 +5854,34 @@
 		}
 		
 		$(function() {
-			var obj = {
-				velSeq: '',
-				emgSeq: '',
-				xzcd: null,
-				zystimixl: null,
-				zjnxs: null,
-				sffcbb: null,
-				sfcto: null,
-				ghbb: null,
-				zfbb: null,
-				pci: null,
-				szcl: null,
-				dstgsj: '',
-				shtimixl: null,
-				zrzjgs: null,
-				zjzl: null
-			}
-			for (var prop in vn.info) {
-				if (/^GMZY.*/.test(prop) && prop != 'GMZY') {
-					vn.info[prop].hspCrivelInf = obj;
-				}
-			}
+			// var obj = {
+			// 	velSeq: '',
+			// 	emgSeq: '',
+			// 	xzcd: null,
+			// 	zystimixl: null,
+			// 	zjnxs: null,
+			// 	sffcbb: null,
+			// 	sfcto: null,
+			// 	ghbb: null,
+			// 	zfbb: null,
+			// 	pci: null,
+			// 	szcl: null,
+			// 	dstgsj: '',
+			// 	shtimixl: null,
+			// 	zrzjgs: null,
+			// 	zjzl: null
+			// }
+			// for (var prop in vn.info) {
+			// 	if (/^GMZY.*/.test(prop) && prop != 'GMZY') {
+			// 		vn.info[prop].hspCrivelInf = obj;
+			// 	}
+			// }
 			getDicts();
 			getTimeLineData();
 			getXtbaseInfo();
 			// getPatientInfo();
 			queryHspXtzlInfByEmgSeq();
+
 			$.ajax({
 				url: '${baseurl}cpc/getXtPatient.do',
 				type: 'post',
@@ -6186,19 +5897,19 @@
 				}),
 				success: function(res) {
 					var _list = res.resultInfo.sysdata.list;
-					var resObj = {};
+					// var resObj = {};
 					if (_list && _list.length) {
 						for (var i = 0; i < _list.length; i++) {
 							var el = _list[i];
 							if (_list[i].proType == 'checkbox') {
 								vm[el.proCode + 'Sel'] = el.proVal ? el.proVal.split(',') : [];
 							}
-							resObj[el.proCode] = el.proVal;
+							// resObj[el.proCode] = el.proVal;
 						}
 					}
-					for (var key in resObj) {
-						vm.info[key] = resObj[key];
-					}
+					// for (var key in resObj) {
+					// 	vm.info[key] = resObj[key];
+					// }
 					// $.each(resObj, function (k, v) {
 					//  if(k==='scePrvCod'||k==='sceCtyCod'||k==='sceAr0Cod'){
 					//  }else{

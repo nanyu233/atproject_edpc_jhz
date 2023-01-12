@@ -699,7 +699,7 @@
                                   <div class="input-group">
                                       <div class="lb">急诊诊断</div>
                                       <div class="input">
-                                          <input type="text" class="input" v-model="info.JZZD"/>
+                                          <input type="text" class="input" v-model="info.CSJZZD"/>
                                       </div>
                                   </div>
                               </div>
@@ -2138,7 +2138,7 @@
                 DDJZKSJ: '',
                 ISDYYSW: '',
                 JZSJ: '',
-                JZZD: '',
+                CSJZZD: '',
                 XYJZ: '',
                 MBJZ: '',
                 HXPLJZ: '',

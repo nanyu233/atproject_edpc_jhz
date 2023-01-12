@@ -1273,7 +1273,7 @@
                                             <div class="input"><input class="Wdate" type="text"
                                                     onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
 <%--                                                    ms-duplex-string="info.KSCCSJ" /></div>--%>
-                                                    ms-duplex-string="czzlInfo.KSCCSJ" /></div>
+                                                    ms-duplex-string="czzlInfo.CCKSSJ" /></div>
                                         </div>
                                     </div>
                                     <!-- 造影开始时间 -->
@@ -1349,7 +1349,7 @@
                                         <div class="input-group">
                                             <div class="lb">介入医生:</div>
 <%--                                            <div class="input"><input type="text" ms-duplex-string="info.JRYS"></div>--%>
-                                            <div class="input"><input type="text" ms-duplex-string="czzlInfo.JRYS"></div>
+                                            <div class="input"><input type="text" ms-duplex-string="czzlInfo.CZJRYS"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1519,7 +1519,7 @@
                         MZKTZSJ: '', //麻醉科通知时间
                         MZKDCSJ: '', //麻醉科到场时间
                         MZWCSJ: '', //麻醉完成时间
-                        KSCCSJ: '',//开始穿刺时间
+                        CCKSSJ: '',//穿刺开始时间
                         CCCGSJ: '', //穿刺成功时间
                         ZYKSSJ: '', //造影开始时间
                         ZYWCSJ: '', //造影完成时间
@@ -1528,7 +1528,7 @@
                         QSSJ3: '',//取栓第三把时间
                         QSWCSJ: '', //取栓完成时间
                         QSWCBZ: '',//取栓完成备注
-                        JRYS: '',//介入医生
+                        CZJRYS: '',//介入医生
                     },
 
  //                   info.NIHSSPF01: 0,

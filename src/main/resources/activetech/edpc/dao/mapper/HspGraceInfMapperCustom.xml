@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.edpc.dao.mapper.HspGraceInfMapperCustom">
+ 		<update id="mergeHspGraceInf" parameterType="activetech.edpc.pojo.domain.HspGraceInf">
+  				merge into hsp_grace_inf a
+                    using (select #{graceSeq, jdbcType = VARCHAR} GRACE_SEQ,
+                                  #{emgSeq, jdbcType = VARCHAR} EMG_SEQ,
+                                  #{wxys, jdbcType = VARCHAR} WXYS,
+                                  #{gracejgwtj, jdbcType = VARCHAR} GRACEJGWTJ,
+                                  #{cstAge, jdbcType = DECIMAL} CST_AGE,
+                                  #{hrtRte, jdbcType = DECIMAL} HRT_RTE,
+                                  #{sbpupNbr, jdbcType = DECIMAL} SBPUP_NBR,
+                                  #{jgdb, jdbcType = DECIMAL} JGDB,
+                                  #{killip, jdbcType = DECIMAL} KILLIP,
+                                  #{total, jdbcType = DECIMAL} TOTAL,
+                                  #{graceType, jdbcType = VARCHAR} GRACE_TYPE,
+                                  #{crtUser, jdbcType = VARCHAR} CRT_USER
+                           from dual) b
+                    on (a.EMG_SEQ = b.EMG_SEQ and a.GRACE_TYPE = b.GRACE_TYPE )
+                    when matched then
+                        update
+                            set a.WXYS       = b.WXYS,
+                                a.GRACEJGWTJ = b.GRACEJGWTJ,
+                                a.HRT_RTE    = b.HRT_RTE,
+                                a.SBPUP_NBR  = b.SBPUP_NBR,
+                                a.JGDB       = b.JGDB,
+                                a.KILLIP     = b.KILLIP,
+                                a.TOTAL      = b.TOTAL
+                    when not matched then
+                        insert
+                            (GRACE_SEQ,
+                             EMG_SEQ,
+                             WXYS,
+                             GRACEJGWTJ,
+                             CST_AGE,
+                             HRT_RTE,
+                             SBPUP_NBR,
+                             JGDB,
+                             KILLIP,
+                             TOTAL,
+                             GRACE_TYPE,
+                             CRT_DATE,
+                             CRT_USER
+                                )
+                            values
+                            (HSPGRACEINF_SEQ.nextval,
+                             b.EMG_SEQ,
+                             b.WXYS,
+                             b.GRACEJGWTJ,
+                             b.CST_AGE,
+                             B.HRT_RTE,
+                             b.SBPUP_NBR,
+                             b.JGDB,
+                             b.KILLIP,
+                             b.TOTAL,
+                             b.GRACE_TYPE,
+                             sysdate,
+                             b.CRT_USER)
+  		</update>
+</mapper>

@@ -134,6 +134,10 @@ public class XtServiceImpl implements XtService{
 	@Autowired
 	private HspTimDiffHisCustomMapper hspTimDiffHisCustomMapper;
 
+	@Autowired
+	private HspGraceInfMapperCustom hspGraceInfMapperCustom;
+
+
 	@Override
 	public ResultInfo getCpcPatientInfoList(QueryDto queryDto) {
 		ResultInfo resultInfo = null;
@@ -696,6 +700,14 @@ public class XtServiceImpl implements XtService{
 		} else {
 			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 900, null);
 		}
+		return resultInfo;
+	}
+
+	@Override
+	public ResultInfo updateGraceInf(HspGraceInf hspGraceInf,ActiveUser activeUser){
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		hspGraceInf.setCrtUser(activeUser.getUsrno());
+		hspGraceInfMapperCustom.mergeHspGraceInf(hspGraceInf);
 		return resultInfo;
 	}
 	

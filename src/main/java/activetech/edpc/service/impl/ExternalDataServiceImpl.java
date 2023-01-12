@@ -43,9 +43,7 @@ public class ExternalDataServiceImpl implements ExternalDataService{
 						
 					}
 				}
-				if(StringUtils.isNotNullAndEmptyByTrim(hspZlInfCustom.getProVal())) {
-					hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
-				}
+				hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
 			}
 			
 		}

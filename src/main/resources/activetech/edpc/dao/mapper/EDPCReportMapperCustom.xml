@@ -852,23 +852,23 @@
 								 (select pro_val
 								  from hsp_zl_inf
 								  where hsp_zl_inf.pro_code = 'DYFS'
-									and hsp_zl_inf.emg_no = emg_seq) dyfs,
+									and hsp_zl_inf.emg_no = reg_seq) dyfs,
 								 (select pro_val
 								  from hsp_zl_inf
 								  where hsp_zl_inf.pro_code = 'DDYYDMSJ01'
-									and hsp_zl_inf.emg_no = emg_seq) DDYYDMSJ01,
+									and hsp_zl_inf.emg_no = reg_seq) DDYYDMSJ01,
 								 (select pro_val
 								  from hsp_zl_inf
 								  where hsp_zl_inf.pro_code = 'DDYYDMSJ02'
-									and hsp_zl_inf.emg_no = emg_seq) DDYYDMSJ02,
+									and hsp_zl_inf.emg_no = reg_seq) DDYYDMSJ02,
 								 (select pro_val
 								  from hsp_zl_inf
 								  where hsp_zl_inf.pro_code = 'DDYYDMSJ03'
-									and hsp_zl_inf.emg_no = emg_seq) DDYYDMSJ03,
+									and hsp_zl_inf.emg_no = reg_seq) DDYYDMSJ03,
 								 (select pro_val
 								  from hsp_zl_inf
 								  where hsp_zl_inf.pro_code = 'SCYLJCSJ'
-									and hsp_zl_inf.emg_no = emg_seq) scyljcsj
+									and hsp_zl_inf.emg_no = reg_seq) scyljcsj
 						  from hsp_dbzl_bas
 						  where pat_typ = '1') temp) a,
 				   (select emg_seq, (min(dstgsj) + 0) as flowtime1

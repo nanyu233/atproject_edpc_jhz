@@ -676,6 +676,19 @@ public class XtAction {
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
+	/**
+	 * 更新Grace信息
+	 * @param hspGraceInf
+	 * @param activeUser
+	 * @return
+	 */
+	@RequestMapping("/updateGraceInf")
+	@ResponseBody
+	public SubmitResultInfo updateGraceInf(@RequestBody HspGraceInf hspGraceInf, ActiveUser activeUser){
+		ResultInfo resultInfo = xtService.updateGraceInf(hspGraceInf, activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
 
 	/**
 	 * 获取GRACE评分信息
