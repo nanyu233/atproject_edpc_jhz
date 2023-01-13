@@ -5770,7 +5770,7 @@
 				}),
 				success: function(res) {
 					vm.tempHspGraceInf = res.resultInfo.sysdata.hspGraceInf;
-					if (tempHspGraceInf) {
+					if (vm.tempHspGraceInf) {
 						if (vm.tempHspGraceInf.wxys) {
 							vm.hspXtzlInf.WXYS = vm.tempHspGraceInf.wxys;
 							vm.WXYSSel = vm.tempHspGraceInf.wxys ? vm.tempHspGraceInf.wxys.split(',') : [];
