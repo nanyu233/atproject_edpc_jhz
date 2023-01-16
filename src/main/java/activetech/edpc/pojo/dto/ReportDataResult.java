@@ -47,7 +47,47 @@ public class ReportDataResult {
     private double median;
     // 比例
     private String rate;
-    
+
+	private Integer thisDay;
+
+	private Integer thisWeek;
+
+	private Integer thisMonth;
+
+	private Integer thisYear;
+
+	public Integer getThisDay() {
+		return thisDay;
+	}
+
+	public void setThisDay(Integer thisDay) {
+		this.thisDay = thisDay;
+	}
+
+	public Integer getThisWeek() {
+		return thisWeek;
+	}
+
+	public void setThisWeek(Integer thisWeek) {
+		this.thisWeek = thisWeek;
+	}
+
+	public Integer getThisMonth() {
+		return thisMonth;
+	}
+
+	public void setThisMonth(Integer thisMonth) {
+		this.thisMonth = thisMonth;
+	}
+
+	public Integer getThisYear() {
+		return thisYear;
+	}
+
+	public void setThisYear(Integer thisYear) {
+		this.thisYear = thisYear;
+	}
+
 	public Integer getTnumb() {
 		return tnumb;
 	}

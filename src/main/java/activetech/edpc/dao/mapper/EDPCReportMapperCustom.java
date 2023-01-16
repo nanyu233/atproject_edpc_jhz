@@ -5,6 +5,8 @@ import java.util.List;
 import activetech.edpc.pojo.dto.HomePageResult;
 import activetech.edpc.pojo.dto.ReportCondition;
 import activetech.edpc.pojo.dto.ReportDataResult;
+import activetech.hospital.pojo.dto.HspemginfCustom;
+import activetech.hospital.pojo.dto.HspemginfQueryDto;
 
 
 public interface EDPCReportMapperCustom {
@@ -162,4 +164,20 @@ public interface EDPCReportMapperCustom {
 	List<ReportDataResult> getCsjzsxMedianDate(ReportCondition reportCondition);
 
 	List<ReportDataResult> getCsyzbrMedianDate(ReportCondition reportCondition);
+
+    List<ReportDataResult> getIssPffb(ReportCondition reportCondition);
+
+	List<ReportDataResult> getCsMDTDDTime(ReportCondition reportCondition);
+
+	List<ReportDataResult> getPfwcltj(ReportCondition reportCondition);
+
+	List<HspemginfCustom> getCsswlMedianDate(HspemginfQueryDto hs);
+
+	List<ReportDataResult> getQjcstj(ReportCondition reportCondition);
+
+	List<HspemginfCustom> getMDTqdbl(ReportCondition reportCondition);
+
+	ReportDataResult getlHzsltjData();
+
+	List<ReportDataResult> getHzsltj(ReportCondition reportCondition);
 }

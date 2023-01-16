@@ -1,5 +1,6 @@
 package activetech.edpc.service.impl;
 
+import activetech.base.pojo.dto.HighChartsDemoCustom;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
@@ -10,6 +11,8 @@ import activetech.edpc.pojo.dto.ProCode;
 import activetech.edpc.pojo.dto.ReportCondition;
 import activetech.edpc.pojo.dto.ReportDataResult;
 import activetech.edpc.service.EDPCReportService;
+import activetech.hospital.pojo.dto.HspemginfCustom;
+import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.httpclient.util.DateUtil;
@@ -669,5 +672,138 @@ public class EDPCReportServiceImpl implements EDPCReportService{
 		dataGridResultInfo.setRows(list);
 		dataGridResultInfo.setTotal(list.size());
 		return dataGridResultInfo;
+	}
+
+	@Override
+	public DataGridResultInfo getIssPffb(ReportCondition reportCondition) {
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		List<ReportDataResult> list = eDPCReportMapperCustom.getIssPffb(reportCondition);
+		dataGridResultInfo.setRows(list);
+		dataGridResultInfo.setTotal(list.size());
+		return dataGridResultInfo;
+	}
+
+	public ResultInfo getGjzkqsData() {
+		ResultInfo resultInfo = null;
+		ReportCondition reportCondition = new ReportCondition();
+		Calendar c = Calendar.getInstance();
+		Date date = c.getTime();
+		reportCondition.setEndDate(DateUtil.formatDate(date, "yyyy/MM"));
+		c.add(Calendar.YEAR, -1);
+		reportCondition.setStartDate(DateUtil.formatDate(c.getTime(), "yyyy/MM"));
+		//院前急救转运时间
+		List<ReportDataResult> yqjjzylist = eDPCReportMapperCustom.getPreHospitalFirstAidTransferTime(reportCondition);
+		//急诊准备时间
+		List<ReportDataResult> jzzbsjlist = eDPCReportMapperCustom.getPatientPreparationTime(reportCondition);
+		//输血准备时间
+		List<ReportDataResult> jzsxzblist = eDPCReportMapperCustom.getCsShuXueTime(reportCondition);
+		//人工气道建立时间
+		List<ReportDataResult> rgqdjllist = eDPCReportMapperCustom.getCsRenGongqdTime(reportCondition);
+		//紧急手术准备时间
+		List<ReportDataResult> jjsszblist = eDPCReportMapperCustom.getCsJingJissTime(reportCondition);
+		//急诊科停留时间
+		List<ReportDataResult> jztlsjlist = eDPCReportMapperCustom.getCsMjzTingliuTime(reportCondition);
+		//CT准备时间
+		List<ReportDataResult> ctzbsjlist = eDPCReportMapperCustom.getCsFastJcTime(reportCondition);
+		//胸部X片准备时间
+		List<ReportDataResult> xpzbsjlist = eDPCReportMapperCustom.getCsCompleteFullBodyChestXray(reportCondition);
+		//严重创伤多学科救治到达耗时
+		List<ReportDataResult> csmdtddsjlist = eDPCReportMapperCustom.getCsMDTDDTime(reportCondition);
+		JSONArray jsonArray = new JSONArray();
+		for (int i = 0; i < yqjjzylist.size(); i++) {
+			JSONObject json = new JSONObject();
+			ReportDataResult yqjjzyResult = yqjjzylist.get(i);
+			ReportDataResult sxzbResult = jzsxzblist.get(i);
+			ReportDataResult jzzbResult = jzzbsjlist.get(i);
+			ReportDataResult rgqdjlResult = rgqdjllist.get(i);
+			ReportDataResult jjsszbResult = jjsszblist.get(i);
+			ReportDataResult jztlsjResult = jztlsjlist.get(i);
+			ReportDataResult ctzbsjResult = ctzbsjlist.get(i);
+			ReportDataResult xpzbsjResult = xpzbsjlist.get(i);
+			ReportDataResult csmdtddsjResult = csmdtddsjlist.get(i);
+			json.put("yearmon", sxzbResult.getYarmon());
+			json.put("sxzb", sxzbResult.getAvgTime());
+			json.put("jzzb", jzzbResult.getAvgTime());
+			json.put("yqjjzy", yqjjzyResult.getAvgTime());
+			json.put("rgqdjl", rgqdjlResult.getAvgTime());
+			json.put("jjsszb", jjsszbResult.getAvgTime());
+			json.put("jztlsj", jztlsjResult.getAvgTime());
+			json.put("ctzbsj", ctzbsjResult.getAvgTime());
+			json.put("xpzbsj", xpzbsjResult.getAvgTime());
+			json.put("csmdtddsj", csmdtddsjResult.getAvgTime());
+			jsonArray.add(json);
+		}
+		Map<String, Object> sysdata = new HashMap<>();
+		sysdata.put("list", jsonArray);
+		resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		resultInfo.setSysdata(sysdata);
+		return resultInfo;
+	}
+
+	@Override
+	public DataGridResultInfo getPfwcltj(ReportCondition reportCondition) {
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		List<ReportDataResult> list = eDPCReportMapperCustom.getPfwcltj(reportCondition);
+		dataGridResultInfo.setRows(list);
+		dataGridResultInfo.setTotal(list.size());
+		return dataGridResultInfo;
+	}
+
+	@Override
+	public List<HighChartsDemoCustom> getCsswlMedianDate(HspemginfQueryDto hs) {
+		List<HspemginfCustom> list = eDPCReportMapperCustom.getCsswlMedianDate(hs);
+		//初始化报表对象
+		List<HighChartsDemoCustom> listHig=new ArrayList<HighChartsDemoCustom>();
+		//拼接报表数据
+		HighChartsDemoCustom hc1=new HighChartsDemoCustom();
+		hc1.setName("死亡率");
+		hc1.setCount(Integer.valueOf(list.get(0).getDeathRate()).intValue());
+		listHig.add(hc1);
+		HighChartsDemoCustom hc3=new HighChartsDemoCustom();
+		hc3.setName("存活率");
+		hc3.setCount(Integer.valueOf(list.get(0).getSurRate()).intValue());
+		listHig.add(hc3);
+		return listHig;
+	}
+	@Override
+	public DataGridResultInfo getQjcstj(ReportCondition reportCondition) {
+		// TODO Auto-generated method stub
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		List<ReportDataResult> list = eDPCReportMapperCustom.getQjcstj(reportCondition);
+		dataGridResultInfo.setRows(list);
+		dataGridResultInfo.setTotal(list.size());
+		return dataGridResultInfo;
+	}
+
+	@Override
+	public List<HighChartsDemoCustom> getMDTqdbl(ReportCondition reportCondition) {
+		List<HspemginfCustom> list = eDPCReportMapperCustom.getMDTqdbl(reportCondition);
+		//初始化报表对象
+		List<HighChartsDemoCustom> listHig=new ArrayList<HighChartsDemoCustom>();
+		//拼接报表数据
+		HighChartsDemoCustom hc1=new HighChartsDemoCustom();
+		hc1.setName("已启动");
+		hc1.setCount(Integer.valueOf(list.get(0).getDeathRate()).intValue());
+		listHig.add(hc1);
+		HighChartsDemoCustom hc3=new HighChartsDemoCustom();
+		hc3.setName("未启动");
+		hc3.setCount(Integer.valueOf(list.get(0).getSurRate()).intValue());
+		listHig.add(hc3);
+		return listHig;
+	}
+
+	@Override
+	public ResultInfo getHzsltj(ReportCondition reportCondition) {
+
+		ResultInfo resultInfo = null;
+		ReportDataResult homePageResult = eDPCReportMapperCustom.getlHzsltjData();
+		List<ReportDataResult> list = eDPCReportMapperCustom.getHzsltj(reportCondition);
+		Map<String, Object> sysdata = new HashMap<>();
+		sysdata.put("hztj", homePageResult);
+		sysdata.put("hzfl", list);
+		resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		resultInfo.setSysdata(sysdata);
+
+		return resultInfo;
 	}
 }

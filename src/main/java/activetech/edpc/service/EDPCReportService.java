@@ -1,8 +1,12 @@
 package activetech.edpc.service;
 
+import activetech.base.pojo.dto.HighChartsDemoCustom;
 import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
 import activetech.edpc.pojo.dto.ReportCondition;
+import activetech.hospital.pojo.dto.HspemginfQueryDto;
+
+import java.util.List;
 
 public interface EDPCReportService {
 	
@@ -153,4 +157,19 @@ public interface EDPCReportService {
 	DataGridResultInfo getCsjzsxMedianDate(ReportCondition reportCondition);
 
 	DataGridResultInfo getCsyzbrMedianDate(ReportCondition reportCondition);
+	// ISS评分分布
+	public DataGridResultInfo getIssPffb(ReportCondition reportCondition);
+
+	// 关键质控统计
+	public ResultInfo getGjzkqsData();
+
+	DataGridResultInfo getPfwcltj(ReportCondition reportCondition);
+
+	List<HighChartsDemoCustom> getCsswlMedianDate(HspemginfQueryDto hspemginfQueryDto);
+
+	DataGridResultInfo getQjcstj(ReportCondition reportCondition);
+
+	List<HighChartsDemoCustom> getMDTqdbl(ReportCondition reportCondition);
+
+	ResultInfo getHzsltj(ReportCondition reportCondition);
 }

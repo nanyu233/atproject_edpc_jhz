@@ -2,6 +2,8 @@ package activetech.edpc.action;
 
 import activetech.base.action.View;
 import activetech.base.dbconfig.ApplicationConfig;
+import activetech.base.pojo.dto.HighChartsDemoCustom;
+import activetech.base.pojo.dto.HighChartsDemoCustomDto;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
@@ -13,12 +15,15 @@ import activetech.edpc.pojo.dto.ReportDataResult;
 import activetech.edpc.service.CzService;
 import activetech.edpc.service.EDPCReportService;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
+import activetech.hospital.service.HspreportService;
+import activetech.util.DateUtil;
 import activetech.util.ExcelExportSXXSSF;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +35,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/edpcReport")
@@ -46,6 +49,9 @@ public class EDPCReportAction {
 	
 	@Autowired
 	private CzService czService;
+
+	@Autowired
+	private HspreportService hspreportService;
 	
 	@RequestMapping("/tohuzdtob")
 	public String tohuzdtob(Model model) throws Exception {
@@ -3903,4 +3909,184 @@ public class EDPCReportAction {
 		return "/edpc/report/czReport/czhzsjlyfs";
 	}
 
+	/**
+	 * 急诊各级患者统计导出
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/exporthspemgSubmit")
+	public @ResponseBody SubmitResultInfo exporthspemgSubmit(HspemginfQueryDto hspemginfQueryDto) throws Exception{
+		String startStr= DateUtil.formatDateByFormat(hspemginfQueryDto.getStartdate(), "yyyy/MM/dd");
+		String endStr =  DateUtil.formatDateByFormat(hspemginfQueryDto.getEnddate(), "yyyy/MM/dd");
+		//获取虚拟目录指向实际路径
+		String filePath = systemConfigService.findAppoptionByOptkey("XNML_PATH").getOptvalue();
+		// 导出文件的前缀
+		String filePrefix = "hcept";
+		// -1表示关闭自动刷新，手动控制写磁盘的时机，其它数据表示多少数据在内存保存，超过的则写入磁盘
+		int flushRows = 100;
+		// 定义导出数据的title
+		List<String> fieldNames = new ArrayList<String>();
+		fieldNames.add("急诊分级");
+		fieldNames.add("人数");
+
+		//导出类数据list中对象的属性，让ExcelExportSXXSSF通过反射获取对象的值
+		//fieldCodes和fieldNames个数必须相同且属性和title顺序一一对应
+		List<String> fieldCodes = new ArrayList<String>();
+		fieldCodes.add("name");
+		fieldCodes.add("count");
+
+		String hb="急诊各级患者比例";
+		String gd = "查询条件："+startStr+"-" +endStr;
+		// 开始导出，执行一些workbook及sheet等对象的初始创建
+		ExcelExportSXXSSF excelExportSXXSSF = ExcelExportSXXSSF.startHbGd(filePath,
+				"/export/", filePrefix, fieldNames, fieldCodes, flushRows,hb,gd);
+
+		// 导出的数据通过service取出
+		Date enddate=DateUtil.afterNDay(hspemginfQueryDto.getEnddate(), 1);
+		hspemginfQueryDto.setEnddate(enddate);
+		List<HighChartsDemoCustom> list=hspreportService.getHighChartsEmg(hspemginfQueryDto);;
+
+		// 执行导出
+		excelExportSXXSSF.writeDatasByObjectSy(list);
+		// 输出文件，返回下载文件的http地址，已经包括虚拟目录
+		String webpath = excelExportSXXSSF.exportFile();
+		System.out.println(webpath);
+		return ResultUtil.createSubmitResult(
+				ResultUtil.createSuccess(
+						Config.MESSAGE, 914, new Object[] {
+								"急诊各级患者统计列表",
+								list.size(),
+								webpath//下载地址
+						}));
+	}
+
+	/**
+	 * 导出急诊患者趋势表
+	 * @param userimportfile
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/exportjhz")
+	public @ResponseBody SubmitResultInfo exportjhz(HighChartsDemoCustomDto highChartsDemoCustomDto)throws Exception{
+		String startStr =DateUtil.formatDateByFormat(highChartsDemoCustomDto.getStarttime(), "yyyy/MM/dd");
+		String endStr = DateUtil.formatDateByFormat(highChartsDemoCustomDto.getEndtime(), "yyyy/MM/dd");
+		//获取虚拟目录指向实际路径
+		//systemConfigService.findAppoptionByOptkey("XNML_PATH").getOptvalue();
+		String filePath = systemConfigService.findAppoptionByOptkey("XNML_PATH").getOptvalue();
+		// 导出文件的前缀
+		String filePrefix = "jzhzfbt";
+		// -1表示关闭自动刷新，手动控制写磁盘的时机，其它数据表示多少数据在内存保存，超过的则写入磁盘
+		int flushRows = 100;
+		// 定义导出数据的title
+		List<String> fieldNames = new ArrayList<String>();
+		fieldNames.add("日期");
+		fieldNames.add("人数");
+		//导出类数据list中对象的属性，让ExcelExportSXXSSF通过反射获取对象的值
+		//fieldCodes和fieldNames个数必须相同且属性和title顺序一一对应
+		List<String> fieldCodes = new ArrayList<String>();
+		fieldCodes.add("name");
+		fieldCodes.add("count");
+		String hb = "急诊患者趋势表";
+		String gd="查询条件："+startStr+"-" + endStr;
+		// 开始导出，执行一些workbook及sheet等对象的初始创建
+		ExcelExportSXXSSF excelExportSXXSSF = ExcelExportSXXSSF.startHbGd(filePath,
+				"/export/", filePrefix, fieldNames, fieldCodes, flushRows,hb,gd);
+		//首次查询时默认赋值系统当天日期
+		Date endtime = DateUtil.getNextDay(highChartsDemoCustomDto.getEndtime());
+		highChartsDemoCustomDto.setEndtime(endtime);
+		List<HighChartsDemoCustom> highChartsDtoList = hspreportService.getHighChartsUserb(highChartsDemoCustomDto);
+		// 执行导出
+		excelExportSXXSSF.writeDatasByObjectSy(highChartsDtoList);
+		// 输出文件，返回下载文件的http地址，已经包括虚拟目录
+		String webpath = excelExportSXXSSF.exportFile();
+		System.out.println(webpath);
+		return ResultUtil.createSubmitResult(ResultUtil.createSuccess(
+				Config.MESSAGE, 914, new Object[] {
+						"急诊患者趋势表",
+						highChartsDtoList.size(),
+						webpath//下载地址
+				}));
+	}
+
+	/**
+	 * ISS评分分布
+	 * @return
+	 */
+	@RequestMapping("/getIssPffb")
+	@ResponseBody
+	public DataGridResultInfo getIssPffb(ReportCondition reportCondition){
+		return eDPCReportService.getIssPffb(reportCondition);
+	}
+
+	/**
+	 * 关键质控统计
+	 * @return
+	 */
+	@RequestMapping("/getGjzkqsData")
+	@ResponseBody
+	public SubmitResultInfo getGjzkqsData(){
+
+		ResultInfo resultInfo = eDPCReportService.getGjzkqsData();
+
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
+	/**
+	 * 评分完成率
+	 * @return
+	 */
+	@RequestMapping("/getPfwcltj")
+	@ResponseBody
+	public DataGridResultInfo getPfwcltj(ReportCondition reportCondition){
+		return eDPCReportService.getPfwcltj(reportCondition);
+	}
+
+	@RequestMapping("/queryCsswlMedian_result.do")
+	public @ResponseBody
+	Map<String,Object> CsswlMedianMedianResult(HspemginfQueryDto hspemginfQueryDto) throws Exception  {
+		Map<String,Object> map = new HashMap<String, Object>();
+		Date enddate =hspemginfQueryDto.getEnddate();
+		hspemginfQueryDto.setEnddate(DateUtil.getNextMonth(enddate));
+		List<HighChartsDemoCustom> list=eDPCReportService.getCsswlMedianDate(hspemginfQueryDto);
+		map.put("list", list);
+		return map;
+	}
+
+	/**
+	 * 抢救措施统计
+	 * @param reportCondition
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getQjcstj")
+	public @ResponseBody DataGridResultInfo getQjcstj(ReportCondition reportCondition) throws Exception{
+		DataGridResultInfo dataGridResultInfo = eDPCReportService.getQjcstj(reportCondition);
+		return dataGridResultInfo;
+	}
+
+	/**
+	 * MDT启动比例
+	 * @return
+	 */
+	@RequestMapping("/getMDTqdbl.do")
+	public @ResponseBody
+	Map<String,Object> getMDTqdbl(ReportCondition reportCondition) throws Exception  {
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<HighChartsDemoCustom> list=eDPCReportService.getMDTqdbl(reportCondition);
+		map.put("list", list);
+		return map;
+	}
+
+	/**
+	 * 病例数量统计
+	 * @return
+	 */
+	@RequestMapping("/getHzsltj")
+	@ResponseBody
+	public SubmitResultInfo getHzsltj(ReportCondition reportCondition){
+
+		ResultInfo resultInfo = eDPCReportService.getHzsltj(reportCondition);
+
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
 }

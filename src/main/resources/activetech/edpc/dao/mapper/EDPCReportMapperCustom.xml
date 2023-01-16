@@ -2411,5 +2411,258 @@
 		order by m.month nulls last
 		]]>
 	</select>
+	<select id="getIssPffb" parameterType="activetech.edpc.pojo.dto.ReportCondition"
+			resultType="activetech.edpc.pojo.dto.ReportDataResult">
+		<![CDATA[
+		with temp as
+				 ( SELECT count(*) total,emg_dat FROM (select emg.emg_seq,
+															  to_char(emg.emg_dat, 'yyyy/mm') emg_dat
+													   from hsp_emg_inf emg, HSP_CSPF_RES iss
+													   where cspg_flg = '1'
+														 and emg.emg_seq = iss.emg_seq(+)
+														 and iss.iss_scoe >= '16') group by emg_dat),
+			 temp2 as
+				 ( SELECT count(*) total,emg_dat FROM (select emg.emg_seq,
+															  to_char(emg.emg_dat, 'yyyy/mm') emg_dat
+													   from hsp_emg_inf emg, HSP_CSPF_RES iss
+													   where cspg_flg = '1'
+														 and emg.emg_seq = iss.emg_seq(+)
+														 and iss.iss_scoe < '16') group by emg_dat)
+		select m.month yarmon,temp.total as total,temp2.total as median
+		from temp,temp2,
+			 (select to_char(add_months(to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy-mm'), rownum - 1),
+							 'yyyy/MM') as month
+			  FROM dual
+			  connect by rownum <=
+				  months_between(to_date(#{endDate, jdbcType=VARCHAR}, 'yyyy-mm'),
+				  to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy-mm')) + 1) m
+		where m.month = temp.emg_dat(+) and m.month = temp2.emg_dat(+)
+		order by m.month
+		]]>
+	</select>
 
+	<select id="getCsMDTDDTime" resultType="activetech.edpc.pojo.dto.ReportDataResult">
+		<![CDATA[
+		with temp as
+				 (select emg.emg_seq,invitation_date YQHZSJ,consultation_date HZDDSJ,
+						 to_char(emg.emg_dat, 'yyyy/mm') emg_dat
+				  from hsp_emg_inf emg, HSP_CSPF_RES iss,hsp_consultation_records con
+				  where cspg_flg = '1'
+					and con.reply_type = '2'
+					and emg.emg_seq = iss.emg_seq(+)
+					and emg.emg_seq = con.emg_seq_cr(+)
+					and iss.iss_scoe >= '16')
+		select m.month yarmon, NVL(avg(to_date(to_char(temp.HZDDSJ,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss') -to_date(to_char(temp.YQHZSJ,'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss')) * 24 * 60, 0) avgtime
+		from temp,
+			 (select to_char(add_months(to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy-mm'), rownum - 1),
+							 'yyyy/MM') as month
+			  FROM dual
+			  connect by rownum <=
+				  months_between(to_date(#{endDate, jdbcType=VARCHAR}, 'yyyy-mm'),
+				  to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy-mm')) + 1) m
+		where m.month = temp.emg_dat(+)
+		group by m.month
+		order by m.month
+		]]>
+	</select>
+
+	<select id="getPfwcltj" parameterType="activetech.edpc.pojo.dto.ReportCondition"
+			resultType="activetech.edpc.pojo.dto.ReportDataResult">
+		<![CDATA[
+		with temp as
+				 (select   emgdat,to_char(decode(count (*), 0, 0, round(count(case
+																				  when iss.iss_scoe is not null then
+																					  1
+																				  else
+																					  null
+					 end) / count (*) * 100))) as issrate
+				  from (select emg_seq, cspg_flg, to_char(emg_dat, 'yyyy/mm') emgdat
+						from hsp_emg_inf) emg,
+					   HSP_CSPF_RES iss
+				  where emg.emg_seq = iss.emg_seq(+) and cspg_flg = '1'
+				  group by emgdat),
+			 temp2 as
+				 (select   emgdat,to_char(decode(count (*), 0, 0, round(count(case
+																				  when ti.ti_sco is not null then
+																					  1
+																				  else
+																					  null
+					 end) / count (*) * 100))) as tirate
+				  from (select emg_seq, cspg_flg, to_char(emg_dat, 'yyyy/mm') emgdat
+						from hsp_emg_inf) emg,
+					   HSP_TI_INF ti
+				  where emg.emg_seq = ti.emg_seq(+) and cspg_flg = '1'
+				  group by emgdat),
+			 temp3 as
+				 (select   emgdat,to_char(decode(count (*), 0, 0, round(count(case
+																				  when gcs.tot_sco is not null then
+																					  1
+																				  else
+																					  null
+					 end) / count (*) * 100))) as gcsrate
+				  from (select emg_seq, cspg_flg, to_char(emg_dat, 'yyyy/mm') emgdat
+						from hsp_emg_inf) emg,
+					   HSP_GCS_INF gcs
+				  where emg.emg_seq = gcs.emg_seq(+) and cspg_flg = '1'
+				  group by emgdat)
+		select m.month yarmon,nvl(issrate,0) issrate,nvl(gcsrate,0) gcsrate,nvl(tirate,0) tirate
+		from (select to_char(add_months(to_date(#{startDate,jdbcType=VARCHAR}, 'yyyy-mm'), rownum - 1),
+							 'yyyy/MM') as month
+			  FROM dual
+			  connect by rownum <=
+				  months_between(to_date(#{endDate,jdbcType=VARCHAR}, 'yyyy-mm'),
+				  to_date(#{startDate,jdbcType=VARCHAR}, 'yyyy-mm')) + 1) m left join temp on m.month = temp.emgdat left join temp2 on m.month = temp2.emgdat left join temp3 on m.month = temp3.emgdat
+		order by m.month
+		]]>
+	</select>
+
+	<select id="getCsswlMedianDate" parameterType="activetech.hospital.pojo.dto.HspemginfQueryDto" resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		with death as
+		(select
+		(select count(*) from hsp_emg_inf
+		where emg_seq in(select i.emg_seq
+		from hsp_sql_inf i ,HSP_CSPF_RES z
+		where i.emg_seq = hsp_emg_inf.emg_seq
+		and z.emg_seq = hsp_emg_inf.emg_seq
+		and SQL_STA_COD in ('3', '14')
+		and z.iss_scoe >= '16'
+		<if test="startdate!=null and startdate!=''">
+			and to_char(i.sql_dat,'yyyyMM') <![CDATA[>=]]> to_char(#{startdate},'yyyyMM')
+		</if>
+		<if test="enddate!=null and enddate!=''">
+			and to_char(i.sql_dat,'yyyyMM') <![CDATA[<=]]>  to_char(#{enddate},'yyyyMM')
+		</if>
+		)
+		) as deathNum,
+		(select count(*) from hsp_emg_inf,HSP_CSPF_RES b  where hsp_emg_inf.emg_seq = b.emg_seq and b.iss_scoe >= '16'
+		<if test="startdate!=null and startdate!=''">
+			and to_char(hsp_emg_inf.emg_dat,'yyyyMM')<![CDATA[>=]]> to_char(#{startdate},'yyyyMM')
+		</if>
+		<if test="enddate!=null and enddate!=''">
+			and to_char(hsp_emg_inf.emg_dat,'yyyyMM') <![CDATA[<=]]>  to_char(#{enddate},'yyyyMM')
+		</if>
+		) as AllNum
+		from  dual
+		)
+		select death.*,
+		to_char(decode(AllNum,0,0,round(deathNum/AllNum*100))) deathRate,
+		to_char(decode(AllNum,0,0,round(100-deathNum/AllNum*100))) surRate
+		from death
+	</select>
+
+	<select id="getQjcstj" parameterType="activetech.edpc.pojo.dto.ReportCondition"
+			resultType="activetech.edpc.pojo.dto.ReportDataResult">
+		<![CDATA[
+		with temp as
+				 (select t.seq_no,
+						 t.emg_no,
+						 t.pro_code,
+						 t.pro_val,
+						 t.crt_time,
+						 t.crt_user,
+						 t.mod_time,
+						 t.mod_user
+				  from hsp_cszl_inf t
+				  where t.pro_code = 'YQQJCS')
+		select m.month yarmon,
+			   d.infocode,
+			   d.info,
+			   (select count(1)
+				from temp
+				where temp.pro_val like concat(concat('%',d.infocode),'%')
+				  and to_char(temp.crt_time, 'yyyy/mm') = m.month) total
+		from dstdictinfo d,
+			 (select to_char(add_months(to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy-mm'), rownum - 1),
+							 'yyyy/mm') as month
+			  from dual
+			  connect by rownum <=
+				  months_between(to_date(#{endDate, jdbcType=VARCHAR}, 'yyyy-mm'),
+				  to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy-mm')) + 1) m
+		where d.typecode = 'CS_YQQJCS_COD'
+		  and d.isenable = '1'
+		order by m.month, d.dictsort nulls last
+		]]>
+	</select>
+
+	<select id="getMDTqdbl" parameterType="activetech.edpc.pojo.dto.ReportCondition" resultType="activetech.hospital.pojo.dto.HspemginfCustom">
+		with death as
+		(select
+		(select count(*) from hsp_emg_inf
+		where emg_seq in(select i.emg_seq_cr
+		from hsp_consultation_records i
+		where i.emg_seq_cr = hsp_emg_inf.emg_seq
+		and i.reply_type = '2'
+		<if test="startDate!=null and startDate!=''">
+			and to_char(hsp_emg_inf.emg_dat,'yyyyMM') <![CDATA[>=]]> to_char(to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy-mm'),'yyyyMM')
+		</if>
+		<if test="endDate!=null and endDate!=''">
+			and to_char(hsp_emg_inf.emg_dat,'yyyyMM') <![CDATA[<=]]>  to_char(to_date(#{endDate, jdbcType=VARCHAR}, 'yyyy-mm'),'yyyyMM')
+		</if>
+		)
+		) as deathNum,
+		(select count(*) from hsp_emg_inf,hsp_consultation_records b  where hsp_emg_inf.emg_seq = b.emg_seq_cr
+		<if test="startDate!=null and startDate!=''">
+			and to_char(hsp_emg_inf.emg_dat,'yyyyMM')<![CDATA[>=]]> to_char(to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy-mm'),'yyyyMM')
+		</if>
+		<if test="endDate!=null and endDate!=''">
+			and to_char(hsp_emg_inf.emg_dat,'yyyyMM') <![CDATA[<=]]>  to_char(to_date(#{endDate, jdbcType=VARCHAR}, 'yyyy-mm'),'yyyyMM')
+		</if>
+		) as AllNum
+		from  dual
+		)
+		select death.*,
+		to_char(decode(AllNum,0,0,round(deathNum/AllNum*100))) deathRate,
+		to_char(decode(AllNum,0,0,round(100-deathNum/AllNum*100))) surRate
+		from death
+	</select>
+
+	<select id="getlHzsltjData" resultType="activetech.edpc.pojo.dto.ReportDataResult">
+		select (select count(*)
+				from hsp_emg_inf
+				where cspg_flg = '1'
+				  and emg_dat >= (select trunc(sysdate) from dual))
+				   as thisDay,
+			   (select count(*)
+				from hsp_emg_inf
+				where cspg_flg = '1'
+				  and emg_dat >= (select trunc(sysdate, 'd') from dual))
+				   as thisWeek,
+			   (select count(*)
+				from hsp_emg_inf
+				where cspg_flg = '1'
+				  and emg_dat >= (select trunc(sysdate, 'mm') from dual))
+				   as thisMonth,
+			   (select count(*)
+				from hsp_emg_inf
+				where cspg_flg = '1'
+				  and emg_dat >= (select trunc(sysdate, 'yyyy') from dual))
+				   as thisYear
+		from dual
+
+	</select>
+	<select id="getHzsltj" parameterType="activetech.edpc.pojo.dto.ReportCondition" resultType="activetech.edpc.pojo.dto.ReportDataResult">
+		select '2' as info, count(*) as total
+		from hsp_operate_inf b,hsp_emg_inf a
+		where OPER_NAM is not null and a.emg_seq = b.emg_seq and
+				to_char(a.emg_dat,'yyyy') = to_char(to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy'),'yyyy')
+		union
+		select '0', count(*)
+		from hsp_emg_inf emg, HSP_CSPF_RES iss
+		WHERE emg.emg_seq = iss.emg_seq
+		  and emg.cspg_flg = '1'
+		  and iss.iss_scoe >= '16'
+		  and to_char(emg.emg_dat,'yyyy') = to_char(to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy'),'yyyy')
+		union
+		select '1', count(*)
+		from hsp_sql_inf b,hsp_emg_inf a
+		where a.emg_seq = b.emg_seq
+		  and b.sql_sta_cod in ('6')
+		  and to_char(a.emg_dat,'yyyy') = to_char(to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy'),'yyyy')
+		union
+		select '3', count(*)
+		from hsp_sql_inf b,hsp_emg_inf a
+		where a.emg_seq = b.emg_seq
+		  and b.sql_sta_cod in ('3','14')
+		  and to_char(a.emg_dat,'yyyy') = to_char(to_date(#{startDate, jdbcType=VARCHAR}, 'yyyy'),'yyyy')
+	</select>
 </mapper>
