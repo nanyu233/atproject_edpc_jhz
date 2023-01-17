@@ -39,7 +39,11 @@ public class CzAction {
 	 * @return
 	 */
 	@RequestMapping("/toCzHomePage")
-	public String toCzHomePage(){
+	public String toCzHomePage(String emgSeq,String wayTyp, String regSeq,String cstNam,Model model){
+		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("wayTyp", wayTyp);
+		model.addAttribute("regSeq", regSeq);
+		model.addAttribute("cstNam", cstNam);
 		return View.toEDPC("/cz/czHome");
 	}
 	
@@ -68,11 +72,26 @@ public class CzAction {
 	 * @return
 	 */
 	@RequestMapping("/toCzxqPage")
-	public String toXtxqPage(String emgSeq, String wayTyp, String regSeq, Model model){
+	public String toXtxqPage(String emgSeq, String wayTyp, String regSeq,String cstNam, Model model){
 		model.addAttribute("emgSeq", emgSeq);
 		model.addAttribute("wayTyp", wayTyp);
 		model.addAttribute("regSeq", regSeq);
+		model.addAttribute("cstNam", cstNam);
 		return View.toEDPC("/cz/czxq");
+	}
+	/**
+	 *
+	 * @param emgSeq
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/toCzhz")
+	public String toXtxqList(String emgSeq,String wayTyp, String regSeq,String cstNam,Model model){
+		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("wayTyp", wayTyp);
+		model.addAttribute("regSeq", regSeq);
+		model.addAttribute("cstNam", cstNam);
+		return View.toEDPC("/cz/czhz");
 	}
 
 	/**

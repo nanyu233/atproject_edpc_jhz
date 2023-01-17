@@ -282,7 +282,7 @@
 						   {'hspFuvPatCustom.patId' :     checkData.regSeq,
 						    'hspFuvPatCustom.patNam' :    checkData.cstNam,
 						    'hspFuvPatCustom.cstSexCod' : checkData.cstSexCod,
-						    'hspFuvPatCustom.bthDat' :    bthDat,
+						    'hspFuvPatCustom.bthDat' :    btnDat,
 						    'hspFuvPatCustom.lnkNbr' :    checkData.pheNbr,
 						    'hspFuvPatCustom.patNatCod' : checkData.nation,
 						    'hspFuvPatCustom.marStaCod' : checkData.marStaCod,

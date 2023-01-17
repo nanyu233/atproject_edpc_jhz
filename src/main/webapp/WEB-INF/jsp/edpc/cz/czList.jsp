@@ -202,7 +202,8 @@
 						}
 					
 						function toDetail(emgSeq, cstNam, regSeq) {
-								var url = 'cz/toCzxqPage.do?emgSeq=' + emgSeq + '&wayTyp=0' + '&regSeq=' + regSeq;
+							window.sessionStorage.removeItem('currentczIframeSrc' + regSeq)
+							var url = 'cz/toCzhz.do?emgSeq=' + emgSeq+'&wayTyp=0' +'&regSeq=' +regSeq + '&cstNam=' + cstNam;
 								if (cstNam == 'null') {
 										cstNam = "";
 								}

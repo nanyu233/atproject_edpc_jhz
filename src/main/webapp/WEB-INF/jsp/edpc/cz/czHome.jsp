@@ -515,7 +515,46 @@
         });
     }
 
+    function getPatientListBycreated() {
+        publicFun.httpServ('post', 'cz/getCzPatientInfoList.do', {
+            cstNam: '${cstNam}',
+            bhls: true,
+            page: 1,
+            rows: 100
+        }, function(res) {
+            var list = res.rows;
+            fishPool.pageInfo.total = res.total
+            if (list && list.length) {
+                for (var i = 0; i < list.length; i++) {
+                    list[i].emgDatStr = publicFun.timeFormat(list[i].emgDat, 'yyyy-MM-dd hh:mm'); //格式化预检时间
+                    list[i].hasUpdated = false; //设置信息更新的标志
+                }
+                fishPool.patientList = list;
+                clickPatient(list[0]);
+                setPagination()
+            } else {
+                fishPool.patientList = [];
+                //停止倒计时
+                clearInterval(cd1);
+                resetFlowChart();
+                fishPool.currPatientInfo = {
+                    emgDatStr: '',
+                    NZDSJ: '',
+                    XHYSJ: '', // 血化验时间
+                    YXXJCSJ: '', // 头颅CT时间
+                    ZDSJ: '', // CT确诊时间
+                    RSZLKSSJ: '', // 静脉溶栓时间
+                    cstNam: '',
+                    cstSexCod: '',
+                    vstCad: '',
+                    preDgnCod: '',
+                    emgSeq: '',
+                    regSeq: ''
+                }
+            }
 
+        });
+    }
     function getPrintCzhcb(emgSeq) {
 
     }
@@ -1371,10 +1410,20 @@
         $('#pp').pagination('loaded');
     }
     $(function() {
+
         initWebSocket();
         drawFlow();
-        getPatientList();
+        if ('${emgSeq}') {
+            fishPool.showPatientList = false;
+            $('.flow').css('width','100%');
+            setTimeout(() => {
+                $('.rightBtn').hide()
+            })
+            getPatientListBycreated()
+        }else {
+            getPatientList();
 
+        }
     });
 </script>
 </body>
