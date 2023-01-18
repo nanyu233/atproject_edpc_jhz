@@ -340,7 +340,7 @@
     function chkConfirm(regSeq, rcdSta) {
         chkRegSeqArr = [regSeq];
         if(chkRegSeqArr.length > 0) {
-            createmodalwindow("审核确认", 430, 300, '${baseurl}cpc/toChkConfirm.do?', 'no');
+            createmodalwindow("审核确认", 430, 300, '${baseurl}crfplane/toChkConfirm.do?', 'no');
         }
     }
 
@@ -353,7 +353,7 @@
             }
         })
         if(chkRegSeqArr.length > 0) {
-            createmodalwindow("审核确认", 430, 300, '${baseurl}cpc/toChkConfirm.do', 'no');
+            createmodalwindow("审核确认", 430, 300, '${baseurl}crfplane/toChkConfirm.do', 'no');
         } else {
             alert_warn("不存在需要审核记录！")
         }
