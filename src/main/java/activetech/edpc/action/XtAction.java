@@ -485,6 +485,20 @@ public class XtAction {
 		return View.toEDPC("/cpc/followUpManagement");
 	}
 	/**
+	 *
+	 * @param emgSeq
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/toGraceSco")
+	public String toGraceSco(String emgSeq,String wayTyp, String regSeq,String cstNam,Model model){
+		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("wayTyp", wayTyp);
+		model.addAttribute("regSeq", regSeq);
+		model.addAttribute("cstNam", cstNam);
+		return View.toEDPC("/cpc/graceSco");
+	}
+	/**
 	 * 
 	 * @param emgSeq
 	 * @param model

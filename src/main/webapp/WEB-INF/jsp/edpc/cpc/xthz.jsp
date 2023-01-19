@@ -124,7 +124,8 @@
                     name: '知情同意书'
                 },
                 {
-                    name: '评分表'
+                    name: '评分表',
+                    src: '${baseurl}cpc/toGraceSco.do?emgSeq='  + '${emgSeq}'+'&wayTyp=' + '${wayTyp}' + '&regSeq=' +'${regSeq}'
                 },
                 {
                     name: '检验信息'
