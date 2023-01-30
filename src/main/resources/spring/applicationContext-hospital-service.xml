@@ -1,63 +1,50 @@
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
-		http://www.springframework.org/schema/mvc 
-		http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd 
-		http://www.springframework.org/schema/context 
-		http://www.springframework.org/schema/context/spring-context-3.1.xsd 
-		http://www.springframework.org/schema/aop 
-		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
-		http://www.springframework.org/schema/tx 
-		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
     <!--转归 -->
-	<bean id="hspsqlinfService" class="activetech.hospital.service.impl.HspsqlinfServiceImpl"/>
+    <bean id="hspsqlinfService" class="activetech.hospital.service.impl.HspsqlinfServiceImpl"/>
+
+    <!--急诊记录 -->
+    <bean id="hspemginfService" class="activetech.hospital.service.impl.HspemginfServiceImpl"/>
+
+    <!-- 救护车管理 -->
+    <!--	<bean id="hspAbnInfService" class="activetech.hospital.service.impl.HspAbnInfServiceImpl"/>-->
+
+    <!-- 抢救室管理 -->
+    <!--	<bean id="hspCstInfService" class="activetech.hospital.service.impl.HspCstInfServiceImpl"/>-->
+
+    <!-- 设备设置 -->
+    <bean id="hspDeviceService" class="activetech.hospital.service.impl.HspDeviceServiceImpl"/>
+
+    <!-- 监护仪 -->
+    <bean id="hspDevdataKmService" class="activetech.hospital.service.impl.HspDevdataKmServiceImpl"/>
+
+    <!-- 预检分诊基础接口Service -->
+
+    <bean id="baseHspemgInfServiceB" class="activetech.basehems.service.impl.BaseHspemgInfServiceImpl"/>
 	
-	<!--急诊记录 -->
-	<bean id="hspemginfService" class="activetech.hospital.service.impl.HspemginfServiceImpl"/>
-	
-	<!-- 图表 -->
-	<bean id="hspreportService" class="activetech.hospital.service.impl.HspreportServiceImpl"/>
-	
-	<!-- 救护车管理 -->
-<!--	<bean id="hspAbnInfService" class="activetech.hospital.service.impl.HspAbnInfServiceImpl"/>-->
-	
-	<!-- 抢救室管理 -->
-<!--	<bean id="hspCstInfService" class="activetech.hospital.service.impl.HspCstInfServiceImpl"/>-->
-	
-	<!-- 设备设置 -->
-	<bean id="hspDeviceService" class="activetech.hospital.service.impl.HspDeviceServiceImpl"/>
-	
-	<!-- 监护仪 -->
-	<bean id="hspDevdataKmService" class="activetech.hospital.service.impl.HspDevdataKmServiceImpl"/>
-	
-	<!-- 预检分诊基础接口Service -->
-	 
-	<bean id="baseHspemgInfServiceB" class="activetech.basehems.service.impl.BaseHspemgInfServiceImpl" />
-	
-	<bean id="baseHspemgInfService" class="activetech.edpc.extend.service.HuzBaseHspemgInfServiceImpl" >
+	<bean id="baseHspemgInfService" class="activetech.edpc.extend.service.HuzBaseHspemgInfServiceImpl">
 		<constructor-arg ref="baseHspemgInfServiceB"></constructor-arg>
 	</bean>
-	
-	<!-- 健康教育service -->
-<!--	<bean id="hspHealthEducateService" class="activetech.hospital.service.impl.HspHealthEducateServiceImpl"/>-->
-	
-	<!-- 收藏夹service -->
-<!--	<bean id="hspFavoriteInfService" class="activetech.hospital.service.impl.HspFavoriteInfServiceImpl"/>-->
-	
-	<!-- 通用Oracle HIS Service -->
-	<bean id="oracleHisService" class="activetech.basehis.service.impl.OracleHisServiceImpl"/>
-	
-	<!-- 通用SqlServer HIS Service -->
-<!--	<bean id="sqlServerHisService" class="activetech.basehis.service.impl.SqlServerHisServiceImpl"/>-->
-	
-	<!-- 湖州本地检验信息查询-->
-	<bean id="hspJyjgService" class="activetech.external.service.impl.HspJyjgServiceImpl"/>
 
-	<!-- 编辑器相关-->
-	<bean id="StructTextService" class="activetech.structtext.service.impl.StructTextServiceImpl"/>
+    <!-- 健康教育service -->
+    <!--	<bean id="hspHealthEducateService" class="activetech.hospital.service.impl.HspHealthEducateServiceImpl"/>-->
+
+    <!-- 收藏夹service -->
+    <!--	<bean id="hspFavoriteInfService" class="activetech.hospital.service.impl.HspFavoriteInfServiceImpl"/>-->
+
+    <!-- 通用Oracle HIS Service -->
+    <bean id="oracleHisService" class="activetech.basehis.service.impl.OracleHisServiceImpl"/>
+
+    <!-- 通用SqlServer HIS Service -->
+    <!--	<bean id="sqlServerHisService" class="activetech.basehis.service.impl.SqlServerHisServiceImpl"/>-->
+
+    <!-- 湖州本地检验信息查询-->
+    <bean id="hspJyjgService" class="activetech.external.service.impl.HspJyjgServiceImpl"/>
+
+    <!-- 编辑器相关-->
+    <bean id="StructTextService" class="activetech.structtext.service.impl.StructTextServiceImpl"/>
 
 	
 </beans>

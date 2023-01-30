@@ -1,32 +1,34 @@
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
-		http://www.springframework.org/schema/mvc 
-		http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd 
+
+
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context-3.1.xsd 
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
 		http://www.springframework.org/schema/tx 
-		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
+		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
-<context:annotation-config />
-<!--  swagger配置，需要扫描接口注解的包 和 swagger 配置类 |扫描定时任务bean  -->
-<context:component-scan base-package="activetech.base.config,activetech.task.xxljob"/>
-<!-- 获取编码 服务器启动时加载 redis上传 -->
-<bean class="activetech.base.listener.InitAllDictinfo" id="initAllDictinfo"/>
+<context:annotation-config/>
+    <!--  swagger配置，需要扫描接口注解的包 和 swagger 配置类  -->
+    <context:component-scan base-package="activetech.base.config"/>
+    <!--SwaggerConfig配置类注入-->
+    <bean class="activetech.base.config.SwaggerConfig" id="swaggerConfig"/>
+<bean class="activetech.task.xxljob.MyJob" id="myJob"/>
+    <!-- 获取编码 服务器启动时加载 redis上传 -->
+    <bean class="activetech.base.listener.InitAllDictinfo" id="initAllDictinfo"/>
 
-<!-- 数据库dstappoption表配置 -->
-<bean class="activetech.base.dbconfig.ApplicationConfig" id="applicationConfig"  />
+    <!-- 数据库dstappoption表配置 -->
+    <bean class="activetech.base.dbconfig.ApplicationConfig" id="applicationConfig"/>
 
-<!-- Spring上下文工具 -->
-<bean class="activetech.base.service.SpringContextUtil"  id="springContextUtil"/>
+    <!-- Spring上下文工具 -->
+    <bean class="activetech.base.service.SpringContextUtil" id="springContextUtil"/>
 
-
-<bean class="activetech.base.util.MinIoUtil"  id="minIoUtil" />
+<bean class="activetech.base.util.MinIoUtil" id="minIoUtil"/>
 <!--    钉钉-->
     <bean class="activetech.base.config.DingTalkConfig"  id="DingTalkConfig" />
     <bean class="activetech.base.util.DingTalkUtil"  id="DingTalkUtil" />
@@ -36,13 +38,13 @@
 <bean id="WeixinUtil" class="activetech.base.util.WeixinqyUtil"></bean>
 
     <!-- 试用下hikari 连接池，据说是java速度最快的数据库连接池 -->
-<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-    <property name="driverClassName" value="${jdbc.driver}" />
-    <property name="jdbcUrl" value="${jdbc.url}" />
-    <property name="username" value="${jdbc.username}" />
-    <property name="password" value="${jdbc.password}" />
-    <property name="maximumPoolSize" value="${jdbc.maxActive}" />
-    <property name="minimumIdle" value="10" />
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+    <property name="driverClassName" value="${jdbc.driver}"/>
+    <property name="jdbcUrl" value="${jdbc.url}"/>
+    <property name="username" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.password}"/>
+    <property name="maximumPoolSize" value="${jdbc.maxActive}"/>
+    <property name="minimumIdle" value="10"/>
     <property name="dataSourceProperties">
         <props>
             <prop key="cachePrepStmts">true</prop>
@@ -53,54 +55,54 @@
     </property>
 </bean>
 
-<!-- 关联数据库连接池Sqlserver -->
-<!--<bean id="dataSource_hzszyy_mssql" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">-->
-<!--       <property name="driverClassName" value="${jdbc.driver.hzszyy.mssql}"/>-->
-<!--		<property name="jdbcUrl" value="${jdbc.url.hzszyy.mssql}"/>-->
-<!--		<property name="username" value="${jdbc.username.hzszyy.mssql}"/>-->
-<!--		<property name="password" value="${jdbc.password.hzszyy.mssql}"/>-->
-<!--		&lt;!&ndash; 开发阶段建议最大连接数据尽量少，够用即可 &ndash;&gt;-->
-<!--		<property name="maximumPoolSize" value="${jdbc.maxActive.hzszyy.mssql}"/>-->
-<!--		<property name="minimumIdle" value="${jdbc.maxIdle.hzszyy.mssql}"/>-->
-<!--</bean>-->
+    <!-- 关联数据库连接池Sqlserver -->
+    <!--<bean id="dataSource_hzszyy_mssql" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">-->
+    <!--       <property name="driverClassName" value="${jdbc.driver.hzszyy.mssql}"/>-->
+    <!--		<property name="jdbcUrl" value="${jdbc.url.hzszyy.mssql}"/>-->
+    <!--		<property name="username" value="${jdbc.username.hzszyy.mssql}"/>-->
+    <!--		<property name="password" value="${jdbc.password.hzszyy.mssql}"/>-->
+    <!--		&lt;!&ndash; 开发阶段建议最大连接数据尽量少，够用即可 &ndash;&gt;-->
+    <!--		<property name="maximumPoolSize" value="${jdbc.maxActive.hzszyy.mssql}"/>-->
+    <!--		<property name="minimumIdle" value="${jdbc.maxIdle.hzszyy.mssql}"/>-->
+    <!--</bean>-->
 
-<!--&lt;!&ndash; 关联卒中数据库连接池Sqlserver &ndash;&gt;-->
-<!--<bean id="dataSource_hzszyy_czmssql" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">-->
-<!--       <property name="driverClassName" value="${jdbc.driver.hzszyy.czmssql}"/>-->
-<!--		<property name="jdbcUrl" value="${jdbc.url.hzszyy.czmssql}"/>-->
-<!--		<property name="username" value="${jdbc.username.hzszyy.czmssql}"/>-->
-<!--		<property name="password" value="${jdbc.password.hzszyy.czmssql}"/>-->
-<!--		&lt;!&ndash; 开发阶段建议最大连接数据尽量少，够用即可 &ndash;&gt;-->
-<!--		<property name="maximumPoolSize" value="${jdbc.maxActive.hzszyy.mssql}"/>-->
-<!--		<property name="minimumIdle" value="${jdbc.maxIdle.hzszyy.czmssql}"/>-->
-<!--</bean>-->
+    <!--&lt;!&ndash; 关联卒中数据库连接池Sqlserver &ndash;&gt;-->
+    <!--<bean id="dataSource_hzszyy_czmssql" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">-->
+    <!--       <property name="driverClassName" value="${jdbc.driver.hzszyy.czmssql}"/>-->
+    <!--		<property name="jdbcUrl" value="${jdbc.url.hzszyy.czmssql}"/>-->
+    <!--		<property name="username" value="${jdbc.username.hzszyy.czmssql}"/>-->
+    <!--		<property name="password" value="${jdbc.password.hzszyy.czmssql}"/>-->
+    <!--		&lt;!&ndash; 开发阶段建议最大连接数据尽量少，够用即可 &ndash;&gt;-->
+    <!--		<property name="maximumPoolSize" value="${jdbc.maxActive.hzszyy.mssql}"/>-->
+    <!--		<property name="minimumIdle" value="${jdbc.maxIdle.hzszyy.czmssql}"/>-->
+    <!--</bean>-->
 
-<bean id="dynamicDataSource" class="activetech.base.core.DynamicDataSource">
+    <bean id="dynamicDataSource" class="activetech.base.core.DynamicDataSource">
         <property name="targetDataSources">  
             <map>  
             	<!--key  数据源别名，用来切换数据源的键；value-ref 数据源 id-->
                 <entry value-ref="dataSource" key="basedb"></entry>
-<!--                <entry value-ref="dataSource_hzszyy_mssql" key="hzszyy_mssql"></entry> -->
-<!--                <entry value-ref="dataSource_hzszyy_czmssql" key="hzszyy_czmssql"></entry> -->
+                <!--                <entry value-ref="dataSource_hzszyy_mssql" key="hzszyy_mssql"></entry> -->
+                <!--                <entry value-ref="dataSource_hzszyy_czmssql" key="hzszyy_czmssql"></entry> -->
             </map>  
-        </property>  
+        </property>
         <!-- 默认数据库 -->
         <property name="defaultTargetDataSource" ref="dataSource">
         </property>
 </bean>
-    
 
-<!-- 事务管理器 -->
-<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 	<!-- 数据源 -->
-	<property name="dataSource" ref="dynamicDataSource"/>
+        <property name="dataSource" ref="dynamicDataSource"/>
 </bean>
 
-<!-- 通知 -->
-<tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <!-- 通知 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
   <tx:attributes>
      <!-- 传播行为 -->
-    <tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+      <tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
     <tx:method name="submit*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
     <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
     <tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
@@ -117,10 +119,10 @@
   </tx:attributes>
 </tx:advice>
 
-<!-- 切面 -->
-<aop:config proxy-target-class="true">
+    <!-- 切面 -->
+    <aop:config proxy-target-class="true">
   <aop:advisor advice-ref="txAdvice"
-  pointcut="execution(* activetech.*.service.impl.*.*(..))"/>
+               pointcut="execution(* activetech.*.service.impl.*.*(..))"/>
 </aop:config>
 
 

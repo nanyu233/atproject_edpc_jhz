@@ -1,21 +1,6 @@
 package activetech.websocket.task;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import activetech.base.pojo.dto.HighChartsDemoCustom;
-import activetech.base.pojo.dto.HighChartsDemoCustomDto;
-import activetech.basehis.service.OracleHisService;
-import activetech.hospital.pojo.dto.HspemginfCustom;
-import activetech.hospital.pojo.dto.HspemginfQueryDto;
-import activetech.hospital.service.HspreportService;
-import activetech.websocket.action.WebSocketBigScreen;
 
 @Component
 public class BigScreenTask {
@@ -65,5 +50,5 @@ public class BigScreenTask {
 //		map.put("jznlxbList",jznlxbList);
 //		webSocketBigScreen.sendMessageToAllAwaiting(map);
 //    }
-	
+
 }
