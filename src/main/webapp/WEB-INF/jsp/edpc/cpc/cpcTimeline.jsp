@@ -186,7 +186,7 @@
 <form id="timelineform" name="timelineform" action="${baseurl}report/exportjhz.do" method="post">
     <input type="text" class="hidden" id="regSeq" name="regSeq" value="${regSeq}"/>
     <div class="chart_grp chartbox">
-        <div class="form_cat border-radius box-shadow" style="margin-bottom: 0">
+        <div class="form_cat border-radius box-shadow" style="margin-bottom: 0;overflow: auto">
             <div class="basic-info" style="height: 35px;">
                 <span class="item">姓名：<span class="name">{{info.cstNam}}</span></span>
                 <span class="item">年龄：<span class="value">{{info.cstAge}}{{info.cstAgeCodInf || '岁'}}</span></span>
