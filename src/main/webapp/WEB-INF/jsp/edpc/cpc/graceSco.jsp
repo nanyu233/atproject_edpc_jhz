@@ -23,17 +23,17 @@
         }
 
         table tr th {
-            width: 350px;
+            /*width: 350px;*/
         }
 
         table tr td:nth-child(1) {
             /*width: 700px;*/
-            width: 376.6px;
+            /*width: 376.6px;*/
         }
 
         table tr td:nth-child(2) {
             /*width: 300px;*/
-            width: 35.8%;
+            /*width: 35.8%;*/
         }
 
         ul {
@@ -53,11 +53,11 @@
         }
 
         ul li:hover {
-            background-color: #f1f1f1;
+            background-color: #eaf2ff;
         }
 
         ul .active {
-            background-color: #f1f1f1;
+            background-color: #eaf2ff;
         }
 
         ul li div {
@@ -86,6 +86,19 @@
         .panelGde table .oddItems {
             background-color: #e5f6ff
         }
+        .save-btn{
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+            width: 120px;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 5px;
+            background: #0d478f;
+            color: #ffffff;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="nursingSco" style="width: 80%;margin:10px auto">
@@ -106,25 +119,63 @@
             <div class="panelGde">
                 <div class="BradenContent panelContent">
                     <table>
-                        <thead>
+                        <tbody>
                             <tr>
-                                <td colspan="2" align="center">
+                                <td colspan="1" align="center" style="width: 20%" v-for="(item, index) in headList" :key="index">
+                                    {{item}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" align="center" style="width: 20%">
+                                    {{result.cstAge}}
+                                </td>
+                                <td colspan="1" align="center" style="width: 20%">
+                                    {{result.hrtRte}}
+                                </td>
+                                <td colspan="1" align="center" style="width: 20%">
+                                    {{result.sbpupNbr}}
+                                </td>
+                                <td colspan="1" align="center" style="width: 20%">
+                                    {{result.jgdb}}
+                                </td>
+                                <td colspan="1" align="center" style="width: 20%">
+                                    {{killip}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" align="center">
                                     评分项目
                                 </td>
-                                <td colspan="1" align="center">
+                                <td colspan="2" align="center">
                                     分值
                                 </td>
                             </tr>
-                        </thead>
-                        <tbody>
                             <tr v-for="(item, index) in scoList">
-                                <th>{{item.name}}</th>
-                                <td colspan="2">
+                                <th colspan="1">{{item.name}}</th>
+                                <td colspan="4">
                                     <ul>
                                         <li v-for="(ageItem, ageIndex) in item.ageList"
                                             @click="liClick(item,ageItem,ageIndex)"
                                             :class="[allScore[ageItem.type] == ageItem.score? 'active':'']">
                                             <div>
+                                                {{ageItem.name}}
+                                            </div>
+                                            <div>
+                                                {{ageItem.score}}
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr v-for="(item, index) in wxysArr">
+                                <th colspan="1">{{item.name}}</th>
+                                <td colspan="4">
+                                    <ul>
+                                        <li v-for="(ageItem, ageIndex) in item.ageList"
+                                            @click="liClick(item,ageItem,ageIndex)"
+                                            :class="[wxysResArr.includes(ageIndex + 1 + '')? 'active':'']">
+                                            <div>
+                                                <input ref="checkbox" type="checkbox">
                                                 {{ageItem.name}}
                                             </div>
                                             <div>
@@ -142,6 +193,7 @@
                         <%--                        <a class="easyui-linkbutton addbtn" iconCls="icon-ok" id="submitbtn" onclick="saveAndImport()">保存并导入</a>--%>
                         <%--                        <a class="easyui-linkbutton closebtn" iconCls="icon-cancel" id="closebtn" onclick="parent.closemodalwindow()">关闭</a>--%>
                         <%--                    </div>--%>
+                        <div class="save-btn" @click="commit()">保存</div>
                     </div>
                 </div>
             </div>
@@ -167,11 +219,13 @@
                 sbpupNbrScore: null,
                 jgdbScore: null,
                 killipScore: null,
-                rfScore: null
+                rfScore: 0
             },
             graceScore: 0,
+            result: {},
+            headList: ['年龄（岁）','心率（次/分）','收缩压（mmHg）','血肌酐（mg/dL）','Killip分级'],
+            killpList:  publicFun.getDict('XT_KILLIP_COD') || [],
             WXYSList: publicFun.getDict('XT_WXYS_COD') || [],
-
             cstAge: [
                 {
                     max: 29,
@@ -324,6 +378,34 @@
                     min: 4,
                     flgSco: 7
                 },
+            ],
+            wxysResArr:[],
+            wxysArr: [
+                {
+                    name: '危险因素',
+                    ageList: [
+                        {
+                            type: 'rfScore',
+                            name: '发病后曾出现心脏骤停',
+                            score: 39,
+                            infocode: '1'
+                        },
+                        {
+                            type: 'rfScore',
+                            name: '心电图ST段改变',
+                            score: 28,
+                            infocode: '2'
+
+                        },
+                        {
+                            type: 'rfScore',
+                            name: '心肌坏死标志物升高',
+                            score: 14,
+                            infocode: '3'
+
+                        }
+                    ]
+                }
             ],
             scoList: [
                 {
@@ -515,31 +597,21 @@
                             score: 59
                         }
                     ]
-                },
-                {
-                    name: '危险因素',
-                    ageList: [
-                        {
-                            type: 'rfScore',
-                            name: '发病后曾出现心脏骤停',
-                            score: 39
-                        },
-                        {
-                            type: 'rfScore',
-                            name: '心电图ST段改变',
-                            score: 28
-                        },
-                        {
-                            type: 'rfScore',
-                            name: '心肌坏死标志物升高',
-                            score: 14
-                        }
-                    ]
                 }
             ]
         },
         created() {
             this.getGraceInfo()
+        },
+        computed: {
+            killip() {
+                if (this.result.killip) {
+                    let arr = this.killpList.filter(item => {
+                        return item.infocode == this.result.killip
+                    })
+                    return arr[0].info
+                }
+            }
         },
         methods: {
             getGraceInfo() {
@@ -555,13 +627,13 @@
                     }),
                     success: function (res) {
                         if (res && res.resultInfo.sysdata.hasOwnProperty('hspGraceInf')) {
-                            let result = res.resultInfo.sysdata.hspGraceInf
-                            that.graceScore = result.total
+                            that.result = res.resultInfo.sysdata.hspGraceInf
+                            that.graceScore = that.result.total
                             let arr = ['cstAge', 'hrtRte', 'sbpupNbr']
                             arr.forEach(item => {
-                                if (result.hasOwnProperty(item) && result[item]) {
+                                if (that.result.hasOwnProperty(item) && that.result[item]) {
                                     let itemSco = that[item].filter(item1 => {
-                                        if (result[item] >= item1.min && result[item] <= item1.max) {
+                                        if (that.result[item] >= item1.min && that.result[item] <= item1.max) {
                                             return true
                                         }
                                     })
@@ -569,21 +641,23 @@
                                 }
                             })
 
-                            if (result.wxys == 1) {
-                                that.allScore.rfScore = 39
-                            } else if (result.wxys == 2) {
-                                that.allScore.rfScore = 28
-                            } else if (result.wxys == 3) {
-                                that.allScore.rfScore = 14
+                            // wxys得分·
+                            let wxysSco = [39, 28, 14]
+                            if (that.result.wxys) {
+                                that.wxysResArr = that.result.wxys.split(',')
+                                that.wxysResArr.forEach(item => {
+                                    that.$refs.checkbox[item - 1].checked = true
+                                    that.allScore.rfScore += wxysSco[item - 1]
+                                })
                             }
-
-                            if (result.killip == 1) {
+                            // killip得分
+                            if (that.result.killip == 1) {
                                 that.allScore.killipScore = 0
-                            } else if (result.killip == 2) {
+                            } else if (that.result.killip == 2) {
                                 that.allScore.killipScore = 20
-                            } else if (result.killip == 3) {
+                            } else if (that.result.killip == 3) {
                                 that.allScore.killipScore = 39
-                            } else if (result.killip == 4) {
+                            } else if (that.result.killip == 4) {
                                 that.allScore.killipScore = 59
                             }
 
@@ -595,13 +669,46 @@
             liClick(item, ageItem, ageIndex) {
                 this.allScore[ageItem.type] = ageItem.score
                 let result = 0
-                for (let key in this.allScore) {
-                    if (this.allScore[key]) {
-                        result += this.allScore[key]
+
+                // 危险因素多选得分单独计算
+                if (ageItem.type === 'rfScore') {
+                    if (this.wxysResArr.indexOf(ageItem.infocode) > -1) {
+                        this.wxysResArr.splice(this.wxysResArr.indexOf(ageItem.infocode), 1)
+                        this.$refs.checkbox[ageIndex].checked = false
+                    }else {
+                        this.wxysResArr.push(ageItem.infocode)
+                        this.$refs.checkbox[ageIndex].checked = true
                     }
                 }
+                for (let key in this.allScore) {
+                    if (key !== 'rfScore' && this.allScore[key]) {
+                        result += this.allScore[key]
+                    }else if (key === 'rfScore'){
+                        let wxysSco = [39, 28, 14]
+                        this.wxysResArr.forEach(item => {
+                            result += wxysSco[item - 1]
+                        })
+                    }
+                }
+                console.log(this.allScore, this.wxysResArr)
                 this.graceScore = result
 
+            },
+            commit() {
+                parent.publicFun.ajaxLoading('保存中 请稍等。。。')
+                $.ajax({
+                    url: '',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify(),
+                    success: function(res) {
+
+                    },
+                });
+                setTimeout(() => {
+                        parent.publicFun.ajaxLoadEnd()
+                },1000)
             }
         }
 
