@@ -81,7 +81,8 @@ public class OracleHisServiceImpl implements OracleHisService {
 	private VHemsJcjgMapperCustom vHemsJcjgMapperCustom;
 	@Autowired
 	private YZMapper yzMapper;
-
+	@Autowired
+	private VHemsEmpiMapper vHemsEmpiMapper;
 
 	/**
 	 * @param	vHemsGhlbQueryDto
@@ -444,5 +445,24 @@ public class OracleHisServiceImpl implements OracleHisService {
 		cfxxList.sort(Comparator.comparingLong(HspCfxxInfoCustom::getStartTimeLong).thenComparing(HspCfxxInfoCustom::getDaSeq));
 		return cfxxList;
 	}
-	
+
+
+	@Override
+	public VHemsEmpi selectEmpiByHis(String cardNo,String cardType,String trackData) throws Exception {
+		VHemsEmpi vHemsEmpi=new VHemsEmpi();
+		Map<String,Object> map=new HashMap<String,Object>();
+		if(StringUtils.isNotNullAndEmptyByTrim(cardType)){
+			if("4".equals(cardType)){
+				map.put("sfzh",cardNo);
+			}
+			else if("basy".equals(cardType)){
+				map.put("mpi",cardNo);
+			}
+			else{
+				map.put("zlkh", cardNo);
+			}
+			vHemsEmpi=vHemsEmpiMapper.selectEmpiByHis(map);
+		}
+		return  vHemsEmpi;
+	}
 }

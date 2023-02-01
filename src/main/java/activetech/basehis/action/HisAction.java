@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import activetech.util.HttpClientUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,7 +64,8 @@ public class HisAction {
 	private OracleHisService oracleHisService;
 	@Autowired
 	private BaseHspemgInfService baseHspemgInfService;
-
+	@Autowired
+	private SystemConfigService systemConfigService;
 
 	/**
 	 * 获取已挂号列表
@@ -186,7 +189,68 @@ public class HisAction {
 		}
 		return dataGridResultInfo;*/
 	}
-	
 
-	
+	/**
+	 * 预检页-查询患者信息-HIS
+	 *
+	 * @param
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/getPatientInf")
+	public @ResponseBody
+	SubmitResultInfo getPatientInf(String cardNo,String cardType,String trackData) throws Exception {
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906,null);
+
+
+		String IS_JKXM = systemConfigService.findAppoptionByOptkey("IS_JKXM").getOptvalue();
+		if(StringUtils.isNotNullAndEmptyByTrim(IS_JKXM) && "1".equals(IS_JKXM)){
+			// 开启接口项目
+			resultInfo = getPatientInf_jk(cardNo);
+		}else{
+			//集成接口代码
+			resultInfo = getLocalPatientInf(cardNo, cardType, trackData);
+		}
+		return ResultUtil.createSubmitResult(resultInfo);
+
+	}
+	private ResultInfo getLocalPatientInf(String cardNo,String cardType,String trackData) throws Exception{
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906,null);
+
+		VHemsEmpi vHemsEmpi = oracleHisService.selectEmpiByHis(cardNo, cardType, trackData);
+		Map<String, Object> sysdata = new HashMap<String, Object>();
+		sysdata.put("vHemsEmpi", vHemsEmpi);
+		resultInfo.setSysdata(sysdata);
+		return resultInfo;
+
+	}
+
+
+	private ResultInfo getPatientInf_jk(String cardNo) throws Exception{
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906,null);
+		String JKXM_IP = systemConfigService.findAppoptionByOptkey("JKXM_IP").getOptvalue();
+		String url = JKXM_IP+"his/getPatientInfo.do";
+		JSONObject param = new JSONObject();
+		param.put("cardNo", cardNo);
+		logger.info("患者信息请求："+param);
+		String reVal = HttpClientUtil.doPostJson(url, param.toJSONString(),10*1000);
+		logger.info("患者信息返回："+reVal);
+		if(reVal != null){
+			JSONObject dataObject = JSONObject.parseObject(reVal).getJSONObject("resultInfo");
+			String code = dataObject.getString("code");
+			if("200".equals(code)){
+				JSONObject data = dataObject.getJSONObject("data");
+				JSONObject sysdata = new JSONObject();
+				sysdata.put("vHemsEmpi", data);
+				resultInfo.setSysdata(sysdata);
+			}else if(code != null) {
+				String msg = dataObject.getString("msg");
+				logger.info("患者信息报错："+msg);
+			}
+		}
+		return resultInfo;
+	}
+
+
+
 }

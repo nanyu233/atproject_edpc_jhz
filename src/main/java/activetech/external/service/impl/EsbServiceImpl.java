@@ -7,7 +7,7 @@ import activetech.base.process.result.ResultUtil;
 import activetech.edpc.dao.mapper.HspDbzlBasMapper;
 import activetech.edpc.dao.mapper.HspXtAddMapper;
 import activetech.edpc.pojo.domain.HspDbzlBas;
-import activetech.edpc.pojo.domain.HspXtAdd;
+import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.external.dao.mapper.HspEcgInfMapper;
 import activetech.external.dao.mapper.HspEcgInfMapperCustom;
 import activetech.external.dao.mapper.VHemsJcjgMapperCustom;
@@ -15,7 +15,6 @@ import activetech.external.dao.mapper.VHemsJyjgMapper;
 import activetech.external.pojo.domain.*;
 import activetech.external.service.EsbService;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
-import activetech.hospital.pojo.domain.HspEmgInf;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -222,6 +221,11 @@ public class EsbServiceImpl implements EsbService{
 		hspEcgInf.setCrtUser(activeUser.getUsrno());
 		hspEcgInfMapperCustom.addOrUpdateEcgInf(hspEcgInf);
 		return resultInfo;
+	}
+
+	@Override
+	public void insertHspDbzlBasForCust(HspDbzlBasCustom hspDbzlBasCustom) throws Exception{
+		hspDbzlBasMapper.insertSelective(hspDbzlBasCustom);
 	}
 
 }

@@ -31,5 +31,22 @@
 		)
 		where rownum = 1
 	</select>
-  
+
+
+	<select id="selectEmpiByHis" parameterType="java.util.Map" resultMap="VHemsEmpiCustomMap">
+		select * from(
+			select mpi,xm,sfzh,xb,csny,nl,zlkh,lxdh,jtzz,jdrq,gj,mz,zy,gzdw,hy,lxr,lxrgx,lxrdz,lxrdh from V_HEMS_EMPI
+			<where>
+				<if test="sfzh!=null and sfzh!=''">
+					and sfzh=#{sfzh}
+				</if>
+				<if test="zlkh!=null and zlkh!=''">
+					and zlkh=#{zlkh}
+				</if>
+				<if test="mpi!=null and mpi!=''">
+					and mpi=#{mpi}
+				</if>
+			</where>
+			order by jdrq desc nulls last) where rownum=1
+	</select>
 </mapper>

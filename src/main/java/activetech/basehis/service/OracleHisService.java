@@ -61,4 +61,12 @@ public interface OracleHisService {
 	List<VHemsJcjgCustom> findJcjg(VHemsJyjgQueryDto vHemsJyjgQueryDto)throws Exception;
 
 	List<HspCfxxInfoCustom> findCfxxLocalAndHISList(HspCfxxInfoQueryDto hspCfxxInfoQueryDto) throws Exception;
+
+	/**
+	 * 根据卡号获取患者信息
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public  VHemsEmpi selectEmpiByHis(String cardNo,String cardType,String trackData) throws Exception;
 }
