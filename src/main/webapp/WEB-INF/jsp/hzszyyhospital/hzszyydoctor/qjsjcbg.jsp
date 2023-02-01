@@ -76,7 +76,7 @@
         striped: true,
         singleSelect: true,
         rownumbers: true,
-        url: '${baseurl}zyylqblqrb/queryjcbg_result.do',
+        url: '${baseurl}zyyqjs/queryjcbg_result.do',
         queryParams: {
           "vHemsJcjgCustom.zyh": '${MPI}',
           "vHemsJcjgCustom.startdate": startdate,

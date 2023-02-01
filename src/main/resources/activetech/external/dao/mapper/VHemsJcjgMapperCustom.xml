@@ -79,9 +79,35 @@
 	      order by ${orderByClause}
 	    </if>
    </select>
-   
-   <select id="findVHemsJcjgList">
-   
+    <sql id="query_pacsMzV_where">
+        <if test="vHemsJcjgCustom!=null">
+            <if test="vHemsJcjgCustom.zyh!=null and vHemsJcjgCustom.zyh!=''">
+                and zyh = #{vHemsJcjgCustom.zyh}
+            </if>
+            <if test="vHemsJcjgCustom.mpi!=null and vHemsJcjgCustom.mpi!=''">
+                and MPI = #{vHemsJcjgCustom.mpi}
+            </if>
+            <if test="vHemsJcjgCustom.startdate!=null and vHemsJcjgCustom.startdate!=''">
+                and shrq <![CDATA[>=]]> #{vHemsJcjgCustom.startdate,jdbcType=DATE}
+            </if>
+            <if test="vHemsJcjgCustom.enddate!=null and vHemsJcjgCustom.enddate!=''">
+                and shrq <![CDATA[<]]> #{vHemsJcjgCustom.enddate,jdbcType=DATE}
+            </if>
+        </if>
+    </sql>
+   <select id="findVHemsJcjgList" parameterType="activetech.external.pojo.dto.VHemsJyjgQueryDto"
+           resultMap="BaseResultMap">
+       select mpi,
+       zyh,
+       to_char(SHRQ, 'yyyy-mm-dd hh24:mi:ss') shrq,
+       YLMC ylmc,
+       see,
+       jcjg,
+       jcysxm
+       from V_HEMS_JCJG
+       where shrq is not null
+       <include refid="query_pacsMzV_where" />
+       order by shrq asc
    </select>
   		
 </mapper>

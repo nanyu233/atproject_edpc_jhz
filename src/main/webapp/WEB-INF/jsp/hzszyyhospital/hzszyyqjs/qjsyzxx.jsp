@@ -339,13 +339,14 @@
   <form id="jcbgForm">
     <!-- html的静态布局 -->
     <!-- 查询条件 -->
-    <input type="hidden" id="kh" name="hspDocadviceInfCustom.vstCad" value="${vstCad}" />
-    <input type="hidden" id="emgSeq" name="hspDocadviceInfCustom.emgSeq" value="${emgSeq}" />
+    <%--<input type="hidden" id="kh" name="hspDocadviceInfCustom.vstCad" value="${vstCad}" />
+    <input type="hidden" id="emgSeq" name="hspDocadviceInfCustom.emgSeq" value="${emgSeq}" />--%>
+    <input type="hidden" id="mpi" name="hspCfxxInfoCustom.mpi" value="${mpi}"/>
     <div class="form clr">
       <p class="form-text" style="font-size:14px">日期：</p>
-      <input class="input-min-date Wdate" id="emg_startdate" type="text" name="hspDocadviceInfCustom.startdate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})">
+      <input class="input-min-date Wdate" id="emg_startdate" type="text" name="startdate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})">
       <p class="form-text">-</p>
-      <input class="input-min-date Wdate" id="emg_enddate" type="text" name="hspDocadviceInfCustom.enddate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})">
+      <input class="input-min-date Wdate" id="emg_enddate" type="text" name="enddate" onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})">
       <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btn" onclick="queryjcbg()">查询</a>
     </div>
     <!-- 查询列表 -->

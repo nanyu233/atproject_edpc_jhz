@@ -32,9 +32,10 @@
 	<!-- 区域是查询条件 通常情况，为了提高 sql片段可重用性，按单表创建sql片段 -->
 	<sql id="query_VHemsJyjg_where">
 		<if test="vHemsJyjgCustom!=null">
+			<!--
 			<if test="vHemsJyjgCustom.patientId!=null and vHemsJyjgCustom.patientId!=''">
 				and  PATIENT_ID = #{vHemsJyjgCustom.patientId}
-			</if>
+			</if>  -->
 			<if test="vHemsJyjgCustom.mpi!=null and vHemsJyjgCustom.mpi!=''">
 				and  MPI = #{vHemsJyjgCustom.mpi}
 			</if>
@@ -54,10 +55,10 @@
 	<select id="findJyxxCount" resultType="java.lang.Integer">
 		select count(*) from (
 		select distinct  SAMPLENO,
-		PATIENT_ID,
+		<!--PATIENT_ID,-->
 		MPI mpi,
 		EXAMINAIM,
-		to_char(RESULT_DATE_TIME, 'yyyy/mm/dd hh24:mi:ss') RESULT_DATE_TIME
+		to_char(RESULT_DATE_TIME, 'yyyy-mm-dd hh24:mi:ss') RESULT_DATE_TIME
 		from V_HEMS_JYJG
 		<where>
 			<include refid="query_VHemsJyjg_where" />
@@ -66,10 +67,10 @@
 	</select>
 	<select id="findJyxx" resultType="activetech.external.pojo.dto.VHemsJyjgCustom">
 		select distinct SAMPLENO,
-		PATIENT_ID,
+		<!--PATIENT_ID,-->
 		MPI mpi,
 		EXAMINAIM,
-		to_char(RESULT_DATE_TIME, 'yyyy/mm/dd hh24:mi:ss') RESULT_DATE_TIME
+		to_char(RESULT_DATE_TIME, 'yyyy-mm-dd hh24:mi:ss') RESULT_DATE_TIME
 		from V_HEMS_JYJG
 		<where>
 			<include refid="query_VHemsJyjg_where" />
@@ -86,10 +87,10 @@
 	<select id="findJyxxInfo" resultType="activetech.external.pojo.dto.VHemsJyjgCustom">
 		<include refid="activetech.base.CommonSql.page_start" />
 		select sampleno,
-		PATIENT_ID,
+		<!--PATIENT_ID,-->
 		MPI ,
 		EXAMINAIM ,
-		to_char(RESULT_DATE_TIME, 'yyyy/mm/dd hh24:mi:ss') RESULT_DATE_TIME,
+		to_char(RESULT_DATE_TIME, 'yyyy-mm-dd hh24:mi:ss') RESULT_DATE_TIME,
 		SAMPLE_NAME,
 		name,
 		result,
@@ -97,8 +98,8 @@
 		lower_limit,
 		report_item_name,
 		units,
-		sampleno  || rownum rownums,
-		ERRORFLAG
+		sampleno  || rownum rownums <!--,
+		ERRORFLAG -->
 		from V_HEMS_JYJG
 		<where>
 			REPORT_ITEM_NAME is not null
