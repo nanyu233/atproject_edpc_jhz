@@ -443,13 +443,15 @@ public class ZyyQjsAction {
      */
     @RequestMapping("/qjsyzxx")
     public String qjsyzxx(Model model, String moduleid, String emgSeq) throws Exception {
-        HspemginfCustom hspemginfCustom = zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
+        ResultInfo resultInfo = xtService.judgeNewPatient(emgSeq);
+        Map<String, Object> sysdata = resultInfo.getSysdata();
+        HspDbzlBasCustom hspDbzlBasCustom = (HspDbzlBasCustom) sysdata.get("hspDbzlBasCustom");
         model.addAttribute("emgSeq", emgSeq);
         model.addAttribute("moduleid", moduleid);
-        model.addAttribute("sqlDat", DateUtil.formatDateByFormat(hspemginfCustom.getSqlDate(), "yyyy/MM/dd HH:mm"));
-        model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd HH:mm"));
-        model.addAttribute("mpi", hspemginfCustom.getMpi());
-        model.addAttribute("hspemginfCustom", hspemginfCustom);
+        model.addAttribute("sqlDat", DateUtil.formatDateByFormat(new Date(), "yyyy/MM/dd HH:mm"));
+        model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspDbzlBasCustom.getRegTim(), "yyyy/MM/dd HH:mm"));
+        model.addAttribute("mpi", hspDbzlBasCustom.getMpi());
+        model.addAttribute("hspemginfCustom", hspDbzlBasCustom);
         return "/hzszyyhospital/hzszyyqjs/qjsyzxx";
     }
 
