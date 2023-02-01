@@ -128,14 +128,17 @@
                     src: '${baseurl}cpc/toGraceSco.do?emgSeq='  + '${emgSeq}'+'&wayTyp=' + '${wayTyp}' + '&regSeq=' +'${regSeq}'
                 },
                 {
-                    name: '检验信息'
+                    name: '检验信息',
+                    src:'${baseurl}zyyqjs/toqjscaseexaminenew.do?emgSeq='  + '${emgSeq}'
                 },
 
                 {
-                    name: '检查结果'
+                    name: '检查结果',
+                    src:'${baseurl}zyyqjs/qjsjcbg.do?emgSeq='+ '${emgSeq}'
                 },
                 {
-                    name: '医嘱信息'
+                    name: '医嘱信息',
+                    src:'${baseurl}zyyqjs/qjsyzxx.do?emgSeq='+ '${emgSeq}'
                 },
                 {
                     name: '会诊信息'

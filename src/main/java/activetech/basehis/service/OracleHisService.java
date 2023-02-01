@@ -13,6 +13,7 @@ import activetech.basehis.pojo.dto.VHemsGhlbQueryDto;
 import activetech.basehis.pojo.dto.VHemsRczCustom;
 import activetech.basehis.pojo.dto.VHemsSfxxCustom;
 import activetech.basehis.pojo.dto.VHemsSfxxDto;
+import activetech.external.pojo.dto.VHemsJcjgCustom;
 import activetech.external.pojo.dto.VHemsJyjgCustom;
 import activetech.external.pojo.dto.VHemsJyjgQueryDto;
 import activetech.hospital.pojo.dto.HspemginfCustom;
@@ -47,4 +48,17 @@ public interface OracleHisService {
 	public void sendDjhc(HspemginfQueryDto hspemginfQueryDto) throws Exception;
 
 	public List<VHemsJyjg> findRecentJyjg();
+
+	int findJyxxCount(VHemsJyjgQueryDto vHemsJyjgQueryDto ) throws Exception;
+
+	List<VHemsJyjgCustom> findJyxx(VHemsJyjgQueryDto vHemsJyjgQueryDto)throws Exception;
+
+	int findJyxxInfoCount(VHemsJyjgQueryDto vHemsJyjgQueryDto ) throws Exception;
+
+	List<VHemsJyjgCustom> findJyxxInfo(
+			VHemsJyjgQueryDto vHemsJyjgQueryDto ) throws Exception;
+
+	List<VHemsJcjgCustom> findJcjg(VHemsJyjgQueryDto vHemsJyjgQueryDto)throws Exception;
+
+	List<HspCfxxInfoCustom> findCfxxLocalAndHISList(HspCfxxInfoQueryDto hspCfxxInfoQueryDto) throws Exception;
 }

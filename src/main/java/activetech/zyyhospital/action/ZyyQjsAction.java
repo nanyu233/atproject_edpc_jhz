@@ -13,6 +13,12 @@ import activetech.base.service.CompctlService;
 import activetech.base.service.SystemConfigService;
 import activetech.base.service.UserService;
 import activetech.basehems.service.BaseHspemgInfService;
+import activetech.basehis.service.OracleHisService;
+import activetech.edpc.pojo.dto.HspDbzlBasCustom;
+import activetech.edpc.service.XtService;
+import activetech.external.pojo.dto.VHemsJcjgCustom;
+import activetech.external.pojo.dto.VHemsJyjgCustom;
+import activetech.external.pojo.dto.VHemsJyjgQueryDto;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import activetech.hospital.pojo.dto.HspsqlinfCustom;
@@ -23,6 +29,7 @@ import activetech.zyyhospital.pojo.dto.HspCheckCaseInfCustom;
 import activetech.zyyhospital.pojo.dto.QjsCountCustom;
 import activetech.zyyhospital.service.ZyyHspQjsInfService;
 import activetech.zyyhospital.service.ZyyHspemginfService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +37,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +60,10 @@ public class ZyyQjsAction {
     private CompctlService compctlService;
     @Resource
     private BaseHspemgInfService baseHspemgInfService;
+    @Resource
+    private XtService xtService;
+    @Resource
+    private OracleHisService oracleHisService;
 
     /**
      * 跳转转归登记页面
@@ -406,19 +418,21 @@ public class ZyyQjsAction {
      * @return
      * @throws Exception
      */
-//	@RequestMapping("/qjsjcbg")
-//	public String qjsjcbg(Model model,String moduleid,String emgSeq) throws Exception {
-//		model.addAttribute("emgSeq", emgSeq);
-//		model.addAttribute("moduleid", moduleid);
-//		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
-//		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
-//		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
-//		model.addAttribute("hspemginfCustom", hspemginfCustom);
-//		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
-//		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
-//		model.addAttribute("MPI", hspemginfCustom.getMpi());
-//		return "/hzszyyhospital/hzszyydoctor/qjsjcbg";
-//	}
+    @RequestMapping("/qjsjcbg")
+    public String qjsjcbg(Model model,String moduleid,String emgSeq) throws Exception {
+        model.addAttribute("emgSeq", emgSeq);
+        model.addAttribute("moduleid", moduleid);
+        ResultInfo resultInfo = xtService.judgeNewPatient(emgSeq);
+        Map<String, Object> sysdata = resultInfo.getSysdata();
+        HspDbzlBasCustom hspDbzlBasCustom = (HspDbzlBasCustom) sysdata.get("hspDbzlBasCustom");
+		/*HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
+		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());*/
+        model.addAttribute("hspemginfCustom", hspDbzlBasCustom);
+        model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspDbzlBasCustom.getRegTim(), "yyyy/MM/dd"));
+        model.addAttribute("vstCad", hspDbzlBasCustom.getVstCad());
+        model.addAttribute("MPI", hspDbzlBasCustom.getMpi());
+        return "/hzszyyhospital/hzszyydoctor/qjsjcbg";
+    }
 
     /**
      * 跳转医嘱信息
@@ -446,19 +460,115 @@ public class ZyyQjsAction {
      * @return
      * @throws Exception
      */
-//	@RequestMapping("/toqjscaseexaminenew")
-//	public String toqjscaseexaminenew(Model model,String moduleid,String emgSeq) throws Exception {
-//		model.addAttribute("emgSeq", emgSeq);
-//		model.addAttribute("moduleid", moduleid);
-//		HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
-//		HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
-//		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
-//		model.addAttribute("hspemginfCustom", hspemginfCustom);
-//		model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspemginfCustom.getEmgDat(), "yyyy/MM/dd"));
-//		model.addAttribute("vstCad", hspemginfCustom.getVstCad());
-//		model.addAttribute("MPI", hspemginfCustom.getMpi());
-//		return "/hzszyyhospital/hzszyydoctor/newqjscaseexamine";
-//	}
+    @RequestMapping("/toqjscaseexaminenew")
+    public String toqjscaseexaminenew(Model model,String moduleid,String emgSeq) throws Exception {
+        model.addAttribute("emgSeq", emgSeq);
+        model.addAttribute("moduleid", moduleid);
+        //HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
+		/*HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
+		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
+		model.addAttribute("hspemginfCustom", hspemginfCustom);*/
+        if (StringUtils.isNotNullAndEmptyByTrim(emgSeq)){
+            ResultInfo resultInfo = xtService.judgeNewPatient(emgSeq);
+            Map<String, Object> sysdata = resultInfo.getSysdata();
+            HspDbzlBasCustom hspDbzlBasCustom = (HspDbzlBasCustom) sysdata.get("hspDbzlBasCustom");
+            model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspDbzlBasCustom.getRegTim(), "yyyy/MM/dd"));
+            model.addAttribute("vstCad", hspDbzlBasCustom.getVstCad());
+            model.addAttribute("MPI", hspDbzlBasCustom.getMpi());
+        }
+        return "/hzszyyhospital/hzszyydoctor/newqjscaseexamine";
+    }
+
+    /**
+     * 检验信息结果集
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryexamine_result")
+    public @ResponseBody DataGridResultInfo queryexamine_result(Model mode,
+                                                                VHemsJyjgQueryDto vHemsJyjgQueryDto,
+                                                                String sort,
+                                                                String order
+    ) throws Exception{
+        //首次查询时默认赋值系统当天日期
+        if(vHemsJyjgQueryDto.getvHemsJyjgCustom().getEnddate() != null){
+            Date endDate = DateUtil.getNextDay(vHemsJyjgQueryDto.getvHemsJyjgCustom().getEnddate());
+            vHemsJyjgQueryDto.getvHemsJyjgCustom().setEnddate(endDate);
+        }
+        //查询列表的总数
+        if(!StringUtils.isNotNullAndEmptyByTrim(sort)){
+            vHemsJyjgQueryDto.setSort("resultDateTime");
+        }
+        if(!StringUtils.isNotNullAndEmptyByTrim(order)){
+            vHemsJyjgQueryDto.setOrder("asc");
+        }
+        int total =oracleHisService.findJyxxCount(vHemsJyjgQueryDto);
+        List<VHemsJyjgCustom> list =oracleHisService.findJyxx(vHemsJyjgQueryDto);
+
+        DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+        //填充total
+        dataGridResultInfo.setTotal(total);
+        //填充rows
+        dataGridResultInfo.setRows(list);
+        return dataGridResultInfo;
+    }
+
+    /**
+     * 检验信息详细结果集
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryexamineinfo_result")
+    public @ResponseBody DataGridResultInfo queryexamineinfo_result(Model mode,
+                                                                    VHemsJyjgQueryDto vHemsJyjgQueryDto,
+                                                                    int page,//当前页码
+                                                                    int rows//每页显示个数
+    ) throws Exception{
+        //首次查询时默认赋值系统当天日期
+        if(vHemsJyjgQueryDto.getvHemsJyjgCustom().getEnddate() != null){
+            Date endDate = DateUtil.getNextDay(vHemsJyjgQueryDto.getvHemsJyjgCustom().getEnddate());
+            vHemsJyjgQueryDto.getvHemsJyjgCustom().setEnddate(endDate);
+        }
+        int total =oracleHisService.findJyxxInfoCount(vHemsJyjgQueryDto);
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setPageParams(total, rows, page);
+        vHemsJyjgQueryDto.setPageQuery(pageQuery);
+        List<VHemsJyjgCustom> list =oracleHisService.findJyxxInfo(vHemsJyjgQueryDto);
+
+        DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+        //填充total
+        dataGridResultInfo.setTotal(total);
+        //填充rows
+        dataGridResultInfo.setRows(list);
+        return dataGridResultInfo;
+    }
+
+    /**
+     * 检查报告结果集
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryjcbg_result")
+    public @ResponseBody DataGridResultInfo queryjcbg_result(
+            VHemsJyjgQueryDto vHemsJyjgQueryDto,
+            String sort,
+            String order
+    ) throws Exception{
+        //首次查询时默认赋值系统当天日期
+        if(vHemsJyjgQueryDto.getvHemsJcjgCustom().getEnddate() != null){
+            Date endDate = DateUtil.getNextDay(vHemsJyjgQueryDto.getvHemsJcjgCustom().getEnddate());
+            vHemsJyjgQueryDto.getvHemsJcjgCustom().setEnddate(endDate);
+        }
+        List<VHemsJcjgCustom> list =oracleHisService.findJcjg(vHemsJyjgQueryDto);
+
+        DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+        //填充total
+        dataGridResultInfo.setTotal(list.size());
+        //填充rows
+        dataGridResultInfo.setRows(list);
+        return dataGridResultInfo;
+    }
+
 
 
     /**

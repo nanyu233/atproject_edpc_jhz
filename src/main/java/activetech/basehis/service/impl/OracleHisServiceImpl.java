@@ -13,7 +13,10 @@ import activetech.basehis.pojo.domain.VHemsJyjg;
 import activetech.basehis.pojo.domain.VHemsRcz;
 import activetech.basehis.pojo.dto.*;
 import activetech.basehis.service.OracleHisService;
+import activetech.external.dao.mapper.VHemsJcjgMapperCustom;
+import activetech.external.dao.mapper.VHemsJyjgMapper;
 import activetech.external.dao.mapper.VHemsJyjgMapperCustom;
+import activetech.external.pojo.dto.VHemsJcjgCustom;
 import activetech.external.pojo.dto.VHemsJyjgCustom;
 import activetech.external.pojo.dto.VHemsJyjgQueryDto;
 import activetech.hl7.base.HL7Util;
@@ -72,7 +75,13 @@ public class OracleHisServiceImpl implements OracleHisService {
 	private ZyyHspemginfCustomMapper zyyHspemginfCustomMapper;
 	@Autowired
 	private VHemsJyjgMapperSi vHemsJyjgMapperSi;
-	
+	@Autowired
+	private VHemsJyjgMapper vHemsJyjgMapper;
+	@Autowired
+	private VHemsJcjgMapperCustom vHemsJcjgMapperCustom;
+	@Autowired
+	private YZMapper yzMapper;
+
 
 	/**
 	 * @param	vHemsGhlbQueryDto
@@ -368,6 +377,72 @@ public class OracleHisServiceImpl implements OracleHisService {
 	public List<VHemsJyjg> findRecentJyjg() {
 		List<VHemsJyjg> list = vHemsJyjgMapperSi.findRecentJyjg();
 		return list;
+	}
+
+
+	@Override
+	public int findJyxxCount(VHemsJyjgQueryDto vHemsJyjgQueryDto)
+			throws Exception {
+		if (vHemsJyjgQueryDto.getvHemsJyjgCustom() != null) {
+			if (StringUtils.isNotNullAndEmptyByTrim(vHemsJyjgQueryDto.getvHemsJyjgCustom().getPatientId())) {
+				return vHemsJyjgMapperSi.findJyxxCount(vHemsJyjgQueryDto);
+			}
+		}
+		return 0;
+	}
+	@Override
+	public List<VHemsJyjgCustom> findJyxx(
+			VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception {
+		List<VHemsJyjgCustom> list = new ArrayList<VHemsJyjgCustom>();
+		if (vHemsJyjgQueryDto.getvHemsJyjgCustom() != null) {
+			if (StringUtils.isNotNullAndEmptyByTrim(vHemsJyjgQueryDto.getvHemsJyjgCustom().getPatientId())) {
+				list = vHemsJyjgMapperSi.findJyxx(vHemsJyjgQueryDto);
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public int findJyxxInfoCount(VHemsJyjgQueryDto vHemsJyjgQueryDto)
+			throws Exception {
+
+		return vHemsJyjgMapperSi.findJyxxInfoCount(vHemsJyjgQueryDto);
+	}
+
+	@Override
+	public List<VHemsJyjgCustom> findJyxxInfo(
+			VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception {
+		return vHemsJyjgMapperSi.findJyxxInfo(vHemsJyjgQueryDto);
+	}
+
+	@Override
+	public List<VHemsJcjgCustom> findJcjg(
+			VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception {
+		List<VHemsJcjgCustom> list = new ArrayList<VHemsJcjgCustom>();
+		if(vHemsJyjgQueryDto.getvHemsJcjgCustom() != null){
+			if (StringUtils.isNotNullAndEmptyByTrim(vHemsJyjgQueryDto.getvHemsJcjgCustom().getZyh())) {
+				list=vHemsJcjgMapperCustom.findVHemsJcjgList(vHemsJyjgQueryDto);
+			}
+		}
+		return list;
+	}
+	/**
+	 * 获取处方信息（视图+本地处方表+会诊申请单+知情同意书）
+	 * @param hspCfxxInfoQueryDto
+	 */
+	@Override
+	public List<HspCfxxInfoCustom> findCfxxLocalAndHISList(HspCfxxInfoQueryDto hspCfxxInfoQueryDto) throws Exception{
+		String HSPLP = systemConfigService.findAppoptionByOptkey("HSPLP").getOptvalue();
+		hspCfxxInfoQueryDto.setHspLp(HSPLP);
+		//本地处方表
+		List<HspCfxxInfoCustom> cfxxList = yzMapper.findCfxxDataByLocalList(hspCfxxInfoQueryDto);
+		//HIS视图
+		List<HspCfxxInfoCustom> hisList = yzMapper.findCfxxDataByHisList(hspCfxxInfoQueryDto);
+		cfxxList.addAll(hisList);
+		//根据组号去重
+		cfxxList = cfxxList.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(HspCfxxInfo :: getDaSub))), ArrayList::new));
+		cfxxList.sort(Comparator.comparingLong(HspCfxxInfoCustom::getStartTimeLong).thenComparing(HspCfxxInfoCustom::getDaSeq));
+		return cfxxList;
 	}
 	
 }

@@ -134,6 +134,58 @@ public class HisAction {
 		model.addAttribute("cyrqDat",DateUtil.formatDateByFormat(hspemginfCustom.getSqlDate(), "yyyy/MM/dd"));
 		return "/hzszyyhospital/hzszyynurse/his/sfjl";
 	}
+
+	/**
+	 * 医嘱结果集
+	 * @param model
+	 * @param HspCfxxInfoQueryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/querycfxx_result")
+	public  DataGridResultInfo querycfxx_result(HspCfxxInfoQueryDto hspCfxxInfoQueryDto) throws Exception{
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		if(null != hspCfxxInfoQueryDto.getHspCfxxInfoCustom()) {
+			if(!BeanUtil.validated(hspCfxxInfoQueryDto.getHspCfxxInfoCustom().getVstCad())) {
+				return dataGridResultInfo;
+			}
+		}
+		List<HspCfxxInfoCustom> list =oracleHisService.findCfxxLocalAndHISList(hspCfxxInfoQueryDto);
+		//填充total
+		dataGridResultInfo.setTotal(list.size());
+		//填充rows
+		dataGridResultInfo.setRows(list);
+		return dataGridResultInfo;
+
+		//以下是连接到接口项目的代码-本地开发暂时隐藏，有需要请自行打开
+		/*String url = "http://localhost:9090/emis_jk/his/findCfxx.do";
+		JSONObject param = new JSONObject();
+		param.put("mpi", hspCfxxInfoQueryDto.getHspCfxxInfoCustom().getMpi());
+		if(StringUtils.isNotNullAndEmptyByTrim(hspCfxxInfoQueryDto.getStartdate())){
+			param.put("startStr", DateUtil.formatDateByFormat(hspCfxxInfoQueryDto.getStartdate(), DateUtil.DATETIME_FORMAT_TWO));
+		}
+		if(StringUtils.isNotNullAndEmptyByTrim(hspCfxxInfoQueryDto.getEnddate())){
+			param.put("endStr", DateUtil.formatDateByFormat(DateUtil.getNextDay(hspCfxxInfoQueryDto.getEnddate()), DateUtil.DATETIME_FORMAT_TWO));
+		}
+		logger.info("医嘱信息请求："+param);
+		String reVal = HttpClientUtil.doPostJson(url, param.toJSONString(),10*1000);
+		logger.info("医嘱信息返回："+reVal);
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		if(StringUtils.isNotNullAndEmptyByTrim(reVal)){
+			JSONObject dataObject = JSONObject.parseObject(reVal).getJSONObject("resultInfo");
+			String code = dataObject.getString("code");
+			if("200".equals(code)){
+				JSONArray list = dataObject.getJSONObject("data").getJSONArray("list");
+				dataGridResultInfo.setRows(list);
+				dataGridResultInfo.setTotal(dataObject.getJSONObject("data").getInteger("total"));
+			}else if(StringUtils.isNotNullAndEmptyByTrim(code)) {
+				String msg = dataObject.getString("msg");
+				logger.info("医嘱信息报错："+msg);
+			}
+		}
+		return dataGridResultInfo;*/
+	}
 	
 
 	

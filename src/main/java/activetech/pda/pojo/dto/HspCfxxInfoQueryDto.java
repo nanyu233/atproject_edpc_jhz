@@ -56,8 +56,20 @@ public class HspCfxxInfoQueryDto{
 	 * 医嘱查询类型（nursing：病情护理记录单，只查药疗，门诊病历治疗意见 inspection：检验检查数据，advice：医嘱数据）
 	 */
 	private String queryType;
-	
-	
+
+	/**
+	 * 院区标识
+	 */
+	private String hspLp;
+
+	public String getHspLp() {
+		return hspLp;
+	}
+
+	public void setHspLp(String hspLp) {
+		this.hspLp = hspLp;
+	}
+
 	public PageQuery getPageQuery() {
 		return pageQuery;
 	}
