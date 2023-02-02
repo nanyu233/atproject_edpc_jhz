@@ -129,16 +129,16 @@
                 },
                 {
                     name: '检验信息',
-                    src:'${baseurl}zyyqjs/toqjscaseexaminenew.do?emgSeq='  + '${emgSeq}'
+                    src:'${baseurl}zyyqjs/toqjscaseexaminenew.do?regSeq='  + '${regSeq}'
                 },
 
                 {
                     name: '检查结果',
-                    src:'${baseurl}zyyqjs/qjsjcbg.do?emgSeq='+ '${emgSeq}'
+                    src:'${baseurl}zyyqjs/qjsjcbg.do?regSeq='+ '${regSeq}'
                 },
                 {
                     name: '医嘱信息',
-                    src:'${baseurl}zyyqjs/qjsyzxx.do?emgSeq='+ '${emgSeq}'
+                    src:'${baseurl}zyyqjs/qjsyzxx.do?regSeq='+ '${regSeq}'
                 },
                 {
                     name: '会诊信息'

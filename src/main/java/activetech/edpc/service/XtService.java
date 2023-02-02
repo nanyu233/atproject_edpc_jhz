@@ -164,4 +164,6 @@ public interface XtService {
 	void addMedianMonthAndAverageMonth();
 
 	void addMedianYearAndAverageYear();
+
+	HspDbzlBasCustom getDbzlBasBYRegSeq(String regSeq) throws Exception;
 }

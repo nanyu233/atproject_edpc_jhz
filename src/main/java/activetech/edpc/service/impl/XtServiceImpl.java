@@ -1701,4 +1701,14 @@ public class XtServiceImpl implements XtService{
 		hspTimDiffHis.setChgUsrNo(hspTimDiff.getChgUsrNo());
 		return hspTimDiffHis;
 	}
+
+	@Override
+	public HspDbzlBasCustom getDbzlBasBYRegSeq(String regSeq) throws Exception {
+		HspDbzlBasCustom hspDbzlBasCustom = new HspDbzlBasCustom();
+		if (activetech.util.StringUtils.isNotNullAndEmptyByTrim(regSeq)) {
+			HspDbzlBas hspDbzlBas = hspDbzlBasMapper.selectByPrimaryKey(regSeq);
+			BeanUtils.copyProperties(hspDbzlBas,hspDbzlBasCustom);
+		}
+		return hspDbzlBasCustom;
+	}
 }

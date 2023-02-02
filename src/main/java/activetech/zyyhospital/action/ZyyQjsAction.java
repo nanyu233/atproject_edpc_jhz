@@ -419,12 +419,10 @@ public class ZyyQjsAction {
      * @throws Exception
      */
     @RequestMapping("/qjsjcbg")
-    public String qjsjcbg(Model model,String moduleid,String emgSeq) throws Exception {
-        model.addAttribute("emgSeq", emgSeq);
+    public String qjsjcbg(Model model,String moduleid,String regSeq) throws Exception {
+        model.addAttribute("regSeq", regSeq);
         model.addAttribute("moduleid", moduleid);
-        ResultInfo resultInfo = xtService.judgeNewPatient(emgSeq);
-        Map<String, Object> sysdata = resultInfo.getSysdata();
-        HspDbzlBasCustom hspDbzlBasCustom = (HspDbzlBasCustom) sysdata.get("hspDbzlBasCustom");
+        HspDbzlBasCustom hspDbzlBasCustom = xtService.getDbzlBasBYRegSeq(regSeq);
 		/*HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
 		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());*/
         model.addAttribute("hspemginfCustom", hspDbzlBasCustom);
@@ -442,11 +440,9 @@ public class ZyyQjsAction {
      * @throws Exception
      */
     @RequestMapping("/qjsyzxx")
-    public String qjsyzxx(Model model, String moduleid, String emgSeq) throws Exception {
-        ResultInfo resultInfo = xtService.judgeNewPatient(emgSeq);
-        Map<String, Object> sysdata = resultInfo.getSysdata();
-        HspDbzlBasCustom hspDbzlBasCustom = (HspDbzlBasCustom) sysdata.get("hspDbzlBasCustom");
-        model.addAttribute("emgSeq", emgSeq);
+    public String qjsyzxx(Model model, String moduleid, String regSeq) throws Exception {
+        HspDbzlBasCustom hspDbzlBasCustom = xtService.getDbzlBasBYRegSeq(regSeq);
+        model.addAttribute("regSeq", regSeq);
         model.addAttribute("moduleid", moduleid);
         model.addAttribute("sqlDat", DateUtil.formatDateByFormat(new Date(), "yyyy/MM/dd HH:mm"));
         model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspDbzlBasCustom.getRegTim(), "yyyy/MM/dd HH:mm"));
@@ -463,21 +459,17 @@ public class ZyyQjsAction {
      * @throws Exception
      */
     @RequestMapping("/toqjscaseexaminenew")
-    public String toqjscaseexaminenew(Model model,String moduleid,String emgSeq) throws Exception {
-        model.addAttribute("emgSeq", emgSeq);
+    public String toqjscaseexaminenew(Model model,String moduleid,String regSeq) throws Exception {
+        model.addAttribute("regSeq", regSeq);
         model.addAttribute("moduleid", moduleid);
         //HspemginfCustom hspemginfCustom= zyyHspemginfService.findHspemginfByemgSeq(emgSeq);
 		/*HspObsvtfstInfCustom hspObsvtfstInfCustom=zyyLqblService.findObsvtfstByEmgSeq(emgSeq);
 		model.addAttribute("cyrqDat",hspObsvtfstInfCustom.getDscgDatStr());
 		model.addAttribute("hspemginfCustom", hspemginfCustom);*/
-        if (StringUtils.isNotNullAndEmptyByTrim(emgSeq)){
-            ResultInfo resultInfo = xtService.judgeNewPatient(emgSeq);
-            Map<String, Object> sysdata = resultInfo.getSysdata();
-            HspDbzlBasCustom hspDbzlBasCustom = (HspDbzlBasCustom) sysdata.get("hspDbzlBasCustom");
-            model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspDbzlBasCustom.getRegTim(), "yyyy/MM/dd"));
-            model.addAttribute("vstCad", hspDbzlBasCustom.getVstCad());
-            model.addAttribute("MPI", hspDbzlBasCustom.getMpi());
-        }
+        HspDbzlBasCustom hspDbzlBasCustom = xtService.getDbzlBasBYRegSeq(regSeq);
+        model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspDbzlBasCustom.getRegTim(), "yyyy/MM/dd"));
+        model.addAttribute("vstCad", hspDbzlBasCustom.getVstCad());
+        model.addAttribute("MPI", hspDbzlBasCustom.getMpi());
         return "/hzszyyhospital/hzszyydoctor/newqjscaseexamine";
     }
 
