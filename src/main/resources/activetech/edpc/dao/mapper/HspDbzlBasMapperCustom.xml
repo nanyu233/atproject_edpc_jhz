@@ -176,28 +176,28 @@
 		<if test="dyfs!=null and dyfs!=''">
 	   	and exists (select *
       		from hsp_zl_inf
- 		    where hsp_zl_inf.emg_no = a.emg_seq
+ 		    where hsp_zl_inf.emg_no = a.REG_SEQ
  		    and hsp_zl_inf.pro_code = 'DYFS'
  		    and hsp_zl_inf.pro_val = #{dyfs,jdbcType=VARCHAR})
 		</if>
 		<if test="cbzd!=null and cbzd!=''">
 		and exists (select *
   		    from hsp_zl_inf
-  		    where hsp_zl_inf.emg_no = a.emg_seq
+  		    where hsp_zl_inf.emg_no = a.REG_SEQ
   		    and hsp_zl_inf.pro_code = 'CBZD'
  		    and hsp_zl_inf.pro_val = #{cbzd,jdbcType=VARCHAR})
 		</if>
 		<if test="ccdw!=null and ccdw!=''">
 		and exists (select *
   		    from hsp_zl_inf
-  		    where hsp_zl_inf.emg_no = a.emg_seq
+  		    where hsp_zl_inf.emg_no = a.REG_SEQ
  		    and hsp_zl_inf.pro_code = 'CCDW'
  		    and hsp_zl_inf.pro_val = #{ccdw,jdbcType=VARCHAR})
 		</if>
 		<if test="yqrscs!=null and yqrscs!=''">
 			and exists (select *
   		    from hsp_zl_inf
-  		    where hsp_zl_inf.emg_no = a.emg_seq
+  		    where hsp_zl_inf.emg_no = a.REG_SEQ
    		    and hsp_zl_inf.pro_code = 'YQRSCS'
   		    and hsp_zl_inf.pro_val = #{yqrscs,jdbcType=VARCHAR})
 		</if>

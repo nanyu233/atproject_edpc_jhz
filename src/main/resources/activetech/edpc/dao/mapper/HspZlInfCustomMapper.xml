@@ -449,14 +449,14 @@
         <if test="zd !=null and zd.length()>0">
             and exists (select 1
             from hsp_zl_inf
-            where hsp_zl_inf.emg_no = a.emg_seq
+            where hsp_zl_inf.emg_no = a.REG_SEQ
             and hsp_zl_inf.pro_code = 'CBZD'
             and hsp_zl_inf.pro_val = #{zd, jdbcType = VARCHAR})
         </if>
         <if test="zdys != null and zdys.length() > 0">
             and exists (select 1
             from hsp_zl_inf
-            where hsp_zl_inf.emg_no = a.emg_seq
+            where hsp_zl_inf.emg_no = a.REG_SEQ
             and hsp_zl_inf.pro_code = 'ZDYS'
             and hsp_zl_inf.pro_val like '%'||#{zdys, jdbcType = VARCHAR}||'%')
         </if>
