@@ -117,7 +117,7 @@ function chkRowBak(regSeq, smtSta) {
  * @param regSeq 唯一
  * @param chkFlag 是否是批量审核
  */
-function skipChkPage(regSeq, chkFlag) {
+function chkConfirm(regSeq, chkFlag) {
     if(!chkFlag) {
         if(!regSeq) {
             alert_error("唯一序号不存在，无法审批。");

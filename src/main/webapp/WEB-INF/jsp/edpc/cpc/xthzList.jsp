@@ -22,6 +22,7 @@
     <script type="text/javascript" src="lib/avalon1.4.8/avalon.js"></script>
     <script type="text/javascript" src="js/public.js"></script>
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
+	<script type="text/javascript" src="js/edpc/crfplane/crfplane.js"></script>
     <style>
 
         .form {
@@ -175,7 +176,7 @@
         </div>
 					<div class="form-item">
 							<label>来院方式</label>
-							<select name="" ms-duplex="condition.ddfs" data-duplex-changed="selectchange">
+							<select name="" ms-duplex="condition.dyfs" data-duplex-changed="selectchange">
 									<option value="">请选择</option>
 									<option ms-repeat="ddfsArr" ms-attr-value="el.infocode">{{el.info}}</option>
 							</select>
@@ -237,6 +238,10 @@
        
 
     });
+
+	//选择序列集合
+	var chkRegSeqArr;
+
 	function radioClick(prop) {
 	    vm[prop] = !vm[prop];
 		if(vm[prop]==true){
@@ -254,7 +259,7 @@
         var queryParams = $('#dg').datagrid('options').queryParams;
         queryParams['cstNam'] = vm.condition.cstNam;
         queryParams['cbzd'] = vm.condition.cbzd;
-        queryParams['dyfs'] = vm.condition.ddfs;
+        queryParams['dyfs'] = vm.condition.dyfs;
         queryParams['ccdw'] = vm.condition.ccdw;
         queryParams['yqrscs'] = vm.condition.yqrscs;
         queryParams['startDate'] = vm.condition.startDate;
@@ -311,39 +316,42 @@
         }
     }
 
-    /**
-     * 提交审核
-     */
-    function reviewApply(regSeq, rcdSta) {
-        _confirm('确认提交审核？', null, function() {
-            var requestData = {
-                'regSeq': regSeq,
-                'rcdSta': "2"
-            };
-            publicFun.httpRequest(
-                '${baseurl}cpc/reviewSubmit.do',
-                requestData,
-                {
-                    'ajaxType': 'post',
-                    'requestType': 'json'
-                },
-                function (res) {
-                    if (res.resultInfo.success){
-                        search();
-                    }
-                }
-            )
-        });
-    }
+    <%--/**--%>
+    <%-- * 提交审核--%>
+    <%-- */--%>
+    <%--function reviewApply(regSeq, rcdSta) {--%>
+    <%--    _confirm('确认提交审核？', null, function() {--%>
+    <%--        var requestData = {--%>
+    <%--            'regSeq': regSeq,--%>
+    <%--            'rcdSta': "2"--%>
+    <%--        };--%>
+    <%--        publicFun.httpRequest(--%>
+    <%--            '${baseurl}crfplane/reviewSubmit.do',--%>
+    <%--            requestData,--%>
+    <%--            {--%>
+    <%--                'ajaxType': 'post',--%>
+    <%--                'requestType': 'json'--%>
+    <%--            },--%>
+    <%--            function (res) {--%>
+    <%--                if (res.resultInfo.success){--%>
+    <%--                    search();--%>
+    <%--                }--%>
+    <%--            }--%>
+    <%--        )--%>
+    <%--    });--%>
+    <%--}--%>
     //审核页面用
-    var chkRegSeqArr;
-    function chkConfirm(regSeq, rcdSta) {
-        chkRegSeqArr = [regSeq];
-        if(chkRegSeqArr.length > 0) {
-            createmodalwindow("审核确认", 430, 300, '${baseurl}crfplane/toChkConfirm.do?', 'no');
-        }
-    }
 
+    <%--function chkConfirm(regSeq, rcdSta) {--%>
+    <%--    chkRegSeqArr = [regSeq];--%>
+    <%--    if(chkRegSeqArr.length > 0) {--%>
+    <%--        createmodalwindow("审核确认", 430, 300, '${baseurl}crfplane/toChkConfirm.do?', 'no');--%>
+    <%--    }--%>
+    <%--}--%>
+
+	/**
+	 * 批量审核
+	 */
     function cmdbatchChkConf() {
         chkRegSeqArr = [];
         var chkRows = $('#dg').datagrid("getChecked");
@@ -359,36 +367,36 @@
         }
     }
 
-    function smtPort(regSeq, smtSta) {
-        var tipMsg = "确认上报？";
-        if(smtSta === '5') {
-            tipMsg = "确认重新上报？";
-        }
-        _confirm(tipMsg, null, function() {
-            //虚化
-            $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$(window).height()}).appendTo("body");
-            $("<div class=\"datagrid-mask-msg\"></div>").html("正在上报，请稍候。。。").appendTo("body").css({display:"block","line-height": "11px",left:($(document.body).outerWidth(true) - 190) / 2});
-            var requestData = {
-                'regSeq': regSeq,
-                'smtSta': "2"
-            };
-            publicFun.httpRequest(
-                '${baseurl}cpc/reportSubmit.do',
-                requestData,
-                {
-                    'ajaxType': 'post',
-                    'requestType': 'json'
-                },
-                function (res) {
-                    //虚化结束
-                    $("body").children("div.datagrid-mask-msg").remove();
-                    $("body").children("div.datagrid-mask").remove();
-                    search();
-                    message_alert(res)
-                }
-            )
-        });
-    }
+    <%--function smtPort(regSeq, smtSta) {--%>
+    <%--    var tipMsg = "确认上报？";--%>
+    <%--    if(smtSta === '5') {--%>
+    <%--        tipMsg = "确认重新上报？";--%>
+    <%--    }--%>
+    <%--    _confirm(tipMsg, null, function() {--%>
+    <%--        //虚化--%>
+    <%--        $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$(window).height()}).appendTo("body");--%>
+    <%--        $("<div class=\"datagrid-mask-msg\"></div>").html("正在上报，请稍候。。。").appendTo("body").css({display:"block","line-height": "11px",left:($(document.body).outerWidth(true) - 190) / 2});--%>
+    <%--        var requestData = {--%>
+    <%--            'regSeq': regSeq,--%>
+    <%--            'smtSta': "2"--%>
+    <%--        };--%>
+    <%--        publicFun.httpRequest(--%>
+    <%--            '${baseurl}crfplane/reportSubmit.do',--%>
+    <%--            requestData,--%>
+    <%--            {--%>
+    <%--                'ajaxType': 'post',--%>
+    <%--                'requestType': 'json'--%>
+    <%--            },--%>
+    <%--            function (res) {--%>
+    <%--                //虚化结束--%>
+    <%--                $("body").children("div.datagrid-mask-msg").remove();--%>
+    <%--                $("body").children("div.datagrid-mask").remove();--%>
+    <%--                search();--%>
+    <%--                message_alert(res)--%>
+    <%--            }--%>
+    <%--        )--%>
+    <%--    });--%>
+    <%--}--%>
     $(function () {
 		if(vm.advSearch==false){
 			h3 = height-56;
@@ -454,10 +462,11 @@
 					},
 					{
 						field : 'cstAge',
-						title : '年龄',
-						width : setWidth(0.02),
+						title : '年龄（岁）',
+						align : 'right',
+						width : setWidth(0.03),
 						formatter : function(value, row, index) {
-							return value==null?'-':value + '岁';
+							return value==null?'-':value;
 						}
 					},
 					{
@@ -469,7 +478,7 @@
 						// field : 'emgDat',
 						field : 'scyljcsj',
 						title : '首次医疗接触',
-						width : setWidth(0.065),
+						width : setWidth(0.063),
 						formatter : function(value, row, index) {
 							if (value) {
 								return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
@@ -489,17 +498,13 @@
 						title : '建档时间',
 						width : setWidth(0.063),
 						formatter : function(value, row, index) {
-							return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+							return publicFun.timeFormat(value, 'yyyy/MM/dd hh:mm');
 						}
-					},
-					{
-						field : 'repDoc',
-						title : '管床医生',
-						width : setWidth(0.05),
 					},
 					{
 						field : 'rcdSta',
 						title : '审核状态',
+						align : 'center',
 						width : setWidth(0.03),
 						formatter : function(value, row, index) {
 							if (value == 1) {
@@ -518,10 +523,7 @@
 						title : '审核时间',
 						width : setWidth(0.063),
 						formatter : function(value, row, index) {
-							if(value) {
-								return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
-							}
-							return "";
+							return publicFun.timeFormat(value, 'yyyy/MM/dd hh:mm');
 						}
 					},
 					{
@@ -532,11 +534,12 @@
 					{
 						field : 'chkMsg',
 						title : '审核意见',
-						width : setWidth(0.06)
+						width : setWidth(0.04)
 					},
 					{
 						field : 'smtSta',
 						title : '上报状态',
+						align : 'center',
 						width : setWidth(0.035),
 						formatter : function(value, row, index) {
 							if (value == 1) {
@@ -557,16 +560,13 @@
 						title : '上报时间',
 						width : setWidth(0.063),
 						formatter : function(value, row, index) {
-							if(value) {
-								return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
-							}
-							return "";
+							return publicFun.timeFormat(value, 'yyyy/MM/dd hh:mm');
 						}
 					},
 					{
 						field : 'smtSeq',
 						title : '填报编号',
-						width : setWidth(0.1)
+						width : setWidth(0.05)
 					},
 					{
 						field : 'smtMsg',
@@ -580,13 +580,14 @@
 						formatter : function(value, row, index) {
 							var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">查看</span>' +
 								'<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>';
-							// if("1" == row.smtSta || "4" == row.smtSta) {
-							_html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">上报</span>'
-							// }
 							if("1" == row.rcdSta || "3" == row.rcdSta) {
 								_html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
 							} else if("2" == row.rcdSta) {
-								_html += '<span class="btn detail" onclick="chkConfirm(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">审核</span>'
+								_html += '<span class="btn detail" onclick="chkConfirm(\'' + row.regSeq + '\')">审核</span>'
+							}
+							if("4" == row.rcdSta) {
+								_html += '<span class="btn detail" onclick="chkRowBak(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">解锁</span>'
+								_html += '<span class="btn detail" onclick="smtPort(\'' + row.regSeq + '\',\'' + row.smtSta + '\',\'' + row.patTyp + '\')">上报</span>'
 							}
 							return _html
 						}
