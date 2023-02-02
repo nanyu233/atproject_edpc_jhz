@@ -1,0 +1,152 @@
+@media (max-width: 1280px) {
+
+.tys{/*BNB  */
+	margin: 0 auto;
+	border:0px solid red;
+	width:740px;
+	padding-bottom:10px;
+	}
+.tys table tr td{/*BNB  */
+	border:1px solid black;
+	font-size:18px;
+	text-align: left;
+	padding:5px;
+}
+.td-1{/*BNB  */
+	padding-top:2px;
+	font-size:18px;
+	letter-spacing: 1px;
+	text-indent : 36px;/* 首行缩进 */
+	line-height:28px;
+}
+
+.td-2{/*BNB  */
+	padding-top:2px;
+	font-size:18px;
+	letter-spacing: 1px;
+	line-height:28px;
+}
+.td-3{/*BNB  */
+	padding-top:10px;
+	padding-bottom:5px;
+	font-size:18px;
+	letter-spacing: 1px;
+	line-height:28px;
+	border:0px solid black;
+}
+.h-1{/*BNB  */
+  font-size:24px;
+  font-weight:bold;
+  text-align: center;
+  border:0px solid black;
+  padding-top:50px;
+	
+}  
+.h-2{/*PNB  */
+  font-size:24px;
+  font-weight:bold;
+  text-align: center;
+  border:0px solid black;
+}  
+.span-1{/*BNB  */
+	 display: inline-block;
+	 padding-lef:1px;
+}
+.span-2{/*BNB  */
+	 padding-left:100px;
+}
+.span-3{/*  */
+	 padding-left:50px;
+}
+.span-4{/* INICU */
+	 padding-left:5px;
+}
+ .p-1{/*BNB  */    border:1px;
+	border-bottom:1px solid black;
+	display:inline;
+	white-space:nowrap;
+ }
+
+.userInput{
+	width:80px;
+	border:1px;border-bottom:1px solid black;
+}
+.signImgBox{
+	border:0px solid black;
+	text-align:center;
+	width:28px;
+	float:right;
+	padding-right:50px;
+}  
+.signPic{
+	padding-top:3px;
+	height:20px;
+	/* width:28px; */
+	
+} 
+
+.td-4{/*NNB  */
+	padding-top:2px;
+	font-size:16px;
+	letter-spacing: 1px;
+	line-height:28px;
+}
+.td-5{/*NNB  */
+	padding-top:10px;
+	padding-bottom:5px;
+	font-size:16px;
+	letter-spacing: 1px;
+	line-height:28px;
+	border:0px solid black;
+}
+
+.td-6{/*NNB  */
+	padding-top:2px;
+	letter-spacing: 1px;
+	line-height:25px;
+}
+.td-7{/*NNB  */
+
+	letter-spacing: 1px;
+	line-height:25px;
+	border:0px solid black;
+}
+.BP{/*BNB  */
+	margin: 0 auto;
+	border:0px solid red;
+	width:780px;
+	padding-bottom:10px;
+	}
+
+.BP table tr td{/*BNB  */
+	border:1px solid black;
+	font-size:13px;
+	text-align: left;
+	padding:3px;
+}
+.td-8{/*BP  */
+	padding-top:10px;
+	font-size:13px;
+	letter-spacing: 1px;
+	/* line-height:28px; */
+	border:0px solid black;
+}
+
+.input-1{
+	width:30px;
+
+}
+.font-16{/*BNB  */
+	margin: 0 auto;
+	border:0px solid red;
+	width:740px;
+	padding-bottom:10px;
+	}
+.font-16 table tr td{/*BNB  */
+	border:1px solid black;
+	font-size:16px;
+	text-align: left;
+	padding:5px;
+}
+}
+

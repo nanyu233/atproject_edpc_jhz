@@ -98,7 +98,7 @@
             currentIframeSrc: '0',
             iframeSrc: '',
             collapse: false,
-            iconList: ['el-icon-date','el-icon-mouse','el-icon-guide','el-icon-time','el-icon-notebook-1','el-icon-notebook-2','el-icon-document','el-icon-tickets','el-icon-document-checked','el-icon-document-copy','el-icon-chat-dot-square','el-icon-data-line','el-icon-first-aid-kit','el-icon-reading'],
+            iconList: ['el-icon-date','el-icon-mouse','el-icon-guide','el-icon-time','el-icon-notebook-1','el-icon-notebook-2','el-icon-document','el-icon-tickets','el-icon-document-checked','el-icon-document-copy','el-icon-chat-dot-square','el-icon-data-line','el-icon-first-aid-kit','el-icon-reading','el-icon-files'],
             sidebar: [
                 {
                     name: '时间管理记录表',
@@ -151,6 +151,11 @@
                 },
                 {
                     name: '护理记录'
+                },
+                {
+                    name: '评分总览',
+                    <%--src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${emgSeq}'--%>
+                    src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${emgSeq}'
                 },
             ]
         },

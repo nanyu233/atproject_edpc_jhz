@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<script src="${baseurl}js/subpageJs/eicu/eicuUtil.js" type="text/javascript"></script>
-<script src="${baseurl}js/subpageJs/eicu/icuOpenModal.js" type="text/javascript"></script>
 <script>
 if (window.setLayout) {
   window.onresize = setLayout;
@@ -16,3 +14,7 @@ if (window.setLayout) {
 	var DAY_MILLI_SEC = DAY_MINUTE * TIME_TRANS_NUM * 1000;
 	// 
 </script>
+<script src="${baseurl}lib/jquery.js" type="text/javascript"></script>
+<script src="${baseurl}js/public.js" type="text/javascript"></script>
+<script src="${baseurl}js/subpageJs/eicu/eicuUtil.js" type="text/javascript"></script>
+<script src="${baseurl}js/subpageJs/eicu/icuOpenModal.js" type="text/javascript"></script>

@@ -809,5 +809,38 @@ var publicFun = {
         }
         var jqXHR = $.ajax(ajaxOption);
         return jqXHR;
-    }
+    },
+	setStorage: function (key, obj) {
+		sessionStorage.setItem(key, JSON.stringify(obj));
+	},
+	getStorage: function (key) {
+		try {
+			var value = sessionStorage.getItem(key);
+			if (value) {
+				return JSON.parse(value);
+			} else {
+				return value;
+			}
+		} catch (e) {
+			// console.error('无法读取数据')
+		}
+	},
+	/**
+	 * 获取icu公共字典
+	 */
+	getIcuCommonDict: function() {
+		var reqUrl = _baseUrl + 'icucust/queryIcuBasicDef.do';
+		publicFun.httpRequest(reqUrl, '', { asyncFlag: false }, function(res) {
+			if (res.resultInfo.success) {
+				var dictData = res.resultInfo.sysdata;
+				publicFun.setStorage('icuDic', dictData);
+			}
+		});
+	},
+	getIcuDicItem: function (key) {
+		if(!this.getStorage('icuDic') || !this.getStorage('icuDic')[key]) {
+			this.getIcuCommonDict();
+		}
+		return this.getStorage('icuDic')[key];
+	},
 };

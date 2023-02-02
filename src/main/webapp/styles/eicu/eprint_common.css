@@ -1,0 +1,191 @@
+@media ( max-width : 1280px) {
+	textarea {
+		overflow: hidden
+	}
+	table {
+		border-collapse: collapse;
+	}
+	table {
+		border: 1px solid black;
+		width: 100%;
+	}
+	#lineTab tr td {
+		border: 1px solid black;
+		font-size: 12px;
+		line-height: 27px;
+	}
+	img {
+		vertical-align: middle;
+	}
+	textarea {
+		width: 91%;
+		height: 100px;
+		resize: none;
+	}
+	p {
+		margin-right: 45px;
+	}
+	.basicDiv {
+		margin-left: 1.1cm
+	}
+	.basicDiv, .maintext {
+		font-size: .38cm;
+	}
+	#title {
+		text-align: center;
+		font-size: 18px;
+		font-weight: bolder;
+		padding-top: 0.2cm;
+	}
+	.tys {
+		width: 80%;
+		margin: 0 auto;
+	}
+	
+	.firstli, .inputli{
+		margin-top: 2mm;
+		width: 190mm;
+	}
+	#lineTab .showTr {
+		display: none
+	}
+	#lineTab .prtTr {
+		display: table-row
+	}
+	
+	.pardiv {
+		width: 80%;
+		margin: auto;
+	}
+	
+	.paddR30 {
+		padding-right: 30px;
+	}
+	.paddR20 {
+		padding-right: 20px;
+	}
+	.wd30 {
+		display: inline-block;
+		width: 30%;
+	}
+	.wd35 {
+		display: inline-block;
+		width: 35%;
+	}
+	.wd50 {
+		display: inline-block;
+		width: 50%
+	}
+	.wd70 {
+		width: 70%;
+	}
+	/* PNB */
+	.putline {
+		border: none !important;
+		border-bottom: 1px solid #ddd !important;
+	}
+	/* BNB */
+	.lineThr {
+		display: inline-block;
+		width: 30%;
+	}
+	.basicDiv label span {
+		border-bottom: 1px solid black;
+	}
+	.indenttwo {
+		text-indent: 2em;
+	}
+	.indentthree{
+	    text-indent:3em;
+	}
+	.indentfour{
+	    text-indent:4em;
+	}
+	.prtTr {
+		display: none;
+	}
+	.prtTr>td {
+		width: 50%;
+	}
+	.intextinputlong {
+		border: none !important;
+		border-bottom: 1px solid #ddd !important;
+		width: 130px;
+	}
+	.trunright {
+		height: 30px;
+		float: left;
+		width: 35%;
+		margin-left: 65% !important;
+		text-align: left;
+		line-height: 1.5;
+	}
+	.lthreefont{
+	    padding-left:1.14cm;
+	}
+	.lonefont{
+	    padding-left:.38cm;
+	}
+	.sectiontitle{
+	    font-size:.40cm;
+	    font-weight: bolder;
+	}
+	.pretextarea{
+	    display: none;
+	    width: 180mm;
+	    height: 86px;
+	    border: none;
+	    text-indent: .5em;
+	    font-size: .38cm;
+	    resize: none;
+	}
+	.prespan{
+	    display: block;
+	    width: 180mm;
+	    border: none;
+	    text-indent: .5em;
+	    font-size: .38cm;
+	    resize: none;
+	}
+	.intextinputall{
+	    width: 160mm;
+	}
+	.spcWdate{
+    	width:150px;
+		border: none !important;
+		border-bottom: 1px solid #ddd !important;
+	}
+	.qtmargin{
+	    margin-left:20px;
+	}
+	.pointtext{
+	    text-decoration:underline;
+	    font-size:.42cm;
+	    font-weight: bolder;
+	    text-align: center;
+	    width:150px;
+	}
+	.tabletitle{
+	    text-align: center;
+	}
+	.hdtable{
+	    border: 1px solid #000;
+	    width: 92%;
+	    font-size:13px;
+	    font-weight: bolder;
+	    margin-bottom: 20px;
+	}
+	.titletr{
+	    border-bottom: 1px solid #000
+	}
+	.hdtable td{
+	    padding-left:5px;
+	}
+	.hdtable tr{
+	    height:35px;
+	}
+	.td-left{
+	    border-right: 1px solid #000;
+	    width: 50%;
+	}
+}

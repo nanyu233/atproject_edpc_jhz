@@ -1,17 +1,5 @@
 package activetech.eicu.action;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.DataGridResultInfo;
@@ -26,6 +14,17 @@ import activetech.eicu.pojo.dto.IcuMenuDefCustom;
 import activetech.eicu.pojo.dto.IcuScoreQueryDto;
 import activetech.eicu.service.DstparameterService;
 import activetech.eicu.service.IcuScoreService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ICU评分查询
@@ -189,7 +188,18 @@ public class IcuScoreAction {
 		model.addAttribute("gradeType", gradeType);
 		return "/eicu/icuScore/newBasicPage";
 	}
-	
+	/**
+	 * 跳转显示最近6次评分公共页面
+	 * @param model model
+	 * @param gradeType gradeType
+	 * @return return
+	 */
+	@RequestMapping("/toBasicPage")
+	public String toNewBasePage(Model model,String gradeType, String liveNo) {
+		model.addAttribute("gradeType", gradeType);
+		model.addAttribute("liveNo", liveNo);
+		return "/eicu/icuScore/basicPage";
+	}
 	/**
 	 * 跳转6次评分子页面
 	 * @param model
