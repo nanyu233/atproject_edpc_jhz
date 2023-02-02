@@ -150,7 +150,7 @@
   <div class="print-body">
     <p class="title">${hospitalPlatformNameGap}</p>
     <p class="subTitle">检查报告</p>
-    <ul class="print-ul">
+   <%-- <ul class="print-ul">
       <li class="bordered">
         <span class="basic-span">
           <label class="title-label">姓名：</label>
@@ -164,7 +164,7 @@
           <label class="title-label">年龄：</label>
           <span id="_age">${hspemginfCustom.cstAge}${hspemginfCustom.cstAgeCod}</span>
         </span>
-        <%--<span class="basic-span">
+        <span class="basic-span">
           <label class="title-label">科别：</label>
           <span id="_emgFkCod">${hspemginfCustom.emgFkCod}</span>
         </span>
@@ -175,9 +175,9 @@
         <span class="basic-span">
           <label class="title-label">留观号：</label>
           <span id="_lgh">${hspemginfCustom.observationCode}</span>
-        </span>--%>
+        </span>
       </li>
-    </ul>
+    </ul>--%>
   </div>
   <div class="list_table list_div floatLeft printTableShow" id="check_table">
     <table id="jcbglist"></table>
