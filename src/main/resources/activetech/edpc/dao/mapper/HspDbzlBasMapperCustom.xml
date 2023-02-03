@@ -285,6 +285,7 @@
 		from hsp_dbzl_bas a
 		where a.PAT_TYP = '1'
 		<include refid="xtdbzl_where"/>
+        order by a.reg_tim desc
 		<include refid="activetech.base.CommonSql.page_end"/>
 	</select>
 
