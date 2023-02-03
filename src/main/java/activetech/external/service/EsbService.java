@@ -3,6 +3,7 @@ package activetech.external.service;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.result.ResultInfo;
 import activetech.edpc.pojo.dto.HspDbzlBasCustom;
+import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.external.pojo.domain.HspEcgInf;
 
 public interface EsbService {
@@ -21,6 +22,5 @@ public interface EsbService {
      /*
      * 插入三大中心基础信息表
      * */
-	public void insertHspDbzlBasForCust(HspDbzlBasCustom hspDbzlBasCustom) throws Exception;
-
+	void insertHspDbzlBasForCust(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser);
 }

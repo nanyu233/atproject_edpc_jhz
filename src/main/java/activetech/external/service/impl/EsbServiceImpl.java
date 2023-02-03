@@ -4,10 +4,14 @@ import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
+import activetech.base.service.SystemConfigService;
 import activetech.edpc.dao.mapper.HspDbzlBasMapper;
 import activetech.edpc.dao.mapper.HspXtAddMapper;
+import activetech.edpc.dao.mapper.HspZlInfCustomMapper;
 import activetech.edpc.pojo.domain.HspDbzlBas;
 import activetech.edpc.pojo.dto.HspDbzlBasCustom;
+import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
+import activetech.edpc.pojo.dto.HspZlInfCustom;
 import activetech.external.dao.mapper.HspEcgInfMapper;
 import activetech.external.dao.mapper.HspEcgInfMapperCustom;
 import activetech.external.dao.mapper.VHemsJcjgMapperCustom;
@@ -20,6 +24,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +51,12 @@ public class EsbServiceImpl implements EsbService{
 
 	@Autowired
 	private HspDbzlBasMapper hspDbzlBasMapper;
+
+	@Autowired
+	private SystemConfigService systemConfigService;
+
+	@Autowired
+	private HspZlInfCustomMapper hspZlInfCustomMapper;
 
 	@Override
 	public ResultInfo getJyjcInfo(String regSeq) {
@@ -224,8 +235,110 @@ public class EsbServiceImpl implements EsbService{
 	}
 
 	@Override
-	public void insertHspDbzlBasForCust(HspDbzlBasCustom hspDbzlBasCustom) throws Exception{
-		hspDbzlBasMapper.insertSelective(hspDbzlBasCustom);
+	public void insertHspDbzlBasForCust(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) {
+		HspDbzlBasCustom hspDbzlBasCustom = hspDbzlBasQueryDto.getHspDbzlBasCustom();
+
+		String regSeq = systemConfigService.findSequences("hsp_dbzl_bas_reg_seq", "8", null);
+
+		HspDbzlBas hspDbzlBas = new HspDbzlBas();
+		//唯一ID
+		hspDbzlBas.setRegSeq(regSeq);
+		hspDbzlBas.setRegTim(hspDbzlBasCustom.getRegTim());
+		hspDbzlBas.setEmgSeq(hspDbzlBasCustom.getEmgSeq());
+		hspDbzlBas.setMpi(hspDbzlBasCustom.getMpi());
+
+		hspDbzlBas.setPatTyp(hspDbzlBasCustom.getPatTyp());
+
+		hspDbzlBas.setWayTyp("0");
+		hspDbzlBas.setCardType(hspDbzlBasCustom.getCardType());
+		hspDbzlBas.setVstCad(hspDbzlBasCustom.getVstCad());
+		hspDbzlBas.setCstNam(hspDbzlBasCustom.getCstNam());
+		hspDbzlBas.setCstSexCod(hspDbzlBasCustom.getCstSexCod());
+		hspDbzlBas.setIdType(hspDbzlBasCustom.getCardType());
+		hspDbzlBas.setIdNbr(hspDbzlBasCustom.getIdNbr());
+		hspDbzlBas.setCstAgeCod(hspDbzlBasCustom.getCstAgeCod());
+		hspDbzlBas.setCstAge(hspDbzlBasCustom.getCstAge());
+		hspDbzlBas.setPatWgt(null);
+		hspDbzlBas.setPatHgt(null);
+		hspDbzlBas.setBthDat(hspDbzlBasCustom.getBthDat());
+		hspDbzlBas.setPheNbr(hspDbzlBasCustom.getPheNbr());
+		hspDbzlBas.setCstAdr(hspDbzlBasCustom.getCstAdr());
+		hspDbzlBas.setNation(hspDbzlBasCustom.getNation());
+		hspDbzlBas.setEmgJob(hspDbzlBasCustom.getEmgJob());
+		hspDbzlBas.setMaritalStatus(hspDbzlBasCustom.getMaritalStatus());
+		hspDbzlBas.setCstEdu(null);
+		hspDbzlBas.setLnkMan(null);
+		hspDbzlBas.setLnkWay(null);
+		hspDbzlBas.setGrnChl(hspDbzlBasCustom.getGrnChl());
+		hspDbzlBas.setSwChl(hspDbzlBasCustom.getSwChl());
+		hspDbzlBas.setHspAra(null);
+		hspDbzlBas.setYqxh(null);
+		hspDbzlBas.setJzxh(hspDbzlBasCustom.getJzxh());
+		hspDbzlBas.setZyxh(null);
+		hspDbzlBas.setDocDat(hspDbzlBasCustom.getDocDat());
+		hspDbzlBas.setJzys(hspDbzlBasCustom.getJzys());
+		hspDbzlBas.setYsxm(hspDbzlBasCustom.getYsxm());
+		hspDbzlBas.setKsdm(hspDbzlBasCustom.getKsdm());
+		hspDbzlBas.setCrtTim(new Date());
+		hspDbzlBas.setCrtNo(activeUser.getUsrno());
+		hspDbzlBas.setCrtNam(activeUser.getUsrname());
+		hspDbzlBas.setModTim(new Date());
+		hspDbzlBas.setModNo(activeUser.getUsrno());
+		hspDbzlBas.setModNam(activeUser.getUsrname());
+		hspDbzlBas.setRcdSta(null);
+		hspDbzlBas.setChkTim(null);
+		hspDbzlBas.setChkNo(null);
+		hspDbzlBas.setChkNam(null);
+		hspDbzlBas.setChkMsg(null);
+		hspDbzlBas.setStpFlg(null);
+		hspDbzlBas.setStpTim(null);
+		hspDbzlBas.setStpNo(null);
+		hspDbzlBas.setStpNam(null);
+		hspDbzlBas.setSmtSta("1");
+		hspDbzlBas.setSmtSeq(null);
+		hspDbzlBas.setSmtMsg(null);
+		if("1".equals(activeUser.getHospitalCategory())){
+			hspDbzlBas.setHspAra("1");
+		}else{
+			hspDbzlBas.setHspAra("2");
+		}
+		hspDbzlBasMapper.insert(hspDbzlBas);
+
+		addzlinf(hspDbzlBasCustom, regSeq);
 	}
+
+	private void addzlinf(HspDbzlBasCustom hspDbzlBasCustom, String regSeq) {
+		HspZlInfCustom baseZlInf = new HspZlInfCustom();
+		baseZlInf.setEmgNo(regSeq);
+		//血压
+		if(hspDbzlBasCustom.getXuey() != null ){
+			baseZlInf.setProCode("XYJZ");
+			baseZlInf.setProVal(hspDbzlBasCustom.getXuey());
+			hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
+		}
+		/*
+		//脉搏
+		if(hspDbzlBasCustom.getHrtRte() != null) {
+			baseZlInf.setProCode("MAIB");
+			baseZlInf.setProVal(hspDbzlBasCustom.get);
+			hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
+		}
+		//血氧
+        if(hspDbzlBasCustom.getXueyang() != null) {
+			baseZlInf.setProCode("");
+			baseZlInf.setProVal(hspDbzlBasCustom.getXueyang());
+			hspZlInfCustomMapper.mergeHspXtzlInf(baseXtzlInf);
+        }
+
+		//意识
+		if(hspDbzlBasCustom.getXueyang() != null) {
+			baseZlInf.setProCode("YISHI");
+			baseZlInf.setProVal(hspDbzlBasCustom.getSenRctCod());
+			hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
+		}
+
+		 */
+	}
+
 
 }
