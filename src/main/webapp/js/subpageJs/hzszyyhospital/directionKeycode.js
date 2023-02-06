@@ -26,16 +26,18 @@ function changeBackground(items) {
 }
 function mouseMove(ev) {
   var _tab = document.getElementById('buddyListTable');
-  if (document.all) {
-    _tab = document.getElementById('buddyListTable').children[0];
-  }
-  changeBackground(_tab);
-  $('.cbyxSearchList tr:hover').removeClass('buddyListEven').removeClass('buddyListOdd').addClass('buddyListHighLight');
-  for (var i = 0; i < _tab.rows.length; i++) {
-    if (_tab.rows[i].className == "buddyListHighLight") {
-      currentLine = i;
-    }
-  }
+	if(_tab){
+		if (document.all) {
+			_tab = document.getElementById('buddyListTable').children[0];
+		}
+		changeBackground(_tab);
+		$('.cbyxSearchList tr:hover').removeClass('buddyListEven').removeClass('buddyListOdd').addClass('buddyListHighLight');
+		for (var i = 0; i < _tab.rows.length; i++) {
+			if (_tab.rows[i].className == "buddyListHighLight") {
+				currentLine = i;
+			}
+		}
+	}  
 }
 document.onmousemove = mouseMove;
 $(function () {

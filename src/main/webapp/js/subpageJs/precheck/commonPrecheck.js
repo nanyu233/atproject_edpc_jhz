@@ -3,1174 +3,64 @@
  */
 
 var jsbrjz;
-var commonFun = {
-  /**
-   * @rems评分计算
-   */
-  countRems:{
-    breNbr: function (_breNbr) {
-      var breNbr;
-      if (_breNbr > 49 || _breNbr<6) {
-        breNbr = 4
-      } else if (35 <= _breNbr && _breNbr <= 49) {
-        breNbr = 3
-      } else if ((25 <= _breNbr && _breNbr <= 34)||(10 <= _breNbr && _breNbr <= 11)) {
-        breNbr = 1
-      } else if (12 <= _breNbr && _breNbr <= 24) {
-        breNbr = 0
-      }else if (6 <= _breNbr && _breNbr <= 9) {
-        breNbr = 2
-      }
-      return breNbr
-    },
-    hrtRte: function (_hrtRte) {
-      var hrtRte;
-      if (_hrtRte > 179||_hrtRte < 40) {
-        hrtRte = 4
-      } else if ((40 <= _hrtRte && _hrtRte <= 54) || (140 <= _hrtRte && _hrtRte <= 179)) {
-        hrtRte = 3
-      } else if ((55 <= _hrtRte && _hrtRte <= 69) || (110 <= _hrtRte && _hrtRte <= 139)) {
-        hrtRte = 2
-      } else if (70 <= _hrtRte && _hrtRte <= 109) {
-        hrtRte = 0
-      }
-      return hrtRte
-    },
-    sbpUpNbr: function (_sbpNbr) {
-      var sbpNbr;
-      if (_sbpNbr > 179 || _sbpNbr < 70) {
-        sbpNbr = 4
-      } else if (150 <= _sbpNbr && _sbpNbr <= 179) {
-        sbpNbr = 3
-      } else if ((70 <= _sbpNbr && _sbpNbr <= 89)||(130 <= _sbpNbr && _sbpNbr <= 149)) {
-        sbpNbr = 1
-      } else if (90 <= _sbpNbr && _sbpNbr <= 129) {
-        sbpNbr = 0
-      } 
-      return sbpNbr
-    },
-    GCS:function(_gcs){
-      var gcs;
-      if (_gcs > 13) {
-        gcs = 0
-      } else if (11 <= _gcs && _gcs <= 13) {
-        gcs = 1
-      } else if (8 <= _gcs && _gcs <= 10) {
-        gcs = 2
-      } else if (5 <= _gcs && _gcs <= 7) {
-        gcs = 3
-      }else if (_gcs < 5) {
-        gcs = 4
-      }
-      return gcs
-    },
-    cstAge:function(_cstAge){
-      var cstAge;
-      if(_cstAge <45){
-        cstAge = 0
-      }else if(45 <= _cstAge && _cstAge <= 54){
-        cstAge = 2
-      }else if(55 <= _cstAge && _cstAge <= 64){
-        cstAge = 3
-      }else if(65 <= _cstAge && _cstAge <= 74){
-        cstAge = 5
-      }else if(_cstAge > 74){
-        cstAge = 6
-      }
-      return cstAge
-    },
-    oxyNbr:function(_oxyNbr){
-      var oxyNbr;
-      if(_oxyNbr > 89){
-        oxyNbr = 0
-      }else if(86 <= _oxyNbr && _oxyNbr <= 89){
-        oxyNbr = 1
-      }else if(74 <= _oxyNbr && _oxyNbr <= 85){
-        oxyNbr = 3
-      }else if(_oxyNbr < 75){
-        oxyNbr = 4
-      }
-      return oxyNbr
-    }
-  },
-  /**
- * @mews评分计算
- */
-  countMews: {
-    /**
-     * @mews计算-呼吸
-     */
-    breNbr: function (_breNbr) {
-      var breNbr;
-      if (_breNbr >= 30) {
-        breNbr = 3
-      } else if ((21 <= _breNbr && _breNbr <= 29) || (_breNbr < 9)) {
-        breNbr = 2
-      } else if (15 <= _breNbr && _breNbr <= 20) {
-        breNbr = 1
-      } else if (9 <= _breNbr && _breNbr <= 14) {
-        breNbr = 0
-      }
-      return breNbr
-    },
-    /**
-     * @mews计算-体温
-     */
-    tmpNbr: function (_tmpNbr) {
-      var tmpNbr;
-      if (_tmpNbr >= 38.5 || _tmpNbr < 35) {
-        tmpNbr = 2
-      } else if (35 <= _tmpNbr && _tmpNbr <= 38.4) {
-        tmpNbr = 0
-      }
-      return tmpNbr
-    },
-    /**
-     * @mews计算-收缩压
-     */
-    sbpNbr: function (_sbpNbr) {
-      var sbpNbr;
-      if (_sbpNbr <= 70) {
-        sbpNbr = 3
-      } else if (_sbpNbr >= 200 || (71 <= _sbpNbr && _sbpNbr <= 80)) {
-        sbpNbr = 2
-      } else if (81 <= _sbpNbr && _sbpNbr <= 100) {
-        sbpNbr = 1
-      } else if (101 <= _sbpNbr && _sbpNbr <= 199) {
-        sbpNbr = 0
-      }
-      return sbpNbr
-    },
-    /**
-     * @mews计算-心率
-     */
-    hrtRte: function (_hrtRte) {
-      var hrtRte;
-      if (_hrtRte >= 130) {
-        hrtRte = 3
-      } else if ((111 <= _hrtRte && _hrtRte <= 129) || (_hrtRte <= 40)) {
-        hrtRte = 2
-      } else if ((101 <= _hrtRte && _hrtRte <= 110) || (41 <= _hrtRte && _hrtRte <= 50)) {
-        hrtRte = 1
-      } else if (51 <= _hrtRte && _hrtRte <= 100) {
-        hrtRte = 0
-      }
-      return hrtRte
-    },
-  },
-  /**
-   * @获取mews计算相关参数
-   */
-  getCountMewsParms: function () {
-    return {
-      senRctCod: vm.aboutMews.senRctCod,
-      breNbr: vm.aboutMews.breNbr,
-      hrtRte: vm.aboutMews.hrtRte,
-      tmpNbr: vm.aboutMews.tmpNbr,
-      sbpUpNbr: vm.aboutMews.sbpUpNbr
-    }
-  },
-   /**
-   * @获取rems计算相关参数
-   */
-  getCountRemsParms: function () {
-    return {
-      hrtRte: vm.aboutRems.hrtRte,
-      breNbr: vm.aboutRems.breNbr,
-      gcsTotSco: vm.aboutRems.gcsTotSco,
-      cstAge: vm.aboutRems.cstAge,
-      oxyNbr: vm.aboutRems.oxyNbr,
-      sbpUpNbr: vm.aboutRems.sbpUpNbr
-    }
-  },
-  /**
-   * @急诊分级相关参数
-   */
-  getCountChkLvlCodParms: function () {
-    return {
-      cstAge: vm.patientMsg.cstAge, // 年龄
-      cstAgeCod: vm.patientMsg.cstAgeCod, // 年龄类型
-      tmpNbr: vm.aboutMews.tmpNbr, //体温
-      sbpUpNbr: vm.aboutMews.sbpUpNbr, //收缩压
-      sbpDownNbr: vm.aboutMews.sbpDownNbr, // 舒张压
-      breNbr: vm.aboutMews.breNbr, //呼吸频率
-      hrtRte: vm.aboutMews.hrtRte, //心率
-      oxyNbr: vm.patientMsg.oxyNbr, //血氧饱和度
-      cspgFlg: vm.patientMsg.cspgFlg, //创伤标志
-      hxknCod: vm.patientMsg.hxknCod, //呼吸困难
-      xtCod: vm.patientMsg.xtCod, //胸痛
-      czFlag: vm.patientMsg.czFlag, //卒中
-      xfztFlg: vm.patientMsg.xfztFlg, //心肺骤停
-      nrsSco: vm.patientMsg.nrsSco, //疼痛评分
-      mewsTotSco: vm.patientMsg.mewsTotSco, // mews评分
-      pregnantYdcxCod: vm.patientMsg.pregnantYdcxCod, // 阴道出血
-      pregnantGsplCod: vm.patientMsg.pregnantGsplCod, // 宫缩频率
-    }
-  },
-  /**
- * @检查MEWS与REMS评分相关数据
- * @检查是否有空值
- * @return {boolean}
- */
-  checkEmptyForCount: function (obj) {
-    var isAllCheckEmpty = true;
-    $.each(obj, function (key, val) {
-      if (val === '' || val === null) {
-        isAllCheckEmpty = false;
-      }
-    });
-    return isAllCheckEmpty
-  },
-  /**
- * @mews计算
- * @return '',0,1,2,3,4,5,6,7,8,9,10,11,12
- */
-  countMewsCount: function () {
-    var aboutMews = commonFun.getCountMewsParms();
-    if (commonFun.checkEmptyForCount(aboutMews) === true) {
-      return commonFun.countMews.breNbr(aboutMews.breNbr) + commonFun.countMews.tmpNbr(aboutMews.tmpNbr) + commonFun.countMews.sbpNbr(aboutMews.sbpUpNbr) + commonFun.countMews.hrtRte(aboutMews.hrtRte) + parseInt(aboutMews.senRctCod);
-    } else {
-      return ''
-    }
-  },
-
-    /**
-   * @rems计算
-   * @return '',0,1,2,3,4,5,6,7,8,9,10,11,12
-   */
-  countRemsCount: function () {
-    var aboutRems = commonFun.getCountRemsParms();
-    if (commonFun.checkEmptyForCount(aboutRems) === true) {
-      return commonFun.countRems.hrtRte(aboutRems.hrtRte) + commonFun.countRems.sbpUpNbr(aboutRems.sbpUpNbr) + commonFun.countRems.breNbr(aboutRems.breNbr) + commonFun.countRems.GCS(aboutRems.gcsTotSco) + commonFun.countRems.cstAge(aboutRems.cstAge) + commonFun.countRems.oxyNbr(aboutRems.oxyNbr);
-    } else {
-      return ''
-    }
-  },
-  /**
- * @mews计算[成人和孕产妇] => 基础分级计算
- * @return '',0,1,2,3
- */
-  countChkLvlCodByMews: function () {
-    var mewsScore = commonFun.countMewsCount();
-    var typePat = vm.patientMsg.patientTyp;
-    var chkLvlCodByMews;
-    // 成人非孕产妇
-    if (typePat === '1') {
-      if (mewsScore >= 6) {
-        chkLvlCodByMews = 0 // 一级
-      } else if (mewsScore === 4 || mewsScore === 5) {
-        chkLvlCodByMews = 1 // 二级
-      } else if (mewsScore === 2 || mewsScore === 3) {
-        chkLvlCodByMews = 2 // 三级
-      } else if (mewsScore === 1 || mewsScore === 0) {
-        chkLvlCodByMews = 3 // 四级
-      } else if (mewsScore === '') {
-        chkLvlCodByMews = ''
-      }
-    } else if (typePat === '3') {
-      // 孕产妇
-      if (mewsScore >= 5) {
-        chkLvlCodByMews = 0 // 一级
-      } else if (mewsScore === 3 || mewsScore === 4) {
-        chkLvlCodByMews = 1 // 二级
-      } else if (mewsScore === 1 || mewsScore === 2) {
-        chkLvlCodByMews = 2 // 三级
-      } else if (mewsScore === 0) {
-        chkLvlCodByMews = 3 // 四级
-      } else if (mewsScore === '') {
-        chkLvlCodByMews = ''
-      }
-    }
-    return chkLvlCodByMews
-  },
-  /**
-   * @pews计算[儿童] => 基础分级计算
-   * @return '',0,1,2,3
-   */
-  countChkLvlCodByPews: function () {
-    var pewsScore = vm.aboutPEWS.pewsSco;
-    var typePat = vm.patientMsg.patientTyp;
-    var chkLvlCodByPews;
-    if (typePat === '2') {
-      if (pewsScore >= 5) {
-        chkLvlCodByPews = 0 // 一级
-      } else if (pewsScore === '3' || pewsScore === '4') {
-        chkLvlCodByPews = 1 // 二级
-      } else if (pewsScore === '1' || pewsScore === '2') {
-        chkLvlCodByPews = 2 // 三级
-      } else if (pewsScore === '0') {
-        chkLvlCodByPews = 3 // 四级
-      } else if (pewsScore === '') {
-        chkLvlCodByPews = ''
-      }
-    }
-    return chkLvlCodByPews
-  },
-  /**
- * @成人非孕产妇分级标准return '',0,1,2,3
- */
-  countAdultChkLvlCod: function () {
-    var aboutCountChkLvlCod = commonFun.getCountChkLvlCodParms(),
-      chkLvlCod = '3';
-    /**
-     * @判定是否加waring颜色
-     */
-    if (aboutCountChkLvlCod['tmpNbr'] != '' && (aboutCountChkLvlCod['tmpNbr'] < 32 || aboutCountChkLvlCod['tmpNbr'] > 41)) {
-      vm.patientInfFlg.tmpNbrFlag = 1;
-    } else {
-      vm.patientInfFlg.tmpNbrFlag = 0;
-    }
-    if (aboutCountChkLvlCod['sbpUpNbr'] != '' && (aboutCountChkLvlCod['sbpUpNbr'] < 70 || aboutCountChkLvlCod['sbpUpNbr'] >= 220)) {
-      vm.patientInfFlg.sbpUpNbrFlag = 1;
-    } else {
-      vm.patientInfFlg.sbpUpNbrFlag = 0;
-    }
-    if (aboutCountChkLvlCod['breNbr'] != '' && (aboutCountChkLvlCod['breNbr'] <= 8 || aboutCountChkLvlCod['breNbr'] >= 36)) {
-      vm.patientInfFlg.breNbrFlag = 1;
-    } else {
-      vm.patientInfFlg.breNbrFlag = 0;
-    }
-    if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] <= 40 || aboutCountChkLvlCod['hrtRte'] >= 180)) {
-      vm.patientInfFlg.hrtRteFlag = 1;
-    } else {
-      vm.patientInfFlg.hrtRteFlag = 0;
-    }
-    /**
-     * @血氧饱和度<85
-     * @血氧饱和度<=90 && 创伤患者
-     * @return '一级'
-     */
-    if (aboutCountChkLvlCod['cspgFlg'] === '1') {
-      if (aboutCountChkLvlCod['oxyNbr'] != '' && aboutCountChkLvlCod['oxyNbr'] <= 90) {
-        vm.patientInfFlg.oxyNbrFlag = 1;
-      } else {
-        vm.patientInfFlg.oxyNbrFlag = 0;
-      }
-    } else {
-      if (aboutCountChkLvlCod['oxyNbr'] != '' && aboutCountChkLvlCod['oxyNbr'] < 85) {
-        vm.patientInfFlg.oxyNbrFlag = 1;
-      } else {
-        vm.patientInfFlg.oxyNbrFlag = 0;
-      }
-    }
-
-
-    /**
-     * @胸闷、胸痛、呼吸困难、卒中、心肺骤停的指标，返回一级
-     */
-    if (aboutCountChkLvlCod['hxknCod'] != '') {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['xtCod'] != '') {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['czFlag'] === '1') {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['xfztFlg'] === '1') {
-      return '0'
-    }
-    /**
-     * @体温>41 或者 体温<32
-     * @血压<70 或者 >=220mmHg
-     * @呼吸<=8 或者>= 36
-     * @心率<=40 或者 >=180
-     */
-    if (aboutCountChkLvlCod['tmpNbr'] != '' && (aboutCountChkLvlCod['tmpNbr'] < 32 || aboutCountChkLvlCod['tmpNbr'] > 41)) {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['sbpUpNbr'] != '' && (aboutCountChkLvlCod['sbpUpNbr'] < 70 || aboutCountChkLvlCod['sbpUpNbr'] >= 220)) {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['breNbr'] != '' && (aboutCountChkLvlCod['breNbr'] <= 8 || aboutCountChkLvlCod['breNbr'] >= 36)) {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] <= 40 || aboutCountChkLvlCod['hrtRte'] >= 180)) {
-      return '0'
-    }
-    /**
-     * @血氧饱和度<85
-     * @血氧饱和度<=90 && 创伤患者
-     * @return '一级'
-     */
-    if (aboutCountChkLvlCod['cspgFlg'] === '1') {
-      if (aboutCountChkLvlCod['oxyNbr'] != '' && aboutCountChkLvlCod['oxyNbr'] <= 90) {
-        return '0'
-      }
-    } else {
-      if (aboutCountChkLvlCod['oxyNbr'] != '' && aboutCountChkLvlCod['oxyNbr'] < 85) {
-        return '0'
-      }
-    }
-    /**
-     * @chkLvlCodByMews 对应的值有'',0,1,2,3
-     */
-    var chkLvlCodByMews = commonFun.countChkLvlCodByMews();
-    if (chkLvlCodByMews === '') {
-      /**
-       * @无mews评分项目 || mews评分不全
-       * @血压收缩压 70-80 或者 200-219 || 舒张压大于等于110
-       * @心率41-50 或者141-179
-       * @血氧饱和度85-89
-       * @疼痛评分8-10分
-       * @直接默认二级
-       */
-      if ((70 <= aboutCountChkLvlCod['sbpUpNbr'] && aboutCountChkLvlCod['sbpUpNbr'] <= 80) || (200 <= aboutCountChkLvlCod['sbpUpNbr'] && aboutCountChkLvlCod['sbpUpNbr'] <= 219)) {
-        chkLvlCod = 1;
-      }
-      if (aboutCountChkLvlCod['sbpDownNbr'] >= 110) {
-        chkLvlCod = 1;
-      }
-      if ((41 <= aboutCountChkLvlCod['hrtRte'] && aboutCountChkLvlCod['hrtRte'] <= 50) || (141 <= aboutCountChkLvlCod['hrtRte'] && aboutCountChkLvlCod['hrtRte'] <= 179)) {
-        chkLvlCod = 1;
-      }
-      if (85 <= aboutCountChkLvlCod['oxyNbr'] && aboutCountChkLvlCod['oxyNbr'] <= 89) {
-        chkLvlCod = 1;
-      }
-      if (8 <= aboutCountChkLvlCod['nrsSco'] && aboutCountChkLvlCod['nrsSco'] <= 10) {
-        chkLvlCod = 1;
-      }
-      /**
-       * @if 有直接二级的项目
-       * @age > 75 || 创伤标志 => 升1级
-       */
-      /**
-       * @else 无直接二级的项目
-       * @age > 75 || 创伤标志 => 变成三级
-       */
-      if (chkLvlCod === 1) {
-        if (aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') {
-          chkLvlCod--;
-        }
-        if (aboutCountChkLvlCod['cspgFlg'] === '1') {
-          chkLvlCod--;
-        }
-        return chkLvlCod < 0 ? '0' : chkLvlCod.toString();
-      } else {
-        if ((aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') && (aboutCountChkLvlCod['cspgFlg'] === '1')) {
-          chkLvlCod = 1;
-        } else if ((aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') && !(aboutCountChkLvlCod['cspgFlg'] === '1')) {
-          chkLvlCod = 2;
-        } else if (!(aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') && (aboutCountChkLvlCod['cspgFlg'] === '1')) {
-          chkLvlCod = 2;
-        } else {
-          chkLvlCod = 3;
-        }
-        return chkLvlCod.toString();
-      }
-    } else if (chkLvlCodByMews === 0) {
-      return '0'
-    } else if (chkLvlCodByMews === 1 || chkLvlCodByMews === 2 || chkLvlCodByMews === 3) {
-      /**
-       * @mews评分计算结果为二级/三级/四级
-       * @血压收缩压 70-80 或者 200-219 || 舒张压大于等于110
-       * @心率41-50 或者141-179
-       * @血氧饱和度85-89
-       * @疼痛评分8-10分
-       * @直接默认二级
-       */
-      if ((70 <= aboutCountChkLvlCod['sbpUpNbr'] && aboutCountChkLvlCod['sbpUpNbr'] <= 80) || (200 <= aboutCountChkLvlCod['sbpUpNbr'] && aboutCountChkLvlCod['sbpUpNbr'] <= 219)) {
-        chkLvlCod = 1;
-      }
-      if (aboutCountChkLvlCod['sbpDownNbr'] >= 110) {
-        chkLvlCod = 1;
-      }
-      if ((41 <= aboutCountChkLvlCod['hrtRte'] && aboutCountChkLvlCod['hrtRte'] <= 50) || (141 <= aboutCountChkLvlCod['hrtRte'] && aboutCountChkLvlCod['hrtRte'] <= 179)) {
-        chkLvlCod = 1;
-      }
-      if (85 <= aboutCountChkLvlCod['oxyNbr'] && aboutCountChkLvlCod['oxyNbr'] <= 89) {
-        chkLvlCod = 1;
-      }
-      if (8 <= aboutCountChkLvlCod['nrsSco'] && aboutCountChkLvlCod['nrsSco'] <= 10) {
-        chkLvlCod = 1;
-      }
-      // chkLvlCod = Math.min(chkLvlCod, chkLvlCodByMews);
-      chkLvlCod = chkLvlCod ? Math.min(chkLvlCod, chkLvlCodByMews) : (chkLvlCodByMews || '');
-      if (aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') {
-        chkLvlCod--;
-      }
-      if (aboutCountChkLvlCod['cspgFlg'] === '1') {
-        chkLvlCod--;
-      }
-      return chkLvlCod < 0 ? '0' : chkLvlCod.toString();
-    }
-  },
-  /**
-   * @孕产妇分级标准return '',0,1,2,3
-   */
-  countPregnantChkLvlCod: function () {
-    var aboutCountChkLvlCod = commonFun.getCountChkLvlCodParms(),
-      chkLvlCod = '3';
-    /**
-     * @判定是否加waring颜色
-     */
-    if (aboutCountChkLvlCod['sbpUpNbr'] != '' && (aboutCountChkLvlCod['sbpUpNbr'] < 70 || aboutCountChkLvlCod['sbpUpNbr'] >= 220)) {
-      vm.patientInfFlg.sbpUpNbrFlag = 1;
-    } else {
-      vm.patientInfFlg.sbpUpNbrFlag = 0;
-    }
-    if (aboutCountChkLvlCod['breNbr'] != '' && (aboutCountChkLvlCod['breNbr'] <= 8 || aboutCountChkLvlCod['breNbr'] >= 30)) {
-      vm.patientInfFlg.breNbrFlag = 1;
-    } else {
-      vm.patientInfFlg.breNbrFlag = 0;
-    }
-    if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] <= 50 || aboutCountChkLvlCod['hrtRte'] >= 130)) {
-      vm.patientInfFlg.hrtRteFlag = 1;
-    } else {
-      vm.patientInfFlg.hrtRteFlag = 0;
-    }
-    if (aboutCountChkLvlCod['oxyNbr'] != '' && aboutCountChkLvlCod['oxyNbr'] < 90) {
-      vm.patientInfFlg.oxyNbrFlag = 1;
-    } else {
-      vm.patientInfFlg.oxyNbrFlag = 0;
-    }
-    /**
-     * @胸闷、胸痛、呼吸困难、卒中、心肺骤停的指标，返回一级
-     */
-    if (aboutCountChkLvlCod['hxknCod'] != '') {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['xtCod'] != '') {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['czFlag'] === '1') {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['xfztFlg'] === '1') {
-      return '0'
-    }
-    /**
-     * @血压收缩压<70 或者 >=220mmHg
-     * @呼吸<=8 或者>= 30
-     * @心率<=50 或者 >=130
-     * @宫缩频率≤2min 1 次 1
-     * @阴道流血大于月经量 1
-     * @血氧饱和度<90
-     * @疼痛评分 7-10 分
-     * @return '一级'
-     */
-    if (aboutCountChkLvlCod['sbpUpNbr'] != '' && (aboutCountChkLvlCod['sbpUpNbr'] < 70 || aboutCountChkLvlCod['sbpUpNbr'] >= 220)) {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['breNbr'] != '' && (aboutCountChkLvlCod['breNbr'] <= 8 || aboutCountChkLvlCod['breNbr'] >= 30)) {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] <= 50 || aboutCountChkLvlCod['hrtRte'] >= 130)) {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['pregnantGsplCod'] === '1') {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['pregnantYdcxCod'] === '1') {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['oxyNbr'] != '' && aboutCountChkLvlCod['oxyNbr'] < 90) {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['nrsSco'] !== '' && aboutCountChkLvlCod['nrsSco'] <= 10 && aboutCountChkLvlCod['nrsSco'] >= 7) {
-      return '0'
-    }
-    /**
-     * @chkLvlCodByMews 对应的值有'',0,1,2,3
-     */
-    var chkLvlCodByMews = commonFun.countChkLvlCodByMews();
-    if (chkLvlCodByMews === '') {
-      /**
-       * @无mews评分项目 || mews评分不全
-       * @血压收缩压 70-80 或者 160-219
-       * @心率111-129
-       * @血氧饱和度90-92
-       * @疼痛评分4-6分
-       * @宫缩频率 3-5min 1 次 2
-       * @阴道流血等于月经量 2
-       * @直接默认二级
-       */
-      if ((70 <= aboutCountChkLvlCod['sbpUpNbr'] && aboutCountChkLvlCod['sbpUpNbr'] <= 80) || (160 <= aboutCountChkLvlCod['sbpUpNbr'] && aboutCountChkLvlCod['sbpUpNbr'] <= 219)) {
-        chkLvlCod = 1;
-      }
-      if (111 <= aboutCountChkLvlCod['hrtRte'] && aboutCountChkLvlCod['hrtRte'] <= 129) {
-        chkLvlCod = 1;
-      }
-      if (90 <= aboutCountChkLvlCod['oxyNbr'] && aboutCountChkLvlCod['oxyNbr'] <= 92) {
-        chkLvlCod = 1;
-      }
-      if (4 <= aboutCountChkLvlCod['nrsSco'] && aboutCountChkLvlCod['nrsSco'] <= 6) {
-        chkLvlCod = 1;
-      }
-      if (aboutCountChkLvlCod['pregnantGsplCod'] === '2') {
-        chkLvlCod = 1;
-      }
-      if (aboutCountChkLvlCod['pregnantYdcxCod'] === '2') {
-        chkLvlCod = 1;
-      }
-      /**
-       * @if 有直接二级的项目
-       * @age > 75 || 创伤标志 ||  => 升1级
-       */
-      /**
-       * @else 无直接二级的项目
-       * @age > 75 || 创伤标志 => 变成三级
-       */
-      if (chkLvlCod === 1) {
-        if (aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') {
-          chkLvlCod--;
-        }
-        if (aboutCountChkLvlCod['cspgFlg'] === '1') {
-          chkLvlCod--;
-        }
-        return chkLvlCod < 0 ? '0' : chkLvlCod.toString();
-      } else {
-        if ((aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') && (aboutCountChkLvlCod['cspgFlg'] === '1')) {
-          chkLvlCod = 1;
-        } else if ((aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') && !(aboutCountChkLvlCod['cspgFlg'] === '1')) {
-          chkLvlCod = 2;
-        } else if (!(aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') && (aboutCountChkLvlCod['cspgFlg'] === '1')) {
-          chkLvlCod = 2;
-        } else {
-          chkLvlCod = 3;
-        }
-        if (chkLvlCod !== 3) {
-          return chkLvlCod.toString();
-        }
-      }
-    } else if (chkLvlCodByMews === 0) {
-      return '0'
-    } else if (chkLvlCodByMews === 1 || chkLvlCodByMews === 2 || chkLvlCodByMews === 3) {
-      /**
-       * @mews评分计算结果为二级/三级/四级
-       * @血压收缩压 70-80 或者 160-219
-       * @心率111-129
-       * @血氧饱和度90-92
-       * @疼痛评分4-6分
-       * @宫缩频率 3-5min 1 次 2
-       * @阴道流血等于月经量 2
-       * @直接默认二级
-       */
-      if ((70 <= aboutCountChkLvlCod['sbpUpNbr'] && aboutCountChkLvlCod['sbpUpNbr'] <= 80) || (160 <= aboutCountChkLvlCod['sbpUpNbr'] && aboutCountChkLvlCod['sbpUpNbr'] <= 219)) {
-        chkLvlCod = 1;
-      }
-      if (111 <= aboutCountChkLvlCod['hrtRte'] && aboutCountChkLvlCod['hrtRte'] <= 129) {
-        chkLvlCod = 1;
-      }
-      if (90 <= aboutCountChkLvlCod['oxyNbr'] && aboutCountChkLvlCod['oxyNbr'] <= 92) {
-        chkLvlCod = 1;
-      }
-      if (4 <= aboutCountChkLvlCod['nrsSco'] && aboutCountChkLvlCod['nrsSco'] <= 6) {
-        chkLvlCod = 1;
-      }
-      if (aboutCountChkLvlCod['pregnantGsplCod'] === '2') {
-        chkLvlCod = 1;
-      }
-      if (aboutCountChkLvlCod['pregnantYdcxCod'] === '2') {
-        chkLvlCod = 1;
-      }
-      // chkLvlCod = Math.min(chkLvlCod, chkLvlCodByMews);
-      chkLvlCod = chkLvlCod ? Math.min(chkLvlCod, chkLvlCodByMews) : (chkLvlCodByMews || '');
-      if (aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') {
-        chkLvlCod--;
-      }
-      if (aboutCountChkLvlCod['cspgFlg'] === '1') {
-        chkLvlCod--;
-      }
-      if (chkLvlCod !== 3) {
-        return chkLvlCod < 0 ? '0' : chkLvlCod.toString();
-      }
-    }
-    /**
-     * @阴道流血小于月经量 3
-     * @宫缩频率 5-10min 1 次 3
-     * @疼痛评分 1-3 分
-     * @血氧饱和度 93-94
-     * @血压收缩压140-159 || 舒展压 90-110
-     * @return '三级'
-     */
-    if (aboutCountChkLvlCod['pregnantGsplCod'] === '3') {
-      chkLvlCod = 2
-    }
-    if (aboutCountChkLvlCod['pregnantYdcxCod'] === '3') {
-      chkLvlCod = 2
-    }
-    if (1 <= aboutCountChkLvlCod['nrsSco'] && aboutCountChkLvlCod['nrsSco'] <= 3) {
-      chkLvlCod = 2
-    }
-    if (93 <= aboutCountChkLvlCod['oxyNbr'] && aboutCountChkLvlCod['oxyNbr'] <= 94) {
-      chkLvlCod = 2;
-    }
-    if ((140 <= aboutCountChkLvlCod['sbpUpNbr'] && aboutCountChkLvlCod['sbpUpNbr'] <= 159) || (90 <= aboutCountChkLvlCod['sbpDownNbr'] && aboutCountChkLvlCod['sbpDownNbr'] <= 110)) {
-      chkLvlCod = 2;
-    }
-    return chkLvlCod.toString();
-  },
-  /**
-   * @儿童分级标准return '',0,1,2,3
-  */
-  countChildChkLvlCod: function () {
-    var aboutCountChkLvlCod = commonFun.getCountChkLvlCodParms(),
-      chkLvlCod = '3';
-    /**
-     * @胸闷、胸痛、呼吸困难、卒中、心肺骤停的指标，返回一级
-     */
-    if (aboutCountChkLvlCod['hxknCod'] != '') {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['xtCod'] != '') {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['czFlag'] === '1') {
-      return '0'
-    }
-    if (aboutCountChkLvlCod['xfztFlg'] === '1') {
-      return '0'
-    }
-    /**
-     * @脉搏<40 次/min(0<y≤6 岁);<30(>6 岁); >140(3<y≤6 岁) ;>120(6<y≤10 岁)
-     * @脉搏>230 次/min (0<y≤3 月);>210(3<y≤6 月);>180(6<y≤12 月); >165(1<y≤3 岁);
-     * @呼吸<10 次/min(0<y≤3 岁); <8 (>3 岁); >80(y≤6 月);>60(6<y≤12 月);
-     * @呼吸>40 次/min (1<y≤3 岁);>32(3<y≤6 岁);>26(6<y≤10 岁)
-     * @SpO2<90% 体温≥38°C(新生儿 天数小于等于28天)
-     */
-    if (aboutCountChkLvlCod['cstAge'] != '') {
-      // 0-6岁 包括6岁
-      if ((aboutCountChkLvlCod['cstAgeCod'] === '0' && 0 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 6) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && 0 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 72) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && 0 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 2160)) {
-        // (0, 3月] 脉搏大于230 或者 脉搏小于40
-        if ((aboutCountChkLvlCod['cstAgeCod'] === '1' && 0 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 3) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && 0 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 90)) {
-          if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] > 230 || aboutCountChkLvlCod['hrtRte'] < 40)) {
-            vm.patientInfFlg.hrtRteFlag = 1;
-            chkLvlCod = 0
-          } else {
-            vm.patientInfFlg.hrtRteFlag = 0;
-          }
-        } else if ((aboutCountChkLvlCod['cstAgeCod'] === '1' && 3 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 6) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && 90 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 180)) {
-          // (3, 6月] 脉搏大于210 或者 脉搏小于40
-          if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] > 210 || aboutCountChkLvlCod['hrtRte'] < 40)) {
-            vm.patientInfFlg.hrtRteFlag = 1;
-            chkLvlCod = 0
-          } else {
-            vm.patientInfFlg.hrtRteFlag = 0;
-          }
-        } else if ((aboutCountChkLvlCod['cstAgeCod'] === '1' && 6 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] < 12) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && 180 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] < 365)) {
-          // (6, 12月) 脉搏大于180 或者 脉搏小于40
-          if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] > 180 || aboutCountChkLvlCod['hrtRte'] < 40)) {
-            vm.patientInfFlg.hrtRteFlag = 1;
-            chkLvlCod = 0
-          } else {
-            vm.patientInfFlg.hrtRteFlag = 0;
-          }
-        } else if ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] == 1) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] == 12) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] == 365)) {
-          // 1岁 = 12月时 脉搏大于180 或者小于 40
-          if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] > 180 || aboutCountChkLvlCod['hrtRte'] < 40)) {
-            vm.patientInfFlg.hrtRteFlag = 1;
-            chkLvlCod = 0
-          } else {
-            vm.patientInfFlg.hrtRteFlag = 0;
-          }
-        } else {
-          // (1, 6岁] 脉搏小于40
-          if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] < 40)) {
-            vm.patientInfFlg.hrtRteFlag = 1;
-            chkLvlCod = 0
-          } else {
-            vm.patientInfFlg.hrtRteFlag = 0;
-          }
-          if ((aboutCountChkLvlCod['cstAgeCod'] === '0' && 3 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 6) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && 36 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 72)) {
-            // (3, 6岁] 脉搏小于40 或者大于 140
-            if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] > 140 || aboutCountChkLvlCod['hrtRte'] < 40)) {
-              vm.patientInfFlg.hrtRteFlag = 1;
-              chkLvlCod = 0
-            } else {
-              vm.patientInfFlg.hrtRteFlag = 0;
-            }
-          } else {
-            // (1, 3岁] 脉搏小于40 或者大于 165
-            if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] > 165 || aboutCountChkLvlCod['hrtRte'] < 40)) {
-              vm.patientInfFlg.hrtRteFlag = 1;
-              chkLvlCod = 0
-            } else {
-              vm.patientInfFlg.hrtRteFlag = 0;
-            }
-          }
-        }
-      } else if ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] > 6) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 72)) {
-        // 大于6岁 小于30
-        if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] < 30)) {
-          vm.patientInfFlg.hrtRteFlag = 1;
-          chkLvlCod = 0
-        } else {
-          vm.patientInfFlg.hrtRteFlag = 0;
-        }
-        if ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] <= 10) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] <= 120)) {
-          // 6 -10] 岁 大于 120 或者 小于 30
-          if (aboutCountChkLvlCod['hrtRte'] != '' && (aboutCountChkLvlCod['hrtRte'] > 120 || aboutCountChkLvlCod['hrtRte'] < 30)) {
-            vm.patientInfFlg.hrtRteFlag = 1;
-            chkLvlCod = 0
-          } else {
-            vm.patientInfFlg.hrtRteFlag = 0;
-          }
-        }
-      }
-    } else {
-      vm.patientInfFlg.hrtRteFlag = 0;
-    }
-
-    if (aboutCountChkLvlCod['cstAge'] != '') {
-      // 小于等于6个月 呼吸大于80 或者 小于 10
-      if ((aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] <= 6) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] <= 180)) {
-        if ((aboutCountChkLvlCod['breNbr'] > 80 || aboutCountChkLvlCod['breNbr'] < 10) && aboutCountChkLvlCod['breNbr'] != '') {
-          vm.patientInfFlg.breNbrFlag = 1;
-          chkLvlCod = 0
-        } else {
-          vm.patientInfFlg.breNbrFlag = 0;
-        }
-      } else if ((aboutCountChkLvlCod['cstAgeCod'] === '1' && 6 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] < 12) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && 180 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] < 365)) {
-        // （6-12个月） 不包含6月 12月 呼吸大于60 或者 小于 10
-        if ((aboutCountChkLvlCod['breNbr'] > 60 || aboutCountChkLvlCod['breNbr'] < 10) && aboutCountChkLvlCod['breNbr'] != '') {
-          vm.patientInfFlg.breNbrFlag = 1;
-          chkLvlCod = 0
-        } else {
-          vm.patientInfFlg.breNbrFlag = 0;
-        }
-      } else if ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] == 1) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] == 12) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] == 365)) {
-        // 1年 12个月 呼吸大于60 或者 小于 10
-        if ((aboutCountChkLvlCod['breNbr'] > 60 || aboutCountChkLvlCod['breNbr'] < 10) && aboutCountChkLvlCod['breNbr'] != '') {
-          vm.patientInfFlg.breNbrFlag = 1;
-          chkLvlCod = 0
-        } else {
-          vm.patientInfFlg.breNbrFlag = 0;
-        }
-      } else if ((aboutCountChkLvlCod['cstAgeCod'] === '0' && 1 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 3) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && 12 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 36)) {
-        // （1-3岁】 呼吸大于 40 或许 呼吸小于 10
-        if ((aboutCountChkLvlCod['breNbr'] > 40 || aboutCountChkLvlCod['breNbr'] < 10) && aboutCountChkLvlCod['breNbr'] != '') {
-          vm.patientInfFlg.breNbrFlag = 1;
-          chkLvlCod = 0
-        } else {
-          vm.patientInfFlg.breNbrFlag = 0;
-        }
-      } else if ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] > 3) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 36)) {
-        // (3岁,  ) 呼吸小于8
-        if (aboutCountChkLvlCod['breNbr'] != '' && (aboutCountChkLvlCod['breNbr'] < 8)) {
-          vm.patientInfFlg.breNbrFlag = 1;
-          chkLvlCod = 0
-        } else {
-          vm.patientInfFlg.breNbrFlag = 0;
-        }
-        // (3岁, 6岁] 呼吸小于8 或者 大于 32
-        if ((aboutCountChkLvlCod['cstAgeCod'] === '0' && 3 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 6) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && 36 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 72)) {
-          if ((aboutCountChkLvlCod['breNbr'] > 32 || aboutCountChkLvlCod['breNbr'] < 8) && aboutCountChkLvlCod['breNbr'] != '') {
-            vm.patientInfFlg.breNbrFlag = 1;
-            chkLvlCod = 0
-          } else {
-            vm.patientInfFlg.breNbrFlag = 0;
-          }
-        } else if ((aboutCountChkLvlCod['cstAgeCod'] === '0' && 6 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 10) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && 72 < aboutCountChkLvlCod['cstAge'] && aboutCountChkLvlCod['cstAge'] <= 120)) {
-          // (6岁, 10岁] 呼吸小于8 或者 大于 26
-          if ((aboutCountChkLvlCod['breNbr'] > 26 || aboutCountChkLvlCod['breNbr'] < 8) && aboutCountChkLvlCod['breNbr'] != '') {
-            vm.patientInfFlg.breNbrFlag = 1;
-            chkLvlCod = 0
-          } else {
-            vm.patientInfFlg.breNbrFlag = 0;
-          }
-        }
-      }
-    } else {
-      vm.patientInfFlg.breNbrFlag = 0;
-    }
-
-    if (aboutCountChkLvlCod['cstAge'] != '' && (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] <= 28)) {
-      if (aboutCountChkLvlCod['tmpNbr'] != '' && aboutCountChkLvlCod['tmpNbr'] >= 38) {
-        vm.patientInfFlg.tmpNbrFlag = 1;
-        chkLvlCod = 0
-      } else {
-        vm.patientInfFlg.tmpNbrFlag = 0;
-      }
-    } else {
-      vm.patientInfFlg.tmpNbrFlag = 0;
-    }
-    if (aboutCountChkLvlCod['oxyNbr'] !== '' && aboutCountChkLvlCod['oxyNbr'] < 90) {
-      vm.patientInfFlg.oxyNbrFlag = 1
-      chkLvlCod = 0
-    } else {
-      vm.patientInfFlg.oxyNbrFlag = 0;
-    }
-    if (chkLvlCod === 0) {
-      return chkLvlCod.toString();
-    }
-    /**
-     * @chkLvlCodByMews 对应的值有'',0,1,2,3
-     */
-    var chkLvlCodByPews = commonFun.countChkLvlCodByPews();
-    if (chkLvlCodByPews === '') {
-      /**
-       * @无pews评分项目 || pews评分不全
-       * @收缩压>130mmHg 或<75mmHg (y>5 岁) SpO290-92%
-       * @呼吸10-20或70-80次/min(0<y≤6月); 10-17或55-60次/min(6<y≤12月)
-       * @呼吸 10-15 或 35-40 次/min(1<y≤3 岁); 8-12 或 28-32 次/min(3<y≤6 岁)
-       * @直接默认二级
-       */
-      if (aboutCountChkLvlCod['cstAge'] != '' && ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] > 5) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 60) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] > 1825))) {
-        if ((aboutCountChkLvlCod['sbpUpNbr'] > 130) || (aboutCountChkLvlCod['sbpUpNbr'] < 75 && aboutCountChkLvlCod['sbpUpNbr'] !== '')) {
-          chkLvlCod = 1;
-        }
-      }
-      if (90 <= aboutCountChkLvlCod['oxyNbr'] && aboutCountChkLvlCod['oxyNbr'] <= 92) {
-        chkLvlCod = 1;
-      }
-      if (aboutCountChkLvlCod['cstAge'] != '' && ((aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 0 && aboutCountChkLvlCod['cstAge'] <= 6) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] > 0 && aboutCountChkLvlCod['cstAge'] <= 180))) {
-        if (aboutCountChkLvlCod['breNbr'] != '' && ((10 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 20) || (70 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 80))) {
-          chkLvlCod = 1;
-        }
-      }
-      if (aboutCountChkLvlCod['cstAge'] != '' && ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] == 1) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 6 && aboutCountChkLvlCod['cstAge'] <= 12) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] > 180 && aboutCountChkLvlCod['cstAge'] <= 360))) {
-        if (aboutCountChkLvlCod['breNbr'] != '' && ((10 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 17) || (55 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 60))) {
-          chkLvlCod = 1;
-        }
-      }
-      if (aboutCountChkLvlCod['cstAge'] != '' && ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] > 1 && aboutCountChkLvlCod['cstAge'] <= 3) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 12 && aboutCountChkLvlCod['cstAge'] <= 36) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] > 365 && aboutCountChkLvlCod['cstAge'] <= 1095))) {
-        if (aboutCountChkLvlCod['breNbr'] != '' && ((10 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 15) || (35 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 40))) {
-          chkLvlCod = 1;
-        }
-      }
-      if (aboutCountChkLvlCod['cstAge'] != '' && ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] > 3 && aboutCountChkLvlCod['cstAge'] <= 6) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 36 && aboutCountChkLvlCod['cstAge'] <= 72) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] > 1095 && aboutCountChkLvlCod['cstAge'] <= 2190))) {
-        if (aboutCountChkLvlCod['breNbr'] != '' && ((8 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 12) || (28 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 32))) {
-          chkLvlCod = 1;
-        }
-      }
-      /**
-       * @if 有直接二级的项目
-       * @age > 75 || 创伤标志 => 升1级
-       */
-      /**
-       * @else 无直接二级的项目
-       * @age > 75 || 创伤标志 => 变成三级
-       */
-      if (chkLvlCod === 1) {
-        if (aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') {
-          chkLvlCod--;
-        }
-        if (aboutCountChkLvlCod['cspgFlg'] === '1') {
-          chkLvlCod--;
-        }
-        return chkLvlCod < 0 ? '0' : chkLvlCod.toString();
-      } else {
-        if ((aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') && (aboutCountChkLvlCod['cspgFlg'] === '1')) {
-          chkLvlCod = 1;
-        } else if ((aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') && !(aboutCountChkLvlCod['cspgFlg'] === '1')) {
-          chkLvlCod = 2;
-        } else if (!(aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') && (aboutCountChkLvlCod['cspgFlg'] === '1')) {
-          chkLvlCod = 2;
-        } else {
-          chkLvlCod = 3;
-        }
-        return chkLvlCod.toString();
-      }
-    } else if (chkLvlCodByPews === 0) {
-      return '0'
-    } else if (chkLvlCodByPews === 1 || chkLvlCodByPews === 2 || chkLvlCodByPews === 3) {
-      /**
-       * @mews评分计算结果为二级/三级/四级
-       * @收缩压>130mmHg 或<75mmHg (y>5 岁) SpO290-92%
-       * @呼吸10-20或70-80次/min(0<y≤6月); 10-17或55-60次/min(6<y≤12月)
-       * @呼吸 10-15 或 35-40 次/min(1<y≤3 岁); 8-12 或 28-32 次/min(3<y≤6 岁)
-       * @直接默认二级
-       */
-      if (aboutCountChkLvlCod['cstAge'] != '' && ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] > 5) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 60) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] > 1825))) {
-        if ((aboutCountChkLvlCod['sbpUpNbr'] > 130) || (aboutCountChkLvlCod['sbpUpNbr'] < 75 && aboutCountChkLvlCod['sbpUpNbr'] !== '')) {
-          chkLvlCod = 1;
-        }
-      }
-      if (90 <= aboutCountChkLvlCod['oxyNbr'] && aboutCountChkLvlCod['oxyNbr'] <= 92) {
-        chkLvlCod = 1;
-      }
-      if (aboutCountChkLvlCod['cstAge'] != '' && ((aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 0 && aboutCountChkLvlCod['cstAge'] <= 6) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] > 0 && aboutCountChkLvlCod['cstAge'] <= 180))) {
-        if (aboutCountChkLvlCod['breNbr'] != '' && ((10 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 20) || (70 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 80))) {
-          chkLvlCod = 1;
-        }
-      }
-      if (aboutCountChkLvlCod['cstAge'] != '' && ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] == 1) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 6 && aboutCountChkLvlCod['cstAge'] <= 12) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] > 180 && aboutCountChkLvlCod['cstAge'] <= 360))) {
-        if (aboutCountChkLvlCod['breNbr'] != '' && ((10 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 17) || (55 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 60))) {
-          chkLvlCod = 1;
-        }
-      }
-      if (aboutCountChkLvlCod['cstAge'] != '' && ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] > 1 && aboutCountChkLvlCod['cstAge'] <= 3) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 12 && aboutCountChkLvlCod['cstAge'] <= 36) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] > 365 && aboutCountChkLvlCod['cstAge'] <= 1095))) {
-        if (aboutCountChkLvlCod['breNbr'] != '' && ((10 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 15) || (35 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 40))) {
-          chkLvlCod = 1;
-        }
-      }
-      if (aboutCountChkLvlCod['cstAge'] != '' && ((aboutCountChkLvlCod['cstAgeCod'] === '0' && aboutCountChkLvlCod['cstAge'] > 3 && aboutCountChkLvlCod['cstAge'] <= 6) || (aboutCountChkLvlCod['cstAgeCod'] === '1' && aboutCountChkLvlCod['cstAge'] > 36 && aboutCountChkLvlCod['cstAge'] <= 72) || (aboutCountChkLvlCod['cstAgeCod'] === '2' && aboutCountChkLvlCod['cstAge'] > 1095 && aboutCountChkLvlCod['cstAge'] <= 2190))) {
-        if (aboutCountChkLvlCod['breNbr'] != '' && ((8 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 12) || (28 <= aboutCountChkLvlCod['breNbr'] && aboutCountChkLvlCod['breNbr'] <= 32))) {
-          chkLvlCod = 1;
-        }
-      }
-      // chkLvlCod = Math.min(chkLvlCod, chkLvlCodByMews);
-      chkLvlCod = chkLvlCod ? Math.min(chkLvlCod, chkLvlCodByPews) : (chkLvlCodByPews || '');
-      if (aboutCountChkLvlCod['cstAge'] > 75 && aboutCountChkLvlCod['cstAgeCod'] === '0') {
-        chkLvlCod--;
-      }
-      if (aboutCountChkLvlCod['cspgFlg'] === '1') {
-        chkLvlCod--;
-      }
-      return chkLvlCod < 0 ? '0' : chkLvlCod.toString();
-    }
-  },
-  /**
- * @急诊分级 => 急诊分区
- */
-  countEmgAreCod: function (chkLvlCod) {
-    switch (chkLvlCod) {
-      case '':
-      case '0':
-      case '1':
-        return chkLvlCod;
-        break;
-      case '2':
-      case '3':
-      case '4':
-        return '2';
-        break;
-    }
-  },
-  /**
- * @copy 数据
- */
-  copyObj: function (fromObj, toObj) {
-    if (fromObj === vm.patientMsg) {
-      for (var key in fromObj) {
-        if (vm.hideMsg.hasOwnProperty(key) === false) {
-          toObj[key] = fromObj[key]
-        }
-      }
-    } else {
-      for (var key in fromObj) {
-        toObj[key] = fromObj[key]
-      }
-    }
-  },
-  /**
- * @return  患者类别
- */
-  getPatientType: function () {
-    // 0 child 1 adultman 2 adlutwoman 3 ksfz
-    var cstSexCod = vm.patientMsg.cstSexCod,
-      ksfz = vm.hideMsg.ksfz;
-    if (ksfz) {
-      return '3'
-    } else {
-      var isChild = false;
-      if (vm.patientMsg.patientTyp === '2') {
-        isChild = true;
-      }
-      // var isChild = commonFun.isChild(cstAge, cstAgeCod);
-      if (isChild === true) {
-        return '0'
-      } else if (isChild === false) {
-        if (cstSexCod === '1') { //性别女
-          return '2'
-        }
-        if (cstSexCod === '0') { //性别男
-          return '1'
-        }
-      } else {
-        return '1'
-      }
-    }
-  },
-  isChild: function (cstAge, cstAgeCod) {
-    if (cstAge != '' && ((cstAgeCod === '0' && cstAge < 14) || (cstAgeCod === '1' && cstAge < 168) || (cstAgeCod === '2' && cstAge < 5110))) {
-      return true
-    } else {
-      return false
-    }
-  },
-  /**
- * @在计算出分级的情况下 判断是不是快速分级 对四级进行进一步判定
- */
-  countFinalCod: function () {
-    if (typeForm === 'edit') {
-      if (!vm.patientMsg.isGetAjaxFlg) {
-        return;
-      }
-    }
-    var typePat = vm.patientMsg.patientTyp;
-    if (typePat === '1') {
-      vm.patientMsg.chkLvlCod = commonFun.countAdultChkLvlCod();
-    } else if (typePat === '2') {
-      vm.patientMsg.chkLvlCod = commonFun.countChildChkLvlCod();
-      vm.patientInfFlg.sbpUpNbrFlag = 0;
-    } else if (typePat === '3') {
-      vm.patientMsg.chkLvlCod = commonFun.countPregnantChkLvlCod();
-    } else {
-      vm.patientMsg.chkLvlCod = '3';
-      vm.patientInfFlg.sbpUpNbrFlag = 0;
-      vm.patientInfFlg.breNbrFlag = 0;
-      vm.patientInfFlg.oxyNbrFlag = 0;
-      vm.patientInfFlg.tmpNbrFlag = 0;
-      vm.patientInfFlg.hrtRteFlag = 0;
-    }
-    if (vm.patientMsg.chkLvlCod == '3' && vm.hideMsg.ksfz != '') {
-      vm.patientMsg.chkLvlCod = '4';
-    } else if (vm.patientMsg.chkLvlCod == '4' && vm.hideMsg.ksfz == '') {
-      vm.patientMsg.chkLvlCod = '3';
-    }
-    var _checkLevel = $('#checkLevel').val();
-    if (_checkLevel !== '' &&  _checkLevel !== null) {
-      if (_checkLevel === '0') {
-        vm.patientMsg.chkLvlCod = '0'
-      } else {
-        if ((_checkLevel - 0) < (vm.patientMsg.chkLvlCod - 0)) {
-          vm.patientMsg.chkLvlCod = _checkLevel
-        }
-      }
-    }
-    // 只要进行分级计算，修订分级自动为空
-    vm.patientMsg.modLvlCod = vm.patientMsg.chkLvlCod;
-    vm.patientMsg.modLvlDes = '';
-    return (vm.patientMsg.chkLvlCod);
-  }
-}
 var vm = avalon.define({
   $id: 'jsbrqjs',
   getMsg: {
-    cstSexCodList: [], // 性别
-    cstAgeCodList: [], // 年龄类型
-    ksfzList: [], // 快速分诊
-    arvChlCodList: [], // 到院方式
-    cmpPsnCodList: [], // 陪送人员
-    senRctCodList: [], // 清醒程度
-    senStuCodList: [], // 意识状态
+    cstSexCodList: [], // 性别 CST_SEX_COD
+    cstAgeCodList: [], // 年龄类型 CST_AGE_COD
+    ksfzList: [], // 快速分诊 EMG_KSFZ
+    arvChlCodList: [], // 到院方式 ARV_CHL_COD
+    cmpPsnCodList: [], // 陪送人员 CMP_PSN_COD
+    senRctCodList: [], // 清醒程度 SEN_RCT
+    senStuCodList: [], // 意识状态 SEN_STU_COD
     jzkscompctlList: [], // 分科
-    // doctornameList: [], // 医生
-    // savMngCodList: [], // 抢救和处置情况
-    refusedSurveyList: [], // 异常项
-    falAssCodList: [], // 跌倒评估
+    // refusedSurveyList: [], // 异常项 REFUSED_SURVEY
     mnsSitCodList: [], // 女性月经史
-    algHonList: [{ infocode: '0', info: '无' }, { infocode: '1', info: '不详' }, { infocode: '2', info: '有' }], // 过敏史
-    algTypCodList: [], // 过敏项目
-    pastHisCodList: [], // 既往史
-    hspScoCustomList: [], // 救护车列表
+    otherHospitalNameList: [], // 救护车列表
+    abnDriverList:[],//驾驶员列表
     chkLvlCodList: [], // 预检分级
+    modLvlCodList: [], // 修订分级列表copy
     emgAreCodList: [], // 急诊分区
     bedplacecodList: [], // 床位
     emgBedList: [],
     lgBedList: [],
     emgBedTempList: [], // 临时
     lgBedTempList: [],
-    patientTypList: [{ infocode: '1', info: '成人', checked: false }, { infocode: '2', info: '儿童', checked: false }, { infocode: '3', info: '孕产妇', checked: false }], // 患者类别
-    pregnantYdcxCodList: [], // 阴道出血
-    pregnantGsplCodList: [], // 宫缩频率
+    patientTypList: [{ infocode: '1', info: '成人', checked: false }, { infocode: '2', info: '儿童', checked: false }, { infocode: '3', info: '产科', checked: false }, { infocode: '4', info: '妇科', checked: false }], // 患者类别
+    pregnantYdcxCodList: [], // 阴道出血 PREGNANT_YDCX_COD
+    pregnantGsplCodList: [], // 宫缩频率 PREGNANT_GSPL_COD
     cstDspCodList: [],
+    cstDspCodLgList: [],
     grnChlRsnList: [],
     totalCbyxList: [],
-    cardTypeList: [],
-    specialOtherList: [],
-    fzDocList: [],
-    frCodList: []
+    dangerousCodList: [], // DANGEROUS_COD
+    // dangerousCodList3: publicFun.getDict('WJZX_CK_COD'),
+    // dangerousCodList4: publicFun.getDict('WJZX_FK_COD'),
+    // dangerousCodList1: publicFun.getDict('WJZX_CR_COD'),
+    // dangerousCodList2: publicFun.getDict('WJZX_EK_COD'),
+    dangerousCodList3: [],
+    dangerousCodList4: [],
+    dangerousCodList1: [],
+    dangerousCodList2: [],
+    gfFlgList: [{ infocode: '1', info: '是', checked: false }, { infocode: '0', info: '否', checked: false }], // 是否规范
+    zjzzFlgList: [{infocode: '0', info: '无', checked: false }, { infocode: '1', info: '有', checked: false }],
+    ywhsList: [{ infocode: '0', info: '无'}, { infocode: '1', info: '24小时'}, {infocode: '2', info: '48小时' }, {infocode: '3', info: '大于48小时' }], // 核酸
+    zjzzCodList: [], // 自觉症状
+    glsCodList: [],
+    sendInCodList: [], // 120送入
+    wzbzCodList: [],
+    wzbzList: [], // 病种 WZBZ_COD
+    yjbzCodList: [],
+    fdcsCodList: [], 
+    abnDoctorList: [], //驾驶员列表
   },
   patientMsg: {
     vstCad: '', // 就诊卡
     cardType: '', // 卡类别 1 社保 2 自费 3 农保
-    emgDat: '', // 预检时间
+    regTim: '', // 预检时间
     idNbr: '',   //身份证号
     grnChl: '0', // 绿色通道
-    grnChlRsn: null, // 绿色通道原因
+    grnChlRsn: '', // 绿色通道原因
     swChl: '0', // 三无人员
     cstNam: '', // 姓名
     cstSexCod: '', // 性别
@@ -1179,41 +69,41 @@ var vm = avalon.define({
     cstAgeCod: '0', // 年龄类型
     pheNbr: '', // 联系方式
     cstAdr: '', // 联系地址
+    yz: '', // YZ 孕周
+    hysl: '', // hysl	怀孕数量
+    scsl: '', // 生产数量
+    gkMsg: '', // 宫口整合数据
+    gk: '', // 宫口
+    gkCod: '', // 宫口单位
+    mcyj: '', // 末次月经时间
     chkLvlCod: '', // 预检分级
     modLvlCod: '', // 修订分级
     modLvlDes: '', // 修订分级说明
     emgDepCod: '', // 最终分级
     emgAreCod: '', // 急诊分区
     mewsTotSco: '', // mews评分
-
     remsTotSco:'',//REMS评分
     remsDeath:'',//病死危险率
-    nrsTtbw: '', //疼痛部位
-    nrsTtbwQt: '', //疼痛部位其他
-    nrsTtxz: '', //疼痛性质
-    nrsTtxzQt: '', //疼痛性质其他 
-    nrsTtsj: '', //疼痛时间
-    nrsTtkz: '', //疼痛控制
     nrsMemo: '', //备注
     nrsSco: null, // NRS评分
+    ttpfNr: '', // 疼痛内容
+    ttpfTypeCod: '0', // 疼痛类型
+    eyeRctCod: '',
+    lanRctCod: '',
+    actRctCod: '',
     gcsTotSco: '', // gcs评分
-    cramsTotSco: '', // crams评分
+    // cramsTotSco: '', // crams评分
+    cspgFlg: '0', //
+    cspgCod: '', // 创伤评分
+    xtFlg: '0',
+    xtCod: '',
+    xtSubCod: '', // 胸痛
     ksfz: [], // 快速分诊
     arvChlCod: '', // 到院方式
     cmpPsnCod: [], // 陪送人员
     oxyNbr: '', // 血氧饱和度
     senStuCod: '', // 意识状态
-    cspgFlg: '0',
-    cspgCod: '',
-    hxknFlg: '0',
-    hxknCod: '',
-    hxknSubCod: '',
-    xtFlg: '0',
-    xtCod: '',
-    xtSubCod: '',
-    //xmFlg: '0',
-    //xmCod: '',
-    //xmSubCod: '',
+    wzbz: [], // 病种
     mtCod: '', //面瘫
     szthCod: '', //上肢瘫痪
     wlCod: '', //握力
@@ -1223,44 +113,39 @@ var vm = avalon.define({
     emgFkCod: '', // 分科
     emgFkName: '', // 分科
     sqlDctNbr: '', // 分诊医生
-    //savMngCod: [], // 抢救和处置情况
-    refusedSurvey: [], // 异常项
-    falAssCod: '', // 跌倒评估
-    // opengwflag: '', // 有无打开过跌倒评估
+    // refusedSurvey: '', // 异常项
+    fallAssCod: '', // 跌倒评估
+    fallAssEssText: '', // 跌倒评估 -- name
+    fdcsCod: [], // 跌倒措施
     mnsSitCod: '', // 女性月经史
-    algHon: '', // 过敏史
-    algTypCod: [], // 过敏项目
-    algTypDes: '', // 过敏史其他
-    pastHisCod: [], // 既往史
-    pastHis: '', // 即往史其他
-    abnSco: '', // 救护车编号
-    abnScoNme: '', // 救护车name
-    allergic: '', //过敏史借用字段
+    gfFlg: '', // 是否规范(0否,1是)
+    gfbz: '', // 不规范备注
+    abnScoNme: '', // 转入医院
+    zjzzCod: [], // 自觉症状
+    zjzzFlg: [], // 是否有自觉症状 0 无 1 有
+    zjzzQt: '', // 自觉症状其他
+    abnDriver: '',//120驾驶员
+    abnDoctor: '',//120医生
+    // allergic: '', //过敏史借用字段
     emgBed: '', //床位
     bedid: '',
     bedLgs: '',
     caseHis: '', //第几周
-    // isFetation: '',// 特殊人群评估
-    patientTyp: '',// 患者类型
+    patientTyp: '1', // 患者类型 默认成人  1:成人 2:儿童 3:产科 4：妇科
+    crt: '', // 儿童独有，文本输入项 crt 秒
     pregnantYdcxCod: '', // 阴道出血
     pregnantGsplCod: '', // 宫缩频率
     qtsjFlg: '0',	// 群体事件标志      |0：否；1：是
     qtsjSeq: '',
-    xfztFlg: '0', // 心肺骤停
-    specialOther: '', // 特殊病人评估
     preUsrNbr: '', // 首诊护士
     preUsrNam: '', // 首诊护士名字
     sqlSeq: '',
     observationCode: '',
-    emgJob: '',
-    maritalStatus: '',
-    nowHis: '',
     ryzdXy: '',
     cyzdZy: '',
     cyzdXy: '',
     deathDiagnosis: '',
-    docDat: '',
-    jzxh: '',
+    // docDat: '',
     jzys: '',
     ysxm: '',
     ksdm: '',
@@ -1270,7 +155,6 @@ var vm = avalon.define({
     checkDocStatus: '',
     checkNurStatus: '',
     checkDoctor: '',
-    rfidcode: '',
     cleanhzMemo: '',
     jbzdDes: '',
     mpi: '',
@@ -1282,17 +166,40 @@ var vm = avalon.define({
     sqlDepName: '', // 转归科室
     sqlStaCod: '', // 转归去向
     sqlStaStr: '', // 转归去向 Name
-    pgbFlag: '', //是否完成
-    pgbMsg: '',
-    symSitDes: '', // 修改页面护理评估表的大字段
     isGetAjaxFlg: false, // 修改页面 是否拿到数据
-    nationality: '',
-    gzdw: '',
-    nation:'',
-    frCod: [], // 发热
-    frDat: '',
-    nationality: '', // 国籍
-    infectedareaNam: '' // 疫区名称
+    cdxx: '',
+    khlx: '',
+    rczId:'',
+    jzxhOld:'',
+    adtA01:'',
+    psryqt:'',
+    ghid: '', // 后台需要的字段
+    patid: '', // 后台需要的字段
+    jzxh:'',//就诊次数   
+    registerTimeStr: '', // 挂号时间
+    jwgfxCod: [], // 危急、高风险
+    yjbzCod: [], // 备注
+    remarks: '',
+    yjbzQt: '', // 备注
+    sendInCod: '', // 120送入属性名
+    showAge: '',
+    pfqkCod:'',
+    pfqkqt:'',
+    algHon:'',
+    algTypDes:'', // 过敏史其他
+    gmfybx:'',
+    alert_flg: false,
+    alert_auto_flg: false,
+    pfManager: [],
+    rtsTotSco: '', // rts 总分值
+    xtlcflg: '0', // 进入胸痛流程标志 0=未进入流程 1=进入流程
+    czlcflg: '0', // 进入卒中流程标志 0=未进入流程 1=进入流程
+    cslcflg: '0', // 进入创伤流程标志 0=未进入流程 1=进入流程
+    patid: '', // 院前绑定的id
+    hzyjzt: '', // 患者预检暂存 患者预检状态 1=暂存
+    ywhs: '' ,// 有无核酸
+		hspAra:_HSPLP==='SD'?'1':'2' ,// 院区 三墩 ==1 灵隐==2
+		patTyp:''
   },
   patientInfFlg: {
     pgbFlag: 0,
@@ -1310,7 +217,7 @@ var vm = avalon.define({
     sbpUpNbr: '',
     sbpDownNbr: '',
   },
-  aboutRems:{
+  aboutRems: {
     hrtRte:'',
     sbpUpNbr:'',
     breNbr:'',
@@ -1318,18 +225,13 @@ var vm = avalon.define({
     cstAge:'',
     oxyNbr:''
   },
-  aboutGCS: {
-    eyeRctCod: '',
-    lanRctCod: '',
-    actRctCod: '',
-  },
-  aboutCRAMS: {
-    sptLvlCod: '',
-    lanLvlCod: '',
-    cirLvlCod: '',
-    breLvlCod: '',
-    bdyLvlCod: ''
-  },
+  // aboutCRAMS: {
+  //   sptLvlCod: '',
+  //   lanLvlCod: '',
+  //   cirLvlCod: '',
+  //   breLvlCod: '',
+  //   bdyLvlCod: ''
+  // },
   aboutPEWS: {
     actionCod: '', // 行为
     xxgSkinCod: '', // 肤色
@@ -1342,22 +244,38 @@ var vm = avalon.define({
   },
   hideMsg: {
     ksfz: '', // 快速分诊
+    wzbz: '', // 病种
     cmpPsnCod: '', // 陪送人员
-    //savMngCod: '', // 抢救和处置情况
-    refusedSurvey: '', // 异常项
-    algTypCod: '', // 过敏项
-    pastHisCod: '', // 既往史
-    frCod: ''
+    fdcsCod: '', // 跌倒措施
+    // refusedSurvey: '', // 异常项
+    zjzzCod: '', // 自觉症状
+    zjzzFlg: '', // 是否有自觉症状
+    jwgfxCod: '', // 危急、高风险
+    yjbzCod: '', // 备注
   },
-  isShowAbnScoList: false,
-  isShowAlgTypDes: false,
-  isShowPastHis: false,
-  isShowDocList: false,
+  // isShowAbnScoList: false,
+  isShowAbnDriverList: false,
+  isShowAbnDoctorList: false,
+  // isShowAlgTypDes: false,
+  grnChlRsnShowFlg: false,
+  isEditPage: editFlag,
+  isCanSave: true, // 是否可以保存 ---- 状态
+  // levelBasis: '', // 分级依据
+  islgbed: _islgbed,
+	jdFlag:_jdFlag,
+	tghFlag:_tghFlag,
+	qfghFlag:_qfghFlag,
+	ltklFlag:_ltklFlag,
+  saveCstDspCod: '', // 保存过的cstDspCod
+  isJumpToYq: isJumpToYq,
+  isJumpToSdzx: isJumpToSdzx,
+  isOpenYqFlg: _isOpenYqFlg,
+  isOpenJjyqFlg: _isOpenJjyqFlg,
   cleanName: function () {
     vm.patientMsg.cstNam = '';
   },
   noMassRequire: function () {
-    if (vm.hideMsg.ksfz == '' && vm.patientMsg.patientTyp !== '2' && vm.patientMsg.qtsjFlg !== '1') {
+    if (!vm.hideMsg.ksfz && vm.patientMsg.yjbzCod.indexOf('2') == -1 && vm.patientMsg.yjbzCod.indexOf('3') == -1 && vm.patientMsg.qtsjFlg != '1' && vm.patientMsg.patientTyp != '2') {
       return true
     } else {
       return false
@@ -1379,9 +297,14 @@ var vm = avalon.define({
    */
   onlyNum: function (objName, attr, step, max) {
     vm[objName][attr] = publicFun.onlyNumber(vm[objName][attr], step, max)
-  },
-  isVisibleCstDspCod: function (val) {
-    return val === '5' || val === '6' || val === '11';
+    if (attr === 'nrsSco') {
+      vm[objName].ttpfTypeCod = '0'
+      vm[objName].ttpfNr = ''
+      $('#emg_ttpfTypeCod').val('0')
+      $('#emg_ttpfNr').val('')
+    } else if (attr == 'cstAge') {
+      vm.fallAssessByAge()
+    }
   },
   isShowBed: function () {
     var _cstDspCod = vm.patientMsg.cstDspCod;
@@ -1392,22 +315,145 @@ var vm = avalon.define({
     }
   },
   /**
-   * @@judgeFlag 绿色通道 / 三无人员 / 心肺骤停
+   * @@judgeFlag 绿色通道 / 三无人员 / 子宫破裂 / 胎盘早剥 / 胎窘 / 成人 / 儿童 /产科 / 妇科
+   * 1:成人 2:儿童 3:产科 4：妇科
    */
-  judgeFlag: function (objName) {
-    if (vm.patientMsg[objName] === '0') {
-      if (objName === 'grnChl') {
-        vm.patientMsg.grnChlRsn = null;
+  judgeFlag: function (objName, flgValue) {
+    var _msg = vm.patientMsg;
+		var arr = ['xtFlg','cspgFlg','czFlag']
+		arr.forEach(function(item){
+			if(_msg[item]=='1'){
+				_msg[item]='0'
+			}
+		})
+    if (objName === 'patientTyp') {
+      if (_msg[objName] == '1') {
+        _msg[objName] = flgValue
+      } else {
+        if (_msg[objName] == flgValue) {
+          var cstAge = vm.patientMsg.cstAge,
+            cstAgeCod = vm.patientMsg.cstAgeCod;
+          if (cstAge !== '' && ((cstAge < 14 && cstAgeCod === '0') || cstAgeCod === '1' || cstAgeCod === '2')) {
+            vm.patientMsg.patientTyp = '2'; // 儿童
+          } else {
+            vm.patientMsg.patientTyp = '1'
+          }
+        } else {
+          _msg[objName] = flgValue
+        }
       }
-      vm.patientMsg[objName] = '1'
+      if (_msg[objName] === '2') { // 儿科 去向默认“诊间就诊”、就诊科室默认“急诊儿科”
+        _msg.cstDspCod = '5';
+        _msg.emgFkCod = 'SD0004'
+        _msg.emgFkName = '急诊儿科'
+      } else if (_msg[objName] === '3' || _msg[objName] === '4') { // 产科、妇科 去向默认“诊间就诊”、就诊科室默认“急诊妇产科”
+        _msg.cstDspCod = '5';
+        _msg.emgFkCod = 'SD0014'
+        _msg.emgFkName = '急诊妇产科'
+      }
+      if (_msg[objName] != '2') {
+        _msg.crt = '';
+        for (var k in vm.aboutPEWS) {
+          vm.aboutPEWS[k] = ''
+        }
+      } else if (_msg[objName] == '2') {
+        _msg.pregnantGsplCod = '';
+        _msg.pregnantYdcxCod = '';
+      }
     } else {
-      vm.patientMsg[objName] = '0'
+			
+      if (_msg[objName] === '0' || _msg[objName] === '') {
+        if (objName === 'grnChl') { 
+          _msg.grnChlRsn = '';
+        }
+        _msg[objName] = '1';
+				if(objName=='xtFlg'){
+					vm.patientMsg.patTyp = '1'
+				}else if(objName=='cspgFlg'){
+					vm.patientMsg.patTyp = '3'
+				}else if(objName=='czFlag'){
+					vm.patientMsg.patTyp = '2'
+				}
+        // 预检登记页面：点击三无人员，若就诊卡、姓名为空则姓名栏目显示“无名氏+日期时间yyyyMMddHHmm”   
+        if (objName === 'swChl' && vm.isEditPage != '1') {
+          if (publicFun.checkItemNull(_msg.vstCad) && publicFun.checkItemNull(_msg.cstNam)) {
+            _msg.cstNam = '无名氏+' + publicFun.timeFormat(new Date(), 'yyyyMMddhhmm');
+          }
+        }
+      } else {
+        if (objName === 'cspgFlg') {
+					_msg.patTyp=''
+					_msg.xtFlg = '0'
+					_msg.czFlag='0'
+					// _msg.cspgFlg = '0'
+          if (!publicFun.checkItemNull(_msg.cspgCod)) {
+            _confirm('创伤情况已评估，确认清空评估选项吗？', null, function () {
+              _msg.cspgCod = '';
+              _msg[objName] = '0';
+              return;
+            })
+          } else {
+            _msg[objName] = '0';
+          }
+        } else if (objName === 'xtFlg') {
+					_msg.patTyp=''
+					// _msg.xtFlg = '0'
+					_msg.czFlag='0'
+					_msg.cspgFlg = '0'
+          if (!publicFun.checkItemNull(_msg.xtCod) || _msg.xtlcflg == '1') {
+            var _confirmMsg = '';
+            if (!publicFun.checkItemNull(_msg.xtCod) && _msg.xtlcflg == '1') {
+              _confirmMsg = '胸痛情况已评估且胸痛流程已进入，确认取消胸痛选项吗？'
+            } else if (publicFun.checkItemNull(_msg.xtCod) && _msg.xtlcflg == '1') {
+              _confirmMsg = '胸痛流程已进入，确认取消胸痛选项吗？'
+            } else if (!publicFun.checkItemNull(_msg.xtCod) && _msg.xtlcflg != '1') {
+              _confirmMsg = '胸痛情况已评估，确认取消胸痛选项吗？'
+            }
+            _confirm(_confirmMsg, null, function () {
+              _msg.xtCod = '';
+              _msg.xtSubCod = '';
+              _msg.xtlcflg = '';
+              _msg[objName] = '0';
+              return;
+            })
+          } else {
+            _msg[objName] = '0';
+          }
+        } else if (objName === 'czFlag') {
+					_msg.patTyp=''
+					_msg.xtFlg = '0'
+					_msg.czFlag='0'
+					_msg.cspgFlg = '0'
+          if (!publicFun.checkItemNull(_msg.mtCod) || !publicFun.checkItemNull(_msg.szthCod) || !publicFun.checkItemNull(_msg.wlCod) || _msg.czlcflg == '1') {
+            var _confirmMsg = '';
+            if ((!publicFun.checkItemNull(_msg.mtCod) || !publicFun.checkItemNull(_msg.szthCod) || !publicFun.checkItemNull(_msg.wlCod)) && _msg.czlcflg == '1') {
+              _confirmMsg = '卒中情况已评估且卒中流程已进入，确认取消卒中选项吗？'
+            } else if ((publicFun.checkItemNull(_msg.mtCod) && publicFun.checkItemNull(_msg.szthCod) && publicFun.checkItemNull(_msg.wlCod)) && _msg.czlcflg == '1') {
+              _confirmMsg = '卒中流程已进入，确认取消卒中选项吗？'
+            } else if ((!publicFun.checkItemNull(_msg.mtCod) || !publicFun.checkItemNull(_msg.szthCod) || !publicFun.checkItemNull(_msg.wlCod)) && _msg.czlcflg != '1') {
+              _confirmMsg = '卒中情况已评估，确认取消卒中选项吗？'
+            }
+            _confirm(_confirmMsg, null, function () {
+              _msg.mtCod = '';
+              _msg.szthCod = '';
+              _msg.wlCod = '';
+              _msg[objName] = '0';
+              _msg.czlcflg = ''
+              return;
+            })
+          } else {
+            _msg[objName] = '0';
+          }
+        } else {
+          _msg[objName] = '0';
+        }
+      }
     }
   },
   bindGroupEvent: function (type) {
     var _qtsjSeq = vm.patientMsg.qtsjSeq;
     if (type !== 'check') {
-      if (typeForm === 'edit') {
+      if (vm.isEditPage == '1') {
         createmodalwindow('群体事件绑定', 700, 500, _baseUrl + 'qtsjgl/tobdqtsj.do?hspQtsjglCustom.qtsjSeq=' + _qtsjSeq)
       } else {
         createmodalwindow('群体事件绑定', 820, 510, _baseUrl + 'qtsjgl/toBdqtsjNew.do?hspQtsjglCustom.qtsjSeq=' + _qtsjSeq)
@@ -1420,102 +466,174 @@ var vm = avalon.define({
       $('#massTitle').html('');
     }
   },
+  cspgBox: function () {
+    createmodalwindow('创伤标志', 450, 400, _baseUrl + 'emg/querycspg.do')
+  },
+  chestBox: function () {
+    createmodalwindow('胸痛', 700, 376, _baseUrl + 'emg/queryxtzbpg.do')
+  },
+  czFaceBox: function () {
+    createmodalwindow('卒中', 500, 275, _baseUrl + 'hzszyyemg/queryczface.do')
+  },
+  openFrdj:function(){
+    createmodalwindow('发热登记', 800, 550, _baseUrl + 'hzszyyemg/toFrRegister.do')
+  },
+  openGhbd:function(){
+    createmodalwindow('挂号绑定', 1100, 400, _baseUrl + 'his/toRczGhxx.do?emgSeq='+_emgSeq +'&cstNam='+ vm.patientMsg.cstNam);
+  },
+  openJzbd: function() {
+    if (vm.isEditPage != '1') {
+      return
+    }
+    createmodalwindow('就诊绑定', 700, 400, _baseUrl + 'his/toJzbd.do?emgSeq='+_emgSeq +'&vstCad='+ vm.patientMsg.vstCad+'&emgDat='+ vm.patientMsg.regTim+'&cstNam='+ vm.patientMsg.cstNam);
+  },
+  openVitalSign: function(){
+    createmodalwindow(vm.patientMsg.cstNam + "-" + '生命体征补录', 750, 500, _baseUrl +'hzszyyemg/queryVitalSign.do?emgSeq=' + _emgSeq + '&th=' + new Date().getTime(), 'no');
+  },
+  RTSbox: function () {
+    createmodalwindow('RTS评分', 600, 400, _baseUrl + 'emg/queryRts.do')
+  },
+  // openYjws:function() {
+  //   createmodalwindow('预检待完善', 980, 450, _baseUrl + 'hzszyyemg/toBeImproved.do')
+  // },
   pewsBox: function () {
     createmodalwindow('PEWS评分', 800, 500, _baseUrl + 'hzszyyemg/queryPewsck.do')
   },
-  getOpenGhlb: function () {
-    createmodalwindow('已挂号未预检', 700, 515, _baseUrl + 'hzszyyemg/registeredlist.do')
-  },
+  // getOpenGhlb: function () {
+  //   createmodalwindow('已挂号未预检', 700, 515, _baseUrl + 'hzszyyemg/registeredlist.do')
+  // },
   MEWSbox: function () {
-    createmodalwindow('MEWS评分', 600, 450, _baseUrl + 'emg/querymews.do')
+    createmodalwindow('MEWS评分', 600, 485, _baseUrl + 'emg/querymews.do')
   },
-  REMSbox:function(){
+  REMSbox:function() {
     createmodalwindow('REMS评分', 600, 580, _baseUrl + 'emg/queryrems.do')
   },
   NRSbox: function () {
-    createmodalwindow('NRS评分', 1000, 260, _baseUrl + 'hzszyyemg/querynrs.do')
+    var _bdHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    var _tabHeight = _bdHeight - 30;
+    if (_bdHeight > 660) {
+      _tabHeight = 660;
+    }
+    var info = vm.patientMsg, _ty = info.ttpfTypeCod;
+    if ((info.nrsSco == null || info.nrsSco === '') && (vm.isEditPage != '1') && (_ty === '0' || _ty === 0)) { // 新增且nrs类型为第一种无分值时赋值0分
+      info.nrsSco = '0'
+    }
+    createmodalwindow('疼痛评分', 700, _tabHeight, _baseUrl + 'scorequery/toNrsGde.do?typeSource=preCheck')
   },
   GCSbox: function () {
     createmodalwindow('GCS评分', 500, 490, _baseUrl + 'emg/querygcs.do')
   },
-  CRAMSbox: function () {
-    createmodalwindow('CRAMS评分', 500, 500, _baseUrl + 'emg/querycrams.do')
-  },
+  // CRAMSbox: function () {
+  //   createmodalwindow('CRAMS评分', 500, 500, _baseUrl + 'emg/querycrams.do')
+  // },
   openKnowledge: function () {
     createmodalwindow('知识库', 600, 560, _baseUrl + 'firstimp/toZsk.do')
+  },
+  riskBox: function () {
+    createmodalwindow('跌倒评估', 800, 500, _baseUrl + 'hzszyyemg/queryRisk.do')
+  },
+  openPreHosBox: function () {
+    createmodalwindow('院前患者绑定', 800, 500, _baseUrl + 'hzszyyemg/toBindPreHosInfo.do')
   },
   /**
    * @@synchroSenStuCod 意识状态为清醒状态，同步其他数据
    */
   synchroSenStuCod: function (val) {
     if (val === 0 || val === '0') {
-      vm.aboutMews.senRctCod = '0';
-      vm.patientMsg.senStuCod = '0';
-      vm.patientMsg.gcsTotSco = '15';
-      vm.aboutGCS.eyeRctCod = '4';
-      vm.aboutGCS.lanRctCod = '5';
-      vm.aboutGCS.actRctCod = '6';
+      if (vm.isEditPage == '1') {
+        if (vm.patientMsg.gcsTotSco == '' || vm.patientMsg.gcsTotSco == null) {
+          vm.setTotalGcs();
+        } else {
+          vm.setAttiude()
+        }
+      } else {
+        vm.setTotalGcs();
+      }
     }
   },
-  chooseAche: function (idx) {
-    if (idx == vm.patientMsg.nrsSco) {
-      vm.patientMsg.nrsSco = null;
-    } else {
-      vm.patientMsg.nrsSco = parseInt(idx)
-    }
-    if (typeForm !== 'precheck') {
-      sub.aboutSco.nrsSco = vm.patientMsg.nrsSco; 
+  setTotalGcs: function () {
+    vm.setAttiude()
+    vm.patientMsg.gcsTotSco = '15';
+    vm.patientMsg.eyeRctCod = '4';
+    vm.patientMsg.lanRctCod = '5';
+    vm.patientMsg.actRctCod = '6';
+  },
+  setAttiude: function () {
+    vm.aboutMews.senRctCod = '0';
+    vm.patientMsg.senStuCod = '0';
+  },
+  cleanDriverInput: function () {
+    if (vm.patientMsg.sendInCod === '' || vm.patientMsg.sendInCod == null) {
+      vm.patientMsg.abnDriver = ''
+      vm.patientMsg.abnDoctor = ''
     }
   },
   _radioCheck: function (obj, index) {
-    vm.patientMsg[obj] = publicFun.radioClicks(vm.getMsg[obj + 'List'], vm.patientMsg[obj], index)
+    vm.patientMsg[obj] = publicFun.radioClicks(vm.getMsg[obj + 'List'], vm.patientMsg[obj], index);
+    if (obj === 'modLvlCod') {
+      if (vm.patientMsg[obj] == '') {
+        vm.patientMsg[obj] = vm.patientMsg.chkLvlCod;
+        for (var i = 0; i < vm.getMsg['modLvlCodList'].length; i++) {
+          vm.getMsg['modLvlCodList'][i].checked = false;
+          if (vm.patientMsg.chkLvlCod == vm.getMsg['modLvlCodList'][i]['infocode']) {
+            vm.getMsg['modLvlCodList'][i].checked = true;
+          }
+        }
+      }
+    }
   },
-  cspgBox: function () {
-    createmodalwindow('创伤标志', 450, 400, _baseUrl + 'emg/querycspg.do')
+  _checkClicks: function (obj, index) {
+    vm.hideMsg[obj] = publicFun.checkClicks(vm.getMsg[obj + 'List'], vm.patientMsg[obj], index, vm.hideMsg[obj])
   },
-  hxknzbBox: function () {
-    createmodalwindow('呼吸困难', 580, 376, _baseUrl + 'emg/queryhxknzb.do')
+  setSenStu: function () {
+    if (vm.patientMsg.senStuCod == '4') { // 意识选择深昏迷
+      vm.patientMsg.gcsTotSco = '3';
+      vm.patientMsg.eyeRctCod = '1';
+      vm.patientMsg.lanRctCod = '1';
+      vm.patientMsg.actRctCod = '1';
+    }
   },
-  xtzbpgBox: function () {
-    createmodalwindow('胸痛', 700, 376, _baseUrl + 'emg/queryxtzbpg.do')
-  },
-  czFaceBox: function () {
-    createmodalwindow('卒中', 500, 275, _baseUrl + 'hzszyyemg/queryczface.do')
-  },
-  specialBox: function () {
-    createmodalwindow('特殊病人评估', 580, 320, _baseUrl + 'hzszyyemg/querySpecial.do')
-  },
-  riskBox: function () {
-    createmodalwindow('跌倒评估', 800, 450, _baseUrl + 'hzszyyemg/queryRisk.do')
+  setSctStu: function () {
+    // 清醒程度选择无反应或者意识选择深昏迷，GCS评分自动选项为不能睁眼、不能发音、无动作，总分3分显示
+    if (vm.aboutMews.senRctCod == '3') { // 清醒程度选择无反应
+      vm.patientMsg.gcsTotSco = '3';
+      vm.patientMsg.eyeRctCod = '1';
+      vm.patientMsg.lanRctCod = '1';
+      vm.patientMsg.actRctCod = '1';
+    }
   },
   calcPatType: function () {
-    if (typeForm === 'edit') {
+    if (vm.isEditPage == '1') {
       if (!vm.patientMsg.isGetAjaxFlg) {
         return;
       }
     }
     /**
-    * @若年龄大于14岁，则患者类别默认为成人 如果小于14岁默认为儿童
+    * @若年龄大于14岁，则患者类别默认为成人、产科、妇科 如果小于14岁默认为儿童
+    * 1:成人 2:儿童 3:产科 4：妇科
     */
     var cstAge = vm.patientMsg.cstAge,
       cstAgeCod = vm.patientMsg.cstAgeCod;
     if (cstAge !== '' && ((cstAge < 14 && cstAgeCod === '0') || cstAgeCod === '1' || cstAgeCod === '2')) {
-      vm.getMsg.patientTypList[1].checked = true
-      vm.getMsg.patientTypList[0].checked = false
-      vm.getMsg.patientTypList[2].checked = false
-      vm.patientMsg.patientTyp = '2';
+      vm.patientMsg.patientTyp = '2'; // 儿童
+      // vm.setOtherTypeNull();
     } else if (cstAge >= 14 && cstAgeCod === '0') {
-      vm.getMsg.patientTypList[0].checked = true
-      vm.getMsg.patientTypList[1].checked = false
-      vm.getMsg.patientTypList[2].checked = false
-      vm.patientMsg.patientTyp = '1';
+      if (vm.patientMsg.patientTyp == '2') {
+        vm.patientMsg.patientTyp = '1'
+      }
     } else if (cstAge === '') {
-      vm.patientMsg.patientTyp = ''
-      vm.getMsg.patientTypList[0].checked = false
-      vm.getMsg.patientTypList[1].checked = false
-      vm.getMsg.patientTypList[2].checked = false
+      if (vm.patientMsg.patientTyp == '2') {
+        vm.patientMsg.patientTyp = '1'
+      }
     }
+    vm.fallAssessByAge()
   },
+  // setOtherTypeNull: function () {
+  //   var _otherTypeList = ['yz', 'hysl', 'scsl', 'gk', 'mcyj'];
+  //   _otherTypeList.forEach(function (item) {
+  //     vm.patientMsg[item] = '';
+  //   })
+  // },
   /**
    * @修改分科
    */
@@ -1527,98 +645,108 @@ var vm = avalon.define({
           vm.patientMsg.emgFkName = val['comcname'];
         }
       });
-      vm.getEmgFkDocList(emgFkCod);
     } else {
       vm.patientMsg.emgFkName = '';
     }
-    vm.patientMsg.sqlDctNbr = '';
-  },
-  getEmgFkDocList: function (emgFkCod) {
-    publicFun.httpServer({ url: _baseUrl + 'hzszyyemg/findHspDctNbrList.do' }, { 'dstuserCustom.emgsysid': emgFkCod, 'dstuserCustom.outCall': '1', _t: Date.parse(new Date()) }, function (res) {
-      var _fkList = res.msg.findHspDctNbrLsit;
-      if (_fkList.length == 0) {
-        // publicFun.alert('对应科室下面没有相应的医生！');
-      }
-      vm.getMsg.fzDocList = _fkList;
-    });
+    // vm.patientMsg.sqlDctNbr = '';
   },
   /**
    * @单击清空送入来源
    */
   cleanAbnSco: function () {
-    vm.patientMsg.abnSco = '';
-    // vm.patientMsg.abnScoNme = '';
     vm.isShowAbnScoList = false;
+    vm.isShowAbnDriverList = false;
+    vm.isShowAbnDriverList = false;
   },
   /**
    * @获取送入来源列表
    */
-  getAbnSco: function (name) {
-    var getAbnScoUrl = _baseUrl + 'hzszyyemg/findHspScoListBySzm.do';
-    publicFun.httpServer({ url: getAbnScoUrl }, { acronym: name }, function (res) {
-      vm.getMsg.hspScoCustomList = res.rows;
-    })
+  // getAbnSco: function (name) {
+  //   var getAbnScoUrl = _baseUrl + 'hzszyyemg/findHspScoListBySzm.do';
+  //   publicFun.httpServer({ url: getAbnScoUrl }, { acronym: name }, function (res) {
+  //     vm.getMsg.otherHospitalNameList = res.rows;
+  //   })
+  // },
+  /**
+   * @获取送入来源列表
+   */
+  getAbnDriver: function () {
+    if (publicFun.getDict('DRIVER_DOC_COD')) {
+      vm.getMsg.abnDoctorList = publicFun.getDict('DRIVER_DOC_COD');
+    }
+    if (publicFun.getDict('DRIVER_COD')) {
+      vm.getMsg.abnDriverList = publicFun.getDict('DRIVER_COD');
+    }
   },
   /**
    * @选择某个送入来源
    */
-  chooseAbnSco: function (id, scoName) {
-    vm.patientMsg.abnSco = id;
-    vm.patientMsg.abnScoName = scoName;
-    $('#showName').val(scoName);
-    vm.isShowAbnScoList = false;
+  chooseAbnDriver: function (abnDriver) {
+    vm.patientMsg.abnDriver = abnDriver;
+    $('#driverName').val(abnDriver);
+    vm.isShowAbnDriverList = false;
   },
-  cleanSqlText: function () {
-    // vm.patientMsg.sqlDctNbr = '';
-    vm.isShowDocList = false;
+  chooseAbnDoctor: function(abnDoctor){
+    vm.patientMsg.abnDoctor = abnDoctor;
+    $('#doctorName').val(abnDoctor);
+    vm.isShowAbnDoctorList = false;
   },
-  chooseSqlDoc: function (name) {
-    vm.patientMsg.sqlDctNbr = name;
-    vm.isShowDocList = false;
+  chooseLiText: function (name, obj) {
+    vm.patientMsg[obj] = name;
+    vm[obj + 'ShowFlg'] = false;
   },
-  arrToStr: function (objName) { // 仅修改
-    var _valList = vm.patientMsg[objName].$model;
-    if (_valList.length > 0) {
-      vm.hideMsg[objName] = _valList.join(',')
-    } else {
-      vm.hideMsg[objName] = ''
+  cleanUlInputText: function (obj) {
+    vm[obj + 'ShowFlg'] = false;
+  },
+  showUlInputMsg: function (obj) {
+    cancelPop();
+    $('.scroll-list-div').hide();
+    $('.param-input').css({ 'box-shadow': 'none' })
+    vm[obj + 'ShowFlg'] = true;
+    vm.setOtherText('zjzzCod', 'zjzzQt')
+    vm.setOtherText('yjbzCod', 'remarkQt')
+    vm.setOtherText('cmpPsnCod', 'psryqtQt')
+    var flgList = ['isShowAbnScoList', 'isShowDocList', 'isShowAbnDriverList', 'isShowAbnDoctorList'];
+    for (var i = 0; i < flgList.length; i++) {
+      vm[flgList[i]] = false;
     }
-    if (objName === 'pastHisCod') {
-      if ($.inArray('450', _valList) > -1) {
-        vm.isShowPastHis = true
-      } else {
-        vm.isShowPastHis = false;
-        vm.patientMsg.pastHis = '';
+  },
+  isCleanText: function () {
+    if (vm.patientMsg.gfFlg == '1') {
+      vm.patientMsg.gfbz = '';
+    }
+  },
+  // changeToStr: function (objName, code) {
+  //   var _list = vm.patientMsg[objName].$model;
+  //   if (_list.length > 0) {
+  //     vm.hideMsg[objName] = _list.join(',');
+  //   } else {
+  //     vm.hideMsg[objName] = ''
+  //   }
+  // },
+  isCleanSelTime: function () {
+    if (vm.patientMsg.ywhs === '0') {
+      vm.patientMsg.cstDspCod = '18' // 核酸选择无，去向关联急诊缓冲区
+    } else if (vm.patientMsg.ywhs !== '') {
+      if (vm.patientMsg.cstDspCod == '18') {
+        vm.patientMsg.cstDspCod = ''
       }
     }
   },
-  changeToStr: function (objName) {
-    var _list = vm.patientMsg[objName].$model;
-    if (_list.length > 0) {
-      vm.hideMsg[objName] = _list.join(',');
-    } else {
-      vm.hideMsg[objName] = ''
-    }
-    if (objName === 'pastHisCod') {
-      if ($.inArray('450', _list) > -1) {
-        vm.isShowPastHis = true
-      } else {
-        vm.isShowPastHis = false;
-        vm.patientMsg.pastHis = '';
-      }
+  setStandardCk: function () {
+    if (publicFun.strTrim(vm.patientMsg.gfbz) != '') {
+      vm.patientMsg.gfFlg = '0';
     }
   },
   cbyxSearchList: [],
-  /**
-   * 获取模糊查询
-   */
   getCbyxList: function () {
-    vm.cbyxSearchList = [];
+    vm.cbyxSearchList = [], _preDgnCod = vm.patientMsg.preDgnCod;
     var cbyxDictList = vm.getMsg.totalCbyxList;
     cbyxDictList.map(function (item) {
-      if (vm.patientMsg.preDgnCod) {
-        var currentData = item.cbyx.indexOf(vm.patientMsg.preDgnCod);
-        var currentLetter = item.pysm.indexOf(vm.patientMsg.preDgnCod.toUpperCase());
+      if (_preDgnCod) {
+        _preDgnCod = _preDgnCod.trim();
+        var currentData = item.cbyx.indexOf(_preDgnCod);
+        var currentLetter = item.pysm.indexOf(_preDgnCod.toUpperCase());
         if (currentData === 0 || currentLetter === 0) {
           vm.cbyxSearchList.push(item)
         }
@@ -1638,13 +766,243 @@ var vm = avalon.define({
     vm.cbyxSearchList = [];
     $(".cbyxSearchList").hide();
     $("#cbyxParams").blur();
+  },
+  fallAssessByAge: function () {
+    var _cstAge = vm.patientMsg.cstAge,
+        _cstAgeCod = vm.patientMsg.cstAgeCod;
+    if (_cstAge != '') {
+      // 年龄小于2岁或者大于75岁的患者，跌倒评估自动选择步态不稳，默认高危。
+      if (((_cstAge < 2 || _cstAge > 75) && _cstAgeCod === '0') || (_cstAge < 24 && _cstAgeCod == '1') || (_cstAge < 730 && _cstAgeCod == '2')) {
+        vm.patientMsg.fallAssCod = '471';
+      } else {
+        // vm.patientMsg.fallAssCod = '';
+      }
+    }
+  },
+  setCurrentCk: function (flgName) {
+    if (isJumpToSdzx == '2') {
+      vm.patientMsg[flgName] = vm.patientMsg[flgName] == '1' ? '' : '1';
+    } else {
+      window.open(publicFun.getDictOption('SDZX_URL'));
+    }
+  },
+  // setCurrentCk: function (className) {
+  //   var _objName = '';
+  //   if (className === 'xtlcflg') { // 胸痛
+  //     _objName = 'xtFlg'
+  //   } else {
+  //     _objName = 'czFlag'
+  //   }
+  //   // 点击进入胸痛或卒中流程、基本信息下面的卒中和胸痛项目默认选中
+  //   if (vm.patientMsg[className] == '0') {
+  //     vm.patientMsg[className] = '1';
+  //     vm.patientMsg[_objName] = '1';
+  //   } else {
+  //     // 修改页面 ---- 如果进入胸痛流程了，则提示“该患者已进入胸痛流程，无法取消”。
+  //     // 点击保存后如果进入卒中流程了，则提示“该患者已进入卒中流程，无法取消”
+  //     if (typeForm === 'edit') {
+  //       var _alert_msg = '', url_str = '';
+  //       if (className === 'xtlcflg') { // 胸痛
+  //         _alert_msg = '该患者已进入胸痛流程，无法取消';
+  //         url_str = 'hzszyyemg/checkXtlcAjax.do';
+  //       } else { // 卒中
+  //         _alert_msg = '该患者已进入卒中流程，无法取消';
+  //         url_str = 'hzszyyemg/checkCzlcAjax.do';
+  //       }
+  //       publicFun.httpServer({url: _baseUrl + url_str, isAsync: false}, {
+  //         emgSeq: _emgSeq,
+  //         type: className
+  //       }, function (res) {
+  //         if (res.resultInfo.type == 1) {
+  //           var _rtnFlg = res.resultInfo.sysdata.total;
+  //           // 只要不是0 就是已经进入流程的， 则需要提示的
+  //           if (_rtnFlg !== '0' && _rtnFlg !== 0) {
+  //             publicFun.alert(_alert_msg)
+  //             return;
+  //           } else {
+  //             vm.patientMsg[className] = '0';
+  //           }
+  //         }
+  //       })
+  //     } else {
+  //       vm.patientMsg[className] = '0';
+  //     }
+  //   }
+  // },
+  getUlChildList: function (type) {
+    $(".scroll-list-div").hide();
+    cancelPop();
+    autoDoFun();
+    if (type === 'jwgfxCod') {
+      vm.getMsg.dangerousCodList = JSON.parse(JSON.stringify(vm.getMsg['dangerousCodList' + vm.patientMsg.patientTyp]));
+    }
+    $("." + type + "-list-div").show();
+    document.getElementsByClassName('scroll-div')[0].scrollTop = 0; // 滚动到顶部
+    $('#' + type + 'Param').css({'box-shadow': '0px 0px 4px #3d85d0'})
+  },
+  changArrToStr: function (cod, idx) {
+    var textStr = '';
+    var codArr = vm.patientMsg[cod], list = vm.getMsg[cod + 'List'];
+    if (cod == 'jwgfxCod') {
+      list = JSON.parse(JSON.stringify(vm.getMsg['dangerousCodList' + vm.patientMsg.patientTyp]));
+    }
+    if (codArr.length > 0) {
+      if (cod == 'jwgfxCod') {
+        if (list[idx].info == '无') { // 危急值 --- 无
+          textStr = '无'
+          vm.patientMsg[cod] = [list[idx].infocode];
+          vm.hideMsg[cod] = list[idx].infocode;
+          $('#' + cod + 'Param').val(textStr)
+          $('#' + cod + 'Param').text(textStr)
+          $('.scroll-list-div').hide();
+          $('.param-input').css({ 'box-shadow': 'none' })
+          vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
+          return
+        } else {
+          var _nullCod = '20';
+          if (vm.patientMsg.patientTyp == '1') {
+            _nullCod = '19'
+          } else if (vm.patientMsg.patientTyp == '2') {
+            _nullCod = '27'
+          } else if (vm.patientMsg.patientTyp == '3') {
+            _nullCod = '20'
+          } else if (vm.patientMsg.patientTyp == '4') {
+            _nullCod = '7'
+          }
+          var _isHasNoIdx = $.inArray(_nullCod, codArr);
+          if (_isHasNoIdx > -1) {
+            codArr.splice(_isHasNoIdx, 1);
+          }
+        }
+      } else if (cod === 'cmpPsnCod') {
+        var _isHasOtherIdx = $.inArray('8', codArr);
+        if (_isHasOtherIdx < 0) {
+          vm.patientMsg.psryqt = ''
+          $('#psryqtQt').val('')
+        }
+      }
+      vm.hideMsg[cod] = codArr.join(',')
+      for (var i = 0; i < list.length; i++) {
+        if (codArr.indexOf(list[i].infocode) != -1) {
+          textStr += list[i].info + '；'
+        }
+      }
+    } else {
+      vm.hideMsg[cod] = '';
+      if (cod === 'cmpPsnCod') {
+        vm.patientMsg.psryqt = ''
+        $('#psryqtQt').val('')
+      }
+    }
+    if (cod === 'zjzzFlg') {
+      if (vm.hideMsg[cod] === '0') { // 勾选了 0 无自觉
+        vm.hideMsg.zjzzCod = '';
+        vm.patientMsg.zjzzCod = [];
+        $('#zjzzQt').val('')
+        textStr = '无'
+        $('#zjzzCodParam').val(textStr)
+        $('#zjzzCodParam').text(textStr)
+        $('.scroll-list-div').hide();
+        $('.param-input').css({ 'box-shadow': 'none' })
+      }
+    } else if (cod === 'zjzzCod') {
+      if (codArr.length > 0) {
+        vm.hideMsg.zjzzFlg = '';
+        vm.patientMsg.zjzzFlg = [];
+      }
+    }
+    $('#' + cod + 'Param').val(textStr)
+    $('#' + cod + 'Param').text(textStr)
+    if (cod === 'ksfz' || cod === 'zjzzFlg' || cod === 'zjzzCod' || cod === 'jwgfxCod') {
+      vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
+    }
+    // 修改不能拼接主述 因为文本框可能原来就有值，选了之后不能回到之前的状态去
+    if (cod === 'ksfz') {
+      var ck_list = JSON.parse(JSON.stringify(vm.patientMsg[cod]));
+      if (vm.isEditPage != '1') {
+        vm.patientMsg.preDgnCod = $('#ksfzParam').val();
+      }
+      if (($.inArray('234', ck_list) > -1) || ($.inArray('235', ck_list) > -1)) { // 选择快速分诊: 核酸检测/入所体检，病人去向 诊间就诊  就诊科室  急诊内科
+        vm.patientMsg.emgFkCod = 'SD0001';
+        vm.patientMsg.emgFkName = '急诊内科';
+      } else if (($.inArray('236', ck_list) > -1) || ($.inArray('240', ck_list) > -1)) { // 选择快速分诊: 外伤，虫咬伤，默认诊间就诊，急诊外科
+        vm.patientMsg.emgFkCod = 'SD0002';
+        vm.patientMsg.emgFkName = '急诊外科';
+      } else if (($.inArray('238', ck_list) > -1)) { // 选择快速分诊: 鱼刺，默认耳鼻喉科
+        vm.patientMsg.emgFkCod = 'SD0009';
+        vm.patientMsg.emgFkName = '急诊耳鼻喉';
+      } else if ($.inArray('239', ck_list) > -1 || $.inArray('240', ck_list) > -1 || $.inArray('241', ck_list) > -1 || $.inArray('242', ck_list) > -1 || $.inArray('243', ck_list) > -1 || 
+    		  $.inArray('244', ck_list) > -1 || $.inArray('245', ck_list) > -1 || $.inArray('246', ck_list) > -1 || $.inArray('247', ck_list) > -1 ){//  发热、干咳、乏力、鼻塞、流涕、咽痛、嗅味觉减退、结膜炎、肌痛、腹泻，默认勾选发热门诊
+          vm.patientMsg.emgFkCod = 'SD0011';
+          vm.patientMsg.emgFKName = '急诊发热门诊';
+      }
+      if (ck_list.length > 0) {
+        vm.patientMsg.cstDspCod = '5';
+      } else {
+        vm.patientMsg.cstDspCod = '';
+      }
+    }
+    return textStr
+  },
+  setOtherText: function (cod, otherIdName) {
+    var textStr = vm.changArrToStr(cod);
+    var _otherText = $('#' + otherIdName).val();
+    if (cod === 'zjzzCod') {
+      if (vm.hideMsg.zjzzFlg === '0') {
+        if (!publicFun.checkItemNull(_otherText)) {
+          vm.hideMsg.zjzzFlg = '';
+          vm.patientMsg.zjzzFlg = [];
+          $('#' + cod + 'Param').val('其他：' + _otherText)
+        } else {
+          $('#' + cod + 'Param').val('无')
+        }
+        return false
+      }
+    }
+    if (!publicFun.checkItemNull(_otherText)) {
+      if (cod === 'cmpPsnCod') {
+        textStr = textStr.substring(0 ,textStr.length - 1) + '：' + _otherText
+      } else {
+        textStr = textStr + '其他：' + _otherText
+      }
+    }
+    $('#' + cod + 'Param').val(textStr)
+  },
+  // 计算孕周 -- 整个孕期共为280天，10个妊娠月（每个妊娠月为28天）40周
+  calcYz: function () {
+    if (vm.patientMsg.mcyj) {
+      var timeLapMins = new Date().getTime() - new Date(vm.patientMsg.mcyj).getTime();
+      var allDays = parseInt(timeLapMins / (1000 * 60 * 60 * 24)); // 多少天
+      var yzDay = '';
+      if ((allDays % 7) !== 0) {
+        yzDay = parseInt (allDays / 7) + '+' +  (allDays % 7);
+      } else {
+        yzDay = parseInt (allDays / 7)
+      }
+      vm.patientMsg.yz = yzDay;
+    } else {
+      vm.patientMsg.yz = '' // 末次月经为 yz为空处理
+    }
+  },
+  setAlert: function (flg, index) {
+    if (vm.patientMsg.modLvlCod !== '') {
+      if (index !== '' && index == vm.patientMsg.modLvlCod) {
+        $('.alert-edit-level').css({'left': vm.patientMsg.modLvlCod * 80 + 'px', top: '-120px'})
+        vm.patientMsg.alert_flg = flg
+      }
+    }
+  },
+  setBsAlert: function (flg) {
+    $('.alert-auto-level').css({'left': '50px', 'top': '-' + $('.alert-auto-level').height() + 'px'})
+    commonFun.countFinalCod()
+    vm.patientMsg.alert_auto_flg = flg
   }
 });
 /**
  * @监听性别
  */
 vm.patientMsg.$watch('cstSexCod', function (newVal, oldVal) {
-  if (typeForm === 'edit') {
+  if (vm.isEditPage == '1') {
     if (!vm.patientMsg.isGetAjaxFlg) {
       return;
     }
@@ -1676,124 +1034,16 @@ vm.patientMsg.$watch('cstSexCod', function (newVal, oldVal) {
  * @监听年龄
  * @计算分级
  */
-vm.patientMsg.$watch('cstAge', function (newVal, oldVal) {
-  if (typeForm === 'edit') {
-    if (newVal >= 14 && vm.patientMsg.cstAgeCod === '0') {
-      vm.aboutRems.cstAge = newVal;
-      vm.patientMsg.remsTotSco = commonFun.countRemsCount();
-    }
-    if (!vm.patientMsg.isGetAjaxFlg) {
-      return;
-    }
-  }
-  var cstSexCod = vm.patientMsg.cstSexCod,
-    cstAge = vm.patientMsg.cstAge,
-    cstAgeCod = vm.patientMsg.cstAgeCod;
-  if (typeForm === 'qjs') {
-    sub.hlpgbpatientMsg.cstAge = newVal;
-  }
-  /**
-   * @计算分级
-   */
-  vm.patientMsg.mewsTotSco = commonFun.countMewsCount();
-  vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
-  /**
-   * @小于14岁的女孩，设置月经状态为空
-   */
-  if ((cstAge < 14 && cstAgeCod === '0') || cstAgeCod === '1' || cstAgeCod === '2') {
-    vm.patientMsg.mnsSitCod = '';
-  }
-
-  /**
-  * @若年龄大于14岁，则患者类别默认为成人 如果小于14岁默认为儿童
-  */
-  vm.calcPatType();
-  /**
-   * @大于60岁的女性，已绝经
-   */
-  if (cstSexCod === '1' && (cstAge >= 60 && cstAgeCod === '0')) {
-    vm.patientMsg.mnsSitCod = '2';
-  }
-  if (newVal >= 14 && cstAgeCod === '0') {
-    vm.aboutRems.cstAge = newVal;
-    vm.patientMsg.remsTotSco = commonFun.countRemsCount();
-  }
+vm.patientMsg.$watch('cstAge', function () {
+  watchCstAge();
 });
 
 /**
  * @监听年龄类型
  * @计算分级
  */
-vm.patientMsg.$watch('cstAgeCod', function (newVal, oldVal) {
-  if (typeForm === 'edit') {
-    if (!vm.patientMsg.isGetAjaxFlg) {
-      return;
-    }
-  }
-  var cstSexCod = vm.patientMsg.cstSexCod,
-    cstAge = vm.patientMsg.cstAge,
-    cstAgeCod = newVal;
-  if (typeForm === 'qjs') {
-    if (newVal === '0') {
-      sub.hlpgbpatientMsg.cstAgeCod = '岁'
-    }
-    if (newVal === '1') {
-      sub.hlpgbpatientMsg.cstAgeCod = '月'
-    }
-    if (newVal === '2') {
-      sub.hlpgbpatientMsg.cstAgeCod = '天'
-    } 
-  }
-  /**
-   * @计算分级
-   */
-  vm.patientMsg.mewsTotSco = commonFun.countMewsCount();
-  vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
-  /**
-   * @小于14岁的女孩，设置月经状态为空
-   */
-  if ((cstAge < 14 && cstAgeCod === '0') || cstAgeCod === '1' || cstAgeCod === '2') {
-    vm.patientMsg.mnsSitCod = '';
-  }
-  /**
-   * @若年龄大于14岁，则患者类别默认为成人 如果小于14岁默认为儿童
-   */
-  vm.calcPatType();
-  /**
-   * @大于60岁的女性，已绝经
-   */
-  if (cstSexCod === '1' && (cstAge >= 60 && newVal === '0')) {
-    vm.patientMsg.mnsSitCod = '2';
-  }
-});
-
-/**
- * @快速分诊监听
- * array ==> string ['3','6','7'] ==> '3','6','7'
- */
-vm.patientMsg.ksfz.$watch('$all', function (name, newVal, oldVal) {
-  var numTest = /^\+?[0-9]*$/,
-    innerText = [],
-    ksfzList = vm.getMsg.ksfzList;
-  var ksfz;
-  if (numTest.test(newVal)) {
-    ksfz = vm.patientMsg.ksfz.$model;
-    vm.hideMsg.ksfz = ksfz.join();
-    $.each(ksfzList, function (idx, val) {
-      if ($.inArray(val['infocode'], ksfz) > -1) {
-        innerText.push(val['info']);
-      }
-    });
-    if (typeForm === 'precheck') {
-      if (innerText.join() != '') {
-        vm.patientMsg.cstDspCod = '5';
-      } else {
-        vm.patientMsg.cstDspCod = '';
-      }
-      vm.patientMsg.preDgnCod = innerText.join();
-    }
-    $('#ksfzMsg').val(innerText.join());
-  }
+vm.patientMsg.$watch('cstAgeCod', function () {
+  watchCstAge();
 });
 
 /**
@@ -1805,22 +1055,73 @@ vm.patientMsg.$watch('mnsSitCod', function (newVal, oldVal) {
   }
 });
 /**
+ * @监听宫缩频率
+ * @计算分级
+ */
+vm.patientMsg.$watch('pregnantGsplCod', function (newVal) {
+  if (vm.isEditPage == '1') {
+    if (!vm.patientMsg.isGetAjaxFlg) {
+      return;
+    }
+  }
+  vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
+  var _patientType = vm.patientMsg.patientTyp, cod_list = vm.patientMsg.jwgfxCod;
+  if (_patientType === '3') {
+    if (newVal === '1') {
+      // 危急征象指标默认选中 宫缩频率≤5 min 1次 : 16 
+      judgeIsAddCompareCod(cod_list, '16')
+    } else {
+      var _idx = $.inArray('16', cod_list);
+      if (_idx > -1) {
+        cod_list.splice(_idx, 1);
+        vm.patientMsg.jwgfxCod = JSON.parse(JSON.stringify(cod_list))
+      }
+    }
+  }
+});
+/**
+ * @监听阴道出血
+ * @计算分级
+ */
+vm.patientMsg.$watch('pregnantYdcxCod', function (newVal) {
+  if (vm.isEditPage == '1') {
+    if (!vm.patientMsg.isGetAjaxFlg) {
+      return;
+    }
+  }
+  vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
+  var _patientType = vm.patientMsg.patientTyp, cod_list = vm.patientMsg.jwgfxCod;
+  if (_patientType === '3') {
+    if (newVal === '1' || newVal === '2') {
+      // 危机征象指标默认选中 阴道流血大于月经量或等于月经量或活动性出血 : 15
+      judgeIsAddCompareCod(cod_list, '15')
+    } else {
+      var _idx = $.inArray('15', cod_list);
+      if (_idx > -1) {
+        cod_list.splice(_idx, 1);
+        vm.patientMsg.jwgfxCod = JSON.parse(JSON.stringify(cod_list))
+      }
+    }
+  } else if (_patientType === '4') {
+    if (newVal === '1') {
+      // 如果选择阴道出血大于月经量，则二级，危急征象指标为选中“阴道流血大于月经量” 阴道流血大于月经量 : 5。
+      judgeIsAddCompareCod(cod_list, '5')
+    } else {
+      var _idx = $.inArray('5', cod_list);
+      if (_idx > -1) {
+        cod_list.splice(_idx, 1);
+        vm.patientMsg.jwgfxCod = JSON.parse(JSON.stringify(cod_list))
+      }
+    }
+  }
+});
+/**
  * @监听体温
  * @计算mews评分&&分级
  */
 vm.aboutMews.$watch('tmpNbr', function (newVal, oldVal) {
   vm.patientMsg.mewsTotSco = commonFun.countMewsCount();
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
-  if (typeForm !== 'edit') {
-    if (newVal < 38.5) {
-      vm.patientMsg.frDat = '';
-      vm.patientMsg.frCod = [];
-      vm.hideMsg.frCod = '';
-      vm.patientMsg.infectedareaNam = '';
-      vm.patientMsg.emgJob = '';
-      vm.patientMsg.nationality = '中国';
-    }
-  }
 });
 /**
  * @监听血压
@@ -1830,8 +1131,10 @@ vm.aboutMews.$watch('sbpUpNbr', function (newVal, oldVal) {
   vm.aboutRems.sbpUpNbr = newVal;
   vm.patientMsg.remsTotSco = commonFun.countRemsCount();
   vm.patientMsg.mewsTotSco = commonFun.countMewsCount();
+  vm.patientMsg.rtsTotSco = commonFun.countRtsCount();
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
 });
+
 vm.aboutMews.$watch('sbpDownNbr', function (newVal, oldVal) {
   vm.patientMsg.mewsTotSco = commonFun.countMewsCount();
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
@@ -1845,6 +1148,7 @@ vm.aboutMews.$watch('breNbr', function (newVal, oldVal) {
   vm.patientMsg.remsTotSco = commonFun.countRemsCount();
   vm.patientMsg.mewsTotSco = commonFun.countMewsCount();
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
+  vm.patientMsg.rtsTotSco = commonFun.countRtsCount();
 });
 
 /**
@@ -1873,10 +1177,20 @@ vm.patientMsg.$watch('oxyNbr', function (newVal, oldVal) {
 vm.aboutMews.$watch('senRctCod', function (newVal, oldVal) {
   vm.patientMsg.mewsTotSco = commonFun.countMewsCount();
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
+  if (vm.isEditPage == '1') {
+    if (!vm.patientMsg.isGetAjaxFlg) {
+      return;
+    }
+  }
   vm.synchroSenStuCod(newVal);
 });
 
 vm.patientMsg.$watch('senStuCod', function (newVal, oldVal) {
+  if (vm.isEditPage == '1') {
+    if (!vm.patientMsg.isGetAjaxFlg) {
+      return;
+    }
+  }
   vm.synchroSenStuCod(newVal);
 });
 /**
@@ -1893,29 +1207,16 @@ vm.patientMsg.$watch('nrsSco', function (newVal, oldVal) {
 vm.patientMsg.$watch('cspgFlg', function (newVal, oldVal) {
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
 });
-/**
- * @监听呼吸困难
- * @计算分级
- */
-vm.patientMsg.$watch('hxknCod', function (newVal, oldVal) {
+vm.patientMsg.$watch('cspgCod', function (newVal, oldVal) {
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
 });
 /**
  * @监听胸痛
  * @计算分级
  */
-vm.patientMsg.$watch('xtCod', function (newVal, oldVal) {
+vm.patientMsg.$watch('xtFlg', function (newVal, oldVal) {
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
 });
-
-/**
- * @监听心肺骤停
- * @计算分级
- */
-vm.patientMsg.$watch('xfztFlg', function (newVal, oldVal) {
-  vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
-});
-
 /**
  * @监听卒中
  * @计算分级
@@ -1923,54 +1224,47 @@ vm.patientMsg.$watch('xfztFlg', function (newVal, oldVal) {
 vm.patientMsg.$watch('czFlag', function (newVal, oldVal) {
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
 });
-
 /**
  * @监听患者类型
  * @计算分级
  */
 vm.patientMsg.$watch('patientTyp', function (newVal, oldVal) {
-  if (typeForm === 'edit') {
+  if (vm.isEditPage == '1') {
     if (!vm.patientMsg.isGetAjaxFlg) {
       return;
     }
   }
   if (newVal === '2') {
-    vm.patientMsg.cstDspCod = '5';
-    var _list = vm.getMsg.jzkscompctlList, _ekCod = '';
-    for (var i = 0; i < _list.length; i++) {
-      if (_list[i].comcname === '急诊儿科') {
-        _ekCod = _list[i].comno
+    if (vm.isEditPage != '1') {
+      vm.patientMsg.cstDspCod = '5';
+      var _list = vm.getMsg.jzkscompctlList, _ekCod = '';
+      for (var i = 0; i < _list.length; i++) {
+        if (_list[i].comcname === '急诊儿科') {
+          _ekCod = _list[i].comno
+        }
       }
+      vm.patientMsg.emgFkName = '急诊儿科';
+      vm.patientMsg.emgFkCod = _ekCod;
     }
-    vm.patientMsg.emgFkName = '急诊儿科';
-    vm.patientMsg.emgFkCod = _ekCod;
   } else {
-    vm.patientMsg.cstDspCod = '';
-    vm.patientMsg.emgFkName = '';
-    vm.patientMsg.emgFkCod = '';
+    // 勾选了产科,末次月经可修改，修改后，孕周自动计算
+    // 5. 就诊科室取消，勾选产科、妇科分诊到对应的科室，产科、妇科取消默认 date 2020/10/26
+    if (newVal === '3') {
+      vm.patientMsg.emgFkName = '急诊产科';
+      vm.patientMsg.emgFkCod = '20502';
+    } else if (newVal === '4') {
+      vm.patientMsg.emgFkName = '急诊妇科';
+      vm.patientMsg.emgFkCod = '20501';
+    }
+    if (vm.isEditPage != '1') {
+      vm.patientMsg.cstDspCod = '';
+      vm.patientMsg.emgFkName = '';
+      vm.patientMsg.emgFkCod = '';
+    }
   }
-  vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
-});
-/**
- * @监听快速分诊
- * @计算分级
- */
-vm.hideMsg.$watch('ksfz', function (newVal, oldVal) {
-  vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
-});
-
-/**
- * @监听宫缩频率
- * @计算分级
- */
-vm.patientMsg.$watch('pregnantGsplCod', function (newVal, oldVal) {
-  vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
-});
-/**
- * @监听阴道出血
- * @计算分级
- */
-vm.patientMsg.$watch('pregnantYdcxCod', function (newVal, oldVal) {
+  vm.patientMsg.pregnantYdcxCod = '';
+  vm.patientMsg.pregnantGsplCod = '';
+  vm.patientMsg.jwgfxCod = []; // 清空 危急、高风险
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
 });
 /**
@@ -1981,43 +1275,17 @@ vm.aboutPEWS.$watch('pewsSco', function (newVal, oldVal) {
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
 });
 
-/**
- * @过敏状态监听
- */
-vm.patientMsg.$watch('algHon', function (newVal, oldVal) {
-  if (newVal === '0' || newVal === '1') {
-    vm.patientMsg.algTypCod = [];
+// 非高危下 跌倒措施清空
+vm.patientMsg.$watch('fallAssCod', function (newVal, oldVal) {
+  if (newVal == '#') { // 非高危
+    vm.patientMsg.fallAssEssText = '非高危'
+    vm.hideMsg.fdcsCod = '';
+    vm.patientMsg.fdcsCod = [];
+    $('#fdcsCodParam').val('')
+  } else if (newVal !== '' && newVal != null) {
+    vm.patientMsg.fallAssEssText = '高危'
   }
-});
-
-/**
- * @过敏项目监听
- */
-vm.patientMsg.algTypCod.$watch('$all', function (name, newVal, oldVal) {
-  var numTest = /^\+?[0-9]*$/;
-  var algTypCod,
-    algTypCodList = vm.getMsg.algTypCodList,
-    innerText = [];
-  if (numTest.test(newVal)) {
-    algTypCod = vm.patientMsg.algTypCod.$model;
-    vm.hideMsg.algTypCod = algTypCod.join();
-    $.each(algTypCodList, function (idx, val) {
-      if ($.inArray(val['infocode'], algTypCod) > -1) {
-        innerText.push(val['info']);
-      }
-    });
-    if ($.inArray('6', algTypCod) > -1) {
-      vm.isShowAlgTypDes = true;
-    } else {
-      vm.isShowAlgTypDes = false;
-      vm.patientMsg.algTypDes = '';
-    }
-    vm.patientMsg.allergic = innerText.join();
-  }
-  if (newVal != '') {
-    vm.patientMsg.algHon = '2';
-  }
-});
+})
 
 /**
  * @监听出生日期
@@ -2030,13 +1298,18 @@ vm.patientMsg.$watch('bthDat', function (newVal, oldVal) {
   } else {
     vm.patientMsg.cstAge = "";
     vm.patientMsg.cstAgeCod = "0";
+    vm.aboutRems.cstAge = '';
+    vm.patientMsg.remsTotSco = commonFun.countRemsCount();
   }
 });
 
 vm.patientMsg.$watch('emgFkCod', function (newVal, oldVal) {
   var _emgFk = newVal;
   if (_emgFk !== '') {
-    vm.getEmgFkDocList(_emgFk);
+    vm.changeEmgFkCod();
+  } else {
+    vm.patientMsg.emgFkCod = ''; 
+    vm.patientMsg.emgFkName = '';
   }
 })
 /**
@@ -2045,76 +1318,52 @@ vm.patientMsg.$watch('emgFkCod', function (newVal, oldVal) {
 vm.patientMsg.$watch('gcsTotSco', function (newVal, oldVal) {
   vm.aboutRems.gcsTotSco = newVal;
   vm.patientMsg.remsTotSco = commonFun.countRemsCount();
+  vm.patientMsg.rtsTotSco = commonFun.countRtsCount();
+  vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
 })
 /**
  * @监听REMS评分
  */
 vm.patientMsg.$watch('remsTotSco', function (newVal, oldVal) {
-  if(newVal <= 11){
+  if (newVal <= 11){
     vm.patientMsg.remsDeath = '10%'
-  }else if(11< newVal && newVal < 16){
+  } else if(11< newVal && newVal < 16){
     vm.patientMsg.remsDeath = '10%-50%'
-  }else if(newVal ==16 || newVal == 17){
+  } else if(newVal ==16 || newVal == 17){
     vm.patientMsg.remsDeath = '50%'
-  }else if(17< newVal && newVal < 24){
+  } else if(17< newVal && newVal < 24){
     vm.patientMsg.remsDeath = '50%-100%'
-  }else if(newVal >= 24){
+  } else if(newVal >= 24){
     vm.patientMsg.remsDeath = '100%'
   }
 })
-/**
- * @计算急诊分级
- * parm     chkLvlCod   '','0','1','2','3'
- * 预检页面 => 预检分级有值，修订分级清空
- * 修改页面 => 自动分级若有值，则修订分级如果为空的情况下，默认选中自动分级的值
-*/
-vm.patientMsg.$watch('chkLvlCod', function (newVal, oldVal) {
-  if (typeForm === 'edit') {
+
+// 修订分级
+vm.patientMsg.$watch("modLvlCod", function (newVal) {
+  if (vm.isEditPage == '1') {
     if (!vm.patientMsg.isGetAjaxFlg) {
       return;
     }
   }
-  vm.patientMsg.modLvlCod = newVal;
-  vm.patientMsg.modLvlDes = '';
-  vm.patientMsg.emgAreCod = commonFun.countEmgAreCod(newVal);
-  vm.patientMsg.emgDepCod = newVal;
-});
-
-// 修订分级
-vm.patientMsg.$watch("modLvlCod", function (newVal, oldVal) {
-  if (typeForm === 'edit') {
-    if (!vm.patientMsg.isGetAjaxFlg) {
-      return;
-    }
+  // 修订分级等于自动分级 或者修订分级的值为空的 => 清空修订理由
+  if ((newVal == vm.patientMsg.chkLvlCod) || newVal == ''){
+    vm.patientMsg.modLvlDes = '';
   }
   vm.patientMsg.emgDepCod = newVal
   vm.patientMsg.emgAreCod = commonFun.countEmgAreCod(newVal);
-  if (newVal === '' || newVal === null || newVal === undefined) {
-    var _chkLvlCod = vm.patientMsg.chkLvlCod;
-    vm.patientMsg.emgAreCod = commonFun.countEmgAreCod(_chkLvlCod);
-    vm.patientMsg.emgDepCod = _chkLvlCod;
-  }
-  // if (newVal === '0' || newVal === '1') {
-  //   vm.patientMsg.grnChl = '1'
-  // } else {
-  //   vm.patientMsg.grnChl = '0'
-  // }
 });
-
-
 // 解决ie下select option 显隐藏不起作用
 vm.patientMsg.$watch('cstDspCod', function (newVal, oldVal) {
   siteBedListItem();
 })
-
 // 解决ie下select option 显隐藏不起作用
 vm.patientMsg.$watch('qtsjFlg', function (newVal, oldVal) {
   siteBedListItem();
 })
 
 function siteBedListItem () {
-  var _strBed = '<option value="">请选择</option>';
-  if (vm.patientMsg.cstDspCod === '11') { // 11 290 留观室
+  var _strBed = '<option value=""></option>';
+  if (vm.patientMsg.cstDspCod === '11' || vm.patientMsg.cstDspCod === '1') { // 11 290 留观室
     var _list = [];
     if (vm.patientMsg.qtsjFlg === '1') {
       _list = vm.getMsg.lgBedList.concat(vm.getMsg.lgBedTempList)
@@ -2124,7 +1373,7 @@ function siteBedListItem () {
     for (var i = 0; i < _list.length; i++) {
       _strBed += '<option class=\"bedOption lgInfo\" value=' + _list[i].bedid + '>' + _list[i].bedPlcNam + '</option>'
     }
-  } else if (vm.patientMsg.cstDspCod === '6') {
+  } else if (vm.patientMsg.cstDspCod === '6') { // 留抢
     var _list = [];
     if (vm.patientMsg.qtsjFlg === '1') {
       _list = vm.getMsg.emgBedList.concat(vm.getMsg.emgBedTempList)
@@ -2145,14 +1394,80 @@ vm.patientMsg.$watch('preDgnCod', function (newVal, oldVal) {
     $('#measure').html('');
     vm.patientMsg.chkLvlCod = commonFun.countFinalCod()
   } else {
-    var _listLevel = vm.getMsg.totalCbyxList;
-    _listLevel.forEach(function (ele) {
-      if (new RegExp(/ele.cbyx/).test(newVal) == true) {
-        initCbyxVal(ele);
+    var _listLevel = vm.getMsg.totalCbyxList, noDictFlg = false;
+    for (var i = 0; i < _listLevel.length; i++) {
+      if (_listLevel[i].cbyx == publicFun.strTrim(newVal)) {
+         noDictFlg = true
+        initCbyxVal(_listLevel[i]);
       }
-    })
+      if (new RegExp(/_listLevel[i].cbyx/).test(publicFun.strTrim(newVal)) == true) {
+        noDictFlg = true
+        initCbyxVal(_listLevel[i]);
+      }
+    }
+    if (!noDictFlg && newVal == '') {
+      $('#checkLevel').val('');
+      $('#measure').html('');
+      vm.patientMsg.chkLvlCod = commonFun.countFinalCod()
+    }
   }
 })
+// 监听 危急、高风险
+vm.patientMsg.jwgfxCod.$watch('$all', function (name, newVal, oldVal) {
+  if (vm.isEditPage == '1') {
+    if (!vm.patientMsg.isGetAjaxFlg) {
+      return;
+    }
+  }
+  vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
+  var codArr = JSON.parse(JSON.stringify(vm.patientMsg.jwgfxCod))
+  if (codArr.length > 0) {
+    vm.hideMsg.jwgfxCod = codArr.join(',')
+  }
+  var list = JSON.parse(JSON.stringify(vm.getMsg['dangerousCodList' + vm.patientMsg.patientTyp]));
+  var textStr = '';
+  if (codArr.length > 0) {
+    for (var i = 0; i < list.length; i++) {
+      if (codArr.indexOf(list[i].infocode) != -1) {
+        textStr += list[i].info + '；'
+      }
+    }
+  }
+  $('#jwgfxCodParam').val(textStr)
+  $('#jwgfxCodParam').text(textStr)
+})
+
+function fillInputText (type, ck_list) {
+  var fill_str = '';
+  var list = vm.getMsg[type + 'List'];
+  if (type === 'jwgfxCod') {
+    vm.getMsg.dangerousCodList = JSON.parse(JSON.stringify(vm.getMsg['dangerousCodList' + vm.patientMsg.patientTyp]));
+    list = JSON.parse(JSON.stringify(vm.getMsg.dangerousCodList))
+  }
+  for (var i = 0; i < list.length; i++) {
+    if ($.inArray(list[i].infocode, ck_list) > -1) {
+      fill_str += list[i].info + '；'
+    }
+  }
+  if (type === 'zjzzCod') {
+    var _otherText = $('#zjzzQt').val();
+    if (_otherText !== '' && _otherText != null) {
+      fill_str += "其他：" + _otherText;
+    } else {
+      if (fill_str === '' || fill_str == null) {
+        if (vm.patientMsg.zjzzFlg === '0') {
+          fill_str = '无'
+        }
+      }
+    }
+  } else if (type === 'yjbzCod') {
+    var _otherText = $('#remarkQt').val();
+    if (_otherText !== '' && _otherText != null) {
+      fill_str += "其他：" + _otherText;
+    }
+  }
+  $('#' + type + 'Param').val(fill_str);
+}
 
 function enterWay () {
   /**
@@ -2173,7 +1488,7 @@ function enterWay () {
     }
   });
   /**
-   * @就诊卡 => 默认获取焦点
+   * @病历号 => 默认获取焦点
    * @author  ql
    */
   setTimeout(function () {
@@ -2182,7 +1497,7 @@ function enterWay () {
 }
 
 function getKnowledgeList () {
-  publicFun.httpServer({ url: _baseUrl + 'firstimp/queryZsk_result.do' }, {page: 1,rows: 10000}, function (res) {
+  publicFun.httpServer({ url: _baseUrl + 'firstimp/queryZsk_result.do' }, {page: 1,rows: 20000}, function (res) {
     vm.getMsg.totalCbyxList = res.rows;
   })
 }
@@ -2204,12 +1519,11 @@ function initCbyxVal (ele) {
 function isShowKnowledge () {
   if (_isOpenKnowledge === '1') {
     $('#knowledgeDiv').show();
-    $('.patient-msg-container .first-impression').css({ 'width': '400px' });
-    $('.cbyxSearchList').css({ 'width': '405px' })
+    $('#searchWrapper').addClass('search-wrap')
   } else {
     $('#knowledgeDiv').hide();
-    $('.patient-msg-container .first-impression').css({ 'width': '800px' });
-    $('.cbyxSearchList').css({ 'width': '805px' })
+    $('#searchWrapper').removeClass('search-wrap')
+    $('#searchWrapper').css('position', 'relative')
   }
 }
 /**
@@ -2217,29 +1531,260 @@ function isShowKnowledge () {
  */
 function getAjaxInfoList() {
   publicFun.httpServer({ url: _baseUrl + 'hzszyyemg/findEmgList_zyy.do', isAsync: false }, { _t: Date.parse(new Date()) }, function (res) {
-    var msgList = res.resultInfo.sysdata;
-    jsbrjz = msgList;
-    if (res.resultInfo.type == '1') {
-      $.each(msgList, function (key, val) {
-        if (vm.getMsg.hasOwnProperty(key)) {
-          if (key === 'bedplacecodList') {
-            $.each(val, function (_idx, _val) {
-              if (_val.bedPlace == '290') {
-                vm.getMsg.lgBedList.push(_val);
-              } else if (_val.bedPlace == '291') {
-                vm.getMsg.emgBedList.push(_val);
-              } else if (_val.bedPlace == '2900') { // 临时床位
-                vm.getMsg.lgBedTempList.push(_val);
-              } else if (_val.bedPlace == '2911') {
-                vm.getMsg.emgBedTempList.push(_val);
-              }
-            })
-          }
-          vm.getMsg[key] = val;
+    initDictList(res);
+  });
+  // vm.getAbnSco();
+  // vm.getAbnDriver();
+}
+
+function initDictList (res) {
+  var msgList = res.resultInfo.sysdata;
+  jsbrjz = msgList;
+  if (res.resultInfo.type == '1') {
+    msgList.modLvlCodList = [{ infocode: '0', info: 'I级' }, { infocode: '1', info: 'II级' }, { infocode: '2', info: 'III级' }, { infocode: '3', info: 'IVa级' }, { infocode: '4', info: 'IVb级' }];
+    // msgList.emgAreCodList = [{infocode: '0', info: '红区'}, {infocode: '1', info: '黄区'}, {infocode: '2', info: '绿区'}];
+    $.each(msgList, function (key, val) {
+      if (vm.getMsg.hasOwnProperty(key)) {
+        if (key === 'bedplacecodList') {
+          $.each(val, function (_idx, _val) {
+            if (_val.bedPlace == '290') {
+              vm.getMsg.lgBedList.push(_val);
+            } else if (_val.bedPlace == '291') {
+              vm.getMsg.emgBedList.push(_val);
+            } else if (_val.bedPlace == '2900') { // 临时床位
+              vm.getMsg.lgBedTempList.push(_val);
+            } else if (_val.bedPlace == '2911') {
+              vm.getMsg.emgBedTempList.push(_val);
+            }
+          })
         }
-      });
+        var _checkedList = ['cstSexCodList', 'ksfzList', 'arvChlCodList', 'cstDspCodList', 'jzkscompctlList','senStuCodList', 'senRctCodList', 'chkLvlCodList', 'modLvlCodList', 'frCodList', 'mnsSitCodList', 'emgAreCodList', 'algTypCodList', 'cmpPsnCodList', 'pastHisCodList', 'refusedSurveyList'];
+        if ($.inArray(key, _checkedList) > -1) {
+          $.each(val, function (_idx, _val) {
+            _val.checked = false
+          })
+        }
+        vm.getMsg[key] = val;
+      }
+    });
+  }
+}
+
+// 取消
+function hideCurrent (id) {
+  cancelPop();
+  $('.scroll-list-div').hide();
+  $('#' + id).css({'box-shadow': 'none'})
+}
+
+function cancelPop () {
+  if (window.event) {
+    if (window.event.stopPropagation) { //非IE 
+      window.event.stopPropagation(); // 取消冒泡事件
+    } else { //IE 
+      window.event.cancelBubble = true;
+    }
+  }
+}
+
+function judgeIsAddCompareCod (ck_list, compare_cod) {
+  if (ck_list.indexOf(compare_cod) < 0) {
+    var _nullCod = '20';
+    if (vm.patientMsg.patientTyp == '1') {
+      _nullCod = '19'
+    } else if (vm.patientMsg.patientTyp == '2') {
+      _nullCod = '27'
+    } else if (vm.patientMsg.patientTyp == '3') {
+      _nullCod = '20'
+    } else if (vm.patientMsg.patientTyp == '4') {
+      _nullCod = '7'
+    }
+    var _isNullCod = $.inArray(_nullCod, ck_list);
+    if(_isNullCod > -1){
+    	ck_list.splice(_isNullCod, 1)
+    }
+    ck_list = ck_list.push(compare_cod)
+    vm.patientMsg.jwgfxCod = JSON.parse(JSON.stringify(ck_list))
+  }
+}
+
+// 年龄监听 公用方法
+function watchCstAge () {
+  var cstSexCod = vm.patientMsg.cstSexCod,
+    cstAge = vm.patientMsg.cstAge,
+    cstAgeCod = vm.patientMsg.cstAgeCod;
+  var ageNameList = vm.getMsg.cstAgeCodList, ageName = '';
+  for (var i = 0; i < ageNameList.length; i++) {
+    if (ageNameList[i].infocode == cstAgeCod) {
+      ageName = ageNameList[i].info
+    }
+  }
+  if (cstAge !== '' && cstAge != null) {
+    vm.patientMsg.showAge = cstAge + ageName
+  }
+  if (vm.isEditPage == '1') {
+    if (cstAge >= 14 && cstAgeCod === '0') {
+      vm.aboutRems.cstAge = vm.patientMsg.cstAge;
+      vm.patientMsg.remsTotSco = commonFun.countRemsCount();
+    }
+    if (!vm.patientMsg.isGetAjaxFlg) {
+      return;
+    }
+  }
+  /**
+   * @若年龄大于14岁，则患者类别默认为成人 如果小于14岁默认为儿童
+   */
+  vm.calcPatType();
+  /**
+   * @计算分级
+   */
+  vm.patientMsg.mewsTotSco = commonFun.countMewsCount();
+  vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
+  /**
+   * @小于14岁的女孩，设置月经状态为空
+   */
+  if ((cstAge < 14 && cstAgeCod === '0') || cstAgeCod === '1' || cstAgeCod === '2') {
+    vm.patientMsg.mnsSitCod = '';
+  }
+  /**
+   * @大于60岁的女性，已绝经
+   */
+  if (cstSexCod === '1' && (cstAge >= 60 && cstAgeCod === '0')) {
+    vm.patientMsg.mnsSitCod = '2';
+  }
+  if ((cstAge >= 14 && cstAgeCod === '0') || cstAge == '') {
+    vm.aboutRems.cstAge = cstAge;
+    vm.patientMsg.remsTotSco = commonFun.countRemsCount();
+  }
+}
+
+/**
+ * @getChildPfMsg 获取RTS评分信息
+ */
+function getChildPfMsg () {
+  publicFun.httpServer({url: _baseUrl + 'scoreManagement/queryScoreList.do' }, {
+    'hspPfglInfCustom.emgSeq': _emgSeq,
+    'hspPfglInfCustom.pflySeq': _emgSeq,
+    'hspPfglInfCustom.pflyCode': '0'
+  }, function(data){
+    if (data.resultInfo.type == '1') {
+      var list = data.rows;
+      for (var i = 0; i < list.length; i++) {
+        if(list[i].pftype == '11'){
+          vm.patientMsg.pfManager = [list[i]];
+          vm.patientMsg.rtsTotSco = list[i].pfjg;
+          break;
+        }
+      }
+    } else {
+      message_alert(data)
+    }            
+  });    
+}
+
+/**
+ * RTS评分的保存方法
+ */
+function saveRtsMsg () {
+  var parentList = [];
+  var _pfglSeq = '', pfDat = new Date().getTime(),  _pflySeq = '';     
+  if (vm.isEditPage != '1'){ // 当新增时 评分查询 关联号放空 
+    _pflySeq = ''
+  } else if (vm.isEditPage == '1'){
+    _pflySeq = _emgSeq
+    parentList = JSON.parse(JSON.stringify(vm.patientMsg.pfManager))
+    for (var i = 0; i < parentList.length; i++){
+      if (parentList[i].pftype == '11'){
+        _pfglSeq = parentList[i].pfglSeq;
+        break;
+      }
+    }
+  }
+  var postScoMsg = {
+    gcsTotSco: vm.patientMsg.gcsTotSco,
+    sbpUpNbr: vm.aboutMews.sbpUpNbr,
+    breNbr: vm.aboutMews.breNbr,
+    rtsTotSco: vm.patientMsg.rtsTotSco
+  }
+  var curItem = {
+    emgSeq: _emgSeq,  //预检号
+    parentPk: _pflySeq,  //父PK（新增时为空）
+    pfDat: pfDat,  //时间戳		评分时间
+    pfglSeq: _pfglSeq,  //评分管理Seq（新增时为空）
+    pfjg: vm.patientMsg.rtsTotSco,  //评分结果
+    pflrly: 'PC',  //评分录入来源
+    pflyCode: '0', //评分来源COD（0：来自于 预检登记）
+    pflySeq: _pflySeq, //评分来源的Seq
+    pfnr: JSON.stringify(postScoMsg), // 评分内容JSON
+    pftype: '11',  //评分类型（11：RTS评分）
+    qtjg: '', //其他结果
+    saveType: '0'  //保存类型（0：来自于 预检登记）
+  };
+  publicFun.httpServer({url: _baseUrl + 'scoreManagement/editScoreChild.do', requestDataType: 'json', isAsync: false}, {
+    hspPfglInfCustom: curItem
+  }, function (res) {
+    var rtn_pfglSeq = res.resultInfo.sysdata.pfglSeq;
+    if (parentList.length == 0) {
+      curItem.pfglSeq = rtn_pfglSeq;
+      parentList.push(curItem)
+    }
+    parentList.forEach(function (item, index) {
+      if (item.pftype == '11') {
+        item.pfglSeq = rtn_pfglSeq
+        item.parentPk = _emgSeq
+        item.pfDat = pfDat
+        item.pflySeq = _pflySeq
+        item.pflyCode = '0'
+        item.saveType = '0'
+        item.pfjg = vm.patientMsg.rtsTotSco
+        item.pfnr = JSON.stringify(postScoMsg)
+        item.pflrly = 'PC'
+      }
+    })
+    for(var k in parentList){
+      vm.patientMsg.pfManager[k] = parentList[k]
+    }
+  })
+  return parentList
+}
+
+
+// 生命体征采集 
+function setEmgSeq () {
+  var url = "http://localhost:8848/ReadTPRB";
+  jQuery.support.cors = true;
+  $.ajax({
+    url: url,
+    type: "get",
+    dataType: "jsonp",
+    jsonp: "callback",
+    jsonpCallback:"jsonp9578",
+    contentType:'application/json; charset=utf-8',
+    success: function (dataObj) {
+      if (dataObj[0].ret == '0') {
+        vm.aboutMews.sbpUpNbr = dataObj[0].NIBP_S;// 血压上压
+        vm.aboutMews.sbpDownNbr = dataObj[0].NIBP_D;// 血压下压
+        vm.aboutMews.hrtRte = dataObj[0].PR;// 心率
+        vm.patientMsg.oxyNbr = dataObj[0].SPO2;
+      } else if (dataObj[0].ret == '-1') {
+        publicFun.alert('监护仪URL错误,请检查！');
+      } else if (dataObj[0].ret == '-2') {
+        publicFun.alert('缺少配置文件ReadMindray.ini！')
+        // _confirm('缺少配置文件ReadMindray.ini！', null, function () {
+        // 	setReadOMLData();
+        // });
+      } else if (dataObj[0].ret == '-3') {
+        publicFun.alert('缺少配置文件中指定的迈瑞数据文件！')
+        // _confirm('缺少配置文件中指定的迈瑞数据文件！', null, function () {
+        // 	setReadOMLData();
+        // });
+      } else {
+        publicFun.alert('监护仪数据读取失败，请联系管理员!');
+      }
+    },
+    error: function (error) {
+      publicFun.alert('监护仪数据读取失败，请重新登录或检查网络');
     }
   });
-  vm.patientMsg.nationality = '中国';
-  vm.getAbnSco();
 }
+
