@@ -39,6 +39,26 @@ public class HspDbzlBasCustom extends HspDbzlBas {
     //胸痛指标内涵
     private String xtzbnh;
 
+    private String regTimStr;
+
+    private String bthDatStr;
+
+    public String getRegTimStr() {
+        return regTimStr;
+    }
+
+    public void setRegTimStr(String regTimStr) {
+        this.regTimStr = regTimStr;
+    }
+
+    public String getBthDatStr() {
+        return bthDatStr;
+    }
+
+    public void setBthDatStr(String bthDatStr) {
+        this.bthDatStr = bthDatStr;
+    }
+
     public String getXueyang() {
         return xueyang;
     }

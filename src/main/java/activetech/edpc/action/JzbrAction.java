@@ -51,9 +51,10 @@ public class JzbrAction {
      * @throws Exception
      */
     @RequestMapping("/adddbzlbassubmit_sdzx")
-    public @ResponseBody SubmitResultInfo addzyyemgsubmit_yjfz_sdzx(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws Exception {
+    public @ResponseBody SubmitResultInfo addzyyemgsubmit_yjfz_sdzx(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws Exception {
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         esbService.insertHspDbzlBasForCust(hspDbzlBasQueryDto,activeUser);
         return ResultUtil.createSubmitResult(resultInfo);
     }
+
 }
