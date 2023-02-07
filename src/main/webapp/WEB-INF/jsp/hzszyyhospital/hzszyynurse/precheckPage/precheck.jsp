@@ -818,8 +818,8 @@
       postParam.emgSeq = _emgSeq
       postParam.modUsrNbr = '${sessionScope.activeUser.usrno}';
       postParam.modUsrNam = '${sessionScope.activeUser.usrname}';
-      postParam.emgDatStr = postParam.regTim;
-      postParam.bthDatStr = postParam.bthDat;
+			postParam.regTim = new Date(postParam.regTim).getTime();
+			postParam.bthDat = new Date(postParam.bthDat).getTime();
 			postParam.xuey = postParam.sbpUpNbr + '/' +  postParam.sbpDownNbr
       compareSufFieldInfo = JSON.parse(JSON.stringify(dealCompareMsg(compareSufFieldInfo)))
       if (vm.isEditPage == '1') { // 修改界面
