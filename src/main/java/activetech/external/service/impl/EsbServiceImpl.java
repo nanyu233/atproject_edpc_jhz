@@ -316,28 +316,39 @@ public class EsbServiceImpl implements EsbService{
 			baseZlInf.setProVal(hspDbzlBasCustom.getXuey());
 			hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
 		}
-		/*
+
 		//脉搏
-		if(hspDbzlBasCustom.getHrtRte() != null) {
-			baseZlInf.setProCode("MAIB");
-			baseZlInf.setProVal(hspDbzlBasCustom.get);
+		if(hspDbzlBasCustom.getMb() != null) {
+			baseZlInf.setProCode("MBJZ");
+			baseZlInf.setProVal(hspDbzlBasCustom.getMb());
 			hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
 		}
 		//血氧
         if(hspDbzlBasCustom.getXueyang() != null) {
-			baseZlInf.setProCode("");
+			baseZlInf.setProCode("XUEYANG");
 			baseZlInf.setProVal(hspDbzlBasCustom.getXueyang());
-			hspZlInfCustomMapper.mergeHspXtzlInf(baseXtzlInf);
+			hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
         }
-
-		//意识
+        //tiwen
+		if(hspDbzlBasCustom.getTiw() != null) {
+			baseZlInf.setProCode("TWJZ");
+			baseZlInf.setProVal(hspDbzlBasCustom.getTiw());
+			hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
+		}
+       //呼吸频率
+		if(hspDbzlBasCustom.getHuxipl() != null) {
+			baseZlInf.setProCode("HXPLJZ");
+			baseZlInf.setProVal(hspDbzlBasCustom.getHuxipl());
+			hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
+		}
+		/*//意识
 		if(hspDbzlBasCustom.getXueyang() != null) {
 			baseZlInf.setProCode("YISHI");
 			baseZlInf.setProVal(hspDbzlBasCustom.getSenRctCod());
 			hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
-		}
+		}*/
 
-		 */
+
 	}
 
 
