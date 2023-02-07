@@ -38,25 +38,45 @@ public class HspDbzlBasCustom extends HspDbzlBas {
     private String brzszz;
     //胸痛指标内涵
     private String xtzbnh;
+    //体温
+    private String tiw;
+    //血糖
+    private String xuet;
+    //呼吸频率
+    private String huxipl;
+    //脉搏
+    private String mb;
 
-    private String regTimStr;
-
-    private String bthDatStr;
-
-    public String getRegTimStr() {
-        return regTimStr;
+    public String getMb() {
+        return mb;
     }
 
-    public void setRegTimStr(String regTimStr) {
-        this.regTimStr = regTimStr;
+    public void setMb(String mb) {
+        this.mb = mb;
     }
 
-    public String getBthDatStr() {
-        return bthDatStr;
+    public String getTiw() {
+        return tiw;
     }
 
-    public void setBthDatStr(String bthDatStr) {
-        this.bthDatStr = bthDatStr;
+    public void setTiw(String tiw) {
+        this.tiw = tiw;
+    }
+
+    public String getXuet() {
+        return xuet;
+    }
+
+    public void setXuet(String xuet) {
+        this.xuet = xuet;
+    }
+
+    public String getHuxipl() {
+        return huxipl;
+    }
+
+    public void setHuxipl(String huxipl) {
+        this.huxipl = huxipl;
     }
 
     public String getXueyang() {
