@@ -34,18 +34,18 @@ var jsbrFun = {
     }
   },
 }
-var normalRequireList = ["regTim", "cstNam", "preDgnCod", "tmpNbr", "breNbr", "hrtRte", "sbpUpNbr", "sbpDownNbr", "oxyNbr", "nrsSco", "senStuCod", "senRctCod", "fallAssEssText", "cstDspCod", "emgFkCod"];
+var normalRequireList = ["regTim", "cstNam", "preDgnCod", "tiw", "huxipl", "mb", "sbpUpNbr", "sbpDownNbr", "xueyang", "nrsSco", "senStuCod", "senRctCod", "fallAssEssText", "cstDspCod", "emgFkCod"];
 var jsbrAlertMsg = {
   allAlertMsg: {
     regTim: "预检时间必填",
     cstNam: "姓名必填",
     // preDgnCod: "主诉症状必填",
-    tmpNbr: "体温必填",
-    breNbr: "呼吸必填",
-    hrtRte: "脉搏必填",
+    tiw: "体温必填",
+    huxipl: "呼吸必填",
+    mb: "脉搏必填",
     sbpUpNbr: "血压必填",
     sbpDownNbr: "血压必填",
-    oxyNbr: "血氧必填",
+    xueyang: "血氧必填",
     // nrsSco: "疼痛评分必填",
     senStuCod: "意识必填",
     senRctCod: "AVPU必填",

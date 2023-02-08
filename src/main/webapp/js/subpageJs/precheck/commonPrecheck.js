@@ -101,7 +101,7 @@ var vm = avalon.define({
     ksfz: [], // 快速分诊
     arvChlCod: '', // 到院方式
     cmpPsnCod: [], // 陪送人员
-    oxyNbr: '', // 血氧饱和度
+    xueyang: '', // 血氧饱和度
     senStuCod: '', // 意识状态
     wzbz: [], // 病种
     mtCod: '', //面瘫
@@ -211,19 +211,19 @@ var vm = avalon.define({
   },
   aboutMews: {
     senRctCod: '',
-    breNbr: '',
-    hrtRte: '',
-    tmpNbr: '',
+    huxipl: '',
+    mb: '',
+    tiw: '',
     sbpUpNbr: '',
     sbpDownNbr: '',
   },
   aboutRems: {
-    hrtRte:'',
+    mb:'',
     sbpUpNbr:'',
-    breNbr:'',
+    huxipl:'',
     gcsTotSco:'',
     cstAge:'',
-    oxyNbr:''
+    xueyang:''
   },
   // aboutCRAMS: {
   //   sptLvlCod: '',
@@ -1119,7 +1119,7 @@ vm.patientMsg.$watch('pregnantYdcxCod', function (newVal) {
  * @监听体温
  * @计算mews评分&&分级
  */
-vm.aboutMews.$watch('tmpNbr', function (newVal, oldVal) {
+vm.aboutMews.$watch('tiw', function (newVal, oldVal) {
   vm.patientMsg.mewsTotSco = commonFun.countMewsCount();
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
 });
@@ -1143,8 +1143,8 @@ vm.aboutMews.$watch('sbpDownNbr', function (newVal, oldVal) {
  * @监听呼吸
  * @计算mews评分&&分级
  */
-vm.aboutMews.$watch('breNbr', function (newVal, oldVal) {
-  vm.aboutRems.breNbr = newVal;
+vm.aboutMews.$watch('huxipl', function (newVal, oldVal) {
+  vm.aboutRems.huxipl = newVal;
   vm.patientMsg.remsTotSco = commonFun.countRemsCount();
   vm.patientMsg.mewsTotSco = commonFun.countMewsCount();
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
@@ -1155,8 +1155,8 @@ vm.aboutMews.$watch('breNbr', function (newVal, oldVal) {
  * @监听心率
  * @计算mews评分&&分级
  */
-vm.aboutMews.$watch('hrtRte', function (newVal, oldVal) {
-  vm.aboutRems.hrtRte = newVal;
+vm.aboutMews.$watch('mb', function (newVal, oldVal) {
+  vm.aboutRems.mb = newVal;
   vm.patientMsg.remsTotSco = commonFun.countRemsCount();
   vm.patientMsg.mewsTotSco = commonFun.countMewsCount();
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
@@ -1165,8 +1165,8 @@ vm.aboutMews.$watch('hrtRte', function (newVal, oldVal) {
  * @监听血氧饱和度
  * @计算分级
  */
-vm.patientMsg.$watch('oxyNbr', function (newVal, oldVal) {
-  vm.aboutRems.oxyNbr = newVal;
+vm.patientMsg.$watch('xueyang', function (newVal, oldVal) {
+  vm.aboutRems.xueyang = newVal;
   vm.patientMsg.remsTotSco = commonFun.countRemsCount();
   vm.patientMsg.chkLvlCod = commonFun.countFinalCod();
 });
@@ -1703,7 +1703,7 @@ function saveRtsMsg () {
   var postScoMsg = {
     gcsTotSco: vm.patientMsg.gcsTotSco,
     sbpUpNbr: vm.aboutMews.sbpUpNbr,
-    breNbr: vm.aboutMews.breNbr,
+    huxipl: vm.aboutMews.huxipl,
     rtsTotSco: vm.patientMsg.rtsTotSco
   }
   var curItem = {
@@ -1764,8 +1764,8 @@ function setEmgSeq () {
       if (dataObj[0].ret == '0') {
         vm.aboutMews.sbpUpNbr = dataObj[0].NIBP_S;// 血压上压
         vm.aboutMews.sbpDownNbr = dataObj[0].NIBP_D;// 血压下压
-        vm.aboutMews.hrtRte = dataObj[0].PR;// 心率
-        vm.patientMsg.oxyNbr = dataObj[0].SPO2;
+        vm.aboutMews.mb = dataObj[0].PR;// 心率
+        vm.patientMsg.xueyang = dataObj[0].SPO2;
       } else if (dataObj[0].ret == '-1') {
         publicFun.alert('监护仪URL错误,请检查！');
       } else if (dataObj[0].ret == '-2') {

@@ -286,24 +286,24 @@
             <span ms-visible="noMassRequire()">*</span>
           </span>
           <label class="w2" ms-class="redWarn:patientInfFlg.tmpNbrFlag==1">体温</label>
-          <input id="emg_tmpNbr" type="text" class="small-input bigBlueFt" ms-duplex-string="aboutMews.tmpNbr"
-            ms-keyup="onlyNum('aboutMews','tmpNbr',1,100)" ms-input="onlyNum('aboutMews','tmpNbr',1,100)" ms-change="onlyNum('aboutMews','tmpNbr',1,100)">
+          <input id="emg_tmpNbr" type="text" class="small-input bigBlueFt" ms-duplex-string="aboutMews.tiw"
+            ms-keyup="onlyNum('aboutMews','tiw',1,100)" ms-input="onlyNum('aboutMews','tiw',1,100)" ms-change="onlyNum('aboutMews','tiw',1,100)">
           <span class="gray-ft">℃</span>
         </div>
         <div class="two-part">
           <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span>
           <label class="w2" ms-class="redWarn:patientInfFlg.breNbrFlag==1">呼吸</label>
           <input id="emg_breNbr" type="text" class="small-input bigBlueFt" maxlength="4" 
-            ms-duplex-string="aboutMews.breNbr" ms-keyup="onlyNum('aboutMews','breNbr')" ms-input="onlyNum('aboutMews','breNbr')"
-            ms-change="onlyNum('aboutMews','breNbr')">
+            ms-duplex-string="aboutMews.huxipl" ms-keyup="onlyNum('aboutMews','huxipl')" ms-input="onlyNum('aboutMews','huxipl')"
+            ms-change="onlyNum('aboutMews','huxipl')">
           <span class="gray-ft">次/分</span>
         </div>
         <div class="two-part">
           <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span>
           <label class="w2" ms-class="redWarn:patientInfFlg.hrtRteFlag==1">脉搏</label>
           <input id="emg_hrtRte" type="text" class="small-input bigBlueFt" maxlength="4" 
-            ms-duplex-string="aboutMews.hrtRte" ms-keyup="onlyNum('aboutMews','hrtRte')" ms-input="onlyNum('aboutMews','hrtRte')"
-            ms-change="onlyNum('aboutMews','hrtRte')">
+            ms-duplex-string="aboutMews.mb" ms-keyup="onlyNum('aboutMews','mb')" ms-input="onlyNum('aboutMews','mb')"
+            ms-change="onlyNum('aboutMews','mb')">
           <span class="gray-ft">次/分</span>
         </div>
         <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span>
@@ -323,8 +323,8 @@
           <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span>
           <label class="w2" ms-class="redWarn:patientInfFlg.oxyNbrFlag==1">血氧</label>
           <input id="emg_oxyNbr" type="text" class="small-input bigBlueFt" maxlength="4"
-          ms-duplex-string="patientMsg.oxyNbr" ms-keyup="onlyNum('patientMsg','oxyNbr')" ms-input="onlyNum('patientMsg','oxyNbr')"
-          ms-change="onlyNum('patientMsg','oxyNbr')">
+          ms-duplex-string="patientMsg.xueyang" ms-keyup="onlyNum('patientMsg','xueyang')" ms-input="onlyNum('patientMsg','xueyang')"
+          ms-change="onlyNum('patientMsg','xueyang')">
           <span class="gray-ft">%</span>
         </div>
         <!-- <div class="two-part">
@@ -820,7 +820,11 @@
       postParam.modUsrNam = '${sessionScope.activeUser.usrname}';
 			postParam.regTim = new Date(postParam.regTim).getTime();
 			postParam.bthDat = new Date(postParam.bthDat).getTime();
-			postParam.xuey = postParam.sbpUpNbr + '/' +  postParam.sbpDownNbr
+			if(!postParam.sbpDownNbr && ! postParam.sbpUpNbr){
+				postParam.xuey=''
+			}else{
+				postParam.xuey = postParam.sbpUpNbr + '/' +  postParam.sbpDownNbr
+			}
       compareSufFieldInfo = JSON.parse(JSON.stringify(dealCompareMsg(compareSufFieldInfo)))
       if (vm.isEditPage == '1') { // 修改界面
         var compareMsgList = [];
@@ -902,7 +906,7 @@
 					
           _emgSeq = data.resultInfo.sysdata.emgSeq;
           $('#emg_emgSeq').val(_emgSeq);
-          editFun.getPatientMsg();
+          // editFun.getPatientMsg();
           setTimeout(function () {
             $('.messager-body').window('close')
             if (!'${emgSeq}' || vm.isEditPage != '1') { // 修改预检页面保存完了不调用新增
@@ -953,7 +957,7 @@
     // 刷新 - 每次加载的时候 reload left tab
     function reload () {
       // reloadLeftTab()
-      getLeftData();
+      // getLeftData();
     }
 
     function refreshjz() {

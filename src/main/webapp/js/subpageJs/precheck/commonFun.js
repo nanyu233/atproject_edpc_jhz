@@ -4,33 +4,33 @@ var commonFun = {
    * @rems评分计算
    */
   countRems:{
-    breNbr: function (_breNbr) {
-      var breNbr;
+    huxipl: function (_breNbr) {
+      var huxipl;
       if (_breNbr > 49 || _breNbr<6) {
-        breNbr = 4
+        huxipl = 4
       } else if (35 <= _breNbr && _breNbr <= 49) {
-        breNbr = 3
+        huxipl = 3
       } else if ((25 <= _breNbr && _breNbr <= 34)||(10 <= _breNbr && _breNbr <= 11)) {
-        breNbr = 1
+        huxipl = 1
       } else if (12 <= _breNbr && _breNbr <= 24) {
-        breNbr = 0
+        huxipl = 0
       }else if (6 <= _breNbr && _breNbr <= 9) {
-        breNbr = 2
+        huxipl = 2
       }
-      return breNbr
+      return huxipl
     },
-    hrtRte: function (_hrtRte) {
-      var hrtRte;
+    mb: function (_hrtRte) {
+      var mb;
       if (_hrtRte > 179||_hrtRte < 40) {
-        hrtRte = 4
+        mb = 4
       } else if ((40 <= _hrtRte && _hrtRte <= 54) || (140 <= _hrtRte && _hrtRte <= 179)) {
-        hrtRte = 3
+        mb = 3
       } else if ((55 <= _hrtRte && _hrtRte <= 69) || (110 <= _hrtRte && _hrtRte <= 139)) {
-        hrtRte = 2
+        mb = 2
       } else if (70 <= _hrtRte && _hrtRte <= 109) {
-        hrtRte = 0
+        mb = 0
       }
-      return hrtRte
+      return mb
     },
     sbpUpNbr: function (_sbpNbr) {
       var sbpNbr;
@@ -75,18 +75,18 @@ var commonFun = {
       }
       return cstAge
     },
-    oxyNbr:function(_oxyNbr){
-      var oxyNbr;
+    xueyang:function(_oxyNbr){
+      var xueyang;
       if(_oxyNbr > 89){
-        oxyNbr = 0
+        xueyang = 0
       }else if(86 <= _oxyNbr && _oxyNbr <= 89){
-        oxyNbr = 1
+        xueyang = 1
       }else if(74 <= _oxyNbr && _oxyNbr <= 85){
-        oxyNbr = 3
+        xueyang = 3
       }else if(_oxyNbr < 75){
-        oxyNbr = 4
+        xueyang = 4
       }
-      return oxyNbr
+      return xueyang
     }
   },
     /**
@@ -132,20 +132,20 @@ var commonFun = {
     /**
      * @rts计算-呼吸
      */
-    breNbr: function(_breNbr) {
-      var breNbr;
+    huxipl: function(_breNbr) {
+      var huxipl;
       if (_breNbr >= 10 && _breNbr <= 29) {
-        breNbr = 4;
+        huxipl = 4;
       } else if(_breNbr > 29) {
-        breNbr = 3;
+        huxipl = 3;
       } else if(_breNbr >= 6 && _breNbr <= 9) {
-        breNbr = 2;
+        huxipl = 2;
       } else if(_breNbr >= 1 && _breNbr <= 5) {
-        breNbr = 1;
+        huxipl = 1;
       } else if(_breNbr == 0){
-        breNbr = 0;
+        huxipl = 0;
       }
-      return breNbr;
+      return huxipl;
     }    
   },
   /**
@@ -155,7 +155,7 @@ var commonFun = {
     return {
       gcsTotSco: vm.patientMsg.gcsTotSco,
       sbpUpNbr: vm.aboutMews.sbpUpNbr,
-      breNbr: vm.aboutMews.breNbr
+      huxipl: vm.aboutMews.huxipl
     };
   },
   /**
@@ -165,7 +165,7 @@ var commonFun = {
   countRtsCount: function() {
     var aboutRts = commonFun.getCountRtsParams();
     if(commonFun.checkEmptyForCount(aboutRts) === true){
-      return commonFun.countRts.gcsTotSco(aboutRts.gcsTotSco) + commonFun.countRts.sbpUpNbr(aboutRts.sbpUpNbr) + commonFun.countRts.breNbr(aboutRts.breNbr);
+      return commonFun.countRts.gcsTotSco(aboutRts.gcsTotSco) + commonFun.countRts.sbpUpNbr(aboutRts.sbpUpNbr) + commonFun.countRts.huxipl(aboutRts.huxipl);
     } else {
       return ''
     }
@@ -177,30 +177,30 @@ var commonFun = {
     /**
      * @mews计算-呼吸
      */
-    breNbr: function (_breNbr) {
-      var breNbr;
+    huxipl: function (_breNbr) {
+      var huxipl;
       if (_breNbr >= 30) {
-        breNbr = 3
+        huxipl = 3
       } else if ((21 <= _breNbr && _breNbr <= 29) || (_breNbr < 9)) {
-        breNbr = 2
+        huxipl = 2
       } else if (15 <= _breNbr && _breNbr <= 20) {
-        breNbr = 1
+        huxipl = 1
       } else if (9 <= _breNbr && _breNbr <= 14) {
-        breNbr = 0
+        huxipl = 0
       }
-      return breNbr
+      return huxipl
     },
     /**
      * @mews计算-体温
      */
-    tmpNbr: function (_tmpNbr) {
-      var tmpNbr;
+    tiw: function (_tmpNbr) {
+      var tiw;
       if (_tmpNbr >= 38.5 || _tmpNbr < 35) {
-        tmpNbr = 2
+        tiw = 2
       } else if (35 <= _tmpNbr && _tmpNbr <= 38.4) {
-        tmpNbr = 0
+        tiw = 0
       }
-      return tmpNbr
+      return tiw
     },
     /**
      * @mews计算-收缩压
@@ -221,18 +221,18 @@ var commonFun = {
     /**
      * @mews计算-心率
      */
-    hrtRte: function (_hrtRte) {
-      var hrtRte;
+    mb: function (_hrtRte) {
+      var mb;
       if (_hrtRte >= 130) {
-        hrtRte = 3
+        mb = 3
       } else if ((111 <= _hrtRte && _hrtRte <= 129) || (_hrtRte <= 40)) {
-        hrtRte = 2
+        mb = 2
       } else if ((101 <= _hrtRte && _hrtRte <= 110) || (41 <= _hrtRte && _hrtRte <= 50)) {
-        hrtRte = 1
+        mb = 1
       } else if (51 <= _hrtRte && _hrtRte <= 100) {
-        hrtRte = 0
+        mb = 0
       }
-      return hrtRte
+      return mb
     },
   },
   /**
@@ -241,9 +241,9 @@ var commonFun = {
   getMewsParams: function () {
     return {
       senRctCod: vm.aboutMews.senRctCod,
-      breNbr: vm.aboutMews.breNbr,
-      hrtRte: vm.aboutMews.hrtRte,
-      tmpNbr: vm.aboutMews.tmpNbr,
+      huxipl: vm.aboutMews.huxipl,
+      mb: vm.aboutMews.mb,
+      tiw: vm.aboutMews.tiw,
       sbpUpNbr: vm.aboutMews.sbpUpNbr
     }
   },
@@ -252,11 +252,11 @@ var commonFun = {
    */
   getRemsParams: function () {
     return {
-      hrtRte: vm.aboutRems.hrtRte,
-      breNbr: vm.aboutRems.breNbr,
+      mb: vm.aboutRems.mb,
+      huxipl: vm.aboutRems.huxipl,
       gcsTotSco: vm.aboutRems.gcsTotSco,
       cstAge: vm.aboutRems.cstAge,
-      oxyNbr: vm.aboutRems.oxyNbr,
+      xueyang: vm.aboutRems.xueyang,
       sbpUpNbr: vm.aboutRems.sbpUpNbr
     }
   },
@@ -267,12 +267,12 @@ var commonFun = {
     return {
       cstAge: vm.patientMsg.cstAge, // 年龄
       cstAgeCod: vm.patientMsg.cstAgeCod, // 年龄类型
-      tmpNbr: vm.aboutMews.tmpNbr, //体温
+      tiw: vm.aboutMews.tiw, //体温
       sbpUpNbr: vm.aboutMews.sbpUpNbr, //收缩压
       sbpDownNbr: vm.aboutMews.sbpDownNbr, // 舒张压
-      breNbr: vm.aboutMews.breNbr, //呼吸频率
-      hrtRte: vm.aboutMews.hrtRte, //心率
-      oxyNbr: vm.patientMsg.oxyNbr, //血氧饱和度
+      huxipl: vm.aboutMews.huxipl, //呼吸频率
+      mb: vm.aboutMews.mb, //心率
+      xueyang: vm.patientMsg.xueyang, //血氧饱和度
       cspgFlg: vm.patientMsg.cspgFlg, //创伤标志
       cspgCod: vm.patientMsg.cspgCod, //创伤内容
       xtFlg: vm.patientMsg.xtFlg, //胸痛标志
@@ -306,7 +306,7 @@ var commonFun = {
   countMewsCount: function () {
     var aboutMews = commonFun.getMewsParams();
     if (commonFun.checkEmptyForCount(aboutMews) === true) {
-      return commonFun.countMews.breNbr(aboutMews.breNbr) + commonFun.countMews.tmpNbr(aboutMews.tmpNbr) + commonFun.countMews.sbpNbr(aboutMews.sbpUpNbr) + commonFun.countMews.hrtRte(aboutMews.hrtRte) + parseInt(aboutMews.senRctCod);
+      return commonFun.countMews.huxipl(aboutMews.huxipl) + commonFun.countMews.tiw(aboutMews.tiw) + commonFun.countMews.sbpNbr(aboutMews.sbpUpNbr) + commonFun.countMews.mb(aboutMews.mb) + parseInt(aboutMews.senRctCod);
     } else {
       return ''
     }
@@ -319,7 +319,7 @@ var commonFun = {
   countRemsCount: function () {
     var aboutRems = commonFun.getRemsParams();
     if (commonFun.checkEmptyForCount(aboutRems) === true) {
-      return commonFun.countRems.hrtRte(aboutRems.hrtRte) + commonFun.countRems.sbpUpNbr(aboutRems.sbpUpNbr) + commonFun.countRems.breNbr(aboutRems.breNbr) + commonFun.countRems.GCS(aboutRems.gcsTotSco) + commonFun.countRems.cstAge(aboutRems.cstAge) + commonFun.countRems.oxyNbr(aboutRems.oxyNbr);
+      return commonFun.countRems.mb(aboutRems.mb) + commonFun.countRems.sbpUpNbr(aboutRems.sbpUpNbr) + commonFun.countRems.huxipl(aboutRems.huxipl) + commonFun.countRems.GCS(aboutRems.gcsTotSco) + commonFun.countRems.cstAge(aboutRems.cstAge) + commonFun.countRems.xueyang(aboutRems.xueyang);
     } else {
       return ''
     }
@@ -392,7 +392,7 @@ var commonFun = {
       chkLvlCod = '3';
     // 生命体征项目 触发一级二级三级超出范围就标红 [date 2021/2/25]
     // 成人：体温<32℃或>41℃；心率≤50次/min 或  ≥141次/min ；呼吸≤8次/min或≥36次/min；收缩压≤80 mmH 或 ≥200mmHg ；SpO₂≤90%
-    if (levelObj['tmpNbr'] != '' && (levelObj['tmpNbr'] < 32 || levelObj['tmpNbr'] > 41)) {
+    if (levelObj['tiw'] != '' && (levelObj['tiw'] < 32 || levelObj['tiw'] > 41)) {
       vm.patientInfFlg.tmpNbrFlag = 1;
     } else {
       vm.patientInfFlg.tmpNbrFlag = 0;
@@ -402,41 +402,41 @@ var commonFun = {
     } else {
       vm.patientInfFlg.sbpUpNbrFlag = 0;
     }
-    if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] <= 50 || levelObj['hrtRte'] >= 141)) {
+    if (levelObj['mb'] != '' && (levelObj['mb'] <= 50 || levelObj['mb'] >= 141)) {
       vm.patientInfFlg.hrtRteFlag = 1;
     } else {
       vm.patientInfFlg.hrtRteFlag = 0;
     }
-    if ((levelObj['oxyNbr'] != '' && levelObj['oxyNbr'] <= 90)) {
+    if ((levelObj['xueyang'] != '' && levelObj['xueyang'] <= 90)) {
       vm.patientInfFlg.oxyNbrFlag = 1;
     } else {
       vm.patientInfFlg.oxyNbrFlag = 0;
     }
-    if (levelObj['breNbr'] != '' && (levelObj['breNbr'] <= 8 || levelObj['breNbr'] >= 36)) {
+    if (levelObj['huxipl'] != '' && (levelObj['huxipl'] <= 8 || levelObj['huxipl'] >= 36)) {
       vm.patientInfFlg.breNbrFlag = 1;
     } else {
       vm.patientInfFlg.breNbrFlag = 0;
     }
     /**
-     * @体温<32℃ 或  >41℃ =>  tmpNbr
-     * @心率<40次/min 或 >180次/min => hrtRte
-     * @呼吸频率≤8次/min 或 ≥36次/min => breNbr
+     * @体温<32℃ 或  >41℃ =>  tiw
+     * @心率<40次/min 或 >180次/min => mb
+     * @呼吸频率≤8次/min 或 ≥36次/min => huxipl
      * @收缩压＜70mmHg 或 ＞220mmHg => sbpUpNbr
-     * @血氧饱和度<80 SpO₂<80% => oxyNbr
+     * @血氧饱和度<80 SpO₂<80% => xueyang
      */
-    if (levelObj['tmpNbr'] != '' && (levelObj['tmpNbr'] < 32 || levelObj['tmpNbr'] > 41)) {
+    if (levelObj['tiw'] != '' && (levelObj['tiw'] < 32 || levelObj['tiw'] > 41)) {
       return '0'
     }
-    if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] < 40 || levelObj['hrtRte'] > 180)) {
+    if (levelObj['mb'] != '' && (levelObj['mb'] < 40 || levelObj['mb'] > 180)) {
       return '0'
     }
-    if (levelObj['breNbr'] != '' && (levelObj['breNbr'] <= 8 || levelObj['breNbr'] >= 36)) {
+    if (levelObj['huxipl'] != '' && (levelObj['huxipl'] <= 8 || levelObj['huxipl'] >= 36)) {
       return '0'
     }
     if (levelObj['sbpUpNbr'] != '' && (levelObj['sbpUpNbr'] < 70 || levelObj['sbpUpNbr'] > 220)) {
       return '0'
     }
-    if (levelObj['oxyNbr'] != '' && levelObj['oxyNbr'] < 80) {
+    if (levelObj['xueyang'] != '' && levelObj['xueyang'] < 80) {
       return '0'
     }
     /**
@@ -461,13 +461,13 @@ var commonFun = {
        * @疼痛评分7-10分
        * @直接默认二级
        */
-      if ((40 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 50) || (141 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 180)) {
+      if ((40 <= levelObj['mb'] && levelObj['mb'] <= 50) || (141 <= levelObj['mb'] && levelObj['mb'] <= 180)) {
         chkLvlCod = 1;
       }
       if ((70 <= levelObj['sbpUpNbr'] && levelObj['sbpUpNbr'] <= 80) || (200 <= levelObj['sbpUpNbr'] && levelObj['sbpUpNbr'] <= 220 )) {
         chkLvlCod = 1;
       }
-      if (80 <= levelObj['oxyNbr'] && levelObj['oxyNbr'] <= 90) {
+      if (80 <= levelObj['xueyang'] && levelObj['xueyang'] <= 90) {
         chkLvlCod = 1;
       }
       if (7 <= levelObj['nrsSco'] && levelObj['nrsSco'] <= 10) {
@@ -539,17 +539,17 @@ var commonFun = {
      * @舒张压 ：舒张压≥90
      * @血氧 ： SpO2≤94%
      */
-    if (levelObj['tmpNbr'] != '' && (levelObj['tmpNbr'] < 32 || levelObj['tmpNbr'] > 41)) {
+    if (levelObj['tiw'] != '' && (levelObj['tiw'] < 32 || levelObj['tiw'] > 41)) {
       vm.patientInfFlg.tmpNbrFlag = 1;
     } else {
       vm.patientInfFlg.tmpNbrFlag = 0;
     }
-    if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] <= 50 || levelObj['hrtRte'] >= 100)) {
+    if (levelObj['mb'] != '' && (levelObj['mb'] <= 50 || levelObj['mb'] >= 100)) {
       vm.patientInfFlg.hrtRteFlag = 1;
     } else {
       vm.patientInfFlg.hrtRteFlag = 0;
     }
-    if (levelObj['breNbr'] != '' && (levelObj['breNbr'] <= 8 || levelObj['breNbr'] >= 24)) {
+    if (levelObj['huxipl'] != '' && (levelObj['huxipl'] <= 8 || levelObj['huxipl'] >= 24)) {
       vm.patientInfFlg.breNbrFlag = 1;
     } else {
       vm.patientInfFlg.breNbrFlag = 0;
@@ -564,33 +564,33 @@ var commonFun = {
         vm.patientInfFlg.sbpUpNbrFlag = 0;
       }
     }
-    if (levelObj['oxyNbr'] != '' && levelObj['oxyNbr'] <= 94) {
+    if (levelObj['xueyang'] != '' && levelObj['xueyang'] <= 94) {
       vm.patientInfFlg.oxyNbrFlag = 1;
     } else {
       vm.patientInfFlg.oxyNbrFlag = 0;
     }
     /**
-     * @体温 <32℃ 或  >41℃ =>  tmpNbr
-     * @心率 < 50 或者 >= 120 => hrtRte
-     * @呼吸 <=8 或者 > 30  => breNbr
+     * @体温 <32℃ 或  >41℃ =>  tiw
+     * @心率 < 50 或者 >= 120 => mb
+     * @呼吸 <=8 或者 > 30  => huxipl
      * @血压收缩压 <70 或者 >= 220mmHg => sbpUpNbr
-     * @血氧饱和度 <90 => oxyNbr
+     * @血氧饱和度 <90 => xueyang
      * @疼痛评分 7-10 分
      * @return '一级'
      */
-    if (levelObj['tmpNbr'] != '' && (levelObj['tmpNbr'] < 32 || levelObj['tmpNbr'] > 41)) {
+    if (levelObj['tiw'] != '' && (levelObj['tiw'] < 32 || levelObj['tiw'] > 41)) {
       return '0'
     }
-    if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] < 50 || levelObj['hrtRte'] >= 120)) {
+    if (levelObj['mb'] != '' && (levelObj['mb'] < 50 || levelObj['mb'] >= 120)) {
       return '0'
     }
-    if (levelObj['breNbr'] != '' && (levelObj['breNbr'] <= 8 || levelObj['breNbr'] > 30)) {
+    if (levelObj['huxipl'] != '' && (levelObj['huxipl'] <= 8 || levelObj['huxipl'] > 30)) {
       return '0'
     }
     if (levelObj['sbpUpNbr'] != '' && (levelObj['sbpUpNbr'] < 70 || levelObj['sbpUpNbr'] >= 220)) {
       return '0'
     }
-    if (levelObj['oxyNbr'] != '' && levelObj['oxyNbr'] < 90) {
+    if (levelObj['xueyang'] != '' && levelObj['xueyang'] < 90) {
       return '0'
     }
     if (levelObj['nrsSco'] !== '' && ( 7 <= levelObj['nrsSco'] && levelObj['nrsSco'] <= 10)) {
@@ -603,18 +603,18 @@ var commonFun = {
     if (chkLvlCodByMews === '' || chkLvlCodByMews === 1 || chkLvlCodByMews === 2 || chkLvlCodByMews === 3) {
       /**
        * @无mews评分项目 || mews评分不全 || mews评分计算结果为 二级/三级/四级
-       * @心率 110-119 => hrtRte
-       * @呼吸 24-30  => breNbr
+       * @心率 110-119 => mb
+       * @呼吸 24-30  => huxipl
        * @血压收缩压 70-90 或者 160-219
        * @血压舒张压 >= 110
        * @血氧饱和度 90-94
        * @疼痛评分 4-6分
        * @直接默认二级
        */
-      if (110 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 119) {
+      if (110 <= levelObj['mb'] && levelObj['mb'] <= 119) {
         chkLvlCod = 1;
       }
-      if (levelObj['breNbr'] != '' && (24 <= levelObj['breNbr'] && levelObj['breNbr'] <= 30)) {
+      if (levelObj['huxipl'] != '' && (24 <= levelObj['huxipl'] && levelObj['huxipl'] <= 30)) {
         chkLvlCod = 1;
       }
       if ((70 <= levelObj['sbpUpNbr'] && levelObj['sbpUpNbr'] <= 90) || (160 <= levelObj['sbpUpNbr'] && levelObj['sbpUpNbr'] <= 219)) {
@@ -623,7 +623,7 @@ var commonFun = {
       if (levelObj['sbpDownNbr'] >= 110) {
         chkLvlCod = 1;
       }
-      if (90 <= levelObj['oxyNbr'] && levelObj['oxyNbr'] <= 94) {
+      if (90 <= levelObj['xueyang'] && levelObj['xueyang'] <= 94) {
         chkLvlCod = 1;
       }
       if (4 <= levelObj['nrsSco'] && levelObj['nrsSco'] <= 6) {
@@ -642,12 +642,12 @@ var commonFun = {
       }
       if (chkLvlCod == 3) {
         /**
-         * @心率100-109 => hrtRte
+         * @心率100-109 => mb
          * @血压收缩压140-159 || 舒展压 90-109
          * @疼痛评分 1-3 分
          * @return '三级'
          */
-        if (100 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 109) {
+        if (100 <= levelObj['mb'] && levelObj['mb'] <= 109) {
           chkLvlCod = 2;
         }
         if ((140 <= levelObj['sbpUpNbr'] && levelObj['sbpUpNbr'] <= 159) || (90 <= levelObj['sbpDownNbr'] && levelObj['sbpDownNbr'] <= 109)) {
@@ -678,17 +678,17 @@ var commonFun = {
      * @收缩压 ：  收缩压≤90 mmHg 或≥160 mmHg；
      * @血氧 ： SpO2≤95%
      */
-    if (levelObj['tmpNbr'] != '' && (levelObj['tmpNbr'] < 32 || levelObj['tmpNbr'] > 41)) {
+    if (levelObj['tiw'] != '' && (levelObj['tiw'] < 32 || levelObj['tiw'] > 41)) {
       vm.patientInfFlg.tmpNbrFlag = 1;
     } else {
       vm.patientInfFlg.tmpNbrFlag = 0;
     }
-    if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] <= 50 || levelObj['hrtRte'] >= 110)) {
+    if (levelObj['mb'] != '' && (levelObj['mb'] <= 50 || levelObj['mb'] >= 110)) {
       vm.patientInfFlg.hrtRteFlag = 1;
     } else {
       vm.patientInfFlg.hrtRteFlag = 0;
     }
-    if (levelObj['breNbr'] != '' && (levelObj['breNbr'] <= 8 || levelObj['breNbr'] >= 24)) {
+    if (levelObj['huxipl'] != '' && (levelObj['huxipl'] <= 8 || levelObj['huxipl'] >= 24)) {
       vm.patientInfFlg.breNbrFlag = 1;
     } else {
       vm.patientInfFlg.breNbrFlag = 0;
@@ -699,32 +699,32 @@ var commonFun = {
     } else {
       vm.patientInfFlg.sbpUpNbrFlag = 0;
     }
-    if (levelObj['oxyNbr'] != '' && levelObj['oxyNbr'] <= 95) {
+    if (levelObj['xueyang'] != '' && levelObj['xueyang'] <= 95) {
       vm.patientInfFlg.oxyNbrFlag = 1;
     } else {
       vm.patientInfFlg.oxyNbrFlag = 0;
     }
     /**
-     * @体温 <32℃ 或  >41℃ =>  tmpNbr
-     * @心率 < 40 或者 > 180 => hrtRte
-     * @呼吸 <=8 或者 > 36  => breNbr
+     * @体温 <32℃ 或  >41℃ =>  tiw
+     * @心率 < 40 或者 > 180 => mb
+     * @呼吸 <=8 或者 > 36  => huxipl
      * @血压收缩压 <70 或者 >= 220mmHg => sbpUpNbr
-     * @血氧饱和度 <= 80 => oxyNbr
+     * @血氧饱和度 <= 80 => xueyang
      * @return '一级'
      */
-    if (levelObj['tmpNbr'] != '' && (levelObj['tmpNbr'] < 32 || levelObj['tmpNbr'] > 41)) {
+    if (levelObj['tiw'] != '' && (levelObj['tiw'] < 32 || levelObj['tiw'] > 41)) {
       return '0'
     }
-    if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] < 40 || levelObj['hrtRte'] > 180)) {
+    if (levelObj['mb'] != '' && (levelObj['mb'] < 40 || levelObj['mb'] > 180)) {
       return '0'
     }
-    if (levelObj['breNbr'] != '' && (levelObj['breNbr'] <= 8 || levelObj['breNbr'] > 36)) {
+    if (levelObj['huxipl'] != '' && (levelObj['huxipl'] <= 8 || levelObj['huxipl'] > 36)) {
       return '0'
     }
     if (levelObj['sbpUpNbr'] != '' && (levelObj['sbpUpNbr'] < 70 || levelObj['sbpUpNbr'] >= 220)) {
       return '0'
     }
-    if (levelObj['oxyNbr'] != '' && levelObj['oxyNbr'] <= 80) {
+    if (levelObj['xueyang'] != '' && levelObj['xueyang'] <= 80) {
       return '0'
     }
     /**
@@ -734,23 +734,23 @@ var commonFun = {
     if (chkLvlCodByMews === '' || chkLvlCodByMews === 1 || chkLvlCodByMews === 2 || chkLvlCodByMews === 3) {
       /**
        * @无mews评分项目 || mews评分不全 || mews评分计算结果为 二级/三级/四级
-       * @心率 40~50次/min 或 141~180次/min => hrtRte
-       * @呼吸 30-36  => breNbr
+       * @心率 40~50次/min 或 141~180次/min => mb
+       * @呼吸 30-36  => huxipl
        * @血压收缩压 70-80 或者 200-219
        * @血氧饱和度 81-90
        * @疼痛评分 7-10分
        * @直接默认二级
        */
-      if ((40 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 50) || (141 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 180)) {
+      if ((40 <= levelObj['mb'] && levelObj['mb'] <= 50) || (141 <= levelObj['mb'] && levelObj['mb'] <= 180)) {
         chkLvlCod = 1;
       }
-      if (levelObj['breNbr'] != '' && (30 <= levelObj['breNbr'] && levelObj['breNbr'] <= 36)) {
+      if (levelObj['huxipl'] != '' && (30 <= levelObj['huxipl'] && levelObj['huxipl'] <= 36)) {
         chkLvlCod = 1;
       }
       if ((70 <= levelObj['sbpUpNbr'] && levelObj['sbpUpNbr'] <= 80) || (200 <= levelObj['sbpUpNbr'] && levelObj['sbpUpNbr'] <= 219)) {
         chkLvlCod = 1;
       }
-      if (81 <= levelObj['oxyNbr'] && levelObj['oxyNbr'] <= 90) {
+      if (81 <= levelObj['xueyang'] && levelObj['xueyang'] <= 90) {
         chkLvlCod = 1;
       }
       if (7 <= levelObj['nrsSco'] && levelObj['nrsSco'] <= 10) {
@@ -765,23 +765,23 @@ var commonFun = {
       }
       if (chkLvlCod == 3) {
         /**
-         * @心率 110-140 => hrtRte
-         * @呼吸 24-29  => breNbr
+         * @心率 110-140 => mb
+         * @呼吸 24-29  => huxipl
          * @血压收缩压 80-90 || 160-200
          * @血氧饱和度 91-95
          * @疼痛评分 4-6 分
          * @return '三级'
          */
-        if (110 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 140) {
+        if (110 <= levelObj['mb'] && levelObj['mb'] <= 140) {
           chkLvlCod = 2;
         }
-        if (24 <= levelObj['breNbr'] && levelObj['breNbr'] <= 29) {
+        if (24 <= levelObj['huxipl'] && levelObj['huxipl'] <= 29) {
           chkLvlCod = 2;
         }
         if ((80 <= levelObj['sbpUpNbr'] && levelObj['sbpUpNbr'] <= 90) || (160 <= levelObj['sbpUpNbr'] && levelObj['sbpUpNbr'] <= 200)) {
           chkLvlCod = 2;
         }
-        if (91 <= levelObj['oxyNbr'] && levelObj['oxyNbr'] <= 95) {
+        if (91 <= levelObj['xueyang'] && levelObj['xueyang'] <= 95) {
           chkLvlCod = 2;
         }
         if (4 <= levelObj['nrsSco'] && levelObj['nrsSco'] <= 6) {
@@ -816,7 +816,7 @@ var commonFun = {
     if ((levelObj['cstAgeCod'] === '0' && 0 < levelObj['cstAge'] && levelObj['cstAge'] <= 6) || (levelObj['cstAgeCod'] === '1' && 0 < levelObj['cstAge'] && levelObj['cstAge'] <= 72) || (levelObj['cstAgeCod'] === '2' && 0 < levelObj['cstAge'] && levelObj['cstAge'] <= 2160)) {
       // (0, 3月] 脉搏大于230 或者 脉搏小于40
       if ((levelObj['cstAgeCod'] === '1' && 0 < levelObj['cstAge'] && levelObj['cstAge'] <= 3) || (levelObj['cstAgeCod'] === '2' && 0 < levelObj['cstAge'] && levelObj['cstAge'] <= 90)) {
-        if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] > 230 || levelObj['hrtRte'] < 40)) {
+        if (levelObj['mb'] != '' && (levelObj['mb'] > 230 || levelObj['mb'] < 40)) {
           vm.patientInfFlg.hrtRteFlag = 1;
           chkLvlCod = 0
         } else {
@@ -824,7 +824,7 @@ var commonFun = {
         }
       } else if ((levelObj['cstAgeCod'] === '1' && 3 < levelObj['cstAge'] && levelObj['cstAge'] <= 6) || (levelObj['cstAgeCod'] === '2' && 90 < levelObj['cstAge'] && levelObj['cstAge'] <= 180)) {
         // (3, 6月] 脉搏大于210 或者 脉搏小于40
-        if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] > 210 || levelObj['hrtRte'] < 40)) {
+        if (levelObj['mb'] != '' && (levelObj['mb'] > 210 || levelObj['mb'] < 40)) {
           vm.patientInfFlg.hrtRteFlag = 1;
           chkLvlCod = 0
         } else {
@@ -832,7 +832,7 @@ var commonFun = {
         }
       } else if ((levelObj['cstAgeCod'] === '1' && 6 < levelObj['cstAge'] && levelObj['cstAge'] <= 12) || (levelObj['cstAgeCod'] === '2' && 180 < levelObj['cstAge'] && levelObj['cstAge'] <= 365) || (levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] == 1)) {
         // (6, 12月] 脉搏大于180 或者 脉搏小于40
-        if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] > 180 || levelObj['hrtRte'] < 40)) {
+        if (levelObj['mb'] != '' && (levelObj['mb'] > 180 || levelObj['mb'] < 40)) {
           vm.patientInfFlg.hrtRteFlag = 1;
           chkLvlCod = 0
         } else {
@@ -840,7 +840,7 @@ var commonFun = {
         }
       } else {
         // (1, 6岁] 脉搏小于40
-        if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] < 40)) {
+        if (levelObj['mb'] != '' && (levelObj['mb'] < 40)) {
           vm.patientInfFlg.hrtRteFlag = 1;
           chkLvlCod = 0
         } else {
@@ -848,7 +848,7 @@ var commonFun = {
         }
         if ((levelObj['cstAgeCod'] === '0' && 3 < levelObj['cstAge'] && levelObj['cstAge'] <= 6) || (levelObj['cstAgeCod'] === '1' && 36 < levelObj['cstAge'] && levelObj['cstAge'] <= 72)) {
           // (3, 6岁] 脉搏小于40 或者大于 140
-          if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] > 140 || levelObj['hrtRte'] < 40)) {
+          if (levelObj['mb'] != '' && (levelObj['mb'] > 140 || levelObj['mb'] < 40)) {
             vm.patientInfFlg.hrtRteFlag = 1;
             chkLvlCod = 0
           } else {
@@ -856,7 +856,7 @@ var commonFun = {
           }
         } else {
           // (1, 3岁] 脉搏小于40 或者大于 165
-          if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] > 165 || levelObj['hrtRte'] < 40)) {
+          if (levelObj['mb'] != '' && (levelObj['mb'] > 165 || levelObj['mb'] < 40)) {
             vm.patientInfFlg.hrtRteFlag = 1;
             chkLvlCod = 0
           } else {
@@ -866,7 +866,7 @@ var commonFun = {
       }
     } else if ((levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] > 6) || (levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] > 72)) {
       // 大于6岁 小于30
-      if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] < 30)) {
+      if (levelObj['mb'] != '' && (levelObj['mb'] < 30)) {
         vm.patientInfFlg.hrtRteFlag = 1;
         chkLvlCod = 0
       } else {
@@ -874,7 +874,7 @@ var commonFun = {
       }
       if ((levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] <= 10) || (levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] <= 120)) {
         // 6 -10] 岁 大于 120 或者 小于 30
-        if (levelObj['hrtRte'] != '' && (levelObj['hrtRte'] > 120 || levelObj['hrtRte'] < 30)) {
+        if (levelObj['mb'] != '' && (levelObj['mb'] > 120 || levelObj['mb'] < 30)) {
           vm.patientInfFlg.hrtRteFlag = 1;
           chkLvlCod = 0
         } else {
@@ -889,7 +889,7 @@ var commonFun = {
   if (levelObj['cstAge'] != '') {
     // 小于等于6个月 呼吸大于80 或者 小于 10
     if ((levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] <= 6) || (levelObj['cstAgeCod'] === '2' && levelObj['cstAge'] <= 180)) {
-      if ((levelObj['breNbr'] > 80 || levelObj['breNbr'] < 10) && levelObj['breNbr'] != '') {
+      if ((levelObj['huxipl'] > 80 || levelObj['huxipl'] < 10) && levelObj['huxipl'] != '') {
         vm.patientInfFlg.breNbrFlag = 1;
         chkLvlCod = 0
       } else {
@@ -897,7 +897,7 @@ var commonFun = {
       }
     } else if ((levelObj['cstAgeCod'] === '1' && 6 < levelObj['cstAge'] && levelObj['cstAge'] <= 12) || (levelObj['cstAgeCod'] === '2' && 180 < levelObj['cstAge'] && levelObj['cstAge'] <= 365) || (levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] == 1)) {
       // （6-12个月] 不包含6月 呼吸大于60 或者 小于 10
-      if ((levelObj['breNbr'] > 60 || levelObj['breNbr'] < 10) && levelObj['breNbr'] != '') {
+      if ((levelObj['huxipl'] > 60 || levelObj['huxipl'] < 10) && levelObj['huxipl'] != '') {
         vm.patientInfFlg.breNbrFlag = 1;
         chkLvlCod = 0
       } else {
@@ -905,7 +905,7 @@ var commonFun = {
       }
     } else if ((levelObj['cstAgeCod'] === '0' && 1 < levelObj['cstAge'] && levelObj['cstAge'] <= 3) || (levelObj['cstAgeCod'] === '1' && 12 < levelObj['cstAge'] && levelObj['cstAge'] <= 36)) {
       // （1-3岁] 呼吸大于 40 或许 呼吸小于 10
-      if ((levelObj['breNbr'] > 40 || levelObj['breNbr'] < 10) && levelObj['breNbr'] != '') {
+      if ((levelObj['huxipl'] > 40 || levelObj['huxipl'] < 10) && levelObj['huxipl'] != '') {
         vm.patientInfFlg.breNbrFlag = 1;
         chkLvlCod = 0
       } else {
@@ -913,7 +913,7 @@ var commonFun = {
       }
     } else if ((levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] > 3) || (levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] > 36)) {
       // (3岁,  ) 呼吸小于8
-      if (levelObj['breNbr'] != '' && (levelObj['breNbr'] < 8)) {
+      if (levelObj['huxipl'] != '' && (levelObj['huxipl'] < 8)) {
         vm.patientInfFlg.breNbrFlag = 1;
         chkLvlCod = 0
       } else {
@@ -921,7 +921,7 @@ var commonFun = {
       }
       // (3岁, 6岁] 呼吸小于8 或者 大于 32
       if ((levelObj['cstAgeCod'] === '0' && 3 < levelObj['cstAge'] && levelObj['cstAge'] <= 6) || (levelObj['cstAgeCod'] === '1' && 36 < levelObj['cstAge'] && levelObj['cstAge'] <= 72)) {
-        if ((levelObj['breNbr'] > 32 || levelObj['breNbr'] < 8) && levelObj['breNbr'] != '') {
+        if ((levelObj['huxipl'] > 32 || levelObj['huxipl'] < 8) && levelObj['huxipl'] != '') {
           vm.patientInfFlg.breNbrFlag = 1;
           chkLvlCod = 0
         } else {
@@ -929,7 +929,7 @@ var commonFun = {
         }
       } else if ((levelObj['cstAgeCod'] === '0' && 6 < levelObj['cstAge'] && levelObj['cstAge'] <= 10) || (levelObj['cstAgeCod'] === '1' && 72 < levelObj['cstAge'] && levelObj['cstAge'] <= 120)) {
         // (6岁, 10岁] 呼吸小于8 或者 大于 26
-        if ((levelObj['breNbr'] > 26 || levelObj['breNbr'] < 8) && levelObj['breNbr'] != '') {
+        if ((levelObj['huxipl'] > 26 || levelObj['huxipl'] < 8) && levelObj['huxipl'] != '') {
           vm.patientInfFlg.breNbrFlag = 1;
           chkLvlCod = 0
         } else {
@@ -942,7 +942,7 @@ var commonFun = {
   }
 
   if (levelObj['cstAge'] != '' && (commonFun.isChild(levelObj['cstAge'], levelObj['cstAgeCod']) == true)) {
-    if (levelObj['tmpNbr'] != '' && (levelObj['tmpNbr'] <= 35 || levelObj['tmpNbr'] >= 41)) {
+    if (levelObj['tiw'] != '' && (levelObj['tiw'] <= 35 || levelObj['tiw'] >= 41)) {
       vm.patientInfFlg.tmpNbrFlag = 1;
       chkLvlCod = 0
     } else {
@@ -951,7 +951,7 @@ var commonFun = {
   } else {
     vm.patientInfFlg.tmpNbrFlag = 0;
   }
-  if (levelObj['oxyNbr'] !== '' && levelObj['oxyNbr'] <= 92) {
+  if (levelObj['xueyang'] !== '' && levelObj['xueyang'] <= 92) {
     vm.patientInfFlg.oxyNbrFlag = 1
     chkLvlCod = 0
   } else {
@@ -990,7 +990,7 @@ var commonFun = {
     if (levelObj['cstAge'] != '') {
       // 心率 40-65 205-230 次/min (0<y≤3 月)
       if ((levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] > 0 && levelObj['cstAge'] <= 3) || (levelObj['cstAgeCod'] === '2' && levelObj['cstAge'] > 0 && levelObj['cstAge'] <= 90)) {
-        if ((40 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 65) || (205 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 230)) {
+        if ((40 <= levelObj['mb'] && levelObj['mb'] <= 65) || (205 <= levelObj['mb'] && levelObj['mb'] <= 230)) {
           chkLvlCod = 1;
           vm.patientInfFlg.hrtRteFlag = 1;
         } else {
@@ -998,7 +998,7 @@ var commonFun = {
         }
       } else if ((levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] > 3 && levelObj['cstAge'] <= 6) || (levelObj['cstAgeCod'] === '2' && levelObj['cstAge'] > 90 && levelObj['cstAge'] <= 180)) {
         // 40-63 180-210 (3<y≤6 月)
-        if ((40 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 63) || (180 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 210)) {
+        if ((40 <= levelObj['mb'] && levelObj['mb'] <= 63) || (180 <= levelObj['mb'] && levelObj['mb'] <= 210)) {
           chkLvlCod = 1;
           vm.patientInfFlg.hrtRteFlag = 1;
         } else {
@@ -1006,7 +1006,7 @@ var commonFun = {
         }
       } else if ((levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] == 1) || (levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] > 6 && levelObj['cstAge'] <= 12) || (levelObj['cstAgeCod'] === '2' && levelObj['cstAge'] > 180 && levelObj['cstAge'] <= 360)) {
         // 40-60  169- 180 (6<y≤12 月)
-        if ((40 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 60) || (169 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 180)) {
+        if ((40 <= levelObj['mb'] && levelObj['mb'] <= 60) || (169 <= levelObj['mb'] && levelObj['mb'] <= 180)) {
           chkLvlCod = 1;
           vm.patientInfFlg.hrtRteFlag = 1;
         } else {
@@ -1014,7 +1014,7 @@ var commonFun = {
         }
       } else if ((levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] > 1 && levelObj['cstAge'] <= 3) || (levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] > 12 && levelObj['cstAge'] <= 36) || (levelObj['cstAgeCod'] === '2' && levelObj['cstAge'] > 365 && levelObj['cstAge'] <= 1095)) {
         // 40-58 145-165(1<y≤3 岁)
-        if ((40 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 58) || (145 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 165)) {
+        if ((40 <= levelObj['mb'] && levelObj['mb'] <= 58) || (145 <= levelObj['mb'] && levelObj['mb'] <= 165)) {
           chkLvlCod = 1;
           vm.patientInfFlg.hrtRteFlag = 1;
         } else {
@@ -1022,7 +1022,7 @@ var commonFun = {
         }
       } else if ((levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] > 3 && levelObj['cstAge'] <= 6) || (levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] > 36 && levelObj['cstAge'] <= 72) || (levelObj['cstAgeCod'] === '2' && levelObj['cstAge'] > 1095 && levelObj['cstAge'] <= 2190)) {
         // 心率 40-55 125-140 次/min(3<y≤6 岁);
-        if ((40 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 55) || (125 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 140)) {
+        if ((40 <= levelObj['mb'] && levelObj['mb'] <= 55) || (125 <= levelObj['mb'] && levelObj['mb'] <= 140)) {
           chkLvlCod = 1;
           vm.patientInfFlg.hrtRteFlag = 1;
         } else {
@@ -1030,7 +1030,7 @@ var commonFun = {
         }
       } else if (levelObj['cstAge'] > 6 && levelObj['cstAge'] <= 10) {
         // 30-45 105-120 (6<y≤10 岁)
-        if ((30 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 45) || (105 <= levelObj['hrtRte'] && levelObj['hrtRte'] <= 120)) {
+        if ((30 <= levelObj['mb'] && levelObj['mb'] <= 45) || (105 <= levelObj['mb'] && levelObj['mb'] <= 120)) {
           chkLvlCod = 1;
           vm.patientInfFlg.hrtRteFlag = 1;
         } else {
@@ -1044,7 +1044,7 @@ var commonFun = {
     if (levelObj['cstAge'] != '') {
       // 呼吸10-20或70-80次/min(0<y≤6月)
       if ((levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] > 0 && levelObj['cstAge'] <= 6) || (levelObj['cstAgeCod'] === '2' && levelObj['cstAge'] > 0 && levelObj['cstAge'] <= 180)) {
-        if ((10 <= levelObj['breNbr'] && levelObj['breNbr'] <= 20) || (70 <= levelObj['breNbr'] && levelObj['breNbr'] <= 80)) {
+        if ((10 <= levelObj['huxipl'] && levelObj['huxipl'] <= 20) || (70 <= levelObj['huxipl'] && levelObj['huxipl'] <= 80)) {
           chkLvlCod = 1;
           vm.patientInfFlg.breNbrFlag = 1;
         } else {
@@ -1052,7 +1052,7 @@ var commonFun = {
         }
       } else if ((levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] == 1) || (levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] > 6 && levelObj['cstAge'] <= 12) || (levelObj['cstAgeCod'] === '2' && levelObj['cstAge'] > 180 && levelObj['cstAge'] <= 360)) {
         // 10-17或55-60次/min(6<y≤12月)
-        if ((10 <= levelObj['breNbr'] && levelObj['breNbr'] <= 17) || (55 <= levelObj['breNbr'] && levelObj['breNbr'] <= 60)) {
+        if ((10 <= levelObj['huxipl'] && levelObj['huxipl'] <= 17) || (55 <= levelObj['huxipl'] && levelObj['huxipl'] <= 60)) {
           chkLvlCod = 1;
           vm.patientInfFlg.breNbrFlag = 1;
         } else {
@@ -1060,7 +1060,7 @@ var commonFun = {
         }
       } else if ((levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] > 1 && levelObj['cstAge'] <= 3) || (levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] > 12 && levelObj['cstAge'] <= 36) || (levelObj['cstAgeCod'] === '2' && levelObj['cstAge'] > 365 && levelObj['cstAge'] <= 1095)) {
         // 呼吸 10-15 或 35-40 次/min(1<y≤3 岁)
-        if ((10 <= levelObj['breNbr'] && levelObj['breNbr'] <= 15) || (35 <= levelObj['breNbr'] && levelObj['breNbr'] <= 40)) {
+        if ((10 <= levelObj['huxipl'] && levelObj['huxipl'] <= 15) || (35 <= levelObj['huxipl'] && levelObj['huxipl'] <= 40)) {
           chkLvlCod = 1;
           vm.patientInfFlg.breNbrFlag = 1;
         } else {
@@ -1068,7 +1068,7 @@ var commonFun = {
         }
       } else if ((levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] > 3 && levelObj['cstAge'] <= 6) || (levelObj['cstAgeCod'] === '1' && levelObj['cstAge'] > 36 && levelObj['cstAge'] <= 72) || (levelObj['cstAgeCod'] === '2' && levelObj['cstAge'] > 1095 && levelObj['cstAge'] <= 2190)) {
         // 8-12 或 28-32 次/min(3<y≤6 岁); 
-        if ((8 <= levelObj['breNbr'] && levelObj['breNbr'] <= 12) || (28 <= levelObj['breNbr'] && levelObj['breNbr'] <= 32)) {
+        if ((8 <= levelObj['huxipl'] && levelObj['huxipl'] <= 12) || (28 <= levelObj['huxipl'] && levelObj['huxipl'] <= 32)) {
           chkLvlCod = 1;
           vm.patientInfFlg.breNbrFlag = 1;
         } else {
@@ -1076,7 +1076,7 @@ var commonFun = {
         }
       } else if ((levelObj['cstAgeCod'] === '0' && levelObj['cstAge'] > 6 && levelObj['cstAge'] <= 10)) {
         // 8-10 或 24-26 次/min(6<y≤10 岁)
-        if ((8 <= levelObj['breNbr'] && levelObj['breNbr'] <= 10) || (24 <= levelObj['breNbr'] && levelObj['breNbr'] <= 26)) {
+        if ((8 <= levelObj['huxipl'] && levelObj['huxipl'] <= 10) || (24 <= levelObj['huxipl'] && levelObj['huxipl'] <= 26)) {
           chkLvlCod = 1;
           vm.patientInfFlg.breNbrFlag = 1;
         } else {
@@ -1096,7 +1096,7 @@ var commonFun = {
     } else {
       vm.patientInfFlg.sbpUpNbrFlag = 0;
     }
-    if (90 <= levelObj['oxyNbr'] && levelObj['oxyNbr'] <= 92) {
+    if (90 <= levelObj['xueyang'] && levelObj['xueyang'] <= 92) {
       chkLvlCod = 1;
       vm.patientInfFlg.oxyNbrFlag = 1;
     } else {
