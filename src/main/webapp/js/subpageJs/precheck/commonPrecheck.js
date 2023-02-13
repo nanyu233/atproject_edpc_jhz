@@ -55,6 +55,7 @@ var vm = avalon.define({
     abnDoctorList: [], //驾驶员列表
   },
   patientMsg: {
+    regSeq:'',
     vstCad: '', // 就诊卡
     cardType: '', // 卡类别 1 社保 2 自费 3 农保
     regTim: '', // 预检时间

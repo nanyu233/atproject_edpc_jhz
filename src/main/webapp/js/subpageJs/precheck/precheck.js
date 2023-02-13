@@ -101,12 +101,13 @@ var editFun = {
     publicFun.httpServer(
       { url: _baseUrl + "jzbr/queryHspDbzlBasinf.do" },
       {
-        emgSeq: _emgSeq,
+        regSeq: regSeq,
         date: new Date().toTimeString(),
       },
       function (res) {
-				var data = res.resultInfo.sysdata
-        editFun.dealAlreadyMsg(res)
+        var data = res.resultInfo.sysdata
+        vm.patientMsg.regSeq = data.hspDbzlBasCustom.regSeq
+        editFun.dealAlreadyMsg(data)
         // getChildPfMsg();
         setRightPanelWth()
       }
@@ -116,8 +117,8 @@ var editFun = {
     /**
      * @特殊处理出生日期
      */
-    res.bthDat = res.bthDatStr
-    var _dateKey = ["regTim", "docDat", "checkDocDat", "checkNurseDat"]
+    // var _dateKey = ["regTim", "docDat", "checkDocDat", "checkNurseDat"]
+    var _dateKey = ["regTim", "bthDat"]
     for (var i = 0; i < _dateKey.length; i++) {
       if (res[_dateKey[i]]) {
         res[_dateKey[i]] = publicFun.timeFormat(res[_dateKey[i]], "yyyy/MM/dd hh:mm:ss")
@@ -251,6 +252,11 @@ var editFun = {
   dealAlreadyMsg: function (res) {
     var _res = res.hspDbzlBasCustom;
     editFun.processingData(_res)
+    for(var key in vm.patientMsg){
+    	if(_res.hasOwnProperty(key)){
+    		vm.patientMsg[key] = _res[key]
+    	}
+    }
     if (res.hspsqlinfCustom) {
       var _zgCodList = ["sqlStaCod", "sqlStaStr", "sqlDepName", "sqlDepCod", "sqlDes", "bedNam"]
       for (var i = 0; i < _zgCodList.length; i++) {

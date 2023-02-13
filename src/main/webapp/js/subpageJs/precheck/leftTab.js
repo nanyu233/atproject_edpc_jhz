@@ -146,7 +146,8 @@ function getAlreadySavedMsg () {
     rownumbers: true,
     pageList: [50, 80, 100],
     toolbar: [],
-    onDblClickRow: function () {
+    onDblClickRow: function (rowIndex,rowData) {
+      regSeq = rowData.regSeq
       judgeIsEverEdit();
     },
     rowStyler: function (index, row) {

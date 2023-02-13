@@ -34,6 +34,7 @@
         _isOpenYqFlg = isJumpToYq,
         _isOpenJjyqFlg = '1',
         _taskNo = '${taskNo}'; // 从院前管理模块跳过来---未预检数据获取
+		var regSeq;
   </script>
   <script type="text/javascript" src="${baseurl}lib/easyui1.3/jquery.easyui.min.js?v=${versionDay}"></script>
   <script type="text/javascript" src="${baseurl}lib/easyui1.3/locale/easyui-lang-zh_CN.js?v=${versionDay}"></script>
@@ -118,7 +119,7 @@
         <div class="oneFour-part oneSix-part">
           <span class="left-ask"></span>
           <label class="thin-color">出生日期</label>
-          <!-- <input class="full-input-wth Wdate" type="text" ms-duplex-string="patientMsg.bthDat" ms-if="isEditPage == '1'" readonly> -->
+          <input class="full-input-wth Wdate" type="text" ms-duplex-string="patientMsg.bthDat" ms-if="isEditPage == '1'" readonly>
           <input class="full-input-wth Wdate" type="text" onclick="WdatePicker({maxDate:'%y/%M/%d',dateFmt:'yyyy/MM/dd'})" ms-duplex-string="patientMsg.bthDat" ms-if="isEditPage != '1'">
         </div>
         <div class="oneFour-part">
@@ -129,7 +130,7 @@
           <select id="emg_cstAgeCod" class="xs-select" ms-duplex-string="patientMsg.cstAgeCod" ms-change="calcPatType()" ms-visible="isEditPage != '1'">
             <option ms-repeat="getMsg.cstAgeCodList" ms-attr-value="el.infocode">{{el.info}}</option>
           </select>
-          <!-- <input class="full-input-wth Wdate" type="text" ms-duplex-string="patientMsg.showAge" readonly ms-visible="isEditPage == '1'"> -->
+          <input class="full-input-wth Wdate" type="text" ms-duplex-string="patientMsg.showAge" readonly ms-visible="isEditPage == '1'">
         </div>
         <div class="oneFour-part oneSeven-part">
           <span class="left-ask"></span>
