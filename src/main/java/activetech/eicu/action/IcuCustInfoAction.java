@@ -37,6 +37,8 @@ import activetech.zyyhospital.pojo.dto.HspObsvtfstInfCustom;
 import activetech.zyyhospital.service.HspHljldInfService;
 import activetech.zyyhospital.service.ZyyHspemginfService;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * ICU患者管理
  * <p>Title: IcuCustInfoAction.java IcuCustInfoAction</p>
@@ -387,5 +389,27 @@ public class IcuCustInfoAction {
 		resultInfo.setSysdata(map);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
-	
+	/**
+	 * 跳转患者信息页面
+	 *
+	 * @param model     model
+	 * @param pagetype  pagetype
+	 * @param pageval   pageval
+	 * @param moduleid  moduleid
+	 * @param bgTimeStr bgTimeStr
+	 * @return return
+	 */
+	@RequestMapping("/toCustInfo")
+	public String toCustInfo(Model model, HttpSession session, String pagetype, String pageval, String moduleid,
+							 String bgTimeStr) throws Exception {
+		String sessionId = session.getId();
+		model.addAttribute("sessionId", sessionId);
+		String ippost = systemConfigService.findAppoptionByOptkey("IPPOST").getOptvalue();
+		model.addAttribute("ippost", ippost);
+		model.addAttribute("bgTimeStr", bgTimeStr);
+		model.addAttribute("moduleid", moduleid);
+		model.addAttribute("pagetype", pagetype);
+		model.addAttribute("pageval", pageval);
+		return "/eicu/icucust/custInfo";
+	}
 }
