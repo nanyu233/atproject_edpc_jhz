@@ -238,10 +238,11 @@ public class EsbServiceImpl implements EsbService{
 	public void insertHspDbzlBasForCust(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) {
 		HspDbzlBasCustom hspDbzlBasCustom = hspDbzlBasQueryDto.getHspDbzlBasCustom();
          String regSeq;
-		HspDbzlBas hspDbzlBas = new HspDbzlBas();
+
 		if(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq() == null){
 			regSeq = systemConfigService.findSequences("hsp_dbzl_bas_reg_seq", "8", null);
 			//唯一ID
+			HspDbzlBas hspDbzlBas = new HspDbzlBas();
 			hspDbzlBas.setRegSeq(regSeq);
 			hspDbzlBas.setRegTim(hspDbzlBasCustom.getRegTim());
 			hspDbzlBas.setEmgSeq(hspDbzlBasCustom.getEmgSeq());
@@ -305,9 +306,8 @@ public class EsbServiceImpl implements EsbService{
 			hspDbzlBasMapper.insert(hspDbzlBas);
 		}else{
 			regSeq= hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq();
-			hspDbzlBas.setModTim(new Date());
-			hspDbzlBas.setModNo(activeUser.getUsrno());
-			hspDbzlBas.setModNam(activeUser.getUsrname());
+
+			HspDbzlBas hspDbzlBas =hspDbzlBasQueryDto.getHspDbzlBasCustom();
 			hspDbzlBasMapper.updateByPrimaryKeySelective(hspDbzlBas);
 		}
 

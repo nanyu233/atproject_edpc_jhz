@@ -13,6 +13,7 @@ import activetech.edpc.dao.mapper.HspZlInfCustomMapper;
 import activetech.edpc.dao.mapper.HspZlInfMapper;
 import activetech.edpc.pojo.domain.HspDbzlBas;
 import activetech.edpc.pojo.domain.HspZlInf;
+import activetech.edpc.pojo.domain.HspZlInfExample;
 import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.HspZlInfCustom;
@@ -239,7 +240,19 @@ public class JzbrServiceImpl implements JzbrService {
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         Map<String, Object> sysdata = new HashMap<String, Object>();
         HspDbzlBasCustom hspDbzlBasCustom=hspDbzlBasMapperCustom.getHspDbzlBasinf(hspDbzlBasQueryDto);
+
+        HspZlInfExample hspZlInfExample = new HspZlInfExample();
+        hspZlInfExample.createCriteria().andEmgNoEqualTo(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq());
+        List<HspZlInf> hspZlInfs = hspZlInfMapper.selectByExample(hspZlInfExample);
+        Map<String, String> mapZlInf = new HashMap();
+        Date emgDat = null;
+        for(HspZlInf node : hspZlInfs){
+            mapZlInf.put(node.getProCode(), node.getProVal());
+        }
+
         sysdata.put("hspDbzlBasCustom",hspDbzlBasCustom);
+        sysdata.put("mapZlInf",mapZlInf);
+
         resultInfo.setSysdata(sysdata);
         return resultInfo;
     }
