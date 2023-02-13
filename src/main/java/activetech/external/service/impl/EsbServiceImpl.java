@@ -239,7 +239,7 @@ public class EsbServiceImpl implements EsbService{
 		HspDbzlBasCustom hspDbzlBasCustom = hspDbzlBasQueryDto.getHspDbzlBasCustom();
          String regSeq;
 		HspDbzlBas hspDbzlBas = new HspDbzlBas();
-		if("".equals(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq())){
+		if(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq() == null){
 			regSeq = systemConfigService.findSequences("hsp_dbzl_bas_reg_seq", "8", null);
 			//唯一ID
 			hspDbzlBas.setRegSeq(regSeq);
@@ -304,7 +304,7 @@ public class EsbServiceImpl implements EsbService{
 			}
 			hspDbzlBasMapper.insert(hspDbzlBas);
 		}else{
-			regSeq=hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq();
+			regSeq= hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq();
 			hspDbzlBas.setModTim(new Date());
 			hspDbzlBas.setModNo(activeUser.getUsrno());
 			hspDbzlBas.setModNam(activeUser.getUsrname());
