@@ -430,19 +430,7 @@
                a.smt_msg,
                a.smt_no,
                a.smt_nam,
-               a.smt_tim,
-               (select pro_val
-                    from hsp_zl_inf
-                 where hsp_zl_inf.pro_code = 'SCYLJCSJ'
-                   and hsp_zl_inf.emg_no = reg_seq) scyljcsj,
-                 (select pro_val
-                  from hsp_zl_inf
-                 where hsp_zl_inf.pro_code = 'FBSJ'
-                   and hsp_zl_inf.emg_no = reg_seq) fbsj,
-                 (select pro_val
-                  from hsp_zl_inf
-                 where hsp_zl_inf.pro_code = 'CBZD'
-                   and hsp_zl_inf.emg_no = reg_seq) cbzd
+               a.smt_tim
 		from hsp_dbzl_bas a
 		<include refid="dbzl_where"/>
         order by a.reg_tim desc
