@@ -80,9 +80,9 @@ public class JzbrAction {
      * @param hspDbzlBasQueryDto
      * @return SubmitResultInfo
      */
-    @RequestMapping("/getXtPatientDetail")
+    @RequestMapping("/getPatientDetailForDbzlbas")
     @ResponseBody
-    public SubmitResultInfo getXtPatientDetail(HspDbzlBasQueryDto hspDbzlBasQueryDto) {
+    public SubmitResultInfo getPatientDetailForDbzlbas(HspDbzlBasQueryDto hspDbzlBasQueryDto) {
         ResultInfo resultInfo = null;
 
         resultInfo = jzbrService.queryHspDbzlBasinf(hspDbzlBasQueryDto);
