@@ -185,7 +185,7 @@
   var _userid = '${activeUser.usrno}';
   var scoreWin;
   var chartInfoMap;
-  debugger
+  //debugger
   // console.log(window.top, window.self);
   // console.log(window.top[0] === window.self);
   if(eicuUtil.isOuterSys) {
@@ -271,8 +271,8 @@
     // console.log('menuInfoMap, _gradeType', menuInfoMap, _gradeType);
     var reqParams = {
       liveNo: _liveNo,
-      gradeType: _gradeType,
-      menuRoot: menuInfoMap[_gradeType].menuRoot
+      gradeType: _gradeType/*,
+      menuRoot: menuInfoMap[_gradeType].menuRoot*/
     };
     // if (pDisplayMode === 'chart') {
     reqParams.flag = pDisplayMode;

@@ -124,7 +124,8 @@
                     name: '知情同意书'
                 },
                 {
-                    name: '评分表'
+                    name: '评分总览',
+                    src:'${baseurl}icuscore/toTotalScoPage.do?regSeq='  + '${regSeq}'+'&gradeType=GTOTAL'
                 },
                 {
                     name: '检验信息',
