@@ -1,13 +1,22 @@
 package activetech.edpc.service.impl;
 
 import activetech.base.pojo.dto.ActiveUser;
+import activetech.base.pojo.dto.PageQuery;
+import activetech.base.process.context.Config;
+import activetech.base.process.result.DataGridResultInfo;
+import activetech.base.process.result.ResultInfo;
+import activetech.base.process.result.ResultUtil;
 import activetech.base.service.SystemConfigService;
 import activetech.edpc.dao.mapper.HspDbzlBasMapper;
+import activetech.edpc.dao.mapper.HspDbzlBasMapperCustom;
 import activetech.edpc.dao.mapper.HspZlInfCustomMapper;
 import activetech.edpc.dao.mapper.HspZlInfMapper;
 import activetech.edpc.pojo.domain.HspDbzlBas;
 import activetech.edpc.pojo.domain.HspZlInf;
+import activetech.edpc.pojo.dto.HspDbzlBasCustom;
+import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.HspZlInfCustom;
+import activetech.edpc.pojo.dto.QueryDto;
 import activetech.edpc.service.JzbrService;
 import activetech.hospital.pojo.domain.HspMewsInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
@@ -16,6 +25,9 @@ import activetech.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 急诊病人进入多病种中心
@@ -31,7 +43,8 @@ public class JzbrServiceImpl implements JzbrService {
     private HspZlInfMapper hspZlInfMapper;
     @Autowired
     private HspZlInfCustomMapper hspZlInfCustomMapper;
-
+    @Autowired
+    private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
     /**
      * 急诊病人进入多病种中心
      * @param hspemginfQueryDto hspemginfQueryDto
@@ -207,4 +220,27 @@ public class JzbrServiceImpl implements JzbrService {
         return regSeq;
     }
 
+
+    @Override
+    public DataGridResultInfo getPatientListForDbzlBas(HspDbzlBasQueryDto hspDbzlBasQueryDto) {
+        DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+        int total = hspDbzlBasMapperCustom.countPatientListForDbzlBas(hspDbzlBasQueryDto);
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setPageParams(total, hspDbzlBasQueryDto.getRows(), hspDbzlBasQueryDto.getPage());
+        hspDbzlBasQueryDto.setPageQuery(pageQuery);
+        List<HspDbzlBasCustom> list = hspDbzlBasMapperCustom.getPatientListForDbzlBas(hspDbzlBasQueryDto);
+        dataGridResultInfo.setRows(list);
+        dataGridResultInfo.setTotal(total);
+        return dataGridResultInfo;
+    }
+
+    @Override
+    public ResultInfo queryHspDbzlBasinf(HspDbzlBasQueryDto hspDbzlBasQueryDto) {
+        ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+        Map<String, Object> sysdata = new HashMap<String, Object>();
+        HspDbzlBasCustom hspDbzlBasCustom=hspDbzlBasMapperCustom.getHspDbzlBasinf(hspDbzlBasQueryDto);
+        sysdata.put("hspDbzlBasCustom",hspDbzlBasCustom);
+        resultInfo.setSysdata(sysdata);
+        return resultInfo;
+    }
 }

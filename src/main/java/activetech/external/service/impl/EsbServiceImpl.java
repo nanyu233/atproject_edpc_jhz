@@ -237,72 +237,79 @@ public class EsbServiceImpl implements EsbService{
 	@Override
 	public void insertHspDbzlBasForCust(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) {
 		HspDbzlBasCustom hspDbzlBasCustom = hspDbzlBasQueryDto.getHspDbzlBasCustom();
-
-		String regSeq = systemConfigService.findSequences("hsp_dbzl_bas_reg_seq", "8", null);
-
+         String regSeq;
 		HspDbzlBas hspDbzlBas = new HspDbzlBas();
-		//唯一ID
-		hspDbzlBas.setRegSeq(regSeq);
-		hspDbzlBas.setRegTim(hspDbzlBasCustom.getRegTim());
-		hspDbzlBas.setEmgSeq(hspDbzlBasCustom.getEmgSeq());
-		hspDbzlBas.setMpi(hspDbzlBasCustom.getMpi());
+		if("".equals(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq())){
+			regSeq = systemConfigService.findSequences("hsp_dbzl_bas_reg_seq", "8", null);
+			//唯一ID
+			hspDbzlBas.setRegSeq(regSeq);
+			hspDbzlBas.setRegTim(hspDbzlBasCustom.getRegTim());
+			hspDbzlBas.setEmgSeq(hspDbzlBasCustom.getEmgSeq());
+			hspDbzlBas.setMpi(hspDbzlBasCustom.getMpi());
 
-		hspDbzlBas.setPatTyp(hspDbzlBasCustom.getPatTyp());
+			hspDbzlBas.setPatTyp(hspDbzlBasCustom.getPatTyp());
 
-		hspDbzlBas.setWayTyp("0");
-		hspDbzlBas.setCardType(hspDbzlBasCustom.getCardType());
-		hspDbzlBas.setVstCad(hspDbzlBasCustom.getVstCad());
-		hspDbzlBas.setCstNam(hspDbzlBasCustom.getCstNam());
-		hspDbzlBas.setCstSexCod(hspDbzlBasCustom.getCstSexCod());
-		hspDbzlBas.setIdType(hspDbzlBasCustom.getCardType());
-		hspDbzlBas.setIdNbr(hspDbzlBasCustom.getIdNbr());
-		hspDbzlBas.setCstAgeCod(hspDbzlBasCustom.getCstAgeCod());
-		hspDbzlBas.setCstAge(hspDbzlBasCustom.getCstAge());
-		hspDbzlBas.setPatWgt(null);
-		hspDbzlBas.setPatHgt(null);
-		hspDbzlBas.setBthDat(hspDbzlBasCustom.getBthDat());
-		hspDbzlBas.setPheNbr(hspDbzlBasCustom.getPheNbr());
-		hspDbzlBas.setCstAdr(hspDbzlBasCustom.getCstAdr());
-		hspDbzlBas.setNation(hspDbzlBasCustom.getNation());
-		hspDbzlBas.setEmgJob(hspDbzlBasCustom.getEmgJob());
-		hspDbzlBas.setMaritalStatus(hspDbzlBasCustom.getMaritalStatus());
-		hspDbzlBas.setCstEdu(null);
-		hspDbzlBas.setLnkMan(null);
-		hspDbzlBas.setLnkWay(null);
-		hspDbzlBas.setGrnChl(hspDbzlBasCustom.getGrnChl());
-		hspDbzlBas.setSwChl(hspDbzlBasCustom.getSwChl());
-		hspDbzlBas.setHspAra(null);
-		hspDbzlBas.setYqxh(null);
-		hspDbzlBas.setJzxh(hspDbzlBasCustom.getJzxh());
-		hspDbzlBas.setZyxh(null);
-		hspDbzlBas.setDocDat(hspDbzlBasCustom.getDocDat());
-		hspDbzlBas.setJzys(hspDbzlBasCustom.getJzys());
-		hspDbzlBas.setYsxm(hspDbzlBasCustom.getYsxm());
-		hspDbzlBas.setKsdm(hspDbzlBasCustom.getKsdm());
-		hspDbzlBas.setCrtTim(new Date());
-		hspDbzlBas.setCrtNo(activeUser.getUsrno());
-		hspDbzlBas.setCrtNam(activeUser.getUsrname());
-		hspDbzlBas.setModTim(new Date());
-		hspDbzlBas.setModNo(activeUser.getUsrno());
-		hspDbzlBas.setModNam(activeUser.getUsrname());
-		hspDbzlBas.setRcdSta(null);
-		hspDbzlBas.setChkTim(null);
-		hspDbzlBas.setChkNo(null);
-		hspDbzlBas.setChkNam(null);
-		hspDbzlBas.setChkMsg(null);
-		hspDbzlBas.setStpFlg(null);
-		hspDbzlBas.setStpTim(null);
-		hspDbzlBas.setStpNo(null);
-		hspDbzlBas.setStpNam(null);
-		hspDbzlBas.setSmtSta("1");
-		hspDbzlBas.setSmtSeq(null);
-		hspDbzlBas.setSmtMsg(null);
-		if("1".equals(activeUser.getHospitalCategory())){
-			hspDbzlBas.setHspAra("1");
+			hspDbzlBas.setWayTyp("0");
+			hspDbzlBas.setCardType(hspDbzlBasCustom.getCardType());
+			hspDbzlBas.setVstCad(hspDbzlBasCustom.getVstCad());
+			hspDbzlBas.setCstNam(hspDbzlBasCustom.getCstNam());
+			hspDbzlBas.setCstSexCod(hspDbzlBasCustom.getCstSexCod());
+			hspDbzlBas.setIdType(hspDbzlBasCustom.getCardType());
+			hspDbzlBas.setIdNbr(hspDbzlBasCustom.getIdNbr());
+			hspDbzlBas.setCstAgeCod(hspDbzlBasCustom.getCstAgeCod());
+			hspDbzlBas.setCstAge(hspDbzlBasCustom.getCstAge());
+			hspDbzlBas.setPatWgt(null);
+			hspDbzlBas.setPatHgt(null);
+			hspDbzlBas.setBthDat(hspDbzlBasCustom.getBthDat());
+			hspDbzlBas.setPheNbr(hspDbzlBasCustom.getPheNbr());
+			hspDbzlBas.setCstAdr(hspDbzlBasCustom.getCstAdr());
+			hspDbzlBas.setNation(hspDbzlBasCustom.getNation());
+			hspDbzlBas.setEmgJob(hspDbzlBasCustom.getEmgJob());
+			hspDbzlBas.setMaritalStatus(hspDbzlBasCustom.getMaritalStatus());
+			hspDbzlBas.setCstEdu(null);
+			hspDbzlBas.setLnkMan(null);
+			hspDbzlBas.setLnkWay(null);
+			hspDbzlBas.setGrnChl(hspDbzlBasCustom.getGrnChl());
+			hspDbzlBas.setSwChl(hspDbzlBasCustom.getSwChl());
+			hspDbzlBas.setHspAra(null);
+			hspDbzlBas.setYqxh(null);
+			hspDbzlBas.setJzxh(hspDbzlBasCustom.getJzxh());
+			hspDbzlBas.setZyxh(null);
+			hspDbzlBas.setDocDat(hspDbzlBasCustom.getDocDat());
+			hspDbzlBas.setJzys(hspDbzlBasCustom.getJzys());
+			hspDbzlBas.setYsxm(hspDbzlBasCustom.getYsxm());
+			hspDbzlBas.setKsdm(hspDbzlBasCustom.getKsdm());
+			hspDbzlBas.setCrtTim(new Date());
+			hspDbzlBas.setCrtNo(activeUser.getUsrno());
+			hspDbzlBas.setCrtNam(activeUser.getUsrname());
+			hspDbzlBas.setModTim(new Date());
+			hspDbzlBas.setModNo(activeUser.getUsrno());
+			hspDbzlBas.setModNam(activeUser.getUsrname());
+			hspDbzlBas.setRcdSta(null);
+			hspDbzlBas.setChkTim(null);
+			hspDbzlBas.setChkNo(null);
+			hspDbzlBas.setChkNam(null);
+			hspDbzlBas.setChkMsg(null);
+			hspDbzlBas.setStpFlg(null);
+			hspDbzlBas.setStpTim(null);
+			hspDbzlBas.setStpNo(null);
+			hspDbzlBas.setStpNam(null);
+			hspDbzlBas.setSmtSta("1");
+			hspDbzlBas.setSmtSeq(null);
+			hspDbzlBas.setSmtMsg(null);
+			if("1".equals(activeUser.getHospitalCategory())){
+				hspDbzlBas.setHspAra("1");
+			}else{
+				hspDbzlBas.setHspAra("2");
+			}
+			hspDbzlBasMapper.insert(hspDbzlBas);
 		}else{
-			hspDbzlBas.setHspAra("2");
+			regSeq=hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq();
+			hspDbzlBas.setModTim(new Date());
+			hspDbzlBas.setModNo(activeUser.getUsrno());
+			hspDbzlBas.setModNam(activeUser.getUsrname());
+			hspDbzlBasMapper.updateByPrimaryKeySelective(hspDbzlBas);
 		}
-		hspDbzlBasMapper.insert(hspDbzlBas);
 
 		addzlinf(hspDbzlBasCustom, regSeq);
 	}

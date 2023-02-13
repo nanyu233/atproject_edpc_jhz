@@ -45,4 +45,8 @@ public interface HspDbzlBasMapperCustom {
     List<HspDbzlBasCustom> getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 
     HspDbzlBasCustom getHspDbzlBasinf(HspDbzlBasQueryDto hspDbzlBasQueryDto);
+
+    int countPatientListForDbzlBas(HspDbzlBasQueryDto hspDbzlBasQueryDto);
+
+    List<HspDbzlBasCustom> getPatientListForDbzlBas(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 }

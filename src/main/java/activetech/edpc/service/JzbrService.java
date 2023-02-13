@@ -1,6 +1,9 @@
 package activetech.edpc.service;
 
 import activetech.base.pojo.dto.ActiveUser;
+import activetech.base.process.result.DataGridResultInfo;
+import activetech.base.process.result.ResultInfo;
+import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 
 /**
@@ -14,4 +17,11 @@ public interface JzbrService {
      * @throws Exception Exception
      */
     void enterDbzl(HspemginfQueryDto hspemginfQueryDto, ActiveUser activeUser) throws Exception;
+    /**
+     * 分诊获取dbzl_bas列表
+     * @return
+     */
+    DataGridResultInfo getPatientListForDbzlBas(HspDbzlBasQueryDto hspDbzlBasQueryDto);
+
+    ResultInfo queryHspDbzlBasinf(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 }
