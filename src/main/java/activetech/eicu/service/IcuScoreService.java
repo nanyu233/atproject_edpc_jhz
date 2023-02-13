@@ -75,7 +75,7 @@ public interface IcuScoreService {
 	 * @throws Exception
 	 */
 	Map<String, List<IcuGradeRiskCustom>> queryGradeRisk(String gradeType) throws Exception;
-	List<IcuMenuDefCustom> findIcuCustMenu() throws Exception;
+	List<IcuMenuDefCustom> findIcuCustMenu(String moduleId) throws Exception;
 	IcuGradeTotalCustom editGradeScoWithOth(IcuScoreQueryDto icuScoreQueryDto, ActiveUser activeUser) throws Exception;
 	List<IcuGradeTotalCustom> getIcuGradeTotalByLiveNo(IcuScoreQueryDto icuScoreQueryDto) throws Exception;
 }

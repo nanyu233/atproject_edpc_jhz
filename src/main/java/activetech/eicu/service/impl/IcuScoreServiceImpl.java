@@ -415,9 +415,31 @@ public class IcuScoreServiceImpl implements IcuScoreService{
 	 * 获取icu功能菜单
 	 */
 	@Override
-	public List<IcuMenuDefCustom> findIcuCustMenu() throws Exception{
-		List<IcuMenuDefCustom> menuList = icuMenuDefCustomMapper.findIcuCustMenu();
+	public List<IcuMenuDefCustom> findIcuCustMenu(String moduleId) throws Exception{
+		/*List<IcuMenuDefCustom> menuList = icuMenuDefCustomMapper.findIcuCustMenu();
+		return menuList;*/
+		if(!StringUtils.isNotNullAndEmptyByTrim(moduleId)) {
+			moduleId = "200001";
+		}
+		List<IcuMenuDefCustom> menuList = icuMenuDefCustomMapper.findIcuCustMenu(moduleId);
+		//递归
+		IcuMenuDefCustom rootDef = null;
+		for (IcuMenuDefCustom menuDefCustom : menuList) {
+			if(moduleId.equals(menuDefCustom.getMenuRoot())) {
+				rootDef = menuDefCustom;
+			}
+		}
+		findChildren(rootDef, menuList);
 		return menuList;
+	}
+	private void findChildren(IcuMenuDefCustom rootDef, List<IcuMenuDefCustom> menuList) {
+		for (IcuMenuDefCustom menuDef : menuList) {
+			if (rootDef.getMenuId().equals(menuDef.getMenuRoot())) {
+				menuDef.setIdRoot(rootDef.getMenuId());
+				menuDef.setNameRoot(rootDef.getMenuName());
+				findChildren(menuDef, menuList);
+			}
+		}
 	}
 	@Override
 	public IcuGradeTotalCustom editGradeScoWithOth(IcuScoreQueryDto icuScoreQueryDto, ActiveUser activeUser)

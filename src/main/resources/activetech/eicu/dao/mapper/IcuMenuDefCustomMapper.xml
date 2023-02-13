@@ -3,19 +3,11 @@
 <mapper namespace="activetech.eicu.dao.mapper.IcuMenuDefCustomMapper" >
 	<select id="findIcuCustMenu" 
 		resultType="activetech.eicu.pojo.dto.IcuMenuDefCustom">
-		select a.menu_id id_root,
-		       a.menu_name name_root,
-		       b.menu_id,
-		       b.menu_name,
-		       b.menu_type,
-		       b.ov_flag,
-		       b.menu_url,
-		       a.menu_sort sortRoot,
-		       b.menu_sort
-		  from icu_menu_def a, icu_menu_def b
-		 where a.menu_id = b.menu_root
-		   and a.menu_stat = '1'
-		   and b.menu_stat = '1'
-		 order by a.menu_sort, b.menu_sort
+		select *
+		from icu_menu_def
+		where menu_stat = '1'
+			start with menu_root = #{moduleId, jdbcType = VARCHAR }
+		connect by prior menu_id = menu_root
+		order by menu_sort
 	</select>
 </mapper>
