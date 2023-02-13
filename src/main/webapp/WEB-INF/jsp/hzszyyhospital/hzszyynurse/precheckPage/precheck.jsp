@@ -46,6 +46,32 @@
 </head>
 
 <body class="jsbrqjs">
+	<div class="left-tab">
+    <div>
+      <p>
+        <span class="w2">日期</span>：<input class="Wdate small-dat-input" id="startDat" type="text" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" > - <input class="Wdate small-dat-input" id="endDat" type="text" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})" >
+        <!-- <label for="alreadyPrecheck" onclick="getLeftData()">
+          <input type="checkbox" id="alreadyPrecheck" name="querytype" value="1"> 已挂号未预检
+        </label> -->
+      </p>
+      <p>
+        病人检索：<input id="nameXm" type="text" placeholder="就诊号或姓名"> 
+        <a href="javascript:;" class="easyui-linkbutton" iconCls="icon-search" id="btn" onclick="getLeftData()">查询</a>
+      </p>
+      <!-- <p>
+        查询条件：<label for="ghInput" onclick="setAfterCheckDisable()">
+          <input class="preCheck" type="checkbox" id="ghInput"> 未关联挂号
+        </label>
+        <label for="tempStorageInput" onclick="setAfterCheckDisable()">
+          <input class="preCheck" type="checkbox" id="tempStorageInput"> 暂存
+        </label>
+        <label class="preExamineLab" for="preExaminePatientInput" onclick="setPreCheckDisable()">
+          <input type="checkbox" id="preExaminePatientInput"> 待预检院前患者
+        </label>
+      </p> -->
+    </div>
+    <table id="registeredList"></table>
+  </div>
   <form ms-controller="jsbrqjs" id="userform" class="content-form" >
     <!-- 预检号 -->
     <input class="hidden" id="emg_emgSeq" type="text">
@@ -53,7 +79,7 @@
       <li>
         <p class="part-title">
           <span>基本信息</span>
-          <span class="gray-span black">预检时间</span>
+          <span class="gray-span black">登记时间</span>
           <input class="Wdate input-wth-B black" id="emg_emgDat" type="text" ms-duplex-string="patientMsg.regTim" onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm:ss'})">
           <!-- <input class="Wdate input-wth-B black" type="text" ms-duplex-string="patientMsg.regTim" ms-if="isEditPage == 1" readonly> -->
           <!-- <span class="gray-span black">病历号</span>
@@ -283,7 +309,7 @@
       <li>
         <div class="two-part">
           <span class="left-ask">
-            <span ms-visible="noMassRequire()">*</span>
+            <!-- <span ms-visible="noMassRequire()">*</span> -->
           </span>
           <label class="w2" ms-class="redWarn:patientInfFlg.tmpNbrFlag==1">体温</label>
           <input id="emg_tmpNbr" type="text" class="small-input bigBlueFt" ms-duplex-string="aboutMews.tiw"
@@ -291,7 +317,7 @@
           <span class="gray-ft">℃</span>
         </div>
         <div class="two-part">
-          <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span>
+          <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="w2" ms-class="redWarn:patientInfFlg.breNbrFlag==1">呼吸</label>
           <input id="emg_breNbr" type="text" class="small-input bigBlueFt" maxlength="4" 
             ms-duplex-string="aboutMews.huxipl" ms-keyup="onlyNum('aboutMews','huxipl')" ms-input="onlyNum('aboutMews','huxipl')"
@@ -299,14 +325,14 @@
           <span class="gray-ft">次/分</span>
         </div>
         <div class="two-part">
-          <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span>
+          <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="w2" ms-class="redWarn:patientInfFlg.hrtRteFlag==1">脉搏</label>
           <input id="emg_hrtRte" type="text" class="small-input bigBlueFt" maxlength="4" 
             ms-duplex-string="aboutMews.mb" ms-keyup="onlyNum('aboutMews','mb')" ms-input="onlyNum('aboutMews','mb')"
             ms-change="onlyNum('aboutMews','mb')">
           <span class="gray-ft">次/分</span>
         </div>
-        <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span>
+        <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="w2" ms-class="redWarn:patientInfFlg.sbpUpNbrFlag==1">血压</label>
           <input id="emg_sbpUpNbr" type="text" class="small-input bigBlueFt" maxlength="4" ms-duplex-string="aboutMews.sbpUpNbr" 
             ms-keyup="onlyNum('aboutMews','sbpUpNbr')" ms-change="onlyNum('aboutMews','sbpUpNbr')"
@@ -315,12 +341,12 @@
             ms-keyup="onlyNum('aboutMews','sbpDownNbr')" ms-change="onlyNum('aboutMews','sbpDownNbr')"
             ms-input="onlyNum('aboutMews','sbpDownNbr')">
           <span class="gray-ft">mmHg</span>
-          <a onclick="setEmgSeq()" class="cursor-type link-aText">[导入体征]</a>
+          <!-- <a onclick="setEmgSeq()" class="cursor-type link-aText">[导入体征]</a> -->
         </div>
       </li>
       <li>
         <div class="two-part">
-          <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span>
+          <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="w2" ms-class="redWarn:patientInfFlg.oxyNbrFlag==1">血氧</label>
           <input id="emg_oxyNbr" type="text" class="small-input bigBlueFt" maxlength="4"
           ms-duplex-string="patientMsg.xueyang" ms-keyup="onlyNum('patientMsg','xueyang')" ms-input="onlyNum('patientMsg','xueyang')"
@@ -338,7 +364,7 @@
           <input class="hidden" id="emg_ttpfTypeCod" type="text" ms-duplex-string="patientMsg.ttpfTypeCod">
         </div>  -->
         <div class="two-part">
-          <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span>
+          <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="w2">意识</label>
           <select class="small-input" ms-duplex-string="patientMsg.senStuCod" ms-change="setSenStu()" >
             <option value=""></option>
@@ -346,7 +372,7 @@
           </select>
         </div>
         <div class="two-part">
-          <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span>
+          <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="title-wth">AVPU</label>
           <select class="small-input" ms-duplex-string="aboutMews.senRctCod" ms-change="setSctStu()" >
             <option value=""></option>
@@ -354,7 +380,7 @@
           </select>
         </div>
         <div class="two-part">
-          <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span>
+          <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="title-wth">跌倒评估</label>
           <input type="text" class="small-input cursor-type bigBlueFt" ms-duplex-string="patientMsg.fallAssEssText" ms-click="riskBox()" readonly>
           <input type="text" id="emg_falAssCod" ms-duplex-string="patientMsg.fallAssCod" class="hidden">
@@ -613,6 +639,8 @@
     </div>
   </form>
   <jsp:include page="/WEB-INF/jsp/hzszyyhospital/hzszyynurse/precheck/printFz.jsp"></jsp:include>
+	<!-- 左边列表 -->
+  <script src="${baseurl}js/subpageJs/precheck/leftTab.js?v=${versionDay}" type="text/javascript"></script>
   <!-- 分级相关公用方法、公用参数 -->
   <script src="${baseurl}js/subpageJs/precheck/commonFun.js?v=${versionDay}" type="text/javascript"></script>
   <!-- vm对象和方法 -->
@@ -636,7 +664,7 @@
           flg = false;
         }
         if ($('#nameXm').is(':focus')) {
-          // getLeftData();
+          getLeftData();
           flg = false;
         }
         if ($(".drive-name").is(":focus")) {
@@ -873,7 +901,7 @@
         comparePreFieldInfo = JSON.parse(JSON.stringify(compareSufFieldInfo )); // 保存成功留在当前页面时 对象替换
         compareSufFieldInfo = generateFieldObj() // 初始化对比对象
         insertuser_callback(res, print,register)
-        // reloadLeftTab(); // 预检页面保存后，左边患者列表需要默认刷新一下
+        reloadLeftTab(); // 预检页面保存后，左边患者列表需要默认刷新一下
         if (vm.isEditPage == '1') {
           publicFun.httpServer({url: _baseUrl + 'hzszyyemg/inforModify.do', requestDataType: 'json'}, {
           'execList': compareMsgList
@@ -956,8 +984,8 @@
 
     // 刷新 - 每次加载的时候 reload left tab
     function reload () {
-      // reloadLeftTab()
-      // getLeftData();
+      reloadLeftTab()
+      getLeftData();
     }
 
     function refreshjz() {
@@ -1124,7 +1152,7 @@
       // 以下新增 - msg
       getAjaxInfoList() // 床位列表刷新
       cleanAndSetMsg()
-      // reloadLeftTab()
+      reloadLeftTab()
       vm.patientMsg.regTim = publicFun.timeFormat(new Date(), 'yyyy/MM/dd hh:mm:ss')
       vm.patientMsg.patientTyp = '1';
       vm.patientMsg.chkLvlCod = '';

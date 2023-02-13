@@ -53,7 +53,6 @@ select {
     box-sizing: border-box;
     margin-left: 5px;
     font-size: 14px;
-		width: 100% !important;
 }
 .content-form input.bigBlueFt, .content-form span.bigBlueFt {
     color: #617cc7;

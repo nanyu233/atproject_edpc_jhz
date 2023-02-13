@@ -40,16 +40,16 @@ var jsbrAlertMsg = {
     regTim: "预检时间必填",
     cstNam: "姓名必填",
     // preDgnCod: "主诉症状必填",
-    tiw: "体温必填",
-    huxipl: "呼吸必填",
-    mb: "脉搏必填",
-    sbpUpNbr: "血压必填",
-    sbpDownNbr: "血压必填",
-    xueyang: "血氧必填",
+    // tiw: "体温必填",
+    // huxipl: "呼吸必填",
+    // mb: "脉搏必填",
+    // sbpUpNbr: "血压必填",
+    // sbpDownNbr: "血压必填",
+    // xueyang: "血氧必填",
     // nrsSco: "疼痛评分必填",
-    senStuCod: "意识必填",
-    senRctCod: "AVPU必填",
-    fallAssEssText: "跌倒评估必填",
+    // senStuCod: "意识必填",
+    // senRctCod: "AVPU必填",
+    // fallAssEssText: "跌倒评估必填",
     pregnantYdcxCod: "阴道出血必填",
     pregnantGsplCod: "宫缩频率必填",
     // cstDspCod: "病人去向必填",
@@ -92,19 +92,20 @@ var editFun = {
   getMsgList: function () {
     comparePreFieldInfo = generateFieldObj(); // 所有要对比的字段对象
     compareSufFieldInfo = generateFieldObj() // 初始化对比对象
-    publicFun.httpServer({ url: _baseUrl + "hzszyyemg/findEmgList_zyy.do", isAsync: false }, { emgSeq: _emgSeq, _t: Date.parse(new Date()), editbedflg: "1" }, function (res) {
+    publicFun.httpServer({ url: _baseUrl + "hzszyyemg/findEmgList_zyy.do", isAsync: false },  { _t: Date.parse(new Date()) }, function (res) {
       initDictList(res)
       editFun.getPatientMsg()
     })
   },
   getPatientMsg: function () {
     publicFun.httpServer(
-      { url: _baseUrl + "hzszyyemg/findHspemginfByemgSeq_jzt.do" },
+      { url: _baseUrl + "jzbr/queryHspDbzlBasinf.do" },
       {
         emgSeq: _emgSeq,
         date: new Date().toTimeString(),
       },
       function (res) {
+				var data = res.resultInfo.sysdata
         editFun.dealAlreadyMsg(res)
         // getChildPfMsg();
         setRightPanelWth()
@@ -248,7 +249,7 @@ var editFun = {
     }, 0)
   },
   dealAlreadyMsg: function (res) {
-    var _res = res.hspemginfCustom;
+    var _res = res.hspDbzlBasCustom;
     editFun.processingData(_res)
     if (res.hspsqlinfCustom) {
       var _zgCodList = ["sqlStaCod", "sqlStaStr", "sqlDepName", "sqlDepCod", "sqlDes", "bedNam"]
@@ -309,7 +310,7 @@ function judgeIsEdit() {
     aboutMewsBf = JSON.parse(JSON.stringify(vm.aboutMews))
   }
   setCurrentTime()
-  // getLeftData()
+  getLeftData()
   //  var basicMsgTimer = setInterval(function(){
   //    getLeftData();
   //  }, 10000);
