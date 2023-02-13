@@ -358,7 +358,7 @@
             and a.cst_nam like '%'||#{cstNam,jdbcType=VARCHAR}||'%'
             </if>
             <if test="endDate!=null and endDate!=''">
-            and a.crt_tim <![CDATA[<]]> #{endDate,jdbcType=TIMESTAMP}
+            and a.crt_tim <![CDATA[<=]]> #{endDate,jdbcType=TIMESTAMP}
             </if>
             <if test="startDate!=null and startDate!=''">
             and a.crt_tim <![CDATA[>=]]> #{startDate,jdbcType=TIMESTAMP}
