@@ -149,7 +149,9 @@ public class FollowUpAction {
 	public DataGridResultInfo querypat_resultByType(HspDbzlBasQueryDto hspDbzlBasQueryDto,ActiveUser activeUser
 		)throws Exception{
 		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		HspDbzlBasCustom hspDbzlBasCustom=new HspDbzlBasCustom();
+	//	HspDbzlBasCustom hspDbzlBasCustom=new HspDbzlBasCustom();
+
+		HspDbzlBasCustom hspDbzlBasCustom = hspDbzlBasQueryDto.getHspDbzlBasCustom();
 		hspDbzlBasCustom.setHspAra(activeUser.getHospitalCategory());
 		hspDbzlBasQueryDto.setHspDbzlBasCustom(hspDbzlBasCustom);
 		int total = followUpService.queryCountfuvResult(hspDbzlBasQueryDto);
