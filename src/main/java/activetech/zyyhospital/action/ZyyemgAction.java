@@ -326,6 +326,14 @@ public class ZyyemgAction {
         params.put("LAN_RCT_COD", "lanRctCodList");
         params.put("ACT_RCT_COD", "actRctCodList");
 
+        params.put("WJZX_CR_COD", "dangerousCodList1");
+        params.put("WJZX_EK_COD", "dangerousCodList2");
+        params.put("WJZX_CK_COD", "dangerousCodList3");
+        params.put("WJZX_FK_COD", "dangerousCodList4");
+        params.put("SEND_IN_COD", "SEND_IN_COD");
+
+
+
         Map<String, List<Dstdictinfo>> maps = systemConfigService.findDstdictinfos(params);
         Map<String, Object> map = new HashMap<>(70);
         map.putAll(maps);

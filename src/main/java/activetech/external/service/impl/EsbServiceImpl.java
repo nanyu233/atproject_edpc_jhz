@@ -239,7 +239,7 @@ public class EsbServiceImpl implements EsbService{
 		HspDbzlBasCustom hspDbzlBasCustom = hspDbzlBasQueryDto.getHspDbzlBasCustom();
          String regSeq;
 
-		if(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq() == null){
+		if(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq() == null || "".equals(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq())){
 			regSeq = systemConfigService.findSequences("hsp_dbzl_bas_reg_seq", "8", null);
 			//唯一ID
 			HspDbzlBas hspDbzlBas = new HspDbzlBas();

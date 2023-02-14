@@ -99,10 +99,9 @@ var editFun = {
   },
   getPatientMsg: function () {
     publicFun.httpServer(
-      { url: _baseUrl + "jzbr/queryHspDbzlBasinf.do" },
+      { url: _baseUrl + "jzbr/queryHspDbzlBasinf.do"},
       {
-        regSeq: regSeq,
-        date: new Date().toTimeString(),
+        "hspDbzlBasCustom.regSeq":regSeq
       },
       function (res) {
         var data = res.resultInfo.sysdata

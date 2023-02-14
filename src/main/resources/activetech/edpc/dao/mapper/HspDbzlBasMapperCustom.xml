@@ -358,10 +358,10 @@
             and a.cst_nam like '%'||#{cstNam,jdbcType=VARCHAR}||'%'
             </if>
             <if test="endDate!=null and endDate!=''">
-            and a.crt_tim <![CDATA[<=]]> #{endDate,jdbcType=TIMESTAMP}
+            and to_char(a.crt_tim,'yyyymmdd') <![CDATA[<=]]> to_char(#{endDate,jdbcType=TIMESTAMP},'yyyymmdd')
             </if>
             <if test="startDate!=null and startDate!=''">
-            and a.crt_tim <![CDATA[>=]]> #{startDate,jdbcType=TIMESTAMP}
+            and to_char(a.crt_tim,'yyyymmdd') <![CDATA[>=]]> to_char(#{startDate,jdbcType=TIMESTAMP},'yyyymmdd')
             </if>
         </where>
   </sql>

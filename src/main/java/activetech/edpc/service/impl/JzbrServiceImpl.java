@@ -239,13 +239,13 @@ public class JzbrServiceImpl implements JzbrService {
     public ResultInfo queryHspDbzlBasinf(HspDbzlBasQueryDto hspDbzlBasQueryDto) {
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         Map<String, Object> sysdata = new HashMap<String, Object>();
+        hspDbzlBasQueryDto.setRegSeq(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq());
         HspDbzlBasCustom hspDbzlBasCustom=hspDbzlBasMapperCustom.getHspDbzlBasinf(hspDbzlBasQueryDto);
 
         HspZlInfExample hspZlInfExample = new HspZlInfExample();
         hspZlInfExample.createCriteria().andEmgNoEqualTo(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq());
         List<HspZlInf> hspZlInfs = hspZlInfMapper.selectByExample(hspZlInfExample);
         Map<String, String> mapZlInf = new HashMap();
-        Date emgDat = null;
         for(HspZlInf node : hspZlInfs){
             mapZlInf.put(node.getProCode(), node.getProVal());
         }

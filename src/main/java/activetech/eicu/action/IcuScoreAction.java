@@ -336,4 +336,19 @@ public class IcuScoreAction {
 		resultInfo.setSysdata(map);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
+
+	/**
+	 * 跳转统一评分子页面
+	 * @param model model
+	 * @param gradeType gradeType
+	 * @param gradeSeq gradeSeq
+	 * @return return
+	 */
+	@RequestMapping("/toEditSco")
+	public String toEditSco(Model model,String gradeType,String gradeSeq,String liveNo) {
+		model.addAttribute("gradeType", gradeType);
+		model.addAttribute("gradeSeq", gradeSeq);
+		model.addAttribute("liveNo",liveNo);
+		return "/eicu/icuScore/editSco";
+	}
 }
