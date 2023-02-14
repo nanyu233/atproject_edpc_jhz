@@ -47,7 +47,7 @@ var vm = avalon.define({
     ywhsList: [{ infocode: '0', info: '无'}, { infocode: '1', info: '24小时'}, {infocode: '2', info: '48小时' }, {infocode: '3', info: '大于48小时' }], // 核酸
     zjzzCodList: [], // 自觉症状
     glsCodList: [],
-    sendInCodList: [], // 120送入
+    sendInCodList: publicFun.getDict('SEND_IN_COD'), // 120送入
     wzbzCodList: [],
     wzbzList: [], // 病种 WZBZ_COD
     yjbzCodList: [],

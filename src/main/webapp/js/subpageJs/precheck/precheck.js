@@ -105,8 +105,11 @@ var editFun = {
       },
       function (res) {
         var data = res.resultInfo.sysdata
+        var vitalInfo = data.mapZlInf
+			
         vm.patientMsg.regSeq = data.hspDbzlBasCustom.regSeq
         editFun.dealAlreadyMsg(data)
+        vitalInfo && dealVitals(vitalInfo)
         // getChildPfMsg();
         setRightPanelWth()
       }
@@ -354,6 +357,28 @@ function setRightPanelWth() {
     $(".content-form").css({ minWidth: 900 + "px", overflowX: "auto" })
   }
   $(".content-form").css({ width: _right_panel_wth + "px" })
+}
+
+// 生命体征赋值
+function dealVitals(data){
+	var vitals={
+		tiw:"TWJZ",
+		mb:'MBJZ',
+		huxipl:'HXPLJZ',
+	}
+	for(var key in vitals) {
+		if(data[vitals[key]]){
+			vm.aboutMews[key] = data[vitals[key]]
+		}
+	}
+	if(data.XUEYANG){
+		vm.patientMsg.xueyang = data.XUEYANG
+	}
+	if(data.XYJZ){
+		var arr = data.XYJZ.split('/')
+		vm.aboutMews.sbpUpNbr = arr[0];
+		vm.aboutMews.sbpDownNbr = arr[1];
+	}
 }
 
 $(function () {
