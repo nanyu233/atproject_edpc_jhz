@@ -215,7 +215,8 @@
     $id: 'scoreOverview',
     pModuleId: sessionStorage.getItem('icutoken') ? window.top._curModuleType : '',
     showBody: false,
-    pDisplayMode: parent.vm ? '' : 'basic',
+    // parent.vm ? '' :
+    pDisplayMode: 'basic',
     totalList: [], //总分内容
     renderCharts: function () {
       if (vm.pDisplayMode === 'basic') {
@@ -255,13 +256,22 @@
       });
     }
   });
-  // parent.vm.$watch('displayMode', function (newV, oldV) {
-  //   if (newV !== 'oldV') {
-  //     vm.showBody = false;
-  //     vm.pDisplayMode = 'newV';
-      // getAllInfo();
-  //   }
-  // });
+  parent.vm.$watch('displayMode', function (newV, oldV) {
+    // if (newV !== 'oldV') {
+    //   vm.showBody = false;
+    //   vm.pDisplayMode = 'newV';
+    //   getAllInfo();
+    // }
+    if (newV !== 'basic') {
+      vm.showBody = false;
+      vm.pDisplayMode = 'chart';
+      getAllInfo();
+    }else  {
+      vm.showBody = false;
+      vm.pDisplayMode = 'basic';
+      getAllInfo();
+    }
+  });
   /**
    *获取信息
    */
@@ -277,7 +287,9 @@
     console.log(menuInfoMap,666)
     // if (pDisplayMode === 'chart') {
     reqParams.flag = pDisplayMode;
+
     // }
+    publicFun.ajaxLoading('刷新中')
     publicFun.httpRequest(
             reqUrl,
             reqParams,
@@ -286,8 +298,9 @@
             },
             function (res) {
               if (!res.resultInfo.success) {
-                alert_error('请求出错，请联系管理员');
+                return publicFun.alert('请求出错，请联系管理员');
               }
+              publicFun.ajaxLoadEnd()
               // reset chart options map
               chartInfoMap = {};
               var sysdata = res.resultInfo.sysdata;
@@ -457,7 +470,7 @@
     var thisItemInfo;
     var icuMenu = {};
     // if(eicuUtil.isOuterSys) {
-      eicuUtil.initMenu(100000);
+    //   eicuUtil.initMenu(100000);
     // }
     icuMenu = JSON.parse(sessionStorage.getItem('icuMenu'));
     // console.log('icuMenu', icuMenu);
@@ -479,7 +492,7 @@
     var windowW = $(window).width() - 5; //获取宽度出错
     var windowH = $(window).height();
     var mainViewH = windowH - 5;
-    // $('#total-sco-container').outerHeight(mainViewH);
+    $('#total-sco-container').outerHeight(mainViewH);
 
   }
   /**

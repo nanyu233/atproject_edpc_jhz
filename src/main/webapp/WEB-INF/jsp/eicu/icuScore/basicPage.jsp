@@ -222,6 +222,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
       </div>
     </div>
     <script type="text/javascript">
+      eicuUtil.initMenu(100000)
       //全局变量
       if(eicuUtil.isOuterSys) {
         eicuUtil = parent.eicuUtil;
@@ -253,7 +254,13 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
         _liveNo = ptBasicInfo.liveNo || '${liveNo}';
         _gradeType = '${gradeType}';
         menuInfoObj = eicuUtil.getMenuInfo();
-        lastSkipInfo = parent.getLastSkipInfo();
+        // lastSkipInfo = parent.getLastSkipInfo();
+        lastSkipInfo = {
+          pageData: {
+            liveNo: '${liveNo}'
+          },
+          pageType: 'basic'
+        }; //
       }
       if (lastSkipInfo.pageData) {
         defaultDisplayMode = lastSkipInfo.pageData.displayMode || 'basic';
@@ -642,8 +649,8 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
       function setLayout() {
         var winW = $(window).width(); //获取宽度出错
         var winH = $(window).height();
-        // var mainViewH = eicuUtil.menuPanelLayoutSet(winW, winH).height;
-        var mainViewH = '800px'
+        var mainViewH = eicuUtil.menuPanelLayoutSet(winW, winH).height;
+        // var mainViewH = '800px'
         vm.mainViewH = mainViewH;
       }
       /**

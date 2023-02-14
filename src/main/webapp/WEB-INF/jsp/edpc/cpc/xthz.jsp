@@ -155,7 +155,7 @@
                 {
                     name: '评分总览',
                     <%--src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${emgSeq}'--%>
-                    src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${emgSeq}'
+                    src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${regSeq}'
                 },
             ]
         },

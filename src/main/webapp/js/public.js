@@ -815,7 +815,7 @@ var publicFun = {
 	},
 	getStorage: function (key) {
 		try {
-			var value = sessionStorage.getItem(key);
+			var value = sessionStorage.getItem(key) || localStorage.getItem(key);
 			if (value) {
 				return JSON.parse(value);
 			} else {
