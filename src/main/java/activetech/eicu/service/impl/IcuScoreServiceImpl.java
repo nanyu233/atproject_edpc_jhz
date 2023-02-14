@@ -331,8 +331,11 @@ public class IcuScoreServiceImpl implements IcuScoreService{
 	 * 获取评分评估最新的评分情况 icu_menu_def ovflag = 1
 	 */
 	@Override
-	public Map<String, Object> queryTotalScoByMenu(IcuScoreQueryDto icuScoreQueryDto) throws Exception {
+	public Map<String, Object> queryTotalScoByMenu(IcuScoreQueryDto icuScoreQueryDto,ActiveUser activeUser) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
+		if(null == activeUser){
+			icuScoreQueryDto.setOutFlag("out");
+		}
 		List<IcuGradeTotalCustom> gradeList = icuScoreCustomMapper.queryTotalScoByMenu(icuScoreQueryDto);
 		if(!"basic".equals(icuScoreQueryDto.getFlag())) {
 			Map<String, List<IcuGradeTotalCustom>> gradeMap = new HashMap<String, List<IcuGradeTotalCustom>>();

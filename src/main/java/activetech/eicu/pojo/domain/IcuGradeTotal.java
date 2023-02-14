@@ -27,6 +27,16 @@ public class IcuGradeTotal {
 
     private String htmlText;
 
+    private String linkSeq;
+
+    public String getLinkSeq() {
+        return linkSeq;
+    }
+
+    public void setLinkSeq(String linkSeq) {
+        this.linkSeq = linkSeq;
+    }
+
     public String getGradeSeq() {
         return gradeSeq;
     }

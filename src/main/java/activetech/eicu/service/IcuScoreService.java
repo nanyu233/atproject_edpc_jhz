@@ -60,7 +60,7 @@ public interface IcuScoreService {
 	 * @return
 	 * @throws Exception
 	 */
-	Map<String, Object> queryTotalScoByMenu(IcuScoreQueryDto icuScoreQueryDto) throws Exception;
+	Map<String, Object> queryTotalScoByMenu(IcuScoreQueryDto icuScoreQueryDto,ActiveUser activeUser) throws Exception;
 	/**
 	 * 获取评分总项信息
 	 * @param gradeTot

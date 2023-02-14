@@ -103,5 +103,6 @@ public interface DstuserCustomMapper {
 	public List<Operation> findOperatForAdmin();
 
 
-	 
+    List<DstuserCustom> findDstuserByPinyinLike(DstuserQueryDto dstuserQueryDto);
+
 }

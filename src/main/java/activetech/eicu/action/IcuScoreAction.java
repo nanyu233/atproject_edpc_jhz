@@ -252,10 +252,10 @@ public class IcuScoreAction {
 	 * @throws Exception
 	 */
 	@RequestMapping("/queryTotalScoByMenu")
-	public @ResponseBody SubmitResultInfo queryTotalScoByMenu(@RequestBody IcuScoreQueryDto icuScoreQueryDto) throws Exception{
+	public @ResponseBody SubmitResultInfo queryTotalScoByMenu(@RequestBody IcuScoreQueryDto icuScoreQueryDto,ActiveUser activeUser) throws Exception{
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 920, null);
 		//获取9种评分最近一条数据
-		 Map<String, Object> map = icuScoreService.queryTotalScoByMenu(icuScoreQueryDto);
+		 Map<String, Object> map = icuScoreService.queryTotalScoByMenu(icuScoreQueryDto,activeUser);
 		resultInfo.setSysdata(map);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}

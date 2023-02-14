@@ -24,7 +24,32 @@ public class IcuScoreQueryDto {
 	private String enterSource;
 	
 	private String fldCod;
-	
+	/**
+	 * 外部调用标识符
+	 */
+	private String outFlag;
+
+	/**
+	 * 菜单编号
+	 */
+	private String menuRoot;
+
+	public String getOutFlag() {
+		return outFlag;
+	}
+
+	public void setOutFlag(String outFlag) {
+		this.outFlag = outFlag;
+	}
+
+	public String getMenuRoot() {
+		return menuRoot;
+	}
+
+	public void setMenuRoot(String menuRoot) {
+		this.menuRoot = menuRoot;
+	}
+
 	public String getFldCod() {
 		return fldCod;
 	}

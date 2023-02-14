@@ -840,4 +840,8 @@ public class UserServiceImpl implements UserService {
 		return activeUser;
 	}
 
+	@Override
+	public List<DstuserCustom> findDstuserByPinyinLike(DstuserQueryDto dstuserQueryDto) {
+		return dstuserCustomMapper.findDstuserByPinyinLike(dstuserQueryDto);
+	}
 }

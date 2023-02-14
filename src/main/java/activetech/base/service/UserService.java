@@ -220,4 +220,6 @@ public interface UserService {
 	ActiveUser loginDing(String unionid, String userid) throws Exception;
 
     ActiveUser loginWeixin(String userid) throws Exception;
+
+    List<DstuserCustom> findDstuserByPinyinLike(DstuserQueryDto dstuserQueryDto);
 }

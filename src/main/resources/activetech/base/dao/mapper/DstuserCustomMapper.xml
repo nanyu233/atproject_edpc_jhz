@@ -381,7 +381,22 @@
 			and dstuser.usrno not like '%'|| 'admin' ||'%'
 		</where>
 	</select>
-	
+	<!-- 用户名拼音首字母查询 -->
+	<select id="findDstuserByPinyinLike" parameterType="activetech.base.pojo.dto.DstuserQueryDto"
+			resultType="activetech.base.pojo.dto.DstuserCustom">
+		select usrno userid,usrno,usrname,usrpass,userstate,phone,movephone,addr,email,fax,groupid,sysid,vchar1,vchar2,vchar3,vchar4,out_call,emgsysid,ysh,signimg
+		from dstuser
+		<where>
+			dstuser.userstate = '1'
+			<if test="dstuserCustom!=null">
+				<if test="dstuserCustom.queryLike!=null and dstuserCustom.queryLike!=''">
+					and (func_pinyin_szm(dstuser.usrname) like upper(#{dstuserCustom.queryLike})|| '%'
+					or dstuser.usrname like #{dstuserCustom.queryLike} || '%'
+					or dstuser.usrno = #{dstuserCustom.queryLike})
+				</if>
+			</if>
+		</where>
+	</select>
 
-		
+
 </mapper>

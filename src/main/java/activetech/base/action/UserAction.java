@@ -725,5 +725,21 @@ public class UserAction {
 		userService.updatePassword(usrno, dstuserQueryDto.getDstuserCustom());
 		return ResultUtil.createSubmitResult(ResultUtil.createSuccess(Config.MESSAGE, 906,null));
 	}
+
+	/**
+	 * 用户名拼音首字母查询
+	 * @param dstuserQueryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryUser_pinyinLike")
+	public @ResponseBody SubmitResultInfo queryUser_pinyinLike(DstuserQueryDto dstuserQueryDto) throws Exception{
+		ResultInfo resultInfo = ResultUtil.createWarning(Config.MESSAGE, 906, null);
+		List<DstuserCustom> userlist = userService.findDstuserByPinyinLike(dstuserQueryDto);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userlist", userlist);
+		resultInfo.setSysdata(map);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
 }
 
