@@ -401,7 +401,7 @@ public class IcuCustInfoAction {
 	 */
 	@RequestMapping("/toCustInfo")
 	public String toCustInfo(Model model, HttpSession session, String pagetype, String pageval, String moduleid,
-							 String bgTimeStr) throws Exception {
+							 String bgTimeStr,String liveNo) throws Exception {
 		String sessionId = session.getId();
 		model.addAttribute("sessionId", sessionId);
 		String ippost = systemConfigService.findAppoptionByOptkey("IPPOST").getOptvalue();
@@ -410,6 +410,8 @@ public class IcuCustInfoAction {
 		model.addAttribute("moduleid", moduleid);
 		model.addAttribute("pagetype", pagetype);
 		model.addAttribute("pageval", pageval);
+		model.addAttribute("liveNo", liveNo);
+
 		return "/eicu/icucust/custInfo";
 	}
 }

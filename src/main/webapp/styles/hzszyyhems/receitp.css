@@ -1,0 +1,359 @@
+@charset "utf-8";
+
+/**
+*  交接单
+*/
+.receitp {
+    /* float: left; */
+    width: 864px;
+    margin:  0 auto;
+    padding-bottom: 130px;
+}
+.ductreceitp,.surgeryreceitp,.icureceitp{
+    padding-bottom: 0px;
+}
+.receitp .headtitle{
+    width: 100%;
+    float: left;
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0px;
+    font-weight: bold;
+}
+.receitp .basicDiv {
+    float: left;
+    width: 100%;
+}
+.receitp .basicDiv label{
+    display: inline-block;
+    margin-right: 15px;
+}
+.receitp .basicDiv label.firstlab{
+    margin-left: 53px;
+}
+.receitp .basicDiv label.lastlab {
+    margin-right: 0px;
+}
+.receitp .basicDiv input{
+    width: 100px;
+}
+.receitp .mainInputBox {
+    float: left;
+    padding: 0px 0px 10px 10px;
+/*    border: 1px solid #9abce9;*/
+}
+.receitp .mainInputBox .subtitle{
+    float: left;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+}
+.receitp .mainInputBox .longInput {
+    width: 65%;
+}
+.receitp .mainInputBox .fullinputa{
+    width: 600px;
+}
+.receitp .mainInputBox .fullinputb{
+    width: 635px;
+}
+.receitp .mainInputBox .fullinputc{
+    width: 645px;
+}
+.receitp .smallInput{
+    width: 58px;
+}
+.receitp .mediumInput{
+    width: 280px;
+}
+.receitp .spcInput{
+    width: 100px;
+}
+.receitp .mainInputBox .ulwrapper{
+    float: left;
+    width: 100%;
+}
+.receitp .ulwrapper li{
+    float: left;
+    width: 100%;
+    height: 26px;
+    line-height: 26px;
+    margin: 3px 0px;
+}
+.receitp .ulwrapper li.specli{
+    height: 58px;
+}
+.receitp .ulwrapper li.specinputli{
+    height: 84px;
+}
+.receitp .ulwrapper li.halfli {
+    width: 50%;
+}
+.receitp .ulwrapper li.fourli {
+    width: 25%;
+}
+.receitp .ulwrapper li.threeli{
+    width: 33%;
+}
+.receitp .ulwrapper li.threefoldli{
+    height: 90px;
+}
+.receitp .userList {
+    position: absolute;
+    top: 20px;
+    right: 4px;
+    z-index: 3;
+    width: 105px;
+    max-height: 130px;
+    display: none;
+    background: rgb(30, 144, 255);
+    border: 1px solid #ddd;
+    cursor: default;
+    overflow-y: scroll;
+}
+.receitp .userList li:hover {
+    background: rgb(30, 144, 255);
+    text-decoration: none;
+    color: #fff;
+    cursor: default
+}
+.receitp .userList li{
+    display: inline-block;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    height: 20px;
+    line-height: 20px;
+    text-indent: 0.5em;
+    margin: 0;
+}
+.receitp .relative input{
+    width: 100px;
+}
+.receitp .smalltitle {
+    display: inline-block;
+    float: left;
+    font-weight: bold;
+    padding-right: 10px;
+}
+.receitp .fourtitle{
+    text-align: center;
+    /* width: 4em; */
+    /*这个值是看最长能显示几个文字，如x，则为x em*/
+}
+.receitp .twotitle{
+    letter-spacing:2em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-2em; /*同上*/
+}
+.receitp .threetitle{
+    letter-spacing:0.5em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.5em; /*同上*/
+}
+.receitp .fifvtitle{
+    text-align: center;
+    width: 5em; /*这个值是看最长能显示几个文字，如x，则为x em*/
+}
+.receitp .twofivetitle{
+    letter-spacing:3em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-3em; /*同上*/
+}
+.receitp .tentitle{
+    text-align: center;
+    /* width: 10em; */
+    /*这个值是看最长能显示几个文字，如x，则为x em*/
+}
+.receitp .seventitle {
+    letter-spacing:0.5em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.5em; /*同上*/
+}
+.receitp .sixtitle{
+    letter-spacing:0.8em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.8em; /*同上*/
+}
+.receitp .twomargin{
+    margin-left: 14px;
+    width: 3em;
+}
+.receitp .threemargin{
+    margin-left: 3em;
+    width: 2em;
+}
+.receitp .fifemargin{
+    width: 5em;
+}
+.receitp .onemarginleft{
+    margin-left: 1em;
+    width: 4em;
+}
+/* .receitp .sevenSize{
+    width:7em;
+} */
+.receitp .halfSize{
+    letter-spacing:1em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-1em; /*同上*/
+}
+.receitp .sixSize{
+    letter-spacing:0.2em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.2em; /*同上*/
+}
+.receitp .spcSize{
+    letter-spacing:3.8em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-3.8em; /*同上*/
+}
+.receitp .twoThreeSize{
+    letter-spacing:0.667em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.667em; /*同上*/
+}
+.receitp .fourSize{
+    letter-spacing:4em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-4em; /*同上*/
+}
+.receitp .foureFiveSize{
+    letter-spacing:0.333em; /*如果需要y个字两端对齐，则为(x-y)/(y-1),这里是（4-2）/(2-1)=2em */
+    margin-right:-0.333em; /*同上*/
+}
+.receitp .divwrapper{
+    float: left;
+}
+.receitp .withwrap{
+    width: 530px;
+}
+.receitp .underlinespan{
+    float: right;
+    margin-right: 20px;
+    display: inline-block;
+    overflow: hidden;
+}
+.receitp .showwrap{
+    width: 805px;
+}
+.receitp .mainInputBox .ulwith{
+    width: 877px;
+    border-top:1px solid black;
+    margin-top: 15px;
+}
+.receitp .grapspan {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.receitp .inputlab{
+    float: right;
+    margin-top: 5px;
+}
+.receitp .leftlab{
+    float: right;
+}
+.receitp .extraInput,.receitp .extralab{
+    margin-left: 20px;
+}
+.surgeryreceitp .extralab, .icureceitp .extralab{
+    margin-left: 10px;
+}
+.receitp .spanbox{
+    margin-right: 10px;
+}
+.receitp .spcWdate {
+    border: 1px solid #d1d1d1;
+    width: 140px;
+}
+.receitp .labbox{
+    margin-left: 10px;
+}
+.receitp .middleDiv{
+    margin-bottom: 5px;
+}
+.receitp .labbottom {
+    margin-bottom: 10px;
+    margin-right: 5px;
+    display: inline-block;
+}
+.receitp .borderTop{
+    border-top: 1px dashed #9abce9;
+    padding-top: 5px;
+}
+.receitp .checklabel{
+    margin-right: 10px;
+    color: #2a00ff;
+}
+.receitp .ulwrapper .rightli{
+    float: right;
+    text-align: right;
+}
+.receitp .marginSpan{
+    margin-left: 10px;
+    display: inline-block;
+}
+.receitp .btnli{
+    text-align: center;
+}
+.receitp .basicDiv .spcWdate{
+    width: 140px;
+}
+.receitp .smallWdate{
+    border: 1px solid #d1d1d1;
+    width: 100px;
+}
+#show_text{
+    float: left;
+    width: 88%;
+    height: 26px;
+    line-height: 26px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.surgeryreceitp #show_text{
+    float: left;
+    width: 78%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.ductreceitp #show_text{
+    float: left;
+    width: 80%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.receitp .selopz{
+    width: 80px;
+}
+.receitp .showfullli,.receitp .showhalfli{
+    overflow: hidden;
+}
+.receitp .smallcontent{
+    display: inline-block;
+    float: left;
+    width: 50%;
+    padding-right: 10px;
+}
+.receitp .leftspan{
+    display: inline-block;
+    float: left;
+    padding-right: 10px;
+}
+.receitp .sightSpan{
+    float:left;
+    display: inline-block;
+    margin-right: 20px;
+}
+.receitp .emleft{
+    margin-left: 1em;
+}
+.receitp .showtable{
+    width: 565px;
+    margin: 10px 0px;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+.receitp .showtable td{
+    border: 1px solid #000; 
+    height: 30px;
+}
+.receitp .showtable td.lefttitle{
+    text-align: center;
+}

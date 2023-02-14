@@ -302,9 +302,9 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
           }
         }
         //判断是否登陆
-        if(sessionStorage.getItem('icutoken') === null){
-          return;
-        }
+        // if(sessionStorage.getItem('icutoken') === null){
+        //   return;
+        // }
         var gradeSeq = $clickedEl ? $clickedEl.data('gradeseq') : '';
         var exChgInfo = {
           gradeType: _gradeType,
@@ -531,7 +531,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
         } else {
           basicUrl = curMenuInfo.menuUrl.split('?')[0];
         }
-        basicUrl += '?' + 'gradeType=' + _gradeType;
+        basicUrl += '?' + 'gradeType=' + _gradeType + '&liveNo=' + '${liveNo}';
         if (extraParams) {
           $.each(extraParams, function (k, v) {
             basicUrl += '&' + k + '=' + v;
@@ -642,7 +642,8 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
       function setLayout() {
         var winW = $(window).width(); //获取宽度出错
         var winH = $(window).height();
-        var mainViewH = eicuUtil.menuPanelLayoutSet(winW, winH).height;
+        // var mainViewH = eicuUtil.menuPanelLayoutSet(winW, winH).height;
+        var mainViewH = '800px'
         vm.mainViewH = mainViewH;
       }
       /**

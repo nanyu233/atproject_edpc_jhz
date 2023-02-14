@@ -541,6 +541,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
             type="text"
             id="gradeUser"
             autocomplete="off"
+            ms-duplex-string="gradeUser"
           />
         </label>
       </div>
@@ -580,9 +581,21 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
       />
     </div>
     <script type="text/javascript">
+      var _baseUrl = '${baseurl}';
+      var DEFAULT_USER_ID = '${activeUser.usrno}';
+      var DEFAULT_USER_NAME = '${activeUser.usrname}';
+      var NURS_HOME_ID = '200001';
+      var DOC_HOME_ID = '300001';
+      var DOC_ROOT_MOD_ID = '300000';
+      var NURS_ROOT_MOD_ID = '200000';
+      var DAY_HOUR = 24;
+      var TIME_TRANS_NUM = 60;
+      var DAY_MINUTE = DAY_HOUR * TIME_TRANS_NUM;
+      var DAY_MILLI_SEC = DAY_MINUTE * TIME_TRANS_NUM * 1000;
+
       //全局变量
-      var ptBasicInfo = eicuUtil.ptBasicInfo;
-      var _liveNo = ptBasicInfo.liveNo;
+      // var ptBasicInfo = eicuUtil.ptBasicInfo;
+      var _liveNo = '${liveNo}';
       var _gradeSeq = '${gradeSeq}';
       var _linkSeq = "";
       var _gradeType = '${gradeType}';
@@ -594,6 +607,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
         _gradeSeq = exChgGradeInfo.gradeSeq;
         _pGradeTimeStr = exChgGradeInfo.gradeTimeStr;
       }
+
     </script>
     <script type="text/javascript">
       var windowPadding = 10;
@@ -619,6 +633,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
       var vm = avalon.define({
         $id: 'scoEdit',
         bodyShowFlag: false,
+        gradeUser: DEFAULT_USER_NAME,
         gradeSeq: _gradeSeq,
         tableMode: exChgGradeInfo.scoTableMode, //h-GCS-like，i-MODS-like, v-RASS-like, c-TISS-like
         // allCheckFlag: '0', //全选标志
@@ -1198,7 +1213,8 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
               $('#gradeTimeStr').val(
                 publicFun.timeFormat(totalInfo.gradeTime, 'yyyy/MM/dd hh:mm')
               );
-              $('#gradeUser').val(totalInfo.gradeUser);
+              vm.gradeUser = totalInfo.gradeUser
+              // $('#gradeUser').val(totalInfo.gradeUser);
               eicuUtil.queryDoct($('#gradeUser'));
             } else {
               getParentModInfo();
@@ -1215,7 +1231,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
           alert_warn('评分不能为空');
           return false;
         }
-        var gradeUser = $('#gradeUser').data('userid') || '';
+        var gradeUser = vm.gradeUser || '';
         var gradeTimeStr = $('#gradeTimeStr').val();
         if (!gradeTimeStr) {
           alert_warn('评分时间不能为空');
@@ -1262,7 +1278,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
                 gradeSeq: _gradeSeq,
                 gradeType: _gradeType,
                 gradeTimeStr: $('#gradeTimeStr').val(),
-                gradeUser: $('#gradeUser').data('userid') || '',
+                gradeUser: vm.gradeUser || '',
                 gradeSco: vm.totalSco,
                 gradeDetl: vm.scoreName + ': ' + vm.totalSco + '分',
                 linkSeq: _linkSeq

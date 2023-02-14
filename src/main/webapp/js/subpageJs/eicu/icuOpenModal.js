@@ -227,6 +227,9 @@ var icuOpenModal = {
         // 调试长款直接赋值 modalWidth & modalHeight
         params.scoTableMode = scoTableMode;
         this.setExChgInfo(params);
+        if (_liveNo) {
+            modalUrl = modalUrl + '?liveNo=' + _liveNo
+        }
         this.createModal(modalTitle, modalWidth, modalHeight, modalUrl);
     },
 }

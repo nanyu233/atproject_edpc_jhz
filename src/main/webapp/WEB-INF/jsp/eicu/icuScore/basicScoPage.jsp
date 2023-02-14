@@ -1,1377 +1,1379 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
+         pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>通用评分页面</title>
-    <%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="${baseurl}styles/eicu/eicu_common.css"
-    />
-    <%@ include file="/WEB-INF/jsp/base/common_js.jsp"%>
-    <script
-      src="${baseurl}lib/avalon1.4.8/avalon.js"
-      type="text/javascript"
-      charset="UTF-8"
-    ></script>
-    <%@ include file="/WEB-INF/jsp/eicu/eicuCommonJs.jsp"%>
-    <style>
-      #sco-container {
-        padding: 10px 10px 0;
-        box-sizing: border-box;
-        /* overflow: hidden; */
-        overflow-y: auto;
-        overflow-x: hidden;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>GCS评分</title>
+  <%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
+  <link rel="stylesheet" type="text/css" href="${baseurl}styles/eicu/eicu_common.css"/>
+<%--  <%@ include file="/WEB-INF/jsp/base/common_js.jsp"%> --%>
+  <%@ include file="/WEB-INF/jsp/eicu/eicuCommonJs.jsp"%>
+  <script language="javascript" src="${baseurl}Lodop6.216/LodopFuncs.js"></script>
+  <script src="${baseurl}lib/avalon1.4.8/avalon.js" type="text/javascript" charset="UTF-8"></script>
+  <script src="${baseurl}lib/highcharts5.0.7/code/highcharts.js" type="text/javascript"></script>
+  <script src="${baseurl}lib/highcharts5.0.7/code/highcharts-zh_CN.js" type="text/javascript"></script>
+  <style>
+    body {
+      overflow: auto;
+    }
 
-      #sco-container table {
-        margin: 0 auto 10px;
-      }
+    #container {
+      height: 100vh;
+      overflow-x: auto;
+      overflow-y: auto;
+    }
 
-      table {
-        table-layout: fixed;
-      }
+    .page-title {
+      padding: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+    }
 
-      table thead tr {
-        background-color: #f5f5f5;
-      }
+    #sco-container {
+      margin-top: 6px;
+      margin-bottom: 10px;
+      padding: 0 10px;
+    }
 
-      table tr.odd-tr td:not(.root-name),
-      table tr.odd-tr th:not(.root-name) {
-        background-color: #eef;
-      }
+    #sco-container table {
+      table-layout: fixed;
+      /* margin: 0 auto; */
+    }
 
-      table tr th {
-        text-align: center;
-      }
+    #sco-container table colgroup col {
+      width: 90px;
+    }
 
-      table tr th,
-      table tr td {
-        padding: 5px;
-        border: 1px solid #aaa;
-        /* box-sizing: border-box; */
-      }
+    #sco-container table colgroup col.title-first {
+      width: 80px;
+    }
 
-      table td.odd-td {
-        background-color: #eef;
-      }
+    #sco-container table colgroup col.title-second {
+      width: 80px;
+    }
 
-      table tr td.hover-td:hover {
-        background-color: rgb(234, 242, 255);
-      }
+    #sco-container table colgroup col.title-third {
+      width: 100px;
+    }
 
-      table tr th .item-name-td,
-      table tr td .item-name-td {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        text-align: left;
-        overflow: hidden;
-        word-break: break-all;
-      }
+    #sco-container table tr th {
+      text-align: left;
+    }
 
-      table tr td .score-label {
-        margin-left: 5px;
-        display: flex;
-        align-items: center;
-        box-sizing: border-box;
-        cursor: default;
-      }
+    #sco-container table tr th,
+    #sco-container table tr td {
+      padding: 5px;
+      border: 1px solid #666;
+    }
 
-      table tr td .score-label.checked {
-        font-weight: bold;
-      }
+    #sco-container table tr td.total-sco-td {
+      font-weight: bold;
+      font-size: 14px;
+    }
 
-      table tr td .score-label:first-child {
-        margin-left: 0;
-      }
+    #sco-container table tr td.edit-col {
+      text-align: center;
+    }
 
-      table tr td .score-label .score-label-name {
-        margin-left: 5px;
-        text-align: left;
-      }
+    #sco-container table tr .edit-col.hover-in {
+      background-color: rgb(234, 242, 255);
+    }
 
-      table tr td .score-label > input[type='checkbox'] {
-        width: 13px;
-        box-sizing: border-box;
-      }
+    #sco-container table tr .edit-col.active {
+      background-color: #fdff65;
+    }
 
-      /*h/i-input-table*/
-      .input-td input {
-        height: 24px;
-        line-height: 24px;
-        box-sizing: border-box;
-      }
+    table tr td .signPic {
+      width: 12mm;
+      height: 6mm;
+    }
 
-      /* v-table */
-      .v-table .vt-detl-name,
-      .v-table .vt-detl-name .item-name-td {
-        width: 350px;
-      }
+    table tr td .signPic ~ span {
+      display: none;
+      width: 100%;
+    }
 
-      .v-table tr .score-td {
-        text-align: center;
-        width: 120px;
-      }
+    /*图表样式*/
+    #chart-container {
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
 
-      /* c-table */
-      .mc-card {
-        margin-left: 15px;
-        margin-bottom: 10px;
-      }
+    #chart-container .page-title {
+      margin: 0 auto;
+    }
 
-      .mc-card .icu-card-title .icu-btn-group {
-        flex: 1;
-        justify-content: flex-end;
-      }
+    .chart-content-part {
+      margin: 5px 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
 
-      .mc-card .icu-card-body {
-        padding-bottom: 0;
-      }
+      border-radius: 10px;
+    }
 
-      .mc-card .mc-item-group {
-        flex-wrap: wrap;
-      }
+    #chart-box {
+      background: #f9f9f9;
+      box-shadow: 0 0 5px 5px #ddd;
+    }
 
-      .mc-card .mc-item-group .mc-item {
-        margin-right: 10px;
-        margin-bottom: 10px;
-        padding: 0 10px;
-        height: auto;
-      }
+    #chart-grid-box {
+      padding: 10px 0;
+      overflow-y: auto;
+    }
+    #chart-grid-box .grid-title {
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+    }
+    #chart-grid-box .grid-content {
+      overflow-y: auto;
+    }
+    #chart-grid-box .icu-table {
+      margin-left: 15px;
+    }
+    #chart-grid-box .icu-table tbody>tr:first-child td {
+      border-top: none;
+    }
+    /*特殊*/
+    .text-right {
+      text-align: right;
+    }
+  </style>
+</head>
 
-      .mc-card .mc-item-group .mc-item .icu-check-label-name {
-        display: flex;
-        align-items: center;
-        width: 150px;
-        height: 38px;
-        overflow: hidden;
-      }
-
-      /* 签名栏样式 */
-      #mod-info-box {
-        display: flex;
-        align-items: center;
-        height: 40px;
-        padding: 0 10px;
-        border-top: 1px solid #ccc;
-        box-sizing: border-box;
-      }
-
-      #user-info {
-        flex: 1;
-        display: flex;
-        align-items: center;
-      }
-
-      #user-info > label {
-        margin-right: 10px;
-        align-items: center;
-      }
-
-      .userInput {
-        width: 90px;
-      }
-
-      #mod-info-box .signPic {
-        max-width: 12mm;
-        max-height: 6mm;
-      }
-
-      #mod-info-box .signPic ~ span {
-        display: none;
-        max-width: 100%;
-      }
-
-      /* 总分显示 */
-      #total-sco-info {
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-        font-weight: bold;
-        color: #333;
-      }
-
-      #total-sco-info > span:last-child {
-        margin-left: 5px;
-        justify-content: center;
-        min-width: 20px;
-      }
-    </style>
-  </head>
-
-  <body class="editScore" ms-controller="scoEdit">
-    <div
+<body ms-controller="scoreQuery">
+<div
+    id="container"
+    ms-css-visibility="{{ showBody ? 'visible' : 'hidden' }}"
+>
+  <div
+      ms-visible="pDisplayMode==='basic'"
       id="sco-container"
-      ms-css-visibility="{{ bodyShowFlag ? 'visible' : 'hidden' }}"
+      ms-css-width="tableWidth"
+  >
+    <table ms-css-width="tableWidth">
+      <caption class="page-title">
+        {{ pageName }}
+      </caption>
+      <colgroup>
+        <col class="basic-col title-first" />
+        <col class="basic-col title-second" />
+        <col class="basic-col title-third" />
+        <col class="basic-col title-score" />
+        <col ms-repeat="timeList" />
+      </colgroup>
+      <thead>
+      <tr>
+        <th
+            class="sco-item-header"
+            rowspan="2"
+            ms-attr-colspan="{{ tableType === 'specific' ? '2' : '3' }}"
+        >评分项目</th
+        >
+        <th ms-if="tableType === 'specific'" rowspan="2">评分区间</th>
+        <th class="sco-header" rowspan="2">分值</th>
+        <th ms-if="timeList.length" ms-attr-colspan="timeList.length"
+        >评分时间</th
+        >
+      </tr>
+      <tr id="time-list-title">
+        <th
+            ms-repeat="timeList"
+            ms-class-1="{{ 'edit-col time' + $index }}"
+            ms-class-2="{{ hoverIdx === $index ? 'hover-in' : '' }}"
+            ms-class-3="{{ selectIdx === $index ? 'active' : '' }}"
+            ms-mouseenter="timeHoverIn($index)"
+            ms-mouseleave="timeHoverOut($index)"
+            ms-dblclick="timeColDblClick($index)"
+            ms-click="timeColClick($index)"
+        >
+          {{ el.gradeTimeStr }}
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ms-repeat-iteminfo="totalList">
+        <th
+            ms-if="iteminfo.rootSelfIdx===0"
+            ms-attr-rowspan="{{ iteminfo.rootSpanNumb }}"
+            ms-attr-colspan="{{ iteminfo.secNodeName ? '1' : '3' }}"
+        >
+          {{ iteminfo.rootName }}
+        </th>
+        <th
+            ms-if="iteminfo.secNodeName && ((iteminfo.thirdNodeName && iteminfo.secSelfIdx===0) || !iteminfo.thirdNodeName)"
+            ms-attr-colspan="{{ iteminfo.thirdNodeName ? '1' : '2' }}"
+            ms-attr-rowspan="{{
+                  iteminfo.thirdNodeName ? iteminfo.secSpanNumb : '1'
+                }}"
+        >
+          <div
+              style="word-break: break-all;"
+              ms-attr-title="{{ iteminfo.secNodeName }}"
+          >
+            {{ iteminfo.secNodeName }}
+          </div>
+        </th>
+        <th ms-if="iteminfo.thirdNodeName">
+                <span>
+                  {{ iteminfo.thirdNodeName }}
+                </span>
+        </th>
+        <th>{{ iteminfo.scoreMemo }}</th>
+        <td
+            ms-repeat-scoel="iteminfo.scoTimeList"
+            ms-class-1="{{ 'edit-col time' + $index }}"
+            ms-class-2="{{ hoverIdx === $index ? 'hover-in' : '' }}"
+            ms-class-3="{{ selectIdx === $index ? 'active' : '' }}"
+            ms-class-4="{{ scoel ? 'td-checked' : '' }}"
+            ms-mouseenter="timeHoverIn($index)"
+            ms-mouseleave="timeHoverOut($index)"
+            ms-dblclick="timeColDblClick($index)"
+            ms-click="timeColClick($index)"
+        >
+          {{
+          scoel
+          ? iteminfo.lmtFlag !== '#'
+          ? scoel.itemValue
+          : '√'
+          : ''
+          }}
+        </td>
+      </tr>
+      </tbody>
+      <tbody ms-if="totalScoInfo.scoTimeList">
+      <tr>
+        <!-- 总分 -->
+        <th
+            ms-attr-colspan="totalScoInfo.scoreMemo === '#' ? '4' : '3'"
+        >{{ totalScoInfo.itemName }}</th
+        >
+        <th ms-if="totalScoInfo.scoreMemo !== '#'">{{
+          totalScoInfo.scoreMemo
+          }}</th>
+        <td
+            ms-repeat-scoel="totalScoInfo.scoTimeList"
+            class="total-sco-td"
+            ms-class-1="{{ 'edit-col time' + $index }}"
+            ms-class-2="{{ hoverIdx === $index ? 'hover-in' : '' }}"
+            ms-class-3="{{ selectIdx === $index ? 'active' : '' }}"
+            ms-class-4="{{ scoel.riskColor }}"
+            ms-mouseenter="timeHoverIn($index)"
+            ms-mouseleave="timeHoverOut($index)"
+            ms-dblclick="timeColDblClick($index)"
+            ms-click="timeColClick($index)"
+        >
+          {{ scoel.itemValue }}
+        </td>
+      </tr>
+      </tbody>
+      <tbody ms-if="signInfo.scoTimeList">
+      <tr>
+        <!-- 签名详情 -->
+        <th colspan="4">{{ signInfo.itemName }}</th>
+        <td
+            ms-repeat-scoel="signInfo.scoTimeList"
+            ms-class-1="{{ 'edit-col time' + $index }}"
+            ms-class-2="{{ hoverIdx === $index ? 'hover-in' : '' }}"
+            ms-class-3="{{ selectIdx === $index ? 'active' : '' }}"
+            ms-mouseenter="timeHoverIn($index)"
+            ms-mouseleave="timeHoverOut($index)"
+            ms-dblclick="timeColDblClick($index)"
+            ms-click="timeColClick($index)"
+        >
+          <img
+              class="signPic"
+              ms-attr-src="{{
+                    '${baseurl}images/eicu/signPic/' + scoel.imgSrc
+                  }}"
+              ms-attr-title="scoel.nursName"
+              onerror="signPicError()"
+          />
+          <span>{{ scoel.nursName }}</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div ms-visible="pDisplayMode === 'chart'" id="chart-container">
+    <div class="chart-box-title page-title">{{ pageName }}</div>
+    <div
+        class="chart-box-content"
+        style="display:flex;align-items: center;"
     >
-      <table ms-if="tableMode === 'h' || tableMode === 'i'" class="h-table">
-        <!-- 横向渲染 -->
-        <colgroup>
-          <col />
-          <col />
-          <col ms-repeat="headScoreList" />
-          <col />
-        </colgroup>
-        <thead>
-          <tr>
-            <th rowspan="2" colspan="2">评分项目</th>
-            <th
-              ms-attr-colspan="{{
-                tableMode === 'i'
-                  ? headScoreList.length + 1
-                  : headScoreList.length
-              }}"
-              >分值
-            </th>
-          </tr>
-          <tr>
-            <th ms-repeat="headScoreList">{{ el.scoreMemo }}</th>
-            <th ms-if="tableMode === 'i'">数值</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ms-repeat-rootinfo="totalList">
-            <td
-              ms-if="tableMode === 'h' && rootinfo.rootSelfIdx === 0"
-              class="root-name"
-              ms-css-width="{{
-                rootinfo.hideSecNode ? itemNameColW : itemNameColW * 0.4
-              }}"
-              ms-attr-colspan="{{ rootinfo.hideSecNode ? '2' : '1' }}"
-              ms-attr-rowspan="{{ rootinfo.rootRowSpanNumb }}"
+      <div
+          id="chart-box"
+          class="chart-content-part"
+          ms-css-width="containerW-380"
+      >
+        <div
+            id="chart-div"
+            ms-css-height="containerH - 70"
+            ms-css-width="containerW-380-70"
+        ></div>
+      </div>
+      <div
+          id="chart-grid-box"
+          class="chart-content-part"
+          ms-css-height="containerH - 70"
+          style="width:330px"
+      >
+        <div class="grid-title">
+              <span class="grid-title">
+                评分记录
+              </span>
+          <table class="icu-table">
+            <colgroup>
+              <col style="width:115px" />
+              <col style="width:65px" />
+              <col style="width:75px; text-align:right" />
+              <col style="width:40px;text-align:right" />
+            </colgroup>
+            <thead>
+            <tr>
+              <th>时间</th>
+              <th>评分人</th>
+              <th>评分</th>
+              <th>次数</th>
+            </tr>
+            </thead>
+          </table>
+        </div>
+
+        <div class="grid-content" ms-css-height="containerH - 120">
+          <table class="icu-table">
+            <colgroup>
+              <col style="width:115px" />
+              <col style="width:65px" />
+              <col style="width:75px;text-align:right" />
+              <col style="width:40px;text-align:right" />
+            </colgroup>
+            <tbody>
+            <tr
+                ms-repeat="totalList"
+                ms-class-1="{{ selectIdx === $index ? 'active' : '' }}"
+                ms-class-2="{{ 'chart-tr' + $index }}"
+                ms-dblclick="timeColDblClick($index)"
+                ms-click="timeColClick($index)"
             >
-              <div
-                class="item-name-td"
-                ms-css-width="{{
-                  rootinfo.hideSecNode ? itemNameTdW : itemNameColW * 0.4 - 12
-                }}"
-              >
-                {{ rootinfo.rootName }}
-              </div>
-            </td>
-            <td
-              ms-if="tableMode === 'i' && rootinfo.rootSelfIdx === 0"
-              class="root-name"
-              ms-css-width="{{
-                rootinfo.hideSecNode ? iTableNameTdW : iTableNameColW * 0.4 - 12
-              }}"
-              ms-attr-colspan="{{ rootinfo.hideSecNode ? '2' : '1' }}"
-              ms-attr-rowspan="{{ rootinfo.rootRowSpanNumb }}"
-            >
-              <div
-                class="item-name-td"
-                ms-css-width="{{
-                  rootinfo.hideSecNode
-                    ? iTableNameTdW
-                    : iTableNameColW * 0.4 - 12
-                }}"
-              >
-                {{ rootinfo.rootName }}
-              </div>
-            </td>
-            <td
-              ms-if="!rootinfo.hideSecNode"
-              class="root-name"
-              ms-css-width="{{
-                tableMode === 'i'
-                  ? iTableNameColW * 0.6 - 12
-                  : itemNameColW * 0.6 - 12
-              }}"
-            >
-              <div
-                class="item-name-td"
-                ms-css-width="tableMode === 'i' ? (iTableNameColW*0.6 - 12) : (itemNameColW*0.6 - 12)"
-              >
-                {{ rootinfo.itemName }}
-              </div>
-            </td>
-            <td
-              ms-repeat-iteminfo="rootinfo.detlList"
-              ms-class="{{
-                groupScoMap[iteminfo.itemGroup].itemField ===
-                  iteminfo.itemField &&
-                groupScoMap[iteminfo.itemGroup].scoreValue ===
-                  iteminfo.scoreValue
-                  ? 'td-checked'
-                  : ''
-              }}"
-              ms-css-width="hDetlTdW"
-            >
-              <label
-                class="score-label"
-                ms-if="iteminfo.itemField!=='FAKE'"
-                ms-css-width="hDetlTdW"
-              >
-                <input
-                  type="checkbox"
-                  ms-class="{{ rootinfo.itemField }}"
-                  ms-attr-name="{{ iteminfo.itemField }}"
-                  ms-attr-value="{{ iteminfo.scoreValue }}"
-                  ms-attr-checked="{{
-                    groupScoMap[iteminfo.itemGroup].itemField ===
-                      iteminfo.itemField &&
-                      groupScoMap[iteminfo.itemGroup].scoreValue ===
-                        iteminfo.scoreValue
-                  }}"
-                  ms-attr-disabled="{{
-                    iteminfo.lmtFlag === '#' ? false : true
-                  }}"
-                  ms-click="scoCheck(iteminfo, $event)"
+              <td>{{ el.gradeTimeStr }}</td>
+              <td>
+                <img
+                    class="signPic"
+                    ms-attr-src="{{ el.userImgSrc }}"
+                    ms-attr-title="{{ el.gradeUserStr }}"
+                    onerror="signPicError()"
                 />
-                <div class="score-label-name" ms-css-width="hLabelWidth">
-                  {{ iteminfo.itemName }}
-                </div>
-              </label>
-            </td>
-            <td
-              ms-if="tableMode === 'i'"
-              class="input-td"
-              ms-css-width="itemNameTdW-10"
-            >
-              <label class="score-label" ms-css-width="itemNameTdW-10">
-                <input
-                  ms-if="rootinfo.lmtFlag !=='#'"
-                  type=" text"
-                  class="i-table-input"
-                  ms-class-1="{{ rootinfo.itemField }}"
-                  ms-css-width="{{ itemNameTdW - 10 - 60 }}"
-                  ms-attr-disabled="groupScoMap[rootinfo.itemGroup].scoreValue !== '' && groupScoMap[rootinfo.itemGroup].itemRoot !== rootinfo.itemField"
-                  ms-keyup="hTableInput(rootinfo, $event)"
-                  ms-blur="setInputSco($event, rootinfo)"
-                />
-                <span class=" unit" style="margin-left: 3px">{{
-                  rootinfo.itemUnit
-                }}</span>
-              </label>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <table ms-if="tableMode === 'v'" class="v-table">
-        <!-- 纵向渲染 -->
-        <thead>
-          <tr>
-            <th ms-css-width="{{ vtShowSecondChild ? itemNameTdW : '300' }}"
-              >评分项目</th
-            >
-            <th ms-if="vtShowSecondChild" class="vt-detl-name">详细描述</th>
-            <th>分值</th>
-          </tr>
-        </thead>
-        <tbody ms-repeat-rootinfo="totalList">
-          <tr ms-repeat-iteminfo="rootinfo.scoreList || rootinfo.detlList">
-            <th
-              ms-if="$index === 0"
-              class="root-name"
-              ms-attr-rowspan="rootinfo.firstRowSpanNum"
-              ms-attr-colspan="{{ rootinfo.mergeSecondChild ? '2' : '1' }}"
-            >
-              <div class="item-name-td">
-                {{ rootinfo.itemName }}
-              </div>
-            </th>
-            <td
-              ms-if="vtShowSecondChild && !rootinfo.mergeSecondChild"
-              class="vt-detl-name"
-            >
-              <div class="item-name-td">
-                {{ iteminfo.itemName }}
-              </div>
-            </td>
-            <td
-              ms-if="!iteminfo.scoreList"
-              class="score-td score-list-td hover-td"
-              ms-class-1="{{
-                groupScoMap[iteminfo.itemGroup].itemField ===
-                  iteminfo.itemField &&
-                groupScoMap[iteminfo.itemGroup].scoreValue ===
-                  iteminfo.scoreValue
-                  ? 'td-checked'
-                  : ''
-              }}"
-            >
-              <span class="score-label">
-                <label class="score-label">
-                  <input
-                    type="checkbox"
-                    ms-class="{{ rootinfo.itemField }}"
-                    ms-attr-name="{{ iteminfo.itemField }}"
-                    ms-attr-value="{{ iteminfo.scoreValue }}"
-                    ms-attr-checked="{{
-                      groupScoMap[iteminfo.itemGroup].itemField ===
-                        iteminfo.itemField &&
-                        groupScoMap[iteminfo.itemGroup].scoreValue ===
-                          iteminfo.scoreValue
-                    }}"
-                    ms-attr-disabled="singleLock && singleLock !== iteminfo.scoreValue"
-                    ms-click="scoCheck(iteminfo, $event)"
-                  />
-                  <div class="score-label-name">
-                    {{ iteminfo.scoreMemo }}
-                  </div>
-                </label>
-              </span>
-            </td>
-            <td
-              ms-if="iteminfo.scoreList"
-              class="score-td score-list-td hover-td"
-            >
-              <!-- 单行多check -->
-              <span class="score-label">
-                <label
-                  ms-repeat-scoel="iteminfo.scoreList"
-                  class="score-label"
-                  ms-class-1="{{
-                    groupScoMap[scoel.itemGroup].itemField ===
-                      scoel.itemField &&
-                    groupScoMap[scoel.itemGroup].scoreValue === scoel.scoreValue
-                      ? 'td-checked'
-                      : ''
-                  }}"
-                >
-                  <input
-                    type="checkbox"
-                    ms-class="{{ rootinfo.itemField }}"
-                    ms-attr-name="{{ scoel.itemField }}"
-                    ms-attr-value="{{ scoel.scoreValue }}"
-                    ms-attr-checked="{{
-                      groupScoMap[scoel.itemGroup].itemField ===
-                        scoel.itemField &&
-                        groupScoMap[scoel.itemGroup].scoreValue ===
-                          scoel.scoreValue
-                    }}"
-                    ms-attr-disabled="singleLock && singleLock !== scoel.scoreValue"
-                    ms-click="scoCheck(scoel, $event)"
-                  />
-                  <div class="score-label-name">{{ scoel.scoreMemo }}</div>
-                </label>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div ms-if="tableMode === 'c'" id="mc-card-box" class="c-card">
-        <!-- 层级卡片 -->
-        <div ms-repeat-rootinfo="totalList" class="icu-card mc-card">
-          <div class="icu-card-title">
-            <span>{{ rootinfo.itemName }}</span>
-            <span class="icu-btn-group">
-              <span
-                class="icu-btn inline-btn btn-outline-primary"
-                ms-click="cTableCheckAll(rootinfo, $event)"
-              >
-                全选
-              </span>
-              <span
-                class="icu-btn inline-btn btn-outline-primary"
-                ms-click="cTableConverseCheck(rootinfo, $event)"
-              >
-                反选
-              </span>
-              <span class="icu-btn inline-btn display-btn bg-primary">
-                {{ rootinfo.checkedNumb + ' / ' + rootinfo.detlList.length }}
-              </span>
-            </span>
-          </div>
-          <div class=" icu-card-body">
-            <div class="icu-btn-group mc-item-group">
-              <label
-                ms-repeat-iteminfo="rootinfo.detlList"
-                class=" icu-check-box mc-item"
-                ms-class-1="{{
-                  groupScoMap[iteminfo.itemGroup].itemField ===
-                    iteminfo.itemField &&
-                  groupScoMap[iteminfo.itemGroup].scoreValue ===
-                    iteminfo.scoreValue
-                    ? 'active'
-                    : ''
-                }}"
-              >
-                <input
-                  type="checkbox"
-                  ms-attr-name="{{ iteminfo.itemField }}"
-                  ms-attr-value="{{ iteminfo.scoreValue }}"
-                  ms-attr-checked="{{
-                    groupScoMap[iteminfo.itemGroup].itemField ===
-                      iteminfo.itemField &&
-                      groupScoMap[iteminfo.itemGroup].scoreValue ===
-                        iteminfo.scoreValue
-                  }}"
-                  ms-click="scoCheck(iteminfo, $event, rootinfo)"
-                />
-                <span
-                  class="icu-check-label-name"
-                  ms-attr-title="{{ iteminfo.itemName }}"
-                  >{{ iteminfo.itemName }}</span
-                >
-              </label>
-            </div>
-          </div>
+                <span style="display:none">{{ el.gradeUserStr }}</span>
+              </td>
+              <td class="text-right" ms-class-1="{{ el.riskClassName }}">{{
+                el.gradeSco
+                }}</td>
+              <td class="text-right">{{ $index + 1 }}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-    <div
-      id="mod-info-box"
-      class="signBorderBox"
-      ms-css-visibility="{{ bodyShowFlag ? 'visible' : 'hidden' }}"
-    >
-      <div id="user-info">
-        <label>
-          <span>评分时间：</span>
-          <input
-            class="Wdate"
-            type="text"
-            id="gradeTimeStr"
-            onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm',maxDate:'%y/%M/%d %H:%m'})"
-            autocomplete="off"
-          />
-        </label>
-        <label>
-          <span>评分人：</span>
-          <input
-            class="userInput"
-            type="text"
-            id="gradeUser"
-            autocomplete="off"
-          />
-        </label>
-      </div>
-      <div id="total-sco-info">
-        <span>总分</span>
-        <span
-          class="icu-btn inline-btn display-btn"
-          ms-class-1="{{ totalScoRankInfo.riskColor }}"
-          >{{ totalSco_SP==''?totalSco:totalSco_SP }}</span>
-      </div>
-    </div>
-    <div
-      id="saveBar"
-      ms-css-visibility="{{ bodyShowFlag ? 'visible' : 'hidden' }}"
-    >
-      <input type="button" class="commonbtn" value="保存" onclick="saveCom()" />
-      <input
-        type="button"
-        class="commonbtn"
-        value="保存并关闭"
-        onclick="saveCom('close')"
-      />
-      <input
-        type="button"
-        class="commonbtn"
-        value="关闭"
-        onclick="parent.closemodalwindow()"
-      />
-      <input
-        ms-if="gradeSeq"
-        type="button"
-        class="commonbtn"
-        id="selfDelBtn"
-        value="删除"
-        onclick="delThisGrade()"
-      />
-    </div>
-    <script type="text/javascript">
-      //全局变量
-      var ptBasicInfo = eicuUtil.ptBasicInfo;
-      var _liveNo = ptBasicInfo.liveNo;
-      var _gradeSeq = '${gradeSeq}';
-      var _gradeType = '${gradeType}';
-      var _pGradeTimeStr = '';
-      var _userid = '${activeUser.usrno}';
-      var _enterSource = '';
-      var exChgGradeInfo = parent.icuOpenModal && icuOpenModal.getExChgInfo();
-      if (exChgGradeInfo) {
-        _gradeType = exChgGradeInfo.gradeType;
-        _gradeSeq = exChgGradeInfo.gradeSeq;
-        _pGradeTimeStr = exChgGradeInfo.gradeTimeStr;
-        _enterSource = exChgGradeInfo.enterSource;
-        _fldCod = exChgGradeInfo.fldCod;
-      }
-    </script>
-    <script type="text/javascript">
-      var windowPadding = 10;
-      var itemNameColW = 121;
-      var tdPadding = 12;
-      var itemNameTdW = itemNameColW - tdPadding;
-      var iTableNameColW = 151;
-      var iTableNameTdW = iTableNameColW - tdPadding;
-      var H_SCORE_W = $(window).width() - windowPadding * 2 - itemNameColW - 12; //横向表格评分项目总宽度
-      if (exChgGradeInfo.scoTableMode === 'i') {
-        // MODS-like minus extra td width(colgroup)
-        H_SCORE_W += 10;
-        H_SCORE_W -= iTableNameColW;
-      }
-      var colPaddingWidth = 5; //列内边距
-      var checkboxWidth; //checkbox宽度
+  </div>
+</div>
+<script type="text/javascript">
+  //全局变量
+  // if(eicuUtil.isOuterSys) {
+    eicuUtil = parent.eicuUtil;
+  // }
+  var ptBasicInfo = eicuUtil.ptBasicInfo;
+  var _liveNo = '${liveNo}';
+  var _gradeSeq = '${gradeSeq}';
+  var _gradeType = '${gradeType}';
+  var _gradeItemDef = [];
+  var _gradeList = [];
+  var curMenuInfo;
+</script>
+<script type="text/javascript">
+  var $clickedEl = null; //选中列
 
-      var fieldMap = {}; //分类映射
-      var defLmtMap = {}; // 定义区间
-      // risk map
-      var totalRiskMap = publicFun.getIcuDicItem('riskMap') || {};
-      var curRiskInfo = totalRiskMap[_gradeType];
-      var vm = avalon.define({
-        $id: 'scoEdit',
-        bodyShowFlag: false,
-        gradeSeq: _gradeSeq,
-        tableMode: exChgGradeInfo.scoTableMode, //h-GCS-like，i-MODS-like, v-RASS-like, c-TISS-like
-        // allCheckFlag: '0', //全选标志
-        itemNameColW: itemNameColW,
-        itemNameTdW: itemNameTdW,
-        iTableNameColW: iTableNameColW,
-        iTableNameTdW: iTableNameTdW,
-        hDetlColW: 100, //动态计算横向表格列宽度
-        hDetlTdW: 89,
-        hLabelWidth: '90%', //label宽度
-        singleLock: '',
-        scoreName: '', //页面信息
-        headScoreList: [], //评分列表
-        vtShowSecondChild: false, // v-table show secondChild
-        totalList: [], //以父元素为基点的列表
-        totalSco: '',
-        totalSco_SP: '',//为ISS评分
-        totalScoRankInfo: {},
-        groupScoMap: {}, //每个组的分值映射
-        scoCheck: function(scoInfo, e, rootInfo) {
-          if (e) {
-            e.stopPropagation();
-          }
-          if (scoInfo.lmtFlag !== '#') {
-            // 输入类型评分页
-            return false;
-          }
-          var scoreValue = scoInfo.scoreValue;
-          var itemGroup = scoInfo.itemGroup;
-          var totalSco = '';
-          //如果通过选中父元素传递，则选中当时状态仍为false
-          var checkFlag = e.target.checked;
-          vm.singleLock = '';
-          if (itemGroup === '*') {
-            //单选时取消其余所有选项
-            if (checkFlag) {
-              vm.singleLock = scoreValue;
-              for (var k in vm.groupScoMap) {
-                if (vm.groupScoMap.hasOwnProperty(k)) {
-                  if (k !== itemGroup) {
-                    vm.groupScoMap[k].scoreValue = '';
-                  } else {
-                    vm.groupScoMap[k].itemField = scoInfo.itemField;
-                    vm.groupScoMap[k].scoreValue = scoreValue;
-                  }
-                }
-              }
-              totalSco = scoreValue;
-            } else {
-              vm.groupScoMap[itemGroup].itemField = '';
-              vm.groupScoMap[itemGroup].scoreValue = '';
-              totalSco = '';
-            }
+  var menuInfoObj = eicuUtil.getMenuInfo();
+  var curMenuInfo; // find in ready func
+  var defFieldMap = {}; // 请求获取原始field-map
+  var vmFieldMap = {}; // field-def映射
+  var dblClickLock = false; //双击标志
+  var chartInstance;
+
+  var vm = avalon.define({
+    $id: 'scoreQuery',
+    pDisplayMode: parent.vm.displayMode,
+    showBody: false,
+    tableType: 'basic', // basic || specific 打勾模式和具体评分
+    containerW: $(window.document).width(),
+    containerH: $(window.document).height(), // 容器高度
+    tableWidth: 'auto', // 表格宽度
+    pageName: '', //页面信息
+    timeLength: 0,
+    timeList: [], //时间列表
+    totalList: [], //以父元素为基点的列表
+    totalScoInfo: {}, //总分信息
+    signInfo: {}, //签名信息
+    hoverIdx: '', //悬停序号
+    selectIdx: '', //选中序号
+    timeHoverIn: function(idx) {
+      vm.hoverIdx = idx;
+    },
+    timeHoverOut: function(idx) {
+      vm.hoverIdx = '';
+    },
+    timeColClick: function(idx) {
+      var thisClass = 'time' + idx;
+      setTimeout(function() {
+        //不是双击，进行单击操作
+        if (!dblClickLock) {
+          if (idx === vm.selectIdx) {
+            resetClickedCol();
           } else {
-            if (checkFlag) {
-              if (vm.tableMode === 'c') {
-                rootInfo.checkedNumb++;
-              }
-              vm.groupScoMap[itemGroup].itemField = scoInfo.itemField;
-              vm.groupScoMap[itemGroup].scoreValue = scoreValue;
+            vm.selectIdx = idx;
+            if (vm.pDisplayMode === 'basic') {
+              $clickedEl = $('.' + thisClass);
+              $clickedEl.data('gradeseq', vm.timeList[idx]['gradeSeq']);
             } else {
-              if (vm.tableMode === 'c') {
-                rootInfo.checkedNumb--;
-              }
-              vm.groupScoMap[itemGroup].itemField = '';
-              vm.groupScoMap[itemGroup].scoreValue = '';
-            }
-            totalSco = calScore();
-          }
-          vm.totalSco = totalSco;
-        },
-        cTableCheckAll: function(rootInfo, e) {
-          if (e) {
-            e.stopPropagation();
-          }
-          var totalSco;
-          var itemGroup;
-          $.each(rootInfo.detlList, function(detlIdx, detlInfo) {
-            itemGroup = detlInfo.itemGroup;
-            vm.groupScoMap[itemGroup].itemField = detlInfo.itemField;
-            vm.groupScoMap[itemGroup].scoreValue = detlInfo.scoreValue;
-          });
-          rootInfo.checkedNumb = rootInfo.detlList.length;
-          vm.totalSco = calScore();
-        },
-        cTableConverseCheck: function(rootInfo, e) {
-          if (e) {
-            e.stopPropagation();
-          }
-          var totalSco;
-          var itemGroup;
-          $.each(rootInfo.detlList, function(detlIdx, detlInfo) {
-            itemGroup = detlInfo.itemGroup;
-            if (vm.groupScoMap[itemGroup].itemField) {
-              rootInfo.checkedNumb--;
-              vm.groupScoMap[itemGroup].itemField = '';
-              vm.groupScoMap[itemGroup].scoreValue = '';
-            } else {
-              rootInfo.checkedNumb++;
-              vm.groupScoMap[itemGroup].itemField = detlInfo.itemField;
-              vm.groupScoMap[itemGroup].scoreValue = detlInfo.scoreValue;
-            }
-          });
-          vm.totalSco = calScore();
-        },
-        hTableInput: function(rootInfo, e) {
-          if (e) {
-            e.stopPropagation();
-          }
-          var itemGroup = rootInfo.itemGroup;
-          var targetVal = e.target.value;
-          if (!targetVal) {
-            // 监听空值，取消disabled
-            vm.groupScoMap[itemGroup].scoreValue = '';
-          } else {
-            vm.groupScoMap[itemGroup].itemRoot = rootInfo.itemField;
-            vm.groupScoMap[itemGroup].scoreValue = 'fake';
-          }
-        },
-        setInputSco: function(e, rootInfo) {
-          // MODS-like 计算输入分值
-          var itemGroup = rootInfo.itemGroup;
-          var target = e.target;
-          var targetVal = vm.onlyNum(target);
-          var curInputLmtInfo;
-          var curSco;
-          var totalSco;
-          if (targetVal === '') {
-            curSco = '';
-            vm.groupScoMap[itemGroup].inputValue = '';
-            vm.groupScoMap[itemGroup].scoreValue = '';
-            vm.groupScoMap[itemGroup].itemField = '';
-          } else {
-            curInputLmtInfo = vm.calCurInputVal(targetVal, rootInfo);
-            vm.groupScoMap[itemGroup].inputValue = targetVal;
-            vm.groupScoMap[itemGroup].itemRoot = rootInfo.itemField;
-            vm.groupScoMap[itemGroup].itemField = curInputLmtInfo.itemField;
-            vm.groupScoMap[itemGroup].scoreValue = curInputLmtInfo.scoreValue;
-          }
-          totalSco = calScore();          
-          vm.totalSco = totalSco;
-        },
-        calCurInputVal: function(value, parentNode) {
-          var lmtInfoList = parentNode.detlList;
-          var reLmtInfo;
-          $.each(lmtInfoList, function(idx, lmtInfo) {
-            if (lmtInfo.lmtFlag === '1' && value >= lmtInfo.lmtValue) {
-              reLmtInfo = lmtInfo;
-              return false;
-            } else if (lmtInfo.lmtFlag === '2' && value <= lmtInfo.lmtValue) {
-              reLmtInfo = lmtInfo;
-              return false;
-            } else if (lmtInfo.lmtFlag === '0') {
-              reLmtInfo = lmtInfo;
-              return false;
-            }
-          });
-          return reLmtInfo;
-        },
-        onlyNum: function(target) {
-          var curVal = target.value;
-          var curNum = parseFloat(curVal);
-          if (isNaN(curNum)) {
-            curNum = '';
-            target.value = '';
-          }
-          target.value = curNum;
-          return curNum;
-        }
-      });
-      vm.$watch('totalSco', function(newV) {
-        vm.totalScoRankInfo = calRisk(newV);
-      });
-      /**
-       * 计算总分
-       */
-      function calScore() {
-        var totalScore = 0;
-        var tempNum = 0;
-        var tempStr = '';
-        var singleCheckItem = vm.groupScoMap['*'];
-        var thisScoreVal;
-        var checkFlag = false; //至少选择一项标记
-        if (singleCheckItem && singleCheckItem.scoreValue !== '') {
-          //勾选单选
-          totalScore = singleCheckItem.scoreValue;
-        } else {
-          //未勾选单选或无单选
-          for (var k in vm.groupScoMap) {
-            if (vm.groupScoMap.hasOwnProperty(k) && k !== '*' && k !== 'FAKE') {
-              thisScoreVal = vm.groupScoMap[k].scoreValue;
-              tempNum = parseInt(thisScoreVal);
-              if (thisScoreVal === '') {
-                //如果当前为空值，则置0，否则为特殊值保留NaN
-                tempNum = 0;
-              } else {
-                //至少选择了一项
-                checkFlag = true;
-              }
-              if (isNaN(tempNum)) {
-                //如果是NaN则中间有字母类
-                tempStr = thisScoreVal;
-              } else {
-                totalScore += tempNum;
-              }
+              $clickedEl = $('.chart-tr' + idx);
+              $clickedEl.data('gradeseq', vm.totalList[idx]['gradeSeq']);
             }
           }
         }
-        if (_gradeType === 'GCS') {
-          //如果是GCS，有T类型
-          if (tempStr) {
-            totalScore += '+T';
-          }
-        }
-        if(_gradeType === 'ISS'){
-        	//如果是ISS，同步生成评分AIS (当前计算分数为AIS,实际计算为ISS)
-        	var issSco = calScoIss(vm.groupScoMap);
-        	 totalScore = issSco+'|'+totalScore;
-        }
-        if (!checkFlag) {
-          //如果未选中至少一项有值项，清空数值
-          totalScore = '';
-        }
-        return totalScore;
+      }, 20);
+    },
+    timeColDblClick: function(idx) {
+      dblClickLock = true;
+      // if (idx !== vm.selectIdx) {
+      vm.selectIdx = idx;
+      if (vm.pDisplayMode === 'basic') {
+        $clickedEl = $('.time' + idx);
+        $clickedEl.data('gradeseq', vm.timeList[idx]['gradeSeq']);
+      } else {
+        $clickedEl = $('.chart-tr' + idx);
+        $clickedEl.data('gradeseq', vm.totalList[idx]['gradeSeq']);
       }
-      /**
-       * 计算危险度
-       */
-      function calRisk(totalSco) {
-        var totalScoNum;
-        var reRiskInfo = {};
-        if (curRiskInfo && totalSco !== '') {
-          totalScoNum = parseInt(totalSco);
-          $.each(curRiskInfo, function(idx, riskInfo) {
-            if (
-              totalScoNum >= riskInfo.lowValue &&
-              totalScoNum <= riskInfo.uppValue
-            ) {
-              // 降序排列，比较上限
-              reRiskInfo = riskInfo;
-              return false;
-            }
-          });
-        }
-        return reRiskInfo;
-      }
-      /**
-       * 取字典数据
-       */
-      function getDictInfo() {
-        vm.bodyShowFlag = false;
-        var reqUrl = '${baseurl}icuscore/getGradeItemDef.do';
-        var reqParam = {
-          gradeType: _gradeType
-        };
-        var tableMode = vm.tableMode;
-        return publicFun.httpRequest(reqUrl, reqParam, function(res) {
+      // }
+      parent.custOpenModal('edit'); //调用父元素修改方法
+      setTimeout(function() {
+        dblClickLock = false;
+      }, 100);
+    }
+  });
+  /**
+   * displayMode wathcer
+   */
+  parent.vm.$watch('displayMode', function(newV, oldV) {
+    if (newV !== 'oldV') {
+      vm.showBody = false;
+      vm.pDisplayMode = newV;
+      vm.totalList.clear();
+      getAllInfo();
+    }
+  });
+  /**
+   * 取字典数据
+   */
+  function getDictInfo() {
+    vm.showBody = false;
+    var reqUrl = '${baseurl}icuscore/getGradeItemDef.do';
+    var reqParams = {
+      gradeType: _gradeType
+    };
+    publicFun.httpRequest(
+        reqUrl,
+        reqParams,
+        {
+          asyncFlag: false
+        },
+        function(res) {
           if (!res.resultInfo.success) {
             alert_error('请求出错，请联系管理员');
           }
           var sysdata = res.resultInfo.sysdata;
-          var headScoreList = sysdata.scoreList;
-          defLmtMap = sysdata.lmtMap || {}; // 评分区间映射
           var defList = sysdata.itemDef;
-
-          var levelNumb = 0; // 层级数量
-          var totalList = []; //总列表
-          var scoreList = []; //评分表
-          var scoreObj;
-          var itemFlag; //节点类型
-          var groupScoMap = {}; // v - table-sco-map
-          var hTableChildListMap = {}; // h-table 查重，用以剔除父级变量
+          var itemFlag; // temp str
+          var totalScoInfo = {}; // 总分信息
+          var signInfo = {}; // 签名信息
           var temp;
-          var regStr = /\s或\s/g;
-          var hTrNumb; // cal h table tr numb
-          $.each(defList, function(defIdx, defInfo) {
-            // gen fiedlMap
-            fieldMap[defInfo.itemField] = defInfo;
+          var defTotalList = []; // 项目总列表
+          defFieldMap = {}; // 重置父级映射
+          defList.forEach(function(defInfo, defIdx) {
+            defInfo = $.extend(true, {}, defInfo);
             itemFlag = defInfo.itemFlag;
-            // reset 'NULL'
-            if (defInfo.itemName === 'NULL' || !defInfo.itemName) {
+            defFieldMap[defInfo.itemField] = defInfo;
+            if (defInfo.itemName === 'NULL') {
               defInfo.itemName = '';
             }
-            if (defInfo.itemUnit === '#') {
-              defInfo.itemUnit = '';
-            }
-
-            if (itemFlag === '0') {
-              // root
-              vm.scoreName = defInfo.itemName;
-              if (tableMode === 'h' || tableMode === 'i') {
-                levelNumb =
-                  parseInt(defInfo.itemRoot.replace(/[a-zA-Z]/g, '')) - 1;
+            if (itemFlag === 'T') {
+              // 复制总分，并生成签名信息
+              totalScoInfo = $.extend({}, defInfo);
+              signInfo = $.extend({}, totalScoInfo);
+              signInfo.itemField = 'NURS_SIGN';
+              signInfo.itemName = '签名';
+              signInfo.scoreValue = '#';
+              signInfo.itemSort++; // 自定义 sort number
+              signInfo.scoTimeList = [];
+              totalScoInfo.scoTimeList = [];
+              if (totalScoInfo.scoreMemo && totalScoInfo.scoreMemo !== '#') {
+                totalScoInfo.scoreMemo = totalScoInfo.scoreMemo.split('|')[0];
               }
             } else if (itemFlag === '1') {
-              if (tableMode === 'h' || tableMode === 'i') {
-                //如果是横向渲染，插入子节点映射
-                defInfo.rootRowNumb = 0;
-                defInfo.lmtFlag = '#';
-                if (levelNumb === 1) {
-                  defInfo.rootSelfIdx = 0;
-                  defInfo.rootName = defInfo.itemName;
-                  defInfo.detlList = headScoreList.map(function() {
-                    return {
-                      itemField: 'FAKE',
-                      itemGroup: 'FAKE',
-                      scoreValue: 'FAKE'
-                    };
-                  });
-                  defInfo.hideSecNode = true;
-                  totalList.push(defInfo);
-                }
-              }
-              // if (tableMode === 'i') {
-              //     // mods || sofa
-              //     defInfo.rootRowNumb = 0;
-              // }else
-              else if (tableMode === 'v') {
-                //如果是纵向渲染，插入子节点列表
-                defInfo.detlList = [];
-                totalList.push(defInfo);
-              } else if (tableMode === 'c') {
-                defInfo.checkedNumb = 0;
-                defInfo.detlList = [];
-                totalList.push(defInfo);
-              }
+              // 初级父元素
+              defInfo.rootRowNumb = 0; // 行数
             } else if (itemFlag === '2') {
-              // 次级节点
-              temp = fieldMap[defInfo.itemRoot]; // item(itemFlag===1)
-              if (tableMode === 'h' || tableMode === 'i') {
-                defInfo.secRowNumb = 0;
-                defInfo.lmtFlag = '#';
-                if (levelNumb === 2) {
-                  if (!defInfo.itemName) {
-                    defInfo.hideSecNode = true;
-                  }
-                  defInfo.rootSelfIdx = temp.rootRowNumb++;
-                  defInfo.rootName = temp.itemName;
-                  defInfo.detlList = headScoreList.map(function() {
-                    return {
-                      itemField: 'FAKE',
-                      itemGroup: 'FAKE',
-                      scoreValue: 'FAKE'
-                    };
-                  });
-                  totalList.push(defInfo);
-                }
-              } else if (tableMode === 'v') {
-                // 有次级说明，当前为次级说明项
-                defInfo.scoreList = [];
-                temp.detlList.push(defInfo);
-              }
+              // 二级父元素
+              defInfo.secRowNumb = 0;
             } else if (itemFlag === '9') {
-              groupScoMap[defInfo.itemGroup] = {
-                itemField: '',
-                scoreValue: ''
-              };
-              // 末端节点
-              temp = fieldMap[defInfo.itemRoot]; // item(itemFlag===2||itemFlag===1)
-              if (tableMode === 'h' || tableMode === 'i') {
-                //GCS-like
-                if (defInfo.lmtFlag !== '#') {
-                  // 评分类itemGroup一致，增加lmtFlag和inputValue
-                  groupScoMap[defInfo.itemGroup].itemRoot = '';
-                  groupScoMap[defInfo.itemGroup].inputValue = '';
-                  temp.lmtFlag = defInfo.lmtFlag;
-                  temp.itemGroup = defInfo.itemGroup;
+              // he
+              // 尾端分值元素
+              temp = defFieldMap[defInfo.itemRoot];
+              defInfo.secNodeName = defInfo.itemName;
+              defInfo.secSelfIdx = 0;
+              if (temp.itemFlag === '2') {
+                // 父级为二级元素
+                // 二级类序号
+                defInfo.secSelfIdx = temp.secRowNumb++;
+                defInfo.secField = temp.itemField;
+                if (temp.itemName) {
+                  if (defInfo.secNodeName) {
+                    // 如果末节点与二级节点同时有不同的名称，构造三级节点
+                    defInfo.thirdNodeName = defInfo.itemName;
+                    defInfo.thirdField = '';
+                  }
+                  defInfo.secNodeName = temp.itemName;
                 }
-                temp.detlList[defInfo.scoreCol - 1] = defInfo;
-              } else if (tableMode === 'v') {
-                // 处理末级项
-                if (!temp.scoreList) {
-                  // NRS-like, 无次级项，在主项添加评分项
-                  temp.scoreList = [];
-                }
-                if (defInfo.itemName === 'NULL' || !defInfo.itemName) {
-                  defInfo.itemName = '';
-                } else {
-                  vm.vtShowSecondChild = true;
-                }
-                temp.scoreList.push(defInfo);
-              } else if (tableMode === 'c') {
-                // TISS-like
-                temp.detlList.push(defInfo);
+                temp = defFieldMap[temp.itemRoot];
               }
+              // 根类行序号
+              defInfo.rootSelfIdx = temp.rootRowNumb++;
+              defInfo.rootField = temp.itemField;
+              defInfo.rootName = temp.itemName;
+              defInfo.rootSpanNumb = 1; // 根合并行数默认1
+              defInfo.secSpanNumb = 1; // 二级合并行数默认1
+              defInfo.thirdSpanNumb = 1; // 三级合并行数默认1
+              defInfo.scoTimeList = [];
+              defTotalList.push(defInfo);
             }
           });
-          // 模拟SOFA类空白td，防止报错
-          groupScoMap['FAKE'] = {};
-          // console.log(groupScoMap);
-          // console.log(totalList);
-          if (tableMode === 'h' || tableMode === 'i') {
-            vm.headScoreList = headScoreList;
-            // 遍历赋值
-            totalList.forEach(function(totalInfo, totalIdx) {
-              if (totalInfo.rootSelfIdx === 0) {
-                // 首行元素更新合并数
-                if (totalInfo.itemFlag === '1') {
-                  totalInfo.rootRowSpanNumb = 1;
-                } else if (totalInfo.itemFlag === '2') {
-                  totalInfo.rootRowSpanNumb =
-                    fieldMap[totalInfo.itemRoot].rootRowNumb;
-                }
-              }
+          window._gradeItemDef = sysdata.itemDef;
+          Object.freeze && Object.freeze(window._gradeItemDef);
+          vm.totalScoInfo = totalScoInfo;
+          vm.signInfo = signInfo;
+          vm.totalList = defTotalList;
+        }
+    );
+  }
+  /**
+   * getTableInfo
+   *
+   * @param {boolean|undefined} isPrint
+   */
+  function getTableInfo(isPrint) {
+    var requestData = {
+      gradeType: _gradeType,
+      liveNo: _liveNo,
+    };
+
+    if (isPrint === true)  requestData.flag = 'print';
+
+    return publicFun.httpRequest(
+        _baseUrl + 'icuscore/queryScoreInfo.do',
+        requestData,
+        {
+          requestType: 'json'
+        },
+        function(res) {
+          if (!res.resultInfo.success) {
+            alert_error('请求出错，请联系管理员');
+            return;
+          }
+          _gradeList = res.resultInfo.sysdata.gradeList;
+          if (isPrint) return;
+          resetClickedCol();
+          var timeInfoList = res.resultInfo.sysdata.gradeList;
+          var timeLength = timeInfoList.length;
+          var timeList = []; //时间list
+          var nursSignArr = []; //签名分割内容
+          var fieldScoListMap = {}; // field-scoTimeList
+
+          // 清空所有数据并生成map
+          vmFieldMap = {};
+          vm.totalList.forEach(function(itemInfo) {
+            var temp = timeInfoList.map(function() {
+              return '';
             });
-          } else if (tableMode === 'v') {
-            // cal odd tr
-            // hTrNumb = 0;
-            totalList.forEach(function(totalInfo) {
-              temp = totalInfo.scoreList || totalInfo.detlList;
-              totalInfo.firstRowSpanNum = temp.length;
-              temp.forEach(function(itemInfo, itemIdx) {
-                if (vm.vtShowSecondChild && !itemInfo.itemName) {
-                  // ICSDSC-like add colspan
-                  totalInfo.mergeSecondChild = true;
-                } else {
-                  totalInfo.mergeSecondChild = false;
+            if (itemInfo.rootSelfIdx === 0) {
+              // 首元素增加合并行数
+              itemInfo.rootSpanNumb =
+                  defFieldMap[itemInfo.rootField].rootRowNumb;
+            }
+            if (itemInfo.secField && itemInfo.secSelfIdx === 0) {
+              // 非伪造次级首元素增加合并行数
+              itemInfo.secSpanNumb =
+                  defFieldMap[itemInfo.secField].secRowNumb;
+            }
+            if (vm.tableType === 'specific') {
+              // MODS-like
+              if (!vmFieldMap[itemInfo.itemField]) {
+                vmFieldMap[itemInfo.itemField] = [];
+              }
+              vmFieldMap[itemInfo.itemField].push(itemInfo);
+            } else {
+              vmFieldMap[itemInfo.itemField] = itemInfo;
+            }
+            itemInfo.scoTimeList = temp;
+          });
+          vm.signInfo.scoTimeList.clear();
+          vm.totalScoInfo.scoTimeList.clear();
+          //循环时间顺序数据列表
+          if (!timeInfoList || timeInfoList.length === 0) {
+            // 最新数据为空，清空原数据
+            vm.totalList.forEach(function(itemInfo) {
+              itemInfo.scoTimeList.clear();
+            });
+            vm.totalScoInfo.scoTimeList.clear();
+            vm.signInfo.scoTimeList.clear();
+          } else {
+            timeInfoList.forEach(function(thisTimeInfo, thisTimeIdx) {
+              //按照时间和类别分类字典内容数据
+              var itemList = thisTimeInfo.itemList;
+              var gradeSeq = thisTimeInfo.gradeSeq;
+              var temp = {};
+              var itemField;
+              // 复制除了itemList以外的时间信息
+              $.each(thisTimeInfo, function(k, v) {
+                if (thisTimeInfo.hasOwnProperty(k) && k !== 'itemList') {
+                  temp[k] = v;
                 }
+              });
+              // 插入时间
+              timeList.push(temp);
+              // 处理时间对应的评分项
+              itemList.forEach(function(thisTimeThisItemInfo) {
+                itemField = thisTimeThisItemInfo.itemField;
+                if (vm.totalScoInfo.itemField === itemField) {
+                  // 总分增加风险评级
+                  thisTimeThisItemInfo = $.extend(thisTimeThisItemInfo, {
+                    riskColor: thisTimeInfo.riskColor,
+                    riskType: thisTimeInfo.riskType,
+                    riskDesc: thisTimeInfo.riskDesc
+                  });
+                  // 处理当前总分
+                  vm.totalScoInfo.scoTimeList.splice(
+                      thisTimeIdx,
+                      1,
+                      thisTimeThisItemInfo
+                  );
+                } else {
+                  if (vm.tableType === 'specific') {
+                    // MODS-like
+                    // thisTimeThisItemInfo.lmtFlag = '1';
+                    vmFieldMap[itemField]
+                        .filter(function(ele, idx, arr) {
+                          if (ele.lmtFlag === '1') {
+                            return (
+                                thisTimeThisItemInfo.itemValue >= ele.lmtValue
+                            );
+                          } else if (ele.lmtFlag === '2') {
+                            return (
+                                thisTimeThisItemInfo.itemValue <= ele.lmtValue
+                            );
+                          }
+                        })[0]
+                        .scoTimeList.splice(
+                        thisTimeIdx,
+                        1,
+                        thisTimeThisItemInfo
+                    );
+                  } else {
+                    vmFieldMap[itemField].scoTimeList.splice(
+                        thisTimeIdx,
+                        1,
+                        thisTimeThisItemInfo
+                    );
+                  }
+                }
+              });
+              //处理时间签名
+              nursSignArr = thisTimeInfo.gradeUser.split('|');
+              vm.signInfo.scoTimeList.splice(thisTimeIdx, 1, {
+                nursName: nursSignArr[0],
+                imgSrc: nursSignArr[1]
               });
             });
           }
-          // console.log(totalList);
-          vm.groupScoMap = groupScoMap;
-          vm.totalList = totalList;
-          vm.hDetlColW = H_SCORE_W / headScoreList.length;
-          vm.hDetlTdW = vm.hDetlColW - tdPadding;
-          checkboxWidth = $('input[type="checkbox"]')
-            .eq(0)
-            .outerWidth();
-          vm.hLabelWidth = vm.hDetlTdW - checkboxWidth;
-        });
-      }
-      /**
-       *取全局数据
-       */
-      function getAllInfo() {
-        // if (vm.tableMode === 'mc') {
-        //     // 多选类型取消
-        //     getParentModInfo();;
-        //     return;
-        // }
-        publicFun.httpRequest(
-          _baseUrl + 'icuscore/findGradeInfoByParam.do',
-          {
-            liveNo: _liveNo,
-            gradeSeq: _gradeSeq,
-            gradeType: _gradeType
-          },
-          function(res) {
-            if (!res.resultInfo.success) {
-              alert_error('请求失败，请联系管理员');
-              return;
-            }
-            var itemList = res.resultInfo.sysdata.itemlist;
-            var totalInfo = res.resultInfo.sysdata.totalInfo;
-            var thisItemField = '';
-            var thisItemRoot = '';
-            var checkedItem;
-            var checkedItemGroup;
-            var thisVal;
-            var loopFlag = true;
-            itemList.forEach(function(itemInfo) {
-              thisVal = itemInfo.itemValue || '';
-              if (itemInfo.itemFlag === 'T') {
-                //如果是总分项
-                vm.totalSco = thisVal;
-              } else {
-                thisItemField = itemInfo.itemField;
-                thisItemRoot = itemInfo.itemRoot;
-                checkedItem = fieldMap[thisItemField];
-                checkedItemGroup = checkedItem.itemGroup;
-                if (checkedItemGroup === '*') {
-                  //如果是单选项，增加单选锁
-                  vm.singleLock = thisVal;
-                }
-                vm.groupScoMap[checkedItemGroup].itemField = thisItemField;
-                if (checkedItem.lmtFlag !== '#') {
-                  vm.groupScoMap[checkedItemGroup].itemRoot = thisItemRoot;
-                  vm.groupScoMap[checkedItemGroup].inputValue = thisVal;
-                  $('.i-table-input.' + thisItemRoot).val(thisVal);
-                  if (thisVal) {
-                    vm.groupScoMap[
-                      checkedItemGroup
-                    ].scoreValue = vm.calCurInputVal(
-                      thisVal,
-                      fieldMap[thisItemRoot]
-                    ).scoreValue;
-                  }
-                } else {
-                  if (vm.tableMode === 'c') {
-                    // 累计项目数量
-                    $.each(vm.totalList, function(idx, totalInfo) {
-                      if (totalInfo.itemField === itemInfo.itemRoot) {
-                        totalInfo.checkedNumb++;
-                        return false;
-                      }
-                    });
-                  }
-                  vm.groupScoMap[checkedItemGroup].scoreValue = thisVal;
-                }
-              }
-            });
-            if (totalInfo) {
-              $('#gradeTimeStr').val(
-                publicFun.timeFormat(totalInfo.gradeTime, 'yyyy/MM/dd hh:mm')
-              );
-              $('#gradeUser').val(totalInfo.gradeUser);
-              eicuUtil.queryDoct($('#gradeUser'));
-            } else {
-              getParentModInfo();
-            }
-            vm.bodyShowFlag = true;
+          vm.timeLength = timeLength;
+          vm.timeList = timeList;
+          // 数量乘以单个宽度80px，计算表格总宽度
+          vm.tableWidth = 300 + 50 + vm.timeList.length * 80;
+          vm.showBody = true;
+        }
+    );
+  }
+  /**
+   * getChartInfo
+   */
+  function getChartInfo() {
+    var reqUrl = _baseUrl + 'icuscore/queryTotalScoByMenu.do';
+    var menu = eicuUtil.findMenuInfoByParam(_gradeType);
+    var reqParams = {
+      liveNo: _liveNo,
+      gradeType: _gradeType,
+      menuRoot:menu.menuRoot,
+      flag: 'single'
+    };
+    publicFun.httpRequest(
+        reqUrl,
+        reqParams,
+        {
+          requestType: 'json'
+        },
+        function(res) {
+          if (!res.resultInfo.success) {
+            alert_error('请求出错，请联系管理员');
+            return;
           }
-        );
-      }
-      /**
-       * 保存
-       */
-      function saveCom(closeFlag) {
-        if (vm.totalSco === '') {
-          alert_warn('评分不能为空');
-          return false;
-        }
-        var gradeUser = $('#gradeUser').data('userid') || '';
-        var gradeTimeStr = $('#gradeTimeStr').val();
-        if (!gradeTimeStr) {
-          alert_warn('评分时间不能为空');
-        } else if (!gradeUser) {
-          alert_warn('评分人不能为空');
-        } else {
-          // _confirm('您确认提交吗？', null, function () {
-          // var $checkList = $('input:checked');
-          var itemList = [];
-          $.each(vm.groupScoMap, function(k, v) {
-            if (vm.groupScoMap.hasOwnProperty(k)) {
-              if (v.itemField && v.scoreValue) {
-                itemList.push({
-                  itemField: v.itemField,
-                  itemValue: v.inputValue || v.scoreValue
-                });
-              }
+          var sysdata = res.resultInfo.sysdata;
+          var gradeMap = sysdata.gradeMap;
+          var dataList = gradeMap[_gradeType] || [];
+          var chartOptions;
+          var seriesData;
+          var yAxisLmtInfo;
+          var userInfoList;
+          console.log(dataList)
+          if (!dataList.length) {
+            // fake min and max
+            yAxisLmtInfo = '0|0'
+          } else {
+            yAxisLmtInfo = dataList[0].yAxisVal;
+          }
+
+          /**
+           * @param {string} gradeSco "Ex+Vx+Mx" | "12+T"
+           * @return {number | string} "num[+T]" 数字或者数字加T
+           */
+          function gradeScoHandler(gradeSco){
+            const scoReg = /^E(\d)\+V(\d|T)\+M(\d)$/
+            if(scoReg.test(gradeSco)){
+              const matchResult = gradeSco.match(scoReg);
+              let matchResult2 = parseInt(matchResult[2])
+              isNaN(matchResult2) && (matchResult2 = 0)
+              return matchResult && parseInt(matchResult[1]) + parseInt(matchResult[3]) + matchResult2;
+            }else{
+              return parseFloat(gradeSco)
             }
+          }
+          seriesData = dataList.map(function(ele, idx) {
+            var dataInfo = {
+              y: gradeScoHandler(ele.gradeSco) || 0
+            };
+            if (ele.itemName) {
+              dataInfo.className = ele.riskColor;
+              ele.riskClassName = dataInfo.className;
+            }
+            /*otherInfo*/
+            userInfoList = ele.gradeUser.split('|');
+            ele.gradeUserStr = userInfoList[0] || '';
+            ele.userImgSrc =
+                _baseUrl + 'images/eicu/signPic/' + (userInfoList[1] || '');
+            console.log(dataInfo);
+            return dataInfo;
           });
-          // }
-          itemList.push({
-            itemField: _gradeType + '_SCO',
-            itemValue: vm.totalSco
-          });
-          // console.log(itemList);
-          // return;
-          publicFun.httpRequest(
-            _baseUrl + 'icuscore/editGradeScoWithOth.do',//'icuscore/editGradeSco.do',
-            {
-              icuGradeTotalCustom: {
-                liveNo: _liveNo,
-                gradeSeq: _gradeSeq,
-                gradeType: _gradeType,
-                gradeTimeStr: $('#gradeTimeStr').val(),
-                gradeUser: $('#gradeUser').data('userid') || '',
-                gradeSco: vm.totalSco,
-                gradeDetl: vm.scoreName + ': ' + vm.totalSco + '分'
+          chartOptions = {
+            chart: {
+              // spacingLeft: 50,
+              spacingTop: 50,
+              backgroundColor: '#f9f9f9'
+            },
+            credits: false,
+            title: {
+              text: ''
+            },
+            legend: {
+              enabled: false
+            },
+            xAxis: {
+              startOnTick: false,
+              showEmpty: true,
+              allowDecimals: false,
+              tickAmount: 10,
+              tickColor: '#666',
+              lineColor: '#666',
+              gridLineColor: '#eee',
+              tickInterval: 1
+            },
+            yAxis: {
+              showEmpty: true,
+              allowDecimals: false,
+              title: {
+                text: '评分',
+                margin: 0,
+                align: 'high',
+                offset: 0,
+                rotation: 0,
+                y: -10
               },
-              itemList: itemList,
-              enterSource: _enterSource,
-              fldCod: _fldCod
-            },
-            {
-              requestType: 'json'
-            },
-            function(res) {
-              if (!res.resultInfo.success) {
-                alert_warn(res.resultInfo.message);
-                return;
-              }
-              if (!_gradeSeq) {
-                _gradeSeq = res.resultInfo.sysdata.gradeTotalCustom.gradeSeq;
-                vm.gradeSeq = _gradeSeq;
-              }
-              if (parent.modalReturnFun) {
-                // outer page
-                parent.alert_success('操作成功');
-                //parent.setScoCallBack();
-                parent.modalReturnFun(
-                  vm.totalSco,
-                  res.resultInfo.sysdata.gradeTotalCustom.gradeSeq,
-                  closeFlag,
-                  _gradeType,
-                  _enterSource,
-                  _fldCod
-                );
-              } else {
-                // old page
-                parent.$('#tabDiv').datagrid('reload');
-                alert_success('操作成功');
-                if (closeFlag) {
-                  setTimeout(function() {
-                    window.top.$('#tabs').tabs('close', eicuUtil.tabInfo.title);
-                  }, 1000);
+              tickColor: '#666',
+              lineColor: '#666',
+              lineWidth: 1,
+              tickPositioner: function() {
+                var tickPositions = this.tickPositions;
+                var lastTick = tickPositions[tickPositions.length - 1];
+                var max = this.options.max;
+                if (max && lastTick > max) {
+                  tickPositions.pop(); // remove last tick
+                  tickPositions.push(max);
                 }
               }
-            }
-          );
+            },
+            series: [
+              {
+                pointStart: 1,
+                data: seriesData,
+                events: {
+                  click: function(e) {
+                    var thisPoint = e.point;
+                    var dataIdx = thisPoint.index;
+                    var thisClass = 'time' + dataIdx;
+                    var thisData = dataList[dataIdx];
+                    // vm.selectIdx = dataIdx;
+                    $clickedEl = $(
+                        '<span class="fake">' +
+                        thisData.gradeTimeStr +
+                        '</span>'
+                    );
+                    $clickedEl.data('gradeseq', thisData.gradeSeq);
+                    parent.custOpenModal('edit'); //调用父元素修改方法
+                  }
+                },
+                cursor: 'pointer',
+                marker: {
+                  radius: 7
+                },
+                tooltip: {
+                  headerFormat: '',
+                  hideDelay: 100,
+                  pointFormatter: function() {
+                    var str = '';
+                    str += '<span style="font-weight: bold">时间：</span>';
+                    str += dataList[this.index].gradeTimeStr;
+                    str += '<br>';
+                    str += '<span style="font-weight: bold">评分人：</span>';
+                    str += dataList[this.index].gradeUserStr;
+                    str += '<br>';
+                    str += '<span style="font-weight: bold">评分：</span>';
+                    str += this.y;
+                    str += '<br>';
+                    str += '<span style="font-weight: bold">次数：</span>';
+                    str += this.index + 1;
+                    return str;
+                  }
+                }
+              }
+            ]
+          };
+          // }
+          if (dataList.length && yAxisLmtInfo) {
+            yAxisLmtInfo = yAxisLmtInfo.split('|');
+            chartOptions.yAxis.max = parseInt(yAxisLmtInfo[0]);
+            chartOptions.yAxis.min = parseInt(yAxisLmtInfo[1]);
+          }
+          // }
+          chartInstance = Highcharts.chart('chart-div', chartOptions);
+          vm.totalList.clear();
+          vm.totalList = dataList;
+          vm.showBody = true;
         }
-      }
-      /**
-       *删除当前评分
-       */
-      function delThisGrade() {
-      	  if(_enterSource){
-	      	  var reqUrl = _baseUrl + 'icuscore/delGradeScore.do';
-			  var reqParams;
-			
-			  var fooGradeType = _gradeType;
-			  var fooGradeSeq = _gradeSeq;
-			
-			  if (!fooGradeSeq) {
-				alert_warn('未选中数据');
-			  }
-			  reqParams = {
-			    liveNo: _liveNo,
-			    gradeType: fooGradeType,
-			    gradeSeq: fooGradeSeq
-			  };
-			  var confirText = "您确认删除吗";
-			  _confirm(confirText, null, function() {
-			    publicFun.httpRequest(reqUrl, reqParams, function(res) {
-			      parent.message_alert(res);
-			      if (res.resultInfo.success) {
-			        if(_enterSource){
-				        parent.modalReturnFun(
-		                  '',
-		                  '',
-		                  true,
-		                  _gradeType,
-		                  _enterSource,
-		                  _fldCod
-		                );
-			        }
-			      }
-			    });
-			  });
-      	  }else{
-      	  	  parent.delGrade(_gradeType, _gradeSeq);
-      	  }      	  
-       
-      }
-      /**
-       * 清空选中列方法
-       */
-      function resetClickedCol() {
-        vm.selectIdx = '';
-        $clickedCol = null; //重置选中列
-      }
-      /**
-       * 赋值父元素签名数据
-       */
-      function getParentModInfo() {
-        var thisDateStr;
-        if (_pGradeTimeStr) {
-          thisDateStr = _pGradeTimeStr;
-        } else {
-          thisDateStr = publicFun.timeFormat(
-            new Date().getTime(),
-            'yyyy/MM/dd hh:mm'
-          );
-        }
-        $('#gradeTimeStr').val(thisDateStr);
-        $('#gradeUser').val(_userid);
-        eicuUtil.queryDoct($('#gradeUser'));
-      }
-      /**
-       * 图片加载错误
-       */
-      function signPicError() {
-        var _this = event.target;
-        console.error('么的图片啊');
-        $(_this)
-          .hide()
-          .next()
-          .show();
-      }
-      /**
-       * 布局设置
-       */
-      function setLayout() {
-        var WIN_W = $(window).width();
-        var WIN_H = $(window).height();
-        var modInfo_H = $('#mod-info-box').outerHeight();
-        var saveBar_H = $('#saveBar').outerHeight();
-        $('#sco-container').outerHeight(WIN_H - saveBar_H - modInfo_H);
-      }
-      $(function() {
-        setLayout();
-        getDictInfo().done(function() {
-          getAllInfo();
-        });
-        eicuUtil.bindUserInput();
-      });
-      
-//========================定制新增方法===============================
-	//排序使用
-	function asc(a,b){
-		return a - b;
-	}
-	
-	function desc(x,y){
-        return y-x;
+    );
+  }
+  /**
+   *请求数据数据
+   */
+  function getAllInfo() {
+    if (vm.pDisplayMode === 'basic') {
+      getDictInfo();
+      getTableInfo();
+    } else if (vm.pDisplayMode === 'chart') {
+      getChartInfo();
     }
-	
-	//监听总分处理特殊评分分数显示（ISS、AIS）
-	vm.$watch('totalSco', function (newVal, oldVal) {	
-		if(newVal) {
-			if(_gradeType=='ISS'){
-				var IssAndAisSco = vm.totalSco.split('|');
-				vm.totalSco_SP = "ISS:"+IssAndAisSco[0]+"  AIS:"+IssAndAisSco[1];
-			}else{
-				vm.totalSco_SP = newVal;
-			}				
-		}else{
-			vm.totalSco_SP = '';
-		} 
-	});
-	
-	//计算ISS评分
-	function calScoIss(groupScoMap){
-		var IssMap = {};
-		//循环获取每个部位最大值
-		for (var k in vm.groupScoMap){
-			var key = k.substr(0,1);
-			if(IssMap.hasOwnProperty(key)){
-				if(IssMap[key].scoreValue < vm.groupScoMap[k].scoreValue)
-					IssMap[key].scoreValue = vm.groupScoMap[k].scoreValue;
-			}else{
-				var issInf = {};
-				issInf.itemField = key;
-				issInf.scoreValue = vm.groupScoMap[k].scoreValue;
-				IssMap[key] = issInf;
-			}			
-		}
-		//
-		var array = [];
-		for(var k in IssMap){
-			array.push(IssMap[k].scoreValue);			
-		}
-		array = array.sort(desc);
-		var issSco = 0;
-		//根据最大三个平方和计算值
-		for(i=0;i<array.length&&i<3;i++){
-			issSco += array[i]*array[i];
-		}
-		if(issSco == 0)
-			issSco = '';
-		return issSco;
-	}
-    </script>
-  </body></html
->
+  }
+  /**
+   * 清空选中列方法
+   */
+  function resetClickedCol() {
+    vm.selectIdx = '';
+    $clickedEl = null; //重置选中列
+  }
+  /**
+   * 图片加载错误
+   */
+  function signPicError() {
+    var _this = event.target;
+    // console.error('么的图片啊');
+    $(_this)
+        .hide()
+        .next()
+        .show();
+  }
+
+  /**
+   * 测试展示数据用的
+   */
+  function get_print_frame(show){
+    var $root = $(document.documentElement);
+    var print_frame_id = 'print_frame';
+    var has_print_frame = $root.find('#'+print_frame_id).get(0) != null;
+
+    function create_print_frame(id){
+      return $('<iframe>')
+          .attr('id', id)
+          .css({
+            margin: 0,
+            padding: 0,
+            width: "100%",
+            height: "100%",
+            border: 'none',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            backgroundColor: 'white',
+            opacity: 1,
+            display: show ? 'block' : 'none'
+          })
+    }
+
+    if (!has_print_frame){
+      var $print_frame = create_print_frame(print_frame_id);
+      $root.append($print_frame);
+
+      return $($print_frame.get(0).contentWindow.document.body)
+    } else {
+      return $($root.find('#'+ print_frame_id).get(0).contentWindow.document.gradeItem_itemField_def_map_target);
+    }
+  }
+
+  function isArray(v){
+    return Object.prototype.toString.call(v) === '[object Array]';
+  }
+
+  function isObject(v){
+    return Object.prototype.toString.call(v) === '[object Object]';
+  }
+
+  function isFunction(v){
+    return Object.prototype.toString.call(v) === '[object Function]';
+  }
+
+  function hasOwnProperty(obj, key){
+    return Object.prototype.hasOwnProperty.call(obj, key);
+  }
+
+  function hasValue(value){
+    return value != null && value != "" && value != "#";
+  }
+
+  function convert_defArr_to_defMap(gradeItemDef) {
+    var itemField_def_map = {};
+
+    // convert def_arr to def_map
+    $.each(gradeItemDef, function(i, def){
+      itemField_def_map[def.itemField] = $.extend(true, {}, def, {
+        scoreValue: hasValue(def.scoreValue) ? def.scoreValue : hasValue(def.scoreMemo) ? def.scoreMemo.split("|")[0] : ""
+      });
+    });
+
+    return itemField_def_map;
+  }
+
+
+  /**
+   * @param {string} gradeType FALL...
+   * @param {Array.<Object>} gradeItemDef
+   */
+  function computedThead(defArr, transform,columns){
+    var defaultTransform = function (arr){
+      return arr;
+    }
+
+    transform = isFunction(transform) ? transform : defaultTransform;
+
+    defArr = transform(defArr);
+
+    var theadArr = [];
+    theadArr.length = columns.length;
+
+    $.each(columns, function (r, rows){
+
+      var cellArr = []
+
+      $.each(rows, function (c, col_option) {
+        if (col_option == null) return;
+        if (isFunction(col_option)) col_option = col_option();
+
+        if (hasOwnProperty(col_option, "title") && isFunction(col_option.title)) {
+          var result_def_arr = [];
+
+          if (hasOwnProperty(col_option, "filter") && isFunction(col_option.filter)) {
+            result_def_arr = defArr.filter(col_option.filter)
+          } else {
+            result_def_arr = defArr;
+          }
+
+          if (hasOwnProperty(col_option, "sort") && isFunction(col_option.sort)) {
+            result_def_arr = result_def_arr.sort(col_option.sort)
+          }
+
+          $.each(result_def_arr, function (i, def){
+            var computed_col_option = {};
+
+            $.each(col_option, function(key, value) {
+              if (key == "filter" || key == "sort") return;
+
+              if (isFunction(value)) {
+                computed_col_option[key] = value(def);
+              } else {
+                computed_col_option[key] = value;
+              }
+            })
+
+            cellArr.push($.extend(true, {
+              itemField: def.itemField,
+              itemName: def.itemName,
+              itemSort: def.itemSort,
+              scoreValue: def.scoreValue,
+            }, computed_col_option))
+          })
+        } else if (hasOwnProperty(col_option, "title")) {
+
+          cellArr.push(col_option)
+        }
+      })
+
+      theadArr[r] = cellArr;
+    });
+
+    theadArr = theadArr.filter(function(row){
+      if (isArray(row)) {
+        var newRow = row.filter(function(cell){
+          return cell != null && isObject(cell) && Object.keys(cell).length > 0
+        })
+
+        return newRow.length > 0;
+      }
+    });
+
+    var fields = [];
+
+    $.each(theadArr, function (r, row) {
+      $.each(row, function(c, cell){
+        if (cell.field) fields.push(cell);
+      })
+    });
+
+    for(var i=0; i<fields.length; i++){
+      for(var j=i+1; j<fields.length; j++){
+        var itemField_i = fields[i].itemField
+        var itemField_j = fields[j].itemField
+        if(itemField_i && itemField_j && itemField_i==itemField_j){         //第一个等同于第二个，splice方法删除第二个
+          fields.splice(j,1);
+          j--;
+        }
+      }
+    }
+
+    fields = fields.sort(function(p_def, n_def){
+      return p_def.itemSort - n_def.itemSort
+    })
+
+    var $thead = $("<thead>");
+
+    $.each(theadArr, function(r, row) {
+      var $tr = $("<tr>");
+
+      $tr.append(row.map(function(cell){
+        var $th = $("<th>").data(cell).text(cell.title).attr("colspan", cell.colspan).attr("rowspan", cell.rowspan)
+
+        if (cell.field) $th.addClass('cell').addClass(cell.field)
+        return $th;
+      }))
+
+      $thead.append($tr)
+    })
+
+    return {
+      $thead: $thead,
+      fields: fields
+    };
+  }
+
+  function computedTbody(gradeList, transform, fields) {
+    var defaultTransform = function (arr){
+      return arr;
+    }
+
+    transform = isFunction(transform) ? transform : defaultTransform;
+
+    gradeList = transform(gradeList);
+
+    var $tbody = $("<tbody>");
+
+    $.each(gradeList, function (r, row){
+      var $tr = $("<tr>");
+
+      $.each(fields, function (c, cell){
+        var $td = $("<td>");
+        var field = cell.field;
+        var value = row[field] || "";
+
+        $td.data($.extend(true, {}, cell, { value: value })).text(value).addClass('cell').addClass(field)
+
+        $tr.append($td);
+      })
+
+      $tbody.append($tr);
+    });
+    return {
+      $tbody
+    }
+  }
+
+  function transform_defArr (defArr) {
+    var newDefArr = [];
+    var rootTitle = [];
+    var subTitle = [];
+
+    function computed_score(def){
+      return ({
+        scoreMemo: hasValue(def.scoreMemo) ? def.scoreMemo.split("|")[0] : ""
+      })
+    }
+
+    $.each(defArr, function (i, def){
+      if (def.itemRoot === _gradeType) {
+        rootTitle.push($.extend(true, {}, def, computed_score(def), {rootTitle: true, colspan: 1, rowspan: 1}))
+      }
+    });
+
+    // computed subTitleArr
+    $.each(rootTitle, function(i, rootDef){
+      var subArr = [];
+
+      $.each(defArr, function(i, def) {
+        if (rootDef.itemField === def.itemRoot) {
+          subArr.push($.extend(true, {}, def, computed_score(def), { subTitle: true, colspan: 1, rowspan: 1, field: def.itemField }))
+        }
+      })
+
+      rootTitle[i] = $.extend(true, {}, rootDef, {
+        colspan: (subArr.length || 1),
+        rowspan: subArr.length === 0 && _gradeType !== "FALL" && _gradeType !== "LOVETT" && _gradeType !== "NRS" ? 2 : 1,
+        field: subArr.length === 0 ? rootDef.itemField : false
+      })
+
+      subTitle = subTitle.concat(subArr)
+    });
+
+    newDefArr = newDefArr.concat(rootTitle, subTitle);
+
+    newDefArr = newDefArr.sort(function (a_def, b_def) {
+      return a_def.itemSort - b_def.itemSort
+    })
+
+    return newDefArr;
+  }
+
+  function transform_gradeList(gradeList) {
+    var newGradeList = [];
+
+    $.each(gradeList, function (g, grade){
+      var temp = {
+        gradeUser: grade.gradeUser.split("|")[0] || "",
+        gradeTimeStr: grade.gradeTimeStr.replace(/\s/, "\r\n")
+      };
+
+      $.each(grade.itemList, function (i, item){
+        if (item.itemField.indexOf("SCO") >= 0) {
+          temp[item.itemField] = item.itemValue
+        } else {
+          temp[item.itemField] = "√"
+        }
+      })
+
+      newGradeList.push(temp);
+    })
+
+    return newGradeList;
+  }
+
+  function mm(num){
+    return num + 'mm';
+  }
+
+  function printCom(){
+    getTableInfo(true).done(function(){
+      console.log("basicScopage:", _gradeType);
+      console.log("_gradeItemDef: ", _gradeItemDef);
+
+      var columns = [
+        [
+          { title: "时间", colspan: 1, rowspan: 3, itemSort: 0, field: "gradeTimeStr" },
+          {
+            title: (def) => def.itemName,
+            filter: (def) => def.rootTitle === true,
+            sort: (p_def, n_def) => p_def.itemSort - n_def.itemSort,
+            field: (def) => def.field,
+            colspan: (def) => def.colspan,
+            rowspan: (def) => def.rowspan
+          },
+          { title: "签名", colspan: 1, rowspan: 3, itemSort: 99999, field: true, field: "gradeUser" }
+        ],
+        [
+          {
+            title: (def) => def.itemName,
+            filter: (def) => def.subTitle === true,
+            sort: (p_def, n_def) => p_def.itemSort - n_def.itemSort,
+            field: (def) => def.field,
+            colspan: (def) => def.colspan,
+            rowspan: (def) => def.rowspan
+          }
+        ],
+        [
+          {
+            title: (def) => def.scoreMemo,
+            filter: (def) => !!def.field,
+            sort: (p_def, n_def) => p_def.itemSort - n_def.itemSort,
+            colspan: (def) => def.colspan,
+            rowspan: (def) => def.rowspan
+          }
+        ],
+      ];
+
+      var fallColumn = [
+        [
+          { title: "时间", colspan: 1, rowspan: 2, itemSort: 0, field: "gradeTimeStr" },
+          {
+            title: (def) => def.itemName,
+            filter: (def) => def.rootTitle === true,
+            sort: (p_def, n_def) => p_def.itemSort - n_def.itemSort,
+            colspan: (def) => def.colspan,
+            rowspan: (def) => def.rowspan
+          },
+          { title: "签名", colspan: 1, rowspan: 2, itemSort: 99999, field: "gradeUser" }
+        ],
+        [
+          {
+            title: (def) => def.scoreMemo,
+            filter: (def) => def.subTitle === true || def.itemName == "总分",
+            sort: (p_def, n_def) => p_def.itemSort - n_def.itemSort,
+            field: (def) => def.field,
+            colspan: (def) => def.colspan,
+            rowspan: (def) => def.rowspan
+          }
+        ]
+      ];
+
+      var thead = computedThead(_gradeItemDef, transform_defArr, columns);
+      if (_gradeType == "FALL" || _gradeType == "LOVETT" || _gradeType == "NRS") {
+        thead = computedThead(_gradeItemDef, transform_defArr, fallColumn);
+      }
+
+      var tbody = computedTbody(_gradeList, transform_gradeList, thead.fields);
+
+      var $style = $('<style type="text/css">').text(
+          'th, td {margin:0; padding: 0; box-sizing: border-box; border: 1px solid black; word-break: normal; text-align: center; font-size: 12px;}' +
+          '.cell { min-width: 15px; height: 30px; }' +
+          '.cell.gradeTimeStr { width: 75px; }' +
+          '.cell.gradeUser { width: 75px; }' +
+          '.cell.' + _gradeType + '_SCO' + '{ width: 30px }'
+      )
+
+      var $table = $('<table>')
+          .css({
+            margin: 0,
+            padding: 0,
+            border: 0,
+            width: "100%",
+            borderCollapse: 'collapse'
+          })
+          .append($style)
+
+      $table.append(thead.$thead);
+      $table.append(tbody.$tbody);
+
+      var width = 210;
+      var height = 297;
+      var margin_top = 5; // bottom
+      var margin_left = 3.5; // right
+
+      var valid_width = width - margin_left *  2;
+      var valid_height = height - margin_top *  2;
+
+      var header_height = 25;
+      var footer_height = 4;
+
+      var header_top = margin_top;
+      var header_bottom = header_top + header_height;
+
+      var footer_top = height - margin_top;
+
+      var content_height_max = valid_height - header_bottom;
+      var content_width_max = valid_width;
+      var content_top_min = header_bottom;
+      var content_top_max = content_height_max + header_bottom; // 随着content_height_max变化
+
+      //#region
+      var LODOP = getLodop();
+      LODOP.PRINT_INITA("0", "0", mm(width), mm(height), _gradeType);
+      LODOP.SET_PRINT_PAGESIZE(1, mm(width), mm(height), "A4");
+      LODOP.SET_SHOW_MODE("MESSAGE_PARSING_HTM", "正在加载文档 请稍等...");
+      LODOP.SET_SHOW_MODE("LANGUAGE", 0); // 中文
+      LODOP.SET_PRINT_MODE('PRINT_DUPLEX', 1); // 不双面
+      LODOP.SET_PRINT_STYLE("HOrient", 3);
+      LODOP.SET_PRINT_STYLE("VOrient", 3);
+
+      LODOP.ADD_PRINT_HTM(
+          mm(margin_top),
+          mm(margin_left),
+          mm(valid_width),
+          mm(header_height),
+          eicuUtil.getPrintTitleContent()
+
+      );
+      LODOP.SET_PRINT_STYLEA(0, "ItemType", 1);
+      LODOP.ADD_PRINT_HTM(
+          mm(footer_top),
+          mm(margin_left),
+          mm(valid_width),
+          mm(footer_height),
+          '<div style="margin: 0;padding: 0;text-align: center;width: 100%; font-size: 9pt;"><span tdata="pageNO">第##页</span>/<span tdata="pageCount">共##页</span></div>'
+      );
+      LODOP.SET_PRINT_STYLEA(0, 'ItemType', 1);
+      //#endregion
+
+      LODOP.ADD_PRINT_TABLE(
+          mm(content_top_min), mm(margin_left),mm(content_width_max),mm(content_height_max),
+          $table.get(0).outerHTML
+      );
+      LODOP.PREVIEW();
+
+      $(get_print_frame(false)).append($table);
+    })
+  }
+
+  $.each(menuInfoObj, function(k, v) {
+    if (v.menuType === _gradeType) {
+      curMenuInfo = v;
+      vm.pageName = curMenuInfo.menuName;
+      return false;
+    }
+  });
+
+  getAllInfo();
+</script>
+</body>
+</html>

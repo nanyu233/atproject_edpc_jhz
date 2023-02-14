@@ -1,0 +1,83 @@
+@charset "utf-8";
+/**
+*  datagrid 表格强制宽度100%
+*/
+.datagrid-wrap.panel-body.panel-body-noheader,
+.easyui-panel.panel-body.panel-body-noheader,
+.datagrid-view,
+.datagrid-header,
+.datagrid-header-inner table {
+    width: 100% !important;
+}
+
+.datagrid-view2 {
+    left: 25px;
+    width: 100% !important;
+}
+
+.datagrid-body,
+.datagrid-cell div {
+    width: 100% !important;
+}
+
+/**
+*  datagrid 表格没有行号时
+*/
+.norowTab .datagrid-wrap.panel-body.panel-body-noheader,
+.norowTab .easyui-panel.panel-body.panel-body-noheader,
+.norowTab .datagrid-view,
+.norowTab .datagrid-header,
+.norowTab .datagrid-header-inner table {
+    width: 99% !important;
+}
+
+.norowTab .datagrid-view2 {
+    left: 0px;
+    width: 100% !important;
+}
+
+.norowTab .datagrid-body,
+.norowTab .datagrid-cell div {
+    width: 100% !important;
+}
+/**
+*  datagrid 表格伸缩
+*/
+
+.queryTabs .datagrid-view,
+.queryTabs .datagrid-header,
+.queryTabs .datagrid-header-inner table {
+    width: 100% !important;
+}
+
+.queryTabs .datagrid-view2 {
+    left: 25px;
+    width: 100% !important;
+}
+
+.queryTabs .datagrid-body,
+.queryTabs .datagrid-cell div {
+    width: 100% !important;
+}
+
+.queryTabs .datagrid-wrap.panel-body.panel-body-noheader,
+.queryTabs .easyui-panel.panel-body.panel-body-noheader,
+.queryTabs .panel-header,
+.queryTabs .datagrid-wrap.panel-body,
+.queryTabs .easyui-panel.panel-body,
+.queryTabs .datagrid-header{
+    width: 99% !important;
+}
+
+.queryTabs .panel-header{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.queryTabs .panel-header .panel-title{
+    margin-left: 5px;
+}
+
+.qjsrbb .queryTabs .datagrid-body {
+    width: 98% !important;
+}

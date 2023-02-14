@@ -178,7 +178,7 @@
   // console.log('eicuUtil from page totalScoPage')
   // console.log('eicuUtil', )
   var ptBasicInfo = {};//eicuUtil.ptBasicInfo;
-  var _liveNo = '';//ptBasicInfo.liveNo;
+  var _liveNo = '${liveNo}';//ptBasicInfo.liveNo;
   var _custNo = '';//ptBasicInfo.custNo;
   var _custName = '';//ptBasicInfo.custName;
   var _gradeType = '';//'${gradeType}' || eicuUtil.setOuterInfo().gradeType;
@@ -201,7 +201,7 @@
     _userid = '${activeUser.usrno}';
   } else {
     ptBasicInfo = eicuUtil.ptBasicInfo;
-    _liveNo = ptBasicInfo.liveNo;
+    _liveNo = '${liveNo}'; //ptBasicInfo.liveNo;
     _custNo = ptBasicInfo.custNo;
     _custName = ptBasicInfo.custName;
     _gradeType = '${gradeType}';
@@ -249,7 +249,7 @@
       icuTabUtil.openTab(thisMenuInfo, ptBasicInfo, {
         pageType: 'totalPage',
         pageData: {
-          liveNo: ptBasicInfo.liveNo,
+          liveNo: '${liveNo}',
           displayMode: vm.pDisplayMode
         }
       });
@@ -257,9 +257,9 @@
   });
   // parent.vm.$watch('displayMode', function (newV, oldV) {
   //   if (newV !== 'oldV') {
-      vm.showBody = false;
-      vm.pDisplayMode = 'newV';
-      getAllInfo();
+  //     vm.showBody = false;
+  //     vm.pDisplayMode = 'newV';
+      // getAllInfo();
   //   }
   // });
   /**
@@ -270,10 +270,11 @@
     var reqUrl = _baseUrl + 'icuscore/queryTotalScoByMenu.do';
     // console.log('menuInfoMap, _gradeType', menuInfoMap, _gradeType);
     var reqParams = {
-      liveNo: _liveNo,
-      gradeType: _gradeType/*,
-      menuRoot: menuInfoMap[_gradeType].menuRoot*/
+      liveNo: '${liveNo}',
+      gradeType: _gradeType,
+      menuRoot: menuInfoMap[_gradeType].menuRoot
     };
+    console.log(menuInfoMap,666)
     // if (pDisplayMode === 'chart') {
     reqParams.flag = pDisplayMode;
     // }
@@ -455,9 +456,9 @@
   function getMenuInfo() {
     var thisItemInfo;
     var icuMenu = {};
-    if(eicuUtil.isOuterSys) {
+    // if(eicuUtil.isOuterSys) {
       eicuUtil.initMenu(100000);
-    }
+    // }
     icuMenu = JSON.parse(sessionStorage.getItem('icuMenu'));
     // console.log('icuMenu', icuMenu);
     menuInfoObj = icuMenu['menuInfoObj'];
@@ -469,6 +470,7 @@
         menuInfoMap[thisItemInfo.menuType] = thisItemInfo;
       }
     }
+
   }
   /**
    *布局页面
@@ -477,7 +479,8 @@
     var windowW = $(window).width() - 5; //获取宽度出错
     var windowH = $(window).height();
     var mainViewH = windowH - 5;
-    $('#total-sco-container').outerHeight(mainViewH);
+    // $('#total-sco-container').outerHeight(mainViewH);
+
   }
   /**
    * 图片加载错误

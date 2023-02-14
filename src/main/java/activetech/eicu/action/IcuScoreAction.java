@@ -57,7 +57,7 @@ public class IcuScoreAction {
 		model.addAttribute("liveNo", liveNo);
 		model.addAttribute("gradeType", gradeType);
 		model.addAttribute("gradeSeq", gradeSeq);
-		return "/eicu/icuScore/"+gradeType;
+		return "/eicu/icuScore/";
 	}
 	
 	/**
@@ -67,9 +67,10 @@ public class IcuScoreAction {
 	 * @throws Exception
 	 */
 	@RequestMapping("/toBasicScoPage")
-	public String toBasicScoPage(Model model,String gradeType,String gradeSeq) throws Exception {
+	public String toBasicScoPage(Model model,String gradeType,String gradeSeq, String liveNo) throws Exception {
 		model.addAttribute("gradeType", gradeType);
 		model.addAttribute("gradeSeq", gradeSeq);
+		model.addAttribute("liveNo", liveNo);
 		return "/eicu/icuScore/basicScoPage";
 	}
 	
