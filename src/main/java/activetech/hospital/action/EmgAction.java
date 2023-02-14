@@ -178,5 +178,17 @@ public class EmgAction {
 		List<Dstdictinfo> dstdictinfos = systemConfigService.findDictinfoSub(dstdictinfoQueryDto);
 		return dstdictinfos;
 	}
-
+	/**
+	 * 跳转到预检页面 RTS评分页面
+	 * @author gs
+	 * @Date 2021年6月2日 上午11:30:38
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryRts")
+	public String queryRts(Model model,String emgSeq) throws Exception{
+		model.addAttribute("emgSeq", emgSeq);
+		return "/hospital/nurse/rule/queryrts";
+	}
 }

@@ -9,14 +9,16 @@
 .queryhxknzb,
 .querycspg,
 .queryxmzbpg,
-.queryxtzbpg {
+.queryxtzbpg,
+.queryrts {
   overflow: hidden; }
 
 .querymews .mews_container,
 .querynrs .nrs_container,
 .queryhxknzb .queryhxknzb_container,
 .queryxmzbpg .queryxmzbpg_container,
-.queryxtzbpg .queryxtzbpg_container {
+.queryxtzbpg .queryxtzbpg_container,
+.queryrts .rts_container {
   padding: 20px;
   padding-top: 10px;
   padding-bottom: 0; }
@@ -35,7 +37,8 @@
 .queryhxknzb .box_title,
 .queryxmzbpg .box_title,
 .queryxtzbpg .box_title,
-.querycspg .box_title {
+.querycspg .box_title,
+.queryrts .box_title {
   font-size: 20px;
   padding-bottom: 5px;
   text-align: center;
@@ -47,12 +50,19 @@
   padding-bottom: 0;
   border-bottom: 0; }
 
-.querymews .mews_container .mark_msg_detail ul {
+.querymews .mews_container .mark_msg_detail ul{
   height: 52px;
   margin-top: 10px;
   margin-bottom: 10px; }
 
-.querymews .mews_container .mark_msg_detail ul li {
+.queryrts .rts_container .mark_msg_detail ul{
+  height: 26px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.querymews .mews_container .mark_msg_detail ul li,
+.queryrts .rts_container .mark_msg_detail ul li {
   font-size: 14px;
   line-height: 26px;
   float: left;
@@ -67,21 +77,27 @@
   width: 5em;
   text-align: right; }
 
-.querymews .mews_container .mark_msg_detail .item_color {
+.querymews .mews_container .mark_msg_detail .item_color,
+.queryrts .rts_container .mark_msg_detail .item_color {
   color: #808080; }
 
-.querymews .mews_container table.mark_rule {
+.querymews .mews_container table.mark_rule,
+.queryrts .rts_container table.mark_rule {
   width: 100%; }
 
-.querymews .mews_container table.mark_rule .mark_score td {
+.querymews .mews_container table.mark_rule .mark_score td,
+.queryrts .rts_container table.mark_rule .mark_score td {
   color: #e57200; }
 
-.querymews .mews_container table.mark_rule td.active {
+.querymews .mews_container table.mark_rule td.active,
+.queryrts .rts_container table.mark_rule td.active {
   color: #0e86ed;
   background: #f3f8ff; }
 
 .querymews .mews_container table.mark_rule td,
-.querymews .mews_container table.mark_rule th {
+.querymews .mews_container table.mark_rule th,
+.queryrts .rts_container table.mark_rule td,
+.queryrts .rts_container table.mark_rule th {
   font-size: 14px;
   line-height: 1.5;
   width: 12.5%;
@@ -99,7 +115,7 @@
   margin-right: 10px; }
 
 .queryrews .mews_container .score_div{
-    width: 180px !important;
+  width: 180px !important;
 }
 .querynrs .nrs_container .score_div {
   position: absolute;
@@ -117,7 +133,8 @@
 .querymews .mews_container .score_div span,
 .querynrs .nrs_container .score_div span,
 .querygcs .gcs_container .score_div span,
-.querycrams .crams_container .score_div span {
+.querycrams .crams_container .score_div span,
+.queryrts .rts_container .score_div span {
   font-size: 18px;
   text-align: left;
   color: #000; }
@@ -125,7 +142,8 @@
 .querymews .mews_container .score_div i,
 .querynrs .nrs_container .score_div i,
 .querygcs .gcs_container .score_div i,
-.querycrams .crams_container .score_div i {
+.querycrams .crams_container .score_div i,
+.queryrts .rts_container .score_div i {
   font-size: 20px;
   font-weight: bold;
   position: absolute;
