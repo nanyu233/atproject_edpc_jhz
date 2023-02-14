@@ -347,7 +347,9 @@
       </li>
       <li>
         <div class="two-part">
-          <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
+          <span class="left-ask">
+						<!-- <span ms-visible="noMassRequire()">*</span> -->
+					</span>
           <label class="w2" ms-class="redWarn:patientInfFlg.oxyNbrFlag==1">血氧</label>
           <input id="emg_oxyNbr" type="text" class="small-input bigBlueFt" maxlength="4"
           ms-duplex-string="patientMsg.xueyang" ms-keyup="onlyNum('patientMsg','xueyang')" ms-input="onlyNum('patientMsg','xueyang')"
