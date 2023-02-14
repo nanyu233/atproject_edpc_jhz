@@ -310,13 +310,23 @@ public class IcuScoreAction {
 	@RequestMapping("/queryIcuBasicDef")
 	@SuppressWarnings("rawtypes")
 	public @ResponseBody SubmitResultInfo queryIcuBasicDef(String liveNo) throws Exception{
-		//返回对象
+		/*//返回对象
 		Map<String, Object> result = new HashMap<String, Object>();
 		//获取评分风险度列表
 		Map<String, List<IcuGradeRiskCustom>> riskMap = icuScoreService.queryGradeRisk(null);
 		result.put("riskMap", riskMap);
 		List riskColorList = systemConfigService.findDictinfoByType("RISK_COLOR");
 		result.put("riskColorList", riskColorList);
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		resultInfo.setSysdata(result);
+		return ResultUtil.createSubmitResult(resultInfo);*/
+		//返回对象
+		Map<String, Object> result = new HashMap<String, Object>();
+		//获取评分风险度列表
+		Map<String, IcuGradeRiskCustom> riskMap = icuScoreService.queryGradeRisk(null);
+		result.put("riskMap", riskMap);
+
+
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		resultInfo.setSysdata(result);
 		return ResultUtil.createSubmitResult(resultInfo);

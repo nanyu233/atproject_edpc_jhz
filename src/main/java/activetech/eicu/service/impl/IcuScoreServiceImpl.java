@@ -399,9 +399,9 @@ public class IcuScoreServiceImpl implements IcuScoreService{
 	 * 获取评分风险度列表
 	 */
 	@Override
-	public Map<String, List<IcuGradeRiskCustom>> queryGradeRisk(String gradeType) throws Exception {
+	public Map<String, IcuGradeRiskCustom> queryGradeRisk(String gradeType) throws Exception {
 		
-		List<IcuGradeRiskCustom> riskList = icuScoreCustomMapper.queryGradeRisk(gradeType);
+		/*List<IcuGradeRiskCustom> riskList = icuScoreCustomMapper.queryGradeRisk(gradeType);
 		
 		Map<String,List<IcuGradeRiskCustom>> map = new HashMap<String, List<IcuGradeRiskCustom>>();
 		for (IcuGradeRiskCustom risk : riskList) {
@@ -410,6 +410,24 @@ public class IcuScoreServiceImpl implements IcuScoreService{
 				map.put(risk.getGradeType(), temp);
 			}
 			map.get(risk.getGradeType()).add(risk);
+		}
+		return map;*/
+		Map<String,IcuGradeRiskCustom> map = new HashMap<String, IcuGradeRiskCustom>();
+		//递归查询List
+		List<IcuGradeRiskCustom> baseRiskList = icuScoreCustomMapper.queryGradeRisk(gradeType);
+		//取出头
+		List<IcuGradeRiskCustom> treeRisk = new ArrayList<IcuGradeRiskCustom>();
+		for (IcuGradeRiskCustom risk : baseRiskList) {
+			if ("ROOT".equals(risk.getItemRoot())) {
+				treeRisk.add(risk);
+			}
+		}
+		//递归转成Tree
+		findChildren(treeRisk, baseRiskList);
+
+		//转换成Map
+		for (IcuGradeRiskCustom riskInfo : treeRisk) {
+			map.put(riskInfo.getItemField(), riskInfo);
 		}
 		return map;
 	}
@@ -432,15 +450,27 @@ public class IcuScoreServiceImpl implements IcuScoreService{
 				rootDef = menuDefCustom;
 			}
 		}
-		findChildren(rootDef, menuList);
+		findChildren2(rootDef, menuList);
 		return menuList;
 	}
-	private void findChildren(IcuMenuDefCustom rootDef, List<IcuMenuDefCustom> menuList) {
+	private void findChildren(List<IcuGradeRiskCustom> gradeRistList, List<IcuGradeRiskCustom> riskList) {
+		for (IcuGradeRiskCustom parentRisk : gradeRistList) {
+			List<IcuGradeRiskCustom> riskDetail = new ArrayList<IcuGradeRiskCustom>();
+			for (IcuGradeRiskCustom risk : riskList) {
+				if (parentRisk.getItemField().equals(risk.getItemRoot())) {
+					riskDetail.add(risk);
+				}
+			}
+			parentRisk.setRiskDetail(riskDetail);
+			findChildren(riskDetail, riskList);
+		}
+	}
+	private void findChildren2(IcuMenuDefCustom rootDef, List<IcuMenuDefCustom> menuList) {
 		for (IcuMenuDefCustom menuDef : menuList) {
 			if (rootDef.getMenuId().equals(menuDef.getMenuRoot())) {
 				menuDef.setIdRoot(rootDef.getMenuId());
 				menuDef.setNameRoot(rootDef.getMenuName());
-				findChildren(menuDef, menuList);
+				findChildren2(menuDef, menuList);
 			}
 		}
 	}

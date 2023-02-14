@@ -1,5 +1,6 @@
 package activetech.eicu.pojo.domain;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,143 +105,213 @@ public class IcuGradeRiskExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andGradeTypeIsNull() {
-            addCriterion("GRADE_TYPE is null");
+        public Criteria andItemFieldIsNull() {
+            addCriterion("ITEM_FIELD is null");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeIsNotNull() {
-            addCriterion("GRADE_TYPE is not null");
+        public Criteria andItemFieldIsNotNull() {
+            addCriterion("ITEM_FIELD is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeEqualTo(String value) {
-            addCriterion("GRADE_TYPE =", value, "gradeType");
+        public Criteria andItemFieldEqualTo(String value) {
+            addCriterion("ITEM_FIELD =", value, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeNotEqualTo(String value) {
-            addCriterion("GRADE_TYPE <>", value, "gradeType");
+        public Criteria andItemFieldNotEqualTo(String value) {
+            addCriterion("ITEM_FIELD <>", value, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeGreaterThan(String value) {
-            addCriterion("GRADE_TYPE >", value, "gradeType");
+        public Criteria andItemFieldGreaterThan(String value) {
+            addCriterion("ITEM_FIELD >", value, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("GRADE_TYPE >=", value, "gradeType");
+        public Criteria andItemFieldGreaterThanOrEqualTo(String value) {
+            addCriterion("ITEM_FIELD >=", value, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeLessThan(String value) {
-            addCriterion("GRADE_TYPE <", value, "gradeType");
+        public Criteria andItemFieldLessThan(String value) {
+            addCriterion("ITEM_FIELD <", value, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeLessThanOrEqualTo(String value) {
-            addCriterion("GRADE_TYPE <=", value, "gradeType");
+        public Criteria andItemFieldLessThanOrEqualTo(String value) {
+            addCriterion("ITEM_FIELD <=", value, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeLike(String value) {
-            addCriterion("GRADE_TYPE like", value, "gradeType");
+        public Criteria andItemFieldLike(String value) {
+            addCriterion("ITEM_FIELD like", value, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeNotLike(String value) {
-            addCriterion("GRADE_TYPE not like", value, "gradeType");
+        public Criteria andItemFieldNotLike(String value) {
+            addCriterion("ITEM_FIELD not like", value, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeIn(List<String> values) {
-            addCriterion("GRADE_TYPE in", values, "gradeType");
+        public Criteria andItemFieldIn(List<String> values) {
+            addCriterion("ITEM_FIELD in", values, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeNotIn(List<String> values) {
-            addCriterion("GRADE_TYPE not in", values, "gradeType");
+        public Criteria andItemFieldNotIn(List<String> values) {
+            addCriterion("ITEM_FIELD not in", values, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeBetween(String value1, String value2) {
-            addCriterion("GRADE_TYPE between", value1, value2, "gradeType");
+        public Criteria andItemFieldBetween(String value1, String value2) {
+            addCriterion("ITEM_FIELD between", value1, value2, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andGradeTypeNotBetween(String value1, String value2) {
-            addCriterion("GRADE_TYPE not between", value1, value2, "gradeType");
+        public Criteria andItemFieldNotBetween(String value1, String value2) {
+            addCriterion("ITEM_FIELD not between", value1, value2, "itemField");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeIsNull() {
-            addCriterion("RISK_TYPE is null");
+        public Criteria andItemNameIsNull() {
+            addCriterion("ITEM_NAME is null");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeIsNotNull() {
-            addCriterion("RISK_TYPE is not null");
+        public Criteria andItemNameIsNotNull() {
+            addCriterion("ITEM_NAME is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeEqualTo(String value) {
-            addCriterion("RISK_TYPE =", value, "riskType");
+        public Criteria andItemNameEqualTo(String value) {
+            addCriterion("ITEM_NAME =", value, "itemName");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeNotEqualTo(String value) {
-            addCriterion("RISK_TYPE <>", value, "riskType");
+        public Criteria andItemNameNotEqualTo(String value) {
+            addCriterion("ITEM_NAME <>", value, "itemName");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeGreaterThan(String value) {
-            addCriterion("RISK_TYPE >", value, "riskType");
+        public Criteria andItemNameGreaterThan(String value) {
+            addCriterion("ITEM_NAME >", value, "itemName");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("RISK_TYPE >=", value, "riskType");
+        public Criteria andItemNameGreaterThanOrEqualTo(String value) {
+            addCriterion("ITEM_NAME >=", value, "itemName");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeLessThan(String value) {
-            addCriterion("RISK_TYPE <", value, "riskType");
+        public Criteria andItemNameLessThan(String value) {
+            addCriterion("ITEM_NAME <", value, "itemName");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeLessThanOrEqualTo(String value) {
-            addCriterion("RISK_TYPE <=", value, "riskType");
+        public Criteria andItemNameLessThanOrEqualTo(String value) {
+            addCriterion("ITEM_NAME <=", value, "itemName");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeLike(String value) {
-            addCriterion("RISK_TYPE like", value, "riskType");
+        public Criteria andItemNameLike(String value) {
+            addCriterion("ITEM_NAME like", value, "itemName");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeNotLike(String value) {
-            addCriterion("RISK_TYPE not like", value, "riskType");
+        public Criteria andItemNameNotLike(String value) {
+            addCriterion("ITEM_NAME not like", value, "itemName");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeIn(List<String> values) {
-            addCriterion("RISK_TYPE in", values, "riskType");
+        public Criteria andItemNameIn(List<String> values) {
+            addCriterion("ITEM_NAME in", values, "itemName");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeNotIn(List<String> values) {
-            addCriterion("RISK_TYPE not in", values, "riskType");
+        public Criteria andItemNameNotIn(List<String> values) {
+            addCriterion("ITEM_NAME not in", values, "itemName");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeBetween(String value1, String value2) {
-            addCriterion("RISK_TYPE between", value1, value2, "riskType");
+        public Criteria andItemNameBetween(String value1, String value2) {
+            addCriterion("ITEM_NAME between", value1, value2, "itemName");
             return (Criteria) this;
         }
 
-        public Criteria andRiskTypeNotBetween(String value1, String value2) {
-            addCriterion("RISK_TYPE not between", value1, value2, "riskType");
+        public Criteria andItemNameNotBetween(String value1, String value2) {
+            addCriterion("ITEM_NAME not between", value1, value2, "itemName");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootIsNull() {
+            addCriterion("ITEM_ROOT is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootIsNotNull() {
+            addCriterion("ITEM_ROOT is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootEqualTo(String value) {
+            addCriterion("ITEM_ROOT =", value, "itemRoot");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootNotEqualTo(String value) {
+            addCriterion("ITEM_ROOT <>", value, "itemRoot");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootGreaterThan(String value) {
+            addCriterion("ITEM_ROOT >", value, "itemRoot");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootGreaterThanOrEqualTo(String value) {
+            addCriterion("ITEM_ROOT >=", value, "itemRoot");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootLessThan(String value) {
+            addCriterion("ITEM_ROOT <", value, "itemRoot");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootLessThanOrEqualTo(String value) {
+            addCriterion("ITEM_ROOT <=", value, "itemRoot");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootLike(String value) {
+            addCriterion("ITEM_ROOT like", value, "itemRoot");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootNotLike(String value) {
+            addCriterion("ITEM_ROOT not like", value, "itemRoot");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootIn(List<String> values) {
+            addCriterion("ITEM_ROOT in", values, "itemRoot");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootNotIn(List<String> values) {
+            addCriterion("ITEM_ROOT not in", values, "itemRoot");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootBetween(String value1, String value2) {
+            addCriterion("ITEM_ROOT between", value1, value2, "itemRoot");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemRootNotBetween(String value1, String value2) {
+            addCriterion("ITEM_ROOT not between", value1, value2, "itemRoot");
             return (Criteria) this;
         }
 
@@ -254,52 +325,52 @@ public class IcuGradeRiskExample {
             return (Criteria) this;
         }
 
-        public Criteria andLowValueEqualTo(Long value) {
+        public Criteria andLowValueEqualTo(BigDecimal value) {
             addCriterion("LOW_VALUE =", value, "lowValue");
             return (Criteria) this;
         }
 
-        public Criteria andLowValueNotEqualTo(Long value) {
+        public Criteria andLowValueNotEqualTo(BigDecimal value) {
             addCriterion("LOW_VALUE <>", value, "lowValue");
             return (Criteria) this;
         }
 
-        public Criteria andLowValueGreaterThan(Long value) {
+        public Criteria andLowValueGreaterThan(BigDecimal value) {
             addCriterion("LOW_VALUE >", value, "lowValue");
             return (Criteria) this;
         }
 
-        public Criteria andLowValueGreaterThanOrEqualTo(Long value) {
+        public Criteria andLowValueGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("LOW_VALUE >=", value, "lowValue");
             return (Criteria) this;
         }
 
-        public Criteria andLowValueLessThan(Long value) {
+        public Criteria andLowValueLessThan(BigDecimal value) {
             addCriterion("LOW_VALUE <", value, "lowValue");
             return (Criteria) this;
         }
 
-        public Criteria andLowValueLessThanOrEqualTo(Long value) {
+        public Criteria andLowValueLessThanOrEqualTo(BigDecimal value) {
             addCriterion("LOW_VALUE <=", value, "lowValue");
             return (Criteria) this;
         }
 
-        public Criteria andLowValueIn(List<Long> values) {
+        public Criteria andLowValueIn(List<BigDecimal> values) {
             addCriterion("LOW_VALUE in", values, "lowValue");
             return (Criteria) this;
         }
 
-        public Criteria andLowValueNotIn(List<Long> values) {
+        public Criteria andLowValueNotIn(List<BigDecimal> values) {
             addCriterion("LOW_VALUE not in", values, "lowValue");
             return (Criteria) this;
         }
 
-        public Criteria andLowValueBetween(Long value1, Long value2) {
+        public Criteria andLowValueBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("LOW_VALUE between", value1, value2, "lowValue");
             return (Criteria) this;
         }
 
-        public Criteria andLowValueNotBetween(Long value1, Long value2) {
+        public Criteria andLowValueNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("LOW_VALUE not between", value1, value2, "lowValue");
             return (Criteria) this;
         }
@@ -314,53 +385,123 @@ public class IcuGradeRiskExample {
             return (Criteria) this;
         }
 
-        public Criteria andUppValueEqualTo(Long value) {
+        public Criteria andUppValueEqualTo(BigDecimal value) {
             addCriterion("UPP_VALUE =", value, "uppValue");
             return (Criteria) this;
         }
 
-        public Criteria andUppValueNotEqualTo(Long value) {
+        public Criteria andUppValueNotEqualTo(BigDecimal value) {
             addCriterion("UPP_VALUE <>", value, "uppValue");
             return (Criteria) this;
         }
 
-        public Criteria andUppValueGreaterThan(Long value) {
+        public Criteria andUppValueGreaterThan(BigDecimal value) {
             addCriterion("UPP_VALUE >", value, "uppValue");
             return (Criteria) this;
         }
 
-        public Criteria andUppValueGreaterThanOrEqualTo(Long value) {
+        public Criteria andUppValueGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("UPP_VALUE >=", value, "uppValue");
             return (Criteria) this;
         }
 
-        public Criteria andUppValueLessThan(Long value) {
+        public Criteria andUppValueLessThan(BigDecimal value) {
             addCriterion("UPP_VALUE <", value, "uppValue");
             return (Criteria) this;
         }
 
-        public Criteria andUppValueLessThanOrEqualTo(Long value) {
+        public Criteria andUppValueLessThanOrEqualTo(BigDecimal value) {
             addCriterion("UPP_VALUE <=", value, "uppValue");
             return (Criteria) this;
         }
 
-        public Criteria andUppValueIn(List<Long> values) {
+        public Criteria andUppValueIn(List<BigDecimal> values) {
             addCriterion("UPP_VALUE in", values, "uppValue");
             return (Criteria) this;
         }
 
-        public Criteria andUppValueNotIn(List<Long> values) {
+        public Criteria andUppValueNotIn(List<BigDecimal> values) {
             addCriterion("UPP_VALUE not in", values, "uppValue");
             return (Criteria) this;
         }
 
-        public Criteria andUppValueBetween(Long value1, Long value2) {
+        public Criteria andUppValueBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("UPP_VALUE between", value1, value2, "uppValue");
             return (Criteria) this;
         }
 
-        public Criteria andUppValueNotBetween(Long value1, Long value2) {
+        public Criteria andUppValueNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("UPP_VALUE not between", value1, value2, "uppValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorIsNull() {
+            addCriterion("RISK_COLOR is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorIsNotNull() {
+            addCriterion("RISK_COLOR is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorEqualTo(String value) {
+            addCriterion("RISK_COLOR =", value, "riskColor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorNotEqualTo(String value) {
+            addCriterion("RISK_COLOR <>", value, "riskColor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorGreaterThan(String value) {
+            addCriterion("RISK_COLOR >", value, "riskColor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorGreaterThanOrEqualTo(String value) {
+            addCriterion("RISK_COLOR >=", value, "riskColor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorLessThan(String value) {
+            addCriterion("RISK_COLOR <", value, "riskColor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorLessThanOrEqualTo(String value) {
+            addCriterion("RISK_COLOR <=", value, "riskColor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorLike(String value) {
+            addCriterion("RISK_COLOR like", value, "riskColor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorNotLike(String value) {
+            addCriterion("RISK_COLOR not like", value, "riskColor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorIn(List<String> values) {
+            addCriterion("RISK_COLOR in", values, "riskColor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorNotIn(List<String> values) {
+            addCriterion("RISK_COLOR not in", values, "riskColor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorBetween(String value1, String value2) {
+            addCriterion("RISK_COLOR between", value1, value2, "riskColor");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskColorNotBetween(String value1, String value2) {
+            addCriterion("RISK_COLOR not between", value1, value2, "riskColor");
             return (Criteria) this;
         }
 
@@ -431,6 +572,66 @@ public class IcuGradeRiskExample {
 
         public Criteria andRiskDescNotBetween(String value1, String value2) {
             addCriterion("RISK_DESC not between", value1, value2, "riskDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortIsNull() {
+            addCriterion("RISK_SORT is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortIsNotNull() {
+            addCriterion("RISK_SORT is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortEqualTo(Integer value) {
+            addCriterion("RISK_SORT =", value, "riskSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortNotEqualTo(Integer value) {
+            addCriterion("RISK_SORT <>", value, "riskSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortGreaterThan(Integer value) {
+            addCriterion("RISK_SORT >", value, "riskSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortGreaterThanOrEqualTo(Integer value) {
+            addCriterion("RISK_SORT >=", value, "riskSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortLessThan(Integer value) {
+            addCriterion("RISK_SORT <", value, "riskSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortLessThanOrEqualTo(Integer value) {
+            addCriterion("RISK_SORT <=", value, "riskSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortIn(List<Integer> values) {
+            addCriterion("RISK_SORT in", values, "riskSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortNotIn(List<Integer> values) {
+            addCriterion("RISK_SORT not in", values, "riskSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortBetween(Integer value1, Integer value2) {
+            addCriterion("RISK_SORT between", value1, value2, "riskSort");
+            return (Criteria) this;
+        }
+
+        public Criteria andRiskSortNotBetween(Integer value1, Integer value2) {
+            addCriterion("RISK_SORT not between", value1, value2, "riskSort");
             return (Criteria) this;
         }
     }

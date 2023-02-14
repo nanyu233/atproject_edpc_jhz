@@ -2,6 +2,8 @@ package activetech.eicu.pojo.dto;
 
 import activetech.eicu.pojo.domain.IcuGradeRisk;
 
+import java.util.List;
+
 public class IcuGradeRiskCustom extends IcuGradeRisk{
 	/**
 	 * 名称
@@ -11,7 +13,17 @@ public class IcuGradeRiskCustom extends IcuGradeRisk{
 	 * 颜色
 	 */
 	private String riskColor;
-	
+
+	private List<IcuGradeRiskCustom> riskDetail;
+
+	public List<IcuGradeRiskCustom> getRiskDetail() {
+		return riskDetail;
+	}
+
+	public void setRiskDetail(List<IcuGradeRiskCustom> riskDetail) {
+		this.riskDetail = riskDetail;
+	}
+
 	public String getRiskName() {
 		return riskName;
 	}
