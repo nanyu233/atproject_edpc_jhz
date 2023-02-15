@@ -12,9 +12,18 @@ public class HspFuvInfCustom extends HspFuvInf {
 	private String docNam;
 	private String plnSta;
 	private String plnFuvTyp;
+	private String nxtFuvGrpNam;
 	private String nxtFuvDocNme;
-	private List<HspFuvMedInf> hspFuvMedInfList;	
-	
+	private List<HspFuvMedInf> hspFuvMedInfList;
+
+	public String getNxtFuvGrpNam() {
+		return nxtFuvGrpNam;
+	}
+
+	public void setNxtFuvGrpNam(String nxtFuvGrpNam) {
+		this.nxtFuvGrpNam = nxtFuvGrpNam;
+	}
+
 	public String getPlnFuvTyp() {
 		return plnFuvTyp;
 	}
