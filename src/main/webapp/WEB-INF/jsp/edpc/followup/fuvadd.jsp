@@ -306,7 +306,7 @@
 					<td class="indentTd" colspan="1">
 						<select class="departments" id="fuvGrp" name="hspFuvInfCustom.fuvGrp" ms-duplex-string="hspFuvInfCustom.fuvGrp">
                       		 <option value="">请选择</option>
-                     	 	 <option ms-repeat="getMsg.fuvGrpArr" ms-attr-value="el.grpNam" >{{el.grpNam}}</option>
+                     	 	 <option ms-repeat="getMsg.fuvGrpArr" ms-attr-value="el.grpSeq" >{{el.grpNam}}</option>
                   		</select>
 					</td>
 					<td class="indentTd" colspan="1" style="text-align:right">
@@ -316,7 +316,7 @@
 					<td class="indentTd" colspan="1">
 						<select class="departments" id="fuvDoc" name="hspFuvInfCustom.fuvDoc" ms-duplex-string="hspFuvInfCustom.fuvDoc">
                       		 <option value="">请选择</option>
-                     	 	 <option ms-repeat="getMsg.fuvDocArr" ms-attr-value="el.usrname" ms-visible="(aidEptGrp._parentId==''||aidEptGrp.grpSeq==el._parentId)">{{el.usrname}}</option>
+                     	 	 <option ms-repeat="getMsg.fuvDocArr" ms-attr-value="el.grpSeq" ms-visible="(aidEptGrp._parentId==''||aidEptGrp.grpSeq==el._parentId)">{{el.usrname}}</option>
                   		</select>
 					</td>
 					<td class="indentTd" colspan="1" style="text-align:center">
