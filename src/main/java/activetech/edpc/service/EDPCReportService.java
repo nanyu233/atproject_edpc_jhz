@@ -167,6 +167,9 @@ public interface EDPCReportService {
 
 	List<HighChartsDemoCustom> getCsswlMedianDate(HspemginfQueryDto hspemginfQueryDto);
 
+	//获取创伤病死率数据
+	DataGridResultInfo csswlDeathResult(HspemginfQueryDto hspemginfQueryDto);
+
 	DataGridResultInfo getQjcstj(ReportCondition reportCondition);
 
 	List<HighChartsDemoCustom> getMDTqdbl(ReportCondition reportCondition);

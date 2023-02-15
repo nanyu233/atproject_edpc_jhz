@@ -1,16 +1,21 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF8"%>
 <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
 <head>
     <title>到达门/急诊科至完成全身骨盆X片时间</title>
+    <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp"%>
-    <link rel="stylesheet" href="${baseurl}styles/common/highcharts.css"
+    <link rel="stylesheet" href="css/common/highcharts.css"
           type="text/css" />
-    <link rel="stylesheet" href="${baseurl}styles/hems/global.css"
+    <link rel="stylesheet" href="css/hems/global.css"
           type="text/css" />
 </head>
 
@@ -243,7 +248,7 @@
                            onfocus="WdatePicker({dateFmt:'yyyy/MM',readOnly:true,minDate:'#F{$dp.$D(\'startDate\')}',maxDate:'%y/%M/%d'})" />
                 </li>
                 <li class="queryuser-btn m-l5">
-                    <a href="#" id="search" onclick="btnsearch()" class="easyui-linkbutton" iconCls="icon-search" id="btn">查询</a>
+                    <a id="search" onclick="btnsearch()" class="easyui-linkbutton" iconCls="icon-search" id="btn">查询</a>
                 </li>
             </ul>
             <div class="c"></div>

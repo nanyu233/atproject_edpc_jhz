@@ -156,6 +156,10 @@ public class HspemginfCustom extends HspEmgInf {
 
     private String surRate;//存活率
 
+    private String deathNum; //死亡人数
+
+    private String allNum;  //全部人数
+
     public String getDeathRate() {
         return deathRate;
     }
@@ -1449,5 +1453,21 @@ public class HspemginfCustom extends HspEmgInf {
 
     public void setRecordFlag(String recordFlag) {
         this.recordFlag = recordFlag;
+    }
+
+    public String getDeathNum() {
+        return deathNum;
+    }
+
+    public void setDeathNum(String deathNum) {
+        this.deathNum = deathNum;
+    }
+
+    public String getAllNum() {
+        return allNum;
+    }
+
+    public void setAllNum(String allNum) {
+        this.allNum = allNum;
     }
 }

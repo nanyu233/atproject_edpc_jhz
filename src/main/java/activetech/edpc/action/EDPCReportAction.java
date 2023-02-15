@@ -3739,6 +3739,25 @@ public class EDPCReportAction {
 						webpath//下载地址
 				}));
 	}
+
+	/**
+	 * 跳转创伤患者严重创伤病人病死率页面
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/toCsswlMedian.do")
+	public String toCsswlMedian(Model model) throws Exception {
+		return "/edpc/report/csReport/csswlmedian";
+	}
+
+	@RequestMapping("/querydeath_result.do")
+	@ResponseBody
+	public DataGridResultInfo csswlDeathResult(HspemginfQueryDto hspemginfQueryDto) throws Exception  {
+		DataGridResultInfo dataGridResultInfo = eDPCReportService.csswlDeathResult(hspemginfQueryDto);
+		return dataGridResultInfo;
+	}
+
 	/**
 	 * 胸痛质控
 	 */

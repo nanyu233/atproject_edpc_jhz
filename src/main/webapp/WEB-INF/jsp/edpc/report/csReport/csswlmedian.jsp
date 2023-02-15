@@ -1,16 +1,21 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF8"%>
 <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
 <head>
     <title>死亡率统计页面</title>
+    <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp"%>
-    <link rel="stylesheet" href="${baseurl}styles/common/highcharts.css" type="text/css" />
-    <link rel="stylesheet" href="${baseurl}styles/hems/global.css" type="text/css" />
+    <link rel="stylesheet" href="css/common/highcharts.css" type="text/css" />
+    <link rel="stylesheet" href="css/hems/global.css" type="text/css" />
 </head>
 
 <body class="death">
@@ -273,7 +278,7 @@
                         <input type="text" class="input-base short-right Wdate" id="emg_enddate"  name="enddate" onfocus="WdatePicker({dateFmt:'yyyy/MM'})" />
                     </li>
                     <li class="queryuser-btn m-l5">
-                        <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="btn" onclick="jzblquery()">查询</a>
+                        <a class="easyui-linkbutton" iconCls="icon-search" id="btn" onclick="jzblquery()">查询</a>
                     </li>
                 </ul>
                 <div class="c"></div>

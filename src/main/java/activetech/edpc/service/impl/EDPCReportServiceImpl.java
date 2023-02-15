@@ -765,6 +765,16 @@ public class EDPCReportServiceImpl implements EDPCReportService{
 		listHig.add(hc3);
 		return listHig;
 	}
+
+	@Override
+	public DataGridResultInfo csswlDeathResult(HspemginfQueryDto hspemginfQueryDto) {
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		List<HspemginfCustom> list = eDPCReportMapperCustom.getCsswlMedianDate(hspemginfQueryDto);
+		dataGridResultInfo.setRows(list);
+		dataGridResultInfo.setTotal(list.size());
+		return dataGridResultInfo;
+	}
+
 	@Override
 	public DataGridResultInfo getQjcstj(ReportCondition reportCondition) {
 		// TODO Auto-generated method stub

@@ -2541,7 +2541,7 @@
 		<if test="enddate!=null and enddate!=''">
 			and to_char(hsp_emg_inf.emg_dat,'yyyyMM') <![CDATA[<=]]>  to_char(#{enddate},'yyyyMM')
 		</if>
-		) as AllNum
+		) as allNum
 		from  dual
 		)
 		select death.*,
