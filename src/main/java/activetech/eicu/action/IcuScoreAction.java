@@ -362,4 +362,15 @@ public class IcuScoreAction {
 		model.addAttribute("liveNo",liveNo);
 		return "/eicu/icuScore/editSco";
 	}
+	/**
+	 * 跳转显示最近6次评分公共页面
+	 * @param model model
+	 * @param gradeType gradeType
+	 * @return return
+	 */
+	@RequestMapping("/toBaseMultiPage")
+	public String toBaseMultiPage(Model model,String gradeType) {
+		model.addAttribute("gradeType", gradeType);
+		return "/eicu/icuScore/basicMultiPage";
+	}
 }
