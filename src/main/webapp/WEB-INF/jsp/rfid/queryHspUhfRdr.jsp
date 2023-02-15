@@ -35,7 +35,7 @@
     }
 
     function cmdadd() {
-      createmodalwindow("新增UHF读写器", 580, 730, '${baseurl}rfid/addHspUhfRdr.do');
+      createmodalwindow("新增UHF读写器", 800, 450, '${baseurl}rfid/addHspUhfRdr.do');
     }
 
     function cmddel() {

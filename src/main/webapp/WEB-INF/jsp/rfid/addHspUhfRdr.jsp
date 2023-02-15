@@ -18,7 +18,9 @@
   <form class="form" ms-controller="addHspUhfRdrForm" id="hspUhfRdrForm" action="rfid/addHspUhfRdrSubmit.do" method="post">
     <table>
       <colgroup>
-        <col width="20%" />
+        <col width="15%" />
+        <col />
+        <col width="15%" />
         <col />
       </colgroup>
       <tbody>
@@ -27,8 +29,6 @@
           <td>
             <input type="text" ms-duplex-string="hspUhfRdrCustom.rdrId" maxlength="32" />
           </td>
-        </tr>
-        <tr>
           <th> 设备名称：</th>
           <td>
             <input type="text" ms-duplex-string="hspUhfRdrCustom.rdrNam"  maxlength="64" />
@@ -48,8 +48,6 @@
           <td>
             <input type="text" ms-duplex="hspUhfRdrCustom.mtrTyp" maxlength="32" />
           </td>
-        </tr>
-        <tr>
           <th> 监测点参考码：</th>
           <td>
             <input type="text" ms-duplex="hspUhfRdrCustom.mtrCod" maxlength="32" />
@@ -60,8 +58,6 @@
           <td>
             <input type="text" ms-duplex="hspUhfRdrCustom.rdrLoc" maxlength="32" />
           </td>
-        </tr>
-        <tr>
           <th><i class="red">*</i> 设备状态：</th>
           <td>
             <select ms-duplex="hspUhfRdrCustom.rdrSta"  lay-verify="required">
@@ -86,8 +82,6 @@
               </select>
             </div>
           </td>
-        </tr>
-        <tr>
           <th> 购置日期：</th>
           <td>
             <input class="input-date Wdate" ms-duplex="hspUhfRdrCustom.buyDat" type="text" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})">
@@ -98,8 +92,6 @@
           <td>
             <input class="input-date Wdate" ms-duplex="hspUhfRdrCustom.fixDat" type="text" onclick="WdatePicker({dateFmt:'yyyy/MM/dd'})">
           </td>
-        </tr>
-        <tr>
           <th> 安装人员：</th>
           <td>
             <input type="text" ms-duplex="hspUhfRdrCustom.fixMan" maxlength="32" />
@@ -110,8 +102,6 @@
           <td>
             <input type="text" ms-duplex="hspUhfRdrCustom.mntMan"  maxlength="32" />
           </td>
-        </tr>
-        <tr>
           <th> 运维人员：</th>
           <td>
             <input type="text" ms-duplex="hspUhfRdrCustom.mntTel"  maxlength="32" />
@@ -131,8 +121,6 @@
               <option value="0">否</option>
             </select>
           </td>
-        </tr>
-        <tr>
           <th> 是否无线网：</th>
           <td>
             <select ms-duplex="hspUhfRdrCustom.wifFlg"  lay-verify="required">
@@ -146,8 +134,6 @@
           <td>
             <input type="text" ms-duplex="hspUhfRdrCustom.rdrIp" maxlength="32" />
           </td>
-        </tr>
-        <tr>
           <th> ip端口：</th>
           <td>
             <input type="text" ms-duplex="hspUhfRdrCustom.rdrPort" maxlength="32" />
