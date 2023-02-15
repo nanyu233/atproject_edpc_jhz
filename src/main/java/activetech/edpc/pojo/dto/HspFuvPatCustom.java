@@ -8,7 +8,10 @@ public class HspFuvPatCustom extends HspFuvPat {
 	private String patNatCodStr;
 	private String marStaCodStr;
 	private String fuvStaStr;
-	
+	private String patJobStr;
+
+	public String getPatJobStr() { return patJobStr; }
+	public void setPatJobStr(String patJobStr) { this.patJobStr = patJobStr;}
 	public String getCstSexCodStr() {
 		return cstSexCodStr;
 	}

@@ -285,11 +285,11 @@
 						    'hspFuvPatCustom.bthDat' :    btnDat,
 						    'hspFuvPatCustom.lnkNbr' :    checkData.pheNbr,
 						    'hspFuvPatCustom.patNatCod' : checkData.nation,
-						    'hspFuvPatCustom.marStaCod' : checkData.marStaCod,
+						    'hspFuvPatCustom.marStaCod' : checkData.maritalStatus,//checkData.marStaCod,
 						    'hspFuvPatCustom.patJob' :    checkData.emgJob,
 						    'hspFuvPatCustom.idNbr' :     checkData.idNbr,
-						    // 'hspFuvPatCustom.patAdr' :    checkData.cstAdr,
-						    // 'hspFuvPatCustom.patTel' :    checkData.patTel
+						     'hspFuvPatCustom.patAdr' :    checkData.cstAdr,
+						     'hspFuvPatCustom.patTel' :    checkData.patTel,
                                'hspFuvPatCustom.xtfFlg' :    '1',
 						    // 'hspFuvPatCustom.czfFlg' :    checkData.czfFlg || '',
 						    // 'hspFuvPatCustom.csfFlg' :    checkData.csfFlg || ''

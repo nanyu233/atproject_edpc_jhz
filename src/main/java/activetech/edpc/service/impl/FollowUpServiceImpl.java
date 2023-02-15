@@ -268,6 +268,11 @@ public class FollowUpServiceImpl implements FollowUpService {
 			hspFuvPatCustom.setLnkNbr(hspDbzlBas.getLnkWay());
 			// 插入 HSP_FUV_PAT 表
 			hspFuvPatMapper.insert(hspFuvPatCustom);
+
+
+			HspFuvPatCustom hspFuvPatCustom2 = hspFuvPatMapperCustom.selectOneByCondition(hspFuvPatQueryDto);
+			hspFuvPatCustom=hspFuvPatCustom2;
+
 		}
 		return hspFuvPatCustom;
 	}

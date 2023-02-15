@@ -38,7 +38,7 @@
       a.crt_usr_nme,
       a.crt_tim,
       a.pln_fuv_typ,
-      -- b.pat_nam,
+      b.pat_nam,
       c.fuv_tim,
       c.fuv_seq
   </sql>
