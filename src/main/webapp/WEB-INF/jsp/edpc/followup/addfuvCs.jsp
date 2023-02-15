@@ -282,13 +282,13 @@
 						   {'hspFuvPatCustom.patId' :     checkData.regSeq,
 						    'hspFuvPatCustom.patNam' :    checkData.cstNam,
 						    'hspFuvPatCustom.cstSexCod' : checkData.cstSexCod,
-						    'hspFuvPatCustom.bthDat' :    bthDat,
+						    'hspFuvPatCustom.bthDat' :    btnDat,
 						    'hspFuvPatCustom.lnkNbr' :    checkData.pheNbr,
 						    'hspFuvPatCustom.patNatCod' : checkData.nation,
-						    'hspFuvPatCustom.marStaCod' : checkData.marStaCod,
+						    'hspFuvPatCustom.marStaCod' : checkData.maritalStatus,
 						    'hspFuvPatCustom.patJob' :    checkData.emgJob,
 						    'hspFuvPatCustom.idNbr' :     checkData.idNbr,
-						    // 'hspFuvPatCustom.patAdr' :    checkData.cstAdr,
+                             'hspFuvPatCustom.patAdr' :    checkData.cstAdr,
 						    // 'hspFuvPatCustom.patTel' :    checkData.patTel
 						    'hspFuvPatCustom.csfFlg' :    '1'
 						   },
