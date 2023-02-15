@@ -349,7 +349,7 @@
                     }
                 },
                 {
-                    field: 'patNatCod',
+                    field: 'patNatCodStr',
                     title: '民族',
                     width: setWidth(0.04)
                 },
@@ -364,12 +364,12 @@
                     width: setWidth(0.06)
                 },
                 {
-                    field: 'patJob',
+                    field: 'patJobStr',
                     title: '职业',
                     width: setWidth(0.06),
-                    formatter: function (value, row, index) {
-                        return publicFun.codingEscape(zyArray, value);
-                    }
+                    // formatter: function (value, row, index) {
+                    //     return publicFun.codingEscape(zyArray, value);
+                    // }
                 },
                 {
                     field: 'patTel',

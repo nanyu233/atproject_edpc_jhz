@@ -82,7 +82,7 @@ function generateCols() {
       },
       {
         field: "regTim",
-        title: "预检日期",
+        title: "登记时间",
         width: 130,
         formatter: function (value, row, index) {
           return value ? publicFun.timeFormat(value, "yyyy/MM/dd hh:mm") : ""

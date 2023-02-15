@@ -320,7 +320,7 @@ var vm = avalon.define({
 						if(key=='fuvTim'||key=='outTim'||key=='nxtFuvTim'){
 							vm.hspFuvInfCustom[key] = publicFun.timeFormat(new Date(res.hspFuvInfCustom[key]), 'yyyy/MM/dd ')
 						}
-						if(key=='hspFuvMedInfList'){
+						if(key=='hspFuvMedInfList'&& res.hspFuvInfCustom[key].length){
 							vm[key] = res.hspFuvInfCustom[key];
 						}
 						

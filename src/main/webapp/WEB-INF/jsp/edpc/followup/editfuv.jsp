@@ -48,7 +48,7 @@
                     </td>
                     <th>职业：</th>
                     <td>
-                        <input type="text" id="pat_patJob" name="hspStaInfCustom.patJob" value="${hspFuvPatCustom.patJob}" />
+                        <input type="text" id="pat_patJob" name="hspStaInfCustom.patJob" value="${hspFuvPatCustom.patJobStr}" />
                     </td>
                 </tr>
                 <tr>
