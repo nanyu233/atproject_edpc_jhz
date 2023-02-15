@@ -685,7 +685,7 @@
 
 		// register 保存并挂号时需传入的参数
     function postPatientMsg(print,register) {
-			if(vm.patientMsg.xtFlg==='0'&& vm.patientMsg.czFlag ==='0' &&vm.patientMsg.cspgFlg==='0'){
+			if(!vm.patientMsg.patTyp){
 				publicFun.alert('胸痛、卒中、创伤必选')
 				return
 			}
