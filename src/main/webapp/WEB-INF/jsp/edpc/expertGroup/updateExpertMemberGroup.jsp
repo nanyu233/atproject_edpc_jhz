@@ -5,7 +5,7 @@
 
 <head>
     <base href="${baseurl}" >
-    <title>新增专家组成员</title>
+    <title>新增随访组成员</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
     <link rel="stylesheet" type="text/css" href="css/common/tableStyle.css">
@@ -25,33 +25,33 @@
 </style>
 <body class="addcompctl">
     <form class="form" id="editExpertForm" action="expertGroup/updateExpertGroupMemberSubmit.do" method="post">
-        <table>
+        <table style="width:100%">
             <colgroup>
-                <col width="100" />
+                <col width="30%" />
                 <col />
             </colgroup>
             <tbody>
                 <tr>
-                    <th><i class="red">*</i> 专家组序号:</th>
+                    <th><i class="red">*</i> 随访组序号:</th>
                     <td>
                         <input type="text" id="grpSeq" name="grpSeq" readonly="true"/>
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="red">*</i> 专家组名称:</th>
+                    <th><i class="red">*</i> 随访组名称:</th>
                     <td>
                         <input type="text" id="grpNam" name="grpNam" readonly="true"/>
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="red">*</i> 专家名称:</th>
+                    <th><i class="red">*</i> 随访名称:</th>
                     <td class="docName">
                     	<input type="hidden" id="eptNo" name="eptNo"/>	
                         <input type="text" id="usrname" name="usrname" autocomplete="off" readonly/>
                     </td>
                 </tr>
                 <tr>
-                    <th><i class="red">*</i> 专家类型:</th>
+                    <th><i class="red">*</i> 随访类型:</th>
                     <td>
                         <select id="eptTyp" name="eptTyp" class="li-input-s">
                         	<option value="0">请选择</option>
@@ -61,13 +61,13 @@
                         </select>
                     </td>
                 </tr>
-                 <tr>
+                 <!-- <tr>
                     <th>是否院前急救联系人:</th>
                     <td>
                     	<label><input type="radio" name="wxpFlg" value="0" checked/>否</label>
                     	<label><input type="radio" name="wxpFlg" value="1"/>是</label>
                     </td>
-                </tr>
+                </tr> -->
                 <tr>
                     <td colspan="2" class="last_td center" style="padding-top: 10px">
                         <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" id="submitbtn" onclick="editGroupMemeber()">修改</a>
@@ -123,9 +123,9 @@
                     "usrname": "required"
                 },
                 messages: {
-                    "grpSeq": "请确认专家组序号",
-                    "grpNam": "请确认专家组名称",
-                    "usrname": "请填写专家名称"
+                    "grpSeq": "请确认随访组序号",
+                    "grpNam": "请确认随访组名称",
+                    "usrname": "请填写随访名称"
                 }
             }).form();
         }

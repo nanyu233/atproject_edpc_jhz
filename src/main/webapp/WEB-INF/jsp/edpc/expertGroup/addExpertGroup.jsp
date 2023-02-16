@@ -6,7 +6,7 @@
 <head>
     <base href="${baseurl}" >
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>新增专家组</title>
+    <title>新增随访组</title>
     <%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
     <link rel="stylesheet" type="text/css" href="css/common/tableStyle.css">
     <link rel="stylesheet" type="text/css" href="css/hems/global.css">
@@ -35,7 +35,7 @@
             </colgroup>
             <tbody>
                 <tr>
-                    <th><i class="red">*</i> 专家组名称:</th>
+                    <th><i class="red">*</i> 随访组名称:</th>
                     <td>
                         <input type="text" id="grpNam" name="grpNam" />
                     </td>
@@ -59,7 +59,7 @@
                     "grpNam": "required"
                 },
                 messages: {
-                    "grpNam": "请输入新增专家组名称"
+                    "grpNam": "请输入新增随访组名称"
                 }
             }).form();
         }

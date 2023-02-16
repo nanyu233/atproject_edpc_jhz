@@ -86,7 +86,7 @@
                 [{
                     field: "grpSeq",
                     width: getWidth(0.1),
-                    title: '专家组编号/专家编号',
+                    title: '随访组编号/随访编号',
                     formatter: function (value, row, index) {
                         if (row["_parentId"]) {
                             return row.eptNo;
@@ -98,7 +98,7 @@
                     width: getWidth(0.1),
                     align: 'left',
                     editor: 'text',
-                    title: '专家组名称',
+                    title: '随访组名称',
                     formatter: function (value, row, index) {
                         if (row['_parentId']) {
                             return "";
@@ -110,13 +110,13 @@
                     width: getWidth(0.1),
                     align: 'left',
                     editor: 'text',
-                    title: '专家名称'
+                    title: '随访名称'
                 },{
                     field: 'eptTyp',
                     width: getWidth(0.1),
                     align: 'left',
                     editor: 'text',
-                    title: '专家类型',
+                    title: '随访类型',
                     formatter: function (value, row, index) {
                         if (row['_parentId'] && value) {
                             var typeval = '';
@@ -160,17 +160,19 @@
                             return value + "    <span class='url-link'><a href=javascript:dial('" + value + "_" + row.consultationRecordsSeq + "_" + row.emgSeqCr + "_" + row.dutydoct + "')>拨号</a></span>"
                         } else return value;
                     }
-                }, {
-                    field: 'wxpFlg',
-                    width: getWidth(0.1),
-                    edtor: 'text',
-                    title: '是否院前急救联系人',
-                    formatter: function (value, row, index) {
-                        if (row['_parentId']) {
-                            return value === '0' ? "否" : "是";
-                        }
-                    }
-                }]
+                }, 
+								// {
+                //     field: 'wxpFlg',
+                //     width: getWidth(0.1),
+                //     edtor: 'text',
+                //     title: '是否院前急救联系人',
+                //     formatter: function (value, row, index) {
+                //         if (row['_parentId']) {
+                //             return value === '0' ? "否" : "是";
+                //         }
+                //     }
+                // }
+							]
             ],
             toolbar: [{
                 handler: "cmdshow",
@@ -183,11 +185,11 @@
             }, {
                 handler: "cmdaddexpertgroup",
                 iconCls: "icon-add",
-                text: "新增专家组"
+                text: "新增随访组"
             }, {
                 handler: "cmdadd",
                 iconCls: "icon-add",
-                text: "新增专家"
+                text: "新增随访"
             }, {
                 handler: "cmdedit",
                 iconCls: "icon-edit",
@@ -252,17 +254,17 @@
     }
 
     function addExpertGroup() {
-        createmodalwindow("新增专家组", 300, 120, 'expertGroup/toAddExpertGroupPage.do');
+        createmodalwindow("新增随访组", 300, 120, 'expertGroup/toAddExpertGroupPage.do');
     }
 
     function addExpert() {
         passNode = tg.getSelected();
         if (GridUtils.checkChecked(passNode)) {
             if (passNode.usrname) {
-                publicFun.alert("请选择专家组新增专家");
+                publicFun.alert("请选择随访组新增随访");
                 return;
             }
-            createmodalwindow("新增专家", 400, 250, 'expertGroup/toAddExpertGroupMemberPage.do');
+            createmodalwindow("新增随访", 400, 250, 'expertGroup/toAddExpertGroupMemberPage.do');
         }
     }
 
@@ -270,10 +272,10 @@
         passNode = tg.getSelected();
         if (GridUtils.checkChecked(passNode)) {
             if (passNode['_parentId']) {
-                createmodalwindow("修改专家信息", 400, 250, 'expertGroup/toUpdateExpertGroupMemberPage.do');
+                createmodalwindow("修改随访信息", 400, 250, 'expertGroup/toUpdateExpertGroupMemberPage.do');
                 //修改的时候需要传递的参数
             } else {
-                createmodalwindow("修改专家组信息", 300, 120, 'expertGroup/toUpdateExpertGroupPage.do');
+                createmodalwindow("修改随访组信息", 300, 120, 'expertGroup/toUpdateExpertGroupPage.do');
             }
         }
     }

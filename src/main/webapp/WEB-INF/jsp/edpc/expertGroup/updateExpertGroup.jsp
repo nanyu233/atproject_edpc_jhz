@@ -5,7 +5,7 @@
 
 <head>
     <base href="${baseurl}" >
-    <title>修改专家组</title>
+    <title>修改随访组</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
@@ -30,7 +30,7 @@
             </colgroup>
             <tbody>
                 <tr>
-                    <th><i class="red">*</i> 专家组名称:</th>
+                    <th><i class="red">*</i> 随访组名称:</th>
                     <td>
                     	<input type="hidden" id="grpSeq" name="grpSeq"/>
                         <input type="text" id="grpNam" name="grpNam" />
@@ -59,7 +59,7 @@
                     "grpNam": "required"
                 },
                 messages: {
-                    "grpNam": "请输入新增专家组名称"
+                    "grpNam": "请输入新增随访组名称"
                 }
             }).form();
         }
