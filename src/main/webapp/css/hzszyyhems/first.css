@@ -71,6 +71,8 @@
   opacity: 1;
   border: 1px solid #5685b8;
   box-shadow: 0 2px 5px #5685b8;
+  max-height: 450px;
+  overflow-y: auto;
 }
 
 .second-menu>li {
