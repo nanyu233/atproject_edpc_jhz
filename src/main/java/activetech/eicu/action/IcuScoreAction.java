@@ -57,7 +57,7 @@ public class IcuScoreAction {
 		model.addAttribute("liveNo", liveNo);
 		model.addAttribute("gradeType", gradeType);
 		model.addAttribute("gradeSeq", gradeSeq);
-		return "/eicu/icuScore/";
+		return "/eicu/icuScore/"+gradeType;
 	}
 	
 	/**
@@ -73,8 +73,21 @@ public class IcuScoreAction {
 		model.addAttribute("liveNo", liveNo);
 		return "/eicu/icuScore/basicScoPage";
 	}
-	
-	
+
+	/**
+	 * 跳转多表格评分页面
+	 * @param model model
+	 * @param gradeType gradeType
+	 * @param gradeSeq gradeSeq
+	 * @return return
+	 */
+	@RequestMapping("/toEditMultiSco")
+	public String toEditMultiSco(Model model,String gradeType,String gradeSeq, String liveNo) {
+		model.addAttribute("gradeType", gradeType);
+		model.addAttribute("gradeSeq", gradeSeq);
+		model.addAttribute("liveNo", liveNo);
+		return "/eicu/icuScore/editMultiSco";
+	}
 	/**
 	 * 获取评分列表
 	 * @param icuScoreQueryDto
@@ -369,8 +382,9 @@ public class IcuScoreAction {
 	 * @return return
 	 */
 	@RequestMapping("/toBaseMultiPage")
-	public String toBaseMultiPage(Model model,String gradeType) {
+	public String toBaseMultiPage(Model model,String gradeType,String liveNo) {
 		model.addAttribute("gradeType", gradeType);
+		model.addAttribute("liveNo", liveNo);
 		return "/eicu/icuScore/basicMultiPage";
 	}
 }

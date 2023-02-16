@@ -408,7 +408,23 @@ var publicFun = {
 			}
 		}
 	},
-
+	/**
+	 * 下划线字段驼峰化
+	 * CAMEL_CASE => camelCase
+	 * CAMEL-CASE => camelCase
+	 */
+	camelCase: function (string) {
+		if (string.indexOf('-') !== -1) {
+			// eg. xxx-yyy -> xxxYyy
+			return string.toLowerCase().replace(/-([a-z0-9])/g, function (all, letter) {
+				return letter.toUpperCase();
+			});
+		} else {
+			return string.toLowerCase().replace(/_([a-z])/g, function (all, letter) {
+				return letter.toUpperCase();
+			});
+		}
+	},
 	SearchList : function(userNameParam, userListParam, NoId) {
 		var type = '';
 		if (NoId == 'isClass') {

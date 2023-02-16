@@ -228,6 +228,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
         eicuUtil = parent.eicuUtil;
       }
       var ptBasicInfo = eicuUtil.ptBasicInfo;
+      eicuUtil.setptBasicInfo('${liveNo}')
       var _liveNo = '';
       var _gradeType = '';
       var menuInfoObj = {};
@@ -382,7 +383,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
             document.getElementById('myFrame').contentWindow.$clickedEl ||
             curPanelGridData;
           if (!$clickedEl) {
-            alert_warn('未选中数据');
+            publicFun.alert('未选中数据');
             return;
           } else {
             fooGradeType = _gradeType;
@@ -399,8 +400,8 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
         };
         _confirm('您确认删除吗？', null, function () {
           publicFun.httpRequest(reqUrl, reqParams, function (res) {
-            ajax_alert(res);
             if (res.resultInfo.success) {
+              publicFun.successalert('删除成功')
               if (curPageType === 'old') {
                 // old delete callback
                 $('#panel-grid-table').datagrid('reload');
@@ -414,6 +415,8 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
                   closemodalwindow();
                 }
               }
+            }else {
+              publicFun.alert(res.resultInfo.message)
             }
           });
         });

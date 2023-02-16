@@ -187,7 +187,9 @@ var eicuUtil = {
 	//获取带医院名页面标题
 	getTitleWithHos: function () {
 		this.hosInfo.hosName = this.hosInfo.hosName ? this.hosInfo.hosName : this.hosInfo.optvalue;
-		return this.hosInfo.hosName + this.getTabTitle();
+		// return this.hosInfo.hosName + this.getTabTitle();
+		return  this.getTabTitle();
+
 	},
 
 	/**
@@ -222,32 +224,20 @@ var eicuUtil = {
 		titleHtml += this.getTitleWithHos();
 		titleHtml += '</div>';
 		titleHtml +=
-			'<div style="font-size:10pt;font-weight:normal;padding: 1mm 0 2mm 1mm;text-align:left">';
-		if(this.ptBasicInfo.bedNo) {
-			titleHtml +=
-				'<span style="padding-right:5pt">床号: <span style="border-bottom:1px solid black">' +
-				this.ptBasicInfo.bedNo +
-				'</span></span>';
-		}
-		titleHtml +=
-			'<span style="padding-right:5pt">住院号: <span style="border-bottom:1px solid black">' +
-			this.ptBasicInfo.custNo +
-			'</span></span>';
-		titleHtml +=
-			'<span style="padding-right:5pt">姓名: <span style="border-bottom:1px solid black">' +
-			this.ptBasicInfo.custName +
+			'<span style="margin-left: 20%;padding-right:5pt">姓名: <span style="border-bottom:1px solid black">' +
+			this.ptBasicInfo.cstNam +
 			'</span></span>';
 		titleHtml +=
 			'<span style="padding-right:5pt">性别: <span style="border-bottom:1px solid black">' +
-			this.ptBasicInfo.custSex +
+			this.ptBasicInfo.cstSexCod +
 			'</span></span>';
 		titleHtml +=
 			'<span style="padding-right:5pt">年龄: <span style="border-bottom:1px solid black">' +
-			this.ptBasicInfo.custAge +
+			this.ptBasicInfo.cstAgeName +
 			'</span></span>';
 		titleHtml +=
 			'<span style="padding-right:5pt">入科日期: <span style="border-bottom:1px solid black">' +
-			this.ptBasicInfo.inicuTimeStr +
+			this.ptBasicInfo.crtTim +
 			'</span></span>';
 		// var inIcuDate = queryTimeStr ? eicuUtil.getInIcuTime(publicFun.timeFormat(this.ptBasicInfo.inicuTimeStr, 'yyyy/MM/dd'), publicFun.timeFormat(queryTimeStr, 'yyyy/MM/dd')) : this.ptBasicInfo.liveIcuTime;
 		// if (queryTimeStr && this.ptBasicInfo.outicuTimeStr !== '' && publicFun.getTimeStamp(this.ptBasicInfo.outicuTimeStr)<publicFun.getTimeStamp(queryTimeStr)) {
@@ -255,21 +245,10 @@ var eicuUtil = {
 		// }
 		//
 		// if (caseFrom === 'special') inIcuDate = this.ptBasicInfo.inIcuDate;
-
-		titleHtml +=
-			'<span style="padding-right:5pt">入住ICU天数: <span style="border-bottom:1px solid black">' +
-			this.ptBasicInfo.inIcuDate +
-			'</span></span>';
-		if (caseFrom === 'special') {
-			titleHtml +=
-				'<span style="padding-right:5pt">日期: <span style="border-bottom:1px solid black">' +
-				queryTimeStr +
-				'</span></span>';
-		}
-		titleHtml +=
-			'<div style="margin-top: 1mm;width:100%;overflow-x:hidden;overflow-y:hidden;">诊断: <span style="border-bottom:1px solid black">' +
-			this.ptBasicInfo.diagInfo +
-			'</span></div>';
+		// titleHtml +=
+		// 	'<div style="margin-top: 1mm;width:100%;overflow-x:hidden;overflow-y:hidden;">诊断: <span style="border-bottom:1px solid black">' +
+		// 	this.ptBasicInfo.diagInfo +
+		// 	'</span></div>';
 		titleHtml += '</div>';
 		// if (caseFrom === 'special') {
 		this.ptBasicInfo = ptBasicInfoClone;
@@ -1244,9 +1223,9 @@ var eicuUtil = {
 		if(!liveNo) this.preventPrint("查询患者表头参数缺失");
 
 		var self = this;
-		var reqUrl = _baseUrl + 'icucust/queryPrintTitleInfo.do';
+		var reqUrl = _baseUrl + 'cz/getCzInfo.do';
 		var reqParams = {
-			liveNo: liveNo,
+			regSeq: liveNo,
 			paramDate: paramDate,
 			udefFlag: careFlag
 		}
@@ -1258,8 +1237,11 @@ var eicuUtil = {
 		var result = null;
 
 		publicFun.httpRequest(reqUrl, reqParams, extraParam, function (res){
-			var printCust = res.resultInfo.sysdata.printCust;
-
+			var printCust = res.resultInfo.sysdata.hspDbzlBas;
+			printCust.cstSexCod = publicFun.codingEscape(publicFun.getDict('CST_SEX_COD'), printCust.cstSexCod)
+			printCust.cstAge = printCust.cstAge || '-'
+			printCust.cstAgeName = printCust.cstAge + publicFun.codingEscape(publicFun.getDict('CST_AGE_COD'), printCust.cstAgeCod)
+			printCust.crtTim = publicFun.timeFormat(new Date(printCust.crtTim), 'yyyy/MM/dd hh:mm:ss')
 			result = printCust;
 		});
 
@@ -1312,30 +1294,35 @@ var eicuUtil = {
 			}
 		})
 	},
+	setptBasicInfo: function (liveNo) {
+		eicuUtil.ptBasicInfo = {
+			liveNo: liveNo
+		}
+	}
 
 };
 
 
-if (sessionStorage.getItem('icutoken') && window.top.getCurPtBasicInfo) { // 是否在顶层框架中
-	eicuUtil.ptBasicInfo = window.top.getCurPtBasicInfo();
-} else {
-	try {
-		// 如果当前标签顶层页面有getBasicInfo方法
-		eicuUtil.ptBasicInfo = $(eicuUtil.tabInfo[0])
-			.find('iframe')
-			.get(0)
-			.contentWindow.getBasicInfo();
-	} catch (e) {
-		// url中有liveNo代表是外链调用
-		if (!sessionStorage.getItem('icutoken')) {
-			eicuUtil.queryPtBasicInfoFromOuter(eicuUtil.setOuterInfo().liveNo);
-		}else {
-			// 如果不是则动态请求患者信息
-			eicuUtil.ptBasicInfo = {};
-		}
-	}
-}
-
-if(sessionStorage.getItem('icutoken') === null) {
-	eicuUtil.getIcuCommonDict();
-}
+// if (sessionStorage.getItem('icutoken') && window.top.getCurPtBasicInfo) { // 是否在顶层框架中
+// 	eicuUtil.ptBasicInfo = window.top.getCurPtBasicInfo();
+// } else {
+// 	try {
+// 		// 如果当前标签顶层页面有getBasicInfo方法
+// 		eicuUtil.ptBasicInfo = $(eicuUtil.tabInfo[0])
+// 			.find('iframe')
+// 			.get(0)
+// 			.contentWindow.getBasicInfo();
+// 	} catch (e) {
+// 		// url中有liveNo代表是外链调用
+// 		if (!sessionStorage.getItem('icutoken')) {
+// 			eicuUtil.queryPtBasicInfoFromOuter(eicuUtil.setOuterInfo().liveNo);
+// 		}else {
+// 			// 如果不是则动态请求患者信息
+// 			eicuUtil.ptBasicInfo = {};
+// 		}
+// 	}
+// }
+//
+// if(sessionStorage.getItem('icutoken') === null) {
+// 	eicuUtil.getIcuCommonDict();
+// }

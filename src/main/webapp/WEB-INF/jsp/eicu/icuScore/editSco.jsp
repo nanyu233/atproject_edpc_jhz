@@ -1215,8 +1215,9 @@
             $('#gradeTimeStr').val(
                 publicFun.timeFormat(totalInfo.gradeTime, 'yyyy/MM/dd hh:mm')
             );
-            $('#gradeUser').val(totalInfo.gradeUser);
-            eicuUtil.queryDoct($('#gradeUser'));
+            // $('#gradeUser').val(_userid);
+            vm.user.userId = _userid
+            // eicuUtil.queryDoct($('#gradeUser'));
           } else {
             getParentModInfo();
           }
@@ -1350,7 +1351,7 @@
     $('#gradeTimeStr').val(thisDateStr);
     // $('#gradeUser').val(_userid);
     vm.user.userId = _userid
-    eicuUtil.queryDoct($('#gradeUser'));
+    // eicuUtil.queryDoct($('#gradeUser'));
   }
   /**
    * 图片加载错误

@@ -124,8 +124,9 @@
                     name: '知情同意书'
                 },
                 {
-                    name: '评分表',
-                    src: '${baseurl}cpc/toGraceSco.do?emgSeq='  + '${emgSeq}'+'&wayTyp=' + '${wayTyp}' + '&regSeq=' +'${regSeq}'
+                    name: '评分总览',
+                    <%--src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${emgSeq}'--%>
+                    src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${regSeq}'
                 },
                 {
                     name: '检验信息',
@@ -151,11 +152,6 @@
                 },
                 {
                     name: '护理记录'
-                },
-                {
-                    name: '评分总览',
-                    <%--src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${emgSeq}'--%>
-                    src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${regSeq}'
                 },
             ]
         },
