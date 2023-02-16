@@ -298,7 +298,7 @@
                                 _html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
                             } else if ("2" == row.rcdSta) {
                                /* _html += '<span class="btn detail" onclick="skipChkPage(\'' + row.regSeq + '\')">审核</span>'*/
-                                _html += '<span class="btn detail" onclick="chkConfirm(\'' + row.regSeq + '\')">审核</span>
+                                _html += '<span class="btn detail" onclick="chkConfirm(\'' + row.regSeq + '\')">审核</span>'
                             }
                             if ("4" == row.rcdSta) {
                                 _html += '<span class="btn detail" onclick="chkRowBak(\'' + row.regSeq + '\',\'' + row.smtSta + '\')">解锁</span>'
