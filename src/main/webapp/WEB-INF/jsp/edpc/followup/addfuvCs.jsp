@@ -187,7 +187,8 @@
         $('#dg').datagrid({
         	url: 'followup/querypat_resultByType.do',
           queryParams: {
-              'patTyp': '3'
+              'patTyp': '3',
+              "hspDbzlBasCustom.regSeq":''
           },
             striped: true,
             singleSelect: true,
