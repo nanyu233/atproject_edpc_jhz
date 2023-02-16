@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import activetech.eicu.pojo.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import activetech.base.pojo.dto.PageQuery;
@@ -19,10 +21,6 @@ import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.base.service.SystemConfigService;
-import activetech.eicu.pojo.dto.IcuCustInfoQueryDto;
-import activetech.eicu.pojo.dto.IcuGradeRiskCustom;
-import activetech.eicu.pojo.dto.IcuScoreQueryDto;
-import activetech.eicu.pojo.dto.IcuVitlIoQueryDto;
 import activetech.eicu.service.IcuCustInfoService;
 import activetech.eicu.service.IcuScoreService;
 import activetech.external.pojo.dto.HspJyjgCustom;
@@ -96,6 +94,22 @@ public class IcuCustInfoAction {
 
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		resultInfo.setSysdata(result);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
+	/**
+	 * 获取Icu患者功能菜单
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/findIcuCustMenu")
+	public @ResponseBody SubmitResultInfo findIcuCustMenu(@RequestParam("moduleid") String moduleId) throws Exception{
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		//获取ICU功能菜单
+		List<IcuMenuDefCustom> menuList = icuScoreService.findIcuCustMenu(moduleId);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("menuList",menuList);
+		resultInfo.setSysdata(map);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	
