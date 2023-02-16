@@ -78,13 +78,13 @@
              a.pat_id = #{hspFuvPatCustom.patId,jdbcType=VARCHAR}
          </if>
             <if test="hspFuvPatCustom.patNam != null">
-                and b.pat_nam like '%' || #{hspFuvPatCustom.patNam,jdbcType=VARCHAR} || '%'
+                and a.pat_nam like '%' || #{hspFuvPatCustom.patNam,jdbcType=VARCHAR} || '%'
             </if>
             <if test="hspFuvPatCustom.lnkNbr != null">
-                and b.lnk_nbr like '%' || #{hspFuvPatCustom.lnkNbr,jdbcType=VARCHAR} || '%'
+                and a.lnk_nbr like '%' || #{hspFuvPatCustom.lnkNbr,jdbcType=VARCHAR} || '%'
             </if>
             <if test="hspFuvPatCustom.idNbr != null">
-                and b.id_nbr like '%' || #{hspFuvPatCustom.idNbr,jdbcType=VARCHAR} || '%'
+                and a.id_nbr like '%' || #{hspFuvPatCustom.idNbr,jdbcType=VARCHAR} || '%'
             </if>
             <if test="hspFuvPatCustom.xtfFlg != null and hspFuvPatCustom.xtfFlg != ''.toString()">
                 and a.xtf_flg = #{hspFuvPatCustom.xtfFlg}
