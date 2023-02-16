@@ -119,8 +119,9 @@ var editFun = {
     /**
      * @特殊处理出生日期
      */
+    res.bthDat = publicFun.timeFormat(res.bthDat, "yyyy/MM/dd")
     // var _dateKey = ["regTim", "docDat", "checkDocDat", "checkNurseDat"]
-    var _dateKey = ["regTim", "bthDat"]
+    var _dateKey = ["regTim"]
     for (var i = 0; i < _dateKey.length; i++) {
       if (res[_dateKey[i]]) {
         res[_dateKey[i]] = publicFun.timeFormat(res[_dateKey[i]], "yyyy/MM/dd hh:mm:ss")
