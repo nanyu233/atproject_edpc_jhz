@@ -87,7 +87,8 @@ public class CsServiceImpl implements CsService{
 
 	@Autowired
 	private HspDbzlBasMapper hspDbzlBasMapper;
-
+	@Autowired
+	private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
 
 	@Override
 	public ResultInfo getHspBodyPartsDef() {
@@ -845,5 +846,13 @@ public class CsServiceImpl implements CsService{
 	@Override
 	public List<HspDbzlBasCustom> getCsPatientInfoListByPage(QueryDto queryDto) {
 		return cpcMapper.getCsPatientInfoListForDbzlBas(queryDto);
+	}
+
+	@Override
+	public ResultInfo csPatietBasicInfSubmit(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser){
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		hspDbzlBasQueryDto.getHspDbzlBasCustom().setModNo(activeUser.getUsrno());
+		hspDbzlBasMapperCustom.updateHspDbzlBasByRegSeq(hspDbzlBasQueryDto);
+		return resultInfo;
 	}
 }

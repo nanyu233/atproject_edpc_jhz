@@ -89,4 +89,6 @@ public interface CsService {
 	int getCsPatientInfoListCount(QueryDto queryDto);
 
 	List<HspDbzlBasCustom> getCsPatientInfoListByPage(QueryDto queryDto);
+
+	ResultInfo csPatietBasicInfSubmit(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser);
 }

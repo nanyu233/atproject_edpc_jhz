@@ -398,5 +398,17 @@ public class CsAction {
 		
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
-	
+
+	/**
+	 * 创伤登记页面基本信息提交
+	 * @param hspDbzlBasQueryDto
+	 * @param activeUser
+	 * @return
+	 */
+	@RequestMapping("/csPatietBasicInfSubmit")
+	@ResponseBody
+	public SubmitResultInfo csPatietBasicInfSubmit(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser){
+		ResultInfo resultInfo = csService.csPatietBasicInfSubmit(hspDbzlBasQueryDto, activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
 }
