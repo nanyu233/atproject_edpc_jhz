@@ -85,6 +85,10 @@ public class CsServiceImpl implements CsService{
 	@Autowired
 	private HspCspfResMapper hspCspfResMapper;
 
+	@Autowired
+	private HspDbzlBasMapper hspDbzlBasMapper;
+
+
 	@Override
 	public ResultInfo getHspBodyPartsDef() {
 		ResultInfo resultInfo = null;
@@ -503,16 +507,22 @@ public class CsServiceImpl implements CsService{
 	}
 
 	@Override
-	public ResultInfo getCsinf(HspemginfCustom hspemginfCustom, ActiveUser activeUser) throws Exception {
+	public ResultInfo getCsinf(HspDbzlBasCustom hspDbzlBasCustom, ActiveUser activeUser) throws Exception {
 		// TODO Auto-generated method stub
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String , Object>();
-		String emgSeq = hspemginfCustom.getEmgSeq();
-		HspemginfCustom hspEmgInf = hspemginfCustomMapper.findEmgByEmgSeq(hspemginfCustom);
-		sysdata.put("hspEmgInf",hspEmgInf);
+		//String emgSeq = hspemginfCustom.getEmgSeq();
+		//HspemginfCustom hspEmgInf = hspemginfCustomMapper.findEmgByEmgSeq(hspemginfCustom);
+		//sysdata.put("hspEmgInf",hspEmgInf);
+
+		String regSeq = hspDbzlBasCustom.getRegSeq();
+		//患者信息
+		HspDbzlBas hspDbzlBas = hspDbzlBasMapper.selectByPrimaryKey(regSeq);
+		sysdata.put("hspDbzlBas",hspDbzlBas);
+
 		HspZlInfExample example = new HspZlInfExample();
 		HspZlInfExample.Criteria criteria = example.createCriteria();
-		criteria.andEmgNoEqualTo(emgSeq);
+		criteria.andEmgNoEqualTo(regSeq);
 		
 		
 		List<HspZlInf> cszlList = hspZlInfMapper.selectByExample(example);

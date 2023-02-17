@@ -329,10 +329,10 @@ public class CsAction {
 	 */
 	@RequestMapping("/getCsinf")
 	@ResponseBody
-	public SubmitResultInfo getCsinf(@RequestBody HspemginfCustom hspemginfCustom,
+	public SubmitResultInfo getCsinf(@RequestBody HspDbzlBasCustom hspDbzlBasCustom,
 			ActiveUser activeUser) throws Exception{
 		
-		ResultInfo resultInfo = csService.getCsinf(hspemginfCustom,activeUser);
+		ResultInfo resultInfo = csService.getCsinf(hspDbzlBasCustom,activeUser);
 		
 		return ResultUtil.createSubmitResult(resultInfo);
 	}

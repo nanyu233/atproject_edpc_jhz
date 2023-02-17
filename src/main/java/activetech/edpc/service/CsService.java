@@ -50,11 +50,11 @@ public interface CsService {
 	
 	/**
 	 * 获取创伤信息
-	 * @param hspemginfCustom
+	 * @param hspDbzlBasCustom
 	 * @param activeUser
 	 * @return
 	 */
-	public ResultInfo getCsinf(HspemginfCustom hspemginfCustom,ActiveUser activeUser) throws Exception;
+	public ResultInfo getCsinf(HspDbzlBasCustom hspDbzlBasCustom,ActiveUser activeUser) throws Exception;
 	
 	/**
 	 * 获取创伤患者列表
