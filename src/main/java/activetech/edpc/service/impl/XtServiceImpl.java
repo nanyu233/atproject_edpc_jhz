@@ -1057,7 +1057,7 @@ public class XtServiceImpl implements XtService{
 		COMP_MAP.put("COMP.18.000057","JGDBSZ");//肌钙蛋数值
 		COMP_MAP.put("COMP.18.000058","XQJGSZ");//血清肌酐
 		COMP_MAP.put("COMP.18.000059","DEJTSZ");//D-二聚体
-		COMP_MAP.put("COMP.18.000060","BNPNTPROBNPEDIT");//BNP/NT-proBNP --字段是虚拟字段，不在定义表里面
+		COMP_MAP.put("COMP.18.0000100","BNPNTPROBNPEDIT");//BNP/NT-proBNP --字段是虚拟字段，不在定义表里面
 		COMP_MAP.put("COMP.18.000061","TZXCSJ");//通知心超时间
 		COMP_MAP.put("COMP.18.000062","XCWCSJ");//心超完成时间
 		COMP_MAP.put("COMP.18.000063","TZCTSJ");//通知CT时间
