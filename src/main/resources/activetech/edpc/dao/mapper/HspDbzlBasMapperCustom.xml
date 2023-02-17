@@ -20,6 +20,7 @@
         set a.id_nbr         = #{hspDbzlBasCustom.idNbr, jdbcType = VARCHAR},
             a.nation         = #{hspDbzlBasCustom.nation, jdbcType = VARCHAR},
             a.emg_job        = #{hspDbzlBasCustom.emgJob, jdbcType = VARCHAR},
+            a.cst_adr        = #{hspDbzlBasCustom.cstAdr, jdbcType = VARCHAR},
             a.cst_edu        = #{hspDbzlBasCustom.cstEdu, jdbcType = VARCHAR},
             a.marital_status = #{hspDbzlBasCustom.maritalStatus, jdbcType = VARCHAR},
             a.jzxh           = #{hspDbzlBasCustom.jzxh, jdbcType = VARCHAR},
