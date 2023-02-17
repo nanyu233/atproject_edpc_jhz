@@ -56,8 +56,9 @@ public class CsAction {
 	 * @return
 	 */
 	@RequestMapping("/toCsSbDtlPage")
-	public String toCsSbDtlPage(Model model,String emgSeq, ActiveUser activeUser){
+	public String toCsSbDtlPage(Model model,String emgSeq, String regSeq, ActiveUser activeUser){
 		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("regSeq", regSeq);
 		model.addAttribute("usrno", activeUser.getUsrno());
 		model.addAttribute("usrname", activeUser.getUsrname());
 		return View.toEDPC("/cs/csSbDtlPage");
@@ -82,8 +83,9 @@ public class CsAction {
 	 * @return
 	 */
 	@RequestMapping("/toAisIss")
-	public String toAisIss(Model model,String emgSeq, ActiveUser activeUser){
+	public String toAisIss(Model model,String emgSeq, String regSeq, ActiveUser activeUser){
 		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("regSeq", regSeq);
 		return View.toEDPC("/cs/AisIss");
 	}
 
@@ -102,8 +104,9 @@ public class CsAction {
 	 * @return
 	 */
 	@RequestMapping("/toCsTimeline")
-	public String toCzTimeline(String emgSeq,Model model){
+	public String toCzTimeline(String emgSeq, String regSeq, Model model){
 		model.addAttribute("emgSeq", emgSeq);
+		model.addAttribute("regSeq", regSeq);
 		return View.toEDPC("/cs/csTimeline");
 	}
 	

@@ -290,9 +290,9 @@
                         title: '操作',
                         width: this.setWidth(0.22),
                         formatter: function (value, row, index) {
-                            var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">查看</span>' +
-                                '<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">时间轴</span>' +
-                                '<span class="btn Timeline" onclick="toAisiss(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\')">AIS/ISS</span>';
+                            var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">查看</span>' +
+                                '<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>' +
+                                '<span class="btn Timeline" onclick="toAisiss(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">AIS/ISS</span>';
 
                             if ("1" == row.rcdSta || "3" == row.rcdSta) {
                                 _html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
@@ -337,18 +337,18 @@
         }
     })
 
-    function toDetail(emgSeq, cstNam) {
-        var url = 'cs/toCsSbDtlPage.do?emgSeq=' + emgSeq
+    function toDetail(emgSeq, cstNam, wayTyp, regSeq) {
+        var url = 'cs/toCsSbDtlPage.do?emgSeq=' + emgSeq + '&regSeq=' + regSeq;
         window.top.addTab(cstNam + "-" + '创伤患者详情', url, 'icon icon-emergency-record');
     }
 
-    function toCpcTimeline(emgSeq, cstNam) {
-        var url = 'cs/toCsTimeline.do?emgSeq=' + emgSeq;
+    function toCpcTimeline(emgSeq, cstNam, wayTyp, regSeq) {
+        var url = 'cs/toCsTimeline.do?emgSeq=' + emgSeq  + '&regSeq=' + regSeq;
         window.top.addTab(cstNam + "-" + '创伤急救时间轴', url, 'icon icon-emergency-record');
     }
 
-    function toAisiss(emgSeq, cstNam) {
-        createmodalwindow(cstNam + "AIS/ISS", 950, 685, '${baseurl}cs/toAisIss.do?emgSeq=' + emgSeq);
+    function toAisiss(emgSeq, cstNam, wayTyp, regSeq) {
+        createmodalwindow(cstNam + "AIS/ISS", 950, 685, '${baseurl}cs/toAisIss.do?emgSeq=' + emgSeq + '&regSeq=' + regSeq);
     }
 
 

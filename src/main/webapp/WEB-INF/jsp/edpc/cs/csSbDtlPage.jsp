@@ -16,6 +16,8 @@
     <link rel="stylesheet" type="text/css" href="lib/easyui1.3/themes/default/easyui.css">
     <%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp"%>
+    <script type="text/javascript" src="${baseurl}lib/vue2.6.7/vue.js"></script>
+    <script type="text/javascript" src="lib/moment.min.js"></script>
     <style>
         .main .tab-header{
             list-style: none;
@@ -124,13 +126,13 @@
                           <div class="input-wrapper w23">
                               <div class="lb">姓名</div>
                               <div class="input">
-                                  <input type="text" class="input" v-model="hspEmgInf.cstNam" disabled="disabled"/>
+                                  <input type="text" class="input" v-model="baseInfo.cstNam" disabled="disabled"/>
                               </div>
                           </div>
                           <div class="input-wrapper w23">
                               <div class="lb"><span class="required">*</span>性别</div>
                               <div class="input">
-                                  <select name="" v-model="hspEmgInf.cstSexCod" disabled="disabled">
+                                  <select name="" v-model="baseInfo.cstSexCod" disabled="disabled">
                                       <option value="null">请选择</option>
                                       <option v-for="item in baseData.cstSexCodArr" :value="item.infocode">{{item.info}}</option>
                                   </select>
@@ -148,7 +150,7 @@
                           <div class="input-wrapper w23">
                               <div class="lb"><span class="required">*</span>年龄值</div>
                               <div class="input">
-                                  <input type="text" class="input"maxlength="3" v-model="hspEmgInf.cstAge" disabled="disabled" />
+                                  <input type="text" class="input"maxlength="3" v-model="baseInfo.cstAge" disabled="disabled" />
                                   <div class="unit">岁</div>
                               </div>
                           </div>
@@ -157,7 +159,7 @@
                           <div class="input-wrapper w23" >
                               <div class="lb">身份证号<span class="required">*</span></div>
                               <div class="input">
-                                  <input type="text"  class="input" v-model="hspEmgInf.idNbr" />
+                                  <input type="text"  class="input" v-model="baseInfo.idNbr" />
                               </div>
                           </div>
                           <div class="input-wrapper w23" >
@@ -169,7 +171,7 @@
                           <div class="input-wrapper w23" >
                               <div class="lb">联系电话</div>
                               <div class="input">
-                                  <input type="text"  class="input" v-model="hspEmgInf.pheNbr" disabled="disabled"/>
+                                  <input type="text"  class="input" v-model="baseInfo.pheNbr" disabled="disabled"/>
                               </div>
                           </div>
                       </div>
@@ -196,7 +198,8 @@
                               <div class="input-group" >
                                   <div class="lb">详细地址</div>
                                   <div class="input">
-                                      <input type="text"  class="input" v-model="info.XXDZ"/>
+<%--                                      <input type="text"  class="input" v-model="info.XXDZ"/>--%>
+                                      <input type="text"  class="input" v-model="baseInfo.cstAdr"/>
                                   </div>
                               </div>
                           </div>
@@ -1981,9 +1984,9 @@
  </div>
 
 </body>
-<script type="text/javascript" src="${baseurl}lib/vue2.6.7/vue.js"></script>
 <script type="text/javascript">
     var _emgSeq = "${emgSeq}";
+    var _regSeq = "${regSeq}";
     var  sub = new Vue({
         el: '#main',
         data: {
@@ -2018,7 +2021,26 @@
                 tashNowData: ''
             },
             timeList: [], //时间轴
-            hspEmgInf: {}, //基本信息
+            baseInfo: {
+                regSeq: _regSeq,  //登记注册序列号
+                regTim: '', //登记时间
+                mpi: '',  //患者id
+                cstNam: '', //患者姓名
+                cstSexCod: '', //性别
+                cstAge: '', //年龄
+                cardType: null, //证件类别
+                idNbr: '', //证件号码
+                bthDat: '', //出生日期
+                pheNbr: '', //联系电话
+                cstAdr: '', //患者地址
+                emgJob: '', //职业
+                cstEdu: '', //文化程度
+                maritalStatus: '', //婚姻状况
+                nation: '', //民族
+                zyxh: '', //住院ID
+                jzxh: '', //门诊ID（就诊ID）
+            },    //患者基本信息
+            cszlInfo: {}, //患者诊疗表信息
             baseData: {
                 // 手动的
                 Ti: ['Ti评分（分）', '测评结果', '测评入口','时间','操作'],
@@ -2334,34 +2356,33 @@
                     type: 'post',
                     contentType: 'application/json;charset=UTF-8',
                     data: JSON.stringify({
-                        emgSeq: _emgSeq,
+                        regSeq: _regSeq,
                     }),
                     dataType: 'json',
                     contentType: 'application/json;charset=UTF-8',
                     success: function (res) {
                         if (res && res.resultInfo.success) {
-                            sub.hspEmgInf = res.resultInfo.sysdata.hspEmgInf || {}
+
+                            sub.baseInfo = res.resultInfo.sysdata.hspDbzlBas || {}
                             for(var item of res.resultInfo.sysdata.cszlList) {
                                 sub.info[item.proCode] = item.proVal
                                 if (item.proCode == 'JZJYJC' && item.proVal) {
                                     sub.query.JZJYJCSel = item.proVal.split(',')
-                                    console.log(sub.query, ']]]]]]]]]]]]')
                                 }else if(item.proCode == 'YQQJCS' && item.proVal) {
                                     sub.query.YQQJCSSel = item.proVal.split(',')
                                 }else if(item.proCode == 'JZQJCS' && item.proVal) {
                                     sub.query.JZQJCSSel = item.proVal.split(',')
                                 }
                             }
-                            console.log(sub.hspEmgInf)
-                            if (sub.hspEmgInf.cstAge > 6) {
+
+                            if (sub.baseInfo.cstAge > 6) {
                                 sub.info.NIANL = '01'
-                            }else if(sub.hspEmgInf.cstAge <= 6 && sub.hspEmgInf.cstAge > 1) {
+                            }else if(sub.baseInfo.cstAge <= 6 && sub.baseInfo.cstAge > 1) {
                                 sub.info.NIANL = '02'
                             }else {
                                 sub.info.NIANL = '03'
                             }
 
-                            console.log(sub.info, 'infoooooo')
                             sub.aidPatient.allJTZZ = sub.info.JTZZ
                             if(sub.aidPatient.allJTZZ) {
                                 sub.aidPatient.scePrvCod = sub.aidPatient.allJTZZ.slice(0, 6)
@@ -2373,6 +2394,26 @@
             commit() {
                     parent.publicFun.ajaxLoading('保存中，请稍等。。。')
                     console.log(this.info, '???', )
+
+                    var succeedCount = 0;
+
+                    //提交基本信息
+                    sub.baseInfo.regTim = moment(sub.baseInfo.regTim).valueOf();
+                    var dataSubmit = {};
+                    dataSubmit.hspDbzlBasCustom = sub.baseInfo;
+                    $.ajax({
+                        url: '${baseurl}cs/csPatietBasicInfSubmit.do',
+                        type: 'post',
+                        dataType: 'json',
+                        contentType: 'application/json;charset=UTF-8',
+                        data: JSON.stringify(dataSubmit),
+                        success: function(res) {
+                            if(res.resultInfo.success) {
+                                succeedCount++;
+                            }
+                        },
+                    });
+
                     var list = [];
                     for (var prop in this.info) {
                         if (this.info.hasOwnProperty(prop)) {
@@ -2383,22 +2424,26 @@
                             });
                         }
                     }
+
                     $.ajax({
                         url: '${baseurl}cs/submitCsInf.do',
                         type: 'post',
                         dataType: 'json',
                         contentType: 'application/json;charset=UTF-8',
                         data: JSON.stringify({
-                            emgSeq: _emgSeq,
-                            cszlInfList: list,
+                            emgSeq: _regSeq,
+                            zlInfList: list,
                         }),
                         success: function(res) {
                             if(res.resultInfo.success) {
+                                succeedCount++;
+                            }
+                            if(succeedCount === 2){
                                 parent.publicFun.ajaxLoadEnd()
                                 parent.publicFun.successalert('保存成功')
                                 sub.getCsinfo()
                                 sub.getTimeList()
-                            }else {
+                            }else{
                                 parent.publicFun.alert('保存失败')
                             }
                         }
