@@ -249,7 +249,7 @@
 											[{
 												field : 'wayTyp',
 												title : '患者类型',
-												width : setWidth(0.05),
+												width : setWidth(0.04),
 												formatter : function(value, row, index) {
 													if (value == 0) {
 														return '分诊';
@@ -262,11 +262,11 @@
 											}, {
 												field: 'cstNam',
 												title: '姓名',
-												width: setWidth(0.08)
+												width: setWidth(0.05)
 											}, {
 												field: 'cstSexCod',
 												title: '性别',
-												width: setWidth(0.03),
+												width: setWidth(0.018),
 												formatter: function(value, row, index) {
 													if (value == 0) {
 														return '男'
@@ -284,7 +284,7 @@
 											}, {
 												field: 'fbsj',
 												title: '发病时间',
-												width: setWidth(0.1),
+												width: setWidth(0.07),
 												formatter: function(value, row, index) {
 													if (value != null)
 														return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
@@ -293,18 +293,18 @@
 											}, {
 												field: 'cbzd',
 												title: '诊断',
-												width: setWidth(0.1),
+												width: setWidth(0.07),
 												formatter: function(value, row, index) {
 													return publicFun.codingEscape(czCbzdCodList, value);
 												}
 											},{
 												field : 'zdys',
 												title : '诊断医生',
-												width : setWidth(0.08),
+												width : setWidth(0.04),
 											},{
 												field: 'crtTim',
 												title: '建档时间',
-												width: setWidth(0.1),
+												width: setWidth(0.07),
 												formatter: function(value, row, index) {
 													if (value != null)
 														return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
@@ -328,7 +328,7 @@
 											}, {
 												field : 'chkTim',
 												title : '审核时间',
-												width : setWidth(0.06),
+												width : setWidth(0.07),
 												formatter : function(value, row, index) {
 													if(value) {
 														return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
@@ -342,11 +342,11 @@
 											},{
 												field : 'chkMsg',
 												title : '审核意见',
-												width : setWidth(0.06)
+												width : setWidth(0.04)
 											},{
 												field : 'smtSta',
 												title : '上报状态',
-												width : setWidth(0.04),
+												width : setWidth(0.035),
 												formatter : function(value, row, index) {
 													if (value == 1) {
 														return '未上报'
@@ -373,7 +373,7 @@
 											},{
 												field : 'smtSeq',
 												title : '填报编号',
-												width : setWidth(0.1)
+												width : setWidth(0.05)
 											},{
 												field : 'smtMsg',
 												title : '上报信息',
