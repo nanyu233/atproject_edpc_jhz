@@ -744,4 +744,31 @@
         <include refid="czCondition"/>
         order by reg_tim desc nulls last
     </select>
+
+
+        <select id="getCzhcbInfo" parameterType="activetech.edpc.pojo.dto.HspDbzlBasCustom"
+                resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom">
+        select emg.reg_Seq regSeq,
+               emg.cst_nam cstNam,
+               (case
+                    when emg.cst_age_cod = '0' then
+                        emg.cst_age
+                    else
+                        '0'
+                   end) cstAge,
+               emg.reg_tim ,
+               hlpgb.clbz_cod clbzCod,
+               emg.reg_seq patid,
+               (select consultation_date
+                from (select consultation_date,
+                             invitation_date
+                      from hsp_consultation_records
+                      where emg_seq_cr = #{regSeq, jdbcType = VARCHAR}
+                        and invitation_dep like '%神经内科%'
+                      order by invitation_date)
+                where rownum = 1) consultationDate
+        from hsp_dbzl_bas emg, hsp_hlpgb hlpgb
+        where emg.reg_seq = hlpgb.emg_seq(+)
+          and emg.reg_seq = #{regSeq, jdbcType = VARCHAR}
+    </select>
 </mapper>

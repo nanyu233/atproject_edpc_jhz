@@ -87,5 +87,6 @@ public interface HspZlInfCustomMapper {
 	List<HspDbzlBasCustom> getCzPatientInfoListForDbzlBas(QueryDto queryDto);
 
 	int getCzPatientInfoListCount(QueryDto queryDto);
-	
+
+	HspDbzlBasCustom getCzhcbInfo(HspDbzlBasCustom hspDbzlBas);
 }

@@ -47,6 +47,27 @@ public class HspDbzlBasCustom extends HspDbzlBas {
     //脉搏
     private String mb;
 
+    //处理步骤
+    private String clbzCod;
+    //微信端新建患者id
+    private String patid;
+
+    public String getClbzCod() {
+        return clbzCod;
+    }
+
+    public void setClbzCod(String clbzCod) {
+        this.clbzCod = clbzCod;
+    }
+
+    public String getPatid() {
+        return patid;
+    }
+
+    public void setPatid(String patid) {
+        this.patid = patid;
+    }
+
     public String getMb() {
         return mb;
     }

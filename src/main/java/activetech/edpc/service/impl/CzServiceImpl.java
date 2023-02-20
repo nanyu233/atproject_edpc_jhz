@@ -440,9 +440,16 @@ public class CzServiceImpl implements CzService{
 	public ResultInfo getCzhcbInfoByEmgSeq(String emgSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> sysdata = new HashMap<String, Object>();
-		HspemginfCustom hspemginfCustom = hspZlInfCustomMapper.getCzhcbInfoByEmgseq(emgSeq);
-		
-		String clbzCod = hspemginfCustom.getClbzCod();
+		//HspemginfCustom hspemginfCustom = hspZlInfCustomMapper.getCzhcbInfoByEmgseq(emgSeq);
+		HspDbzlBasCustom hspDbzlBas =new HspDbzlBasCustom();
+		hspDbzlBas.setRegSeq(emgSeq);
+		HspDbzlBasCustom  hspdbzlbasCustom = hspZlInfCustomMapper.getCzhcbInfo(hspDbzlBas);
+
+		//String clbzCod = hspemginfCustom.getClbzCod();
+		String clbzCod = null;
+		if( hspdbzlbasCustom != null){
+			clbzCod=hspdbzlbasCustom.getClbzCod();
+		}
 		String clbzFlg = "0";
 		if(clbzCod != null && clbzCod.length() >0){
 			String[] clbzStrs = clbzCod.split(",");
@@ -491,11 +498,14 @@ public class CzServiceImpl implements CzService{
 		
 		//院前
 		AidPatient aidPatient = null;
-		if(hspemginfCustom.getPatid() != null){
-			aidPatient = aidPatientMapper.selectByPrimaryKey(hspemginfCustom.getPatid());
+		if(hspdbzlbasCustom != null){
+			if(hspdbzlbasCustom.getPatid() != null){
+				aidPatient = aidPatientMapper.selectByPrimaryKey(hspdbzlbasCustom.getPatid());
+			}
 		}
+
 		//主表信息
-		sysdata.put("hspemginfCustom", hspemginfCustom);
+		sysdata.put("hspdbzlbasCustom", hspdbzlbasCustom);
 		//院前信息
 		sysdata.put("aidPatient", aidPatient);
 		//处理步骤
