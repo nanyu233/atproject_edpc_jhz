@@ -451,7 +451,7 @@
 					{
 						field : 'cstSexCod',
 						title : '性别',
-						width : setWidth(0.018),
+						width : setWidth(0.02),
 						formatter : function(value, row, index) {
 							if (value == 0) {
 								return '男'
@@ -462,7 +462,7 @@
 					},
 					{
 						field : 'cstAge',
-						title : '年龄（岁）',
+						title : '年龄',
 						align : 'right',
 						width : setWidth(0.03),
 						formatter : function(value, row, index) {
@@ -505,7 +505,7 @@
 						field : 'rcdSta',
 						title : '审核状态',
 						align : 'center',
-						width : setWidth(0.03),
+						width : setWidth(0.04),
 						formatter : function(value, row, index) {
 							if (value == 1) {
 								return '记录中'
@@ -540,7 +540,7 @@
 						field : 'smtSta',
 						title : '上报状态',
 						align : 'center',
-						width : setWidth(0.035),
+						width : setWidth(0.04),
 						formatter : function(value, row, index) {
 							if (value == 1) {
 								return '未上报'
