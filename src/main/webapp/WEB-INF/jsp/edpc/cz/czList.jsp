@@ -401,8 +401,8 @@
 											}]
 										]
 									});
-								}
-								search()
+									search()
+								}		
 						});
 				</script>
 
