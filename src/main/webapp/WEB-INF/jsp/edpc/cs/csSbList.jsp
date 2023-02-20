@@ -170,12 +170,12 @@
                     {
                         field: 'cstNam',
                         title: '姓名',
-                        width: this.setWidth(0.08)
+                        width: this.setWidth(0.05)
                     },
                     {
                         field: 'cstSexCod',
                         title: '性别',
-                        width: this.setWidth(0.03),
+                        width: this.setWidth(0.02),
                         formatter: function (value, row, index) {
                             if (value == 0) {
                                 return '男'
@@ -195,7 +195,7 @@
                     {
                         field: 'regTim',
                         title: '登记时间',
-                        width: this.setWidth(0.1),
+                        width: this.setWidth(0.07),
                         formatter: function (value, row, index) {
                             return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm:ss');
                         }
@@ -213,7 +213,7 @@
                     {
                         field: 'jbzdDes',
                         title: '诊断',
-                        width: this.setWidth(0.11),
+                        width: this.setWidth(0.07),
                         formatter: function (value, row, index) {
                             return publicFun.codingEscape(czCbzdCodList, value);
                         }
@@ -235,7 +235,7 @@
                     }, {
                         field: 'chkTim',
                         title: '审核时间',
-                        width: this.setWidth(0.075),
+                        width: this.setWidth(0.07),
                         formatter: function (value, row, index) {
                             if (value) {
                                 return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
@@ -245,15 +245,15 @@
                     }, {
                         field: 'chkNam',
                         title: '审核人',
-                        width: this.setWidth(0.05)
+                        width: this.setWidth(0.04)
                     }, {
                         field: 'chkMsg',
                         title: '审核意见',
-                        width: this.setWidth(0.06)
+                        width: this.setWidth(0.04)
                     }, {
                         field: 'smtSta',
                         title: '上报状态',
-                        width: this.setWidth(0.04),
+                        width: this.setWidth(0.038),
                         formatter: function (value, row, index) {
                             if (value == 1) {
                                 return '未上报'
@@ -270,7 +270,7 @@
                     }, {
                         field: 'smtTim',
                         title: '上报时间',
-                        width: this.setWidth(0.06),
+                        width: this.setWidth(0.07),
                         formatter: function (value, row, index) {
                             if (value) {
                                 return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
@@ -280,7 +280,7 @@
                     }, {
                         field: 'smtSeq',
                         title: '填报编号',
-                        width: this.setWidth(0.1)
+                        width: this.setWidth(0.05)
                     }, {
                         field: 'smtMsg',
                         title: '上报信息',
@@ -288,7 +288,7 @@
                     }, {
                         field: 'dd',
                         title: '操作',
-                        width: this.setWidth(0.22),
+                        width: this.setWidth(0.2),
                         formatter: function (value, row, index) {
                             var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">查看</span>' +
                                 '<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>' +
