@@ -360,8 +360,8 @@ public class CsAction {
 	 */
 	@RequestMapping("/queryCsTimeline")
 	@ResponseBody
-	public SubmitResultInfo queryCzTimeline(@RequestParam(required=true)String emgSeq){
-		ResultInfo resultInfo = csService.getCsTimeline(emgSeq);
+	public SubmitResultInfo queryCzTimeline(@RequestParam(required=true)String regSeq){
+		ResultInfo resultInfo = csService.getCsTimeline(regSeq);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	

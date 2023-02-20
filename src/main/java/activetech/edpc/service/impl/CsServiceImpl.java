@@ -547,11 +547,11 @@ public class CsServiceImpl implements CsService{
 	}
 
 	@Override
-	public ResultInfo getCsTimeline(String emgSeq) {
+	public ResultInfo getCsTimeline(String regSeq) {
 		// TODO Auto-generated method stub
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String, Object> sysdata = new HashMap<String, Object>();
-		List<HspZlInfCustom> list = hspZlInfMapperCustom.getCzTimeline(emgSeq);
+		List<HspZlInfCustom> list = hspZlInfMapperCustom.getCsTimeline(regSeq);
 		
 		
 		
@@ -595,7 +595,7 @@ public class CsServiceImpl implements CsService{
 //				return date1.compareTo(date2);
 //			}
 //		});
-		sysdata.put("czTimeline", list);
+		sysdata.put("csTimeline", list);
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
 	}

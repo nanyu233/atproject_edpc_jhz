@@ -2236,7 +2236,7 @@
                         dataType: 'json',
                         contentType: 'application/json;charset=UTF-8',
                         data: JSON.stringify({
-                            emgSeq: _emgSeq,
+                            emgSeq: _regSeq,
                         }),
                         success: function (res) {
                             if (res && res.resultInfo.success) {
@@ -2268,7 +2268,7 @@
                     dataType: 'json',
                     contentType: 'application/json;charset=UTF-8',
                     data: {
-                        xtpgSeq: _emgSeq
+                        xtpgSeq: _regSeq
                     },
                     success: function (res) {
                         if (res) {
@@ -2289,7 +2289,7 @@
                     dataType: 'json',
                     contentType: 'application/json;charset=UTF-8',
                     data: {
-                        emgSeq: _emgSeq
+                        emgSeq: _regSeq
                     },
                     success: function (res) {
                         if (res) {
@@ -2308,7 +2308,7 @@
                     dataType: 'json',
                     contentType: 'application/json;charset=UTF-8',
                     data: {
-                        tashSeq: _emgSeq
+                        tashSeq: _regSeq
                     },
                     success: function (res) {
                         if (res) {
@@ -2326,13 +2326,13 @@
                 createmodalwindow('TI创伤指数评分', 1200, 430, '${baseurl}hlpgb/toTiSco.do')
             },
             openGcssco() {
-                createmodalwindow('GCS评分', 500, 490, '${baseurl}hlpgb/toGcsSco.do?emgSeq='+_emgSeq)
+                createmodalwindow('GCS评分', 500, 490, '${baseurl}hlpgb/toGcsSco.do?emgSeq='+_regSeq)
             },
             openISS: function () {
-                createmodalwindow('ISS/AIS评分', 950, 685, '${baseurl}cs/toAisIss.do?emgSeq='+_emgSeq)
+                createmodalwindow('ISS/AIS评分', 950, 685, '${baseurl}cs/toAisIss.do?emgSeq='+_regSeq)
             },
             openTashSco() {
-                createmodalwindow('Tash评分', 1200, 500, '${baseurl}cs/toTash.do?emgSeq='+_emgSeq)
+                createmodalwindow('Tash评分', 1200, 500, '${baseurl}cs/toTash.do?emgSeq='+_regSeq)
             },
             getTimeList() {
                 $.ajax({
@@ -2340,11 +2340,11 @@
                     contentType: 'application/json;charset=UTF-8',
                     dataType: 'json',
                     data: {
-                        emgSeq: _emgSeq
+                        regSeq: _regSeq
                     },
                     success: function (res) {
                         if (res && res.resultInfo.success) {
-                            sub.timeList = res.resultInfo.sysdata.czTimeline
+                            sub.timeList = res.resultInfo.sysdata.csTimeline
                             console.log(res,'获取时间轴数据', sub.timeList)
                         }
                     }
@@ -2402,7 +2402,7 @@
                     var dataSubmit = {};
                     dataSubmit.hspDbzlBasCustom = sub.baseInfo;
                     $.ajax({
-                        url: '${baseurl}cs/csPatietBasicInfSubmit.do',
+                        url: '${baseurl}cs/csPatietBasicInfSubmit.do', //创伤字段还没定所以没做数据保存
                         type: 'post',
                         dataType: 'json',
                         contentType: 'application/json;charset=UTF-8',
@@ -2418,7 +2418,7 @@
                     for (var prop in this.info) {
                         if (this.info.hasOwnProperty(prop)) {
                             list.push({
-                                emgNo: _emgSeq,
+                                emgNo: _regSeq,
                                 proCode: prop,
                                 proVal: this.info[prop]
                             });

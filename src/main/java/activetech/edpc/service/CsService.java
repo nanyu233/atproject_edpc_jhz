@@ -70,7 +70,7 @@ public interface CsService {
 	 * @param emgSeq
 	 * @return
 	 */
-	public ResultInfo getCsTimeline(String emgSeq);
+	public ResultInfo getCsTimeline(String regSeq);
 	
 	/**
 	 * 创伤信息保存

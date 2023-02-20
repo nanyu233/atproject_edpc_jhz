@@ -49,7 +49,7 @@ public interface HspZlInfCustomMapper {
 	 * @param emgSeq
 	 * @return
 	 */
-	public List<HspZlInfCustom> getCsTimeline(@Param(value="emgSeq")String emgSeq);
+	public List<HspZlInfCustom> getCsTimeline(String regSeq);
 
 	/**
 	 * merge创伤数据

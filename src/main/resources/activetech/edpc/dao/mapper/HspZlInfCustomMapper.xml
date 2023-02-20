@@ -399,7 +399,7 @@
                      def.key_time
               from hsp_zl_inf inf, hsp_zl_def def
               where inf.pro_code = def.pro_code
-                and inf.emg_no = #{emgSeq, jdbcType = VARCHAR}
+                and inf.emg_no = #{regSeq, jdbcType = VARCHAR}
                 and def.pro_type = 'datetime'
                 and substr(def.key_time, 3, 1) in ('1', '2')
                 and inf.pro_val is not null) temp
