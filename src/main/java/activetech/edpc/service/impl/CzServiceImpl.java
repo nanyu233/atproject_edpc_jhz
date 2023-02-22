@@ -497,17 +497,17 @@ public class CzServiceImpl implements CzService{
 		}
 		
 		//院前
-		AidPatient aidPatient = null;
+	/*	AidPatient aidPatient = null;
 		if(hspdbzlbasCustom != null){
 			if(hspdbzlbasCustom.getPatid() != null){
 				aidPatient = aidPatientMapper.selectByPrimaryKey(hspdbzlbasCustom.getPatid());
 			}
 		}
-
+*/
 		//主表信息
 		sysdata.put("hspdbzlbasCustom", hspdbzlbasCustom);
 		//院前信息
-		sysdata.put("aidPatient", aidPatient);
+		//sysdata.put("aidPatient", aidPatient);
 		//处理步骤
 		sysdata.put("clbzFlg", clbzFlg);
 		//卒中表信息
