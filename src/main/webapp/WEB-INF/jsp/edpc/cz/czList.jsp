@@ -198,6 +198,7 @@
 						}
 						function printCzhcb(emgSeq, cstNam, wayTyp, regSeq) {
 								getCzhcbInfo(emgSeq)
+								
 						
 						}
 					
@@ -385,7 +386,7 @@
 												formatter: function(value, row, index) {
 													var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">查看</span>' +
 														'<span class="btn Timeline" onclick="toCzTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">时间轴</span>'+
-														'<span class="btn Timeline" onclick="printCzhcb(\'' + row.emgSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">核查表</span>';
+														'<span class="btn Timeline" onclick="printCzhcb(\'' + row.regSeq + '\',\'' + row.cstNam + '\', \'' + row.regSeq + '\')">核查表</span>';
 													if("1" == row.rcdSta || "3" == row.rcdSta) {
 														_html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
 													} else if("2" == row.rcdSta) {

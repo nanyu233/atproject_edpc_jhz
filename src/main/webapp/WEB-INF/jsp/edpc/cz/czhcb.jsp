@@ -16,7 +16,7 @@
         <div id="docuTitle" class="docuTitleBaisc">浙江医院三墩院区急诊科脑卒中溶栓流程核查表</div>
     </div>
     <div>
-        <table border="1" cellpadding="4" style="border-collapse: collapse;margin-bottom: 1px;">
+        <table border="1" cellpadding="4" style="border-collapse: collapse;margin-bottom: 1px; font-size: 15px;">
             <tr>
                 <th>确认时间</th>
                 <td colspan="1" style="text-align:center">姓名：{{printMsg.cstNam}}</td>
@@ -522,7 +522,7 @@
                 'emgSeq': emgSeq
             }),
             success: function (res) {
-                var resultMsg = res.resultInfo.sysdata.hspemginfCustom;
+                var resultMsg = res.resultInfo.sysdata.hspdbzlbasCustom;
                 var resultList = res.resultInfo.sysdata.list;
                 vm1.printMsg.bwbzgzsFlg=res.resultInfo.sysdata.bwbzgzsFlg;
                 vm1.printMsg.clbzFlg=res.resultInfo.sysdata.clbzFlg;
@@ -553,6 +553,17 @@
                     }
                 }
                 console.log(vm1.printMsg)
+								setTimeout(() => {
+									LODOP = getLodop();
+        					LODOP.PRINT_INITA(0, 0, "210mm", "297mm", "打印控件功能演示_Lodop功能_超文本内容缩放打印");
+        					//LODOP.SET_PRINT_PAGESIZE(0, "210mm", "297mm", "");
+        					LODOP.SET_PRINT_MODE("NOCLEAR_AFTER_PRINT", true);
+        					LODOP.ADD_PRINT_HTM('2mm', 0, "100%", "100%", document.getElementById("printCzhcb").innerHTML);
+        					LODOP.SET_PRINT_MODE("PRINT_DUPLEX", 2);
+        					LODOP.SET_PRINT_MODE("PRINT_DEFAULTSOURCE", 1); //1 - 纸盒 4 - 手动 7 - 自动 0 - 不控制
+        					// LODOP.SET_PRINT_MODE("DOUBLE_SIDED_PRINT", true);
+        					LODOP.PREVIEW();
+								}, 0);
             },
             error: function (err) {
             }

@@ -225,6 +225,7 @@
         ZDSJ: 30,
         RSZLKSSJ: 60
     };
+		var regSeq;
     // 这片鱼塘已经被我承包了！
     var fishPool = avalon.define({
         $id: 'fishPool',
@@ -570,6 +571,7 @@
         fishPool.currPatientInfo.vstCad = patient.vstCad;
         fishPool.currPatientInfo.cstSexCod = patient.cstSexCod == '0' ? '男' : '女';
         fishPool.currPatientInfo.preDgnCod = patient.preDgnCod;
+				regSeq=patient.regSeq
         $.ajax({
             url: 'cz/getCzInfoByEmgSeq.do',
             type: 'post',
@@ -1380,16 +1382,16 @@
     }
 
     function printCzhcb() {
-
-        LODOP = getLodop();
-        LODOP.PRINT_INITA(0, 0, "210mm", "297mm", "打印控件功能演示_Lodop功能_超文本内容缩放打印");
-        //LODOP.SET_PRINT_PAGESIZE(0, "210mm", "297mm", "");
-        LODOP.SET_PRINT_MODE("NOCLEAR_AFTER_PRINT", true);
-        LODOP.ADD_PRINT_HTM('2mm', 0, "100%", "100%", document.getElementById("printCzhcb").innerHTML);
-        LODOP.SET_PRINT_MODE("PRINT_DUPLEX", 2);
-        LODOP.SET_PRINT_MODE("PRINT_DEFAULTSOURCE", 1); //1 - 纸盒 4 - 手动 7 - 自动 0 - 不控制
-        // LODOP.SET_PRINT_MODE("DOUBLE_SIDED_PRINT", true);
-        LODOP.PREVIEW();
+				getCzhcbInfo(regSeq)
+        // LODOP = getLodop();
+        // LODOP.PRINT_INITA(0, 0, "210mm", "297mm", "打印控件功能演示_Lodop功能_超文本内容缩放打印");
+        // //LODOP.SET_PRINT_PAGESIZE(0, "210mm", "297mm", "");
+        // LODOP.SET_PRINT_MODE("NOCLEAR_AFTER_PRINT", true);
+        // LODOP.ADD_PRINT_HTM('2mm', 0, "100%", "100%", document.getElementById("printCzhcb").innerHTML);
+        // LODOP.SET_PRINT_MODE("PRINT_DUPLEX", 2);
+        // LODOP.SET_PRINT_MODE("PRINT_DEFAULTSOURCE", 1); //1 - 纸盒 4 - 手动 7 - 自动 0 - 不控制
+        // // LODOP.SET_PRINT_MODE("DOUBLE_SIDED_PRINT", true);
+        // LODOP.PREVIEW();
     }
     //分页
     function setPagination() {
