@@ -17,4 +17,6 @@
 	<bean id="aidService" class="activetech.aid.service.impl.AidServiceImpl" />
 	<!--专家组 -->
 	<bean id="OndutyService" class="activetech.aid.service.impl.OndutyServiceImpl" />
+	<!--app版本管理 -->
+	<bean id="aidApkService" class="activetech.aid.service.impl.AidApkServiceImpl" />
 </beans>
