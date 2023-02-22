@@ -34,7 +34,20 @@ public class IcuCustInfoQueryDto{
 	private String interval;//生命体征interval
 	
 	private String intervalIo;//除入量interval
-	
+
+	/**
+	 * 病区号
+	 */
+	private String deptNo;
+
+	public String getDeptNo() {
+		return deptNo;
+	}
+
+	public void setDeptNo(String deptNo) {
+		this.deptNo = deptNo;
+	}
+
 	public String getIntervalIo() {
 		return intervalIo;
 	}
