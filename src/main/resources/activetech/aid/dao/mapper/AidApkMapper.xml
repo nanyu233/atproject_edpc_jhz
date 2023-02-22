@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.aid.dao.mapper.AidApkMapper" >
+  <resultMap id="BaseResultMap" type="activetech.aid.pojo.domain.AidApk" >
+    <id column="APK_SEQ" property="apkSeq" jdbcType="VARCHAR" />
+    <result column="APK_ID" property="apkId" jdbcType="VARCHAR" />
+    <result column="APK_VER" property="apkVer" jdbcType="VARCHAR" />
+    <result column="APK_DIR" property="apkDir" jdbcType="VARCHAR" />
+    <result column="APK_DES" property="apkDes" jdbcType="VARCHAR" />
+    <result column="APK_NEW_FLG" property="apkNewFlg" jdbcType="CHAR" />
+    <result column="CRT_TIM" property="crtTim" jdbcType="TIMESTAMP" />
+    <result column="CRT_USR" property="crtUsr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    APK_SEQ, APK_ID, APK_VER, APK_DIR, APK_DES, APK_NEW_FLG, CRT_TIM, CRT_USR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.aid.pojo.domain.AidApkExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from EDPC.AID_APK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from EDPC.AID_APK
+    where APK_SEQ = #{apkSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from EDPC.AID_APK
+    where APK_SEQ = #{apkSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.aid.pojo.domain.AidApkExample" >
+    delete from EDPC.AID_APK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.aid.pojo.domain.AidApk" >
+    insert into EDPC.AID_APK (APK_SEQ, APK_ID, APK_VER, 
+      APK_DIR, APK_DES, APK_NEW_FLG, 
+      CRT_TIM, CRT_USR)
+    values (#{apkSeq,jdbcType=VARCHAR}, #{apkId,jdbcType=VARCHAR}, #{apkVer,jdbcType=VARCHAR}, 
+      #{apkDir,jdbcType=VARCHAR}, #{apkDes,jdbcType=VARCHAR}, #{apkNewFlg,jdbcType=CHAR}, 
+      #{crtTim,jdbcType=TIMESTAMP}, #{crtUsr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.aid.pojo.domain.AidApk" >
+    insert into EDPC.AID_APK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="apkSeq != null" >
+        APK_SEQ,
+      </if>
+      <if test="apkId != null" >
+        APK_ID,
+      </if>
+      <if test="apkVer != null" >
+        APK_VER,
+      </if>
+      <if test="apkDir != null" >
+        APK_DIR,
+      </if>
+      <if test="apkDes != null" >
+        APK_DES,
+      </if>
+      <if test="apkNewFlg != null" >
+        APK_NEW_FLG,
+      </if>
+      <if test="crtTim != null" >
+        CRT_TIM,
+      </if>
+      <if test="crtUsr != null" >
+        CRT_USR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="apkSeq != null" >
+        #{apkSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="apkId != null" >
+        #{apkId,jdbcType=VARCHAR},
+      </if>
+      <if test="apkVer != null" >
+        #{apkVer,jdbcType=VARCHAR},
+      </if>
+      <if test="apkDir != null" >
+        #{apkDir,jdbcType=VARCHAR},
+      </if>
+      <if test="apkDes != null" >
+        #{apkDes,jdbcType=VARCHAR},
+      </if>
+      <if test="apkNewFlg != null" >
+        #{apkNewFlg,jdbcType=CHAR},
+      </if>
+      <if test="crtTim != null" >
+        #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsr != null" >
+        #{crtUsr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.aid.pojo.domain.AidApkExample" resultType="java.lang.Integer" >
+    select count(*) from EDPC.AID_APK
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update EDPC.AID_APK
+    <set >
+      <if test="record.apkSeq != null" >
+        APK_SEQ = #{record.apkSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apkId != null" >
+        APK_ID = #{record.apkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apkVer != null" >
+        APK_VER = #{record.apkVer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apkDir != null" >
+        APK_DIR = #{record.apkDir,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apkDes != null" >
+        APK_DES = #{record.apkDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apkNewFlg != null" >
+        APK_NEW_FLG = #{record.apkNewFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.crtTim != null" >
+        CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUsr != null" >
+        CRT_USR = #{record.crtUsr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update EDPC.AID_APK
+    set APK_SEQ = #{record.apkSeq,jdbcType=VARCHAR},
+      APK_ID = #{record.apkId,jdbcType=VARCHAR},
+      APK_VER = #{record.apkVer,jdbcType=VARCHAR},
+      APK_DIR = #{record.apkDir,jdbcType=VARCHAR},
+      APK_DES = #{record.apkDes,jdbcType=VARCHAR},
+      APK_NEW_FLG = #{record.apkNewFlg,jdbcType=CHAR},
+      CRT_TIM = #{record.crtTim,jdbcType=TIMESTAMP},
+      CRT_USR = #{record.crtUsr,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.aid.pojo.domain.AidApk" >
+    update EDPC.AID_APK
+    <set >
+      <if test="apkId != null" >
+        APK_ID = #{apkId,jdbcType=VARCHAR},
+      </if>
+      <if test="apkVer != null" >
+        APK_VER = #{apkVer,jdbcType=VARCHAR},
+      </if>
+      <if test="apkDir != null" >
+        APK_DIR = #{apkDir,jdbcType=VARCHAR},
+      </if>
+      <if test="apkDes != null" >
+        APK_DES = #{apkDes,jdbcType=VARCHAR},
+      </if>
+      <if test="apkNewFlg != null" >
+        APK_NEW_FLG = #{apkNewFlg,jdbcType=CHAR},
+      </if>
+      <if test="crtTim != null" >
+        CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsr != null" >
+        CRT_USR = #{crtUsr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where APK_SEQ = #{apkSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.aid.pojo.domain.AidApk" >
+    update EDPC.AID_APK
+    set APK_ID = #{apkId,jdbcType=VARCHAR},
+      APK_VER = #{apkVer,jdbcType=VARCHAR},
+      APK_DIR = #{apkDir,jdbcType=VARCHAR},
+      APK_DES = #{apkDes,jdbcType=VARCHAR},
+      APK_NEW_FLG = #{apkNewFlg,jdbcType=CHAR},
+      CRT_TIM = #{crtTim,jdbcType=TIMESTAMP},
+      CRT_USR = #{crtUsr,jdbcType=VARCHAR}
+    where APK_SEQ = #{apkSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

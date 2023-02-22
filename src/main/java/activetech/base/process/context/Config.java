@@ -122,5 +122,9 @@ public class Config {
 	 */
 	public static final String PAGE_PATH_RFID = "/rfid";
 
+	/**
+	 * aid存放页面路径，在/WEB-INF/jsp下
+	 */
+	public static final String PAGE_PATH_AID = "/aid";
 	
 }

@@ -101,6 +101,8 @@ public class View {
 		return Config.PAGE_PATH_RFID + page;
 	}
 
-	
+	public static String toAid(String page) {
+		return Config.PAGE_PATH_AID + page;
+	}
 
 }

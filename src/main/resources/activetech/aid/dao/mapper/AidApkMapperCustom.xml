@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.aid.dao.mapper.AidApkMapperCustom">
+
+  <sql id="aidApkExample">
+    <where>
+      <if test="aidApk != null">
+        <if test="aidApk.apkVer != null">
+          and APK_VER = #{aidApk.apkVer,jdbcType=VARCHAR}
+        </if>
+      </if>
+    </where>
+  </sql>
+
+
+  <select id="countByQueryDto" parameterType="activetech.aid.pojo.dto.AidApkQueryDto"
+      resultType="java.lang.Integer">
+    select count(*) from AID_APK
+    <include refid="aidApkExample"/>
+  </select>
+
+  <select id="selectByQueryDto" parameterType="activetech.aid.pojo.dto.AidApkQueryDto"
+          resultType="activetech.aid.pojo.dto.AidApkCustom">
+    <include refid="activetech.base.CommonSql.page_start"/>
+       select apk_seq,
+              apk_id,
+              apk_ver,
+              apk_dir,
+              apk_des,
+              apk_new_flg,
+              crt_tim,
+              crt_usr,
+              (select usrname from dstuser where usrno = AID_APK.crt_usr)crt_usr_name
+         from AID_APK
+    <include refid="aidApkExample"/>
+    order by crt_tim desc
+    <include refid="activetech.base.CommonSql.page_end" />
+  </select>
+
+
+  <insert id="insert" parameterType="activetech.aid.pojo.domain.AidApk">
+    insert into AID_APK (APK_SEQ,APK_ID, APK_VER, APK_DIR,
+                         APK_DES, APK_NEW_FLG, CRT_TIM,
+                         CRT_USR)
+    values (AID_APK_APK_SEQ.nextval,#{apkId,jdbcType=VARCHAR}, #{apkVer,jdbcType=VARCHAR}, #{apkDir,jdbcType=VARCHAR},
+            #{apkDes,jdbcType=VARCHAR}, #{apkNewFlg,jdbcType=CHAR}, #{crtTim,jdbcType=TIMESTAMP},
+            #{crtUsr,jdbcType=VARCHAR})
+  </insert>
+
+</mapper>
