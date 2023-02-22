@@ -222,7 +222,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
       </div>
     </div>
     <script type="text/javascript">
-      eicuUtil.initMenu(100000)
+      eicuUtil.initMenu(200001)
       //全局变量
       if(eicuUtil.isOuterSys) {
         eicuUtil = parent.eicuUtil;
@@ -243,7 +243,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
       if(eicuUtil.isOuterSys) { // 如果是外链,所有数据需从其他地方获取
         _liveNo = eicuUtil.setOuterInfo().liveNo;
         _gradeType = eicuUtil.setOuterInfo().gradeType || 'GTOTAL';
-        eicuUtil.initMenu(100000); // 外链情况下要获取默认菜单
+        //eicuUtil.initMenu(100000); // 外链情况下要获取默认菜单
         menuInfoObj = eicuUtil.getMenuInfo();
         lastSkipInfo = {
           pageData: {
