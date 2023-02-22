@@ -43,6 +43,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -372,6 +373,16 @@ public class XtServiceImpl implements XtService{
 		pageQuery.setPageParams(total, hspDbzlBasQueryDto.getRows(), hspDbzlBasQueryDto.getPage());
 		hspDbzlBasQueryDto.setPageQuery(pageQuery);
 		List<HspDbzlBasCustom> list = hspDbzlBasMapperCustom.getXtPatientList(hspDbzlBasQueryDto);
+		dataGridResultInfo.setRows(list);
+		dataGridResultInfo.setTotal(total);
+		return dataGridResultInfo;
+	}
+
+	@Override
+	public DataGridResultInfo exportXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto){
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		int total = hspDbzlBasMapperCustom.countXtPatientList(hspDbzlBasQueryDto);
+		List<HspDbzlBasCustom> list = hspDbzlBasMapperCustom.exportXtPatientList(hspDbzlBasQueryDto);
 		dataGridResultInfo.setRows(list);
 		dataGridResultInfo.setTotal(total);
 		return dataGridResultInfo;

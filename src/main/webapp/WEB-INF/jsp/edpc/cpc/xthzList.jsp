@@ -266,11 +266,10 @@
         queryParams['endDate'] = vm.condition.endDate;
         $("#dg").datagrid('reload');
     }
-    function cmdaddNewPatient(){
-        createmodalwindow("新增院内/绕行发病患者", 430, 300, '${baseurl}cpc/toadd.do', 'no');
-    }
+    <%--function cmdaddNewPatient(){--%>
+    <%--    createmodalwindow("新增院内/绕行发病患者", 430, 300, '${baseurl}cpc/toadd.do', 'no');--%>
+    <%--}--%>
 
-   
 
     //设置表格的列宽
     //pct --- 百分比（取小于1的小数）
@@ -367,6 +366,31 @@
         }
     }
 
+	function cmdexportXtPatinets() {
+		var result = window.confirm('是否导出胸痛患者列表？');
+		if (result){
+			$.ajax({
+				url: '${baseurl}cpc/exportXtPatinets.do',
+				type: 'post',
+				dataType: 'json',
+                   contentType: 'application/json;charset=UTF-8',
+				data: JSON.stringify({
+					hspDbzlBasQueryDto :{
+						hspDbzlBasCustom : {
+
+						},
+						// 'startDate': new Date()
+					}
+				}),
+				success:function (res) {
+					if (res.resultInfo.success){
+						search();
+						alert_success("导出成功！")
+					}
+				}
+			})
+		}
+	}
     <%--function smtPort(regSeq, smtSta) {--%>
     <%--    var tipMsg = "确认上报？";--%>
     <%--    if(smtSta === '5') {--%>

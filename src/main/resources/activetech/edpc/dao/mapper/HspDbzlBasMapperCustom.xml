@@ -290,6 +290,133 @@
 		<include refid="activetech.base.CommonSql.page_end"/>
 	</select>
 
+    <select id="exportXtPatientList" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto"
+            resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom">
+        select a.reg_seq,
+        to_char(a.crt_tim, 'yyyy-mm-dd hh:mm:ss') crtTim,
+        a.reg_tim,
+        a.emg_seq,
+        a.mpi,
+        a.pat_typ,
+        case a.way_typ
+        when '0' then
+        '分诊'
+        when '1' then
+        '院内发病'
+        else
+        '绕行'
+        end way_typ,
+        a.way_typ,
+        a.card_type,
+        a.vst_cad,
+        a.cst_nam,
+        case a.cst_sex_cod
+        when '0' then
+        '男'
+        else
+        '女'
+        end cstSexCod,
+        a.id_type,
+        a.id_nbr,
+        a.cst_age_cod,
+        decode(a.cst_age_cod, '0', a.cst_age, '0') cstAge,
+        a.pat_wgt,
+        a.pat_hgt,
+        a.bth_dat,
+        a.phe_nbr,
+        a.cst_adr,
+        a.nation,
+        a.emg_job,
+        a.marital_status,
+        a.cst_edu,
+        a.lnk_man,
+        a.lnk_way,
+        a.grn_chl,
+        a.sw_chl,
+        a.hsp_ara,
+        a.yqxh,
+        a.jzxh,
+        a.zyxh,
+        a.doc_dat,
+        a.jzys,
+        a.ysxm,
+        a.ksdm,
+        a.crt_no,
+        a.crt_nam,
+        a.mod_tim,
+        a.mod_no,
+        a.mod_nam,
+        case nvl(a.rcd_sta, '1')
+        when '1' then
+        '记录中'
+        when '2' then
+        '审核中'
+        when '3' then
+        '已退回'
+        else
+        '已审核'
+        end rcd_sta,
+        nvl(a.rcd_sta, '1') rcd_sta,
+        to_char(a.chk_tim, 'yyyy-mm-dd hh:mm:ss') chkTim,
+        a.chk_no,
+        a.chk_nam,
+        a.chk_msg,
+        a.stp_flg,
+        a.stp_tim,
+        a.stp_no,
+        a.stp_nam,
+        case nvl(a.smt_sta, '1')
+        when '1' then
+        '未上报'
+        when '2' then
+        '上报中'
+        when '3' then
+        '上报失败'
+        when '4' then
+        '上报驳回'
+        else
+        '上报完成'
+        end smtSta,
+        a.smt_seq,
+        a.smt_msg,
+        a.smt_no,
+        a.smt_nam,
+        to_char(a.smt_tim, 'yyyy-mm-dd hh:mm:ss') smtTim,
+        (select pro_val
+        from hsp_zl_inf
+        where hsp_zl_inf.pro_code = 'SCYLJCSJ'
+        and hsp_zl_inf.emg_no = reg_seq) scyljcsj,
+        (select pro_val
+        from hsp_zl_inf
+        where hsp_zl_inf.pro_code = 'FBSJ'
+        and hsp_zl_inf.emg_no = reg_seq) fbsj,
+        case (select pro_val
+        from hsp_zl_inf
+        where hsp_zl_inf.pro_code = 'CBZD'
+        and hsp_zl_inf.emg_no = reg_seq)
+        when '1' then
+        'STEMI'
+        when '2' then
+        'NSTEMI'
+        when '3' then
+        'UA'
+        when '4' then
+        '主动脉夹层'
+        when '5' then
+        '肺动脉栓塞'
+        when '6' then
+        '非ACS心源性胸痛'
+        when '7' then
+        '其它非心源性胸痛'
+        else
+        '待查'
+        end cbzd
+        from hsp_dbzl_bas a
+        where a.PAT_TYP = '1'
+        <include refid="xtdbzl_where"/>
+        order by a.reg_tim desc
+    </select>
+
     <select id="getHspDbzlBasinf" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto"
             resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom">
         		select a.reg_seq,

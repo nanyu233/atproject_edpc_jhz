@@ -38,6 +38,8 @@ public interface XtService {
 	 */
 	public DataGridResultInfo getXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 
+	public DataGridResultInfo exportXtPatientList(HspDbzlBasQueryDto hspDbzlBasQueryDto);
+
 	/**
 	 * 查询新增院内发病患者
 	 * @param emgSeq emgSeq

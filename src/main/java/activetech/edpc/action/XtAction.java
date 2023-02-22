@@ -2,6 +2,7 @@ package activetech.edpc.action;
 
 import activetech.aid.service.AidService;
 import activetech.base.action.View;
+import activetech.base.dbconfig.ApplicationConfig;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.pojo.dto.PageQuery;
 import activetech.base.process.context.Config;
@@ -17,6 +18,9 @@ import activetech.edpc.service.CrfplaneService;
 import activetech.edpc.service.XtService;
 import activetech.external.pojo.domain.HspEcgInf;
 import activetech.external.service.EsbService;
+import activetech.util.DateUtil;
+import activetech.util.ExcelExportSXXSSF;
+import activetech.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 胸痛中心控制器
@@ -885,5 +886,85 @@ public class XtAction {
 		return View.toEDPC("/cpc/toXtTimeLineSetup");
 	}
 
+	/**
+	 * 导出胸痛患者列表
+	 * @param hspDbzlBasQueryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/exportXtPatinets")
+	public @ResponseBody SubmitResultInfo exportXtPatinets(HspDbzlBasQueryDto hspDbzlBasQueryDto) throws Exception {
+		//获取虚拟目录指向实际路径
+		String filePath = ApplicationConfig.getConfig().get("XNML_PATH");
 
+		// 导出文件的前缀
+		String filePrefix = "胸痛患者列表";
+		// -1表示关闭自动刷新，手动控制写磁盘的时机，其它数据表示多少数据在内存保存，超过的则写入磁盘
+		int flushRows = 100;
+		// 定义导出数据的title
+		List<String> fieldNames = new ArrayList<String>();
+		fieldNames.add("患者类型");
+		fieldNames.add("姓名");
+		fieldNames.add("性别");
+		fieldNames.add("年龄");
+		fieldNames.add("发病时间");
+		fieldNames.add("首次医疗接触时间");
+		fieldNames.add("诊断");
+		fieldNames.add("建档时间");
+		fieldNames.add("审核状态");
+		fieldNames.add("审核时间 ");
+		fieldNames.add("审核人");
+		fieldNames.add("审核意见");
+		fieldNames.add("上报状态");
+		fieldNames.add("上报时间");
+		fieldNames.add("填报编号");
+		fieldNames.add("上报信息");
+		//导出类数据list中对象的属性，让ExcelExportSXXSSF通过反射获取对象的值
+		//fieldCodes和fieldNames个数必须相同且属性和title顺序一一对应
+		List<String> fieldCodes = new ArrayList<String>();
+		fieldCodes.add("wayTyp");
+		fieldCodes.add("cstNam");
+		fieldCodes.add("cstSexCod");
+		fieldCodes.add("cstAge");
+		fieldCodes.add("fbsj");
+		fieldCodes.add("scyljcsj");
+		fieldCodes.add("cbzd");
+		fieldCodes.add("crtTim");
+		fieldCodes.add("rcdSta");
+		fieldCodes.add("chkTim");
+		fieldCodes.add("chkNam");
+		fieldCodes.add("chkMsg");
+		fieldCodes.add("smtSta");
+		fieldCodes.add("smtTim");
+		fieldCodes.add("smtSeq");
+		fieldCodes.add("smtMsg");
+
+		String gd ="查询范围：";
+//		String startdateStr = String.valueOf(hspDbzlBasQueryDto.getStartDate());
+//		gd = gd + "时间：" + startdateStr;
+		String enddateStr = DateUtil.formatDateByFormat(new Date(), "yyyy-MM-dd");
+		gd = gd + " 截止至 " + enddateStr;
+		String hb = "胸痛患者列表";
+		// 开始导出，执行一些workbook及sheet等对象的初始创建
+		ExcelExportSXXSSF excelExportSXXSSF = ExcelExportSXXSSF.startHbGd(filePath,
+				"export/", filePrefix, fieldNames, fieldCodes, flushRows,hb,gd);
+		// 首次查询时默认赋值系统当天日期
+
+		DataGridResultInfo dataGridResultInfo = xtService.exportXtPatientList(hspDbzlBasQueryDto);
+
+
+		@SuppressWarnings("unchecked")
+		List<ReportDataResult> list = dataGridResultInfo.getRows();
+
+		// 执行导出
+		excelExportSXXSSF.writeDatasByObjectSy(list);
+		// 输出文件，返回下载文件的http地址，已经包括虚拟目录
+		String webpath = excelExportSXXSSF.exportFile();
+		return ResultUtil.createSubmitResult(ResultUtil.createSuccess(
+				Config.MESSAGE, 914, new Object[] {
+						"胸痛患者列表",
+						list.size(),
+						webpath//下载地址
+				}));
+	}
 }

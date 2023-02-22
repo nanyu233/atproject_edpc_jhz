@@ -2,6 +2,8 @@ package activetech.edpc.pojo.dto;
 
 import activetech.edpc.pojo.domain.HspDbzlBas;
 
+import java.util.Date;
+
 public class HspDbzlBasCustom extends HspDbzlBas {
 
     //发病时间
@@ -46,6 +48,10 @@ public class HspDbzlBasCustom extends HspDbzlBas {
     private String huxipl;
     //脉搏
     private String mb;
+    //查询开始时间
+    private Date startdate;
+    //结束时间
+    private Date enddate;
 
     //处理步骤
     private String clbzCod;
@@ -222,4 +228,12 @@ public class HspDbzlBasCustom extends HspDbzlBas {
     public void setZdys(String zdys) {
         this.zdys = zdys;
     }
+
+    public Date getStartdate() { return startdate; }
+
+    public void setStartdate(Date startdate) { this.startdate = startdate; }
+
+    public Date getEnddate() { return enddate; }
+
+    public void setEnddate(Date enddate) { this.enddate = enddate; }
 }
