@@ -96,22 +96,6 @@ public class IcuCustInfoAction {
 		resultInfo.setSysdata(result);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
-
-	/**
-	 * 获取Icu患者功能菜单
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/findIcuCustMenu")
-	public @ResponseBody SubmitResultInfo findIcuCustMenu(@RequestParam("moduleid") String moduleId) throws Exception{
-		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-		//获取ICU功能菜单
-		List<IcuMenuDefCustom> menuList = icuScoreService.findIcuCustMenu(moduleId);
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("menuList",menuList);
-		resultInfo.setSysdata(map);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}
 	
 	/**
 	 * 跳转全览图主页面
