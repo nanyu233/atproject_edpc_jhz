@@ -418,7 +418,7 @@ public class DingTalkUtil {
         req.setChatid(chatId);
         OapiChatSendRequest.Msg msg = BuildMsgOApiChatSendRequestMsg.buildOapiChatSendRequestMsg(dingTalkMessage);
         req.setMsg(msg);
-        OapiChatSendResponse rsp = client.execute(req, "a93b46d748453be1adc53881dcf9c222");
+        OapiChatSendResponse rsp = client.execute(req, getAccessToken());
         if (!"0".equals(rsp.getErrorCode())) {
             throw new Exception(rsp.getErrmsg());
         }
