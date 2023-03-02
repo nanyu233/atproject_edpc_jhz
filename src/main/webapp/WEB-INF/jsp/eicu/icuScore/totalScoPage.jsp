@@ -273,6 +273,21 @@
     }
   });
   /**
+   * @param {string} gradeSco "Ex+Vx+Mx" | "12+T"
+   * @return {number | string} "num[+T]" 数字或者数字加T
+   */
+  function gradeScoHandler(gradeSco){
+    const scoReg = /^E(\d)\+V(\d|T)\+M(\d)$/
+    if(scoReg.test(gradeSco)){
+      const matchResult = gradeSco.match(scoReg);
+      let matchResult2 = parseInt(matchResult[2])
+      isNaN(matchResult2) && (matchResult2 = 0)
+      return matchResult && parseInt(matchResult[1]) + parseInt(matchResult[3]) + matchResult2;
+    }else{
+      return parseFloat(gradeSco)
+    }
+  }
+  /**
    *获取信息
    */
   function getAllInfo() {
@@ -370,7 +385,7 @@
       yAxisLmtInfo = dataList[0].yAxisVal;
       seriesData = dataList.map(function (ele, idx) {
         var dataInfo = {
-          y: parseFloat(ele.gradeSco) || 0
+          y: gradeScoHandler(ele.gradeSco) || 0
         };
         if (ele.itemName) {
           dataInfo.className = ele.riskColor;
