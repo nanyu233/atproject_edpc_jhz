@@ -33,6 +33,18 @@ public class IcuScoreQueryDto {
 	 * 菜单编号
 	 */
 	private String menuRoot;
+	/**
+	 * 菜单种类
+	 * */
+	private String menuKind;
+
+	public String getMenuKind() {
+		return menuKind;
+	}
+
+	public void setMenuKind(String menuKind) {
+		this.menuKind = menuKind;
+	}
 
 	public String getOutFlag() {
 		return outFlag;

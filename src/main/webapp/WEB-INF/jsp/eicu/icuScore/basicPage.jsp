@@ -222,7 +222,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
       </div>
     </div>
     <script type="text/javascript">
-      eicuUtil.initMenu(200001)
+      eicuUtil.initMenu(200001,'${menuKind}')
       //全局变量
       if(eicuUtil.isOuterSys) {
         eicuUtil = parent.eicuUtil;
@@ -541,7 +541,7 @@ pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/jsp/base/tag.jsp"%>
         } else {
           basicUrl = curMenuInfo.menuUrl.split('?')[0];
         }
-        basicUrl += '?' + 'gradeType=' + _gradeType + '&liveNo=' + '${liveNo}';
+        basicUrl += '?' + 'gradeType=' + _gradeType + '&liveNo=' + '${liveNo}' + '&menuKind=' + '${menuKind}';
         if (extraParams) {
           $.each(extraParams, function (k, v) {
             basicUrl += '&' + k + '=' + v;

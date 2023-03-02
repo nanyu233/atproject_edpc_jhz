@@ -1070,10 +1070,11 @@ var eicuUtil = {
 	/**
 	 * 获取当前custInfo菜单
 	 */
-	initMenu: function (moduleid) {
+	initMenu: function (moduleid,menuKind) {
 		var reqUrl = _baseUrl + 'icuscore/findIcuCustMenu.do';
 		var reqParams = {
-			moduleid: moduleid
+			moduleid: moduleid,
+			menuKind : menuKind
 		};
 		var extraParams = {
 			asyncFlag: false

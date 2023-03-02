@@ -333,6 +333,8 @@
 			  and menu_type != #{gradeType, jdbcType = VARCHAR }
 		  </otherwise>
 	  </choose>
+	  and menu_kind = #{menuKind, jdbcType = VARCHAR }
+	  or menu_kind = '0'
 	  ) d
 	  on c.grade_type = d.menu_type
 	  order by fv asc nulls last, menu_id, grade_time

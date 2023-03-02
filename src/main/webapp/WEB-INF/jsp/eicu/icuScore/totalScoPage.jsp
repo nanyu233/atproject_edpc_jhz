@@ -282,7 +282,8 @@
     var reqParams = {
       liveNo: '${liveNo}',
       gradeType: _gradeType,
-      menuRoot: menuInfoMap[_gradeType].menuRoot
+      menuRoot: menuInfoMap[_gradeType].menuRoot,
+      menuKind:'${menuKind}'
     };
     console.log(menuInfoMap,666)
     // if (pDisplayMode === 'chart') {

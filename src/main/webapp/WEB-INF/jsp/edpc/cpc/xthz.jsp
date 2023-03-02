@@ -126,7 +126,7 @@
                 {
                     name: '评分总览',
                     <%--src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${emgSeq}'--%>
-                    src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${regSeq}'
+                    src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${regSeq}' +"&menuKind=1"
                 },
                 {
                     name: '检验信息',

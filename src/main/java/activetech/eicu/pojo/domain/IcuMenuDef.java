@@ -17,6 +17,8 @@ public class IcuMenuDef {
 
     private Integer menuSort;
 
+    private String menuKind;
+
     public String getMenuId() {
         return menuId;
     }
@@ -79,5 +81,13 @@ public class IcuMenuDef {
 
     public void setMenuSort(Integer menuSort) {
         this.menuSort = menuSort;
+    }
+
+    public String getMenuKind() {
+        return menuKind;
+    }
+
+    public void setMenuKind(String menuKind) {
+        this.menuKind = menuKind == null ? null : menuKind.trim();
     }
 }

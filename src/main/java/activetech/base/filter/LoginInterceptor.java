@@ -132,7 +132,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 					return true;
 			}
 		}
-		
+		if ("/emisToEdpc".equals(url)){
+			
+		}
+
 		//校验用户访问是否是公开资源 地址
 		List<String> open_urls = ResourcesUtil.gekeyList(Config.ANONYMOUS_ACTIONS);
 		

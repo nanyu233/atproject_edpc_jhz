@@ -436,13 +436,13 @@ public class IcuScoreServiceImpl implements IcuScoreService{
 	 * 获取icu功能菜单
 	 */
 	@Override
-	public List<IcuMenuDefCustom> findIcuCustMenu(String moduleId) throws Exception{
+	public List<IcuMenuDefCustom> findIcuCustMenu(String moduleId,String menuKind) throws Exception{
 		/*List<IcuMenuDefCustom> menuList = icuMenuDefCustomMapper.findIcuCustMenu();
 		return menuList;*/
 		if(!StringUtils.isNotNullAndEmptyByTrim(moduleId)) {
 			moduleId = "200001";
 		}
-		List<IcuMenuDefCustom> menuList = icuMenuDefCustomMapper.findIcuCustMenu(moduleId);
+		List<IcuMenuDefCustom> menuList = icuMenuDefCustomMapper.findIcuCustMenu(moduleId,menuKind);
 		//递归
 		IcuMenuDefCustom rootDef = null;
 		for (IcuMenuDefCustom menuDefCustom : menuList) {

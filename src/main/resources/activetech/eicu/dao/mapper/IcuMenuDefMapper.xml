@@ -10,6 +10,7 @@
     <result column="MENU_URL" property="menuUrl" jdbcType="VARCHAR" />
     <result column="MENU_ROOT" property="menuRoot" jdbcType="VARCHAR" />
     <result column="MENU_SORT" property="menuSort" jdbcType="DECIMAL" />
+    <result column="MENU_KIND" property="menuKind" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    MENU_ID, MENU_NAME, MENU_STAT, MENU_TYPE, OV_FLAG, MENU_URL, MENU_ROOT, MENU_SORT
+    MENU_ID, MENU_NAME, MENU_STAT, MENU_TYPE, OV_FLAG, MENU_URL, MENU_ROOT, MENU_SORT, 
+    MENU_KIND
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.eicu.pojo.domain.IcuMenuDefExample" >
     select
@@ -105,10 +107,12 @@
   <insert id="insert" parameterType="activetech.eicu.pojo.domain.IcuMenuDef" >
     insert into ICU_MENU_DEF (MENU_ID, MENU_NAME, MENU_STAT, 
       MENU_TYPE, OV_FLAG, MENU_URL, 
-      MENU_ROOT, MENU_SORT)
+      MENU_ROOT, MENU_SORT, MENU_KIND
+      )
     values (#{menuId,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{menuStat,jdbcType=VARCHAR}, 
       #{menuType,jdbcType=VARCHAR}, #{ovFlag,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
-      #{menuRoot,jdbcType=VARCHAR}, #{menuSort,jdbcType=DECIMAL})
+      #{menuRoot,jdbcType=VARCHAR}, #{menuSort,jdbcType=DECIMAL}, #{menuKind,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="activetech.eicu.pojo.domain.IcuMenuDef" >
     insert into ICU_MENU_DEF
@@ -137,6 +141,9 @@
       <if test="menuSort != null" >
         MENU_SORT,
       </if>
+      <if test="menuKind != null" >
+        MENU_KIND,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="menuId != null" >
@@ -162,6 +169,9 @@
       </if>
       <if test="menuSort != null" >
         #{menuSort,jdbcType=DECIMAL},
+      </if>
+      <if test="menuKind != null" >
+        #{menuKind,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +208,9 @@
       <if test="record.menuSort != null" >
         MENU_SORT = #{record.menuSort,jdbcType=DECIMAL},
       </if>
+      <if test="record.menuKind != null" >
+        MENU_KIND = #{record.menuKind,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +225,8 @@
       OV_FLAG = #{record.ovFlag,jdbcType=VARCHAR},
       MENU_URL = #{record.menuUrl,jdbcType=VARCHAR},
       MENU_ROOT = #{record.menuRoot,jdbcType=VARCHAR},
-      MENU_SORT = #{record.menuSort,jdbcType=DECIMAL}
+      MENU_SORT = #{record.menuSort,jdbcType=DECIMAL},
+      MENU_KIND = #{record.menuKind,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +255,9 @@
       <if test="menuSort != null" >
         MENU_SORT = #{menuSort,jdbcType=DECIMAL},
       </if>
+      <if test="menuKind != null" >
+        MENU_KIND = #{menuKind,jdbcType=VARCHAR},
+      </if>
     </set>
     where MENU_ID = #{menuId,jdbcType=VARCHAR}
   </update>
@@ -252,7 +269,8 @@
       OV_FLAG = #{ovFlag,jdbcType=VARCHAR},
       MENU_URL = #{menuUrl,jdbcType=VARCHAR},
       MENU_ROOT = #{menuRoot,jdbcType=VARCHAR},
-      MENU_SORT = #{menuSort,jdbcType=DECIMAL}
+      MENU_SORT = #{menuSort,jdbcType=DECIMAL},
+      MENU_KIND = #{menuKind,jdbcType=VARCHAR}
     where MENU_ID = #{menuId,jdbcType=VARCHAR}
   </update>
 </mapper>

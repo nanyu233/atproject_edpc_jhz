@@ -8,6 +8,7 @@
 		where menu_stat = '1'
 			start with menu_root = #{moduleId, jdbcType = VARCHAR }
 		connect by prior menu_id = menu_root
+			and (MENU_KIND = #{menuKind, jdbcType = VARCHAR } or MENU_KIND = '0')
 		order by menu_sort
 	</select>
 </mapper>

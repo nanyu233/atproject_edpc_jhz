@@ -209,9 +209,10 @@ public class IcuScoreAction {
 	 * @return return
 	 */
 	@RequestMapping("/toBasicPage")
-	public String toNewBasePage(Model model,String gradeType, String liveNo) {
+	public String toNewBasePage(Model model,String gradeType, String liveNo,String menuKind) {
 		model.addAttribute("gradeType", gradeType);
 		model.addAttribute("liveNo", liveNo);
+		model.addAttribute("menuKind",menuKind);
 		return "/eicu/icuScore/basicPage";
 	}
 	/**
@@ -279,10 +280,11 @@ public class IcuScoreAction {
 	 * @throws Exception
 	 */
 	@RequestMapping("/toTotalScoPage")
-	public String toTotalScoPage(Model model,String liveNo,String gradeType,String yAxis) throws Exception{
+	public String toTotalScoPage(Model model,String liveNo,String gradeType,String yAxis,String menuKind) throws Exception{
 		model.addAttribute("gradeType", gradeType);
 		model.addAttribute("liveNo", liveNo);
 		model.addAttribute("yAxis", yAxis);
+		model.addAttribute("menuKind",menuKind);
 		return "/eicu/icuScore/totalScoPage";
 	}
 	
@@ -351,10 +353,10 @@ public class IcuScoreAction {
 	 * @throws Exception
 	 */
 	@RequestMapping("/findIcuCustMenu")
-	public @ResponseBody SubmitResultInfo findIcuCustMenu(@RequestParam("moduleid") String moduleId) throws Exception{
+	public @ResponseBody SubmitResultInfo findIcuCustMenu(@RequestParam("moduleid") String moduleId,@RequestParam("menuKind")String menuKind) throws Exception{
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		//获取ICU功能菜单
-		List<IcuMenuDefCustom> menuList = icuScoreService.findIcuCustMenu(moduleId);
+		List<IcuMenuDefCustom> menuList = icuScoreService.findIcuCustMenu(moduleId,menuKind);
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("menuList",menuList);
 		resultInfo.setSysdata(map);

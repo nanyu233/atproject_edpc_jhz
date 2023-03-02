@@ -125,7 +125,7 @@
                 },
                 {
                     name: '评分总览',
-                    src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${regSeq}'
+                    src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${regSeq}' + "&menuKind=3"
                 },
                 {
                     name: '检验信息',

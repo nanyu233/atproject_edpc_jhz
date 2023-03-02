@@ -2,8 +2,9 @@ package activetech.eicu.dao.mapper;
 
 import activetech.eicu.pojo.domain.IcuMenuDef;
 import activetech.eicu.pojo.domain.IcuMenuDefExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface IcuMenuDefMapper {
     int countByExample(IcuMenuDefExample example);

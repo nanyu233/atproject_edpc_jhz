@@ -653,6 +653,76 @@ public class IcuMenuDefExample {
             addCriterion("MENU_SORT not between", value1, value2, "menuSort");
             return (Criteria) this;
         }
+
+        public Criteria andMenuKindIsNull() {
+            addCriterion("MENU_KIND is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindIsNotNull() {
+            addCriterion("MENU_KIND is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindEqualTo(String value) {
+            addCriterion("MENU_KIND =", value, "menuKind");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindNotEqualTo(String value) {
+            addCriterion("MENU_KIND <>", value, "menuKind");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindGreaterThan(String value) {
+            addCriterion("MENU_KIND >", value, "menuKind");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindGreaterThanOrEqualTo(String value) {
+            addCriterion("MENU_KIND >=", value, "menuKind");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindLessThan(String value) {
+            addCriterion("MENU_KIND <", value, "menuKind");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindLessThanOrEqualTo(String value) {
+            addCriterion("MENU_KIND <=", value, "menuKind");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindLike(String value) {
+            addCriterion("MENU_KIND like", value, "menuKind");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindNotLike(String value) {
+            addCriterion("MENU_KIND not like", value, "menuKind");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindIn(List<String> values) {
+            addCriterion("MENU_KIND in", values, "menuKind");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindNotIn(List<String> values) {
+            addCriterion("MENU_KIND not in", values, "menuKind");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindBetween(String value1, String value2) {
+            addCriterion("MENU_KIND between", value1, value2, "menuKind");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuKindNotBetween(String value1, String value2) {
+            addCriterion("MENU_KIND not between", value1, value2, "menuKind");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
