@@ -20,12 +20,19 @@
   ></script>
   <%@ include file="/WEB-INF/jsp/eicu/eicuCommonJs.jsp"%>
   <style>
+    .editScore {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
     #sco-container {
       padding: 10px 10px 0;
       box-sizing: border-box;
       /* overflow: hidden; */
       overflow-y: auto;
       overflow-x: hidden;
+      flex: auto;
     }
 
     #sco-container table {
@@ -155,6 +162,7 @@
 
     /* 签名栏样式 */
     #mod-info-box {
+      flex: none;
       display: flex;
       align-items: center;
       height: 40px;
@@ -172,6 +180,17 @@
     #user-info > label {
       margin-right: 10px;
       align-items: center;
+    }
+
+    @media (min-width: 0px) and (max-width: 600px) {
+      #mod-info-box {
+        height: 50px;
+        padding: 2px 10px;
+      }
+      #user-info {
+        flex-direction: column;
+        align-items: start;
+      }
     }
 
     .userInput {
@@ -1374,12 +1393,85 @@
     var saveBar_H = $('#saveBar').outerHeight();
     $('#sco-container').outerHeight(WIN_H - saveBar_H - modInfo_H);
   }
+
+  /**
+   *
+   * @param {'up'|'down'} [searchBoxDirection]
+   * @param {'up'|'down'|'right'} [currUserDirection]
+   */
+  function bindUserInput(searchBoxDirection, currUserDirection) {
+    eicuUtil.bindUserInput()
+    if (searchBoxDirection == null) searchBoxDirection = 'down'
+    if (currUserDirection == null) currUserDirection = 'down'
+    var containerSelector = '.fastUserInputBox'
+    var inputSelector = '.fastInput'
+    var currUserSelector = '.fast-select-group'
+    var searchBoxSelector = '.searchBox'
+
+    switch (currUserDirection) {
+      case "down":
+        break
+
+      case "up":
+        $(currUserSelector)
+            .css('width', '200px')
+            .css('position', 'absolute')
+            .css('left', '0px')
+            .css('top', '0px')
+            .css('transform', 'translateY(-100%)')
+        break
+
+      case "right":
+        $(currUserSelector)
+            .css('width', '200px')
+            .css('position', 'absolute')
+            .css('left', $(containerSelector).width())
+            .css('top', $(containerSelector).height() / 2)
+            .css('transform', 'translateY(-50%)')
+        break
+
+      default:
+        break
+    }
+
+    if (MutationObserver == null) return
+    var observer = new MutationObserver(function (mutationsList, mutationObserver) {
+      mutationsList.forEach(function (mutation) {
+        var target = mutation.target
+        if (!target) return
+
+        var addedNodes = [].slice.call(mutation.addedNodes)
+        if (mutation.type === 'childList' && addedNodes.length > 0) {
+          var $searchBox = $(addedNodes).filter(searchBoxSelector)
+          switch (searchBoxDirection) {
+            case "down":
+              break
+
+            case "up":
+              $searchBox.css('position', 'absolute')
+                      .css('left', $(inputSelector).prev().width() || '0px')
+                      .css('top', '0px')
+                      .css('transform', 'translateY(-100%)')
+              break
+          }
+        }
+      });
+    });
+
+    $(containerSelector).each(function (_, container) {
+      observer.observe(container, {
+        childList: true,
+      });
+    })
+  }
+
   $(function() {
     setLayout();
     getDictInfo().done(function() {
       getAllInfo();
     });
-    eicuUtil.bindUserInput();
+
+    bindUserInput('up', 'right')
   });
 </script>
 </body></html
