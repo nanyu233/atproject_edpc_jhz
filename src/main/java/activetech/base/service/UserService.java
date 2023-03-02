@@ -24,6 +24,8 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	public ActiveUser checkUserInfo(String userno,String pwd)throws Exception;
+
+	public ActiveUser checkUser(String usrno) throws Exception;
 	/**
 	 * 根据用户号查找用户
 	 * @param userno 用户帐号

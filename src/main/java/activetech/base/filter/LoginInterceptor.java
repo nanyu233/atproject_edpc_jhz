@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import activetech.base.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,6 +43,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 	private DstuserCustomMapper dstuserCustomMapper;
 	@Autowired
 	private AppoptionService appoptionService;
+	@Autowired
+	private UserService userService;
 
 	//执行时机：进入action方法之前执行
 	//使用场景：用于用户认证、用户授权拦截
@@ -132,8 +135,19 @@ public class LoginInterceptor implements HandlerInterceptor {
 					return true;
 			}
 		}
-		if ("/emisToEdpc".equals(url)){
-			
+		if ("/emisToEdpc.do".equals(url)){
+			String usrno = request.getParameter("usrno");
+			if (StringUtils.isNotNullAndEmptyByTrim(usrno)) {
+				if (activeUser != null && usrno.equals(activeUser.getUsrno())) {
+					return true;
+				} else {
+					ActiveUser user = userService.checkUser(usrno);
+					// 将用户身份信息写入session
+					session.setAttribute(Config.ACTIVEUSER_KEY, user);
+					return true;
+				}
+			}
+			return true;
 		}
 
 		//校验用户访问是否是公开资源 地址

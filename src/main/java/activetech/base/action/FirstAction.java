@@ -32,6 +32,12 @@ public class FirstAction {
 		firstService.first(model, activeUser);
 		return View.toBase("/first/first");
 	}
+	@RequestMapping("/emisToEdpc")
+	public String emisToEdpc(Model model,ActiveUser activeUser) throws Throwable{
+		firstService.first(model, activeUser);
+		return View.toBase("/first/first");
+	}
+
 	
 	/**
 	 * HIS内嵌病历 跳转首页
