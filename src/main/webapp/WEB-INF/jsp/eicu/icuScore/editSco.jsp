@@ -845,7 +845,7 @@
       for (var k in vm.groupScoMap) {
         if (vm.groupScoMap.hasOwnProperty(k) && k !== '*' && k !== 'FAKE') {
           thisScoreVal = vm.groupScoMap[k].scoreValue;
-          tempNum = parseInt(thisScoreVal);
+          tempNum = parseFloat(thisScoreVal);
           if (thisScoreVal === '') {
             //如果当前为空值，则置0，否则为特殊值保留NaN
             tempNum = 0;
