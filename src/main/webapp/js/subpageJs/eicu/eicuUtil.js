@@ -139,7 +139,7 @@ var eicuUtil = {
 		var curMenuInfo;
 		var paramKey;
 		var numberTest = /^[0-9]+$/;
-		var alphaTest = /^[a-zA-Z0-9]+$/;
+		var alphaTest = /^[a-zA-Z0-9_]+$/;
 		if (numberTest.test(param)) {
 			// param is menuId as keyname
 			curMenuInfo = menuInfoObj[param];
