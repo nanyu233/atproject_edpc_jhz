@@ -7,12 +7,9 @@ import activetech.basehems.service.BaseHspemgInfService;
 import activetech.basehis.dao.mapper.VHemsRczMapper;
 import activetech.basehis.pojo.domain.VHemsRcz;
 import activetech.edpc.service.JzbrService;
-import activetech.hl7.base.HL7Util;
 import activetech.hospital.dao.mapper.*;
 import activetech.hospital.pojo.domain.*;
 import activetech.hospital.pojo.dto.*;
-import activetech.netty.client.NettyClient;
-import activetech.netty.util.MethodInvokeMeta;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
 import activetech.util.UUIDBuild;
@@ -22,17 +19,10 @@ import activetech.zyyhospital.pojo.dto.HspDdfxpgbInfCustom;
 import activetech.zyyhospital.pojo.dto.HspFallAssInfCustom;
 import activetech.zyyhospital.pojo.dto.HspNrsInfCustom;
 import activetech.zyyhospital.pojo.dto.HspPewsckInfCustom;
-import ca.uhn.hl7v2.model.v26.message.ACK;
-import ca.uhn.hl7v2.model.v26.message.ADT_A01;
-import ca.uhn.hl7v2.model.v26.segment.DG1;
-import ca.uhn.hl7v2.model.v26.segment.EVN;
-import ca.uhn.hl7v2.model.v26.segment.MSH;
-import ca.uhn.hl7v2.util.Terser;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -67,7 +57,6 @@ public class BaseHspemgInfServiceImpl implements BaseHspemgInfService{
 	private HspemginfCustomMapper hspemginfCustomMapper;
 	@Autowired
 	private HspBedInfMapper hspBedInfMapper;
-	
 	@Autowired
 	private HspFastInfMapper hspFastInfMapper;
 	@Autowired
@@ -400,68 +389,8 @@ public class BaseHspemgInfServiceImpl implements BaseHspemgInfService{
 	private void sendLgxx(String type,String mpi,Long jzxh) throws Exception {
 		//TODO 删除webService接口
 	}
-	
-	public String insertGhxxAndBackYj(ADT_A01 adt_A01,HspemginfCustom hspemginfCustom) throws Exception {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		adt_A01.getINSURANCE().clear();
-		hspemginfCustom.setAdtA01(adt_A01.toString());
-		MSH msh = adt_A01.getMSH();
-		HL7Util.getMsh(msh, "ESB", "ADT", "A01", "ADT_A01");
-		EVN evn = adt_A01.getEVN();
-        evn.getEvn1_EventTypeCode().setValue("FZDJ");
-        evn.getEvn2_RecordedDateTime().setValue(sdf.format(hspemginfCustom.getEmgDat()));
-        evn.getEvn5_OperatorID(0).getXcn1_IDNumber().setValue(hspemginfCustom.getPreUsrNbr());
-        evn.getEvn5_OperatorID(0).getXcn2_FamilyName().getFn1_Surname().setValue(hspemginfCustom.getPreDgnCod());
-        Terser terser = new Terser(adt_A01);
-		terser.set("/PID-3",null);
-		terser.set("/PID-3-5",null);
-		terser.set("/PID-3-10",null);
-		terser.set("/PID-3",null);
-		terser.set("/PV1-3-2",null);
-		terser.set("/PV1-3-10",null);
-		terser.set("/PV1-3-10-2",null);
-		terser.set("/PV1-5",null);
-		terser.set("/PV1-10",null);
-		terser.set("/PV1-14",null);
-		terser.set("/PV1-16",null);
-		terser.set("/PV1-21",null);
-		terser.set("/PV1-50",null);
-		terser.set("/PV1-51",null);
-		DG1 dg1 = adt_A01.getDG1();
-        dg1.getDg11_SetIDDG1().setValue("1");
-        dg1.getDg13_DiagnosisCodeDG1().getCwe1_Identifier().setValue("SN");
-        dg1.getDg16_DiagnosisType().setValue(Integer.parseInt(hspemginfCustom.getEmgDepCod()) + 1+"");
-        dg1.getDg17_MajorDiagnosticCategory().getCne1_Identifier().setValue(hspemginfCustom.getEmgFkCod()); //分诊科室
-        dg1.getDg18_DiagnosticRelatedGroup().getCne1_Identifier().setValue(hspemginfCustom.getArvChlCod()); //加字段前端提交
-        dg1.getDg19_DRGApprovalIndicator().setValue(hspemginfCustom.getTmpNbr()+"");
-        dg1.getDg110_DRGGrouperReviewCode().setValue(hspemginfCustom.getHrtRte()+"");
-        dg1.getDg111_OutlierType().getCwe1_Identifier().setValue(hspemginfCustom.getBreNbr()+"");
-        String sbp = "";
-        if(hspemginfCustom.getSbpUpNbr() != null){
-        	sbp = hspemginfCustom.getSbpUpNbr().toString();
-        }
-        if(hspemginfCustom.getSbpDownNbr() != null){
-        	sbp += "."+hspemginfCustom.getSbpDownNbr();
-        }
-        dg1.getDg112_OutlierDays().setValue(sbp);
-        dg1.getDg113_OutlierCost().getCp1_Price().getMo1_Quantity().setValue(hspemginfCustom.getOxyNbr()+"");
-        dg1.getDg115_DiagnosisPriority().setValue(hspemginfCustom.getGlsNum()); //预检时无血糖
-        dg1.getDg116_DiagnosingClinician(0).getXcn1_IDNumber().setValue(hspemginfCustom.getNrsSco());
-        dg1.getDg117_DiagnosisClassification().setValue(hspemginfCustom.getSenRctCod()); //是否是清醒程度
-        dg1.getDg118_ConfidentialIndicator().setValue(hspemginfCustom.getCramsTotSco()+""); //
-        dg1.getDg119_AttestationDateTime().setValue(sdf.format(hspemginfCustom.getEmgDat()));
-        dg1.getDg120_DiagnosisIdentifier().getEi1_EntityIdentifier().setValue(hspemginfCustom.getPreUsrNbr());
-        dg1.getDg121_DiagnosisActionCode().setValue(hspemginfCustom.getPreUsrNam());
-        
-        NettyClient client = new NettyClient("ensemble.zjyy.com", 10019);
-//  NettyClient client = new NettyClient("192.16.2.141", 10003);
-		MethodInvokeMeta cmd = new MethodInvokeMeta();
-		logger.info("传参："+adt_A01.toString());
-        cmd.setArgs(new Object[] {adt_A01});
-        Object reVal = client.remoteCall(cmd, 0);
-        ACK ack = HL7Util.hl7Text2Msg(reVal.toString(), ACK.class);
-        return ack.getMSA().getMsa1_AcknowledgmentCode().getValue();
-	}
+
+
 	
 	 /**
 	  * 修改转归内部子方法
@@ -525,7 +454,6 @@ public class BaseHspemgInfServiceImpl implements BaseHspemgInfService{
 	
 	/**
 	 * 新增HIS表
-	 * @param hspemginfCustom
 	 * @param activeUser
 	 */
 	public void insertEmgHis(HspEmgInf hspemginf_del,String emgSeq,ActiveUser activeUser,String opertype,String opermemo){
@@ -610,7 +538,6 @@ public class BaseHspemgInfServiceImpl implements BaseHspemgInfService{
     /**
      * 提交NRS疼痛评分表
      * @param activeUser 
-     * @param hspcramsinfCustom
      * @throws Exception
      */
     private void submitHspnrsinfCus(HspemginfQueryDto hspemginfQueryDto, ActiveUser activeUser)throws Exception{
@@ -697,7 +624,6 @@ public class BaseHspemgInfServiceImpl implements BaseHspemgInfService{
     
 	/**
 	 * 中医院hsp_fast_inf入库
-	 * @param hspemginfQueryDto
 	 * @param activeUser
 	 * @return
 	 * @throws Exception
@@ -778,7 +704,6 @@ public class BaseHspemgInfServiceImpl implements BaseHspemgInfService{
 	
 	/**
 	 * 根据床号取名字
-	 * @param emgSeq
 	 * @return
 	 */
 	public HspBedInf getHspBedInfByBedid(String bedId){

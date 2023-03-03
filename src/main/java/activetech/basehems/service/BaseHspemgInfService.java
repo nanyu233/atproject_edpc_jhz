@@ -4,7 +4,6 @@ import java.util.List;
 
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.hospital.pojo.domain.HspEmgInf;
-import activetech.hospital.pojo.dto.HspJbzdInfCustom;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import activetech.hospital.pojo.dto.HspsqlinfCustom;
@@ -54,7 +53,6 @@ public interface BaseHspemgInfService {
 	
 	/**
 	 * 新增HIS表
-	 * @param hspemginfCustom
 	 * @param activeUser
 	 */
 	public void insertEmgHis(HspEmgInf hspemginf_del,String emgSeq,ActiveUser activeUser,String opertype,String opermemo);
@@ -73,7 +71,6 @@ public interface BaseHspemgInfService {
 	public HspEmgInf getHspemginfByEmgseq(String emgSeq);
 	/**
 	 * 清除并重新绑定床位
-	 * @param hspemginfCustom
 	 */
 	public void clearAndreBindBed(String emgSeq,String Bedid);
 	/**

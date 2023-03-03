@@ -14,7 +14,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
-
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultUtil;
@@ -23,8 +22,6 @@ import activetech.hospital.dao.mapper.HspGcsInfMapper;
 import activetech.hospital.dao.mapper.HspemginfCustomMapper;
 import activetech.hospital.pojo.domain.HspGcsInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
-import activetech.pda.pojo.dto.HspCfxxInfoCustom;
-import activetech.pda.pojo.dto.HspCfxxInfoQueryDto;
 import activetech.util.Convert;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
@@ -979,18 +976,7 @@ public class HspHljldInfServiceImpl implements HspHljldInfService{
 		
 		return xtpgSeq;
 	}
-	
-	
-	/**
-	 * 病情护理记录单导出医嘱数据
-	 * @param hspCfxxInfoQueryDto
-	 * @return
-	 */
-	public List<HspCfxxInfoCustom> cfxxInfoResult(HspCfxxInfoQueryDto hspCfxxInfoQueryDto){
-//		return hspLqblInfCustomMapper.getAdviceByMpi(hspCfxxInfoQueryDto);
-		return hspHljldInfService.cfxxInfoResult(hspCfxxInfoQueryDto);
-	}
-	
+
 	@Override
 	public List<Pdatransfusionrecord> findPdatransfusionrecordList(HspHljldInfQueryDto hspHljldInfQueryDto) {
 		return pdatransfusionrecordMapper.findPdatransfusionrecordList(hspHljldInfQueryDto);

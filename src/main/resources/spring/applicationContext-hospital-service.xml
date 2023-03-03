@@ -34,9 +34,6 @@
     <!-- 收藏夹service -->
     <!--	<bean id="hspFavoriteInfService" class="activetech.hospital.service.impl.HspFavoriteInfServiceImpl"/>-->
 
-    <!-- 通用Oracle HIS Service -->
-    <bean id="oracleHisService" class="activetech.basehis.service.impl.OracleHisServiceImpl"/>
-
     <!-- 通用SqlServer HIS Service -->
     <!--	<bean id="sqlServerHisService" class="activetech.basehis.service.impl.SqlServerHisServiceImpl"/>-->
 

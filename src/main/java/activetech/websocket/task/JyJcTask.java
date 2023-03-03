@@ -7,30 +7,24 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import activetech.basehis.pojo.domain.VHemsJyjg;
-import activetech.basehis.service.OracleHisService;
 import activetech.edpc.pojo.domain.VHemsJyjgs;
 import activetech.edpc.service.SysIntergratingService;
-import activetech.util.DateUtil;
 import activetech.util.HttpClientUtil;
 
 @Component
 public class JyJcTask {
-	@Autowired
-	private OracleHisService oracleHisService;
+
 	@Autowired
 	private SysIntergratingService sysIntergratingService;
-	
-	
+
 	public static String getUrl(){
 		 
 		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -49,7 +43,9 @@ public class JyJcTask {
 //    @Scheduled(cron = "0 */1 * * * ?")
     public void jyjgTask() throws Exception {
     	System.out.println("--------------jyjg检验定时任务开始---------------");
-    	List<VHemsJyjg> jyjglist = oracleHisService.findRecentJyjg();
+    	List<VHemsJyjg> jyjglist = null;
+
+				// oracleHisService.findRecentJyjg();
     	List<activetech.external.pojo.domain.VHemsJyjg> vHemsJyjgs = 
     			new ArrayList<activetech.external.pojo.domain.VHemsJyjg>();
     	String samStr = "|";

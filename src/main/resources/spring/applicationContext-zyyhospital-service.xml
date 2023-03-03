@@ -116,9 +116,7 @@
 	<!-- 急诊创伤记录表  -->
 	<bean id="hspJzcsjlbInfService" class="activetech.zyyhospital.service.impl.HspJzcsjlbInfServiceImpl" />
 	
-	<!--  -->
-	<bean id="hL7Service" class="activetech.basehis.service.impl.HL7ServiceImpl" ></bean>
-	
+
 	<!-- 心肺复苏记录单 -->
 <!--	<bean id="hspHeartreordService" class="activetech.zyyhospital.service.impl.HspHeartRecordServiceImpl" />-->
 	

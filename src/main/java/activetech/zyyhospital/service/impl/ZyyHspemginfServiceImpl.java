@@ -7,7 +7,6 @@ import activetech.base.process.result.ResultUtil;
 import activetech.base.service.SystemConfigService;
 import activetech.basehems.service.BaseHspemgInfService;
 import activetech.basehis.pojo.dto.HemshisDto;
-import activetech.basehis.service.OracleHisService;
 import activetech.hospital.dao.mapper.*;
 import activetech.hospital.pojo.domain.*;
 import activetech.hospital.pojo.dto.*;
@@ -69,8 +68,6 @@ public class ZyyHspemginfServiceImpl implements ZyyHspemginfService {
     private HspPrintInfMapper hspPrintInfMapper;
     @Autowired
     private HspDdfxpgbInfMapper hspDdfxpgbInfMapper;
-    @Autowired
-    private OracleHisService oracleHisService;
     @Autowired
     private ScoreQueryService scoreQueryService;
     @Autowired
@@ -151,11 +148,6 @@ public class ZyyHspemginfServiceImpl implements ZyyHspemginfService {
         }
         //1.主表及附表入库
 		baseHspemgInfService.updateBaseHspemginf(hspemginfQueryDto, activeUser);
-
-        //2.提交护理评估表
-		submitHlpgb(hspemginfQueryDto, activeUser);
-        if (StringUtils.isNotNullAndEmptyByTrim(hspemginfQueryDto.getRczId()) && "1".equals(unique))
-			oracleHisService.updateRczGhxxBd(hspemginfQueryDto);
         return unique;
     }
 
@@ -189,8 +181,6 @@ public class ZyyHspemginfServiceImpl implements ZyyHspemginfService {
             hspBedInfList.get(i).setEmgSeq(null);
 			hspBedInfMapper.updateByPrimaryKey(hspBedInfList.get(i));
         }
-        if (StringUtils.isNotNullAndEmptyByTrim(hspemginf.getAdtA01()))
-			oracleHisService.updateCleanRcz(null, hspemginf.getMpi(), hspemginf.getJzxh());
     }
 
     @Override
@@ -319,7 +309,6 @@ public class ZyyHspemginfServiceImpl implements ZyyHspemginfService {
     /**
      * 急诊记录查询总数
      *
-     * @param hstemginfQueryDto
      * @return
      * @throws Exception
      */

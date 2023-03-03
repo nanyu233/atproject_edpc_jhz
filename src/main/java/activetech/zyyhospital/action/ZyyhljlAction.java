@@ -31,9 +31,6 @@ import activetech.hospital.dao.mapper.HspSqlInfMapper;
 import activetech.hospital.pojo.domain.HspEmgInf;
 import activetech.hospital.pojo.domain.HspSqlInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
-import activetech.pda.pojo.dto.HspCfxxInfoCustom;
-import activetech.pda.pojo.dto.HspCfxxInfoQueryDto;
-import activetech.util.BeanUtil;
 import activetech.util.DateUtil;
 import activetech.util.ExcelExportSXXSSF;
 import activetech.util.StringUtils;
@@ -144,7 +141,6 @@ public class ZyyhljlAction {
 	/**
 	 * 新增护理记录单跳转
 	 *@param model
-	 *@param parentid
 	 *@return
 	 *@throws Exception
 	 *@author liulj @date 2017年9月26日 下午2:33:29
@@ -259,7 +255,6 @@ public class ZyyhljlAction {
 	}
 	/**
 	 * ajax根据behiSeq查询护理登记表数据
-	 *@param behiSeq
 	 *@return
 	 *@throws Exception
 	 *@author liulj @date 2017年9月27日 上午11:48:37
@@ -411,7 +406,6 @@ public class ZyyhljlAction {
 	}
 	/**
 	 * 查询病情护理记录单打印信息
-	 *@param bqhiSeq
 	 *@return
 	 *@throws Exception
 	 *@author liulj @date 2017年10月19日 下午2:36:17
@@ -460,7 +454,6 @@ public class ZyyhljlAction {
 	}
 	/**
 	 * ajax获取出入量统计
-	 *@param model
 	 *@return
 	 *@throws Exception
 	 */
@@ -502,7 +495,6 @@ public class ZyyhljlAction {
 	
 	/**
 	 * 出入量统计跳转
-	 *@param model
 	 *@return
 	 *@throws Exception
 	 */
@@ -521,7 +513,6 @@ public class ZyyhljlAction {
 	
 	/**
 	 * 护理记录单转运风险评分表提交
-	 * @param hspHlpgbQueryDto
 	 * @return
 	 * @throws Exception
 	 */
@@ -536,7 +527,6 @@ public class ZyyhljlAction {
 	
 	/**
 	 * 护理记录单GCS评分表提交
-	 * @param hspHlpgbQueryDto
 	 * @return
 	 * @throws Exception
 	 */
@@ -550,7 +540,7 @@ public class ZyyhljlAction {
 	
 	/**
 	 * 护理记录单疼痛评分提交
-	 * @param hspHlpgbQueryDto
+	 * @param hspHljldInfQueryDto
 	 * @return
 	 * @throws Exception
 	 */
@@ -564,7 +554,6 @@ public class ZyyhljlAction {
 	
 	/**
 	 * 护理记录单Morse评分提交
-	 * @param hspHlpgbQueryDto
 	 * @return
 	 * @throws Exception
 	 */
@@ -578,7 +567,6 @@ public class ZyyhljlAction {
 	
 	/**
 	 * 护理记录单braden评分提交
-	 * @param hspXtpgInfQueryDto
 	 * @return
 	 * @throws Exception
 	 */
@@ -592,7 +580,6 @@ public class ZyyhljlAction {
 	
 	/**
 	 * 护理记录单adl评分提交
-	 * @param hspXtpgInfQueryDto
 	 * @return
 	 * @throws Exception
 	 */
@@ -606,7 +593,6 @@ public class ZyyhljlAction {
 	
 	/**
 	 * 患者会诊列表跳转
-	 *@param model
 	 *@return
 	 *@throws Exception
 	 */
@@ -630,35 +616,7 @@ public class ZyyhljlAction {
 		return "/hzszyyhospital/hzszyynote/drugDocAdvice";
 	}
 	
-	
-	/**
-	 * 病情护理记录单导出医嘱数据
-	 * @param hspCfxxInfoQueryDto
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value  = "/cfxxInfoResult")
-	public DataGridResultInfo cfxxInfoResult(HspCfxxInfoQueryDto hspCfxxInfoQueryDto) {
-		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
-		ResultInfo resultInfo = ResultUtil.createFail(Config.MESSAGE, 906, null);
-		if(null != hspCfxxInfoQueryDto.getHspCfxxInfoCustom()) {
-			if(!BeanUtil.validated(hspCfxxInfoQueryDto.getHspCfxxInfoCustom().getMpi())) {
-				dataGridResultInfo.setResultInfo(resultInfo);
-				return dataGridResultInfo;
-			}
-		}
-		try {
-			List<HspCfxxInfoCustom> cfxxInfoList = hspHljldInfService.cfxxInfoResult(hspCfxxInfoQueryDto);
-			dataGridResultInfo.setTotal(cfxxInfoList.size());
-			dataGridResultInfo.setRows(cfxxInfoList);
-			dataGridResultInfo.setResultInfo(resultInfo);
-		} catch (Exception e) {
-			e.printStackTrace();
-			resultInfo = ResultUtil.createFail(Config.MESSAGE, 900, null);
-			dataGridResultInfo.setResultInfo(resultInfo);
-		}
-		return dataGridResultInfo;
-	}
+
 	
 	/**
 	 * 导入入院护理评估表ajax
@@ -710,7 +668,6 @@ public class ZyyhljlAction {
 	
 	/**
 	 * 查询输血记录结果集
-	 *@param pdatransfusionrecordCustom
 	 *@return
 	 *@throws Exception
 	 */

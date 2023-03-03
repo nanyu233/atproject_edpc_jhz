@@ -197,7 +197,7 @@ public class DingTalkUtil {
         DingTalkClient client = new DefaultDingTalkClient("https://oapi.dingtalk.com/topapi/user/getbyunionid");
         OapiUserGetbyunionidRequest req = new OapiUserGetbyunionidRequest();
         req.setUnionid(unionid);
-        OapiUserGetbyunionidResponse rsp = client.execute(req, "10e7e86c6d8c353f92e02c6762f09253");
+        OapiUserGetbyunionidResponse rsp = client.execute(req, accessToken);
         return rsp.getResult().getUserid();
     }
 

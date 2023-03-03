@@ -1,16 +1,6 @@
 package activetech.websocket.task;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import activetech.basehis.service.OracleHisService;
-import activetech.external.pojo.dto.HspMdyDatCustom;
-import activetech.websocket.action.WebSocketJHY;
-import activetech.websocket.action.WebSocketHz;
 
 @Component
 public class HzTask {

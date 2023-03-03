@@ -29,20 +29,6 @@ public class AidAction {
 	 */
 	@RequestMapping("/topatient")
 	public String topatient (Model model,String patid,String emgSeq) throws Exception {
-		/*
-		AidPatient aidPatient = new AidPatient();
-		AidPatientCustom aidPatientCustom = new AidPatientCustom();
-		if(StringUtils.isNotNullAndEmptyByTrim(patid)){
-			aidPatient = aidPatientMapper.selectByPrimaryKey(patid);
-			if(StringUtils.isNotNullAndEmptyByTrim(aidPatient.getPatid())){
-				BeanUtils.copyProperties(aidPatient,aidPatientCustom);
-			}
-		}else{
-			patid = systemConfigService.findSequences("AID_PATIENT_PATID", "8", null);
-			aidPatientCustom.setPatid(patid);
-		}
-		*/
-		// model.addAttribute("aidPatientCustom", aidPatientCustom);
 		model.addAttribute("emgSeq", emgSeq);
 		model.addAttribute("patid", patid);
 		return "/hzszyyhospital/aid/aidPatient/patientinfo";
@@ -89,7 +75,6 @@ public class AidAction {
 	
 	/**
 	 * 院前信息录入
-	 * @param model
 	 * @return
 	 * @throws Exception
 	 */

@@ -12,7 +12,6 @@ import activetech.base.service.CompctlService;
 import activetech.base.service.SystemConfigService;
 import activetech.base.service.UserService;
 import activetech.basehems.service.BaseHspemgInfService;
-import activetech.basehis.service.OracleHisService;
 import activetech.hospital.pojo.dto.HspScoCustom;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
@@ -63,8 +62,6 @@ public class ZyyemgAction {
     private HisCzSqlServerService hisCzSqlServerService;
     @Resource
     private UserService userService;
-    @Resource
-    private OracleHisService oracleHisService;
 
     /**
      * 患者分诊登记-急诊台页面
@@ -231,29 +228,6 @@ public class ZyyemgAction {
         return hspemginfQueryDto;
     }
 
-    /**
-     * 修改/转归患者信息提交
-     *
-     * @param hspemginfQueryDto
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/updzyyemgsubmit")
-    public @ResponseBody
-    SubmitResultInfo updzyyemgsubmit(HspemginfQueryDto hspemginfQueryDto,
-                                     ActiveUser activeUser) throws Exception {
-        ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906,
-                null);
-        String unique = zyyHspemginfService.updateHspemginf_hzzyy(hspemginfQueryDto, activeUser);
-        if ("0".equals(unique))
-            ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 920, new Object[]{"系统已存在另一笔预检数据与该病历号和就诊次数相关联，当前无法关联!"}));
-        try {
-            oracleHisService.sendDjhc(hspemginfQueryDto);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ResultUtil.createSubmitResult(resultInfo);
-    }
 
     @RequestMapping("/findEmgList_zyy")
     public @ResponseBody SubmitResultInfo findEmgList_jzt(String emgSeq, String editbedflg) throws Exception {

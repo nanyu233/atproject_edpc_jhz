@@ -15,8 +15,6 @@ import activetech.edpc.dao.mapper.HspFlowChartInfMapperCustom;
 import activetech.edpc.pojo.domain.HspZlInf;
 import activetech.edpc.pojo.domain.HspFlowChartInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
-import activetech.pda.pojo.dto.HspCfxxInfoCustom;
-import activetech.pda.pojo.dto.HspCfxxInfoQueryDto;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
 import activetech.websocket.action.WebSocketXT;
@@ -234,10 +232,6 @@ public class HuzHspHljldInfServiceImpl extends DecoratorHspHljldInfService{
 		return hspHljldInfService.addMorseScore(hspHljldInfQueryDto, activeUser);
 	}
 
-	@Override
-	public List<HspCfxxInfoCustom> cfxxInfoResult(HspCfxxInfoQueryDto hspCfxxInfoQueryDto) {
-		return hspHljldInfService.cfxxInfoResult(hspCfxxInfoQueryDto);
-	}
 
 	@Override
 	public List<Pdatransfusionrecord> findPdatransfusionrecordList(HspHljldInfQueryDto hspHljldInfQueryDto) {

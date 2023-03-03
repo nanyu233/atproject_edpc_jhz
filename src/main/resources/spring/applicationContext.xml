@@ -29,12 +29,12 @@
     <bean class="activetech.base.service.SpringContextUtil" id="springContextUtil"/>
 
 <bean class="activetech.base.util.MinIoUtil" id="minIoUtil"/>
-<!--    钉钉-->
-    <bean class="activetech.base.config.DingTalkConfig"  id="DingTalkConfig" />
-    <bean class="activetech.base.util.DingTalkUtil"  id="DingTalkUtil" />
-
-<!--    微信-->
-<bean id="WeixinConfig" class="activetech.base.config.WeixinConfig"></bean>
+    <!--    钉钉-->
+    <bean class="activetech.base.config.DingTalkConfig" id="DingTalkConfig"/>
+    <bean class="activetech.base.util.DingTalkUtil" id="DingTalkUtil"/>
+    <bean class="activetech.base.util.DingUtil" id="DingUtil"/>
+    <!--    微信-->
+    <bean id="WeixinConfig" class="activetech.base.config.WeixinConfig"></bean>
 <bean id="WeixinUtil" class="activetech.base.util.WeixinqyUtil"></bean>
 
     <!-- 试用下hikari 连接池，据说是java速度最快的数据库连接池 -->

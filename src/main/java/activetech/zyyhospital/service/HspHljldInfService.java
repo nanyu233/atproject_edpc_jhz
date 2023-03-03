@@ -7,8 +7,6 @@ import com.alibaba.fastjson.JSONObject;
 
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.hospital.pojo.dto.HspemginfCustom;
-import activetech.pda.pojo.dto.HspCfxxInfoCustom;
-import activetech.pda.pojo.dto.HspCfxxInfoQueryDto;
 import activetech.zyyhospital.pojo.domain.HspHljldInf;
 import activetech.zyyhospital.pojo.domain.HspHljldclrInf;
 import activetech.zyyhospital.pojo.domain.Pdatransfusionrecord;
@@ -46,7 +44,6 @@ public interface HspHljldInfService {
 	
 	/**
 	 * 根据预检号查询护理记录单列表总数
-	 *@param hspJbzdInfQueryDto
 	 *@return
 	 *@author liulj @date 2017年9月26日 上午10:34:56
 	 */
@@ -86,7 +83,6 @@ public interface HspHljldInfService {
 	public void edithljldsubmit(HspHljldInfQueryDto hspHljldInfQueryDto,ActiveUser activeuser)throws Exception;
 	/**
 	 * 根据护理记录单单号删除数据
-	 *@param bqhiseq
 	 *@throws Exception
 	 *@author liulj @date 2017年9月27日 下午3:25:39
 	 */
@@ -110,7 +106,6 @@ public interface HspHljldInfService {
 	
 	/**
 	 * 6项评分 fzz 
-	 * @param hspHlpgbQueryDto
 	 * @param activeUser
 	 * @return
 	 * @throws Exception
@@ -126,17 +121,9 @@ public interface HspHljldInfService {
 	public String submitNrsScore(HspHljldInfQueryDto hspHljldInfQueryDto, ActiveUser activeUser)throws Exception ;
 	
 	public String addMorseScore(HspHljldInfQueryDto hspHljldInfQueryDto, ActiveUser activeUser)throws Exception;
-	
-	/**
-	 * 病情护理记录单导出医嘱数据
-	 * @param hspCfxxInfoQueryDto
-	 * @return
-	 */
-	List<HspCfxxInfoCustom> cfxxInfoResult(HspCfxxInfoQueryDto hspCfxxInfoQueryDto);
-	
+
 	/**
 	 * 病情护理记录单导入输血数据
-	 * @param hspCfxxInfoQueryDto
 	 * @return
 	 */
 	List<Pdatransfusionrecord> findPdatransfusionrecordList(HspHljldInfQueryDto hspHljldInfQueryDto);

@@ -102,7 +102,7 @@ public class JzbrServiceImpl implements JzbrService {
      * @param regSeq regSeq
      * @throws Exception Exception
      */
-    private void addMewsInfo(HspemginfCustom hspemginfCustom, String regSeq) {
+    private void addMewsInfo(HspemginfCustom hspemginfCustom, String    regSeq) {
         HspZlInfCustom baseZlInf = new HspZlInfCustom();
         baseZlInf.setEmgNo(regSeq);
         //血压
