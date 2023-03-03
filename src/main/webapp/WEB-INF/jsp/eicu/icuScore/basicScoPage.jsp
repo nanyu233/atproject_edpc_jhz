@@ -154,7 +154,7 @@
       id="sco-container"
       ms-css-width="tableWidth"
   >
-    <table ms-css-width="tableWidth">
+    <table ms-css-width="tableWidth" class="table-container sticky-table">
       <caption class="page-title">
         {{ pageName }}
       </caption>
@@ -165,16 +165,16 @@
         <col class="basic-col title-score" />
         <col ms-repeat="timeList" />
       </colgroup>
-      <thead>
+      <thead class="sticky-table__row">
       <tr>
         <th
-            class="sco-item-header"
+            class="sco-item-header sticky-table__col"
             rowspan="2"
             ms-attr-colspan="{{ tableType === 'specific' ? '2' : '3' }}"
         >评分项目</th
         >
-        <th ms-if="tableType === 'specific'" rowspan="2">评分区间</th>
-        <th class="sco-header" rowspan="2">分值</th>
+        <th ms-if="tableType === 'specific'" rowspan="2" class="sticky-table__col">评分区间</th>
+        <th class="sco-header sticky-table__col" rowspan="2">分值</th>
         <th ms-if="timeList.length" ms-attr-colspan="timeList.length"
         >评分时间</th
         >
@@ -200,6 +200,7 @@
             ms-if="iteminfo.rootSelfIdx===0"
             ms-attr-rowspan="{{ iteminfo.rootSpanNumb }}"
             ms-attr-colspan="{{ iteminfo.secNodeName ? '1' : '3' }}"
+            class="sticky-table__col"
         >
           {{ iteminfo.rootName }}
         </th>
@@ -209,6 +210,7 @@
             ms-attr-rowspan="{{
                   iteminfo.thirdNodeName ? iteminfo.secSpanNumb : '1'
                 }}"
+            class="sticky-table__col"
         >
           <div
               style="word-break: break-all;"
@@ -217,12 +219,12 @@
             {{ iteminfo.secNodeName }}
           </div>
         </th>
-        <th ms-if="iteminfo.thirdNodeName">
+        <th ms-if="iteminfo.thirdNodeName" class="sticky-table__col">
                 <span>
                   {{ iteminfo.thirdNodeName }}
                 </span>
         </th>
-        <th>{{ iteminfo.scoreMemo }}</th>
+        <th class="sticky-table__col">{{ iteminfo.scoreMemo }}</th>
         <td
             ms-repeat-scoel="iteminfo.scoTimeList"
             ms-class-1="{{ 'edit-col time' + $index }}"
@@ -249,9 +251,10 @@
         <!-- 总分 -->
         <th
             ms-attr-colspan="totalScoInfo.scoreMemo === '#' ? '4' : '3'"
+            class="sticky-table__col"
         >{{ totalScoInfo.itemName }}</th
         >
-        <th ms-if="totalScoInfo.scoreMemo !== '#'">{{
+        <th ms-if="totalScoInfo.scoreMemo !== '#'" class="sticky-table__col">{{
           totalScoInfo.scoreMemo
           }}</th>
         <td
@@ -273,7 +276,7 @@
       <tbody ms-if="signInfo.scoTimeList">
       <tr>
         <!-- 签名详情 -->
-        <th colspan="4">{{ signInfo.itemName }}</th>
+        <th colspan="4" class="sticky-table__col">{{ signInfo.itemName }}</th>
         <td
             ms-repeat-scoel="signInfo.scoTimeList"
             ms-class-1="{{ 'edit-col time' + $index }}"
@@ -897,7 +900,9 @@
   function getAllInfo() {
     if (vm.pDisplayMode === 'basic') {
       getDictInfo();
-      getTableInfo();
+      getTableInfo().done(function () {
+        stickyTable('.table-container')
+      });
     } else if (vm.pDisplayMode === 'chart') {
       getChartInfo();
     }
@@ -1372,6 +1377,88 @@
       return false;
     }
   });
+
+  /**
+   * @param {string} tableSelector
+   * @param {number} [zIndex]
+   */
+  function stickyTable(tableSelector, zIndex) {
+    var isIE = !!document.documentMode;
+    if (isIE) {
+      console.warn("skip sticky table")
+      return;
+    }
+    if (zIndex == null) zIndex = 1
+
+    var styleText =
+      "/* 为了使每一列的border也跟随移动 table的border-collapse必须为 separate;*/\n" +
+      "/* table的border-collapse为separate 时需要手动将border坍塌；*/\n" +
+      "table.sticky-table {\n" +
+      "\tborder-spacing: 0;\n" +
+      "\tborder-collapse: separate !important;\n" +
+      "\tborder-left: 1px solid #666 !important;\n" +
+      "}\n" +
+      "table.sticky-table tr th,\n" +
+      "table.sticky-table tr td {\n" +
+      "\tborder: none !important;\n" +
+      "\tborder-bottom: 1px solid #666 !important;\n" +
+      "\tborder-right: 1px solid #666 !important;\n" +
+      "}\n" +
+      "table.sticky-table thead tr:first-child th,\n" +
+      "table.sticky-table thead tr:first-child td {\n" +
+      "\tborder-top: 1px solid #666 !important;\n" +
+      "}\n" +
+      // "table.sticky-table tr th:first-child,\n" +
+      // "table.sticky-table tr td:first-child {\n" +
+      // "\tborder-collapse: collapse;\n" +
+      // "\tborder-left: 1px solid #666 !important;\n" +
+      // "}\n" +
+
+      "/* 指定列固定 */\n" +
+      "table.sticky-table tr > th.sticky-table__col,\n" +
+      "table.sticky-table tr > td.sticky-table__col {\n" +
+      "\tposition: sticky;\n" +
+        /*left: 0;*/
+      "\tz-index: "+ zIndex +";\n" +
+        /*background-color: red;*/
+      "}\n" +
+
+      "/* 指定行固定 */\n" +
+      "table.sticky-table tr.sticky-table__row,\n" +
+      "table.sticky-table thead.sticky-table__row {\n" +
+      "\tposition: sticky;\n" +
+      "\ttop: 0;\n" +
+      "\tz-index: "+ (++zIndex) +";\n" +
+        /*background-color: red;*/
+      "}\n" +
+
+      "table.sticky-table .sticky-table__row .sticky-table__col {\n" +
+      "\tz-index: "+ (++zIndex) +";\n" +
+      "}";
+
+    var styleNode = document.createElement('style');
+    styleNode.type = "text/css";
+    styleNode.id = "sticky-table";
+    var styleTextNode = document.createTextNode(styleText);
+    styleNode.appendChild(styleTextNode);
+    document.getElementsByTagName('head')[0].appendChild(styleNode);
+
+    var $table = $(tableSelector)
+    $table.removeClass('sticky-table').addClass('sticky-table')
+    $("tr > th.sticky-table__col, tr > td.sticky-table__col", $table).each(function () {
+      var $self = $(this)
+      var left = $self.offset().left
+      $self.css("left", left)
+      var backgroundColor = $self.css("background-color") === "rgba(0, 0, 0, 0)" ? "white" : $self.css("background-color")
+      $self.css("background-color", backgroundColor) // 明确背景颜色 否则滚动会透明
+      console.log($self.css("background-color"))
+    })
+    $("tr.sticky-table__row, thead.sticky-table__row", $table).each(function () {
+      var $self = $(this)
+      var backgroundColor = $self.css("background-color") === "rgba(0, 0, 0, 0)" ? "white" : $self.css("background-color")
+      $self.css("background-color", backgroundColor) // 明确背景颜色 否则滚动会透明
+    })
+  }
 
   getAllInfo();
 </script>
