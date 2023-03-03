@@ -334,8 +334,8 @@
 		  </otherwise>
 	  </choose>
 	<if test="menuKind != null and menuKind != '' ">
-		and menu_kind = #{menuKind, jdbcType = VARCHAR }
-		or menu_kind = '0'
+		and (menu_kind = #{menuKind, jdbcType = VARCHAR }
+		or menu_kind = '0')
 	</if>
 	  ) d
 	  on c.grade_type = d.menu_type
