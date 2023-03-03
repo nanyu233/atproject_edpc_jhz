@@ -33,8 +33,7 @@
     <style>
         /* STEP2：指定这个包裹容器元素的CSS样式，尤其注意宽高的设置 */
         .self-defined-classname {
-            width: 300px;
-            height: 300px;
+            margin-left: 20px;
         }
     </style>
 
@@ -46,42 +45,50 @@
         <div class="login-boximage">
             <div class="login-title">${hospitalPlatformNameLogin}</div>
             <div class="login-txt">
-                <label>
-                    <div class="log-text">院&emsp;区</div>
-                    <label for="ly" class="small-label">
-                        <input type="radio" name="hospitalArea" value="1" id="ly"> 三墩
-                    </label>
-                    <label for="yq" class="small-label">
-                        <!-- disabled 目前先变灰不能选--灵隐还没开放 -->
-                        <input  type="radio" name="hospitalArea" value="2" id="yq"> 灵隐
-                    </label>
-                </label>
-                <label>
-                    <div class="log-text">用户名</div>
-                    <input type="text" class="txt uname userinput" v-model="msg.userId" autocomplete="off"/>
-                </label>
-                <label>
-                    <div class="log-text">密&emsp;码</div>
-                    <input type="password" class="txt pwd pwdinput" v-model="msg.password" id="password"
-                           autocomplete="off"/>
-                </label>
-                <div class="log-check lochck">
-                    <span class="check-icon" ref="checkIcon"></span>
-                    <span class="checkss" ref="checkss"></span>
+                <div class="log-tip">
+                  <a :class="{active: loginType == 1}" @click="setLoginTyp('1')">账号登陆</a>  
+                  <a :class="{active: loginType == 2}" @click="setLoginTyp('2')">钉钉扫码登陆</a>
                 </div>
-                <div class="login-btn">
-                    <div class="lgright" align="right">
-                        <input name="登录" type="button" class="ok-btn lg_btn" value="登录" @click="loginSubmit()">
+                <div class="log-div" v-show="loginType == 1">
+                    <label>
+                        <div class="log-text">院&emsp;区</div>
+                        <label for="ly" class="small-label">
+                            <input type="radio" name="hospitalArea" value="1" id="ly"> 三墩
+                        </label>
+                        <label for="yq" class="small-label">
+                            <!-- disabled 目前先变灰不能选--灵隐还没开放 -->
+                            <input  type="radio" name="hospitalArea" value="2" id="yq"> 灵隐
+                        </label>
+                    </label>
+                    <label>
+                        <div class="log-text">用户名</div>
+                        <input type="text" class="txt uname userinput" v-model="msg.userId" autocomplete="off"/>
+                    </label>
+                    <label>
+                        <div class="log-text">密&emsp;码</div>
+                        <input type="password" class="txt pwd pwdinput" v-model="msg.password" id="password"
+                            autocomplete="off"/>
+                    </label>
+                    <div class="log-check lochck">
+                        <span class="check-icon" ref="checkIcon"></span>
+                        <span class="checkss" ref="checkss"></span>
                     </div>
-                    <div class="lgleft" align="left">
-                        <input type="button" class="set-btn m-l10 reset-btn" value="重置" @click="clearInput()">
+                    <div class="login-btn">
+                        <div class="lgright" align="right">
+                            <input name="登录" type="button" class="ok-btn lg_btn" value="登录" @click="loginSubmit()">
+                        </div>
+                        <div class="lgleft" align="left">
+                            <input type="button" class="set-btn m-l10 reset-btn" value="重置" @click="clearInput()">
+                        </div>
                     </div>
+                </div>
+                <div class="log-div" v-show="loginType == 2">
+                    <div id="self_defined_element" class="self-defined-classname"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="self_defined_element" class="self-defined-classname"></div>
 
 </form>
 <script>
@@ -92,7 +99,8 @@
             msg: {
                 userId: '',
                 password: ''
-            }
+            },
+            loginType: '1' ,// 1是 账号 2 是钉钉
         },
         methods: {
             loginSubmit: function () {
@@ -153,6 +161,12 @@
                         vm.showCheckMsg(data.resultInfo.message);
                     }
                 })
+            },
+            setLoginTyp: function (val) {
+                this.loginType = val;
+                if(val == 2){
+                    vm.generateQr()
+                }
             },
             clearInput: function () { // 清空输入框
                 this.msg.userId = '';
