@@ -21,6 +21,7 @@
   <%@ include file="/WEB-INF/jsp/eicu/eicuCommonJs.jsp"%>
   <style>
     .editScore {
+      height: calc(100vh - 44px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -184,12 +185,13 @@
 
     @media (min-width: 0px) and (max-width: 600px) {
       #mod-info-box {
-        height: 50px;
+        height: 60px;
         padding: 2px 10px;
       }
       #user-info {
         flex-direction: column;
         align-items: start;
+        gap: 5px;
       }
     }
 
