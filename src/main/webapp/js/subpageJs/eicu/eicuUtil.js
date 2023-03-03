@@ -1299,6 +1299,132 @@ var eicuUtil = {
 		eicuUtil.ptBasicInfo = {
 			liveNo: liveNo
 		}
+	},
+	/**
+	 * 使表头固定, 不支持ie, https://caniuse.com/css-sticky
+	 * 固定行：tr或者thead的class上添加sticky-table__row
+	 * 固定列：th或者td的class上添加sticky-table__col
+	 * @param {string} tableSelector
+	 * @param {number} [zIndex]
+	 */
+	stickyTable: function stickyTable (tableSelector, zIndex) {
+		eicuUtil.destroyStickyTable()
+		var isIE = !!document.documentMode;
+		if (isIE) {
+			console.warn("skip sticky table")
+			return;
+		}
+		if (zIndex == null) zIndex = 1
+
+		var styleText =
+			"/* Inject by eicuUtil.stickyTable */\n" +
+			"/* 为了使每一列的border也跟随移动 table的border-collapse必须为 separate;*/\n" +
+			"/* table的border-collapse为separate 时需要手动将border坍塌；*/\n" +
+			"table.sticky-table {\n" +
+			"\tborder-spacing: 0;\n" +
+			"\tborder-collapse: separate !important;\n" +
+			"}\n" +
+			"table.sticky-table tr th,\n" +
+			"table.sticky-table tr td {\n" +
+			"\tborder: none !important;\n" +
+			"\tborder-bottom: 1px solid #666 !important;\n" +
+			"\tborder-right: 1px solid #666 !important;\n" +
+			"}\n" +
+			"table.sticky-table thead tr:first-child th,\n" +
+			"table.sticky-table thead tr:first-child td {\n" +
+			"\tborder-top: 1px solid #666 !important;\n" +
+			"}\n" +
+			"table.sticky-table tr th.sticky-table-tmp__cell-border-left,\n" +
+			"table.sticky-table tr td.sticky-table-tmp__cell-border-left {\n" +
+			"\tborder-left: 1px solid #666 !important;\n" +
+			"}\n" +
+
+			"/* 指定列固定 */\n" +
+			"table.sticky-table tr > th.sticky-table__col,\n" +
+			"table.sticky-table tr > td.sticky-table__col {\n" +
+			"\tposition: sticky;\n" +
+			/*left: 0;*/
+			"\tz-index: "+ zIndex +";\n" +
+			/*background-color: red;*/
+			"}\n" +
+
+			"/* 指定行固定 */\n" +
+			"table.sticky-table tr.sticky-table__row,\n" +
+			"table.sticky-table thead.sticky-table__row {\n" +
+			"\tposition: sticky;\n" +
+			"\ttop: 0;\n" +
+			"\tz-index: "+ (++zIndex) +";\n" +
+			/*background-color: red;*/
+			"}\n" +
+
+			"table.sticky-table .sticky-table__row .sticky-table__col {\n" +
+			"\tz-index: "+ (++zIndex) +";\n" +
+			"}";
+
+		var styleNode = document.createElement('style');
+		styleNode.type = "text/css";
+		styleNode.id = "sticky-table";
+		var styleTextNode = document.createTextNode(styleText);
+		styleNode.appendChild(styleTextNode);
+		document.getElementsByTagName('head')[0].appendChild(styleNode);
+
+		var $table = $(tableSelector)
+		if ($table.length === 0) return;
+		$table.removeClass('sticky-table').addClass('sticky-table')
+
+		$table.each(function (_, table) {
+			// 创建一个空数组来保存所有第一列单元格
+			var first_cells = []
+			// 遍历表格中的每一行，找到第一列单元格并保存到数组中
+			for (var i = 0; i < table.rows.length; i++) {
+				var first_cell = table.rows[i].cells[0]
+				if (first_cell.rowSpan > 1) {
+					// 处理rowspan属性
+					var rowspan = first_cell.rowSpan
+					i = i + rowspan - 1
+					first_cells.push(first_cell)
+					continue
+				}
+				first_cells.push(first_cell)
+			}
+			$(first_cells).addClass('sticky-table-tmp__cell-border-left')
+		})
+
+		$("tr > th.sticky-table__col, tr > td.sticky-table__col", $table).each(function () {
+			var $self = $(this)
+			var left = $self.offset().left
+			$self.css("left", left)
+			var backgroundColor = $self.css("background-color") === "rgba(0, 0, 0, 0)" ? "white" : $self.css("background-color")
+			$self.css("background-color", backgroundColor) // 明确背景颜色 否则滚动会透明
+			console.log($self.css("background-color"))
+		})
+		$("tr.sticky-table__row, thead.sticky-table__row", $table).each(function () {
+			var $self = $(this)
+			var backgroundColor = $self.css("background-color") === "rgba(0, 0, 0, 0)" ? "white" : $self.css("background-color")
+			$self.css("background-color", backgroundColor) // 明确背景颜色 否则滚动会透明
+		})
+	},
+	destroyStickyTable: function destroyStickyTable() {
+		// 删除 sticky table 临时的 stylesheet
+		$("style#stick-table").remove()
+
+		// 删除 sticky table 临时的 class (/sticky-table-tmp/)
+		$('td,th').each(function () {
+			var $self = $(this)
+			var classStr = $self.attr("class")
+			if (!classStr) return
+			var classList = classStr.split(/\s+/)
+			var filteredClassList = []
+
+			$.each(classList, function (_, v) {
+				if (!/sticky-table-tmp/.test(v)) {
+					filteredClassList.push(v)
+				}
+			})
+
+			var filteredClassStr = filteredClassList.join(' ')
+			$self.attr("class", filteredClassStr)
+		})
 	}
 
 };

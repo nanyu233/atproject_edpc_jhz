@@ -231,7 +231,7 @@
     id="sco-container"
     ms-css-visibility="{{ bodyShowFlag ? 'visible' : 'hidden' }}"
 >
-  <table ms-if="tableMode === 'h' || tableMode === 'i'" class="h-table">
+  <table ms-if="tableMode === 'h' || tableMode === 'i'" class="h-table table-container">
     <!-- 横向渲染 -->
     <colgroup>
       <col />
@@ -239,7 +239,7 @@
       <col ms-repeat="headScoreList" />
       <col />
     </colgroup>
-    <thead>
+    <thead class="sticky-table__row">
     <tr>
       <th rowspan="2" colspan="2">评分项目</th>
       <th
@@ -375,9 +375,9 @@
     </tr>
     </tbody>
   </table>
-  <table ms-if="tableMode === 'v'" class="v-table">
+  <table ms-if="tableMode === 'v'" class="v-table table-container">
     <!-- 纵向渲染 -->
-    <thead>
+    <thead class="sticky-table__row">
     <tr>
       <th ms-css-width="{{ vtShowSecondChild ? itemNameTdW : '300' }}"
       >评分项目</th
@@ -1124,7 +1124,7 @@
     //     getParentModInfo();;
     //     return;
     // }
-    publicFun.httpRequest(
+    return publicFun.httpRequest(
         _baseUrl + 'icuscore/findGradeInfoByParam.do',
         {
           liveNo: _liveNo,
@@ -1469,8 +1469,8 @@
 
   $(function() {
     setLayout();
-    getDictInfo().done(function() {
-      getAllInfo();
+    getDictInfo().done(getAllInfo).done(function () {
+      eicuUtil.stickyTable('.table-container')
     });
 
     bindUserInput('up', 'right')
