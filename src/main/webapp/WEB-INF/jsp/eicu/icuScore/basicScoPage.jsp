@@ -883,8 +883,8 @@
           // }
           if (dataList.length && yAxisLmtInfo) {
             yAxisLmtInfo = yAxisLmtInfo.split('|');
-            chartOptions.yAxis.max = parseInt(yAxisLmtInfo[0]);
-            chartOptions.yAxis.min = parseInt(yAxisLmtInfo[1]);
+            chartOptions.yAxis.max = parseFloat(yAxisLmtInfo[0])
+            chartOptions.yAxis.min = parseFloat(yAxisLmtInfo[1]);
           }
           // }
           chartInstance = Highcharts.chart('chart-div', chartOptions);
