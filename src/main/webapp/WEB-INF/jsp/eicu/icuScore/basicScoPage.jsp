@@ -901,7 +901,7 @@
     if (vm.pDisplayMode === 'basic') {
       getDictInfo();
       getTableInfo().done(function () {
-        eicuUtil.stickyTable('.table-container')
+        eicuUtil.stickyTable('.table-container', window.document)
       });
     } else if (vm.pDisplayMode === 'chart') {
       getChartInfo();

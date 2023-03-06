@@ -1302,20 +1302,29 @@ var eicuUtil = {
 		}
 	},
 	/**
-	 * 使表头固定, 不支持ie, https://caniuse.com/css-sticky
-	 * 固定行：tr或者thead的class上添加sticky-table__row
-	 * 固定列：th或者td的class上添加sticky-table__col
+	 * 使表头固定, 不支持ie, https://caniuse.com/css-sticky <br>
+	 * 固定行：tr或者thead的class上添加`sticky-table__row` <br>
+	 * 固定列：th或者td的class上添加`sticky-table__col`
+	 *
 	 * @param {string} tableSelector
+	 * @param {Document} [context]
 	 * @param {number} [zIndex]
+	 *
+	 * @description 说明：如果页面中eicuUtil被替换成了父级得eicuUtil (basicScePage.jsp 390行)，
+	 * 所有函数执行上下文都会发生变化，需要显示得传入window.document作为context参数
 	 */
-	stickyTable: function stickyTable (tableSelector, zIndex) {
-		eicuUtil.destroyStickyTable()
+	stickyTable: function stickyTable (tableSelector, context, zIndex) {
+		context = context || window.document;
+		eicuUtil.destroyStickyTable(tableSelector, context)
 		var isIE = !!document.documentMode;
 		if (isIE) {
 			console.warn("skip sticky table")
 			return;
 		}
 		if (zIndex == null) zIndex = 1
+
+		var $table = $(tableSelector, context)
+		if ($table.length === 0) return;
 
 		var styleText =
 			"/* Inject by eicuUtil.stickyTable */\n" +
@@ -1367,10 +1376,8 @@ var eicuUtil = {
 		styleNode.id = "sticky-table";
 		var styleTextNode = document.createTextNode(styleText);
 		styleNode.appendChild(styleTextNode);
-		document.getElementsByTagName('head')[0].appendChild(styleNode);
+		$('head', context).append(styleNode);
 
-		var $table = $(tableSelector)
-		if ($table.length === 0) return;
 		$table.removeClass('sticky-table').addClass('sticky-table')
 
 		$table.each(function (_, table) {
@@ -1405,12 +1412,21 @@ var eicuUtil = {
 			$self.css("background-color", backgroundColor) // 明确背景颜色 否则滚动会透明
 		})
 	},
-	destroyStickyTable: function destroyStickyTable() {
+	/**
+	 *
+	 * @param {string} tableSelector
+	 * @param {Document} [context]
+	 *
+	 * @description 说明：如果页面中eicuUtil被替换成了父级得eicuUtil (basicScePage.jsp 390行)，
+	 * 所有函数执行上下文都会发生变化，需要显示得传入window.document作为context参数
+	 */
+	destroyStickyTable: function destroyStickyTable(tableSelector, context) {
+		context = context || window.document;
 		// 删除 sticky table 临时的 stylesheet
-		$("style#stick-table").remove()
+		$("style#stick-table", context).remove()
 
 		// 删除 sticky table 临时的 class (/sticky-table-tmp/)
-		$('td,th').each(function () {
+		$('td,th', context).each(function () {
 			var $self = $(this)
 			var classStr = $self.attr("class")
 			if (!classStr) return
