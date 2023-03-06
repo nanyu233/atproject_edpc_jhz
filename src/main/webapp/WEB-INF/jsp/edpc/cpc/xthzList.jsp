@@ -284,7 +284,7 @@
         if(cstNam=='null'){
         	cstNam = "";
         }
-        window.top.addTab( cstNam +"-"+ '胸痛上报' , url, 'icon icon-emergency-record');
+        window.top.addTab( cstNam +"-"+ '胸痛患者详情' , url, 'icon icon-emergency-record');
     }
 	//查看时间轴
 	function toCpcTimeline(emgSeq,cstNam,wayTyp, regSeq) {

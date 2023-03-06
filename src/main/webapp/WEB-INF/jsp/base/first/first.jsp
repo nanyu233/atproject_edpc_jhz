@@ -209,11 +209,11 @@
 	      var src = iframe.attr("src"); //获取iframe的src
 	      var reloadType = iframe.attr("reloadtype");
 	      var ifram = currTab.find('iframe')[0];
-	
+
 	      //当重新选中tab时将ifram的内容重新加载一遍，目的是获取当前页面的最新内容
 	      if (src && b) {
 	        // 0 是刷新局部； 1 是刷新页面； 3 是混合 [已去掉]
-	        if (reloadType == "0") {
+	        if (reloadType == "0" || title.indexOf("胸痛患者详情") != -1 || title.indexOf("卒中患者详情") != -1) {
 	          if (ifram.contentWindow.reload) {
 	            ifram.contentWindow.reload();
 	          } else {
