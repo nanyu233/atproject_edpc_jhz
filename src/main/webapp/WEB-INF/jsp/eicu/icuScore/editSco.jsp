@@ -28,7 +28,7 @@
     }
 
     #sco-container {
-      padding: 10px 10px 0;
+      padding: 0 10px;
       box-sizing: border-box;
       /* overflow: hidden; */
       overflow-y: auto;
