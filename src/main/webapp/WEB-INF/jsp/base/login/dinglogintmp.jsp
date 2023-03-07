@@ -19,7 +19,15 @@
 系统登陆中，请稍后...
 <script>
     var currentBaseUrl = '${baseurl}';
+    console.log("currentBaseUrl",currentBaseUrl);
+    var loginSuccess = "${loginSuccess}";
+    console.log("loginSuccess",loginSuccess);
     function init() {
+        if(!loginSuccess){
+            // 重新跳转登录页
+            window.history.go(-1);
+            // return;
+        }
         var reqUrl = currentBaseUrl + 'icuscore/queryIcuBasicDef.do';
         publicFun.httpServer({url: reqUrl}, {}, function (res) {
             if (res.resultInfo.success) {

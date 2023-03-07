@@ -49,17 +49,18 @@
                   <a :class="{active: loginType == 1}" @click="setLoginTyp('1')">账号登陆</a>  
                   <a :class="{active: loginType == 2}" @click="setLoginTyp('2')">钉钉扫码登陆</a>
                 </div>
-                <div class="log-div" v-show="loginType == 1">
-                    <label>
-                        <div class="log-text">院&emsp;区</div>
-                        <label for="ly" class="small-label">
-                            <input type="radio" name="hospitalArea" value="1" id="ly"> 三墩
-                        </label>
-                        <label for="yq" class="small-label">
-                            <!-- disabled 目前先变灰不能选--灵隐还没开放 -->
-                            <input  type="radio" name="hospitalArea" value="2" id="yq"> 灵隐
-                        </label>
+                <label>
+                    <div class="log-text">院&emsp;区</div>
+                    <label for="sd" class="small-label">
+                        <input type="radio" name="hospitalCategory" value="1" id="sd"
+                               v-model = "msg.hospitalCategory"> 三墩
                     </label>
+                    <label for="ly" class="small-label">
+                        <input  type="radio" name="hospitalCategory" value="2" id="ly"
+                                v-model = "msg.hospitalCategory"> 灵隐
+                    </label>
+                </label>
+                <div class="log-div" v-show="loginType == 1">
                     <label>
                         <div class="log-text">用户名</div>
                         <input type="text" class="txt uname userinput" v-model="msg.userId" autocomplete="off"/>
@@ -92,47 +93,48 @@
 
 </form>
 <script>
-    var currentBaseUrl = '';
-
+    var currentBaseUrl = '${baseurl}';
     var appKey = "";
-
-
     var vm = new Vue({
         el: '#loginWrap',
         data: {
             msg: {
                 userId: '',
-                password: ''
+                password: '',
+                hospitalCategory: '1'
             },
             loginType: '1' ,// 1是 账号 2 是钉钉
+        },
+        watch: {
+            'msg.hospitalCategory'(newVal, oldVal) {
+                if(this.loginType==2){
+                    this.generateQr(newVal);
+                }
+            }
         },
         methods: {
             loginSubmit: function () {
                 if (this.msg.userId === '' || this.msg.password === '') {
                     this.showCheckMsg('用户名与密码不能为空！');
-                } else {
-                    this.setMsg()
+                    return;
                 }
+                var hospitalCategory = this.msg.hospitalCategory;
+                // if (!hospitalCategory) {
+                //     this.showCheckMsg('请选择院区!');
+                //     return;
+                // }
+                this.doLogin(hospitalCategory);
             },
-            setMsg: function () { // 提交数据
-                var areaVal = $('input[name="hospitalArea"]:checked').val(), loginUrl = '';
-                if (areaVal !== '1' && areaVal !== '2') {
-                    // publicFun.alert('请选择院区!');
-                    vm.showCheckMsg('请选择院区!');
-                    return false;
-                }
-                if (areaVal === '2') {
-                    //灵隐
-                    // currentBaseUrl = 'http://192.168.12.218:8080/atproject/'
-                    currentBaseUrl = '${baseurl}'
-                } else {
-                    //三墩
-                    currentBaseUrl = '${baseurl}'
-                }
-                publicFun.httpServer({url: currentBaseUrl + 'loginsubmit.do?hospitalCategory=' + areaVal, crossMsg: 'cross'}, {
+            doLogin: function (hospitalCategory) {
+                var baseParam = {
+                    url: currentBaseUrl + 'loginsubmit.do?hospitalCategory=' + hospitalCategory,
+                    crossMsg: 'cross'
+                };
+                var param = {
                     userid: this.msg.userId,
                     pwd: this.msg.password
-                }, function (data) {
+                }
+                publicFun.httpServer(baseParam, param , function (data) {
                     if (data.resultInfo.type === '1' || data.resultInfo.type === 1) {
                         var reqUrl = currentBaseUrl + 'icuscore/queryIcuBasicDef.do';
                         publicFun.httpServer({url: reqUrl}, {}, function (res) {
@@ -169,8 +171,42 @@
             setLoginTyp: function (val) {
                 this.loginType = val;
                 if(val == 2){
-                    vm.generateQr()
+                    // 获取到登录院区
+                    var hospitalCategory = this.msg.hospitalCategory;
+                    // if (!hospitalCategory) {
+                    //     this.showCheckMsg('请选择院区!');
+                    //     return;
+                    // }
+                    vm.generateQr(hospitalCategory);
                 }
+            },
+            generateQr: function (state){
+                window.DTFrameLogin(
+                    {
+                        id: 'self_defined_element',
+                        width: 250,
+                        height: 250,
+                    },
+                    {
+                        redirect_uri: encodeURIComponent('http://123.157.217.203:8700/edpc/auth.do'),
+                        client_id: appKey,
+                        scope: 'openid',
+                        response_type: 'code',
+                        state: state,
+                        prompt: 'consent',
+                    },
+                    (loginResult) => {
+                        const {redirectUrl, authCode, state} = loginResult;
+                        // 这里可以直接进行重定向
+                        window.location.href = redirectUrl;
+                        // 也可以在不跳转页面的情况下，使用code进行授权
+                        console.log(authCode);
+                    },
+                    (errorMsg) => {
+                        // 这里一般需要展示登录失败的具体原因
+                        alert(`Login Error: ${errorMsg}`);
+                    },
+                );
             },
             clearInput: function () { // 清空输入框
                 this.msg.userId = '';
@@ -208,34 +244,9 @@
                 return;
             }
             appKey = res.resultInfo.sysdata.appKey;
-            window.DTFrameLogin(
-                {
-                    id: 'self_defined_element',
-                    width: 300,
-                    height: 300,
-                },
-                {
-                    redirect_uri: encodeURIComponent('http://123.157.217.203:8700/edpc/auth.do'),
-                    client_id: appKey,
-                    scope: 'openid',
-                    response_type: 'code',
-                    state: 'dddd',
-                    prompt: 'consent',
-                },
-                (loginResult) => {
-                    const {redirectUrl, authCode, state} = loginResult;
-                    // 这里可以直接进行重定向
-                    window.location.href = redirectUrl;
-                    // 也可以在不跳转页面的情况下，使用code进行授权
-                    console.log(authCode);
-                },
-                (errorMsg) => {
-                    // 这里一般需要展示登录失败的具体原因
-                    alert(`Login Error: ${errorMsg}`);
-                },
-            );
         })
     }
+
 
     $(function (){
         getAppKey();

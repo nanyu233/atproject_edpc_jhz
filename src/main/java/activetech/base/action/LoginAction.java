@@ -17,6 +17,7 @@ import com.aliyun.dingtalkoauth2_1_0.models.GetUserTokenResponse;
 import com.aliyun.teautil.models.RuntimeOptions;
 import com.dingtalk.api.response.OapiSnsGetuserinfoBycodeResponse;
 import com.dingtalk.api.response.OapiV2UserGetuserinfoResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -166,12 +167,12 @@ public class LoginAction {
 
 
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
-    public String getAccessToken(@RequestParam(value = "authCode")String authCode,HttpSession session) throws Exception {
-        String userid = DingUtil.loginDing(authCode);
-        ActiveUser activeUser = userService.loginDing(null, userid);
-        activeUser.setHospitalCategory("1");
-        session.setAttribute(Config.ACTIVEUSER_KEY, activeUser);
-        return View.toBase("/login/dinglogintmp");
+    public String getAccessToken(@RequestParam(value = "authCode")String authCode,
+                                 @RequestParam(value = "state")String state,
+                                 HttpSession session,Model model) throws Exception {
+        ResultInfo resultInfo = userService.loginDing2(authCode, session, model,state);
+        String page = (String) resultInfo.getSysdata().get("page");
+        return View.toBase(page);
     }
 
     @RequestMapping(value = "/getAppKey")

@@ -4,7 +4,10 @@ import activetech.base.pojo.domain.Dstrole;
 import activetech.base.pojo.domain.Dstuser;
 import activetech.base.pojo.dto.*;
 import activetech.base.process.result.ExceptionResultInfo;
+import activetech.base.process.result.ResultInfo;
+import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 /**
  * 
@@ -220,6 +223,8 @@ public interface UserService {
 	public ActiveUser insertUserByHis(String usrno) throws Exception;
 
 	ActiveUser loginDing(String unionid, String userid) throws Exception;
+
+	ResultInfo loginDing2(String authCode, HttpSession session, Model model,String state) throws Exception;
 
     ActiveUser loginWeixin(String userid) throws Exception;
 

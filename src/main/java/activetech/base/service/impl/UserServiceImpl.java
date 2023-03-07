@@ -9,6 +9,8 @@ import activetech.base.process.result.ResultUtil;
 import activetech.base.service.AppoptionService;
 import activetech.base.service.SystemConfigService;
 import activetech.base.service.UserService;
+import activetech.base.util.DingUtil;
+import activetech.base.util.ResultCodeEnum;
 import activetech.basehis.dao.mapper.VHemsYhxxMapper;
 import activetech.hospital.pojo.domain.HspEmgInf;
 import activetech.util.MD5;
@@ -18,7 +20,9 @@ import activetech.util.UUIDBuild;
 import cn.hutool.core.date.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -827,6 +831,28 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return login(userlist.get(0));
+	}
+
+	@Override
+	public ResultInfo loginDing2(String authCode, HttpSession session, Model model,String state) throws Exception {
+		// 1 用authcode 调用接口换取登录身份信息
+		ResultInfo resultInfo = DingUtil.loginDing(authCode);
+		Map<String, Object> sysdata = resultInfo.getSysdata();
+		Integer code = (Integer) sysdata.get("code");
+		String message = (String) sysdata.get("message");
+		if(ResultCodeEnum.SUCCESS.getCode().equals(code)){
+			// 2 如果获取到正常身份信息，则执行登录逻辑
+			String userid = (String) sysdata.get("userid");
+			ActiveUser activeUser = loginDing(null, userid);
+			activeUser.setHospitalCategory(state);
+			session.setAttribute(Config.ACTIVEUSER_KEY, activeUser);
+			model.addAttribute("loginSuccess","true");
+			sysdata.put("page","/login/dinglogintmp");
+		}else{
+			model.addAttribute("loginSuccess","false");
+			sysdata.put("page","/login/login");
+		}
+		return resultInfo;
 	}
 
 	@Override
