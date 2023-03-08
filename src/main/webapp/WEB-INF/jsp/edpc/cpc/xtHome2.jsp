@@ -85,14 +85,14 @@
     </div>
     <div class="countDown" ms-if="patientList.length">
         <div class="title"><i onclick="trigger()" class="iconfont icon-tongzhi" style="font-size: 18px"></i> 倒计时提醒</div>
-        
+
         <!-- 
 	        <div class="btnWrapper" ms-visible="showBtn">
 	            <span onclick="getXhyData()">检验完成</span>
 	            <span onclick="getEcgFinish()">心电图完成</span>
 	        </div>
          -->
-         
+
         <div class="item">
             <div class="child name">实验室检查时间:</div>
             <div class="child time" ms-visible="currPatientInfo.jgdbbgsj">
@@ -107,7 +107,7 @@
                 <div id="jgdbbgsj" class="bar"></div>
             </div>
         </div>
-        
+
         <div class="item">
             <div class="child name">首份心电图时间:</div>
             <div class="child time" ms-visible ="currPatientInfo.ynsfxdtsj">
@@ -122,8 +122,8 @@
                 <div id="ynsfxdtsj" class="bar"></div>
             </div>
         </div>
-        
-        
+
+
         <div class="item" >
             <div class="child name">心电图诊断时间:</div>
             <div class="child time" ms-visible="currPatientInfo.ynsfxdtqzsj">
@@ -141,11 +141,11 @@
                 <div>未启用</div>
             </div>
         </div>
-        
-        
+
+
         <div class="item" >
             <div class="child name">抗血小板治疗时间:</div>
-            
+
             <div class="child time" ms-visible="currPatientInfo.kxxbywgysj">
                 <div>{{currPatientInfo.kxxbywgysj}}</div>
             </div>
@@ -158,8 +158,8 @@
                 <div id="kxxbywgysj" class="bar"></div>
             </div>
         </div>
-        
-        
+
+
         <div class="item" >
             <div class="child name">导管室启动时间:</div>
             <div class="child time" ms-visible="currPatientInfo.qddgssj">
@@ -169,8 +169,8 @@
                 <div>未启动</div>
             </div>
         </div>
-        
-        
+
+
         <div class="item" >
             <div class="child name">导管室激活时间:</div>
             <div class="child time" ms-visible="currPatientInfo.dgsjhsj">
@@ -183,8 +183,8 @@
                 <div>未启用</div>
             </div>
         </div>
-        
-        
+
+
         <div class="item" >
             <div class="child name">导丝通过时间:</div>
             <div class="child time" ms-visible="currPatientInfo.dstgsj">
@@ -199,8 +199,8 @@
                 <div id="dstgsj" class="bar"></div>
             </div>
         </div>
-        
-        
+
+
     </div>
     <div id="paperDiv">
         <div id="window" onclick="clearWindow()"></div>
@@ -398,12 +398,11 @@
         	resetFlowChart();
             clearWindow();
             vm.currPatientInfo.regSeq = patient.regSeq;
-            if (!'${emgSeq}')  {
-                vm.currPatientInfo.emgSeq = patient.emgSeq;
-            }
+            vm.currPatientInfo.emgSeq = patient.emgSeq;
         	vm.currPatientInfo.cstNam = patient.cstNam;
         	vm.currPatientInfo.emgDat = patient.regTim;
-        	vm.currPatientInfo.emgDatStr = patient.emgDatStr;
+        	// vm.currPatientInfo.emgDatStr = patient.emgDatStr;
+            vm.currPatientInfo.emgDatStr = publicFun.timeFormat(patient.regTim, 'yyyy/MM/dd hh:mm');//格式化预检时间
         	// vm.currPatientInfo.scyljcsj = patient.emgDatStr;
         	// vm.currPatientInfo.xtCod = patient.xtCod;
         	// vm.currPatientInfo.xtSubCod = patient.xtSubCod;
@@ -817,7 +816,8 @@
         var openTabNam = '胸痛急救时间轴';
         openTabNam = cstNam ? openTabNam + '-' + cstNam : openTabNam;
         var openTabUrl = '${baseurl}cpc/toCpcTimeline.do?emgSeq=' + patInfo.emgSeq + "&wayTyp=" + patInfo.wayTyp +'&regSeq='+ patInfo.regSeq;
-        parent.opentabwindow(openTabNam, openTabUrl, '1');
+
+        parent.parent.opentabwindow(openTabNam, openTabUrl, '1');
     }
 
     //点击ECG心电图节点跳转到心电图页

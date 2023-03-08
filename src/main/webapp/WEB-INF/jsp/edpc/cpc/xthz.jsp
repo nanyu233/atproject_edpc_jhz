@@ -95,6 +95,9 @@
     var hzxq = new Vue({
         el: '#hzxq',
         data: {
+            infocode: 'TEMP_CODE_01',
+            tempCode: '',
+            tempCodeArr: publicFun.getDict('TEMP_CODE') || [],
             currentIframeSrc: '0',
             iframeSrc: '',
             collapse: false,
@@ -121,7 +124,8 @@
                     src: '${baseurl}cpc/toFollowUpManagement.do?emgSeq='  + '${emgSeq}'+'&wayTyp=' + '${wayTyp}' + '&regSeq=' +'${regSeq}'
                 },
                 {
-                    name: '知情同意书'
+                    name: '知情同意书',
+                    src: '${baseurl}zyyconsent/queryConsentInf.do?refseqno=${regSeq}' + '&tempCode=' + this.tempCode + '&cstNam=' + '${cstNam}'
                 },
                 {
                     name: '评分总览',
@@ -162,6 +166,19 @@
             }else {
                 this.iframeSrc = this.sidebar[0].src
             }
+            if (this.tempCodeArr.length > 0) {
+                for (var i = 0;i < this.tempCodeArr.length;i++) {
+                    if (this.tempCodeArr[i].infocode === this.infocode) {
+                        return this.tempCode = this.tempCodeArr[i].info
+                    }
+                }
+            }
+        },
+        mounted() {
+            this.$set(this.sidebar,5,{
+                name: '知情同意书',
+                src: '${baseurl}zyyconsent/queryConsentInf.do?refseqno=${regSeq}' + '&tempCode=' + this.tempCode + '&cstNam=' + '${cstNam}'
+            },)
         },
         methods: {
             toggleCollapse() {

@@ -84,7 +84,7 @@
           }, {
             field: 'tempName',
             title: '名称',
-            width: getWidth(0.15)
+            width: getWidth(0.1)
           }, {
             field: 'crtUserName',
             title: '创建人名称',

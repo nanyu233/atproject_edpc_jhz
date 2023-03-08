@@ -44,7 +44,7 @@
         <a class="commonbtn" href="javascript:void(0);" onclick="atEditor.dispatch('print')">打印</a>
         <a class="commonbtn" href="javascript:void(0);" onclick="atEditor.dispatch('saveCase')">保存</a>
         <a class="commonbtn" href="javascript:void(0);" onclick="handoverSheetLb()">显示列表</a>
-        <a class="commonbtn" href="javascript:void(0);" onclick="sign()">签名</a>
+<%--        <a class="commonbtn" href="javascript:void(0);" onclick="sign()">签名</a>--%>
     </p>
 </div>
 
