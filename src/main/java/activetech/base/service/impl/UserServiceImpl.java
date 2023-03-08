@@ -171,7 +171,7 @@ public class UserServiceImpl implements UserService {
 			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE, 101,null));
 		}
 		//判断登录用户是否有效
-		if(dstuser.getUserstate().equals("0")){
+		if("0".equals(dstuser.getUserstate())){
 			ResultUtil.throwExcepion(ResultUtil.createFail(Config.MESSAGE, 108,null));
 		}
 		// 构建用户身份信息
@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
 		String groupid = dstuser.getGroupid();
 		String sysid = dstuser.getSysid();// 单位id
 		//每个用户根据用户分组区分，所属单位来源会不一致；其中系统管理员不归属任何单位
-		if (groupid.equals("1")) {
+		if ("1".equals(groupid)) {
 			//常规机构
 			Dstcompctl dstcompctl = dstcompctlMapper.selectByPrimaryKey(sysid);
 			if (dstcompctl == null) {
