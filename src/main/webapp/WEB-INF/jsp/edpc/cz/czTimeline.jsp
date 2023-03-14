@@ -178,6 +178,16 @@
                     <td class="cost"></td>
                 </tr>
             </table>
+            <div style="margin: 20px">
+                <div style="padding-left: 5px">
+                    <span>总用时：</span>
+                    <span>{{totalTime}}分钟</span>
+                </div>
+                <div style="padding-left: 5px">
+                    <span>DNT：</span>
+                    <span>{{DNTTime}}分钟</span>
+                </div>
+            </div>
             <div class="desc">
                 <p class="title">说明：</p>
                 <p><span class="title">时间节点：</span>意思是实际救治过程中的具体事件的时间定义描述；</p>
@@ -194,7 +204,9 @@
     var vm = avalon.define({
         $id: 'timeLine',
         pointArr: [],
-        info:{}
+        info:{},
+        totalTime: 0,
+        DNTTime: 0
     });
     Date.prototype.format = function (fmt) {
         var o = {
@@ -403,6 +415,28 @@
 // 			})(data)
             calcCost(data);
             vm.pointArr = data;
+            if (data.length > 0) {
+                // 到达大门时间
+                var dddmsj = ''
+                // 最后时间
+                var zhsj = data[data.length - 1].proVal
+                // 最后溶栓时间
+                var rszlkssj = ''
+                $.each(data, function (idx, val) {
+                    if (val.proCode === 'DDDMSJ') {
+                        dddmsj = val.proVal
+                    }
+                    if (val.proCode === 'RSZLKSSJ') {
+                        rszlkssj = val.proVal
+                    }
+                });
+                if (zhsj && dddmsj) {
+                    vm.totalTime = Math.round((new Date(zhsj) - new Date(dddmsj)) / 1000 / 60)
+                }
+                if (rszlkssj && dddmsj) {
+                    vm.DNTTime = Math.round((new Date(rszlkssj) - new Date(dddmsj)) / 1000 / 60)
+                }
+            }
             // 加载图表
             // loadchart(data, "timeline");
         }, function (err) {
