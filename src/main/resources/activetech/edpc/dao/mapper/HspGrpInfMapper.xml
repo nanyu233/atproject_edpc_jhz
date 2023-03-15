@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspGrpInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspGrpInf">
+    <id column="GRP_SEQ" jdbcType="VARCHAR" property="grpSeq" />
+    <result column="GRP_NAME" jdbcType="VARCHAR" property="grpName" />
+    <result column="GRP_TYPE" jdbcType="VARCHAR" property="grpType" />
+    <result column="ISENABLE" jdbcType="CHAR" property="isenable" />
+    <result column="CRT_USER" jdbcType="VARCHAR" property="crtUser" />
+    <result column="CRT_TIME" jdbcType="TIMESTAMP" property="crtTime" />
+    <result column="MOD_USER" jdbcType="VARCHAR" property="modUser" />
+    <result column="MOD_TIME" jdbcType="TIMESTAMP" property="modTime" />
+    <result column="SHOWORDER" jdbcType="DECIMAL" property="showorder" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="DINGTALK_CHATID" jdbcType="VARCHAR" property="dingtalkChatid" />
+    <result column="WXWORK_CHATID" jdbcType="VARCHAR" property="wxworkChatid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    GRP_SEQ, GRP_NAME, GRP_TYPE, ISENABLE, CRT_USER, CRT_TIME, MOD_USER, MOD_TIME, SHOWORDER, 
+    REMARK, DINGTALK_CHATID, WXWORK_CHATID
+  </sql>
+  <select id="selectByExample" parameterType="activetech.edpc.pojo.domain.HspGrpInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_GRP_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_GRP_INF
+    where GRP_SEQ = #{grpSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_GRP_INF
+    where GRP_SEQ = #{grpSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspGrpInfExample">
+    delete from HSP_GRP_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspGrpInf">
+    insert into HSP_GRP_INF (GRP_SEQ, GRP_NAME, GRP_TYPE, 
+      ISENABLE, CRT_USER, CRT_TIME, 
+      MOD_USER, MOD_TIME, SHOWORDER, 
+      REMARK, DINGTALK_CHATID, WXWORK_CHATID
+      )
+    values (#{grpSeq,jdbcType=VARCHAR}, #{grpName,jdbcType=VARCHAR}, #{grpType,jdbcType=VARCHAR}, 
+      #{isenable,jdbcType=CHAR}, #{crtUser,jdbcType=VARCHAR}, #{crtTime,jdbcType=TIMESTAMP}, 
+      #{modUser,jdbcType=VARCHAR}, #{modTime,jdbcType=TIMESTAMP}, #{showorder,jdbcType=DECIMAL}, 
+      #{remark,jdbcType=VARCHAR}, #{dingtalkChatid,jdbcType=VARCHAR}, #{wxworkChatid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspGrpInf">
+    insert into HSP_GRP_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="grpSeq != null">
+        GRP_SEQ,
+      </if>
+      <if test="grpName != null">
+        GRP_NAME,
+      </if>
+      <if test="grpType != null">
+        GRP_TYPE,
+      </if>
+      <if test="isenable != null">
+        ISENABLE,
+      </if>
+      <if test="crtUser != null">
+        CRT_USER,
+      </if>
+      <if test="crtTime != null">
+        CRT_TIME,
+      </if>
+      <if test="modUser != null">
+        MOD_USER,
+      </if>
+      <if test="modTime != null">
+        MOD_TIME,
+      </if>
+      <if test="showorder != null">
+        SHOWORDER,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="dingtalkChatid != null">
+        DINGTALK_CHATID,
+      </if>
+      <if test="wxworkChatid != null">
+        WXWORK_CHATID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="grpSeq != null">
+        #{grpSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="grpName != null">
+        #{grpName,jdbcType=VARCHAR},
+      </if>
+      <if test="grpType != null">
+        #{grpType,jdbcType=VARCHAR},
+      </if>
+      <if test="isenable != null">
+        #{isenable,jdbcType=CHAR},
+      </if>
+      <if test="crtUser != null">
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null">
+        #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null">
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showorder != null">
+        #{showorder,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="dingtalkChatid != null">
+        #{dingtalkChatid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxworkChatid != null">
+        #{wxworkChatid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspGrpInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_GRP_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_GRP_INF
+    <set>
+      <if test="record.grpSeq != null">
+        GRP_SEQ = #{record.grpSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grpName != null">
+        GRP_NAME = #{record.grpName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grpType != null">
+        GRP_TYPE = #{record.grpType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isenable != null">
+        ISENABLE = #{record.isenable,jdbcType=CHAR},
+      </if>
+      <if test="record.crtUser != null">
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTime != null">
+        CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUser != null">
+        MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTime != null">
+        MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.showorder != null">
+        SHOWORDER = #{record.showorder,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dingtalkChatid != null">
+        DINGTALK_CHATID = #{record.dingtalkChatid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxworkChatid != null">
+        WXWORK_CHATID = #{record.wxworkChatid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_GRP_INF
+    set GRP_SEQ = #{record.grpSeq,jdbcType=VARCHAR},
+      GRP_NAME = #{record.grpName,jdbcType=VARCHAR},
+      GRP_TYPE = #{record.grpType,jdbcType=VARCHAR},
+      ISENABLE = #{record.isenable,jdbcType=CHAR},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      SHOWORDER = #{record.showorder,jdbcType=DECIMAL},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      DINGTALK_CHATID = #{record.dingtalkChatid,jdbcType=VARCHAR},
+      WXWORK_CHATID = #{record.wxworkChatid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspGrpInf">
+    update HSP_GRP_INF
+    <set>
+      <if test="grpName != null">
+        GRP_NAME = #{grpName,jdbcType=VARCHAR},
+      </if>
+      <if test="grpType != null">
+        GRP_TYPE = #{grpType,jdbcType=VARCHAR},
+      </if>
+      <if test="isenable != null">
+        ISENABLE = #{isenable,jdbcType=CHAR},
+      </if>
+      <if test="crtUser != null">
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null">
+        MOD_USER = #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null">
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showorder != null">
+        SHOWORDER = #{showorder,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="dingtalkChatid != null">
+        DINGTALK_CHATID = #{dingtalkChatid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxworkChatid != null">
+        WXWORK_CHATID = #{wxworkChatid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GRP_SEQ = #{grpSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspGrpInf">
+    update HSP_GRP_INF
+    set GRP_NAME = #{grpName,jdbcType=VARCHAR},
+      GRP_TYPE = #{grpType,jdbcType=VARCHAR},
+      ISENABLE = #{isenable,jdbcType=CHAR},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{modUser,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      SHOWORDER = #{showorder,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      DINGTALK_CHATID = #{dingtalkChatid,jdbcType=VARCHAR},
+      WXWORK_CHATID = #{wxworkChatid,jdbcType=VARCHAR}
+    where GRP_SEQ = #{grpSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>
