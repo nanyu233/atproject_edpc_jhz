@@ -9,5 +9,6 @@
   <c:set var="wristbandName" value="三墩院区" />
   <c:set var="hospitalPlatformNameGap" value="浙江医院三大中心信息系统" />
 </c:if>
-<c:set var="hospitalPlatformNameLogin" value="浙江医院三大中心信息系统" />
+<c:set var="hospitalPlatformNameLogin" value="爱特三大中心信息系统" />
+<c:set var="hospitalPlatformName" value="爱特三大中心信息系统" />
 <c:set var="baseurl" value="${pageContext.request.contextPath}/"></c:set>
