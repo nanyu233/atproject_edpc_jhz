@@ -40,5 +40,6 @@
 
 	<bean id="CpcCrfplaneService" class="activetech.edpc.service.impl.CrfplaneServiceImpl"/>
 
+	<bean id="groupService" class="activetech.edpc.service.impl.GroupServiceImpl"/>
 
 </beans>

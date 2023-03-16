@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspGrpInfMapperCustom">
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.dto.HspGrpInfCustom">
+    <id column="GRP_SEQ" jdbcType="VARCHAR" property="grpSeq" />
+    <result column="GRP_NAME" jdbcType="VARCHAR" property="grpName" />
+    <result column="GRP_TYPE" jdbcType="VARCHAR" property="grpType" />
+    <result column="ISENABLE" jdbcType="CHAR" property="isenable" />
+    <result column="CRT_USER" jdbcType="VARCHAR" property="crtUser" />
+    <result column="CRT_TIME" jdbcType="TIMESTAMP" property="crtTime" />
+    <result column="MOD_USER" jdbcType="VARCHAR" property="modUser" />
+    <result column="MOD_TIME" jdbcType="TIMESTAMP" property="modTime" />
+    <result column="SHOWORDER" jdbcType="DECIMAL" property="showorder" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="DINGTALK_CHATID" jdbcType="VARCHAR" property="dingtalkChatid" />
+    <result column="WXWORK_CHATID" jdbcType="VARCHAR" property="wxworkChatid" />
+  </resultMap>
+
+  <sql id="query_group_where">
+    and t.isenable = '1'
+    <if test="hspGrpInfCustom != null">
+      <!-- 群组列表查询条件 -->
+      <if test="hspGrpInfCustom.grpName != null and hspGrpInfCustom.grpName != ''.toString()">
+        and t.grp_name like '%' || #{hspGrpInfCustom.grpName, jdbcType=VARCHAR} || '%'
+      </if>
+    </if>
+  </sql>
+
+  <!-- 查询群组记录总数 -->
+  <select id="getGroupCount" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto" resultType="java.lang.Integer">
+    select count(*)
+      from hsp_grp_inf t
+    <where>
+      <include refid="query_group_where"/>
+    </where>
+  </select>
+
+  <!-- 查询群组记录列表，分页 -->
+  <select id="getGroupList" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto" resultType="activetech.edpc.pojo.dto.HspGrpInfCustom">
+    <include refid="activetech.base.CommonSql.page_start"/>
+        select t.grp_seq,
+               t.grp_name,
+               t.grp_type,
+               t.isenable,
+               t.crt_user,
+               t.crt_time,
+               t.mod_user,
+               t.mod_time,
+               t.showorder,
+               t.remark,
+               t.dingtalk_chatid,
+               t.wxwork_chatid,
+               (select u.usrname from dstuser u where u.usrno = t.crt_user) crt_user_name,
+               (select u.usrname from dstuser u where u.usrno = t.mod_user) mod_user_name
+          from hsp_grp_inf t
+          <where>
+            <include refid="query_group_where"/>
+          </where>
+      <include refid="activetech.base.CommonSql.page_end"/>
+  </select>
+</mapper>
