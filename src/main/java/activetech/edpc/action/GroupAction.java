@@ -28,12 +28,26 @@ public class GroupAction {
     @Autowired
     private GroupService groupService;
 
+    /**
+     * @description 跳转群组管理页面
+     * @param model
+     * @param moduleid
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/querygroup")
     public String tohuzdtob(Model model, String moduleid) throws Exception {
         model.addAttribute("moduleid", moduleid);
         return "/edpc/group/querygroup";
     }
 
+    /**
+     * @description 群组管理列表数据分页查询
+     * @param hspGrpInfQueryDto
+     * @param page
+     * @param rows
+     * @return
+     */
     @RequestMapping("/querygroup_result")
     @ResponseBody
     public DataGridResultInfo queryGroupResult(HspGrpInfQueryDto hspGrpInfQueryDto, int page, int rows){
