@@ -11,7 +11,6 @@ import activetech.external.pojo.domain.HspEcgInf;
 import activetech.external.service.EsbService;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
-import activetech.webService.WebServiceClient;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;

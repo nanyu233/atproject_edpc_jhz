@@ -16,7 +16,6 @@ import activetech.util.BeanUtil;
 import activetech.util.DateUtil;
 import activetech.util.HttpClientUtil;
 import activetech.util.StringUtils;
-import activetech.webService.WebServiceClient;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
