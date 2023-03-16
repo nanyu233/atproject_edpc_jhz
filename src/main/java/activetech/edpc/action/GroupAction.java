@@ -83,7 +83,8 @@ public class GroupAction {
      * @description
      */
     @RequestMapping("/editgroup")
-    public String editgroup() throws Exception {
+    public String editgroup(Model model, String grpSeq) throws Exception {
+        model.addAttribute("grpSeq", grpSeq);
         return "/edpc/group/editgroup";
     }
 

@@ -67,6 +67,9 @@ public class GroupServiceImpl implements GroupService {
             ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 922, new Object[]{"群组序号"}));
         }
         HspGrpInf hspGrpInf = hspGrpInfMapper.selectByPrimaryKey(grpSeq);
+        if (hspGrpInf == null) {
+            ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 902, new Object[]{}));
+        }
         return hspGrpInf;
     }
 
@@ -107,11 +110,11 @@ public class GroupServiceImpl implements GroupService {
         if (StringUtils.isNotNullAndEmptyByTrim(fieldName)) {
             ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 922, new Object[]{fieldName}));
         }
-        // grpSeq
+        // 主键
         hspGrpInfCustom.setGrpSeq(UUIDBuild.getUUID());
-        // crtUser
+        // 创建用户号
         hspGrpInfCustom.setCrtUser(activeUser.getUsrno());
-        // crtTime
+        // 创建时间
         hspGrpInfCustom.setCrtTime(new Date());
         hspGrpInfMapper.insertSelective(hspGrpInfCustom);
     }
@@ -149,6 +152,10 @@ public class GroupServiceImpl implements GroupService {
         record.setShoworder(hspGrpInfCustom.getShoworder());
         // 备注
         record.setRemark(hspGrpInfCustom.getRemark());
+        // 修改用户号
+        record.setModUser(activeUser.getUsrno());
+        // 修改时间
+        record.setModTime(new Date());
         hspGrpInfMapper.updateByPrimaryKey(record);
     }
 
