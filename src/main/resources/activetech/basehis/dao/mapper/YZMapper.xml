@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.basehis.dao.mapper.YZMapper" >
+  <resultMap id="BaseResultMap" type="activetech.basehis.pojo.dto.HspCfxxInfoCustom">
+    <id column="DA_SEQ" jdbcType="VARCHAR" property="daSeq" />
+    <result column="DA_NO" jdbcType="VARCHAR" property="daNo" />
+    <result column="DA_SUB" jdbcType="VARCHAR" property="daSub" />
+    <result column="VST_CAD" jdbcType="VARCHAR" property="vstCad" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="START_DOCT" jdbcType="VARCHAR" property="startDoct" />
+    <result column="DA_TYPE" jdbcType="VARCHAR" property="daType" />
+    <result column="DA_INFO" jdbcType="VARCHAR" property="daInfo" />
+    <result column="DA_DOSE" jdbcType="VARCHAR" property="daDose" />
+    <result column="DA_UNIT" jdbcType="VARCHAR" property="daUnit" />
+    <result column="DA_NUMB" jdbcType="DECIMAL" property="daNumb" />
+    <result column="YFDW" jdbcType="VARCHAR" property="yfdw" />
+    <result column="DA_WAY" jdbcType="VARCHAR" property="daWay" />
+    <result column="DA_FREQ" jdbcType="VARCHAR" property="daFreq" />
+    <result column="INFO_SRC" jdbcType="VARCHAR" property="infoSrc" />
+    <result column="HDDAT" jdbcType="TIMESTAMP" property="hddat" />
+    <result column="HDHS" jdbcType="VARCHAR" property="hdhs" />
+    <result column="HDHSXM" jdbcType="VARCHAR" property="hdhsxm" />
+    <result column="YZZT" jdbcType="VARCHAR" property="yzzt" />
+    <result column="CRT_TIME" jdbcType="TIMESTAMP" property="crtTime" />
+    <result column="CRT_USER" jdbcType="VARCHAR" property="crtUser" />
+    <result column="MOD_TIME" jdbcType="TIMESTAMP" property="modTime" />
+    <result column="MOD_USER" jdbcType="VARCHAR" property="modUser" />
+    <result column="MPI" jdbcType="VARCHAR" property="mpi" />
+    <result column="DA_WAY_COD" jdbcType="VARCHAR" property="daWayCod" />
+    <result column="HIGH_RISK" jdbcType="VARCHAR" property="highRisk" />
+    <result column="ENTER_TIME" jdbcType="TIMESTAMP" property="enterTime" />
+    <result column="SERIES" jdbcType="DECIMAL" property="series" />
+    <result column="MRN" jdbcType="VARCHAR" property="mrn" />
+    <result column="WARD_CODE" jdbcType="VARCHAR" property="wardCode" />
+    <result column="DEPT_CODE" jdbcType="VARCHAR" property="deptCode" />
+    <result column="ORDER_STATUS" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="ORDER_CLASS" jdbcType="VARCHAR" property="orderClass" />
+    <result column="TODAY_TIMES" jdbcType="DECIMAL" property="todayTimes" />
+    <result column="PROVIDE_BY_SELF" jdbcType="DECIMAL" property="provideBySelf" />
+    <result column="IS_AUX" jdbcType="DECIMAL" property="isAux" />
+    <result column="EXHORTATION" jdbcType="VARCHAR" property="exhortation" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="DRUG_SPEC" jdbcType="VARCHAR" property="drugSpec" />
+  </resultMap>
+  
+  <sql id="cfxxInfo_query">
+  	<if test="hspCfxxInfoCustom != null">
+		 <if test="hspCfxxInfoCustom.vstCad != null and hspCfxxInfoCustom.vstCad != ''">
+			and zyh = #{hspCfxxInfoCustom.vstCad}
+		 </if>
+		 <if test="startdate != null and startdate != '' ">
+			and to_char(cfrq,'yyyy/mm/dd HH24:mi') <![CDATA[>=]]> to_char(#{startdate},'yyyy/mm/dd HH24:mi')
+		 </if>
+		 <if test="enddate != null and enddate != '' ">
+			and to_char(cfrq,'yyyy/mm/dd HH24:mi') <![CDATA[<=]]> to_char(#{enddate},'yyyy/mm/dd HH24:mi')
+		 </if>
+	</if>
+  </sql>
+  
+  
+  <!-- 获取处方信息（HIS视图） -->
+  <!-- <select id="findCfxxDataByHisList"  parameterType="activetech.pda.pojo.dto.HspCfxxInfoQueryDto" resultType="activetech.pda.pojo.dto.HspCfxxInfoCustom">
+  		select  zyh  						zyh,
+  				xm   						name,
+  				cfrq						execTime,
+  				DOCTOR_NAME                 startDoct,
+  				listagg(order_name, '|br') within GROUP (order by order_no desc)  			daInfo,
+  				listagg(DRUG_SPEC, '|br') within GROUP (order by order_no desc) 			drugSpec,
+  				listagg(YPSL, '|br') within GROUP (order by order_no desc) 					num,
+  				YPZH						YPZH,
+  				GROUP_NO					daSub,
+  				ORDER_CLASS_NAME            daType,
+  				START_TIME                  startTime,
+  				listagg(YFDW, '|br') within GROUP (order by order_no desc) 					yfdw,
+  				listagg(decode(HIGH_RISK,'1','高危','非高危'), '|br') within GROUP (order by order_no desc)  	highRisk,
+  				listagg(ORDER_STATUS, '|br') within GROUP (order by order_no desc)							orderStatus,
+  				listagg(DOSAGE || DOSAGE_UNIT, '|br') within GROUP (order by order_no desc)  				daDoseUnit,
+                listagg(DOSAGE, '|br') within GROUP (order by order_no desc)  								daDose,
+                listagg(DOSAGE_UNIT, '|br') within GROUP (order by order_no desc) 							daUnit,
+                listagg(SUPPLY_NAME, '|br') within GROUP (order by order_no desc)						   	daWayStr,
+                listagg(FREQUENCY_NAME, '|br') within GROUP (order by order_no desc)						daFreq
+		from V_HEMS_CFXX@V_HEMS_DQYY
+		<where>
+			order_status != '作废'
+			<include refid="cfxxInfo_query"/>
+		</where>
+		group by zyh, xm, cfrq, DOCTOR_NAME, YPZH, GROUP_NO, ORDER_CLASS_NAME, START_TIME
+  </select> -->
+
+	<select id="findCfxxDataByHisList" parameterType="activetech.basehis.pojo.dto.HspCfxxInfoQueryDto"
+		resultType="activetech.basehis.pojo.dto.HspCfxxInfoCustom">
+		<!-- select 
+          	 zyh zyh,
+	         xm name,
+	         zhixingrq startTime,
+	         Doctorname startDoct,
+	         cfrq execTime,
+	         listagg(t.yaopinmc, '|br') within GROUP (order by geiyaofs desc)  daInfo,
+	         listagg(t.yaopingg, '|br') within GROUP (order by geiyaofs desc)  drugSpec,
+	         listagg(t.chufanglx, '|br') within GROUP (order by geiyaofs desc)  daType,
+	         t.zuhao daSub,
+	         listagg(t.orderStatus, '|br') within GROUP (order by geiyaofs desc)  orderStatus,
+	         listagg(t.Numunit, '|br') within GROUP (order by geiyaofs desc)  yfdw,
+	         listagg(decode(substr(t.yicijl,'1','1'),'.','0'||t.yicijl,t.yicijl), '|br') within GROUP (order by geiyaofs desc)  daDose,
+	         listagg(t.yicijldw, '|br') within GROUP (order by geiyaofs desc)  daUnit,
+	         listagg(t.zuixiaodw, '|br') within GROUP (order by geiyaofs desc)  daDoseUnit,
+	         listagg(t.num, '|br') within GROUP (order by geiyaofs desc)  num,         
+	         listagg(t.geiyaofs, '|br') within GROUP (order by geiyaofs desc)  daWayStr,
+	         listagg(t.pinci, '|br') within GROUP (order by geiyaofs desc)  daFreq,
+           t.shoufeibz
+    	from V_HEMS_CFXX_NEW@V_HEMS_DQYY t -->
+    	select * from (select
+           zyh zyh,
+           xm name,
+           zuhao,
+           zhixingrq startTime,
+           Doctorname startDoct,
+           cfrq execTime,
+           listagg(t.yaopinmc, '|br') within GROUP (order by zuhao,shunxuhao)  daInfo,
+           listagg(t.yaopingg, '|br') within GROUP (order by zuhao,shunxuhao)  drugSpec,
+           listagg(t.chufanglx, '|br') within GROUP (order by zuhao,shunxuhao)  daType,
+           t.zuhao daSub,
+           listagg(t.orderStatus, '|br') within GROUP (order by zuhao,shunxuhao)  orderStatus,
+           listagg(t.Numunit, '|br') within GROUP (order by zuhao,shunxuhao)  yfdw,
+           listagg(decode(substr(t.yicijl,'1','1'),'.','0'||t.yicijl,t.yicijl), '|br') within GROUP (order by zuhao,shunxuhao)  daDose,
+           listagg(t.yicijldw, '|br') within GROUP (order by zuhao,shunxuhao)  daUnit,
+           listagg(t.zuixiaodw, '|br') within GROUP (order by zuhao,shunxuhao)  daDoseUnit,
+           listagg(t.num, '|br') within GROUP (order by zuhao ,shunxuhao)  num,
+           listagg(t.geiyaofs, '|br') within GROUP (order by zuhao,shunxuhao)  daWayStr,
+           listagg(t.pinci, '|br') within GROUP (order by zuhao,shunxuhao)  daFreq,
+           t.shoufeibz
+    	from V_HEMS_CFXX t
+		<where>
+			 t.orderStatus !='作废'
+			 and zuhao is not null
+			<include refid="cfxxInfo_query"/>
+		</where>
+ 		group by zyh, xm, cfrq,zhixingrq,Doctorname,chufangid,zuhao,shoufeibz
+ 	union all
+	select
+          zyh zyh,
+          xm name,
+          zuhao,
+          zhixingrq startTime,
+          Doctorname startDoct,
+          cfrq execTime,
+          t.yaopinmc  daInfo,
+          t.yaopingg  drugSpec,
+          t.chufanglx daType,
+          t.zuhao daSub,
+          t.orderStatus  orderStatus,
+          t.Numunit  yfdw,
+          decode(substr(t.yicijl,'1','1'),'.','0'||t.yicijl,t.yicijl)  daDose,
+          t.yicijldw daUnit,
+          t.zuixiaodw daDoseUnit,
+          to_char(t.num) num,
+          t.geiyaofs daWayStr,
+          t.pinci daFreq,
+          t.shoufeibz
+    	from V_HEMS_CFXX t
+    <where>
+		 t.orderStatus !='作废'
+		 and zuhao is  null
+		<include refid="cfxxInfo_query"/>
+	</where>
+	) order by startTime desc
+   </select>
+  
+  
+  <!-- 获取处方信息（本地处方表） -->
+   <select id="findCfxxDataByLocalList" parameterType="activetech.basehis.pojo.dto.HspCfxxInfoQueryDto" resultType="activetech.basehis.pojo.dto.HspCfxxInfoCustom">
+   		select distinct
+		       listagg(da_seq,'|br') within GROUP (order by da_seq desc) over(partition by da_sub) da_seq,
+		       da_no,
+		       da_sub,
+		       start_time,
+		       enter_time,
+               ORDER_CLASS,
+		       start_doct,
+		       da_type,
+		       listagg(da_info,'|br') within GROUP (order by da_seq desc) over(partition by da_sub) da_info,
+		        listagg(da_dose || da_unit,'|br') within GROUP (order by da_seq desc) over(partition by da_sub) daDoseUnit,
+		       listagg(da_dose,'|br') within GROUP (order by da_seq desc) over(partition by da_sub) da_dose,
+		       listagg(da_unit,'|br') within GROUP (order by da_seq desc)over (partition by da_sub) da_unit,
+		       listagg(da_numb,'|br') within GROUP (order by da_seq desc) over(partition by da_sub) num,
+		       listagg(YFDW, '|br') within GROUP (order by da_seq desc)  over (partition by da_sub) YFDW,
+		       listagg(DRUG_SPEC, '|br') within GROUP (order by da_seq desc) over (partition by da_sub)			drugSpec,
+		       listagg(HIGH_RISK, '|br') within GROUP (order by da_seq desc) over (partition by da_sub)			highRisk,
+		       listagg(da_freq, '|br') within GROUP (order by da_seq desc) over (partition by da_sub)			da_freq,
+		       listagg(ORDER_STATUS, '|br') within GROUP (order by da_seq desc) over (partition by da_sub)			orderStatus,
+		       listagg(da_way, '|br') within GROUP (order by da_seq desc) over (partition by da_sub)			daWayStr,
+		       info_src,
+		       hddat,
+		       hdhs,
+		       hdhsxm,
+		       nvl(trim(yzzt), '0') yzzt,
+		       mpi,
+		       (select distinct listagg(EXEC_USERXM, '|br') within GROUP (order by HSP_CFXX_EXEC.da_seq) over (partition by HSP_CFXX_EXEC.da_seq)
+			          from HSP_CFXX_EXEC where HSP_CFXX_EXEC.DA_SEQ = nvl(SUBSTR(HSP_CFXX_INFO.da_seq, 1, INSTR (HSP_CFXX_INFO.da_seq, '|br', 1, 1) - 1),HSP_CFXX_INFO.da_seq)) execUserXm,
+    		   (select distinct listagg(to_char(exec_time,'yyyy/mm/dd HH24:mi'), '|br') within GROUP (order by HSP_CFXX_EXEC.da_seq) over (partition by HSP_CFXX_EXEC.da_seq)
+    		          from HSP_CFXX_EXEC where HSP_CFXX_EXEC.DA_SEQ = nvl(SUBSTR(HSP_CFXX_INFO.da_seq, 1, INSTR (HSP_CFXX_INFO.da_seq, '|br', 1, 1) - 1),HSP_CFXX_INFO.da_seq)) execTime,
+    		   (select distinct listagg(exec_userxm_second, '|br') within GROUP (order by HSP_CFXX_EXEC.da_seq) over (partition by HSP_CFXX_EXEC.da_seq)
+    		          from HSP_CFXX_EXEC where HSP_CFXX_EXEC.DA_SEQ = nvl(SUBSTR(HSP_CFXX_INFO.da_seq, 1, INSTR (HSP_CFXX_INFO.da_seq, '|br', 1, 1) - 1),HSP_CFXX_INFO.da_seq)) execUserxmSecond
+			from HSP_CFXX_INFO
+		<where>
+			mpi = #{hspCfxxInfoCustom.mpi}
+			and yzzt != '9'
+			and order_status != '作废'
+			<!-- 打印标识 -->
+			<if test="hspCfxxInfoCustom.printFlag != null and hspCfxxInfoCustom.printFlag != '' ">
+			 	and da_type != '治疗'
+			</if>
+			<include refid="cfxxInfo_query"/>
+		</where>
+   </select>
+	
+</mapper>

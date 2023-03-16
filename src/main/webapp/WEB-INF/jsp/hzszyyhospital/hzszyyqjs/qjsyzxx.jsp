@@ -50,10 +50,11 @@
         title: "",
         url: '${baseurl}his/querycfxx_result.do',
         queryParams: {
-          // "hspDocadviceInfCustom.vstCad": '${vstCad}',
+          "hspCfxxInfoCustom.vstCad": '${vstCad}',
+          // "hspDocadviceInfCustom.emgSeq": '${emgSeq}',
           "startdate": startdate,
           "enddate": today,
-          "hspCfxxInfoCustom.mpi": '${mpi}'
+          "hspCfxxInfoCustom.emgSeq":'${emgSeq}'
         },
         idField: 'docadviceSeq',
         loadFilter: function (data) {

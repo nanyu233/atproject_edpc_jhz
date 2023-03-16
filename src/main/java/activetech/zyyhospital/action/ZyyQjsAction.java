@@ -443,6 +443,8 @@ public class ZyyQjsAction {
         model.addAttribute("sqlDat", DateUtil.formatDateByFormat(new Date(), "yyyy/MM/dd HH:mm"));
         model.addAttribute("emgDat", DateUtil.formatDateByFormat(hspDbzlBasCustom.getRegTim(), "yyyy/MM/dd HH:mm"));
         model.addAttribute("mpi", hspDbzlBasCustom.getMpi());
+        model.addAttribute("vstCad",hspDbzlBasCustom.getVstCad());
+        model.addAttribute("emgSeq",hspDbzlBasCustom.getEmgSeq());
         model.addAttribute("hspemginfCustom", hspDbzlBasCustom);
         return "/hzszyyhospital/hzszyyqjs/qjsyzxx";
     }

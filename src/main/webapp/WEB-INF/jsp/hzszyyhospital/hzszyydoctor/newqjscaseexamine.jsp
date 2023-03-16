@@ -157,9 +157,9 @@
 				nowrap: true,
 				striped: true,
 				singleSelect: true,
-				url: '${baseurl}zyyqjs/queryexamine_result.do',
+				url: '${baseurl}his/queryexamine_result.do',
 				queryParams: {
-					"vHemsJyjgCustom.zyh": '${MPI}',
+					"vHemsJyjgCustom.patientId": '${vstCad}',
 					"vHemsJyjgCustom.startdate": startdate,
 					"vHemsJyjgCustom.enddate": today
 				},
@@ -172,11 +172,11 @@
 						nowrap: true,
 						striped: true,
 						singleSelect: true,
-						url: '${baseurl}zyyqjs/queryexamineinfo_result.do',
+						url: '${baseurl}his/queryexamineinfo_result.do',
 						queryParams: {
-							"vHemsJyjgCustom.zyh": '${MPI}',
-							"vHemsJyjgCustom.laborder": rowData.laborder,
+							"vHemsJyjgCustom.patientId": rowData.patientId,
 							"vHemsJyjgCustom.sampleno": rowData.sampleno,
+							"vHemsJyjgCustom.patientId": '${vstCad}',
 							"vHemsJyjgCustom.resultDateTime": resultDateTime
 						},
 						idField: 'rownums',

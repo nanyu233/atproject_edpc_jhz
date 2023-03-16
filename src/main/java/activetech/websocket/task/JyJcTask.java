@@ -61,7 +61,7 @@ public class JyJcTask {
     		jyjg.setReportItemName(vHemsJyjg.getReportItemName());
     		jyjg.setUnits(vHemsJyjg.getUnits());
     		jyjg.setExaminaim(vHemsJyjg.getExaminaim());
-    		jyjg.setErrorFlag(vHemsJyjg.getHint());
+    		//jyjg.setErrorFlag(vHemsJyjg.getHint());
     		jyjg.setExamineDocName(vHemsJyjg.getShr());	
     		jyjg.setJyjgId(UUID.randomUUID().toString());
     		try {

@@ -2,9 +2,12 @@ package activetech.external.service;
 
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.result.ResultInfo;
+import activetech.basehis.pojo.dto.*;
 import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.external.pojo.domain.HspEcgInf;
+
+import java.util.List;
 
 public interface EsbService {
 	
@@ -23,4 +26,13 @@ public interface EsbService {
      * 插入三大中心基础信息表
      * */
 	void insertHspDbzlBasForCust(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser);
+
+	public List<VHemsJcjgCustom> findVHemsJcjgList(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception;
+	public  int findvhemsjyjginfocount(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception;
+	public List<VHemsJyjgCustom> findvhemsjyjginfoList(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception;
+	public List<VHemsJyjgCustom> findvhemsjyjginfoListWithNoPage(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception;
+
+	public  List<VHemsJyjgCustom> findjyCategoriesList(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception;
+
+	List<HspCfxxInfoCustom> findCfxxLocalAndHISList(HspCfxxInfoQueryDto hspCfxxInfoQueryDto) throws Exception;
 }

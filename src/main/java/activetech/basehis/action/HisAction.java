@@ -9,14 +9,14 @@ import activetech.base.process.result.SubmitResultInfo;
 import activetech.base.service.SystemConfigService;
 import activetech.basehems.service.BaseHspemgInfService;
 import activetech.basehis.pojo.domain.VHemsEmpi;
-import activetech.basehis.pojo.dto.HemshisDto;
-import activetech.basehis.pojo.dto.VHemsGhlbCustom;
-import activetech.basehis.pojo.dto.VHemsGhlbQueryDto;
-import activetech.basehis.pojo.dto.VHemsRczCustom;
+import activetech.basehis.pojo.dto.*;
+import activetech.external.service.EsbService;
 import activetech.hospital.pojo.dto.HspemginfCustom;
+import activetech.util.BeanUtil;
 import activetech.util.DateUtil;
 import activetech.util.HttpClientUtil;
 import activetech.util.StringUtils;
+import activetech.webService.WebServiceClient;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +48,8 @@ public class HisAction {
 	private BaseHspemgInfService baseHspemgInfService;
 	@Autowired
 	private SystemConfigService systemConfigService;
+	@Autowired
+	private EsbService esbService;
 
 
 	/**
@@ -79,6 +81,157 @@ public class HisAction {
 		return "/hzszyyhospital/hzszyynurse/his/sfjl";
 	}
 
+	/**
+	 * 检验信息结果集
+	 * @param model
+	 * @param HspBedInfCustomDto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryexamine_result")
+	public @ResponseBody DataGridResultInfo queryexamine_result(Model mode,
+																VHemsJyjgQueryDto vHemsJyjgQueryDto,
+																String sort,
+																String order
+	) throws Exception{
+		//首次查询时默认赋值系统当天日期
+		if(vHemsJyjgQueryDto.getvHemsJyjgCustom().getEnddate() != null){
+			Date endDate = DateUtil.getNextDay(vHemsJyjgQueryDto.getvHemsJyjgCustom().getEnddate());
+			vHemsJyjgQueryDto.getvHemsJyjgCustom().setEnddate(endDate);
+		}
+		//查询列表的总数
+		if(!StringUtils.isNotNullAndEmptyByTrim(sort)){
+			vHemsJyjgQueryDto.setSort("resultDateTime");
+		}
+		if(!StringUtils.isNotNullAndEmptyByTrim(order)){
+			vHemsJyjgQueryDto.setOrder("asc");
+		}
+
+		//int total =oracleHisService.findvhemsjyjgcount(vHemsJyjgQueryDto);
+		//List<VHemsJyjgCustom> list =oracleHisService.findvhemsjyjgList(vHemsJyjgQueryDto);
+		List<VHemsJyjgCustom> list = esbService.findjyCategoriesList(vHemsJyjgQueryDto);
+
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		//填充total
+		dataGridResultInfo.setTotal(list.size());
+		//填充rows
+		dataGridResultInfo.setRows(list);
+		return dataGridResultInfo;
+	}
+
+	/**
+	 * 检验信息详细结果集
+	 * @param model
+	 * @param HspBedInfCustomDto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryexamineinfo_result")
+	public @ResponseBody DataGridResultInfo queryexamineinfo_result(Model mode,
+																	VHemsJyjgQueryDto vHemsJyjgQueryDto,
+																	int page,//当前页码
+																	int rows//每页显示个数
+	) throws Exception{
+		//首次查询时默认赋值系统当天日期
+		if(vHemsJyjgQueryDto.getvHemsJyjgCustom().getEnddate() != null){
+			Date endDate = DateUtil.getNextDay(vHemsJyjgQueryDto.getvHemsJyjgCustom().getEnddate());
+			vHemsJyjgQueryDto.getvHemsJyjgCustom().setEnddate(endDate);
+		}
+		//int total = oracleHisService.findvhemsjyjginfocount(vHemsJyjgQueryDto);
+		int total = esbService.findvhemsjyjginfocount(vHemsJyjgQueryDto);
+		PageQuery pageQuery = new PageQuery();
+		pageQuery.setPageParams(total, rows, page);
+		vHemsJyjgQueryDto.setPageQuery(pageQuery);
+		//List<VHemsJyjgCustom> list =oracleHisService.findvhemsjyjginfoList(vHemsJyjgQueryDto);
+		List<VHemsJyjgCustom> list =esbService.findvhemsjyjginfoList(vHemsJyjgQueryDto);
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		//填充total
+		dataGridResultInfo.setTotal(total);
+		//填充rows
+		dataGridResultInfo.setRows(list);
+		return dataGridResultInfo;
+	}
+
+	/**
+	 * 检验信息详细结果集去分页
+	 * @param model
+	 * @param HspBedInfCustomDto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryexamineinfoqfy_result")
+	public @ResponseBody DataGridResultInfo queryexamineinfoqfy_result(Model mode,
+																	   VHemsJyjgQueryDto vHemsJyjgQueryDto
+	) throws Exception{
+		//首次查询时默认赋值系统当天日期
+		if(vHemsJyjgQueryDto.getvHemsJyjgCustom().getEnddate() != null){
+			Date endDate = DateUtil.getNextDay(vHemsJyjgQueryDto.getvHemsJyjgCustom().getEnddate());
+			vHemsJyjgQueryDto.getvHemsJyjgCustom().setEnddate(endDate);
+		}
+		//int total =oracleHisService.findvhemsjyjginfocount(vHemsJyjgQueryDto);
+		//List<VHemsJyjgCustom> list =oracleHisService.findvhemsjyjginfoListqfy(vHemsJyjgQueryDto);
+		int total = esbService.findvhemsjyjginfocount(vHemsJyjgQueryDto);
+		List<VHemsJyjgCustom> list =esbService.findvhemsjyjginfoListWithNoPage(vHemsJyjgQueryDto);
+
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		//填充total
+		dataGridResultInfo.setTotal(total);
+		//填充rows
+		dataGridResultInfo.setRows(list);
+		return dataGridResultInfo;
+	}
+
+	/**
+	 * 检查报告结果集
+	 * @param model
+	 * @param HspBedInfCustomDto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryjcbg_result")
+	public @ResponseBody DataGridResultInfo queryjcbg_result(
+			VHemsJyjgQueryDto vHemsJyjgQueryDto,
+			String sort,
+			String order
+	) throws Exception{
+		//首次查询时默认赋值系统当天日期
+		if(vHemsJyjgQueryDto.getvHemsJcjgCustom().getEnddate() != null){
+			Date endDate = DateUtil.getNextDay(vHemsJyjgQueryDto.getvHemsJcjgCustom().getEnddate());
+			vHemsJyjgQueryDto.getvHemsJcjgCustom().setEnddate(endDate);
+		}
+		//List<VHemsJcjgCustom> list =sqlServerHisService.findVHemsJcjgList(vHemsJyjgQueryDto);
+		List<VHemsJcjgCustom> list = esbService.findVHemsJcjgList(vHemsJyjgQueryDto);
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		//填充total
+		dataGridResultInfo.setTotal(list.size());
+		//填充rows
+		dataGridResultInfo.setRows(list);
+		return dataGridResultInfo;
+	}
+
+	/**
+	 * 医嘱结果集
+	 * @param model
+	 * @param HspCfxxInfoQueryDto
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/querycfxx_result")
+	public  DataGridResultInfo querycfxx_result(HspCfxxInfoQueryDto hspCfxxInfoQueryDto) throws Exception{
+		DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+		if(null != hspCfxxInfoQueryDto.getHspCfxxInfoCustom()) {
+			if(!BeanUtil.validated(hspCfxxInfoQueryDto.getHspCfxxInfoCustom().getVstCad())) {
+				return dataGridResultInfo;
+			}
+		}
+		List<HspCfxxInfoCustom> list =esbService.findCfxxLocalAndHISList(hspCfxxInfoQueryDto);
+		//填充total
+		dataGridResultInfo.setTotal(list.size());
+		//填充rows
+		dataGridResultInfo.setRows(list);
+		return dataGridResultInfo;
+	}
 
 
 	private ResultInfo getPatientInf_jk(String cardNo) throws Exception{

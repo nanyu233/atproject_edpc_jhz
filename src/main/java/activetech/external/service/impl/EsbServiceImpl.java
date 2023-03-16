@@ -1,3 +1,4 @@
+/*
 package activetech.external.service.impl;
 
 import activetech.base.pojo.dto.ActiveUser;
@@ -174,7 +175,8 @@ public class EsbServiceImpl implements EsbService{
 		resultInfo.setSysdata(sysdata);
 		
 		// 通过胸痛患者类型获取mpi 和jzxh   接口数据暂时不取
-		/*
+		*/
+/*
 		String mpi = "";
 		String jzxh = "";
 		
@@ -220,7 +222,8 @@ public class EsbServiceImpl implements EsbService{
 					"未找到符合要求的数据"
 			});
 		}
-		*/
+		*//*
+
 		
 		return resultInfo;
 	
@@ -348,15 +351,19 @@ public class EsbServiceImpl implements EsbService{
 			baseZlInf.setProVal(hspDbzlBasCustom.getHuxipl());
 			hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
 		}
-		/*//意识
+		*/
+/*//*
+/意识
 		if(hspDbzlBasCustom.getXueyang() != null) {
 			baseZlInf.setProCode("YISHI");
 			baseZlInf.setProVal(hspDbzlBasCustom.getSenRctCod());
 			hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
-		}*/
+		}*//*
+
 
 
 	}
 
 
 }
+*/

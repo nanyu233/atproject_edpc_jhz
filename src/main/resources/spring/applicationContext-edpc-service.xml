@@ -31,7 +31,7 @@
 	
 	<bean id="SysIntergratingService" class="activetech.edpc.service.impl.SysIntergratingServiceImpl"/>
 	
-	<bean id="esbService" class="activetech.external.service.impl.EsbServiceImpl"/>
+	<bean id="esbService" class="activetech.external.service.impl.HspJyJcDeQingImpl"/>
 
 	<bean id="followUpService" class="activetech.edpc.service.impl.FollowUpServiceImpl"/>
 

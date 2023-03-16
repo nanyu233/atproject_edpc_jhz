@@ -17,6 +17,9 @@ import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.service.SystemConfigService;
 import activetech.base.util.MinIoUtil;
+import activetech.basehis.pojo.dto.VHemsJcjgCustom;
+import activetech.basehis.pojo.dto.VHemsJyjgCustom;
+import activetech.basehis.pojo.dto.VHemsJyjgQueryDto;
 import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.*;
 import activetech.edpc.pojo.dto.*;
@@ -29,6 +32,7 @@ import activetech.external.pojo.domain.VHemsJcjg;
 import activetech.external.pojo.domain.VHemsJcjgExample;
 import activetech.external.pojo.domain.VHemsJyjg;
 import activetech.external.pojo.domain.VHemsJyjgExample;
+import activetech.external.service.EsbService;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
 import activetech.hospital.dao.mapper.HspemginfCustomMapper;
 import activetech.hospital.pojo.domain.HspEmgInf;
@@ -119,6 +123,9 @@ public class CzServiceImpl implements CzService{
 
 	@Autowired
 	private HspDbzlBasMapper hspDbzlBasMapper;
+
+	@Autowired
+	private EsbService esbService;
 
 	@Override
 	public ResultInfo getCzPatientInfoList(QueryDto queryDto) {
@@ -629,7 +636,7 @@ public class CzServiceImpl implements CzService{
 	public ResultInfo getCzJyjcInfo(String emgSeq) {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 		Map<String,Object> sysdata = new HashMap<String, Object>();
-		String mpi = "";
+/*		String mpi = "";
 //		long jzxh = 0;
 		Date date = new Date();
 		HspEmgInf hspEmgInf = hspEmgInfMapper.selectByPrimaryKey(emgSeq);
@@ -686,6 +693,82 @@ public class CzServiceImpl implements CzService{
 					}
 		sysdata.put("jyjgList", jsonArray);
 		
+		resultInfo.setSysdata(sysdata);
+		return resultInfo;*/
+
+		HspDbzlBasCustom hspDbzlBasCustom = hspDbzlBasMapperCustom.selectByEmgSeq(emgSeq);
+		VHemsJyjgQueryDto vHemsJyjgQueryDto = new VHemsJyjgQueryDto();
+		VHemsJyjgCustom vHemsJyjgCustom = new VHemsJyjgCustom();
+		vHemsJyjgCustom.setPatientId(hspDbzlBasCustom.getVstCad());
+		vHemsJyjgCustom.setStartdate(hspDbzlBasCustom.getRegTim());
+		vHemsJyjgCustom.setEnddate(new Date());
+		VHemsJcjgCustom vHemsJcjgCustom = new VHemsJcjgCustom();
+		vHemsJcjgCustom.setZyh(hspDbzlBasCustom.getVstCad());
+		vHemsJcjgCustom.setStartdate(hspDbzlBasCustom.getRegTim());
+		vHemsJcjgCustom.setEnddate(new Date());
+		vHemsJyjgQueryDto.setvHemsJyjgCustom(vHemsJyjgCustom);
+		vHemsJyjgQueryDto.setvHemsJcjgCustom(vHemsJcjgCustom);
+
+		try {
+			List<VHemsJcjgCustom> list = esbService.findVHemsJcjgList(vHemsJyjgQueryDto);
+			sysdata.put("jcjgList", list);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		try {
+			List<VHemsJyjgCustom> jyjglist = esbService.findjyCategoriesList(vHemsJyjgQueryDto);
+			JSONArray jsonArray = new JSONArray();
+			if(jyjglist.size()>0) {
+				for(VHemsJyjgCustom vHemsJyjg:jyjglist) {
+					if(vHemsJyjg.getReportItemName()==null) {
+						JSONObject jsonObject = new JSONObject();
+						jsonObject.put("examinaim", vHemsJyjg.getExaminaim());
+						jsonObject.put("resultDateTime", vHemsJyjg.getResultDateTime());
+						jsonObject.put("sampleno", vHemsJyjg.getSampleno());
+						jsonObject.put("data", new JSONArray());
+						jsonArray.add(jsonObject);
+					}
+				}
+				for (VHemsJyjgCustom hemsJyjgCustom : jyjglist) {
+					VHemsJyjgCustom temp = new VHemsJyjgCustom();
+					temp.setPatientId(hspDbzlBasCustom.getVstCad());
+					temp.setResultDateTime(hemsJyjgCustom.getResultDateTime());
+					temp.setSampleno(hemsJyjgCustom.getSampleno());
+					temp.setEnddate(new Date());
+					vHemsJyjgQueryDto.setvHemsJyjgCustom(temp);
+					List<VHemsJyjgCustom> list = esbService.findvhemsjyjginfoListWithNoPage(vHemsJyjgQueryDto);
+					for (VHemsJyjgCustom jyjgCustom : list) {
+						jyjgCustom.setSampleno(hemsJyjgCustom.getSampleno());
+					}
+
+					for(VHemsJyjgCustom vHemsJyjg:list) {
+						if(vHemsJyjg.getReportItemName()!=null) {
+							for(int i=0; i<jsonArray.size();i++) {
+								if(jsonArray.getJSONObject(i).get("sampleno").equals(vHemsJyjg.getSampleno())) {
+									JSONObject jsonObject = new JSONObject();
+									jsonObject.put("result", vHemsJyjg.getResult());
+									jsonObject.put("upperLimit", vHemsJyjg.getUpperLimit());
+									jsonObject.put("lowerLimit", vHemsJyjg.getLowerLimit());
+									jsonObject.put("reportItemName", vHemsJyjg.getReportItemName());
+									jsonObject.put("units", vHemsJyjg.getUnits());
+									jsonObject.put("errorFlag", vHemsJyjg.getErrorFlag());
+									jsonArray.getJSONObject(i).getJSONArray("data").add(jsonObject);
+								}
+							}
+						}
+					}
+				}
+
+			}
+			sysdata.put("jyjgList", jsonArray);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+
+
+
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
 	}

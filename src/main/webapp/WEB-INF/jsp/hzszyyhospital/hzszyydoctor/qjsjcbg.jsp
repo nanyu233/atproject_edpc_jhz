@@ -40,6 +40,8 @@
         formatter:function(value,row,index){
                 if(value == ''||value == null){
                     return "病理检查报告"
+                }else {
+                  return value
                 }
             }
       }, {
@@ -76,9 +78,9 @@
         striped: true,
         singleSelect: true,
         rownumbers: true,
-        url: '${baseurl}zyyqjs/queryjcbg_result.do',
+        url: '${baseurl}his/queryjcbg_result.do',
         queryParams: {
-          "vHemsJcjgCustom.zyh": '${MPI}',
+          "vHemsJcjgCustom.zyh": '${vstCad}',
           "vHemsJcjgCustom.startdate": startdate,
           "vHemsJcjgCustom.enddate": today
         },
