@@ -16,6 +16,7 @@ import activetech.edpc.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -118,7 +119,7 @@ public class GroupAction {
     @RequestMapping("/addgroupsubmit")
     @ResponseBody
     public SubmitResultInfo addGroupSubmit(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
-        // TODO 群组新增
+        // 群组新增
         groupService.addGroup(hspGrpInfQueryDto, activeUser);
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         return ResultUtil.createSubmitResult(resultInfo);
@@ -135,7 +136,7 @@ public class GroupAction {
     @RequestMapping("/editgroupsubmit")
     @ResponseBody
     public SubmitResultInfo editGroupSubmit(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
-        // TODO 群组修改
+        // 群组修改
         groupService.editGroup(hspGrpInfQueryDto, activeUser);
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         return ResultUtil.createSubmitResult(resultInfo);
@@ -152,10 +153,39 @@ public class GroupAction {
     @RequestMapping("/delgroupsubmit")
     @ResponseBody
     public SubmitResultInfo delGroupSubmit(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
-        // TODO 群组删除
+        // 群组删除
         groupService.delGroup(hspGrpInfQueryDto, activeUser);
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         return ResultUtil.createSubmitResult(resultInfo);
     }
 
+    /**
+     * 跳转添加用户页面
+     *
+     * @return
+     * @throws Exception
+     * @description
+     */
+    @RequestMapping("/adduser")
+    public String adduser(Model model, String grpSeq) throws Exception {
+        model.addAttribute("grpSeq", grpSeq);
+        return "/edpc/group/adduser";
+    }
+
+    /**
+     * 群组新增提交
+     *
+     * @param hspGrpInfQueryDto
+     * @param activeUser
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/addusersubmit")
+    @ResponseBody
+    public SubmitResultInfo addUserSubmit(@RequestBody HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
+        // TODO 群组新增
+        groupService.addUser(hspGrpInfQueryDto, activeUser);
+        ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+        return ResultUtil.createSubmitResult(resultInfo);
+    }
 }

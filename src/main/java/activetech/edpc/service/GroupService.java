@@ -66,4 +66,13 @@ public interface GroupService {
      * @throws Exception
      */
     void delGroup(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception;
+
+    /**
+     * 向群组中添加用户
+     *
+     * @param hspGrpInfQueryDto
+     * @param activeUser
+     * @throws Exception
+     */
+    void addUser(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception;
 }

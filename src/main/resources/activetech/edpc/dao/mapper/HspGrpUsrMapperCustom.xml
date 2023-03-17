@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspGrpUsrMapperCustom">
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspGrpUsrKey">
+    <id column="GRP_SEQ" jdbcType="VARCHAR" property="grpSeq" />
+    <id column="USRNO" jdbcType="VARCHAR" property="usrno" />
+  </resultMap>
+
+  <!-- 添加用户 -->
+  <insert id="addUser" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto">
+    insert into hsp_grp_usr a
+        select b.grp_seq, b.usrno from (
+          <foreach collection="userList" index="ind" item="item" separator="union">
+            select #{hspGrpInfCustom.grpSeq, jdbcType=VARCHAR} grp_seq,
+                   #{item.usrno, jdbcType=VARCHAR} usrno
+              from dual
+          </foreach>
+        ) b
+  </insert>
+
+</mapper>
