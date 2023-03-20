@@ -1,6 +1,7 @@
 package activetech.edpc.action;
 
 import activetech.base.pojo.dto.ActiveUser;
+import activetech.base.pojo.dto.DstuserCustom;
 import activetech.base.pojo.dto.PageQuery;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.DataGridResultInfo;
@@ -8,10 +9,8 @@ import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspGrpInf;
-import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspGrpInfCustom;
 import activetech.edpc.pojo.dto.HspGrpInfQueryDto;
-import activetech.edpc.pojo.dto.QueryDto;
 import activetech.edpc.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,6 +67,30 @@ public class GroupAction {
         pageQuery.setPageParams(total, rows, page);
         hspGrpInfQueryDto.setPageQuery(pageQuery);
         List<HspGrpInfCustom> list = groupService.getGroupList(hspGrpInfQueryDto);
+        DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+        // 填充total
+        dataGridResultInfo.setTotal(total);
+        // 填充rows
+        dataGridResultInfo.setRows(list);
+        return dataGridResultInfo;
+    }
+    /**
+     * 群组管理用户列表数据分页查询
+     *
+     * @param hspGrpInfQueryDto
+     * @param page
+     * @param rows
+     * @return
+     */
+    @RequestMapping("/queryuserbygroup_result")
+    @ResponseBody
+    public DataGridResultInfo queryUserByGroupResult(HspGrpInfQueryDto hspGrpInfQueryDto, int page, int rows) throws Exception {
+        // 分页查询群组列表
+        int total = groupService.getGroupUserCount(hspGrpInfQueryDto);
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setPageParams(total, rows, page);
+        hspGrpInfQueryDto.setPageQuery(pageQuery);
+        List<DstuserCustom> list = groupService.getGroupUserList(hspGrpInfQueryDto);
         DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
         // 填充total
         dataGridResultInfo.setTotal(total);
@@ -173,7 +196,7 @@ public class GroupAction {
     }
 
     /**
-     * 群组新增提交
+     * 向群组中新增用户提交
      *
      * @param hspGrpInfQueryDto
      * @param activeUser
@@ -184,7 +207,23 @@ public class GroupAction {
     @ResponseBody
     public SubmitResultInfo addUserSubmit(@RequestBody HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
         // TODO 群组新增
-        groupService.addUser(hspGrpInfQueryDto, activeUser);
+        groupService.addUserToGroup(hspGrpInfQueryDto, activeUser);
+        ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+        return ResultUtil.createSubmitResult(resultInfo);
+    }
+    /**
+     * 从群组中移除用户提交
+     *
+     * @param hspGrpInfQueryDto
+     * @param activeUser
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/delusersubmit")
+    @ResponseBody
+    public SubmitResultInfo delUserSubmit(@RequestBody HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
+        // TODO 群组新增
+        groupService.delUserFromGroup(hspGrpInfQueryDto, activeUser);
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         return ResultUtil.createSubmitResult(resultInfo);
     }

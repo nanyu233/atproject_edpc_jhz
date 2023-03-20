@@ -1,6 +1,7 @@
 package activetech.edpc.service;
 
 import activetech.base.pojo.dto.ActiveUser;
+import activetech.base.pojo.dto.DstuserCustom;
 import activetech.edpc.pojo.domain.HspGrpInf;
 import activetech.edpc.pojo.dto.HspGrpInfCustom;
 import activetech.edpc.pojo.dto.HspGrpInfQueryDto;
@@ -30,6 +31,22 @@ public interface GroupService {
      * @return
      */
     List<HspGrpInfCustom> getGroupList(HspGrpInfQueryDto hspGrpInfQueryDto);
+
+    /**
+     * 查询群组用户列表总记录数
+     *
+     * @param hspGrpInfQueryDto
+     * @return
+     */
+    int getGroupUserCount(HspGrpInfQueryDto hspGrpInfQueryDto);
+
+    /**
+     * 分页查询获取群组用户列表
+     *
+     * @param hspGrpInfQueryDto
+     * @return
+     */
+    List<DstuserCustom> getGroupUserList(HspGrpInfQueryDto hspGrpInfQueryDto);
 
     /**
      * 根据主键获取群组记录
@@ -74,5 +91,15 @@ public interface GroupService {
      * @param activeUser
      * @throws Exception
      */
-    void addUser(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception;
+    void addUserToGroup(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception;
+
+    /**
+     * 从群组中移除用户
+     *
+     * @param hspGrpInfQueryDto
+     * @param activeUser
+     * @throws Exception
+     */
+    void delUserFromGroup(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception;
+
 }

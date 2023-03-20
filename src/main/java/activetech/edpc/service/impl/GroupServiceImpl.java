@@ -3,13 +3,13 @@ package activetech.edpc.service.impl;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.pojo.dto.DstuserCustom;
 import activetech.base.process.context.Config;
+import activetech.base.process.result.ExceptionResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.edpc.dao.mapper.HspGrpInfMapper;
 import activetech.edpc.dao.mapper.HspGrpInfMapperCustom;
 import activetech.edpc.dao.mapper.HspGrpUsrMapper;
 import activetech.edpc.dao.mapper.HspGrpUsrMapperCustom;
 import activetech.edpc.pojo.domain.HspGrpInf;
-import activetech.edpc.pojo.domain.HspGrpUsrExample;
 import activetech.edpc.pojo.dto.HspGrpInfCustom;
 import activetech.edpc.pojo.dto.HspGrpInfQueryDto;
 import activetech.edpc.service.GroupService;
@@ -59,6 +59,27 @@ public class GroupServiceImpl implements GroupService {
         return hspGrpInfMapperCustom.getGroupList(hspGrpInfQueryDto);
     }
 
+    /**
+     * 查询群组用户列表总记录数
+     *
+     * @param hspGrpInfQueryDto
+     * @return
+     */
+    @Override
+    public int getGroupUserCount(HspGrpInfQueryDto hspGrpInfQueryDto) {
+        return hspGrpUsrMapperCustom.getGroupUserCount(hspGrpInfQueryDto);
+    }
+
+    /**
+     * 分页查询获取群组用户列表
+     *
+     * @param hspGrpInfQueryDto
+     * @return
+     */
+    @Override
+    public List<DstuserCustom> getGroupUserList(HspGrpInfQueryDto hspGrpInfQueryDto) {
+        return hspGrpUsrMapperCustom.getGroupUserList(hspGrpInfQueryDto);
+    }
     /**
      * 根据主键获取群组记录
      *
@@ -197,14 +218,34 @@ public class GroupServiceImpl implements GroupService {
      * @throws Exception
      */
     @Override
-    public void addUser(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
+    public void addUserToGroup(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
+        // 参数校验
+        delUserFromGroupByUsrno(hspGrpInfQueryDto);
+        // 插入hsp_grp_usr
+        hspGrpUsrMapperCustom.addUserToGroup(hspGrpInfQueryDto);
+    }
+
+    /**
+     * 从群组中移除用户
+     *
+     * @param hspGrpInfQueryDto
+     * @param activeUser
+     * @throws Exception
+     */
+    @Override
+    public void delUserFromGroup(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
+        delUserFromGroupByUsrno(hspGrpInfQueryDto);
+    }
+
+    private void delUserFromGroupByUsrno(HspGrpInfQueryDto hspGrpInfQueryDto) throws ExceptionResultInfo {
         // 参数校验
         HspGrpInfCustom hspGrpInfCustom = hspGrpInfQueryDto.getHspGrpInfCustom() != null ? hspGrpInfQueryDto.getHspGrpInfCustom() : new HspGrpInfCustom();
         String grpSeq = hspGrpInfCustom.getGrpSeq();
+        // 群组序号为空时提示
         if (!StringUtils.isNotNullAndEmptyByTrim(grpSeq)) {
             ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 922, new Object[]{"群组序号"}));
         }
-        // 用户列表
+        // 用户列表为空时提示
         List<DstuserCustom> userList = hspGrpInfQueryDto.getUserList();
         if (userList == null || userList.isEmpty()) {
             ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 922, new Object[]{"用户列表"}));
@@ -214,13 +255,8 @@ public class GroupServiceImpl implements GroupService {
         if (hspGrpInf == null) {
             ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 920, new Object[]{"系统中未找到对应群组信息，请检查群组序号是否正确"}));
         }
-        // 先根据grpSeq删除 hsp_grp_usr
-        HspGrpUsrExample hspGrpUsrExample = new HspGrpUsrExample();
-        HspGrpUsrExample.Criteria criteria = hspGrpUsrExample.createCriteria();
-        criteria.andGrpSeqEqualTo(grpSeq);
-        hspGrpUsrMapper.deleteByExample(hspGrpUsrExample);
-        // 再插入 hsp_grp_usr
-        hspGrpUsrMapperCustom.addUser(hspGrpInfQueryDto);
+        // 根据grpSeq和usrno从hsp_grp_usr中删除
+        hspGrpUsrMapperCustom.delUserFromGroup(hspGrpInfQueryDto);
     }
 
 }

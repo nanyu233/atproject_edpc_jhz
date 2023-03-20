@@ -6,8 +6,61 @@
     <id column="USRNO" jdbcType="VARCHAR" property="usrno" />
   </resultMap>
 
-  <!-- 添加用户 -->
-  <insert id="addUser" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto">
+    <sql id="query_group_user_where">
+        <if test="hspGrpInfCustom != null">
+            <!-- 群组序号 -->
+            <if test="hspGrpInfCustom.grpSeq != null and hspGrpInfCustom.grpSeq != ''.toString()">
+                and b.grp_seq = #{hspGrpInfCustom.grpSeq, jdbcType=VARCHAR}
+            </if>
+        </if>
+        and b.usrno = a.usrno
+    </sql>
+
+    <!-- 获取群组用户总记录数 -->
+    <select id="getGroupUserCount" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto" resultType="java.lang.Integer">
+        select count(*)
+          from dstuser a
+        where exists (select 1 from hsp_grp_usr b
+                        <where>
+                            <include refid="query_group_user_where"/>
+                        </where>
+                     )
+    </select>
+
+    <!-- 分页查询群组用户列表 -->
+    <select id="getGroupUserList" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto" resultType="activetech.base.pojo.dto.DstuserCustom">
+        <include refid="activetech.base.CommonSql.page_start"/>
+        select a.userid,
+               a.usrno,
+               a.usrname,
+               a.userstate,
+               a.movephone
+        from dstuser a
+        where exists (select 1 from hsp_grp_usr b
+        <where>
+            <include refid="query_group_user_where"/>
+        </where>
+        )
+        <include refid="activetech.base.CommonSql.page_end"/>
+    </select>
+
+    <!-- 从群组中移除用户 -->
+    <delete id="delUserFromGroup" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto">
+        delete from hsp_grp_usr a where exists (
+            select 1 from (
+                <foreach collection="userList" index="ind" item="item" separator="union">
+                    select #{hspGrpInfCustom.grpSeq, jdbcType=VARCHAR} grp_seq,
+                    #{item.usrno, jdbcType=VARCHAR} usrno
+                    from dual
+                </foreach>
+            ) b
+             where b.grp_seq = a.grp_seq
+               and b.usrno = a.usrno
+        )
+    </delete>
+
+    <!-- 向群组中添加用户 -->
+    <insert id="addUserToGroup" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto">
     insert into hsp_grp_usr a
         select b.grp_seq, b.usrno from (
           <foreach collection="userList" index="ind" item="item" separator="union">
@@ -16,6 +69,6 @@
               from dual
           </foreach>
         ) b
-  </insert>
+    </insert>
 
 </mapper>
