@@ -4,9 +4,15 @@ import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
+import activetech.base.service.SystemConfigService;
 import activetech.basehis.dao.mapper.YZMapper;
 import activetech.basehis.pojo.dto.*;
+import activetech.edpc.dao.mapper.HspDbzlBasMapper;
+import activetech.edpc.dao.mapper.HspZlInfCustomMapper;
+import activetech.edpc.pojo.domain.HspDbzlBas;
+import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
+import activetech.edpc.pojo.dto.HspZlInfCustom;
 import activetech.external.pojo.domain.HspEcgInf;
 import activetech.external.service.EsbService;
 import activetech.util.DateUtil;
@@ -88,6 +94,12 @@ public class HspJyJcDeQingImpl implements EsbService {
 
     @Autowired
     private YZMapper yzMapper;
+    @Autowired
+    private SystemConfigService systemConfigService;
+    @Autowired
+    private HspDbzlBasMapper hspDbzlBasMapper;
+    @Autowired
+    private HspZlInfCustomMapper hspZlInfCustomMapper;
 
     @Override
     public List<VHemsJcjgCustom> findVHemsJcjgList(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception {
@@ -456,6 +468,127 @@ public class HspJyJcDeQingImpl implements EsbService {
 
     @Override
     public void insertHspDbzlBasForCust(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) {
+        HspDbzlBasCustom hspDbzlBasCustom = hspDbzlBasQueryDto.getHspDbzlBasCustom();
+        String regSeq;
+
+        if(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq() == null || "".equals(hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq())){
+            regSeq = systemConfigService.findSequences("hsp_dbzl_bas_reg_seq", "8", null);
+            //唯一ID
+            HspDbzlBas hspDbzlBas = new HspDbzlBas();
+            hspDbzlBas.setRegSeq(regSeq);
+            hspDbzlBas.setRegTim(hspDbzlBasCustom.getRegTim());
+            hspDbzlBas.setEmgSeq(hspDbzlBasCustom.getEmgSeq());
+            hspDbzlBas.setMpi(hspDbzlBasCustom.getMpi());
+
+            hspDbzlBas.setPatTyp(hspDbzlBasCustom.getPatTyp());
+
+            hspDbzlBas.setWayTyp("0");
+            hspDbzlBas.setCardType(hspDbzlBasCustom.getCardType());
+            hspDbzlBas.setVstCad(hspDbzlBasCustom.getVstCad());
+            hspDbzlBas.setCstNam(hspDbzlBasCustom.getCstNam());
+            hspDbzlBas.setCstSexCod(hspDbzlBasCustom.getCstSexCod());
+            hspDbzlBas.setIdType(hspDbzlBasCustom.getCardType());
+            hspDbzlBas.setIdNbr(hspDbzlBasCustom.getIdNbr());
+            hspDbzlBas.setCstAgeCod(hspDbzlBasCustom.getCstAgeCod());
+            hspDbzlBas.setCstAge(hspDbzlBasCustom.getCstAge());
+            hspDbzlBas.setPatWgt(null);
+            hspDbzlBas.setPatHgt(null);
+            hspDbzlBas.setBthDat(hspDbzlBasCustom.getBthDat());
+            hspDbzlBas.setPheNbr(hspDbzlBasCustom.getPheNbr());
+            hspDbzlBas.setCstAdr(hspDbzlBasCustom.getCstAdr());
+            hspDbzlBas.setNation(hspDbzlBasCustom.getNation());
+            hspDbzlBas.setEmgJob(hspDbzlBasCustom.getEmgJob());
+            hspDbzlBas.setMaritalStatus(hspDbzlBasCustom.getMaritalStatus());
+            hspDbzlBas.setCstEdu(null);
+            hspDbzlBas.setLnkMan(null);
+            hspDbzlBas.setLnkWay(null);
+            hspDbzlBas.setGrnChl(hspDbzlBasCustom.getGrnChl());
+            hspDbzlBas.setSwChl(hspDbzlBasCustom.getSwChl());
+            hspDbzlBas.setHspAra(null);
+            hspDbzlBas.setYqxh(null);
+            hspDbzlBas.setJzxh(hspDbzlBasCustom.getJzxh());
+            hspDbzlBas.setZyxh(null);
+            hspDbzlBas.setDocDat(hspDbzlBasCustom.getDocDat());
+            hspDbzlBas.setJzys(hspDbzlBasCustom.getJzys());
+            hspDbzlBas.setYsxm(hspDbzlBasCustom.getYsxm());
+            hspDbzlBas.setKsdm(hspDbzlBasCustom.getKsdm());
+            hspDbzlBas.setCrtTim(new Date());
+            hspDbzlBas.setCrtNo(activeUser.getUsrno());
+            hspDbzlBas.setCrtNam(activeUser.getUsrname());
+            hspDbzlBas.setModTim(new Date());
+            hspDbzlBas.setModNo(activeUser.getUsrno());
+            hspDbzlBas.setModNam(activeUser.getUsrname());
+            hspDbzlBas.setRcdSta(null);
+            hspDbzlBas.setChkTim(null);
+            hspDbzlBas.setChkNo(null);
+            hspDbzlBas.setChkNam(null);
+            hspDbzlBas.setChkMsg(null);
+            hspDbzlBas.setStpFlg(null);
+            hspDbzlBas.setStpTim(null);
+            hspDbzlBas.setStpNo(null);
+            hspDbzlBas.setStpNam(null);
+            hspDbzlBas.setSmtSta("1");
+            hspDbzlBas.setSmtSeq(null);
+            hspDbzlBas.setSmtMsg(null);
+            if("1".equals(activeUser.getHospitalCategory())){
+                hspDbzlBas.setHspAra("1");
+            }else{
+                hspDbzlBas.setHspAra("2");
+            }
+            hspDbzlBasMapper.insert(hspDbzlBas);
+        }else{
+            regSeq= hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq();
+
+            HspDbzlBas hspDbzlBas =hspDbzlBasQueryDto.getHspDbzlBasCustom();
+            hspDbzlBasMapper.updateByPrimaryKeySelective(hspDbzlBas);
+        }
+
+        addzlinf(hspDbzlBasCustom, regSeq);
+    }
+
+    private void addzlinf(HspDbzlBasCustom hspDbzlBasCustom, String regSeq) {
+        HspZlInfCustom baseZlInf = new HspZlInfCustom();
+        baseZlInf.setEmgNo(regSeq);
+        //血压
+        if(hspDbzlBasCustom.getXuey() != null ){
+            baseZlInf.setProCode("XYJZ");
+            baseZlInf.setProVal(hspDbzlBasCustom.getXuey());
+            hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
+        }
+
+        //脉搏
+        if(hspDbzlBasCustom.getMb() != null) {
+            baseZlInf.setProCode("MBJZ");
+            baseZlInf.setProVal(hspDbzlBasCustom.getMb());
+            hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
+        }
+        //血氧
+        if(hspDbzlBasCustom.getXueyang() != null) {
+            baseZlInf.setProCode("XUEYANG");
+            baseZlInf.setProVal(hspDbzlBasCustom.getXueyang());
+            hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
+        }
+        //tiwen
+        if(hspDbzlBasCustom.getTiw() != null) {
+            baseZlInf.setProCode("TWJZ");
+            baseZlInf.setProVal(hspDbzlBasCustom.getTiw());
+            hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
+        }
+        //呼吸频率
+        if(hspDbzlBasCustom.getHuxipl() != null) {
+            baseZlInf.setProCode("HXPLJZ");
+            baseZlInf.setProVal(hspDbzlBasCustom.getHuxipl());
+            hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
+        }
+        //意识
+        if(hspDbzlBasCustom.getXueyang() != null) {
+            baseZlInf.setProCode("YISHI");
+            //baseZlInf.setProVal(hspDbzlBasCustom.getSenRctCod());
+            hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
+        }
+
+
 
     }
+
 }
