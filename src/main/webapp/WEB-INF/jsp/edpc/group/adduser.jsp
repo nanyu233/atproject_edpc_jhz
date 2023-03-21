@@ -105,7 +105,7 @@
         <a class="easyui-linkbutton" iconCls="icon-ok">
             <button id="submitbtn" type="submit" class="all-unset" onclick="submit()">确定</button>
         </a>
-        <a id="cancelbtn" class="easyui-linkbutton" iconCls="icon-cancel" onclick="close()">取消</a>
+        <a id="cancelbtn" class="easyui-linkbutton" iconCls="icon-cancel" href=javascript:close()>取消</a>
     </div>
 
 
@@ -333,8 +333,8 @@
                 ]).then(function (ress){
                     var addRes = ress[0]
                     var deleteRes = ress[1]
-                    var addSuccess = addRes.resultInfo.type == '1'
-                    var deleteSuccess = deleteRes.resultInfo.type == '1'
+                    var addSuccess = addRes ? addRes.resultInfo.type == '1' : true
+                    var deleteSuccess = deleteRes ? deleteRes.resultInfo.type == '1' : true
 
                     if (addSuccess && deleteSuccess) {
                         $.messager.alert('成功提示', "群组用户更新成功", 'success')
