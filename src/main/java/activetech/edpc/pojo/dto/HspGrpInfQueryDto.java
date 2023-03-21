@@ -22,6 +22,9 @@ public class HspGrpInfQueryDto {
     // 用户列表
     private List<DstuserCustom> userList;
 
+    // 用户表domain扩展
+    private DstuserCustom dstuserCustom;
+
     public PageQuery getPageQuery() {
         return pageQuery;
     }
@@ -44,5 +47,13 @@ public class HspGrpInfQueryDto {
 
     public void setUserList(List<DstuserCustom> userList) {
         this.userList = userList;
+    }
+
+    public DstuserCustom getDstuserCustom() {
+        return dstuserCustom;
+    }
+
+    public void setDstuserCustom(DstuserCustom dstuserCustom) {
+        this.dstuserCustom = dstuserCustom;
     }
 }

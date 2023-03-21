@@ -46,4 +46,13 @@ public interface HspGrpUsrMapperCustom {
      *      userList: 用户集合
      */
     void addUserToGroup(HspGrpInfQueryDto hspGrpInfQueryDto);
+
+    /**
+     * 获取用户总记录数
+     * @param hspGrpInfQueryDto
+     * @return
+     */
+    int getUserCount(HspGrpInfQueryDto hspGrpInfQueryDto);
+
+    List<DstuserCustom> getUserList(HspGrpInfQueryDto hspGrpInfQueryDto);
 }

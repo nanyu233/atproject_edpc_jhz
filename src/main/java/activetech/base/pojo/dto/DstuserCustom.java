@@ -25,6 +25,9 @@ public class DstuserCustom extends Dstuser {
 	private String queryLike;
 	private String selrole;//查询角色条件
 
+	// 群组序号	|hsp_grp_usr.grp_seq
+	private String grpSeq;
+
 	public String getSelrole() {
 		return selrole;
 	}
@@ -129,4 +132,11 @@ public class DstuserCustom extends Dstuser {
 		this.groupname = groupname;
 	}
 
+	public String getGrpSeq() {
+		return grpSeq;
+	}
+
+	public void setGrpSeq(String grpSeq) {
+		this.grpSeq = grpSeq;
+	}
 }

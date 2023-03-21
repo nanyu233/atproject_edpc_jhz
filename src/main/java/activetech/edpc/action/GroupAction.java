@@ -196,6 +196,32 @@ public class GroupAction {
     }
 
     /**
+     * 结合群组获取用户列表分页查询
+     *
+     * @param hspGrpInfQueryDto
+     * @param page
+     * @param rows
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryuser_result")
+    @ResponseBody
+    public DataGridResultInfo queryUserResult(HspGrpInfQueryDto hspGrpInfQueryDto, int page, int rows) throws Exception {
+        // 分页查询群组列表
+        int total = groupService.getUserCount(hspGrpInfQueryDto);
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setPageParams(total, rows, page);
+        hspGrpInfQueryDto.setPageQuery(pageQuery);
+        List<DstuserCustom> list = groupService.getUserList(hspGrpInfQueryDto);
+        DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
+        // 填充total
+        dataGridResultInfo.setTotal(total);
+        // 填充rows
+        dataGridResultInfo.setRows(list);
+        return dataGridResultInfo;
+    }
+
+    /**
      * 向群组中新增用户提交
      *
      * @param hspGrpInfQueryDto
@@ -206,7 +232,7 @@ public class GroupAction {
     @RequestMapping("/addusersubmit")
     @ResponseBody
     public SubmitResultInfo addUserSubmit(@RequestBody HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
-        // TODO 群组新增
+        // 群组新增
         groupService.addUserToGroup(hspGrpInfQueryDto, activeUser);
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         return ResultUtil.createSubmitResult(resultInfo);
@@ -222,7 +248,7 @@ public class GroupAction {
     @RequestMapping("/delusersubmit")
     @ResponseBody
     public SubmitResultInfo delUserSubmit(@RequestBody HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
-        // TODO 群组新增
+        // 群组新增
         groupService.delUserFromGroup(hspGrpInfQueryDto, activeUser);
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         return ResultUtil.createSubmitResult(resultInfo);

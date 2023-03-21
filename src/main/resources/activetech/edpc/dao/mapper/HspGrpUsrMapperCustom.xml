@@ -71,4 +71,65 @@
         ) b
     </insert>
 
+    <sql id="query_user_where">
+        and a.usrno = b.usrno(+)
+        and a.usrno <![CDATA[ <> ]]> 'admin'
+        <if test="dstuserCustom != null">
+            <if test="dstuserCustom.usrno != null and dstuserCustom.usrno != ''.toString()">
+                and a.usrno = #{dstuserCustom.usrno, jdbcType=VARCHAR}
+            </if>
+            <if test="dstuserCustom.usrname != null and dstuserCustom.usrname != ''.toString()">
+                and a.usrname like '%' || #{dstuserCustom.usrname, jdbcType=VARCHAR} || '%'
+            </if>
+        </if>
+    </sql>
+
+    <!-- 获取用户总记录数 -->
+    <select id="getUserCount" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto" resultType="java.lang.Integer">
+        select count(*)
+        from dstuser a,
+             (select grp_seq, usrno
+              from hsp_grp_usr
+              where grp_seq = #{hspGrpInfCustom.grpSeq, jdbcType=VARCHAR}) b
+        <where>
+            <include refid="query_user_where"/>
+        </where>
+    </select>
+
+    <!-- 根据群组获取用户列表分页查询 -->
+    <select id="getUserList" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto" resultType="activetech.base.pojo.dto.DstuserCustom">
+        <include refid="activetech.base.CommonSql.page_start" />
+            select b.grp_seq,
+                   a.userid,
+                   a.usrno,
+                   a.usrname,
+                   a.usrpass,
+                   a.userstate,
+                   a.phone,
+                   a.movephone,
+                   a.addr,
+                   a.email,
+                   a.fax,
+                   a.groupid,
+                   a.sysid,
+                   a.vchar1,
+                   a.vchar2,
+                   a.vchar3,
+                   a.vchar4,
+                   a.out_call,
+                   a.emgsysid,
+                   a.ysh,
+                   a.exp_dat,
+                   a.unionid
+            from dstuser a,
+                 (select grp_seq, usrno
+                  from hsp_grp_usr
+                  where grp_seq = #{hspGrpInfCustom.grpSeq, jdbcType=VARCHAR}) b
+            <where>
+                <include refid="query_user_where"/>
+            </where>
+           order by b.grp_seq nulls last, a.vchar1 nulls last
+        <include refid="activetech.base.CommonSql.page_end" />
+    </select>
+
 </mapper>

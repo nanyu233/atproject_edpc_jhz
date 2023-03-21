@@ -211,6 +211,28 @@ public class GroupServiceImpl implements GroupService {
     }
 
     /**
+     * 获取用户总记录数
+     *
+     * @param hspGrpInfQueryDto hspGrpInfCustom.grpSeq:群组序号
+     * @return
+     */
+    @Override
+    public int getUserCount(HspGrpInfQueryDto hspGrpInfQueryDto) {
+        return hspGrpUsrMapperCustom.getUserCount(hspGrpInfQueryDto);
+    }
+
+    /**
+     * 获取用户列表分页查询（结合当前群组信息）
+     *
+     * @param hspGrpInfQueryDto hspGrpInfCustom.grpSeq:群组序号
+     * @return
+     */
+    @Override
+    public List<DstuserCustom> getUserList(HspGrpInfQueryDto hspGrpInfQueryDto) {
+        return hspGrpUsrMapperCustom.getUserList(hspGrpInfQueryDto);
+    }
+
+    /**
      * 向群组中添加用户
      *
      * @param hspGrpInfQueryDto

@@ -85,6 +85,24 @@ public interface GroupService {
     void delGroup(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception;
 
     /**
+     * 获取用户总记录数
+     *
+     * @param hspGrpInfQueryDto
+     *      hspGrpInfCustom.grpSeq:群组序号
+     * @return
+     */
+    int getUserCount(HspGrpInfQueryDto hspGrpInfQueryDto);
+
+    /**
+     * 获取用户列表分页查询（结合当前群组信息）
+     *
+     * @param hspGrpInfQueryDto
+     *      hspGrpInfCustom.grpSeq:群组序号
+     * @return
+     */
+    List<DstuserCustom> getUserList(HspGrpInfQueryDto hspGrpInfQueryDto);
+
+    /**
      * 向群组中添加用户
      *
      * @param hspGrpInfQueryDto
