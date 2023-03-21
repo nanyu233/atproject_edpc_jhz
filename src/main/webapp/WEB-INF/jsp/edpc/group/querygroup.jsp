@@ -78,7 +78,7 @@
                     title: '群组类型',
                     width: 100,
                     formatter: function (value){
-                        return grpTypeMap["0" + value]
+                        return grpTypeMap[value]
                     }
                 },
                 {

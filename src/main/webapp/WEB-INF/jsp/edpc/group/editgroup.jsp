@@ -24,10 +24,44 @@
             box-sizing: initial;
         }
 
-        body {
-            height: 100%;
+        html, body, #groupEditForm {
+            width: 100vw;
+            height: 100vh;
         }
 
+        #groupEditForm {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #groupEditForm table {
+            flex: 1;
+        }
+
+        .footbar {
+            width: 100%;
+            flex: none;
+            display: flex;
+            justify-content: end;
+            gap: 10px;
+            padding: 0 10px 10px;
+        }
+
+        .textarea-base {
+            border: 1px solid #d2d9dc;
+            text-indent: 2px;
+            text-align: left;
+            resize: none;
+        }
+
+        .input-base {
+            line-height: 24px;
+            height: 24px;
+        }
+
+        tr {
+
+        }
 
         .off-screen {
             position: absolute;
@@ -100,11 +134,14 @@
             <tbody>
                 <tr>
                     <th><label for="grpName">群组名称：</label></th>
-                    <td><input id="grpName" name="hspGrpInfCustom.grpName" /></td>
+                    <td><input id="grpName" name="hspGrpInfCustom.grpName" class="input-base" /></td>
                 </tr>
                 <tr>
-                    <th><label for="grpType">群组名称：</label></th>
-                    <td><input id="grpType" name="hspGrpInfCustom.grpType" /></td>
+                    <th><label for="grpType">群组类型：</label></th>
+                    <td>
+                        <select id="grpType" name="hspGrpInfCustom.grpType">
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th><label for="isenable">状   态：</label></th>
@@ -116,11 +153,11 @@
                 </tr>
                 <tr>
                     <th><label for="showorder">排   序：</label></th>
-                    <td><input id="showorder" name="hspGrpInfCustom.showorder" type="number" /></td>
+                    <td><input id="showorder" name="hspGrpInfCustom.showorder" type="number" class="input-base" /></td>
                 </tr>
                 <tr>
                     <th><label for="remark">备   注：</label></th>
-                    <td><textarea id="remark" name="hspGrpInfCustom.remark" cols="50" rows="5"></textarea></td>
+                    <td><textarea id="remark" name="hspGrpInfCustom.remark" cols="50" rows="5" class="textarea-base"></textarea></td>
                 </tr>
             </tbody>
         </table>
@@ -143,6 +180,24 @@
         var statusMap = { "0": "无效", "1": "有效" }
         var grpTypeMap = listToMap(allDict.GRP_TYPE, 'infocode', 'info')
 
+        // 初始化 select options
+        $('#grpType').append(function () {
+            var options = []
+            $.each(grpTypeMap, function (infocode, info) {
+                var $option = $('<option></option>')
+                $option.attr("value", infocode)
+                $option.html(info)
+                if (infocode == '00') {
+                    $option.attr('selected', 'selected')
+                }
+                options.push($option)
+            })
+            return options
+        })
+
+        // groupOperation是由父页面穿过来
+        // 只有当执行的是 addgroup editgroup 操作时会保存到后
+        // 其他操作 如 groupdetail 只是展示
         if (submitOperation.test(groupOperation)) {
             $(formSelector).attr("action", "${baseurl}group/" + groupOperation + "submit.do")
         } else {
@@ -150,7 +205,7 @@
         }
 
         $.validator.methods.grpType = function (value) {
-            return !!grpTypeMap["0" + value]
+            return !!grpTypeMap[value]
         };
 
         var validateOptions = {
@@ -162,10 +217,7 @@
                         return $.trim(value)
                     }
                 },
-                "hspGrpInfCustom.grpType": {
-                    required: true,
-                    grpType: true
-                },
+                "hspGrpInfCustom.grpType": "required",
                 "hspGrpInfCustom.showorder": {
                     required: true,
                     digits: true
@@ -184,6 +236,8 @@
             }
         }
 
+        // 除了添加群组，其他编辑或者查询`grpSeq`都会存在
+        // 存在的情况下初始化表单
         if (grpSeq) {
             $("#submitbtn").attr("disabled", "disabled")
             $.ajax({
@@ -227,10 +281,10 @@
             delete validateOptions.rules["hspGrpInfCustom.grpSeq"]
             delete validateOptions.messages["hspGrpInfCustom.grpSeq"]
             $("#grpSeq").remove()
+            $("label[for=grpSeq]").remove()
         }
 
         var formValidator = $(formSelector).validate(validateOptions)
-
 
         $(formSelector).submit(function (e) {
             e.preventDefault()
@@ -240,6 +294,7 @@
             var data = $form.serialize()
 
             // hspGrpInfCustom.isenable 不传会报错
+            // checkbox hspGrpInfCustom.isenable 未选中 FormData 是不会包含它的
             if (!/hspGrpInfCustom.isenable/.test(data)) {
                 data += '&hspGrpInfCustom.isenable=0'
             }
@@ -250,18 +305,16 @@
                     url: actionUrl,
                     data: data,
                     dataType: 'json',
-                    success: submitSuccessCallback
+                    success: function (data) {
+                        message_alert(data);
+                        if (data.resultInfo.type == '1') {
+                            close()
+                        }
+                    }
                 });
             }
 
         })
-
-        function submitSuccessCallback(data) {
-            message_alert(data);
-            if (data.resultInfo.type == '1') {
-                close()
-            }
-        }
 
         function close() {
             //延迟1秒执行关闭方法
