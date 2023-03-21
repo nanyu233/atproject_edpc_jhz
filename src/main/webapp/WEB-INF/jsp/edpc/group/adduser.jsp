@@ -34,6 +34,22 @@
             flex-direction: column;
         }
 
+        .footbar {
+            width: 100%;
+            flex: none;
+            display: flex;
+            justify-content: end;
+            gap: 10px;
+        }
+
+        .all-unset {
+            all: unset;
+        }
+
+        .easyui-linkbutton button:disabled {
+            background: gray;
+        }
+
         .flex {
             display: flex;
         }
@@ -79,9 +95,17 @@
     </div>
 
     <div class="flex-1 flex flex-col">
+        <div class="flex-none" style="padding: 0 10px; border-bottom: 1px solid black;">群组用户预览列表</div>
         <table id="user-preview">
 
         </table>
+    </div>
+
+    <div class="footbar">
+        <a class="easyui-linkbutton" iconCls="icon-ok">
+            <button id="submitbtn" type="submit" class="all-unset" onclick="submit()">确定</button>
+        </a>
+        <a id="cancelbtn" class="easyui-linkbutton" iconCls="icon-cancel" onclick="close()">取消</a>
     </div>
 
 
@@ -93,7 +117,8 @@
 
         var userInfoSelector = '#user-info'
         var userPreviewSelector = '#user-preview'
-
+        var dInitUserPreviewTable = publicFun.debounce(initUserPreviewTable, 500)
+        var initialGroupUsers = [];
         var userInfoColumns = [
             [
                 {
@@ -116,77 +141,17 @@
                     field: 'userstate',
                     title: '状态',
                     width: 50,
-                    // formatter: function (value){
-                    //     return statusMap[value]
-                    // }
+                    formatter: function (value){
+                        return statusMap[value]
+                    }
                 },
                 {
                     field: 'movephone',
                     title: '移动电话',
                     width: 100
-                },
-                {
-                    field: '__handle',
-                    title: '操作',
-                    width: 50,
-                    formatter: function (value, row, index) {
-                        if (value === false) return '';
-                        if (value === '0') return "<span class='url-link'><a href=javascript:deleteUsers('" + JSON.stringify(row) + "')>删除</a></span>"
-                        return "<span class='url-link'><a href=javascript:addUsers('" + JSON.stringify(row) + "')>添加</a></span>"
-                    }
                 }
             ]
         ]
-
-        function addUsers(users) {
-            users = typeof users === 'string' ? JSON.parse(users) : users;
-            if (!isObject(users) || !isArray(users)) return;
-
-            var userList
-            if (isArray(users)) {
-                userList = users
-            } else {
-                userList = [users]
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "${baseurl}group/addusersubmit.do",
-                contentType: 'application/json;charset=UTF-8',
-                dataType: "json",
-                data: JSON.stringify({
-                    hspGrpInfCustom: {
-                        grpSeq: grpSeq
-                    },
-                    userList: userList
-                })
-            })
-        }
-
-        function deleteUsers(users) {
-            users = typeof users === 'string' ? JSON.parse(users) : users;
-            if (!isObject(users) || !isArray(users)) return;
-
-            var userList
-            if (isArray(users)) {
-                userList = users
-            } else {
-                userList = [users]
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "${baseurl}group/delusersubmit.do",
-                contentType: 'application/json;charset=UTF-8',
-                dataType: "json",
-                data: JSON.stringify({
-                    hspGrpInfCustom: {
-                        grpSeq: grpSeq
-                    },
-                    userList: userList
-                }),
-            })
-        }
 
         /**
          *
@@ -195,17 +160,18 @@
          */
         function initUserInfoTable(usrno, usrname) {
             $(userInfoSelector).datagrid({
-                url: "${baseurl}user/queryuser_result.do.do",
+                url: "${baseurl}group/queryuser_result.do",
                 queryParams: {
                     page: 1,
                     rows: 15,
+                    "hspGrpInfCustom.grpSeq": grpSeq,
                     "dstuserCustom.usrno": usrno,
                     "dstuserCustom.usrname": usrname
                 },
                 columns: userInfoColumns,
                 checkOnSelect: true,
                 selectOnCheck: true,
-                idField: "userno",
+                idField: "userid",
                 height: 'auto',
                 fit: true ,
                 nowrap: true,
@@ -219,9 +185,31 @@
                 onRowContextMenu: function (e,index,row) {
                     e.preventDefault()
                 },
-                onCheck: function (index, row) {
+                onLoadSuccess: function (data) {
+                    var users = data && data.rows || [];
+                    var groupUsers = $.grep(users, function (user) {
+                        return user.grpSeq
+                    })
 
-                }
+                    initialGroupUsers = Object.freeze(groupUsers)
+
+                    for (var i = 0; i < groupUsers.length; i++) {
+                        var user = groupUsers[i];
+                        $(this).datagrid('selectRecord', user.userid)
+                    }
+                },
+                onCheck: function (index,user) {
+                    dInitUserPreviewTable()
+                },
+                onUncheck: function (index,user) {
+                    dInitUserPreviewTable()
+                },
+                onCheckAll: function (index,user) {
+                    dInitUserPreviewTable()
+                },
+                onUncheckAll: function (index,user) {
+                    dInitUserPreviewTable()
+                },
             })
         }
 
@@ -267,15 +255,19 @@
         ]
 
         function initUserPreviewTable() {
+            $('#submitbtn').attr('disabled', 'disabled');
+            var options = $(userInfoSelector).data('datagrid')
+            var rows = options && $(userInfoSelector).datagrid('getSelections') || [];
+            var data = { total: 0, rows: [] }
+            if (rows.length > 0) {
+                data.rows = rows
+                data.total = rows.length
+            }
+
             $(userPreviewSelector).datagrid({
-                url: "${baseurl}group/queryuserbygroup_result.do",
-                queryParams: {
-                    page: 1,
-                    rows: 15,
-                    "hspGrpInfCustom.grpSeq": grpSeq
-                },
+                data: data,
                 columns: userPreviewColumns,
-                idField: "userno",
+                idField: "userid",
                 singleSelect: true,
                 height: 'auto',
                 fit: true ,
@@ -290,12 +282,8 @@
                 onRowContextMenu: function (e,index,row) {
                     e.preventDefault()
                 },
-                onLoadSuccess: function (res) {
-                    if (res && res.rows && res.rows.length > 0) {
-                        $.each(res.rows, function (_, user) {
-                            $(userInfoSelector).datagrid('selectRecord', user.userid)
-                        })
-                    }
+                onLoadSuccess: function () {
+                    $('#submitbtn').attr('disabled', null)
                 }
             })
         }
@@ -304,7 +292,112 @@
             $(userPreviewSelector).datagrid('reload')
         }
 
+        function close() {
+            //延迟1秒执行关闭方法
+            setTimeout("parent.closemodalwindow()", 1000);
+            parent.cmdrefresh();
+        }
+
+
+        function submit() {
+            $.messager.confirm("警告", "是否确认更新？", function () {
+                var willDeleteUsers = []
+                var willAddUsers = []
+                var allUsersData = $(userPreviewSelector).datagrid('getData') || {}
+                var selectedUsers = allUsersData.rows || []
+
+                // 计算将要删除得用户
+                $.each(initialGroupUsers, function (_, user) {
+                    const isDelete = selectedUsers.every(function (selectedUser) {
+                        return selectedUser.userid !== user.userid
+                    })
+
+                    if (isDelete) {
+                        willDeleteUsers.push(user)
+                    }
+                })
+
+                // $.each(selectedUsers, function (_, user) {
+                //     const canAdd = initialGroupUsers.every(function (initialGroupUser) {
+                //         return initialGroupUser.userid !== user.userid
+                //     })
+                //
+                //     if (canAdd) {
+                //         willAddUsers.push(user)
+                //     }
+                // })
+
+                Promise.all([
+                    addUsers(selectedUsers),
+                    willDeleteUsers.length > 0 && deleteUsers(willDeleteUsers)
+                ]).then(function (ress){
+                    var addRes = ress[0]
+                    var deleteRes = ress[1]
+                    var addSuccess = addRes.resultInfo.type == '1'
+                    var deleteSuccess = deleteRes.resultInfo.type == '1'
+
+                    if (addSuccess && deleteSuccess) {
+                        $.messager.alert('成功提示', "群组用户更新成功", 'success')
+                        close()
+                    } else {
+                        $.messager.alert('失敗信息', "群组用户更新失敗", 'error')
+                    }
+
+                }).catch(function (){
+                    $.messager.alert('失敗信息', "群组用户更新失敗", 'error')
+                })
+            })
+        }
+
         ///////////////////////////////////////////////////// Utils ////////////////////////////////////////////////////
+
+        function addUsers(users) {
+            if (!isObject(users) && !isArray(users)) return;
+
+            var userList
+            if (isArray(users)) {
+                userList = users
+            } else {
+                userList = [users]
+            }
+
+            return $.ajax({
+                type: "POST",
+                url: "${baseurl}group/addusersubmit.do",
+                contentType: 'application/json;charset=UTF-8',
+                dataType: "json",
+                data: JSON.stringify({
+                    hspGrpInfCustom: {
+                        grpSeq: grpSeq
+                    },
+                    userList: userList
+                })
+            })
+        }
+
+        function deleteUsers(users) {
+            if (!isObject(users) && !isArray(users)) return;
+
+            var userList
+            if (isArray(users)) {
+                userList = users
+            } else {
+                userList = [users]
+            }
+
+            return $.ajax({
+                type: "POST",
+                url: "${baseurl}group/delusersubmit.do",
+                contentType: 'application/json;charset=UTF-8',
+                dataType: "json",
+                data: JSON.stringify({
+                    hspGrpInfCustom: {
+                        grpSeq: grpSeq
+                    },
+                    userList: userList
+                }),
+            })
+        }
 
         function listToMap(list, keyField, valueField) {
             list = list || []

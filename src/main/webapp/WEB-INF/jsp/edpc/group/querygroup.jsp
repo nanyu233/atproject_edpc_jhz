@@ -218,6 +218,7 @@
 
         function cmdrefresh() {
             $(groupSelector).datagrid('reload')
+            $(userSelector).datagrid('reload')
         }
 
         function deleteGroupBySeq(grpSeq, grpName) {
