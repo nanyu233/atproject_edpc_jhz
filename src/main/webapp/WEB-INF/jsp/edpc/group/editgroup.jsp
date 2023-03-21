@@ -30,6 +30,7 @@
         }
 
         #groupEditForm {
+            padding: 10px;
             display: flex;
             flex-direction: column;
         }
@@ -38,13 +39,20 @@
             flex: 1;
         }
 
+        #groupEditForm table tr {
+            vertical-align: top;
+        }
+
+        #groupEditForm table tr th {
+            text-align: end;
+        }
+
         .footbar {
             width: 100%;
             flex: none;
             display: flex;
             justify-content: end;
             gap: 10px;
-            padding: 0 10px 10px;
         }
 
         .textarea-base {
@@ -57,10 +65,6 @@
         .input-base {
             line-height: 24px;
             height: 24px;
-        }
-
-        tr {
-
         }
 
         .off-screen {
@@ -144,7 +148,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="isenable">状   态：</label></th>
+                    <th><label for="isenable">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label></th>
                     <td>
                         <%--<input class="off-screen" name="hspGrpInfCustom.isenable" value="0">--%>
                         <input id="isenable" name="hspGrpInfCustom.isenable" type="checkbox" value="1" checked class="cmn-toggle cmn-toggle-round"  >
@@ -152,11 +156,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <th><label for="showorder">排   序：</label></th>
+                    <th><label for="showorder">排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序：</label></th>
                     <td><input id="showorder" name="hspGrpInfCustom.showorder" type="number" class="input-base" /></td>
                 </tr>
                 <tr>
-                    <th><label for="remark">备   注：</label></th>
+                    <th><label for="remark">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</label></th>
                     <td><textarea id="remark" name="hspGrpInfCustom.remark" cols="50" rows="5" class="textarea-base"></textarea></td>
                 </tr>
             </tbody>
