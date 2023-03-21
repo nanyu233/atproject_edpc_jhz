@@ -193,11 +193,12 @@ var publicFun = {
 		var timer
 		return function () {
 			var that = this
+			var args = arguments
 			if (timer) {
 				clearTimeout(timer)
 			}
 			timer = setTimeout(function () {
-              fn.call(that)
+				fn.apply(that, args)
 			},delay)
 		}
 	},
