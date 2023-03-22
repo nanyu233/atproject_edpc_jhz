@@ -45,7 +45,7 @@ public class GroupAction {
      * @throws Exception
      */
     @RequestMapping("/querygroup")
-    public String querygroup(Model model, String moduleid) throws Exception {
+    public String queryGroup(Model model, String moduleid) throws Exception {
         model.addAttribute("moduleid", moduleid);
         return "/edpc/group/querygroup";
     }
@@ -74,6 +74,7 @@ public class GroupAction {
         dataGridResultInfo.setRows(list);
         return dataGridResultInfo;
     }
+
     /**
      * 群组管理用户列表数据分页查询
      *
@@ -107,7 +108,7 @@ public class GroupAction {
      * @description
      */
     @RequestMapping("/editgroup")
-    public String editgroup(Model model, String grpSeq) throws Exception {
+    public String editGroup(Model model, String grpSeq) throws Exception {
         model.addAttribute("grpSeq", grpSeq);
         return "/edpc/group/editgroup";
     }
@@ -190,7 +191,7 @@ public class GroupAction {
      * @description
      */
     @RequestMapping("/adduser")
-    public String adduser(Model model, String grpSeq) throws Exception {
+    public String addUser(Model model, String grpSeq) throws Exception {
         model.addAttribute("grpSeq", grpSeq);
         return "/edpc/group/adduser";
     }
@@ -237,6 +238,7 @@ public class GroupAction {
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         return ResultUtil.createSubmitResult(resultInfo);
     }
+
     /**
      * 从群组中移除用户提交
      *
@@ -253,4 +255,5 @@ public class GroupAction {
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         return ResultUtil.createSubmitResult(resultInfo);
     }
+
 }
