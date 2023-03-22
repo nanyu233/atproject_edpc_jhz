@@ -24,6 +24,15 @@
             box-sizing: initial;
         }
 
+        a.disabled {
+            pointer-events: none;
+            color: #c1bcbc;
+        }
+
+        .datagrid-mask-msg {
+            height: auto;
+        }
+
         html, body, #groupEditForm {
             width: 100vw;
             height: 100vh;
@@ -167,10 +176,8 @@
         </table>
 
         <div class="footbar">
-            <a class="easyui-linkbutton" iconCls="icon-ok">
-                <button id="submitbtn" type="submit" class="all-unset">确定</button>
-            </a>
-            <a id="cancelbtn" class="easyui-linkbutton" iconCls="icon-cancel" onclick="handleCancel()">取消</a>
+            <a id="submitbtn" class="easyui-linkbutton" iconCls="icon-ok" href=javascript:handleSubmit()>确定</a>
+            <a id="cancelbtn" class="easyui-linkbutton" iconCls="icon-cancel" href=javascript:handleCancel()>取消</a>
         </div>
     </form>
 
@@ -243,7 +250,7 @@
         // 除了添加群组，其他编辑或者查询`grpSeq`都会存在
         // 存在的情况下初始化表单
         if (grpSeq) {
-            $("#submitbtn").attr("disabled", "disabled")
+            $("#submitbtn").addClass("disabled")
             $.ajax({
                 url: '${baseurl}group/findgroupbyseq.do',
                 type: 'POST',
@@ -255,7 +262,7 @@
                 success: function(res) {
                     var resultInfo = res.resultInfo || {}
                     if (resultInfo.type == '1') {
-                        $("#submitbtn").attr("disabled", null)
+                        $("#submitbtn").removeClass("disabled")
                         var sysdata = resultInfo.sysdata || {}
                         var groupInfo = sysdata.hspGrpInf || {}
 
@@ -290,10 +297,8 @@
 
         var formValidator = $(formSelector).validate(validateOptions)
 
-        $(formSelector).submit(function (e) {
-            e.preventDefault()
-
-            var $form = $(this);
+        function handleSubmit() {
+            var $form = $(formSelector);
             var actionUrl = $form.attr('action');
             var data = $form.serialize()
 
@@ -317,8 +322,7 @@
                     }
                 });
             }
-
-        })
+        }
 
         function close() {
             //延迟1秒执行关闭方法

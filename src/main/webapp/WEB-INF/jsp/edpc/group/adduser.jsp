@@ -24,6 +24,15 @@
             box-sizing: initial;
         }
 
+        a.disabled {
+            pointer-events: none;
+            color: #c1bcbc;
+        }
+
+        .datagrid-mask-msg {
+            height: auto;
+        }
+
         html, body {
             width: 100%;
             height: 100%;
@@ -42,12 +51,18 @@
             gap: 10px;
         }
 
-        .all-unset {
-            all: unset;
+        .input-base {
+            width: 90px;
         }
 
-        .easyui-linkbutton button:disabled {
-            background: gray;
+        .search-btn {
+            width: 50px;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #428bca;
+            border-color: #357ebd;
+            height: 20px;
+            text-align: center;
         }
 
         .flex {
@@ -65,28 +80,44 @@
         .items-start {
             align-items: start;
         }
-        .gap-30 {
-            gap: 30px
+        .gap-5 {
+            gap: 5px
+        }
+        .gap-10 {
+            gap: 10px
+        }
+        .py-5 {
+            padding: 5px 0;
+        }
+        .pb-5 {
+            padding-bottom: 5px;
+        }
+        .mb-5 {
+            margin-bottom: 5px;
+        }
+        .border-b {
+            border-bottom: 1px solid black;
         }
     </style>
 </head>
-<body class="flex flex-col">
+<body class="flex flex-col gap-5 py-5">
     <div class="flex-1 flex flex-col">
-        <div id="userInfoForm" class="flex-none flex gap-30">
+        <div id="userInfoForm" class="flex-none flex gap-10 pb-5 mb-5 border-b">
             <div>
                 <label>
                     用户账号：
-                    <input id="usrno" name="usrno" />
+                    <input id="usrno" name="usrno" class="input-base" />
                 </label>
             </div>
             <div>
                 <label>
                     用户名称：
-                    <input id="usrname" name="usrname" />
+                    <input id="usrname" name="usrname" class="input-base" />
                 </label>
             </div>
             <div>
-                <button onclick="queryUserResult()">查询</button>
+                <button onclick="queryUserResult()" class="search-btn">查询</button>
+                <%--<a id="search" href=javascript:queryUserResult() class="easyui-linkbutton" iconCls="icon-search" id="btn">查询</a>--%>
             </div>
         </div>
         <table id="user-info">
@@ -95,17 +126,15 @@
     </div>
 
     <div class="flex-1 flex flex-col">
-        <div class="flex-none" style="padding: 0 10px; border-bottom: 1px solid black;">群组用户预览列表</div>
+        <div class="flex-none pb-5 mb-5 border-b">群组用户预览列表</div>
         <table id="user-preview">
 
         </table>
     </div>
 
     <div class="footbar">
-        <a class="easyui-linkbutton" iconCls="icon-ok">
-            <button id="submitbtn" type="submit" class="all-unset" onclick="submit()">确定</button>
-        </a>
-        <a id="cancelbtn" class="easyui-linkbutton" iconCls="icon-cancel" href=javascript:close()>取消</a>
+        <a id="submitbtn" class="easyui-linkbutton" iconCls="icon-ok" href=javascript:submit()>确定</a>
+        <a id="cancelbtn" class="easyui-linkbutton" iconCls="icon-cancel"  href=javascript:close()>取消</a>
     </div>
 
 
@@ -260,7 +289,7 @@
         ]
 
         function initUserPreviewTable() {
-            $('#submitbtn').attr('disabled', 'disabled');
+            $("#submitbtn").addClass("disabled")
             var options = $(userInfoSelector).data('datagrid')
             var rows = options && $(userInfoSelector).datagrid('getSelections') || [];
             var data = { total: 0, rows: [] }
@@ -288,7 +317,7 @@
                     e.preventDefault()
                 },
                 onLoadSuccess: function () {
-                    $('#submitbtn').attr('disabled', null)
+                    $("#submitbtn").removeClass("disabled")
                 }
             })
         }

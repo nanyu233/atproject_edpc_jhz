@@ -22,6 +22,10 @@
             box-sizing: initial;
         }
 
+        .datagrid-mask-msg {
+            height: auto;
+        }
+
         html, body {
             width: 100%;
             height: 100%;
