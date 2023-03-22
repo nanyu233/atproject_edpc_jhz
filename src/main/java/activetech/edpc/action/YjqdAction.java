@@ -11,9 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 public class YjqdAction {
 
+    /**
+     * 跳转一键启动页面
+     *
+     * @param model
+     * @param regSeq
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/addyjqd")
     public String addYjqd(Model model, String regSeq) throws Exception {
-        model.addAttribute("grpSeq", regSeq);
+        model.addAttribute("regSeq", regSeq);
         return "/edpc/yjqd/addyjqd";
     }
 }
