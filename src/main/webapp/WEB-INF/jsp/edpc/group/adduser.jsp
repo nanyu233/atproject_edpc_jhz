@@ -118,7 +118,8 @@
         var userInfoSelector = '#user-info'
         var userPreviewSelector = '#user-preview'
         var dInitUserPreviewTable = publicFun.debounce(initUserPreviewTable, 500)
-        var initialGroupUsers = [];
+        // key: pageNumber, value: user list
+        var initialGroupUserMap = {};
         var userInfoColumns = [
             [
                 {
@@ -186,12 +187,16 @@
                     e.preventDefault()
                 },
                 onLoadSuccess: function (data) {
+                    var options = $(this).datagrid("options") || {}
+                    var pageNumber = options.pageNumber || 1
                     var users = data && data.rows || [];
                     var groupUsers = $.grep(users, function (user) {
                         return user.grpSeq
                     })
 
-                    initialGroupUsers = Object.freeze(groupUsers)
+                    if (!initialGroupUserMap[pageNumber]) {
+                        initialGroupUserMap[pageNumber] = Object.freeze(groupUsers)
+                    }
 
                     for (var i = 0; i < groupUsers.length; i++) {
                         var user = groupUsers[i];
@@ -306,6 +311,7 @@
                 var allUsersData = $(userPreviewSelector).datagrid('getData') || {}
                 var selectedUsers = allUsersData.rows || []
 
+                var initialGroupUsers = computedInitialGroupUsers(initialGroupUserMap)
                 // 计算将要删除得用户
                 $.each(initialGroupUsers, function (_, user) {
                     const isDelete = selectedUsers.every(function (selectedUser) {
@@ -350,6 +356,14 @@
         }
 
         ///////////////////////////////////////////////////// Utils ////////////////////////////////////////////////////
+
+        function computedInitialGroupUsers(initialGroupUserMap) {
+            var __userList = []
+            $.each(initialGroupUserMap, function (key, userList) {
+                __userList = __userList.concat(userList)
+            })
+            return __userList
+        }
 
         function addUsers(users) {
             if (!isObject(users) && !isArray(users)) return;
