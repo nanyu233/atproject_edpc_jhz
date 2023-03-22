@@ -15,7 +15,7 @@ public class YjqdAction {
      * 跳转一键启动页面
      *
      * @param model
-     * @param regSeq
+     * @param regSeq    病人信息主键 hsp_dbzl_bas.reg_seq
      * @return
      * @throws Exception
      */
