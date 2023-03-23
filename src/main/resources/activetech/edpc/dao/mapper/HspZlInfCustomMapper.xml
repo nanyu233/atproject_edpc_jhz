@@ -369,7 +369,7 @@
         from hsp_dbzl_bas
         where PAT_TYP = '3'
         <if test="cstNam !=null and cstNam.length()>0">
-            and cst_nam = #{cstNam, jdbcType = VARCHAR}
+            and cst_nam like concat('%',concat(#{cstNam, jdbcType = VARCHAR},'%'))
         </if>
         <if test="vstCad !=null and vstCad.length()>0">
             and vst_cad = #{vstCad, jdbcType = VARCHAR}
