@@ -75,8 +75,8 @@
             opacity: 0;
         }
         .inputs .input-group .btn1 {
-            background-color: #eeeeee;!important;
-            cursor: pointer;!important;
+            background-color: #eeeeee !important;
+            cursor: pointer !important;
         }
         .green {
             color: #29b294;
@@ -2243,8 +2243,9 @@
                                 sub.aboutSco.ISSList = []
                                 sub.aboutSco.AISMax = 0
                                 sub.aboutSco.ISSMax = 0
-                                let crtTime = res.resultInfo.sysdata.hadChecked[0].crtTime
-                                if(sub.aboutSco.hasOwnProperty('ISSNowData')) {
+                                var checked =  res.resultInfo.sysdata.hadChecked[0]
+                                var crtTime = checked && checked.crtTime
+                                if(crtTime && sub.aboutSco.hasOwnProperty('ISSNowData')) {
                                     sub.aboutSco.ISSNowData = publicFun.timeFormat(crtTime, 'yyyy-MM-dd hh:mm:ss')
                                 }
                                 sub.aboutSco.ISSList = res.resultInfo.sysdata.hadChecked.sort(function (a, b) {
@@ -2470,7 +2471,8 @@
             'aboutSco.gcsSco': {
                 deep: true,
                 handler: function (newV, oldV) {
-                    for(var item of this.baseData.gcsMap) {
+                    if (this.baseData.gcsMap) {
+                        var item = this.baseData.gcsMap
                         if(newV >= item.lowValue && newV <= item.uppValue) {
                             if(newV >= 3 && newV <= 8) {
                                 this.aboutSco.gcsrisk = '重度意识障碍'
