@@ -382,7 +382,7 @@
             <option ms-repeat="getMsg.senRctCodList" ms-attr-value="el.infocode">{{el.info}}</option>
           </select>
         </div>
-        <div class="two-part">
+        <div class="two-part" style="display: none;">
           <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="title-wth">跌倒评估</label>
           <input type="text" class="small-input cursor-type bigBlueFt" ms-duplex-string="patientMsg.fallAssEssText" ms-click="riskBox()" readonly>
@@ -777,11 +777,7 @@
       var postMsg = JSON.parse(JSON.stringify(vm.patientMsg));
       vm.patientMsg.hzyjzt = '';
       if (vm.isEditPage != '1') {
-        _confirm('是否需要打印分诊单', function () {
-          addPostMsgIsNeedPrint(postMsg,'',register)
-        }, function () {
-          addPostMsgIsNeedPrint(postMsg, 'p',register)
-        })
+        addPostMsgIsNeedPrint(postMsg,'',register)
       } else {
         var _confirmMsg = '';
         if (vm.patientMsg.ghid === '' || vm.patientMsg.ghid == null) {
