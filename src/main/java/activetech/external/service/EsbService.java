@@ -5,6 +5,7 @@ import activetech.base.process.result.ResultInfo;
 import activetech.basehis.pojo.dto.*;
 import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
+import activetech.edpc.pojo.dto.HspZlInfQueryDto;
 import activetech.external.pojo.domain.HspEcgInf;
 
 import java.util.List;
@@ -35,4 +36,6 @@ public interface EsbService {
 	public  List<VHemsJyjgCustom> findjyCategoriesList(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception;
 
 	List<HspCfxxInfoCustom> findCfxxLocalAndHISList(HspCfxxInfoQueryDto hspCfxxInfoQueryDto) throws Exception;
+
+	void addzlinfosubmit_sdzx(HspZlInfQueryDto hspZlInfQueryDto, ActiveUser activeUser);
 }

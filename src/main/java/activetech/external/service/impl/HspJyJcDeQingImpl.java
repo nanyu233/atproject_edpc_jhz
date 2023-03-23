@@ -13,6 +13,7 @@ import activetech.edpc.pojo.domain.HspDbzlBas;
 import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.HspZlInfCustom;
+import activetech.edpc.pojo.dto.HspZlInfQueryDto;
 import activetech.external.pojo.domain.HspEcgInf;
 import activetech.external.service.EsbService;
 import activetech.util.DateUtil;
@@ -591,4 +592,18 @@ public class HspJyJcDeQingImpl implements EsbService {
 
     }
 
+    @Override
+    public void addzlinfosubmit_sdzx(HspZlInfQueryDto hspZlInfQueryDto, ActiveUser activeUser) {
+        String emgNo = hspZlInfQueryDto.getEmgSeq();
+        List<HspZlInfCustom> zlInfList = hspZlInfQueryDto.getZlInfList();
+        for(HspZlInfCustom zlinf : zlInfList){
+            HspZlInfCustom hspZlInfCustom = new HspZlInfCustom();
+            hspZlInfCustom.setEmgNo(emgNo);
+            hspZlInfCustom.setProCode(zlinf.getProCode());
+            hspZlInfCustom.setProVal(zlinf.getProVal());
+            hspZlInfCustom.setModUser(activeUser.getUsrno());
+            hspZlInfCustom.setCrtUser(activeUser.getUsrno());
+            hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
+        }
+    }
 }
