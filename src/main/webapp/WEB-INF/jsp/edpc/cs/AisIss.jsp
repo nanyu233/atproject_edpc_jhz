@@ -15,19 +15,21 @@
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
 </head>
 <style>
-    /* pages/index/trauma/assess/assess.wxss */
     .page {
         background: #ffffff;
         width: 100%;
-        height: 99%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .head {
+        flex: none;
         display: flex;
         justify-content: space-around;
         align-items: center;
         border-bottom: 1px solid #cccccc;
-        height: 7%;
+        height: 45px;
     }
 
     .head .bdPart {
@@ -49,30 +51,34 @@
     }
 
     .main {
+        height: 0;
+        flex: 1;
         display: flex;
-        align-items: top;
         justify-content: space-between;
-        height: 93%;
     }
 
     .main .left {
+        display: flex;
+        flex-direction: column;
         width: 22%;
         height: 100%;
         background: #F7F7F7;
-        overflow-y: scroll;
+        border-right: 2px solid #ccc;
     }
 
     .main .left .partItem {
+        flex: 1;
         position: relative;
-        border-bottom: 1px solid #cccccc;
         width: 100%;
-        height: 10%;
+        height: 0;
         text-align: center;
-        min-height: 110px;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
 
+    .main .left .partItem:not(:last-child) {
+        border-bottom: 1px solid #cccccc;
     }
 
     .main .left .partItem view {
@@ -130,16 +136,15 @@
     }
 
     .foot {
+        flex: none;
+        height: 45px;
         width: 100%;
-        position: fixed;
         bottom: 0;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 7%;
         border-top: 1px solid #cccccc;
         background: #F7F7F7;
-
     }
 
     .foot .finishBtn {
