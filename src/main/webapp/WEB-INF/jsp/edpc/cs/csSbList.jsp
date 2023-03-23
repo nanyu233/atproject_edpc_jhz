@@ -193,27 +193,32 @@
                         }
                     },
                     {
+                        field: 'vstCad',
+                        title: '就诊卡号',
+                        width: this.setWidth(0.06),
+                    },
+                    {
                         field: 'regTim',
                         title: '登记时间',
-                        width: this.setWidth(0.07),
+                        width: this.setWidth(0.056),
                         formatter: function (value, row, index) {
-                            return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm:ss');
+                            return formatDateTimeNonSec(value)
                         }
                     },
                     {
                         field: 'fbsj',
                         title: '发病时间',
-                        width: this.setWidth(0.1),
+                        width: this.setWidth(0.056),
                         formatter: function (value, row, index) {
                             if (value) {
-                                return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm:ss');
+                                return formatDateTimeNonSec(value)
                             }
                         }
                     },
                     {
                         field: 'jbzdDes',
                         title: '诊断',
-                        width: this.setWidth(0.07),
+                        width: this.setWidth(0.056),
                         formatter: function (value, row, index) {
                             return publicFun.codingEscape(czCbzdCodList, value);
                         }
@@ -235,10 +240,10 @@
                     }, {
                         field: 'chkTim',
                         title: '审核时间',
-                        width: this.setWidth(0.07),
+                        width: this.setWidth(0.056),
                         formatter: function (value, row, index) {
                             if (value) {
-                                return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+                                return formatDateTimeNonSec(value);
                             }
                             return "";
                         }
@@ -270,10 +275,10 @@
                     }, {
                         field: 'smtTim',
                         title: '上报时间',
-                        width: this.setWidth(0.07),
+                        width: this.setWidth(0.056),
                         formatter: function (value, row, index) {
                             if (value) {
-                                return publicFun.timeFormat(new Date(value), 'yyyy/MM/dd hh:mm');
+                                return formatDateTimeNonSec(value)
                             }
                             return "";
                         }
@@ -351,6 +356,13 @@
         createmodalwindow(cstNam + "AIS/ISS", 950, 685, '${baseurl}cs/toAisIss.do?emgSeq=' + emgSeq + '&regSeq=' + regSeq);
     }
 
+    function formatDateTime(date) {
+        return publicFun.timeFormat(date, 'yyyy/MM/dd hh:mm:ss');
+    }
+
+    function formatDateTimeNonSec(date) {
+        return publicFun.timeFormat(date, 'yyyy/MM/dd hh:mm');
+    }
 
 </script>
 </html>
