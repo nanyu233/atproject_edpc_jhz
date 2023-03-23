@@ -87,6 +87,35 @@
         .red {
             color: red;
         }
+
+        .w46 {
+            width: 47.8%;
+        }
+        .gap5 {
+            gap: 5%;
+        }
+        .gap-3 {
+            gap: 3px;
+        }
+        .w-full {
+            width: 100% !important;
+        }
+        .align-top {
+            vertical-align: top;
+        }
+
+        .inline-flex {
+            display: inline-flex !important;
+        }
+        .flex {
+            display: flex !important;
+        }
+        .flex-1 {
+            flex: 1 !important;
+        }
+        .flex-none {
+            flex: none !important;
+        }
     </style>
 </head>
 <body>
@@ -102,7 +131,7 @@
         <div class="timeline-item ng-scope timeLeftBlock" v-for="(item, index) in timeList" :key="index">
             <div class="timeline-point timeline-point-blank"></div>
             <div class="timeline-event">
-                <div class="timeline_title">{{item.proVal}}</div>
+                <div class="timeline_title">{{item.proVal | formatDateTimeNonSecWithSlash}}</div>
                 <div class="timeline_value">{{item.proName}}</div>
                 <div class="timeline_diff_warning">{{item.diffred}}</div>
                 <!-- 红色 -->
@@ -157,12 +186,6 @@
                       </div>
                       <div class="row">
                           <div class="input-wrapper w23" >
-                              <div class="lb">身份证号<span class="required">*</span></div>
-                              <div class="input">
-                                  <input type="text"  class="input" v-model="baseInfo.idNbr" />
-                              </div>
-                          </div>
-                          <div class="input-wrapper w23" >
                               <div class="lb">紧急联系人<span class="required">*</span></div>
                               <div class="input">
                                   <input type="text"  class="input" v-model="info.JJLXR" />
@@ -174,10 +197,16 @@
                                   <input type="text"  class="input" v-model="baseInfo.pheNbr" disabled="disabled"/>
                               </div>
                           </div>
+                          <div class="input-wrapper w46 inline-flex align-top gap5" >
+                              <div class="lb flex-none">身份证号<span class="required">*</span></div>
+                              <div class="input flex-1">
+                                  <input type="text" class="input w-full" v-model="baseInfo.idNbr" />
+                              </div>
+                          </div>
                       </div>
                       <div class="block">
-                          <div class="inputs">
-                              <div class="input-group">
+                          <div class="inputs flex gap-3">
+                              <div class="input-group flex-none">
                                   <div class="lb">家庭住址</div>
                                   <div class="input">
                                       <select name="" v-model="aidPatient.scePrvCod">
@@ -195,54 +224,53 @@
                                       </select>
                                   </div>
                               </div>
-                              <div class="input-group" >
-                                  <div class="lb">详细地址</div>
-                                  <div class="input">
-<%--                                      <input type="text"  class="input" v-model="info.XXDZ"/>--%>
-                                      <input type="text"  class="input" v-model="baseInfo.cstAdr"/>
+                              <div class="input-group flex-1 flex" >
+                                  <div class="lb flex-none">详细地址</div>
+                                  <div class="input flex-1">
+                                      <input type="text" class="input w-full" v-model="baseInfo.cstAdr"/>
                                   </div>
                               </div>
                           </div>
                       </div>
                       <div class="title1">病人信息</div>
                       <div class="block">
-                          <div class="inputs">
-                              <div class="input-group">
-                                  <div class="lb">发病地址</div>
-                                  <div class="input">
-                                      <input type="text"  class="input" v-model="info.FBDZ"/>
-                                  </div>
-                              </div>
-                              <div class="input-group" >
+                          <div class="inputs flex gap-3">
+                              <div class="input-group flex-none" >
                                   <div class="lb">发病时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="FBSJ" onclick="WdatePickerEnd('FBSJ','info.FBSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.FBSJ"/>
+                                      <input type="text" class="Wdate input" ref="FBSJ" onclick="WdatePickerEnd('FBSJ','info.FBSJ','yyyy-MM-dd HH:mm')" v-model="info.FBSJ"/>
                                   </div>
                               </div>
-                              <div class="input-group" >
+                              <div class="input-group flex-none" >
                                   <div class="lb">呼救时间</div>
                                   <div class="input">
-                                      <input type="text"  class="Wdate input" ref="HJSJ" onclick="WdatePickerEnd('HJSJ','info.HJSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.HJSJ"/>
+                                      <input type="text"  class="Wdate input" ref="HJSJ" onclick="WdatePickerEnd('HJSJ','info.HJSJ','yyyy-MM-dd HH:mm')" v-model="info.HJSJ"/>
                                   </div>
                               </div>
+                              <div class="input-group flex-1 flex">
+                                <div class="lb flex-none">发病地址</div>
+                                <div class="input flex-1">
+                                    <input type="text" class="input w-full" v-model="info.FBDZ"/>
+                                </div>
+                            </div>
                           </div>
                           <div class="inputs">
                               <div class="input-group" >
                                   <div class="lb">救护车出发时间</div>
                                   <div class="input">
-                                      <input type="text"  class="Wdate input" ref="CCSJ" onclick="WdatePickerEnd('CCSJ','info.CCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.CCSJ"/>
+                                      <input type="text"  class="Wdate input" ref="CCSJ" onclick="WdatePickerEnd('CCSJ','info.CCSJ','yyyy-MM-dd HH:mm')" v-model="info.CCSJ"/>
                                   </div>
                               </div>
                               <div class="input-group" >
                                   <div class="lb">到达现场时间</div>
                                   <div class="input">
-                                      <input type="text"  class="Wdate input" ref="DCSJ" onclick="WdatePickerEnd('DCSJ','info.DCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.DCSJ"/>
+                                      <input type="text"  class="Wdate input" ref="DCSJ" onclick="WdatePickerEnd('DCSJ','info.DCSJ','yyyy-MM-dd HH:mm')" v-model="info.DCSJ"/>
                                   </div>
                               </div>
                               <div class="input-group" >
                                   <div class="lb">离场时间</div>
                                   <div class="input">
-                                      <input type="text"  class="Wdate input" ref="LCSJ" onclick="WdatePickerEnd('LCSJ','info.LCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.LCSJ"/>
+                                      <input type="text"  class="Wdate input" ref="LCSJ" onclick="WdatePickerEnd('LCSJ','info.LCSJ','yyyy-MM-dd HH:mm')" v-model="info.LCSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -250,19 +278,19 @@
                               <div class="input-group" >
                                   <div class="lb">到达医院时间</div>
                                   <div class="input">
-                                      <input type="text"  class="Wdate input" ref="DYSJ" onclick="WdatePickerEnd('DYSJ','info.DYSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.DYSJ"/>
+                                      <input type="text"  class="Wdate input" ref="DYSJ" onclick="WdatePickerEnd('DYSJ','info.DYSJ','yyyy-MM-dd HH:mm')" v-model="info.DYSJ"/>
                                   </div>
                               </div>
                               <div class="input-group" >
                                   <div class="lb">死亡时间</div>
                                   <div class="input">
-                                      <input type="text"  class="Wdate input" ref="SWSJ" onclick="WdatePickerEnd('SWSJ','info.SWSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.SWSJ"/>
+                                      <input type="text"  class="Wdate input" ref="SWSJ" onclick="WdatePickerEnd('SWSJ','info.SWSJ','yyyy-MM-dd HH:mm')" v-model="info.SWSJ"/>
                                   </div>
                               </div>
                               <div class="input-group" >
                                   <div class="lb">院前预警时间</div>
                                   <div class="input">
-                                      <input type="text"  class="Wdate input" ref="YJSJ" onclick="WdatePickerEnd('YJSJ','info.YJSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.YJSJ"/>
+                                      <input type="text"  class="Wdate input" ref="YJSJ" onclick="WdatePickerEnd('YJSJ','info.YJSJ','yyyy-MM-dd HH:mm')" v-model="info.YJSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -362,7 +390,7 @@
                               <div class="input-group">
                                   <div class="lb">诊断时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="ZDSJ" onclick="WdatePickerEnd('ZDSJ','info.ZDSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.ZDSJ" />
+                                      <input type="text" class="Wdate input" ref="ZDSJ" onclick="WdatePickerEnd('ZDSJ','info.ZDSJ','yyyy-MM-dd HH:mm')" v-model="info.ZDSJ" />
                                   </div>
                               </div>
                           </div>
@@ -646,7 +674,7 @@
                                   <div class="input-group">
                                       <div class="lb">接诊时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="JZSJ" onclick="WdatePickerEnd('JZSJ','info.JZSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.JZSJ" />
+                                          <input type="text" class="Wdate input" ref="JZSJ" onclick="WdatePickerEnd('JZSJ','info.JZSJ','yyyy-MM-dd HH:mm')" v-model="info.JZSJ" />
                                       </div>
                                   </div>
                               </div>
@@ -678,7 +706,7 @@
                                   <div class="input-group">
                                       <div class="lb"><span class="required">*</span>到达急诊科时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="DDJZKSJ" onclick="WdatePickerEnd('DDJZKSJ','info.DDJZKSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.DDJZKSJ" />
+                                          <input type="text" class="Wdate input" ref="DDJZKSJ" onclick="WdatePickerEnd('DDJZKSJ','info.DDJZKSJ','yyyy-MM-dd HH:mm')" v-model="info.DDJZKSJ" />
                                       </div>
                                   </div>
                                   <div class="input-group">
@@ -694,7 +722,7 @@
                                   <div class="input-group">
                                       <div class="lb">急诊接诊时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="JZSJ" onclick="WdatePickerEnd('JZSJ','info.JZSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.JZSJ" />
+                                          <input type="text" class="Wdate input" ref="JZSJ" onclick="WdatePickerEnd('JZSJ','info.JZSJ','yyyy-MM-dd HH:mm')" v-model="info.JZSJ" />
                                       </div>
                                   </div>
                               </div>
@@ -786,13 +814,13 @@
                                   <div class="input-group">
                                       <div class="lb">提出放置时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="TCFZSJ" onclick="WdatePickerEnd('TCFZSJ','info.TCFZSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.TCFZSJ"/>
+                                          <input type="text" class="Wdate input" ref="TCFZSJ" onclick="WdatePickerEnd('TCFZSJ','info.TCFZSJ','yyyy-MM-dd HH:mm')" v-model="info.TCFZSJ"/>
                                       </div>
                                   </div>
                                   <div class="input-group">
                                       <div class="lb">成功放置时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="CGFZSJ" onclick="WdatePickerEnd('CGFZSJ','info.CGFZSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.CGFZSJ"/>
+                                          <input type="text" class="Wdate input" ref="CGFZSJ" onclick="WdatePickerEnd('CGFZSJ','info.CGFZSJ','yyyy-MM-dd HH:mm')" v-model="info.CGFZSJ"/>
                                       </div>
                                   </div>
                               </span>
@@ -805,13 +833,13 @@
                                   <div class="input-group">
                                   <div class="lb">申请输血时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="SQSXSJ" onclick="WdatePickerEnd('SQSXSJ','info.SQSXSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.SQSXSJ"/>
+                                      <input type="text" class="Wdate input" ref="SQSXSJ" onclick="WdatePickerEnd('SQSXSJ','info.SQSXSJ','yyyy-MM-dd HH:mm')" v-model="info.SQSXSJ"/>
                                   </div>
                               </div>
                               <div class="input-group">
                                   <div class="lb">执行输血时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="ZXSXSJ" onclick="WdatePickerEnd('ZXSXSJ','info.ZXSXSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.ZXSXSJ"/>
+                                      <input type="text" class="Wdate input" ref="ZXSXSJ" onclick="WdatePickerEnd('ZXSXSJ','info.ZXSXSJ','yyyy-MM-dd HH:mm')" v-model="info.ZXSXSJ"/>
                                   </div>
                               </div>
                               </span>
@@ -825,13 +853,13 @@
                                   <div class="input-group">
                                   <div class="lb">提出建立时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="TCJLSJ" onclick="WdatePickerEnd('TCJLSJ','info.TCJLSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.TCJLSJ"/>
+                                      <input type="text" class="Wdate input" ref="TCJLSJ" onclick="WdatePickerEnd('TCJLSJ','info.TCJLSJ','yyyy-MM-dd HH:mm')" v-model="info.TCJLSJ"/>
                                   </div>
                               </div>
                               <div class="input-group">
                                   <div class="lb">成功建立时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="CGJLSJ" onclick="WdatePickerEnd('CGJLSJ','info.CGJLSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.CGJLSJ"/>
+                                      <input type="text" class="Wdate input" ref="CGJLSJ" onclick="WdatePickerEnd('CGJLSJ','info.CGJLSJ','yyyy-MM-dd HH:mm')" v-model="info.CGJLSJ"/>
                                   </div>
                               </div>
                               </span>
@@ -844,13 +872,13 @@
                                   <div class="input-group">
                                   <div class="lb">提出手术医嘱时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="TCSSYZSJ" onclick="WdatePickerEnd('TCSSYZSJ','info.TCSSYZSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.TCSSYZSJ"/>
+                                      <input type="text" class="Wdate input" ref="TCSSYZSJ" onclick="WdatePickerEnd('TCSSYZSJ','info.TCSSYZSJ','yyyy-MM-dd HH:mm')" v-model="info.TCSSYZSJ"/>
                                   </div>
                               </div>
                               <div class="input-group">
                                   <div class="lb">开始手术时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="KSSSJ" onclick="WdatePickerEnd('KSSSJ','info.KSSSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.KSSSJ"/>
+                                      <input type="text" class="Wdate input" ref="KSSSJ" onclick="WdatePickerEnd('KSSSJ','info.KSSSJ','yyyy-MM-dd HH:mm')" v-model="info.KSSSJ"/>
                                   </div>
                               </div>
                               </span>
@@ -896,7 +924,7 @@
                               <div class="input-group" v-if="query.JZJYJCSel.includes('01')">
                                   <div class="lb">全身快速CT完成时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="QSKSCTWCSJ" onclick="WdatePickerEnd('QSKSCTWCSJ','info.QSKSCTWCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.QSKSCTWCSJ"/>
+                                      <input type="text" class="Wdate input" ref="QSKSCTWCSJ" onclick="WdatePickerEnd('QSKSCTWCSJ','info.QSKSCTWCSJ','yyyy-MM-dd HH:mm')" v-model="info.QSKSCTWCSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -907,7 +935,7 @@
                               <div class="input-group" v-if="query.JZJYJCSel.includes('02')">
                                   <div class="lb">胸片X片完成时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="XPXPWCSJ" onclick="WdatePickerEnd('XPXPWCSJ','info.XPXPWCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.XPXPWCSJ"/>
+                                      <input type="text" class="Wdate input" ref="XPXPWCSJ" onclick="WdatePickerEnd('XPXPWCSJ','info.XPXPWCSJ','yyyy-MM-dd HH:mm')" v-model="info.XPXPWCSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -918,7 +946,7 @@
                               <div class="input-group" v-if="query.JZJYJCSel.includes('03')">
                                   <div class="lb btn1">骨盆X片完成时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="GPXPWCSJ" onclick="WdatePickerEnd('GPXPWCSJ','info.GPXPWCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.GPXPWCSJ"/>
+                                      <input type="text" class="Wdate input" ref="GPXPWCSJ" onclick="WdatePickerEnd('GPXPWCSJ','info.GPXPWCSJ','yyyy-MM-dd HH:mm')" v-model="info.GPXPWCSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -929,7 +957,7 @@
                               <div class="input-group" v-if="query.JZJYJCSel.includes('04')">
                                   <div class="lb">FAST完成时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="FASTWCSJ" onclick="WdatePickerEnd('FASTWCSJ','info.FASTWCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.FASTWCSJ"/>
+                                      <input type="text" class="Wdate input" ref="FASTWCSJ" onclick="WdatePickerEnd('FASTWCSJ','info.FASTWCSJ','yyyy-MM-dd HH:mm')" v-model="info.FASTWCSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -946,7 +974,7 @@
                               <div class="input-group" v-if="query.JZJYJCSel.includes('05')">
                                   <div class="lb">其他X片完成时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="QTXPWCSJ" onclick="WdatePickerEnd('QTXPWCSJ','info.QTXPWCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.QTXPWCSJ"/>
+                                      <input type="text" class="Wdate input" ref="QTXPWCSJ" onclick="WdatePickerEnd('QTXPWCSJ','info.QTXPWCSJ','yyyy-MM-dd HH:mm')" v-model="info.QTXPWCSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -995,13 +1023,13 @@
                                   <div class="input-group">
                                       <div class="lb">到达抢救室时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="DDQJSSJ" onclick="WdatePickerEnd('DDQJSSJ','info.DDQJSSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.DDQJSSJ" />
+                                          <input type="text" class="Wdate input" ref="DDQJSSJ" onclick="WdatePickerEnd('DDQJSSJ','info.DDQJSSJ','yyyy-MM-dd HH:mm')" v-model="info.DDQJSSJ" />
                                       </div>
                                   </div>
                                   <div class="input-group">
                                       <div class="lb">离开抢救室时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="LKQJSSJ" onclick="WdatePickerEnd('LKQJSSJ','info.LKQJSSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.LKQJSSJ"/>
+                                          <input type="text" class="Wdate input" ref="LKQJSSJ" onclick="WdatePickerEnd('LKQJSSJ','info.LKQJSSJ','yyyy-MM-dd HH:mm')" v-model="info.LKQJSSJ"/>
                                       </div>
                                   </div>
                               </span>
@@ -1022,13 +1050,13 @@
                                   <div class="input-group">
                                       <div class="lb">到达手术室时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="DDSSSSJ" onclick="WdatePickerEnd('DDSSSSJ','info.DDSSSSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.DDSSSSJ"/>
+                                          <input type="text" class="Wdate input" ref="DDSSSSJ" onclick="WdatePickerEnd('DDSSSSJ','info.DDSSSSJ','yyyy-MM-dd HH:mm')" v-model="info.DDSSSSJ"/>
                                       </div>
                                   </div>
                                   <div class="input-group">
                                       <div class="lb">离开手术室时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="LKSSSSJ" onclick="WdatePickerEnd('LKSSSSJ','info.LKSSSSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.LKSSSSJ" />
+                                          <input type="text" class="Wdate input" ref="LKSSSSJ" onclick="WdatePickerEnd('LKSSSSJ','info.LKSSSSJ','yyyy-MM-dd HH:mm')" v-model="info.LKSSSSJ" />
                                       </div>
                                   </div>
                               </span>
@@ -1057,7 +1085,7 @@
                                   <div class="input-group">
                                       <div class="lb"><span class="required">*</span>急诊离院时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="JZLYSJ" onclick="WdatePickerEnd('JZLYSJ','info.JZLYSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.JZLYSJ" />
+                                          <input type="text" class="Wdate input" ref="JZLYSJ" onclick="WdatePickerEnd('JZLYSJ','info.JZLYSJ','yyyy-MM-dd HH:mm')" v-model="info.JZLYSJ" />
                                       </div>
                                   </div>
                               </div>
@@ -1095,13 +1123,13 @@
                                   <div class="input-group">
                                       <div class="lb">办理住院时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="BLZYSJ" onclick="WdatePickerEnd('BLZYSJ','info.BLZYSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.BLZYSJ" />
+                                          <input type="text" class="Wdate input" ref="BLZYSJ" onclick="WdatePickerEnd('BLZYSJ','info.BLZYSJ','yyyy-MM-dd HH:mm')" v-model="info.BLZYSJ" />
                                       </div>
                                   </div>
                                   <div class="input-group">
                                       <div class="lb">结束住院时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="JSZYSJ" onclick="WdatePickerEnd('JSZYSJ','info.JSZYSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.JSZYSJ" />
+                                          <input type="text" class="Wdate input" ref="JSZYSJ" onclick="WdatePickerEnd('JSZYSJ','info.JSZYSJ','yyyy-MM-dd HH:mm')" v-model="info.JSZYSJ" />
                                       </div>
                                   </div>
                               </div>
@@ -1131,13 +1159,13 @@
                                   <div class="input-group" v-if="info.ISDDICU == 1">
                                       <div class="lb">到达ICU时间</div>
                                       <div class="input">
-                                          <input type="text"  class="Wdate input" ref="DDICUSJ" onclick="WdatePickerEnd('DDICUSJ','info.DDICUSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.DDICUSJ"/>
+                                          <input type="text"  class="Wdate input" ref="DDICUSJ" onclick="WdatePickerEnd('DDICUSJ','info.DDICUSJ','yyyy-MM-dd HH:mm')" v-model="info.DDICUSJ"/>
                                       </div>
                                   </div>
                                   <div class="input-group" v-if="info.ISDDICU == 1">
                                       <div class="lb">离开ICU时间</div>
                                       <div class="input">
-                                          <input type="text"  class="Wdate input" ref="LKICUSJ" onclick="WdatePickerEnd('LKICUSJ','info.LKICUSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.LKICUSJ"/>
+                                          <input type="text"  class="Wdate input" ref="LKICUSJ" onclick="WdatePickerEnd('LKICUSJ','info.LKICUSJ','yyyy-MM-dd HH:mm')" v-model="info.LKICUSJ"/>
                                       </div>
                                   </div>
                               </div>
@@ -1147,7 +1175,7 @@
                                   <div class="input-group">
                                       <div class="lb">交接时间</div>
                                       <div class="input">
-                                          <input type="text"  class="Wdate input" ref="JJSJ" onclick="WdatePickerEnd('JJSJ','info.JJSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.JJSJ"/>
+                                          <input type="text"  class="Wdate input" ref="JJSJ" onclick="WdatePickerEnd('JJSJ','info.JJSJ','yyyy-MM-dd HH:mm')" v-model="info.JJSJ"/>
                                       </div>
                                   </div>
                               </div>
@@ -1175,7 +1203,7 @@
                                   <div class="input-group">
                                       <div class="lb">留观时间</div>
                                       <div class="input">
-                                          <input type="text"  class="Wdate input" ref="LGSJ" onclick="WdatePickerEnd('LGSJ','info.LGSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.LGSJ"/>
+                                          <input type="text"  class="Wdate input" ref="LGSJ" onclick="WdatePickerEnd('LGSJ','info.LGSJ','yyyy-MM-dd HH:mm')" v-model="info.LGSJ"/>
                                       </div>
                                   </div>
                               </div>
@@ -1205,7 +1233,7 @@
                                   <div class="input-group">
                                       <div class="lb">转归时间</div>
                                       <div class="input">
-                                          <input type="text"  class="Wdate input" ref="ZGSJ" onclick="WdatePickerEnd('ZGSJ','info.ZGSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.ZGSJ"/>
+                                          <input type="text"  class="Wdate input" ref="ZGSJ" onclick="WdatePickerEnd('ZGSJ','info.ZGSJ','yyyy-MM-dd HH:mm')" v-model="info.ZGSJ"/>
                                       </div>
                                   </div>
                               </div>
@@ -1401,7 +1429,7 @@
                               <div class="input-group">
                                   <div class="lb"><span class="required">*</span>到达急诊科时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="DDJZKSJ" onclick="WdatePickerEnd('DDJZKSJ','info.DDJZKSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.DDJZKSJ" />
+                                      <input type="text" class="Wdate input" ref="DDJZKSJ" onclick="WdatePickerEnd('DDJZKSJ','info.DDJZKSJ','yyyy-MM-dd HH:mm')" v-model="info.DDJZKSJ" />
                                   </div>
                               </div>
                           </div>
@@ -1482,13 +1510,13 @@
                                   <div class="input-group">
                                       <div class="lb">提出放置时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="TCFZSJ" onclick="WdatePickerEnd('TCFZSJ','info.TCFZSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.TCFZSJ"/>
+                                          <input type="text" class="Wdate input" ref="TCFZSJ" onclick="WdatePickerEnd('TCFZSJ','info.TCFZSJ','yyyy-MM-dd HH:mm')" v-model="info.TCFZSJ"/>
                                       </div>
                                   </div>
                                   <div class="input-group">
                                       <div class="lb">成功放置时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="CGFZSJ" onclick="WdatePickerEnd('CGFZSJ','info.CGFZSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.CGFZSJ"/>
+                                          <input type="text" class="Wdate input" ref="CGFZSJ" onclick="WdatePickerEnd('CGFZSJ','info.CGFZSJ','yyyy-MM-dd HH:mm')" v-model="info.CGFZSJ"/>
                                       </div>
                                   </div>
                               </span>
@@ -1501,13 +1529,13 @@
                                   <div class="input-group">
                                   <div class="lb">申请输血时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="SQSXSJ" onclick="WdatePickerEnd('SQSXSJ','info.SQSXSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.SQSXSJ"/>
+                                      <input type="text" class="Wdate input" ref="SQSXSJ" onclick="WdatePickerEnd('SQSXSJ','info.SQSXSJ','yyyy-MM-dd HH:mm')" v-model="info.SQSXSJ"/>
                                   </div>
                               </div>
                               <div class="input-group">
                                   <div class="lb">执行输血时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="ZXSXSJ" onclick="WdatePickerEnd('ZXSXSJ','info.ZXSXSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.ZXSXSJ"/>
+                                      <input type="text" class="Wdate input" ref="ZXSXSJ" onclick="WdatePickerEnd('ZXSXSJ','info.ZXSXSJ','yyyy-MM-dd HH:mm')" v-model="info.ZXSXSJ"/>
                                   </div>
                               </div>
                               </span>
@@ -1521,13 +1549,13 @@
                                   <div class="input-group">
                                   <div class="lb">提出建立时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="TCJLSJ" onclick="WdatePickerEnd('TCJLSJ','info.TCJLSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.TCJLSJ"/>
+                                      <input type="text" class="Wdate input" ref="TCJLSJ" onclick="WdatePickerEnd('TCJLSJ','info.TCJLSJ','yyyy-MM-dd HH:mm')" v-model="info.TCJLSJ"/>
                                   </div>
                               </div>
                               <div class="input-group">
                                   <div class="lb">成功建立时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="CGJLSJ" onclick="WdatePickerEnd('CGJLSJ','info.CGJLSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.CGJLSJ"/>
+                                      <input type="text" class="Wdate input" ref="CGJLSJ" onclick="WdatePickerEnd('CGJLSJ','info.CGJLSJ','yyyy-MM-dd HH:mm')" v-model="info.CGJLSJ"/>
                                   </div>
                               </div>
                               </span>
@@ -1540,13 +1568,13 @@
                                   <div class="input-group">
                                   <div class="lb">提出手术医嘱时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="TCSSYZSJ" onclick="WdatePickerEnd('TCSSYZSJ','info.TCSSYZSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.TCSSYZSJ"/>
+                                      <input type="text" class="Wdate input" ref="TCSSYZSJ" onclick="WdatePickerEnd('TCSSYZSJ','info.TCSSYZSJ','yyyy-MM-dd HH:mm')" v-model="info.TCSSYZSJ"/>
                                   </div>
                               </div>
                               <div class="input-group">
                                   <div class="lb">开始手术时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="KSSSJ" onclick="WdatePickerEnd('KSSSJ','info.KSSSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.KSSSJ"/>
+                                      <input type="text" class="Wdate input" ref="KSSSJ" onclick="WdatePickerEnd('KSSSJ','info.KSSSJ','yyyy-MM-dd HH:mm')" v-model="info.KSSSJ"/>
                                   </div>
                               </div>
                               </span>
@@ -1591,7 +1619,7 @@
                               <div class="input-group" v-if="query.JZJYJCSel.includes('01')">
                                   <div class="lb">全身快速CT完成时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="QSKSCTWCSJ" onclick="WdatePickerEnd('QSKSCTWCSJ','info.QSKSCTWCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.QSKSCTWCSJ"/>
+                                      <input type="text" class="Wdate input" ref="QSKSCTWCSJ" onclick="WdatePickerEnd('QSKSCTWCSJ','info.QSKSCTWCSJ','yyyy-MM-dd HH:mm')" v-model="info.QSKSCTWCSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -1602,7 +1630,7 @@
                               <div class="input-group" v-if="query.JZJYJCSel.includes('02')">
                                   <div class="lb">胸片X片完成时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="XPXPWCSJ" onclick="WdatePickerEnd('XPXPWCSJ','info.XPXPWCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.XPXPWCSJ"/>
+                                      <input type="text" class="Wdate input" ref="XPXPWCSJ" onclick="WdatePickerEnd('XPXPWCSJ','info.XPXPWCSJ','yyyy-MM-dd HH:mm')" v-model="info.XPXPWCSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -1613,7 +1641,7 @@
                               <div class="input-group" v-if="query.JZJYJCSel.includes('03')">
                                   <div class="lb btn1">骨盆X片完成时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="GPXPWCSJ" onclick="WdatePickerEnd('GPXPWCSJ','info.GPXPWCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.GPXPWCSJ"/>
+                                      <input type="text" class="Wdate input" ref="GPXPWCSJ" onclick="WdatePickerEnd('GPXPWCSJ','info.GPXPWCSJ','yyyy-MM-dd HH:mm')" v-model="info.GPXPWCSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -1624,7 +1652,7 @@
                               <div class="input-group" v-if="query.JZJYJCSel.includes('04')">
                                   <div class="lb">FAST完成时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="FASTWCSJ" onclick="WdatePickerEnd('FASTWCSJ','info.FASTWCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.FASTWCSJ"/>
+                                      <input type="text" class="Wdate input" ref="FASTWCSJ" onclick="WdatePickerEnd('FASTWCSJ','info.FASTWCSJ','yyyy-MM-dd HH:mm')" v-model="info.FASTWCSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -1641,7 +1669,7 @@
                               <div class="input-group" v-if="query.JZJYJCSel.includes('05')">
                                   <div class="lb">其他X片完成时间</div>
                                   <div class="input">
-                                      <input type="text" class="Wdate input" ref="QTXPWCSJ" onclick="WdatePickerEnd('QTXPWCSJ','info.QTXPWCSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.QTXPWCSJ"/>
+                                      <input type="text" class="Wdate input" ref="QTXPWCSJ" onclick="WdatePickerEnd('QTXPWCSJ','info.QTXPWCSJ','yyyy-MM-dd HH:mm')" v-model="info.QTXPWCSJ"/>
                                   </div>
                               </div>
                           </div>
@@ -1690,13 +1718,13 @@
                                   <div class="input-group">
                                       <div class="lb">到达抢救室时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="DDQJSSJ" onclick="WdatePickerEnd('DDQJSSJ','info.DDQJSSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.DDQJSSJ" />
+                                          <input type="text" class="Wdate input" ref="DDQJSSJ" onclick="WdatePickerEnd('DDQJSSJ','info.DDQJSSJ','yyyy-MM-dd HH:mm')" v-model="info.DDQJSSJ" />
                                       </div>
                                   </div>
                                   <div class="input-group">
                                       <div class="lb">离开抢救室时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="LKQJSSJ" onclick="WdatePickerEnd('LKQJSSJ','info.LKQJSSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.LKQJSSJ"/>
+                                          <input type="text" class="Wdate input" ref="LKQJSSJ" onclick="WdatePickerEnd('LKQJSSJ','info.LKQJSSJ','yyyy-MM-dd HH:mm')" v-model="info.LKQJSSJ"/>
                                       </div>
                                   </div>
                               </span>
@@ -1717,13 +1745,13 @@
                                   <div class="input-group">
                                       <div class="lb">到达手术室时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="DDSSSSJ" onclick="WdatePickerEnd('DDSSSSJ','info.DDSSSSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.DDSSSSJ"/>
+                                          <input type="text" class="Wdate input" ref="DDSSSSJ" onclick="WdatePickerEnd('DDSSSSJ','info.DDSSSSJ','yyyy-MM-dd HH:mm')" v-model="info.DDSSSSJ"/>
                                       </div>
                                   </div>
                                   <div class="input-group">
                                       <div class="lb">离开手术室时间</div>
                                       <div class="input">
-                                          <input type="text" class="Wdate input" ref="LKSSSSJ" onclick="WdatePickerEnd('LKSSSSJ','info.LKSSSSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.LKSSSSJ" />
+                                          <input type="text" class="Wdate input" ref="LKSSSSJ" onclick="WdatePickerEnd('LKSSSSJ','info.LKSSSSJ','yyyy-MM-dd HH:mm')" v-model="info.LKSSSSJ" />
                                       </div>
                                   </div>
                               </span>
@@ -1751,7 +1779,7 @@
                                       <div class="input-group">
                                           <div class="lb"><span class="required">*</span>急诊离院时间</div>
                                           <div class="input">
-                                              <input type="text" class="Wdate input" ref="JZLYSJ" onclick="WdatePickerEnd('JZLYSJ','info.JZLYSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.JZLYSJ" />
+                                              <input type="text" class="Wdate input" ref="JZLYSJ" onclick="WdatePickerEnd('JZLYSJ','info.JZLYSJ','yyyy-MM-dd HH:mm')" v-model="info.JZLYSJ" />
                                           </div>
                                       </div>
                                   </div>
@@ -1789,13 +1817,13 @@
                                       <div class="input-group">
                                           <div class="lb">办理住院时间</div>
                                           <div class="input">
-                                              <input type="text" class="Wdate input" ref="BLZYSJ" onclick="WdatePickerEnd('BLZYSJ','info.BLZYSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.BLZYSJ" />
+                                              <input type="text" class="Wdate input" ref="BLZYSJ" onclick="WdatePickerEnd('BLZYSJ','info.BLZYSJ','yyyy-MM-dd HH:mm')" v-model="info.BLZYSJ" />
                                           </div>
                                       </div>
                                       <div class="input-group">
                                           <div class="lb">结束住院时间</div>
                                           <div class="input">
-                                              <input type="text" class="Wdate input" ref="JSZYSJ" onclick="WdatePickerEnd('JSZYSJ','info.JSZYSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.JSZYSJ" />
+                                              <input type="text" class="Wdate input" ref="JSZYSJ" onclick="WdatePickerEnd('JSZYSJ','info.JSZYSJ','yyyy-MM-dd HH:mm')" v-model="info.JSZYSJ" />
                                           </div>
                                       </div>
                                   </div>
@@ -1813,13 +1841,13 @@
                                       <div class="input-group" v-if="info.ISDDICU == 1">
                                           <div class="lb">到达ICU时间</div>
                                           <div class="input">
-                                              <input type="text"  class="Wdate input" ref="DDICUSJ" onclick="WdatePickerEnd('DDICUSJ','info.DDICUSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.DDICUSJ"/>
+                                              <input type="text"  class="Wdate input" ref="DDICUSJ" onclick="WdatePickerEnd('DDICUSJ','info.DDICUSJ','yyyy-MM-dd HH:mm')" v-model="info.DDICUSJ"/>
                                           </div>
                                       </div>
                                       <div class="input-group" v-if="info.ISDDICU == 1">
                                           <div class="lb">离开ICU时间</div>
                                           <div class="input">
-                                              <input type="text"  class="Wdate input" ref="LKICUSJ" onclick="WdatePickerEnd('LKICUSJ','info.LKICUSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.LKICUSJ"/>
+                                              <input type="text"  class="Wdate input" ref="LKICUSJ" onclick="WdatePickerEnd('LKICUSJ','info.LKICUSJ','yyyy-MM-dd HH:mm')" v-model="info.LKICUSJ"/>
                                           </div>
                                       </div>
                                   </div>
@@ -1829,7 +1857,7 @@
                                       <div class="input-group">
                                           <div class="lb">交接时间</div>
                                           <div class="input">
-                                              <input type="text"  class="Wdate input" ref="JJSJ" onclick="WdatePickerEnd('JJSJ','info.JJSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.JJSJ"/>
+                                              <input type="text"  class="Wdate input" ref="JJSJ" onclick="WdatePickerEnd('JJSJ','info.JJSJ','yyyy-MM-dd HH:mm')" v-model="info.JJSJ"/>
                                           </div>
                                       </div>
                                   </div>
@@ -1857,7 +1885,7 @@
                                       <div class="input-group">
                                           <div class="lb">留观时间</div>
                                           <div class="input">
-                                              <input type="text"  class="Wdate input" ref="LGSJ" onclick="WdatePickerEnd('LGSJ','info.LGSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.LGSJ"/>
+                                              <input type="text"  class="Wdate input" ref="LGSJ" onclick="WdatePickerEnd('LGSJ','info.LGSJ','yyyy-MM-dd HH:mm')" v-model="info.LGSJ"/>
                                           </div>
                                       </div>
                                   </div>
@@ -1887,7 +1915,7 @@
                                       <div class="input-group">
                                           <div class="lb">转归时间</div>
                                           <div class="input">
-                                              <input type="text"  class="Wdate input" ref="ZGSJ" onclick="WdatePickerEnd('ZGSJ','info.ZGSJ','yyyy-MM-dd HH:mm:ss')" v-model="info.ZGSJ"/>
+                                              <input type="text"  class="Wdate input" ref="ZGSJ" onclick="WdatePickerEnd('ZGSJ','info.ZGSJ','yyyy-MM-dd HH:mm')" v-model="info.ZGSJ"/>
                                           </div>
                                       </div>
                                   </div>
@@ -2220,6 +2248,11 @@
                 ZYFY: '',
             },
         },
+        filters: {
+            formatDateTimeNonSecWithSlash: function (date) {
+                return publicFun.timeFormat(date, 'yyyy/MM/dd hh:mm')
+            }
+        },
         created() {
             this.getTimeList()
             this.getCsinfo()
@@ -2246,7 +2279,7 @@
                                 var checked =  res.resultInfo.sysdata.hadChecked[0]
                                 var crtTime = checked && checked.crtTime
                                 if(crtTime && sub.aboutSco.hasOwnProperty('ISSNowData')) {
-                                    sub.aboutSco.ISSNowData = publicFun.timeFormat(crtTime, 'yyyy-MM-dd hh:mm:ss')
+                                    sub.aboutSco.ISSNowData = formatDateTimeNonSec(crtTime)
                                 }
                                 sub.aboutSco.ISSList = res.resultInfo.sysdata.hadChecked.sort(function (a, b) {
                                     return b.optScoe - a.optScoe
@@ -2277,7 +2310,7 @@
                             sub.tiProps = res
                             sub.aboutSco.tiSco = res.tiSco;
                             if(sub.aboutSco.hasOwnProperty('tiNowData')) {
-                                sub.aboutSco.tiNowData = publicFun.timeFormat(res.cratDat, 'yyyy-MM-dd hh:mm:ss')
+                                sub.aboutSco.tiNowData = formatDateTimeNonSec(res.cratDat)
                             }
                         }
 
@@ -2296,7 +2329,7 @@
                         if (res) {
                             sub.aboutSco.gcsSco = res.totSco;
                             if(sub.aboutSco.hasOwnProperty('gcsNowData')) {
-                                sub.aboutSco.gcsNowData = publicFun.timeFormat(res.updTime, 'yyyy-MM-dd hh:mm:ss')
+                                sub.aboutSco.gcsNowData = formatDateTimeNonSec(res.updTime)
                             }
                             console.log(res,'获取GCS数据')
                         }
@@ -2317,7 +2350,7 @@
                             sub.aboutSco.tashSco = res.tashSco;
                             sub.aboutSco.tashPr = res.tashPr
                             if(sub.aboutSco.hasOwnProperty('tashNowData')) {
-                                sub.aboutSco.tashNowData = publicFun.timeFormat(res.crtDat, 'yyyy-MM-dd hh:mm:ss')
+                                sub.aboutSco.tashNowData = formatDateTimeNonSec(res.crtDat)
                             }
                         }
                     }
@@ -2366,7 +2399,11 @@
 
                             sub.baseInfo = res.resultInfo.sysdata.hspDbzlBas || {}
                             for(var item of res.resultInfo.sysdata.cszlList) {
-                                sub.info[item.proCode] = item.proVal
+                                var proVal = item.proVal
+                                if (isDateTime(proVal)) {
+                                    proVal = formatDateTimeNonSec(proVal)
+                                }
+                                sub.info[item.proCode] = proVal
                                 if (item.proCode == 'JZJYJC' && item.proVal) {
                                     sub.query.JZJYJCSel = item.proVal.split(',')
                                 }else if(item.proCode == 'YQQJCS' && item.proVal) {
@@ -2418,10 +2455,14 @@
                     var list = [];
                     for (var prop in this.info) {
                         if (this.info.hasOwnProperty(prop)) {
+                            var proVal = this.info[prop]
+                            if (isDateTimeNonSec(proVal)) {
+                                proVal = formatDateTime(proVal)
+                            }
                             list.push({
                                 emgNo: _regSeq,
                                 proCode: prop,
-                                proVal: this.info[prop]
+                                proVal: proVal
                             });
                         }
                     }
@@ -2692,6 +2733,24 @@
                 sub[strArr[0]][strArr[1]] = '';
             },
         });
+    }
+
+    function formatDateTime(date) {
+        return publicFun.timeFormat(date, 'yyyy-MM-dd hh:mm:ss');
+    }
+
+    function formatDateTimeNonSec(date) {
+        return publicFun.timeFormat(date, 'yyyy-MM-dd hh:mm')
+    }
+
+    function isDateTime(dateStr) {
+        if (!dateStr || typeof dateStr !== 'string') return false
+        return /^(\d{4})(-|\/)(\d{2})(-|\/)(\d{2})\s(\d{2}):(\d{2}):(\d{2})$/.test(dateStr)
+    }
+
+    function isDateTimeNonSec(dateStr) {
+        if (!dateStr || typeof dateStr !== 'string') return false
+        return /^(\d{4})(-|\/)(\d{2})(-|\/)(\d{2})\s(\d{2}):(\d{2})$/.test(dateStr)
     }
 </script>
 </html>
