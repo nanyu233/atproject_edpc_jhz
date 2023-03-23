@@ -376,6 +376,7 @@
         </if>
         and reg_tim <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}
         and reg_tim <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
+        order by reg_tim desc
         <include refid="activetech.base.CommonSql.page_end" />
     </select>
 
@@ -668,6 +669,7 @@
         from hsp_dbzl_bas a
         where a.PAT_TYP = '2'
         <include refid="czdbzl_where"/>
+        order by a.reg_tim desc
         <include refid="activetech.base.CommonSql.page_end"/>
     </select>
 
