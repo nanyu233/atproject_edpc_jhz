@@ -104,7 +104,10 @@ var editFun = {
         "hspDbzlBasCustom.regSeq":regSeq
       },
       function (res) {
-        var data = res.resultInfo.sysdata
+        var data = res.resultInfo.sysdata || {}
+        var mapZlInf = $.extend(true, {}, data.mapZlInf || {})
+        mapZlInf && (vm.mapZlInf = mapZlInf)
+
         var vitalInfo = data.mapZlInf
 			
         vm.patientMsg.regSeq = data.hspDbzlBasCustom.regSeq

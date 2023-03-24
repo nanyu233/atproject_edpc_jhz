@@ -5,6 +5,16 @@
 var jsbrjz;
 var vm = avalon.define({
   $id: 'jsbrqjs',
+  mapZlInf: {
+    "MBJZ": "",
+    "TWJZ": "",
+    "HXPLJZ": "",
+    "XYJZ": "",
+    "YISHI": "",
+    "XUEYANG": ""
+  },
+  XT_DDFS_COD: publicFun.getDict('XT_DDFS_COD'),
+  SEN_RCT: publicFun.getDict('SEN_RCT'),
   getMsg: {
     cstSexCodList: [], // 性别 CST_SEX_COD
     cstAgeCodList: [], // 年龄类型 CST_AGE_COD

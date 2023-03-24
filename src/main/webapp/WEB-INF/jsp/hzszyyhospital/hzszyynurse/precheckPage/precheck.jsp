@@ -56,7 +56,7 @@
         </label> -->
       </p>
       <p>
-        病人检索：<input id="nameXm" type="text" placeholder="就诊号或姓名"> 
+        病人检索：<input id="nameXm" type="text" placeholder="就诊号或姓名">
         <a href="javascript:;" class="easyui-linkbutton" iconCls="icon-search" id="btn" onclick="getLeftData()">查询</a>
       </p>
       <!-- <p>
@@ -135,7 +135,7 @@
         <div class="oneFour-part oneSeven-part">
           <span class="left-ask"></span>
           <label class="thin-color">联系方式</label>
-          <input class="full-input-wth" type="text" ms-duplex-string="patientMsg.pheNbr" maxlength="30" ms-keyup="onlyNum('patientMsg','pheNbr')" 
+          <input class="full-input-wth" type="text" ms-duplex-string="patientMsg.pheNbr" maxlength="30" ms-keyup="onlyNum('patientMsg','pheNbr')"
           ms-change="onlyNum('patientMsg','pheNbr')" ms-input="onlyNum('patientMsg','pheNbr')" ms-attr-readonly="isEditPage == '1'">
         </div>
         <div class="twoEight-part">
@@ -175,7 +175,7 @@
           <a class="check-btn right-gap-btn" href="javascript:;" ms-class="active:patientMsg.grnChl==1" ms-class-2="level-btn3: patientMsg.grnChl==1"
             ms-click="judgeFlag('grnChl')">绿色通道</a>
           <a class="check-btn right-gap-btn" href="javascript:;" ms-class="active:patientMsg.swChl==1" ms-click="judgeFlag('swChl')">三无人员</a>
-					
+
           <a class="check-btn right-gap-btn" href="javascript:;" ms-click="judgeFlag('xtFlg')" ms-class="active: patientMsg.patTyp == 1 ">胸痛</a>
 
           <a class="check-btn right-gap-btn" href="javascript:;" ms-click="judgeFlag('czFlag')" ms-class="active: patientMsg.patTyp==2">卒中</a>
@@ -191,7 +191,7 @@
         <span class="left-ask"></span>
         <label class="title-wth">绿通原因</label>
         <span class="spanRelative total-input-wth">
-          <input class="total-full-wth bigBlueFt" type="text" ms-duplex-string="patientMsg.grnChlRsn" autocomplete="off" 
+          <input class="total-full-wth bigBlueFt" type="text" ms-duplex-string="patientMsg.grnChlRsn" autocomplete="off"
             ms-keyup="cleanUlInputText('grnChlRsn')" ms-click="showUlInputMsg('grnChlRsn')"/>
           <ul class="userList topList greenList" ms-visible="grnChlRsnShowFlg">
             <li ms-repeat="getMsg.grnChlRsnList" ms-click="chooseLiText(el.info, 'grnChlRsn')">
@@ -204,12 +204,12 @@
         <div class="twoFive-part">
           <span class="left-ask"></span>
           <label class="title-wth">到院方式</label>
-          <select class="full-input-wth" ms-duplex-string="patientMsg.arvChlCod">
+          <select class="full-input-wth" ms-duplex-string="mapZlInf.DYFS">
             <option value=""></option>
-            <option ms-repeat="getMsg.arvChlCodList" ms-attr-value="el.infocode">{{el.info}}</option>
+            <option ms-repeat="XT_DDFS_COD" ms-attr-value="el.infocode">{{el.info}}</option>
           </select>
         </div>
-        <div class="twoFive-part">
+        <div class="twoFive-part hidden">
           <span class="left-ask"></span>
           <label class="title-wth">陪送人员</label>
           <span class="relative full-input-wth">
@@ -286,7 +286,7 @@
             </div>
           </span>
         </div>
-        <div ms-class="seven-part: patientMsg.patientTyp == '3' || patientMsg.patientTyp == '4'">
+        <div class="hidden" ms-class="seven-part: patientMsg.patientTyp == '3' || patientMsg.patientTyp == '4'">
           <span class="left-ask"><span ms-visible="(patientMsg.patientTyp == '3' || patientMsg.patientTyp == '4') && !hideMsg.ksfz">*</span></span>
           <label class="title-wth">危急征象</label>
           <span class="relative full-input-wth">
@@ -320,7 +320,7 @@
         <div class="two-part">
           <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="w2" ms-class="redWarn:patientInfFlg.breNbrFlag==1">呼吸</label>
-          <input id="emg_breNbr" type="text" class="small-input bigBlueFt" maxlength="4" 
+          <input id="emg_breNbr" type="text" class="small-input bigBlueFt" maxlength="4"
             ms-duplex-string="aboutMews.huxipl" ms-keyup="onlyNum('aboutMews','huxipl')" ms-input="onlyNum('aboutMews','huxipl')"
             ms-change="onlyNum('aboutMews','huxipl')">
           <span class="gray-ft">次/分</span>
@@ -328,17 +328,17 @@
         <div class="two-part">
           <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="w2" ms-class="redWarn:patientInfFlg.hrtRteFlag==1">脉搏</label>
-          <input id="emg_hrtRte" type="text" class="small-input bigBlueFt" maxlength="4" 
+          <input id="emg_hrtRte" type="text" class="small-input bigBlueFt" maxlength="4"
             ms-duplex-string="aboutMews.mb" ms-keyup="onlyNum('aboutMews','mb')" ms-input="onlyNum('aboutMews','mb')"
             ms-change="onlyNum('aboutMews','mb')">
           <span class="gray-ft">次/分</span>
         </div>
         <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="w2" ms-class="redWarn:patientInfFlg.sbpUpNbrFlag==1">血压</label>
-          <input id="emg_sbpUpNbr" type="text" class="small-input bigBlueFt" maxlength="4" ms-duplex-string="aboutMews.sbpUpNbr" 
+          <input id="emg_sbpUpNbr" type="text" class="small-input bigBlueFt" maxlength="4" ms-duplex-string="aboutMews.sbpUpNbr"
             ms-keyup="onlyNum('aboutMews','sbpUpNbr')" ms-change="onlyNum('aboutMews','sbpUpNbr')"
             ms-input="onlyNum('aboutMews','sbpUpNbr')">/
-          <input id="emg_sbpDownNbr" type="text" class="small-input bigBlueFt" maxlength="4" ms-duplex-string="aboutMews.sbpDownNbr" 
+          <input id="emg_sbpDownNbr" type="text" class="small-input bigBlueFt" maxlength="4" ms-duplex-string="aboutMews.sbpDownNbr"
             ms-keyup="onlyNum('aboutMews','sbpDownNbr')" ms-change="onlyNum('aboutMews','sbpDownNbr')"
             ms-input="onlyNum('aboutMews','sbpDownNbr')">
           <span class="gray-ft">mmHg</span>
@@ -366,7 +366,7 @@
           <input class="hidden" id="emg_ttpfNr" type="text" ms-duplex-string="patientMsg.ttpfNr">
           <input class="hidden" id="emg_ttpfTypeCod" type="text" ms-duplex-string="patientMsg.ttpfTypeCod">
         </div>  -->
-        <div class="two-part">
+        <div class="two-part hidden">
           <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
           <label class="w2">意识</label>
           <select class="small-input" ms-duplex-string="patientMsg.senStuCod" ms-change="setSenStu()" >
@@ -376,10 +376,10 @@
         </div>
         <div class="two-part">
           <!-- <span class="left-ask"><span ms-visible="noMassRequire()">*</span></span> -->
-          <label class="title-wth">AVPU</label>
-          <select class="small-input" ms-duplex-string="aboutMews.senRctCod" ms-change="setSctStu()" >
+          <label class="title-wth">意识</label>
+          <select class="" ms-duplex-string="mapZlInf.YISHI" ms-change="setSctStu()" >
             <option value=""></option>
-            <option ms-repeat="getMsg.senRctCodList" ms-attr-value="el.infocode">{{el.info}}</option>
+            <option ms-repeat="SEN_RCT" ms-attr-value="el.infocode">{{el.info}}</option>
           </select>
         </div>
         <div class="two-part" style="display: none;">
@@ -388,7 +388,7 @@
           <input type="text" class="small-input cursor-type bigBlueFt" ms-duplex-string="patientMsg.fallAssEssText" ms-click="riskBox()" readonly>
           <input type="text" id="emg_falAssCod" ms-duplex-string="patientMsg.fallAssCod" class="hidden">
         </div>
-      </li> 
+      </li>
       <li ms-visible="patientMsg.fallAssCod !== '#' && patientMsg.fallAssCod !== '' && patientMsg.fallAssCod !== null">
         <span class="left-ask"></span>
         <label>防跌措施</label>
@@ -463,7 +463,7 @@
         <div class="two-part" ms-visible="patientMsg.patientTyp === '2'">
           <span class="left-ask"></span>
           <label class="title-wth">CRT</label>
-          <input type="text" class="small-input cursor-type bigBlueFt" ms-duplex-string="patientMsg.crt" ms-keyup="onlyNum('patientMsg','crt')" ms-input="onlyNum('patientMsg','crt')" 
+          <input type="text" class="small-input cursor-type bigBlueFt" ms-duplex-string="patientMsg.crt" ms-keyup="onlyNum('patientMsg','crt')" ms-input="onlyNum('patientMsg','crt')"
           ms-change="onlyNum('patientMsg','crt')" maxlength="4">
           <span class="gray-ft">秒</span>
         </div>
@@ -520,8 +520,8 @@
           <input class="hidden" type="text" id="emg_cspgCod" ms-duplex-string="patientMsg.cspgCod">
           <a class="check-btn cslcflg" ms-click="setCurrentCk('cslcflg')" ms-class-1="active: patientMsg.cslcflg == 1" ms-visible="isJumpToSdzx == '1'">进入创伤流程</a>
         </div>
-      </li>  
-      <li class="twoSeven-li">
+      </li>
+      <li class="twoSeven-li hidden">
         <div class="two-part auto-div-width">
           <span class="left-ask"></span>
           <label class="title-wth">120送入</label>
@@ -536,7 +536,7 @@
           <span class="spanRelative">
             驾驶员
         	  <span class="spanRelative">
-              <input type="text" class="small-input drive-name bigBlueFt" ms-duplex-string="patientMsg.abnDriver" id="driverName" 
+              <input type="text" class="small-input drive-name bigBlueFt" ms-duplex-string="patientMsg.abnDriver" id="driverName"
               ms-keyup="cleanAbnSco()" autocomplete="off" maxlength="20">
               <ul class="userList topList" ms-visible="isShowAbnDriverList">
                 <li ms-repeat="getMsg.abnDriverList" ms-click="chooseAbnDriver(el.info)">
@@ -570,14 +570,14 @@
           <label class="title-wth">转入医院</label>
           <input type="text" ms-duplex-string="patientMsg.abnScoNme" autocomplete="off" class="auto-input-wth bigBlueFt"
           maxlength="30">
-          
-          <a ms-visible="isOpenJjyqFlg == 1 && isEditPage == '1' && ([0, '0', '1'].indexOf(patientMsg.sendInCod) != -1)" 
+
+          <a ms-visible="isOpenJjyqFlg == 1 && isEditPage == '1' && ([0, '0', '1'].indexOf(patientMsg.sendInCod) != -1)"
             class="cursor-type link-aText" onclick="toYqMsg()">[查看院前信息]</a>
           <a ms-visible="isOpenJjyqFlg == 1 && isEditPage == '1' && ([0, '0', '1'].indexOf(patientMsg.sendInCod) != -1)"
             class="cursor-type link-aText" onclick="toYqJjd()">[院前交接单]</a>
         </div>
       </li>
-      <div class="bg-div"></div>     
+      <div class="bg-div"></div>
     </ul>
     <div class="save-btn-div">
       <a onclick="postPatientMsg()" class="bottom-btn save-btn"  ms-class-1="gray-btn: !isCanSave">保存</a>
@@ -696,7 +696,7 @@
       // vm.isCanSave = false;
       postCurrentMsg(print,register);
     }
-    
+
     function beforeSaveDealData () {
       setScrollListHide(); // 为了防止其他输入框的值bug
       var emgBedInfo = $('#bedId').val();
@@ -712,7 +712,7 @@
       }
     }
 
-    // 保存公用的方法 
+    // 保存公用的方法
     function postCurrentMsg(print,register) {
       beforeSaveDealData()
       var allPostMsg = jsbrFun.getAllPostMsg();
@@ -878,37 +878,57 @@
         }
         // console.log(compareMsgList, 'compareMsgList')
       }
-      publicFun.httpServer({url: _baseUrl + 'jzbr/adddbzlbassubmit_sdzx.do', requestDataType: 'json'}, {
-        'hspDbzlBasCustom': postParam,
-        // 'hspNrsInfCustom': {
-        //   nrsSco: postParam.nrsSco,
-        //   ttpfNr: postParam.ttpfNr,
-        //   ttpfTypeCod: postParam.ttpfTypeCod
-        // },
-        // 'hspFallAssInfCustom': {
-        //   'fallAssCod': postParam.fallAssCod
-        // },
-        // 'hspPewsckInfCustom': vm.aboutPEWS,
-        // 'hspFastInfCustom': {
-        //   czFlag: postParam.czFlag,
-        //   mtCod: postParam.mtCod,
-        //   szthCod: postParam.szthCod,
-        //   wlCod: postParam.wlCod
-        // },
-        // 'hspsqlinfCustom': { sqlSeq: postParam.sqlSeq }
+
+      function addzlinfo(successCallback, errorCallback) {
+        successCallback = successCallback || console.log
+        errorCallback = errorCallback || console.error
+
+        var zlInfList = [
+          {
+            proCode: "DYFS", // 到院方式
+            proVal: vm.mapZlInf.DYFS
+          },
+          {
+            proCode: "YISHI", // 意识
+            proVal: vm.mapZlInf.YISHI
+          }
+        ]
+
+        publicFun.httpServer({
+          url: _baseUrl + 'jzbr/addzlinfosubmit_sdzx.do',
+          requestDataType: 'json'
+        }, {
+          emgSeq: postParam.regSeq,
+          zlInfList: zlInfList
+        }, function (res) {
+          if (res.resultInfo.type != '1') {
+              throw res
+          }
+          successCallback(res)
+        })
+      }
+
+      publicFun.httpServer({
+        url: _baseUrl + 'jzbr/adddbzlbassubmit_sdzx.do',
+        requestDataType: 'json'
+      }, {
+        hspDbzlBasCustom: postParam,
       }, function (res) {
         comparePreFieldInfo = JSON.parse(JSON.stringify(compareSufFieldInfo )); // 保存成功留在当前页面时 对象替换
         compareSufFieldInfo = generateFieldObj() // 初始化对比对象
-        insertuser_callback(res, print,register)
-        reloadLeftTab(); // 预检页面保存后，左边患者列表需要默认刷新一下
-        if (vm.isEditPage == '1') {
-          publicFun.httpServer({url: _baseUrl + 'hzszyyemg/inforModify.do', requestDataType: 'json'}, {
-          'execList': compareMsgList
-          }, function () {})
-        }
+
+        addzlinfo(function success() {
+          insertuser_callback(res, print,register)
+          reloadLeftTab(); // 预检页面保存后，左边患者列表需要默认刷新一下
+          if (vm.isEditPage == '1') {
+            publicFun.httpServer({url: _baseUrl + 'hzszyyemg/inforModify.do', requestDataType: 'json'}, {
+            'execList': compareMsgList
+            }, function () {})
+          }
+        })
       })
     }
-    
+
     function insertuser_callback(data, print,register) {
       if (data.resultInfo && data.resultInfo.messageCode == '109') {
         message_alert(data, function () {
@@ -930,14 +950,14 @@
 					if(register){
 						registerGh()
 					}
-					
+
           _emgSeq = data.resultInfo.sysdata.emgSeq;
           $('#emg_emgSeq').val(_emgSeq);
           // editFun.getPatientMsg();
           setTimeout(function () {
             $('.messager-body').window('close')
             if (!'${emgSeq}' || vm.isEditPage != '1') { // 修改预检页面保存完了不调用新增
-              addNewPat(); 
+              addNewPat();
             } else {
               vm.isEditPage = '1'; // 修改状态
               typeForm = 'edit';
@@ -998,7 +1018,7 @@
         }
       })
     }
-    
+
     function setScrollListHide () {
       autoDoFun();
       $('.scroll-list-div').hide();
@@ -1081,7 +1101,7 @@
       var openTabName = checkedObj.cstNam + '-护理记录';
       parent.opentabwindow(openTabName, openTabUrl, '0');
     }
-    
+
     // 点击 更多操作 - 显示list
     function setMenuDisplay (disType) {
       if (disType === 'show') {
@@ -1144,7 +1164,7 @@
         })
       });
     }
-  
+
     // 新增
     function addNewPat () {
       cancelPop(); // 防止新增点击按钮 进而走进autoDoFun 导致分级有值
@@ -1250,15 +1270,15 @@
         return
         }
       }
-			_confirm('确认对该患者进行建档操作吗', null, function () {							
+			_confirm('确认对该患者进行建档操作吗', null, function () {
 					publicFun.httpServer({
 							url: requesUrl,
 							requestDataType: 'json'
-						}, 
+						},
 						{hspemginfCustom:requestData}
 						, function (data) {
 							message_alert(data);
-							if (data.resultInfo.type == '1') {		
+							if (data.resultInfo.type == '1') {
 								var res = data.resultInfo.sysdata.vHemsEmpi
 								var vHeArr = ['zyh','xb','sfzh','xm','csny','nl','lxdh','jtzz']
 								for(var i=0;i<jdInfoArr.length;i++){
@@ -1276,7 +1296,7 @@
 							}
 						})
         });
-						
+
 		}
 
 		// 挂号
@@ -1286,7 +1306,7 @@
 					url: requesUrl,
 					requestDataType: 'json'
 				}, 	{hspemginfCustom:{
-					querytype:'1' 
+					querytype:'1'
 				}},function(data){
 					// 挂号失败展示错误信息 成功不显示
 					if(data.resultInfo.type == '0'){
@@ -1305,9 +1325,9 @@
 					}, 	{hspemginfCustom:{
 						querytype:'0'
 					}},function(data){
-							message_alert(data)		
+							message_alert(data)
 					})
-      });		
+      });
 		}
 
 		// 禁用建档按钮
@@ -1315,7 +1335,7 @@
 			$('#jdBtn').css("opacity", "0.4"); //设置成灰色不可点击
 			$('#jdBtn').css("pointer-events","none"); //设置鼠标事件不可用
 		}
-    
+
     // 设置院前btn
     function setYqBtn () {
       if (_isOpenYqFlg == '1') {
