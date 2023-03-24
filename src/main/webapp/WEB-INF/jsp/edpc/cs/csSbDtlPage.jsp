@@ -787,7 +787,7 @@
                                                                 <div class="input-group">
                                                                     <div class="lb">血氧饱和度</div>
                                                                     <div class="input">
-                                                                        <input type="text" class="input" onkeyup="NumberInput(this)" v-model="info.XYBHDJZ" maxlength="5" />
+                                                                        <input type="text" class="input" onkeyup="NumberInput(this)" v-model="info.XUEYANG" maxlength="5" />
                                                                         <div class="unit">%</div>
                                                                     </div>
                                                                 </div>
