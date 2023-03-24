@@ -624,8 +624,9 @@
                               <div class="input-group">
                                   <div class="lb">心电图</div>
                                   <div class="input">
+                                      <!-- TODO: 上传心电图 -->
                                       <a href="javascript:;" class="file">上传心电图
-                                          <input type="file" name="" id="">
+                                          <input type="file" name="ecgFile" id="ecgFile" accept=".png,.jpg,.jpeg,.pdf">
                                       </a>
                                   </div>
                               </div>
@@ -2396,7 +2397,7 @@
                     contentType: 'application/json;charset=UTF-8',
                     success: function (res) {
                         if (res && res.resultInfo.success) {
-
+                            var sysdata = res.resultInfo.sysdata || {}
                             sub.baseInfo = res.resultInfo.sysdata.hspDbzlBas || {}
                             for(var item of res.resultInfo.sysdata.cszlList) {
                                 var proVal = item.proVal
@@ -2411,6 +2412,10 @@
                                 }else if(item.proCode == 'JZQJCS' && item.proVal) {
                                     sub.query.JZQJCSSel = item.proVal.split(',')
                                 }
+                            }
+
+                            if (!sub.info.JTZZ) {
+                                sub.info.JTZZ = sysdata.locProvinceCity || ""
                             }
 
                             if (sub.baseInfo.cstAge > 6) {
