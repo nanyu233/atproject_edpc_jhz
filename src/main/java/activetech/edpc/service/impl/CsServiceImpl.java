@@ -1,5 +1,6 @@
 package activetech.edpc.service.impl;
 
+import activetech.base.dbconfig.ApplicationConfig;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.pojo.dto.PageQuery;
 import activetech.base.process.context.Config;
@@ -528,6 +529,10 @@ public class CsServiceImpl implements CsService{
 		
 		List<HspZlInf> cszlList = hspZlInfMapper.selectByExample(example);
 		sysdata.put("cszlList", cszlList);
+
+		String locProvinceCity = ApplicationConfig.getConfig().get("LOC_PROVINCE_CITY");
+		sysdata.put("locProvinceCity", locProvinceCity);
+
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
 	}
