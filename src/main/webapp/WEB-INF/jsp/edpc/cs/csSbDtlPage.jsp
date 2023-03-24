@@ -32,6 +32,14 @@
             float: left;
             cursor: pointer;
         }
+        .main select.w-auto {
+            min-width: 155px;
+            width: auto;
+        }
+        .main input[name=idNbr] {
+            width: 170px;
+        }
+
         a {
             text-decoration: underline;
             cursor: pointer;
@@ -186,6 +194,12 @@
                       </div>
                       <div class="row">
                           <div class="input-wrapper w23" >
+                              <div class="lb">身份证号<span class="required">*</span></div>
+                              <div class="input">
+                                  <input type="text" name="idNbr" class="input" v-model="baseInfo.idNbr" />
+                              </div>
+                          </div>
+                          <div class="input-wrapper w23" >
                               <div class="lb">紧急联系人<span class="required">*</span></div>
                               <div class="input">
                                   <input type="text"  class="input" v-model="info.JJLXR" />
@@ -195,12 +209,6 @@
                               <div class="lb">联系电话</div>
                               <div class="input">
                                   <input type="text"  class="input" v-model="baseInfo.pheNbr" disabled="disabled"/>
-                              </div>
-                          </div>
-                          <div class="input-wrapper w46 inline-flex align-top gap5" >
-                              <div class="lb flex-none">身份证号<span class="required">*</span></div>
-                              <div class="input flex-1">
-                                  <input type="text" class="input w-full" v-model="baseInfo.idNbr" />
                               </div>
                           </div>
                       </div>
@@ -300,7 +308,7 @@
                               <div class="input-group">
                                   <div class="lb"><span class="required">*</span>MPDS症状</div>
                                   <div class="input">
-                                      <select name="" v-model="info.MPDS">
+                                      <select class="w-auto" name="" v-model="info.MPDS">
                                           <option value="null">请选择</option>
                                           <option v-for="item in baseData.MDPS" :value="item.infocode">{{item.info}}</option>
                                       </select>
