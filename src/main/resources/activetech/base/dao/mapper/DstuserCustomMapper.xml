@@ -83,28 +83,6 @@
 	 order by temp.m1showorder, temp.m2showorder
   </select>
 
-	<select id="findMenu" resultMap="findMenuByroleidResultMap">
-		select *
-		from (select distinct m1.moduleid    menuid,
-							  m1.MODULENAME  menuname,
-							  m1.icon,
-							  m1.url         mainurl,
-							  m2.moduleid    menuid_two,
-							  m2.MODULENAME  menuname_two,
-							  m2.icon        icon_two,
-							  m2.url,
-							  m2.RELOAD_TYPE,
-							  m1.showorder   m1showorder,
-							  m2.showorder   m2showorder
-			  from dstmodule m1, dstmodule m2
-			  where m2.parentid = m1.moduleid
-				and m1.parentid = '0'
-				and m2.parentid != '0'
-           and m1.isused = '1'
-           and m2.isused = '1') temp
-		order by temp.m1showorder, temp.m2showorder
-	</select>
-  
   <select id="findOperatByRoleid" parameterType="java.lang.String" resultType="activetech.base.pojo.dto.Operation">
 	 select distinct o.url         actionUrl,
 	        o.operatename operationName,
@@ -338,7 +316,11 @@
 		       m1.showorder m1showorder,
                m2.showorder m2showorder
 		  from dstmodule m1, dstmodule m2
-		 where m2.parentid = m1.moduleid)temp
+		 where m2.parentid = m1.moduleid
+		   and m1.parentid = '0'
+		   and m2.parentid != '0'
+           and m1.isused = '1'
+           and m2.isused = '1')temp
 	 order by temp.m1showorder, temp.m2showorder
   </select>
   

@@ -26,12 +26,6 @@ public interface DstuserCustomMapper {
 	 * @return Menu 角色的菜单模型类
 	 */
 	public List<Menu> findMenuByroleid(List<String> roles) throws Exception;
-
-	/**
-	 * 查询全部可用菜单
-	 * @return
-	 */
-	public List<Menu> findMenu();
 	
 	/**
 	 * 根据角色id获取操作权限

@@ -76,13 +76,6 @@ public class LoginAction {
         String ip = getIpAddr(request);
         if (activeUser == null || !activeUser.getUsrno().equals(userid)) {
             activeUser = userService.checkUserInfo(userid, pwd);
-        } else {
-            if("admin".equals(activeUser.getUsrno())){
-                List<Menu> menuList = userService.findMenu();
-                Menu menu = new Menu();
-                menu.setMenus(menuList);
-                activeUser.setMenu(menu);
-            }
         }
         // 将用户身份信息写入session
         activeUser.setHospitalCategory(hospitalCategory);
