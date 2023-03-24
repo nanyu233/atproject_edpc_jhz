@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspYjqdDtlMapperCustom">
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspYjqdDtlKey">
+    <id column="YJQD_SEQ" jdbcType="VARCHAR" property="yjqdSeq" />
+    <id column="USRNO" jdbcType="VARCHAR" property="usrno" />
+  </resultMap>
+
+  <!-- 一键启动关联用户 -->
+  <insert id="addUserToYjqd" parameterType="activetech.edpc.pojo.dto.HspYjqdInfQueryDto">
+    insert into hsp_yjqd_dtl a
+    select b.yjqd_seq, b.usrno from (
+    <foreach collection="userList" index="ind" item="item" separator="union">
+      select #{hspYjqdInfCustom.yjqdSeq, jdbcType=VARCHAR} yjqd_seq,
+             #{item.usrno, jdbcType=VARCHAR} usrno
+      from dual
+    </foreach>
+    ) b
+  </insert>
+</mapper>

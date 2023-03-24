@@ -42,4 +42,6 @@
 
 	<bean id="groupService" class="activetech.edpc.service.impl.GroupServiceImpl"/>
 
+	<bean id="yjqdService" class="activetech.edpc.service.impl.YjqdServiceImpl"/>
+
 </beans>

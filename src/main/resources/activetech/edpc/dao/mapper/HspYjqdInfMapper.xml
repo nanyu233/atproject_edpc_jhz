@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspYjqdInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspYjqdInf">
+    <id column="YJQD_SEQ" jdbcType="VARCHAR" property="yjqdSeq" />
+    <result column="REG_SEQ" jdbcType="VARCHAR" property="regSeq" />
+    <result column="YJQD_TIME" jdbcType="TIMESTAMP" property="yjqdTime" />
+    <result column="NOTICE_TYPE" jdbcType="VARCHAR" property="noticeType" />
+    <result column="CRT_USER" jdbcType="VARCHAR" property="crtUser" />
+    <result column="CRT_TIME" jdbcType="TIMESTAMP" property="crtTime" />
+    <result column="MOD_USER" jdbcType="VARCHAR" property="modUser" />
+    <result column="MOD_TIME" jdbcType="TIMESTAMP" property="modTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="activetech.edpc.pojo.domain.HspYjqdInf">
+    <result column="NOTICE_CONTENT" jdbcType="CLOB" property="noticeContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    YJQD_SEQ, REG_SEQ, YJQD_TIME, NOTICE_TYPE, CRT_USER, CRT_TIME, MOD_USER, MOD_TIME
+  </sql>
+  <sql id="Blob_Column_List">
+    NOTICE_CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="activetech.edpc.pojo.domain.HspYjqdInfExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_YJQD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="activetech.edpc.pojo.domain.HspYjqdInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_YJQD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HSP_YJQD_INF
+    where YJQD_SEQ = #{yjqdSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HSP_YJQD_INF
+    where YJQD_SEQ = #{yjqdSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspYjqdInfExample">
+    delete from HSP_YJQD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspYjqdInf">
+    insert into HSP_YJQD_INF (YJQD_SEQ, REG_SEQ, YJQD_TIME, 
+      NOTICE_TYPE, CRT_USER, CRT_TIME, 
+      MOD_USER, MOD_TIME, NOTICE_CONTENT
+      )
+    values (#{yjqdSeq,jdbcType=VARCHAR}, #{regSeq,jdbcType=VARCHAR}, #{yjqdTime,jdbcType=TIMESTAMP}, 
+      #{noticeType,jdbcType=VARCHAR}, #{crtUser,jdbcType=VARCHAR}, #{crtTime,jdbcType=TIMESTAMP}, 
+      #{modUser,jdbcType=VARCHAR}, #{modTime,jdbcType=TIMESTAMP}, #{noticeContent,jdbcType=CLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspYjqdInf">
+    insert into HSP_YJQD_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="yjqdSeq != null">
+        YJQD_SEQ,
+      </if>
+      <if test="regSeq != null">
+        REG_SEQ,
+      </if>
+      <if test="yjqdTime != null">
+        YJQD_TIME,
+      </if>
+      <if test="noticeType != null">
+        NOTICE_TYPE,
+      </if>
+      <if test="crtUser != null">
+        CRT_USER,
+      </if>
+      <if test="crtTime != null">
+        CRT_TIME,
+      </if>
+      <if test="modUser != null">
+        MOD_USER,
+      </if>
+      <if test="modTime != null">
+        MOD_TIME,
+      </if>
+      <if test="noticeContent != null">
+        NOTICE_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="yjqdSeq != null">
+        #{yjqdSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="regSeq != null">
+        #{regSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="yjqdTime != null">
+        #{yjqdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeType != null">
+        #{noticeType,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUser != null">
+        #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null">
+        #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null">
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeContent != null">
+        #{noticeContent,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspYjqdInfExample" resultType="java.lang.Long">
+    select count(*) from HSP_YJQD_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSP_YJQD_INF
+    <set>
+      <if test="record.yjqdSeq != null">
+        YJQD_SEQ = #{record.yjqdSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regSeq != null">
+        REG_SEQ = #{record.regSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yjqdTime != null">
+        YJQD_TIME = #{record.yjqdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.noticeType != null">
+        NOTICE_TYPE = #{record.noticeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtUser != null">
+        CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTime != null">
+        CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modUser != null">
+        MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modTime != null">
+        MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.noticeContent != null">
+        NOTICE_CONTENT = #{record.noticeContent,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update HSP_YJQD_INF
+    set YJQD_SEQ = #{record.yjqdSeq,jdbcType=VARCHAR},
+      REG_SEQ = #{record.regSeq,jdbcType=VARCHAR},
+      YJQD_TIME = #{record.yjqdTime,jdbcType=TIMESTAMP},
+      NOTICE_TYPE = #{record.noticeType,jdbcType=VARCHAR},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP},
+      NOTICE_CONTENT = #{record.noticeContent,jdbcType=CLOB}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSP_YJQD_INF
+    set YJQD_SEQ = #{record.yjqdSeq,jdbcType=VARCHAR},
+      REG_SEQ = #{record.regSeq,jdbcType=VARCHAR},
+      YJQD_TIME = #{record.yjqdTime,jdbcType=TIMESTAMP},
+      NOTICE_TYPE = #{record.noticeType,jdbcType=VARCHAR},
+      CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
+      CRT_TIME = #{record.crtTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{record.modUser,jdbcType=VARCHAR},
+      MOD_TIME = #{record.modTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspYjqdInf">
+    update HSP_YJQD_INF
+    <set>
+      <if test="regSeq != null">
+        REG_SEQ = #{regSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="yjqdTime != null">
+        YJQD_TIME = #{yjqdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeType != null">
+        NOTICE_TYPE = #{noticeType,jdbcType=VARCHAR},
+      </if>
+      <if test="crtUser != null">
+        CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modUser != null">
+        MOD_USER = #{modUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null">
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeContent != null">
+        NOTICE_CONTENT = #{noticeContent,jdbcType=CLOB},
+      </if>
+    </set>
+    where YJQD_SEQ = #{yjqdSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.edpc.pojo.domain.HspYjqdInf">
+    update HSP_YJQD_INF
+    set REG_SEQ = #{regSeq,jdbcType=VARCHAR},
+      YJQD_TIME = #{yjqdTime,jdbcType=TIMESTAMP},
+      NOTICE_TYPE = #{noticeType,jdbcType=VARCHAR},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{modUser,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      NOTICE_CONTENT = #{noticeContent,jdbcType=CLOB}
+    where YJQD_SEQ = #{yjqdSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspYjqdInf">
+    update HSP_YJQD_INF
+    set REG_SEQ = #{regSeq,jdbcType=VARCHAR},
+      YJQD_TIME = #{yjqdTime,jdbcType=TIMESTAMP},
+      NOTICE_TYPE = #{noticeType,jdbcType=VARCHAR},
+      CRT_USER = #{crtUser,jdbcType=VARCHAR},
+      CRT_TIME = #{crtTime,jdbcType=TIMESTAMP},
+      MOD_USER = #{modUser,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP}
+    where YJQD_SEQ = #{yjqdSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>

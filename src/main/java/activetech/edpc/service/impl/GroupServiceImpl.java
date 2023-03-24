@@ -108,7 +108,7 @@ public class GroupServiceImpl implements GroupService {
      * @param hspGrpInfCustom
      * @return return
      */
-    private String checkNull(HspGrpInfCustom hspGrpInfCustom) {
+    private String checkParam(HspGrpInfCustom hspGrpInfCustom) {
         // 群组名称
         if (!StringUtils.isNotNullAndEmptyByTrim(hspGrpInfCustom.getGrpName())) {
             return "群组名称";
@@ -135,7 +135,7 @@ public class GroupServiceImpl implements GroupService {
     public void addGroup(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
         // 参数校验
         HspGrpInfCustom hspGrpInfCustom = hspGrpInfQueryDto.getHspGrpInfCustom() != null ? hspGrpInfQueryDto.getHspGrpInfCustom() : new HspGrpInfCustom();
-        String fieldName = checkNull(hspGrpInfCustom);
+        String fieldName = checkParam(hspGrpInfCustom);
         if (StringUtils.isNotNullAndEmptyByTrim(fieldName)) {
             ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 922, new Object[]{fieldName}));
         }
@@ -159,7 +159,7 @@ public class GroupServiceImpl implements GroupService {
     public void editGroup(HspGrpInfQueryDto hspGrpInfQueryDto, ActiveUser activeUser) throws Exception {
         // 参数校验
         HspGrpInfCustom hspGrpInfCustom = hspGrpInfQueryDto.getHspGrpInfCustom() != null ? hspGrpInfQueryDto.getHspGrpInfCustom() : new HspGrpInfCustom();
-        String fieldName = checkNull(hspGrpInfCustom);
+        String fieldName = checkParam(hspGrpInfCustom);
         if (StringUtils.isNotNullAndEmptyByTrim(fieldName)) {
             ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 911, new Object[]{fieldName}));
         }
