@@ -240,6 +240,15 @@ public class UserServiceImpl implements UserService {
 	public List<Menu> findMenuByroleid(List<String> roles) throws Exception{
 		return dstuserCustomMapper.findMenuByroleid(roles);
 	}
+
+	/**
+	 * 查询全部可用菜单
+	 * @return
+	 */
+	public List<Menu> findMenu(){
+		return dstuserCustomMapper.findMenu();
+	}
+
 	/**
 	 * 根据用户角色获取操作权限
 	 * @param roleid 角色编码

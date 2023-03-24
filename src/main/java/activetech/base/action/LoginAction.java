@@ -1,6 +1,7 @@
 package activetech.base.action;
 
 import activetech.base.pojo.dto.ActiveUser;
+import activetech.base.pojo.dto.Menu;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
@@ -30,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -74,6 +76,13 @@ public class LoginAction {
         String ip = getIpAddr(request);
         if (activeUser == null || !activeUser.getUsrno().equals(userid)) {
             activeUser = userService.checkUserInfo(userid, pwd);
+        } else {
+            if("admin".equals(activeUser.getUsrno())){
+                List<Menu> menuList = userService.findMenu();
+                Menu menu = new Menu();
+                menu.setMenus(menuList);
+                activeUser.setMenu(menu);
+            }
         }
         // 将用户身份信息写入session
         activeUser.setHospitalCategory(hospitalCategory);
