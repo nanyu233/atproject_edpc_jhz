@@ -659,7 +659,7 @@
                                   <div class="input-group">
                                       <div class="lb">卡类型</div>
                                       <div class="input">
-                                          <select name="" v-model="info.KALX">
+                                          <select name="" v-model="baseInfo.cardType">
                                               <option value="null">请选择</option>
                                               <option v-for="item in baseData.cardType" :value="item.infocode">{{item.info}}</option>
                                           </select>
@@ -667,7 +667,7 @@
                                   </div>
                                   <div class="input-group">
                                       <div class="lb">卡号</div>
-                                      <div class="input"><input type="text" class="input" v-model="info.KAHAO" /></div>
+                                      <div class="input"><input type="text" class="input" v-model="baseInfo.vstCard" /></div>
                                   </div>
                               </div>
                               <div class="title1">时刻记录</div>
