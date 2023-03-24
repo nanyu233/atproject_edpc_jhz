@@ -879,7 +879,16 @@
         // console.log(compareMsgList, 'compareMsgList')
       }
 
-      function addzlinfo(successCallback, errorCallback) {
+      /**
+       *
+       * 刚开始患者登记的时候regSeq是空的，保存是报错
+       * 需要在的adddbzlbassubmit_sdzx 接口返回成功后 将返回的regSeq作为参数
+       *
+       * @param {string} emgSeq 目前是和 regSeq一致的
+       * @param {Function} successCallback
+       * @param {Function} errorCallback
+       */
+      function addzlinfo(emgSeq, successCallback, errorCallback) {
         successCallback = successCallback || console.log
         errorCallback = errorCallback || console.error
 
@@ -898,7 +907,7 @@
           url: _baseUrl + 'jzbr/addzlinfosubmit_sdzx.do',
           requestDataType: 'json'
         }, {
-          emgSeq: _emgSeq,
+          emgSeq: emgSeq,
           zlInfList: zlInfList
         }, function (res) {
           if (res.resultInfo.type != '1') {
@@ -914,61 +923,69 @@
       }, {
         hspDbzlBasCustom: postParam,
       }, function (res) {
+        var sysdata = res.resultInfo.sysdata || {}
         comparePreFieldInfo = JSON.parse(JSON.stringify(compareSufFieldInfo )); // 保存成功留在当前页面时 对象替换
         compareSufFieldInfo = generateFieldObj() // 初始化对比对象
 
-        addzlinfo(function success() {
-          insertuser_callback(res, print,register)
-          reloadLeftTab(); // 预检页面保存后，左边患者列表需要默认刷新一下
-          if (vm.isEditPage == '1') {
-            publicFun.httpServer({url: _baseUrl + 'hzszyyemg/inforModify.do', requestDataType: 'json'}, {
-            'execList': compareMsgList
-            }, function () {})
-          }
-        })
+        if (res.resultInfo.type == '1') {
+          addzlinfo(sysdata.regSeq, function success() {
+            insertuser_callback(res, print,register)
+            reloadLeftTab(); // 预检页面保存后，左边患者列表需要默认刷新一下
+            if (vm.isEditPage == '1') {
+              publicFun.httpServer({url: _baseUrl + 'hzszyyemg/inforModify.do', requestDataType: 'json'}, {
+                'execList': compareMsgList
+              }, function () {})
+            }
+          })
+        } else {
+          error_callback(res)
+        }
+
       })
     }
 
-    function insertuser_callback(data, print,register) {
+    function error_callback(data) {
       if (data.resultInfo && data.resultInfo.messageCode == '109') {
         message_alert(data, function () {
           window.location.href = "${baseurl}first.do";
         });
-      } else {
-        if (!print) { // 不是打印时 弹出弹窗
-          message_alert(data);
-        }
-        if (data.resultInfo.type == '1') {
-          if (print == "p") {
-            printFz()
-          }
-					// 绿通对接
-					if(vm.patientMsg.grnChl=='1' && vm.ltklFlag=='1'){
-						greenDocking()
-					}
-					// 如果register不为空 则表示需要进行挂号
-					if(register){
-						registerGh()
-					}
+      }
+    }
 
-          _emgSeq = data.resultInfo.sysdata.emgSeq;
-          $('#emg_emgSeq').val(_emgSeq);
-          // editFun.getPatientMsg();
-          setTimeout(function () {
-            $('.messager-body').window('close')
-            if (!'${emgSeq}' || vm.isEditPage != '1') { // 修改预检页面保存完了不调用新增
-              addNewPat();
-            } else {
-              vm.isEditPage = '1'; // 修改状态
-              typeForm = 'edit';
-            }
-            vm.isCanSave = true;
-          }, 1000);
-          // setTimeout("parent.closemodalwindow()", 1000);
-          // setTimeout("refreshjz()", 1000)
-        } else {
-          vm.isCanSave = true;
+    function insertuser_callback(data, print,register) {
+      if (!print) { // 不是打印时 弹出弹窗
+        message_alert(data);
+      }
+      if (data.resultInfo.type == '1') {
+        if (print == "p") {
+          printFz()
         }
+        // 绿通对接
+        if(vm.patientMsg.grnChl=='1' && vm.ltklFlag=='1'){
+          greenDocking()
+        }
+        // 如果register不为空 则表示需要进行挂号
+        if(register){
+          registerGh()
+        }
+
+        _emgSeq = data.resultInfo.sysdata.emgSeq;
+        $('#emg_emgSeq').val(_emgSeq);
+        // editFun.getPatientMsg();
+        setTimeout(function () {
+          $('.messager-body').window('close')
+          if (!'${emgSeq}' || vm.isEditPage != '1') { // 修改预检页面保存完了不调用新增
+            addNewPat();
+          } else {
+            vm.isEditPage = '1'; // 修改状态
+            typeForm = 'edit';
+          }
+          vm.isCanSave = true;
+        }, 1000);
+        // setTimeout("parent.closemodalwindow()", 1000);
+        // setTimeout("refreshjz()", 1000)
+      } else {
+        vm.isCanSave = true;
       }
     }
 
