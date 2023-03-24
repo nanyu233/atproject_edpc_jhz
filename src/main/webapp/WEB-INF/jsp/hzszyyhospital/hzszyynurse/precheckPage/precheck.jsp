@@ -898,7 +898,7 @@
           url: _baseUrl + 'jzbr/addzlinfosubmit_sdzx.do',
           requestDataType: 'json'
         }, {
-          emgSeq: postParam.regSeq,
+          emgSeq: _emgSeq,
           zlInfList: zlInfList
         }, function (res) {
           if (res.resultInfo.type != '1') {
