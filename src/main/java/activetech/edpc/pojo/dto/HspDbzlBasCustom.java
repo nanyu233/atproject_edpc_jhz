@@ -34,6 +34,8 @@ public class HspDbzlBasCustom extends HspDbzlBas {
 
     //血氧
     private String xueyang;
+    //意识
+    private String senStuCod;
     //初步印象
     private String cbyx;
     //病人主诉症状
@@ -236,4 +238,8 @@ public class HspDbzlBasCustom extends HspDbzlBas {
     public Date getEnddate() { return enddate; }
 
     public void setEnddate(Date enddate) { this.enddate = enddate; }
+
+    public String getSenStuCod() { return senStuCod; }
+
+    public void setSenStuCod(String senStuCod) { this.senStuCod = senStuCod; }
 }

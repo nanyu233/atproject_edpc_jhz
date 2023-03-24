@@ -582,9 +582,9 @@ public class HspJyJcDeQingImpl implements EsbService {
             hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
         }
         //意识
-        if(hspDbzlBasCustom.getXueyang() != null) {
+        if(hspDbzlBasCustom.getSenStuCod() != null) {
             baseZlInf.setProCode("YISHI");
-            //baseZlInf.setProVal(hspDbzlBasCustom.getSenRctCod());
+            baseZlInf.setProVal(hspDbzlBasCustom.getSenStuCod());
             hspZlInfCustomMapper.mergeHspXtzlInf(baseZlInf);
         }
 

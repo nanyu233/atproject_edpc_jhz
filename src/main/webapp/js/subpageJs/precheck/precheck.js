@@ -375,6 +375,9 @@ function dealVitals(data){
 	if(data.XUEYANG){
 		vm.patientMsg.xueyang = data.XUEYANG
 	}
+    if(data.YISHI){
+      vm.patientMsg.senStuCod = data.YISHI
+    }
 	if(data.XYJZ){
 		var arr = data.XYJZ.split('/')
 		vm.aboutMews.sbpUpNbr = arr[0];
