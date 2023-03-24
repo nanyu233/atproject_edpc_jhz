@@ -30,17 +30,18 @@
     <!-- 分页查询群组用户列表 -->
     <select id="getGroupUserList" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto" resultType="activetech.base.pojo.dto.DstuserCustom">
         <include refid="activetech.base.CommonSql.page_start"/>
-        select a.userid,
-               a.usrno,
-               a.usrname,
-               a.userstate,
-               a.movephone
-        from dstuser a
-        where exists (select 1 from hsp_grp_usr b
-        <where>
-            <include refid="query_group_user_where"/>
-        </where>
-        )
+            select a.userid,
+                   a.usrno,
+                   a.usrname,
+                   a.userstate,
+                   a.movephone
+              from dstuser a
+             where exists (select 1 from hsp_grp_usr b
+                <where>
+                    <include refid="query_group_user_where"/>
+                </where>
+             )
+             order by a.vchar1 nulls last, a.usrno
         <include refid="activetech.base.CommonSql.page_end"/>
     </select>
 
@@ -128,7 +129,7 @@
             <where>
                 <include refid="query_user_where"/>
             </where>
-           order by b.grp_seq nulls last, a.vchar1 nulls last
+           order by b.grp_seq nulls last, a.vchar1 nulls last, a.usrno
         <include refid="activetech.base.CommonSql.page_end" />
     </select>
 
