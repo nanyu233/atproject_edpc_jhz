@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -58,7 +59,10 @@ public class JzbrAction {
     @RequestMapping("/adddbzlbassubmit_sdzx")
     public @ResponseBody SubmitResultInfo addzyyemgsubmit_yjfz_sdzx(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws Exception {
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-        esbService.insertHspDbzlBasForCust(hspDbzlBasQueryDto,activeUser);
+        String regSeq = esbService.insertHspDbzlBasForCust(hspDbzlBasQueryDto, activeUser);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("regSeq", regSeq);
+        resultInfo.setSysdata(map);
         return ResultUtil.createSubmitResult(resultInfo);
     }
 

@@ -26,7 +26,7 @@ public interface EsbService {
      /*
      * 插入三大中心基础信息表
      * */
-	void insertHspDbzlBasForCust(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser);
+	String insertHspDbzlBasForCust(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser);
 
 	public List<VHemsJcjgCustom> findVHemsJcjgList(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception;
 	public  int findvhemsjyjginfocount(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception;

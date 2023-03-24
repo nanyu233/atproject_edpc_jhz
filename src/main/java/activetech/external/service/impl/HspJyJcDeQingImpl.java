@@ -468,7 +468,7 @@ public class HspJyJcDeQingImpl implements EsbService {
     }
 
     @Override
-    public void insertHspDbzlBasForCust(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) {
+    public String insertHspDbzlBasForCust(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) {
         HspDbzlBasCustom hspDbzlBasCustom = hspDbzlBasQueryDto.getHspDbzlBasCustom();
         String regSeq;
 
@@ -545,6 +545,8 @@ public class HspJyJcDeQingImpl implements EsbService {
         }
 
         addzlinf(hspDbzlBasCustom, regSeq);
+
+        return regSeq;
     }
 
     private void addzlinf(HspDbzlBasCustom hspDbzlBasCustom, String regSeq) {
