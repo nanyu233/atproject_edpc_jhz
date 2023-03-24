@@ -42,6 +42,12 @@ public interface UserService {
 	 * @return Menu 角色的菜单模型类-去重
 	 */
 	public List<Menu> findMenuByroleid(List<String> roles) throws Exception;
+
+	/**
+	 * 查询全部可用菜单
+	 * @return
+	 */
+	public List<Menu> findMenu();
 	
 	/**
 	 * 根据用户角色获取操作权限
