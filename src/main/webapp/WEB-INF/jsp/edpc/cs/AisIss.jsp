@@ -91,7 +91,20 @@
         right: 0;
         font-weight: bold;
     }
-
+    .isssco i, .aissco i {
+        display: inline-block;
+        height: 80%;
+        width: 5px;
+        background: #22a8aa;
+        border-radius: 5px;
+        margin: 0 5px;
+    }
+    .head .right {
+        width: 85%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
     .main .left .activeItem {
         background: #ffffff;
         color: #22a8aa;
@@ -100,9 +113,22 @@
     .main .right {
         width: 78%;
         height: 100%;
-        overflow-y: scroll;
+    }
+    .isssco, .aissco {
+        height: 50%;
+        display: flex;
+        align-items: center;
     }
 
+    .isssco span, .aissco span {
+        width: 85px;
+        text-align: left;
+    }
+
+    .numsco {
+        font-weight: 600;
+        color: #22a8aa;
+    }
     .main .right .title {
         padding-left: 15px;
     }
@@ -169,10 +195,24 @@
 <div id="ais">
     <div class="page">
         <div class="head">
-            <div v-for="(item,index) in body" @click="partChange(item.prtItem)"
-                 :class="' bdPart '+(currPrt.prtItem == item.prtItem ? 'activePart':'')" :key="item.prtItem">
-                {{item.prtName}}
-                <i  v-if="item.hasChecked">*</i>
+            <div class="left">
+                <div class="isssco">
+                    <i></i>
+                    <span>ISS总分:</span>
+                    <span class="numsco">{{isssco}}</span>
+                </div>
+                <div class="aissco">
+                    <i></i>
+                    <span>AIS最大值:</span>
+                    <span class="numsco">{{aissco}}</span>
+                </div>
+            </div>
+            <div class="right">
+                <div v-for="(item,index) in body" @click="partChange(item.prtItem)"
+                     :class="' bdPart '+(currPrt.prtItem == item.prtItem ? 'activePart':'')" :key="item.prtItem">
+                    {{item.prtName}}
+                    <i v-if="item.hasChecked">*</i>
+                </div>
             </div>
         </div>
         <div class="main">
@@ -180,7 +220,7 @@
                 <div v-for="(itm,index) in currPrt.prtList" @click="optChange(itm.subItem)"
                      :class="'partItem '+(currOpt.subItem == itm.subItem ? 'activeItem':'')" :key="itm.subItem">
                     <div>{{itm.subName}}</div>
-                    <i  v-if="itm.hasChecked">*</i>
+                    <i v-if="itm.hasChecked">*</i>
                 </div>
             </div>
             <div class="right">
@@ -214,10 +254,44 @@
                 prtItem: "H"
             },
             currOpt: {},
+            aissco: 0,
+            isssco: 0,
+            scolist: [],
+        },
+        watch: {
+            resArr: {
+                handler: function(newV, oldV) {
+                    console.log('来了',newV)
+                    var newArr = JSON.parse(JSON.stringify(newV))
+                    if (newV.length > 1) {
+                        this.aissco = Math.max(...newV.map(item => {
+                            return item.optScoe
+                        }))
+                    } else if (newV.length === 1) {
+                        this.aissco = newV[0].optScoe
+                    }else {
+                        this.aissco = 0
+                    }
+                    var obj = {}
+                    var sortArr = newArr.sort((a, b) => {
+                        return b.optScoe - a.optScoe
+                    }).reduce(function(item, next) {
+                        obj[next.prtItem] ? '' : obj[next.prtItem] = true && item.push(next);
+                        return item;
+                    }, [])
+                    this.isssco = 0
+                    sortArr.forEach((item, index) => {
+                        if (index < 3) {
+                            this.isssco += Math.pow(item.optScoe, 2)
+                        }
+                    })
+                },
+                deep: true
+            }
         },
         methods: {
             getList() {
-                var that=this
+                var that = this
                 $.ajax({
                     url: '${baseurl}cs/getHspCsfDef.do',
                     type: 'post',
@@ -228,11 +302,11 @@
                     }),
                     success: function (res) {
                         that.body = res.resultInfo.sysdata.body
-                        that.body.forEach(item => {
+                        that.body.forEach(function(item) {
                             item.hasChecked = false
-                            item.prtList.forEach(items => {
+                            item.prtList.forEach(function(items)  {
                                 items.hasChecked = false
-                                items.subList.forEach(item2 => {
+                                items.subList.forEach(function(item2) {
                                     if (item2.checked) {
                                         items.hasChecked = true
                                         item.hasChecked = true
@@ -240,7 +314,18 @@
                                 })
                             })
                         })
-                        that.resArr = res.resultInfo.sysdata.hadChecked;
+
+                        if(res.resultInfo.sysdata){
+                            if(res.resultInfo.sysdata.hadChecked){
+                                that.resArr = res.resultInfo.sysdata.hadChecked;
+                            }
+                            // if(res.resultInfo.sysdata.hspCspfRes){
+                            //     that.isssco=res.resultInfo.sysdata.hspCspfRes.issScoe
+                            // }
+                            // if(res.resultInfo.sysdata.hspCspfRes){
+                            //     that.aissco=res.resultInfo.sysdata.hspCspfRes.aisScoe
+                            // }
+                        }
                         that.partChange("A")
                     }
                 });
@@ -258,22 +343,24 @@
                     }),
                     success: function (res) {
                         if (res.resultInfo.success) {
-                            $.messager.alert('消息提示', '数据保存成功!', 'info');
+                            $.messager.alert('消息提示', '数据保存成功!', 'success');
                         } else {
                             $.messager.alert('消息提示', '数据保存失败!', 'error');
                         }
-                            parent.closemodalwindow()
+                        parent.closemodalwindow()
+                        if (parent.sub) {
                             parent.sub.getISSSco()
+                        }
 
                     }
                 });
             },
             partChange: function (id) {
-                var that=this
-                let partItem = id;
-                let _body = that.body;
-                for (let i = 0; i < _body.length; i++) {
-                    const el = _body[i];
+                var that = this
+                var partItem = id;
+                var _body = that.body;
+                for (var i = 0; i < _body.length; i++) {
+                    var el = _body[i];
                     if (el.prtItem == partItem) {
                         that.currPrt = el
                         that.currOpt = el.prtList[0]
@@ -282,11 +369,11 @@
                 }
             },
             optChange: function (id) {
-                var that=this
-                let subItem = id;
-                let _prtList = that.currPrt.prtList;
-                for (let i = 0; i < _prtList.length; i++) {
-                    const el = _prtList[i];
+                var that = this
+                var subItem = id;
+                var _prtList = that.currPrt.prtList;
+                for (var i = 0; i < _prtList.length; i++) {
+                    var el = _prtList[i];
                     if (el.subItem == subItem) {
                         that.currOpt = el
                         break;
@@ -294,14 +381,12 @@
                 }
             },
             selctOption: function (id, idx) {
-                var that=this
-                let optCode = id;
-                let optArr = that.currOpt.subList;
-                let currPrtItem = that.currPrt.prtItem;
-                let currSubItem = that.currOpt.subItem;
+                var optCode = id;
+                var optArr = this.currOpt.subList;
+                var currPrtItem = this.currPrt.prtItem;
+                var currSubItem = this.currOpt.subItem;
 
-
-                for (let i = 0; i < optArr.length; i++) {
+                for (var i = 0; i < optArr.length; i++) {
                     if (i == idx) {
                         optArr[i].checked = !optArr[i].checked
                     } else {
@@ -312,35 +397,35 @@
                 // optArr[idx].checked=!optArr[idx].checked
                 if (optArr[idx].optCode == optCode) {
                     if (optArr[idx].checked == true) {
-                        that.addResArr(optArr[idx].optCode, optArr[idx].optScoe);
+                        this.addResArr(optArr[idx].optCode, optArr[idx].optScoe);
                     } else {
-                        that.reduceResArr(currPrtItem, currSubItem, optArr[idx].optCode);
+                        this.reduceResArr(currPrtItem, currSubItem, optArr[idx].optCode);
 
                     }
                 }
-                that.dealIconBySel();
+                this.dealIconBySel();
             },
             /**
              * 点击评分项时，处理左侧菜单栏和顶部菜单栏中菜单块右上角图标的展示与隐藏
              */
             dealIconBySel: function () {
-                var that=this
-                let _body = that.body;
-                let _currPart = that.currPrt;
-                let _currOpt = that.currOpt;
+                var that = this
+                var _body = that.body;
+                var _currPart = that.currPrt;
+                var _currOpt = that.currOpt;
 
-                const _subList = _currOpt.subList;
-                let checkedOpts = 0;
-                for (let i = 0; i < _subList.length; i++) {
-                    const el = _subList[i];
+                var _subList = _currOpt.subList;
+                var checkedOpts = 0;
+                for (var i = 0; i < _subList.length; i++) {
+                    var el = _subList[i];
                     if (el.checked) checkedOpts++;
                 }
                 checkedOpts > 0 ? _currOpt.hasChecked = true : _currOpt.hasChecked = false;
 
-                const _prtList = _currPart.prtList;
-                let checkedPrts = 0;
-                for (let i = 0; i < _prtList.length; i++) {
-                    const el = _prtList[i];
+                var _prtList = _currPart.prtList;
+                var checkedPrts = 0;
+                for (var i = 0; i < _prtList.length; i++) {
+                    var el = _prtList[i];
                     if (el.hasChecked) checkedPrts++;
                 }
                 checkedPrts > 0 ? _currPart.hasChecked = true : _currPart.hasChecked = false;
@@ -352,10 +437,10 @@
              * 从选中的评分项数组中删除旧数据
              */
             reduceResArr: function (partItem, subItem, code) {
-                var that=this
-                let resArr = that.resArr;
-                for (let i = 0; i < resArr.length; i++) {
-                    const el = resArr[i];
+                var that = this
+                var resArr = that.resArr;
+                for (var i = 0; i < resArr.length; i++) {
+                    var el = resArr[i];
                     if (el.optCode == code && el.prtItem == partItem && el.subItem == subItem) {
                         resArr.splice(i, 1);
                         break;
@@ -367,19 +452,25 @@
              * 向选中的评分项数组中添加新数据
              */
             addResArr: function (code, score) {
-                var that=this
-                let _prtItem = that.currPrt.prtItem;
-                let _subItem = that.currOpt.subItem;
-                if (that.resArr.length) {
-                    for (var i = 0; i < that.resArr.length; i++) {
-                        if (that.resArr[i].prtItem == _prtItem && that.resArr[i].subItem == _subItem) {
-                            that.resArr.splice(i, 1)
+                var _prtItem = this.currPrt.prtItem;
+                var _subItem = this.currOpt.subItem;
+
+                if (this.resArr.length) {
+                    for (var i = 0; i < this.resArr.length; i++) {
+                        if (this.resArr[i].prtItem == _prtItem && this.resArr[i].subItem == _subItem) {
+                            this.resArr.splice(i, 1)
                         }
                     }
                 }
-                let _resArr = that.resArr;
-                _resArr.push({prtItem: _prtItem, subItem: _subItem, optCode: code, optScoe: score});
-                that.resArr = _resArr;
+                var _resArr = this.resArr;
+
+                _resArr.push({
+                    prtItem: _prtItem,
+                    subItem: _subItem,
+                    optCode: code,
+                    optScoe: score
+                });
+                this.resArr = _resArr;
 
             },
         },
