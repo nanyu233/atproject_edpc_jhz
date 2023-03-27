@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="activetech.base.dao.mapper.DstarchivesCustomMapper" >
+  		<insert id="insert" parameterType="activetech.base.pojo.domain.Dstarchives" >
+
+			<selectKey keyProperty="fileSeq" order="BEFORE" resultType="java.lang.String">
+			  	select dstarchives_file_seq.nextval from dual
+			</selectKey>
+
+			insert into DSTARCHIVES (FILE_SEQ,REF_ID, FILE_NAME, CRT_DATE,
+									 CRT_USER, FILE_TYPE, FILE_CLASS,
+									 FILE_SIZE, VOICE_SEC
+			)
+			values (#{fileSeq,jdbcType=VARCHAR},#{refId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{crtDate,jdbcType=TIMESTAMP},
+					#{crtUser,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, #{fileClass,jdbcType=VARCHAR},
+					#{fileSize,jdbcType=DECIMAL}, #{voiceSec,jdbcType=DECIMAL}
+				   )
+		  </insert>
+
+	<select id="selectByIndSeq" resultType="activetech.base.pojo.dto.DstarchivesCustom"
+		parameterType="java.lang.String">
+		select a.file_seq,
+			   a.ref_id,
+			   a.file_name,
+			   a.crt_date,
+			   a.crt_user,
+			   a.file_type,
+			   a.file_class,
+			   a.file_size,
+			   a.voice_sec,
+			   a.file_blob
+		  from dstarchives a
+	     where a.ref_id like #{indSeq,jdbcType=VARCHAR}||'%'
+	</select>
+</mapper>

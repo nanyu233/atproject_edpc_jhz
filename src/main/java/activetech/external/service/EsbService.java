@@ -7,7 +7,12 @@ import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.HspZlInfQueryDto;
 import activetech.external.pojo.domain.HspEcgInf;
+import io.minio.errors.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public interface EsbService {
@@ -38,4 +43,16 @@ public interface EsbService {
 	List<HspCfxxInfoCustom> findCfxxLocalAndHISList(HspCfxxInfoQueryDto hspCfxxInfoQueryDto) throws Exception;
 
 	void addzlinfosubmit_sdzx(HspZlInfQueryDto hspZlInfQueryDto, ActiveUser activeUser);
+
+	/**
+	 * 保存心电图
+	 * @param multipartFile
+	 * @param fileType
+	 * @param emgSeq
+	 * @param activeUser
+	 * @return
+	 */
+	ResultInfo saveEcgPicSubmit(MultipartFile multipartFile, String fileType, String emgSeq,
+								ActiveUser activeUser) throws ServerException, InvalidBucketNameException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
+
 }

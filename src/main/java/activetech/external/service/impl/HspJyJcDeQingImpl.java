@@ -1,10 +1,16 @@
 package activetech.external.service.impl;
 
+import activetech.base.dao.mapper.DstarchivesCustomMapper;
+import activetech.base.dao.mapper.DstarchivesMapper;
+import activetech.base.pojo.domain.Dstarchives;
+import activetech.base.pojo.domain.DstarchivesExample;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.service.SystemConfigService;
+import activetech.base.service.impl.CommonServiceImpl;
+import activetech.base.util.MinIoUtil;
 import activetech.basehis.dao.mapper.YZMapper;
 import activetech.basehis.pojo.dto.*;
 import activetech.edpc.dao.mapper.HspDbzlBasMapper;
@@ -19,6 +25,7 @@ import activetech.external.service.EsbService;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
+import io.minio.errors.*;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -29,8 +36,13 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -93,6 +105,19 @@ public class HspJyJcDeQingImpl implements EsbService {
      */
     private static final String CHECK_CODE_JC = "S0073";
 
+
+    /******************************** 以下是心电图相关参数 ***************************************/
+    /**
+     * 心电图minio对应url
+     */
+    private static String publicNetUrl;
+
+    @Value("${minio.publicNetUrl}")
+    public void setPresignedObjectUrl(String publicNetUrl) {
+        HspJyJcDeQingImpl.publicNetUrl = publicNetUrl;
+    }
+
+
     @Autowired
     private YZMapper yzMapper;
     @Autowired
@@ -101,6 +126,12 @@ public class HspJyJcDeQingImpl implements EsbService {
     private HspDbzlBasMapper hspDbzlBasMapper;
     @Autowired
     private HspZlInfCustomMapper hspZlInfCustomMapper;
+
+    @Autowired
+    private DstarchivesMapper dstarchivesMapper;
+
+    @Autowired
+    private DstarchivesCustomMapper dstarchivesMapperCustom;
 
     @Override
     public List<VHemsJcjgCustom> findVHemsJcjgList(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception {
@@ -608,4 +639,77 @@ public class HspJyJcDeQingImpl implements EsbService {
             hspZlInfCustomMapper.mergeHspXtzlInf(hspZlInfCustom);
         }
     }
+
+    @Override
+    public ResultInfo saveEcgPicSubmit(MultipartFile multipartFile, String fileType, String patId,
+                                       ActiveUser activeUser) throws ServerException, InvalidBucketNameException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        ResultInfo resultInfo;
+        // 如果类型是心电图，则进行替换，如果是声音文件，则进行保存
+        DstarchivesExample example = new DstarchivesExample();
+        DstarchivesExample.Criteria criteria = example.createCriteria();
+        criteria.andRefIdEqualTo(patId);
+        criteria.andFileTypeEqualTo(fileType);
+        List<Dstarchives> fileList = dstarchivesMapper.selectByExample(example);
+        if (fileList.size() > 0) {
+            for (Dstarchives dstarchives : fileList) {
+                boolean b = MinIoUtil.doesObjectExist(fileType, dstarchives.getFileName());
+                if (b) {
+                    MinIoUtil.removeObject(fileType, dstarchives.getFileName());
+                    dstarchivesMapper.deleteByPrimaryKey(dstarchives.getFileSeq());
+                }
+            }
+        }
+
+        // 保存文件进 对象存储
+        try {
+            // 1.获取文件流
+            InputStream inputStream = multipartFile.getInputStream();
+            // 2.设置保存文件的名称
+
+            // 2.1获取文件名后缀
+            String originalFilename = multipartFile.getOriginalFilename();
+            String suffixFileName = originalFilename.substring(originalFilename.lastIndexOf("."));
+            // 2.2生成随机文件名
+            String prefixfileName = UUID.randomUUID().toString().replaceAll("-", "");
+            String fileName = patId + "/" + prefixfileName + suffixFileName;
+
+            // 3.保存进相应的对象存储服务器
+            // 判断桶存不存在
+            boolean b = MinIoUtil.bucketExists(fileType);
+            if (!b) {
+                MinIoUtil.createBucket(fileType);
+            }
+            MinIoUtil.putObject(fileType, fileName, inputStream);
+
+            Dstarchives record = new Dstarchives();
+            record.setCrtDate(new Date());
+            record.setCrtUser(activeUser.getUsrno());
+            record.setFileName(fileName);
+            record.setFileType(fileType);
+            record.setRefId(patId);
+
+            String presignedObjectUrl = publicNetUrl;
+            presignedObjectUrl += "/"+ fileType;
+            presignedObjectUrl += "/"+ fileName;
+
+            Map<String, Object> map = new HashMap<>();
+            // 返回保存文件的路径
+            map.put("filePath", presignedObjectUrl);
+
+            dstarchivesMapperCustom.insert(record);
+
+            resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+            resultInfo.setSysdata(map);
+
+        } catch (IOException | InvalidKeyException | InvalidResponseException | InsufficientDataException |
+                 NoSuchAlgorithmException | ServerException | InternalException | XmlParserException | InvalidBucketNameException | ErrorResponseException | RegionConflictException e) {
+            e.printStackTrace();
+            resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 920, new Object[]{
+                    "上传失败"
+            });
+        }
+
+        return resultInfo;
+    }
+
 }

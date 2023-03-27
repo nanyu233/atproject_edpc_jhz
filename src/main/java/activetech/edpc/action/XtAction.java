@@ -28,7 +28,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -967,4 +969,24 @@ public class XtAction {
 						webpath//下载地址
 				}));
 	}
+
+	/**
+	 * 保存心电图图片
+	 * @param multipartFile
+	 * @param fileType
+	 * @param patId
+	 * @param activeUser
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/saveEcgPicSubmit")
+	@ResponseBody
+	public SubmitResultInfo saveFileSubmit(@RequestParam("uploadFile") MultipartFile multipartFile,
+										   String fileType,
+										   String patId,
+										   ActiveUser activeUser) throws Exception {
+		ResultInfo resultInfo = esbService.saveEcgPicSubmit(multipartFile, fileType, patId, activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
 }
