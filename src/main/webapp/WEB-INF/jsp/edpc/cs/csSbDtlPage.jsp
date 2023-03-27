@@ -86,34 +86,39 @@
             background-color: #eeeeee !important;
             cursor: pointer !important;
         }
-        .green {
-            color: #29b294;
-        }
-        .orgern {
-            color: #faaa62;
-        }
-        .red {
-            color: red;
+
+        .custom-btn {
+            width: fit-content;
+            height: 40px;
+            color: #fff;
+            border-radius: 5px;
+            padding: 0 10px;
+            font-weight: 500;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+            7px 7px 20px 0px rgba(0,0,0,.1),
+            4px 4px 5px 0px rgba(0,0,0,.1);
+            outline: none;
         }
 
-        .w46 {
-            width: 47.8%;
+        .btn-1 {
+            background: #428bca;
+            border: none;
         }
-        .gap5 {
-            gap: 5%;
+        .btn-1:hover {
+            background: #0d478f;
+            box-shadow: none;
         }
+
         .gap-3 {
             gap: 3px;
         }
         .w-full {
             width: 100% !important;
-        }
-        .align-top {
-            vertical-align: top;
-        }
-
-        .inline-flex {
-            display: inline-flex !important;
         }
         .flex {
             display: flex !important;
@@ -1071,7 +1076,7 @@
                               </span>
 
                           </div>
-                          <div class="title1">病人去向</div>
+                          <div class="title1">病人去向 <button @click="getCsBRQX()" class="custom-btn btn-1">【同步转归】</button></div>
                           <div class="inputs">
                               <div class="input-group" style="color: red;display: block">
                                   病人去向时间 只记录离开急诊后第一次转归，包含：急诊离院、住院、转院、死亡、急诊留观、其他
@@ -1265,7 +1270,7 @@
                                   </div>
                               </div>
                           </div>
-                          <div class="title1">诊断符合情况</div>
+                          <div class="title1">诊断符合情况 <button @click="getCsZYXX()" class="custom-btn btn-1">【同步住院信息】</button></div>
                           <div class="block">
                               <div class="inputs">
                                   <div class="input-group">
@@ -1296,7 +1301,7 @@
                                   </div>
                               </div>
                           </div>
-                          <div class="title1">抢救情况</div>
+                          <div class="title1">抢救情况 <button @click="getCsQJQK()" class="custom-btn btn-1">【同步抢救情况】</button></div>
                           <div class="block">
                               <div class="inputs">
                                   <div class="input-group">
@@ -2441,6 +2446,69 @@
                         }
                     }
                 });
+            },
+            getCsBRQX: function () {
+                var self = this
+                $.ajax({
+                    type: 'post',
+                    url: 'cs/csBRQXdataFromEmis.do',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify({
+                        hspDbzlBasCustom: {
+                            regSeq: _regSeq
+                        }
+                    }),
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.resultInfo.type == '1') {
+                            var sysdata = res.resultInfo.sysdata || {}
+                            var BRQXMap = sysdata.BRQXMap || {}
+                            Object.assign(self.info, BRQXMap)
+                        }
+                    }
+                })
+            },
+            getCsZYXX: function (){
+                var self = this
+                $.ajax({
+                    type: 'post',
+                    url: 'cs/csZYXXdataFromEmis.do',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify({
+                        hspDbzlBasCustom: {
+                            regSeq: _regSeq
+                        }
+                    }),
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.resultInfo.type == '1') {
+                            var sysdata = res.resultInfo.sysdata || {}
+                            var ZYXXMap = sysdata.ZYXXMap || {}
+                            Object.assign(self.info, ZYXXMap)
+                        }
+                    }
+                })
+            },
+            getCsQJQK: function (){
+                var self = this
+                $.ajax({
+                    type: 'post',
+                    url: 'cs/csQJQKdataFromEmis.do',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify({
+                        hspDbzlBasCustom: {
+                            regSeq: _regSeq
+                        }
+                    }),
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.resultInfo.type == '1') {
+                            var sysdata = res.resultInfo.sysdata || {}
+                            var QJQKMap = sysdata.QJQKMap || {}
+                            Object.assign(self.info, QJQKMap)
+                        }
+                    }
+                })
             },
             commit() {
                     parent.publicFun.ajaxLoading('保存中，请稍等。。。')
