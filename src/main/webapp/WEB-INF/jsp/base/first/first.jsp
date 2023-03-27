@@ -14,7 +14,7 @@
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="GENERATOR" content="MSHTML 9.00.8112.16540">
-	<link rel="shortcut icon" type="image/x-icon" href="images/hzszyyhems/favicon.gif">
+	<link rel="shortcut icon" type="image/x-icon" href="images/hzszyyhems/companyLogo.png">
 	<%@ include file="/WEB-INF/jsp/base/common_css.jsp"%>
 	<link rel="stylesheet" type="text/css" href="css/hzszyyhems/first.css?v=${versionDay}">
 	<link rel="stylesheet" type="text/css" href="lib/at-font/style.css?v=${versionDay}">
@@ -24,7 +24,7 @@
 <body class="easyui-layout first" scroll="no">
 	<div border="false" split="false" region="north" class="top-bg">
 		<div class="first-bg">
-			&nbsp;&nbsp;<img src="images/hzszyyhems/logo.png" /> <!-- <img src="images/hzszyyhems/libanglogo.png" style="width:54px;height:27px;"/> --><span class="first-l"> ${hospitalPlatformName} </span> <span
+			&nbsp;&nbsp;<img src="images/hzszyyhems/companyLogo.png"  style="height:25px;"/> <!-- <img src="images/hzszyyhems/libanglogo.png" style="width:54px;height:27px;"/> --><span class="first-l"> ${hospitalPlatformName} </span> <span
 				class="first-r"> <!-- <a href="javascript:queryDangerMsg()">
           <span class="isShowMessage">消息提醒
             <img src="images/hems/first/tip_icon.png" class="msgIcon"/>
