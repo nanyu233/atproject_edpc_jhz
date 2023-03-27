@@ -687,6 +687,7 @@ public class HspJyJcDeQingImpl implements EsbService {
             record.setFileName(fileName);
             record.setFileType(fileType);
             record.setRefId(patId);
+            record.setValids("1");
 
             String presignedObjectUrl = publicNetUrl;
             presignedObjectUrl += "/"+ fileType;

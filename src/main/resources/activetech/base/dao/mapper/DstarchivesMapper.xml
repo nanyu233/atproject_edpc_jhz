@@ -8,6 +8,8 @@
     <result column="CRT_DATE" property="crtDate" jdbcType="TIMESTAMP" />
     <result column="CRT_USER" property="crtUser" jdbcType="VARCHAR" />
     <result column="FILE_TYPE" property="fileType" jdbcType="VARCHAR" />
+    <result column="VOICE_SEC" property="voiceSec" jdbcType="DECIMAL" />
+    <result column="VALIDS" property="valids" jdbcType="CHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    FILE_SEQ, REF_ID, FILE_NAME, CRT_DATE, CRT_USER, FILE_TYPE
+    FILE_SEQ, REF_ID, FILE_NAME, CRT_DATE, CRT_USER, FILE_TYPE, VOICE_SEC, VALIDS
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.base.pojo.domain.DstarchivesExample" >
     select
@@ -76,7 +78,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from DSTARCHIVES
+    from EDPC.DSTARCHIVES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,29 +89,29 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from DSTARCHIVES
+    from EDPC.DSTARCHIVES
     where FILE_SEQ = #{fileSeq,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from DSTARCHIVES
+    delete from EDPC.DSTARCHIVES
     where FILE_SEQ = #{fileSeq,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.DstarchivesExample" >
-    delete from DSTARCHIVES
+    delete from EDPC.DSTARCHIVES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="activetech.base.pojo.domain.Dstarchives" >
-    insert into DSTARCHIVES (FILE_SEQ, REF_ID, FILE_NAME, 
-      CRT_DATE, CRT_USER, FILE_TYPE
-      )
+    insert into EDPC.DSTARCHIVES (FILE_SEQ, REF_ID, FILE_NAME, 
+      CRT_DATE, CRT_USER, FILE_TYPE, 
+      VOICE_SEC, VALIDS)
     values (#{fileSeq,jdbcType=VARCHAR}, #{refId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
-      #{crtDate,jdbcType=TIMESTAMP}, #{crtUser,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}
-      )
+      #{crtDate,jdbcType=TIMESTAMP}, #{crtUser,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, 
+      #{voiceSec,jdbcType=DECIMAL}, #{valids,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="activetech.base.pojo.domain.Dstarchives" >
-    insert into DSTARCHIVES
+    insert into EDPC.DSTARCHIVES
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="fileSeq != null" >
         FILE_SEQ,
@@ -128,6 +130,12 @@
       </if>
       <if test="fileType != null" >
         FILE_TYPE,
+      </if>
+      <if test="voiceSec != null" >
+        VOICE_SEC,
+      </if>
+      <if test="valids != null" >
+        VALIDS,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -149,16 +157,22 @@
       <if test="fileType != null" >
         #{fileType,jdbcType=VARCHAR},
       </if>
+      <if test="voiceSec != null" >
+        #{voiceSec,jdbcType=DECIMAL},
+      </if>
+      <if test="valids != null" >
+        #{valids,jdbcType=CHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="activetech.base.pojo.domain.DstarchivesExample" resultType="java.lang.Integer" >
-    select count(*) from DSTARCHIVES
+    select count(*) from EDPC.DSTARCHIVES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update DSTARCHIVES
+    update EDPC.DSTARCHIVES
     <set >
       <if test="record.fileSeq != null" >
         FILE_SEQ = #{record.fileSeq,jdbcType=VARCHAR},
@@ -178,25 +192,33 @@
       <if test="record.fileType != null" >
         FILE_TYPE = #{record.fileType,jdbcType=VARCHAR},
       </if>
+      <if test="record.voiceSec != null" >
+        VOICE_SEC = #{record.voiceSec,jdbcType=DECIMAL},
+      </if>
+      <if test="record.valids != null" >
+        VALIDS = #{record.valids,jdbcType=CHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update DSTARCHIVES
+    update EDPC.DSTARCHIVES
     set FILE_SEQ = #{record.fileSeq,jdbcType=VARCHAR},
       REF_ID = #{record.refId,jdbcType=VARCHAR},
       FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
       CRT_DATE = #{record.crtDate,jdbcType=TIMESTAMP},
       CRT_USER = #{record.crtUser,jdbcType=VARCHAR},
-      FILE_TYPE = #{record.fileType,jdbcType=VARCHAR}
+      FILE_TYPE = #{record.fileType,jdbcType=VARCHAR},
+      VOICE_SEC = #{record.voiceSec,jdbcType=DECIMAL},
+      VALIDS = #{record.valids,jdbcType=CHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.Dstarchives" >
-    update DSTARCHIVES
+    update EDPC.DSTARCHIVES
     <set >
       <if test="refId != null" >
         REF_ID = #{refId,jdbcType=VARCHAR},
@@ -213,16 +235,24 @@
       <if test="fileType != null" >
         FILE_TYPE = #{fileType,jdbcType=VARCHAR},
       </if>
+      <if test="voiceSec != null" >
+        VOICE_SEC = #{voiceSec,jdbcType=DECIMAL},
+      </if>
+      <if test="valids != null" >
+        VALIDS = #{valids,jdbcType=CHAR},
+      </if>
     </set>
     where FILE_SEQ = #{fileSeq,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.Dstarchives" >
-    update DSTARCHIVES
+    update EDPC.DSTARCHIVES
     set REF_ID = #{refId,jdbcType=VARCHAR},
       FILE_NAME = #{fileName,jdbcType=VARCHAR},
       CRT_DATE = #{crtDate,jdbcType=TIMESTAMP},
       CRT_USER = #{crtUser,jdbcType=VARCHAR},
-      FILE_TYPE = #{fileType,jdbcType=VARCHAR}
+      FILE_TYPE = #{fileType,jdbcType=VARCHAR},
+      VOICE_SEC = #{voiceSec,jdbcType=DECIMAL},
+      VALIDS = #{valids,jdbcType=CHAR}
     where FILE_SEQ = #{fileSeq,jdbcType=VARCHAR}
   </update>
 </mapper>

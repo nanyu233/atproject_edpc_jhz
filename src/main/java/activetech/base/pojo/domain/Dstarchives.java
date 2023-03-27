@@ -1,5 +1,6 @@
 package activetech.base.pojo.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Dstarchives {
@@ -14,6 +15,10 @@ public class Dstarchives {
     private String crtUser;
 
     private String fileType;
+
+    private BigDecimal voiceSec;
+
+    private String valids;
 
     public String getFileSeq() {
         return fileSeq;
@@ -61,5 +66,21 @@ public class Dstarchives {
 
     public void setFileType(String fileType) {
         this.fileType = fileType == null ? null : fileType.trim();
+    }
+
+    public BigDecimal getVoiceSec() {
+        return voiceSec;
+    }
+
+    public void setVoiceSec(BigDecimal voiceSec) {
+        this.voiceSec = voiceSec;
+    }
+
+    public String getValids() {
+        return valids;
+    }
+
+    public void setValids(String valids) {
+        this.valids = valids == null ? null : valids.trim();
     }
 }

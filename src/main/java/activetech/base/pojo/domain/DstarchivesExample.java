@@ -1,5 +1,6 @@
 package activetech.base.pojo.domain;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -512,6 +513,136 @@ public class DstarchivesExample {
 
         public Criteria andFileTypeNotBetween(String value1, String value2) {
             addCriterion("FILE_TYPE not between", value1, value2, "fileType");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecIsNull() {
+            addCriterion("VOICE_SEC is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecIsNotNull() {
+            addCriterion("VOICE_SEC is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecEqualTo(BigDecimal value) {
+            addCriterion("VOICE_SEC =", value, "voiceSec");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecNotEqualTo(BigDecimal value) {
+            addCriterion("VOICE_SEC <>", value, "voiceSec");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecGreaterThan(BigDecimal value) {
+            addCriterion("VOICE_SEC >", value, "voiceSec");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("VOICE_SEC >=", value, "voiceSec");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecLessThan(BigDecimal value) {
+            addCriterion("VOICE_SEC <", value, "voiceSec");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("VOICE_SEC <=", value, "voiceSec");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecIn(List<BigDecimal> values) {
+            addCriterion("VOICE_SEC in", values, "voiceSec");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecNotIn(List<BigDecimal> values) {
+            addCriterion("VOICE_SEC not in", values, "voiceSec");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("VOICE_SEC between", value1, value2, "voiceSec");
+            return (Criteria) this;
+        }
+
+        public Criteria andVoiceSecNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("VOICE_SEC not between", value1, value2, "voiceSec");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsIsNull() {
+            addCriterion("VALIDS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsIsNotNull() {
+            addCriterion("VALIDS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsEqualTo(String value) {
+            addCriterion("VALIDS =", value, "valids");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsNotEqualTo(String value) {
+            addCriterion("VALIDS <>", value, "valids");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsGreaterThan(String value) {
+            addCriterion("VALIDS >", value, "valids");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsGreaterThanOrEqualTo(String value) {
+            addCriterion("VALIDS >=", value, "valids");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsLessThan(String value) {
+            addCriterion("VALIDS <", value, "valids");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsLessThanOrEqualTo(String value) {
+            addCriterion("VALIDS <=", value, "valids");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsLike(String value) {
+            addCriterion("VALIDS like", value, "valids");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsNotLike(String value) {
+            addCriterion("VALIDS not like", value, "valids");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsIn(List<String> values) {
+            addCriterion("VALIDS in", values, "valids");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsNotIn(List<String> values) {
+            addCriterion("VALIDS not in", values, "valids");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsBetween(String value1, String value2) {
+            addCriterion("VALIDS between", value1, value2, "valids");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidsNotBetween(String value1, String value2) {
+            addCriterion("VALIDS not between", value1, value2, "valids");
             return (Criteria) this;
         }
     }

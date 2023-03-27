@@ -2,8 +2,9 @@ package activetech.base.dao.mapper;
 
 import activetech.base.pojo.domain.Dstarchives;
 import activetech.base.pojo.domain.DstarchivesExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface DstarchivesMapper {
     int countByExample(DstarchivesExample example);
