@@ -94,4 +94,8 @@ public interface CsService {
 	ResultInfo csPatietBasicInfSubmit(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser);
 
 	ResultInfo csBRQXdataFromEmis(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws IOException;
+
+	ResultInfo csZYXXdataFromEmis(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws IOException;
+
+	ResultInfo csQJQKdataFromEmis(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws IOException;
 }

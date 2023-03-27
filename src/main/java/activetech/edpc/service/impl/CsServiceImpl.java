@@ -871,7 +871,7 @@ public class CsServiceImpl implements CsService{
 
 	@Override
 	public ResultInfo csBRQXdataFromEmis(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws IOException {
-		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);;
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
 //		JSONObject jsonObject = new JSONObject();
 
 		//调用急诊接口 url为测试用 暂不用
@@ -922,6 +922,90 @@ public class CsServiceImpl implements CsService{
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("BRQXMap", BRQXMap);
+		resultInfo.setSysdata(map);
+
+		return resultInfo;
+	}
+
+	@Override
+	public ResultInfo csZYXXdataFromEmis(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws IOException {
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+//		JSONObject jsonObject = new JSONObject();
+
+		//调用急诊接口 url为测试用 暂不用
+//		try {
+//			HttpPost httpPost = new HttpPost("http://localhost:15007/atproject_edpc_war_exploded/cs/getCsinf.do");
+//			CloseableHttpClient client = HttpClients.createDefault();
+//			String respContent = null;
+//			//json方式
+//			JSONObject jsonParam = new JSONObject();
+//			jsonParam.put("regSeq", hspDbzlBasQueryDto.getRegSeq());
+//
+//			StringEntity entity = new StringEntity(JSONObject.toJSONString(jsonParam), "utf-8");//解决中文乱码问题
+//			entity.setContentEncoding("UTF-8");
+//			entity.setContentType("application/json");
+//			httpPost.setEntity(entity);
+//			HttpResponse resp = client.execute(httpPost);//执行时机
+//			if (resp.getStatusLine().getStatusCode() == 200) {
+//				HttpEntity ent = resp.getEntity();
+//				respContent = EntityUtils.toString(ent, "UTF-8");
+//			}
+//			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+//			jsonObject = JSONObject.parseObject(respContent);
+//		}
+//		catch (IOException e) {
+//			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 920, null);
+//		}
+
+		Map<String, Object> ZYXXMap = new HashMap<String, Object>();
+		ZYXXMap.put("YQZD", "院前诊断");
+		ZYXXMap.put("CYZD", "出院诊断");
+		ZYXXMap.put("ISCRYZDFH", "0");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("ZYXXMap", ZYXXMap);
+		resultInfo.setSysdata(map);
+
+		return resultInfo;
+	}
+
+	@Override
+	public ResultInfo csQJQKdataFromEmis(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws IOException {
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+//		JSONObject jsonObject = new JSONObject();
+
+		//调用急诊接口 url为测试用 暂不用
+//		try {
+//			HttpPost httpPost = new HttpPost("http://localhost:15007/atproject_edpc_war_exploded/cs/getCsinf.do");
+//			CloseableHttpClient client = HttpClients.createDefault();
+//			String respContent = null;
+//			//json方式
+//			JSONObject jsonParam = new JSONObject();
+//			jsonParam.put("regSeq", hspDbzlBasQueryDto.getRegSeq());
+//
+//			StringEntity entity = new StringEntity(JSONObject.toJSONString(jsonParam), "utf-8");//解决中文乱码问题
+//			entity.setContentEncoding("UTF-8");
+//			entity.setContentType("application/json");
+//			httpPost.setEntity(entity);
+//			HttpResponse resp = client.execute(httpPost);//执行时机
+//			if (resp.getStatusLine().getStatusCode() == 200) {
+//				HttpEntity ent = resp.getEntity();
+//				respContent = EntityUtils.toString(ent, "UTF-8");
+//			}
+//			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+//			jsonObject = JSONObject.parseObject(respContent);
+//		}
+//		catch (IOException e) {
+//			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 920, null);
+//		}
+
+		Map<String, Object> QJQKMap = new HashMap<String, Object>();
+		QJQKMap.put("QJJG", "0");
+		QJQKMap.put("SSCS", "10");
+		QJQKMap.put("ZYFY", "10000");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("QJQKMap", QJQKMap);
 		resultInfo.setSysdata(map);
 
 		return resultInfo;

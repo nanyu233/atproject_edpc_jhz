@@ -429,5 +429,30 @@ public class CsAction {
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
+	/**
+	 * 住院信息调用emis接口，暂无接口 返回模拟数据
+	 * @param hspDbzlBasQueryDto
+	 * @param activeUser
+	 * @return
+	 */
+	@RequestMapping("/csZYXXdataFromEmis")
+	@ResponseBody
+	public SubmitResultInfo csZYXXdataFromEmis(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws IOException {
+		ResultInfo resultInfo = csService.csZYXXdataFromEmis(hspDbzlBasQueryDto, activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
+	/**
+	 * 抢救情况调用emis接口，暂无接口 返回模拟数据
+	 * @param hspDbzlBasQueryDto
+	 * @param activeUser
+	 * @return
+	 */
+	@RequestMapping("/csQJQKdataFromEmis")
+	@ResponseBody
+	public SubmitResultInfo csQJQKdataFromEmis(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws IOException {
+		ResultInfo resultInfo = csService.csQJQKdataFromEmis(hspDbzlBasQueryDto, activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
 
 }
