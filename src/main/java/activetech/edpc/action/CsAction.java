@@ -1,5 +1,6 @@
 package activetech.edpc.action;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -414,4 +415,19 @@ public class CsAction {
 		ResultInfo resultInfo = csService.csPatietBasicInfSubmit(hspDbzlBasQueryDto, activeUser);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
+
+	/**
+	 * 病人去向调用emis接口，暂无接口 返回模拟数据
+	 * @param hspDbzlBasQueryDto
+	 * @param activeUser
+	 * @return
+	 */
+	@RequestMapping("/csBRQXdataFromEmis")
+	@ResponseBody
+	public SubmitResultInfo csBRQXdataFromEmis(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws IOException {
+		ResultInfo resultInfo = csService.csBRQXdataFromEmis(hspDbzlBasQueryDto, activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
+
 }

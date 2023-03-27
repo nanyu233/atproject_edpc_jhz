@@ -1,5 +1,6 @@
 package activetech.edpc.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import activetech.base.pojo.dto.ActiveUser;
@@ -91,4 +92,6 @@ public interface CsService {
 	List<HspDbzlBasCustom> getCsPatientInfoListByPage(QueryDto queryDto);
 
 	ResultInfo csPatietBasicInfSubmit(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser);
+
+	ResultInfo csBRQXdataFromEmis(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws IOException;
 }
