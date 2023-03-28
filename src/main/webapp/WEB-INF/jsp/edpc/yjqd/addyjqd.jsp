@@ -38,6 +38,23 @@
             height: 100%;
         }
 
+        textarea {
+            color:#3c3c3c;
+            font-weight:500;
+            font-size: 18px;
+            border-radius: 0;
+            line-height: 22px;
+            background-color: #fbfbfb;
+            border: 3px solid rgba(0,0,0,0);
+        }
+
+        textarea:focus{
+            background: #fff;
+            box-shadow: none;
+            border: 2px solid #3276c0;
+            outline: none;
+        }
+
         .textarea-base {
             border: 1px solid #d2d9dc;
             text-indent: 2px;
@@ -65,22 +82,79 @@
             text-align: end;
         }
 
-        .list-move, /* apply transition to moving elements */
-        .list-enter-active,
-        .list-leave-active {
-            transition: all 0.5s ease;
-        }
-
-        .list-enter-from,
-        .list-leave-to {
-            opacity: 0;
-            transform: translateX(30px);
-        }
-
-        /* ensure leaving items are taken out of layout flow so that moving
-           animations can be calculated correctly. */
-        .list-leave-active {
+        /* Base for label styling */
+        [type="checkbox"]:not(:checked),
+        [type="checkbox"]:checked {
             position: absolute;
+            left: 0;
+            opacity: 0.01;
+        }
+        [type="checkbox"]:not(:checked) + label,
+        [type="checkbox"]:checked + label {
+            position: relative;
+            padding-left: 1.6em;
+            font-size: 1.05em;
+            line-height: 1.7;
+            cursor: pointer;
+        }
+
+        /* checkbox aspect */
+        [type="checkbox"]:not(:checked) + label:before,
+        [type="checkbox"]:checked + label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.4em;
+            height: 1.4em;
+            border: 1px solid #aaa;
+            background: #FFF;
+            border-radius: .2em;
+            -webkit-transition: all .275s;
+            transition: all .275s;
+        }
+
+        /* checked mark aspect */
+        [type="checkbox"]:not(:checked) + label:after,
+        [type="checkbox"]:checked + label:after {
+            content: '√';
+            position: absolute;
+            top: .525em;
+            left: .18em;
+            font-size: 1.375em;
+            color: #3276c0;
+            line-height: 0;
+            -webkit-transition: all .2s;
+            transition: all .2s;
+        }
+
+        /* checked mark aspect changes */
+        [type="checkbox"]:not(:checked) + label:after {
+            opacity: 0;
+            -webkit-transform: scale(0) rotate(45deg);
+            transform: scale(0) rotate(45deg);
+        }
+
+        [type="checkbox"]:checked + label:after {
+            opacity: 1;
+            -webkit-transform: scale(1) rotate(0);
+            transform: scale(1) rotate(0);
+        }
+
+        /* Disabled checkbox */
+        [type="checkbox"]:disabled:not(:checked) + label:before,
+        [type="checkbox"]:disabled:checked + label:before {
+            box-shadow: none;
+            border-color: #bbb;
+            background-color: #e9e9e9;
+        }
+
+        [type="checkbox"]:disabled:checked + label:after {
+            color: #777;
+        }
+
+        [type="checkbox"]:disabled + label {
+            color: #aaa;
         }
 
         .footbar {
@@ -104,8 +178,8 @@
         .w-full {
             width: 100%;
         }
-        .w-500 {
-            width: 500px;
+        .w-550 {
+            width: 550px;
         }
         .flex {
             display: flex;
@@ -122,6 +196,20 @@
         .flex-none {
             flex: none;
         }
+        .gap-10{
+            gap: 10px;
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
     </style>
 </head>
 <body>
@@ -130,7 +218,7 @@
         <label for="regSeq">患者编号</label>
         <input id="regSeq" name="regSeq" />
     </div>
-    <table class="w-500">
+    <table class="w-550">
         <colgroup>
             <col style="width: 60px;">
             <col>
@@ -145,27 +233,39 @@
             </tr>
             <tr>
                 <th>通知内容：</th>
-                <td><textarea id="noticeContent" name="noticeContent" cols="50" rows="5" class="textarea-base"></textarea></td>
+                <td><textarea id="noticeContent" name="noticeContent" class="textarea-base" style="width: 480px; height: 200px;"></textarea></td>
             </tr>
             <tr>
                 <th>通知方式：</th>
                 <td>
-                    <div id="notice-type"></div>
+                    <ul id="notice-type" class="flex flex-row gap-10">
+                        <li v-for="type in NOTICE_TYPE" v-bind:key="type.infocode">
+                            <input
+                                    type="checkbox"
+                                    name="noticeType[]"
+                                    :id="type.infocode"
+                                    v-bind:value="type.infocode"
+                                    v-model="value"
+                                    class="off-screen"
+                            />
+                            <label :for="type.infocode">{{ type.info }}</label>
+                        </li>
+                    </ul>
                 </td>
             </tr>
             <tr>
                 <th>通知对象：</th>
                 <td>
                     <div class="flex" style="width: fit-content; height: 350px; overflow: hidden; border: 1px solid gray;">
-                        <div class="flex-none h-full" style="width: 200px; overflow: auto; border-right: 1px solid gray">
+                        <div class="flex-none h-full" style="width: 239px; overflow: auto; border-right: 1px solid gray">
                             <ul id="group-tree"></ul>
                         </div>
-                        <div class="flex-none h-full" style="width: 200px; overflow: auto;">
+                        <div class="flex-none h-full" style="width: 239px; overflow: auto;">
                             <h3 style="font-size: larger; font-weight: bold; padding: 5px 10px; border-bottom: 1px solid gray; position: sticky; top: 0; left: 0; z-index: 100; backdrop-filter: blur(3px);">
                                 已选择
                             </h3>
                             <div id="group-selected-preview">
-                                <input type="text" name="userList" v-bind:value="nodes.length" class="hidden">
+                                <div class="sr-only"><input type="text" name="userList" v-bind:value="nodes.length"></div>
                                 <ul>
                                     <li v-for="node in nodes" v-bind:key="node.usrno+node.usrname">
                                         {{ node.usrname }}
@@ -178,7 +278,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="footbar w-500" style="padding: 20px;">
+    <div class="footbar w-550" style="padding: 20px;">
         <a id="submitbtn" class="easyui-linkbutton" iconCls="icon-ok" href=javascript:handleSubmit()>确定</a>
         <a id="cancelbtn" class="easyui-linkbutton" iconCls="icon-cancel" href=javascript:handleCancel()>取消</a>
     </div>
@@ -192,6 +292,21 @@
     var NOTICE_TYPE = allDict.NOTICE_TYPE || []
     var dUpdatePreview = publicFun.debounce(updatePreview, 300)
     var formSelector = "#addyjqd"
+
+    var noticeTypeVm = new Vue({
+        el: "#notice-type",
+        data: function () {
+            return {
+                NOTICE_TYPE: NOTICE_TYPE,
+                value: []
+            }
+        },
+        methods: {
+            handleCheck(e) {
+                console.log(e)
+            }
+        }
+    })
 
     var previewVm = new Vue({
         el: "#group-selected-preview",
@@ -223,9 +338,10 @@
         })
     }
 
-    $('#notice-type').append(NOTICE_TYPE.map(function (item) {
-        return '<label><input type="checkbox" name="noticeType[]" value="' + item.infocode + '" />' + item.info + '</label>'
-    }))
+    // $('#notice-type').append(NOTICE_TYPE.map(function (item) {
+    //     var $li = $("<li></li>")
+    //     return '<li><input type="checkbox" name="noticeType[]" value="' + item.infocode + '" /><label>' + item.info + '</label></li>'
+    // }))
 
     var zt = new ZTREE("group-tree", '${baseurl}yjqd/querygroupusertree_result.do', true);
 
@@ -283,9 +399,7 @@
                         regSeq: regSeq,
                         yjqdTimeStr: publicFun.timeFormat($('#yjqdTimeStr').val() || new Date(), "yyyy-MM-dd hh:mm:ss"),
                         noticeContent: $('#noticeContent').val(),
-                        noticeType: $.map($('input[name="noticeType[]"]:checked'), function (elem) {
-                            return $(elem).val()
-                        }).join(',')
+                        noticeType: noticeTypeVm.value.join(',')
                     },
                     userList: previewVm.nodes
                 }),
