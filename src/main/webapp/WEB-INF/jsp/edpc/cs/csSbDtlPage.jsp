@@ -1341,7 +1341,8 @@
           </div>
 <%--      创伤评估--%>
           <div v-if="activeTab === 2">
-          <div class="basic-info">
+           <iframe frameborder="0" marginwidth="0" marginheight="0" width="100%" height="100%" id="mainIfream" scrolling="auto" :src="iframeSrc"></iframe>
+          <!-- <div class="basic-info">
               <div class="title1">TI评分</div>
               <div class="content">
                   <div class="block">
@@ -1419,7 +1420,7 @@
                       </table>
                   </div>
               </div>
-          </div>
+          </div> -->
       </div>
 <%--      质控指标--%>
           <div v-if="activeTab === 3">
@@ -2034,6 +2035,7 @@
         data: {
             name: 'csList',
             activeTab: 0,
+						iframeSrc:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${regSeq}' +"&menuKind=2",
             query: {
                 MDPSSel: [],
                 YQQJCSSel: [],
