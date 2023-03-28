@@ -206,7 +206,7 @@
 										 onclick="WdatePicker({dateFmt:'yyyy/MM/dd HH:mm'})" placeholder="请输入结束时间"/>
 					</div>
     </div>
-   
+
 </div>
 <table id="dg"></table>
 </body>
@@ -235,7 +235,7 @@
         selectchange: function (a) {
             // console.log(this)
         },
-       
+
 
     });
 
@@ -293,7 +293,15 @@
 			cstNam = "";
 		}
 		window.top.addTab( cstNam +"-"+ '胸痛急救时间轴' , url, 'icon icon-emergency-record');
-	    }
+	}
+
+	function toAddyjqd(emgSeq, cstNam, wayTyp, regSeq) {
+		var url = 'yjqd/addyjqd.do?regSeq=' + regSeq;
+		if(cstNam=='null'){
+			cstNam = "";
+		}
+		window.top.addTab(cstNam +"-"+ '一键启动', url, 'icon icon-emergency-record');
+	}
 
     function delPatient(emgSeq) {
         var result = window.confirm('是否删除该条数据？');
@@ -603,7 +611,9 @@
 						width : setWidth(0.18),
 						formatter : function(value, row, index) {
 							var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">查看</span>' +
-								'<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>';
+								'<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>' +
+								'<span class="btn detail" onclick="toAddyjqd(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">一键启动</span>'
+
 							if("1" == row.rcdSta || "3" == row.rcdSta) {
 								_html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'
 							} else if("2" == row.rcdSta) {
