@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspYjqdInfMapperCustom">
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.dto.HspYjqdInfCustom">
+    <id column="YJQD_SEQ" jdbcType="VARCHAR" property="yjqdSeq" />
+    <result column="REG_SEQ" jdbcType="VARCHAR" property="regSeq" />
+    <result column="YJQD_TIME" jdbcType="TIMESTAMP" property="yjqdTime" />
+    <result column="NOTICE_TYPE" jdbcType="VARCHAR" property="noticeType" />
+    <result column="CRT_USER" jdbcType="VARCHAR" property="crtUser" />
+    <result column="CRT_TIME" jdbcType="TIMESTAMP" property="crtTime" />
+    <result column="MOD_USER" jdbcType="VARCHAR" property="modUser" />
+    <result column="MOD_TIME" jdbcType="TIMESTAMP" property="modTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="activetech.edpc.pojo.domain.HspYjqdInf">
+    <result column="NOTICE_CONTENT" jdbcType="CLOB" property="noticeContent" />
+  </resultMap>
+
+  <sql id="query_yjqd_where">
+    <if test="hspYjqdInfCustom != null">
+      <!-- 一键启动列表查询条件 -->
+      <if test="hspYjqdInfCustom.cstNam != null and hspYjqdInfCustom.cstNam != ''.toString()">
+        and exists (select 1 from hsp_dbzl_bas b
+                     where b.reg_seq = a.reg_seq
+                       and b.cst_nam like '%' || #{hspYjqdInfCustom.cstNam, jdbcType=VARCHAR} || '%')
+      </if>
+      <if test="hspYjqdInfCustom.startDate != null">
+        and a.yjqd_time <![CDATA[ >= ]]> #{hspYjqdInfCustom.startDate, jdbcType=TIMESTAMP}
+      </if>
+      <if test="hspYjqdInfCustom.endDate != null">
+        and a.yjqd_time <![CDATA[ < ]]> #{hspYjqdInfCustom.endDate, jdbcType=TIMESTAMP} + 1
+      </if>
+    </if>
+  </sql>
+
+  <!-- 获取一键启动总记录数 -->
+  <select id="getYjqdCount" parameterType="activetech.edpc.pojo.dto.HspYjqdInfQueryDto" resultType="java.lang.Integer">
+      select count(*) from hsp_yjqd_inf a
+      <where>
+          <include refid="query_yjqd_where"/>
+      </where>
+  </select>
+
+  <!-- 一键启动记录分页查询 -->
+  <select id="getYjqdList" parameterType="activetech.edpc.pojo.dto.HspYjqdInfQueryDto" resultType="activetech.edpc.pojo.dto.HspYjqdInfCustom">
+      <include refid="activetech.base.CommonSql.page_start"/>
+          select a.yjqd_seq,
+                 a.reg_seq,
+                 a.yjqd_time,
+                 a.notice_content,
+                 a.notice_type,
+                 a.crt_user,
+                 a.crt_time,
+                 a.mod_user,
+                 a.mod_time,
+                 (select b.cst_nam from hsp_dbzl_bas b where b.reg_seq = a.reg_seq) cst_nam,
+                 (select u.usrname from dstuser u where u.usrno = a.crt_user) crt_user_name,
+                 (select u.usrname from dstuser u where u.usrno = a.mod_user) mod_user_name,
+                 (select to_char(wm_concat(u.usrname || '(' || u.usrno || ')'))
+                    from hsp_yjqd_dtl d, dstuser u where d.usrno = u.usrno and d.yjqd_seq = a.yjqd_seq) yjqd_user
+            from hsp_yjqd_inf a
+          <where>
+              <include refid="query_yjqd_where"/>
+          </where>
+      <include refid="activetech.base.CommonSql.page_end"/>
+  </select>
+
+</mapper>

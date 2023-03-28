@@ -4,13 +4,13 @@ import activetech.base.pojo.domain.TreeNode;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.pojo.dto.DstuserCustom;
 import activetech.base.process.context.Config;
-import activetech.base.process.result.ExceptionResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.HspDbzlBas;
 import activetech.edpc.pojo.domain.HspGrpInf;
 import activetech.edpc.pojo.domain.HspGrpInfExample;
 import activetech.edpc.pojo.domain.HspYjqdInf;
+import activetech.edpc.pojo.dto.HspGrpInfCustom;
 import activetech.edpc.pojo.dto.HspGrpUsrCustom;
 import activetech.edpc.pojo.dto.HspYjqdInfCustom;
 import activetech.edpc.pojo.dto.HspYjqdInfQueryDto;
@@ -50,6 +50,9 @@ public class YjqdServiceImpl implements YjqdService {
 
     @Autowired
     private HspGrpUsrMapperCustom hspGrpUsrMapperCustom;
+
+    @Autowired
+    private HspYjqdInfMapperCustom hspYjqdInfMapperCustom;
 
     private String checkParam(HspYjqdInfCustom hspYjqdInfCustom) {
         // 患者编号
@@ -154,5 +157,27 @@ public class YjqdServiceImpl implements YjqdService {
         hspYjqdInfCustom.setYjqdSeq(record.getYjqdSeq());
         hspYjqdInfQueryDto.setHspYjqdInfCustom(hspYjqdInfCustom);
         hspYjqdDtlMapperCustom.addUserToYjqd(hspYjqdInfQueryDto);
+    }
+
+    /**
+     * 查询一键启动列表总记录数
+     *
+     * @param hspYjqdInfQueryDto
+     * @return
+     */
+    @Override
+    public int getYjqdCount(HspYjqdInfQueryDto hspYjqdInfQueryDto) {
+        return hspYjqdInfMapperCustom.getYjqdCount(hspYjqdInfQueryDto);
+    }
+
+    /**
+     * 分页查询获取一键启动列表
+     *
+     * @param hspYjqdInfQueryDto
+     * @return
+     */
+    @Override
+    public List<HspYjqdInfCustom> getYjqdList(HspYjqdInfQueryDto hspYjqdInfQueryDto) {
+        return hspYjqdInfMapperCustom.getYjqdList(hspYjqdInfQueryDto);
     }
 }

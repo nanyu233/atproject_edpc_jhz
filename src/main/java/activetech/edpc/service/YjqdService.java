@@ -2,7 +2,8 @@ package activetech.edpc.service;
 
 import activetech.base.pojo.domain.TreeNode;
 import activetech.base.pojo.dto.ActiveUser;
-import activetech.base.process.result.ExceptionResultInfo;
+import activetech.edpc.pojo.dto.HspGrpInfCustom;
+import activetech.edpc.pojo.dto.HspYjqdInfCustom;
 import activetech.edpc.pojo.dto.HspYjqdInfQueryDto;
 
 import java.util.List;
@@ -31,4 +32,20 @@ public interface YjqdService {
      * @throws Exception
      */
     void addYjqd(HspYjqdInfQueryDto hspYjqdInfQueryDto, ActiveUser activeUser) throws Exception;
+
+    /**
+     * 查询一键启动列表总记录数
+     *
+     * @param hspYjqdInfQueryDto
+     * @return
+     */
+    int getYjqdCount(HspYjqdInfQueryDto hspYjqdInfQueryDto);
+
+    /**
+     * 分页查询获取一键启动列表
+     *
+     * @param hspYjqdInfQueryDto
+     * @return
+     */
+    List<HspYjqdInfCustom> getYjqdList(HspYjqdInfQueryDto hspYjqdInfQueryDto);
 }
