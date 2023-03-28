@@ -1,16 +1,17 @@
 package activetech.edpc.service.impl;
 
+import activetech.base.pojo.domain.TreeNode;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.pojo.dto.DstuserCustom;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ExceptionResultInfo;
 import activetech.base.process.result.ResultUtil;
-import activetech.edpc.dao.mapper.HspDbzlBasMapper;
-import activetech.edpc.dao.mapper.HspYjqdDtlMapper;
-import activetech.edpc.dao.mapper.HspYjqdDtlMapperCustom;
-import activetech.edpc.dao.mapper.HspYjqdInfMapper;
+import activetech.edpc.dao.mapper.*;
 import activetech.edpc.pojo.domain.HspDbzlBas;
+import activetech.edpc.pojo.domain.HspGrpInf;
+import activetech.edpc.pojo.domain.HspGrpInfExample;
 import activetech.edpc.pojo.domain.HspYjqdInf;
+import activetech.edpc.pojo.dto.HspGrpUsrCustom;
 import activetech.edpc.pojo.dto.HspYjqdInfCustom;
 import activetech.edpc.pojo.dto.HspYjqdInfQueryDto;
 import activetech.edpc.service.YjqdService;
@@ -19,8 +20,10 @@ import activetech.util.StringUtils;
 import activetech.util.UUIDBuild;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 一键启动service实现类
@@ -42,6 +45,12 @@ public class YjqdServiceImpl implements YjqdService {
     @Autowired
     private HspYjqdDtlMapperCustom hspYjqdDtlMapperCustom;
 
+    @Autowired
+    private HspGrpInfMapper hspGrpInfMapper;
+
+    @Autowired
+    private HspGrpUsrMapperCustom hspGrpUsrMapperCustom;
+
     private String checkParam(HspYjqdInfCustom hspYjqdInfCustom) {
         // 患者编号
         if (!StringUtils.isNotNullAndEmptyByTrim(hspYjqdInfCustom.getRegSeq())) {
@@ -60,6 +69,50 @@ public class YjqdServiceImpl implements YjqdService {
             return "通知方式";
         }
         return null;
+    }
+
+    /**
+     * 查询群组用户树
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<TreeNode> queryGroupUserTree() throws Exception {
+        List<TreeNode> groupNodes = new ArrayList<>();
+        List<TreeNode> userNodes = new ArrayList<>();
+        // 群组用户关系列表
+        List<HspGrpUsrCustom> groupUserList = hspGrpUsrMapperCustom.getAllGroupUser();
+        for (HspGrpUsrCustom hspGrpUsrCustom : groupUserList) {
+            TreeNode userNode = new TreeNode();
+            userNode.setId(hspGrpUsrCustom.getUsrno());
+            userNode.setParentId(hspGrpUsrCustom.getGrpSeq());
+            userNode.setText(hspGrpUsrCustom.getUsrname());
+            userNode.setIconCls("icon-node-user");
+            userNode.setState("open");
+            userNode.setChecked(false);
+            userNodes.add(userNode);
+        }
+
+        // 获取群组列表
+        HspGrpInfExample example = new HspGrpInfExample();
+        HspGrpInfExample.Criteria criteria = example.createCriteria();
+        criteria.andIsenableEqualTo("1");
+        example.setOrderByClause("showorder");
+        List<HspGrpInf> groupList = hspGrpInfMapper.selectByExample(example);
+        for (HspGrpInf hspGrpInf : groupList) {
+            TreeNode groupNode = new TreeNode();
+            groupNode.setId(hspGrpInf.getGrpSeq());
+            // 群组parentid设为0
+            groupNode.setParentId("0");
+            groupNode.setText(hspGrpInf.getGrpName());
+            groupNode.setIconCls("icon-node-group");
+            groupNode.setState("open");
+            groupNode.setChecked(false);
+            groupNode.setChildren(userNodes.stream().filter(t -> t.getParentId().equals(hspGrpInf.getGrpSeq())).collect(Collectors.toList()));
+            groupNodes.add(groupNode);
+        }
+        return groupNodes;
     }
 
     /**

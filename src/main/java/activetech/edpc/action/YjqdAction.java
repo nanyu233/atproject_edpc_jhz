@@ -1,5 +1,6 @@
 package activetech.edpc.action;
 
+import activetech.base.pojo.domain.TreeNode;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
@@ -14,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * 一键启动action
@@ -40,6 +43,12 @@ public class YjqdAction {
     public String addYjqd(Model model, String regSeq) throws Exception {
         model.addAttribute("regSeq", regSeq);
         return "/edpc/yjqd/addyjqd";
+    }
+
+    @RequestMapping("/querygroupusertree_result")
+    @ResponseBody
+    public List<TreeNode> queryGroupUserTree() throws Exception {
+        return yjqdService.queryGroupUserTree();
     }
 
     @RequestMapping("/addyjqdsubmit")

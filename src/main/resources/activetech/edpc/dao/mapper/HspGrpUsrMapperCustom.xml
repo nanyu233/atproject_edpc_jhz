@@ -133,4 +133,10 @@
         <include refid="activetech.base.CommonSql.page_end" />
     </select>
 
+    <select id="getAllGroupUser" resultType="activetech.edpc.pojo.dto.HspGrpUsrCustom">
+        select a.grp_seq, a.usrno, b.usrname
+          from hsp_grp_usr a, dstuser b
+         where a.usrno = b.usrno
+    </select>
+
 </mapper>

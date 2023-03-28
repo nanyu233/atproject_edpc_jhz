@@ -2,6 +2,7 @@ package activetech.edpc.dao.mapper;
 
 import activetech.base.pojo.dto.DstuserCustom;
 import activetech.edpc.pojo.dto.HspGrpInfQueryDto;
+import activetech.edpc.pojo.dto.HspGrpUsrCustom;
 
 import java.util.List;
 
@@ -55,4 +56,6 @@ public interface HspGrpUsrMapperCustom {
     int getUserCount(HspGrpInfQueryDto hspGrpInfQueryDto);
 
     List<DstuserCustom> getUserList(HspGrpInfQueryDto hspGrpInfQueryDto);
+
+    List<HspGrpUsrCustom> getAllGroupUser();
 }
