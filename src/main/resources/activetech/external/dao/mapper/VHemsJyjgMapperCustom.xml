@@ -82,8 +82,29 @@
 			</if>
 		</if>
 	</sql>
-	
-	<select id="findvhemsjyjgList" parameterType="activetech.external.pojo.dto.VHemsJyjgQueryDto"
+    <insert id="insertJyjgOnDeQing">
+		INSERT INTO V_HEMS_JYJG (MPI, NAME, SAMPLENO, RESULT, RESULT_DATE_TIME, UPPER_LIMIT, LOWER_LIMIT, REPORT_ITEM_NAME,
+								 UNITS, EXAMINAIM, REPORT_DOC, REPORT_DOC_NAME, EXAMINE_DOC_NAME, PATIENT_DEPT, INPATIENT_AREA,
+								 BED_NO, NURSING_UNIT, ATTENDING_DOC, ATTENDING_DOC_NAME, SEEK_MEDICAL_TIMES,
+								 SERVICE_ORGANIZATION, BE_HOSPITALIZED, ORDER_CODE, ORDER_TYPE, EXAMINE_DEPT, EXAMINE_DEPT_CODE,
+								 XH, APPLICATION_NO, REPORT_NO, TREATMENT_CODE, RECEIVE_TIME, SAMPLE_CODE, SAMPLE_NAME,
+								 REPORT_STATUS, REPORT_SHEET_NAME, ERROR_FLAG, REPORT_TYPE, EXAMINE_DOC, JYJG_ID, JYLX, JYLXMC)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.patientId},#{item.name},#{item.sampleno},#{item.result},#{item.resultDateTime},#{item.upperLimit},
+		 #{item.lowerLimit},#{item.reportItemName},#{item.units},#{item.examinaim},#{item.jyz},#{item.jyz},
+		 #{item.examineDoc},#{item.patientDept},#{item.inpatientArea},#{item.bedNo},#{item.nursingUnit},
+		 #{item.attendingDoc},#{item.attendingDocName},#{item.seekMedicalTimes},#{item.serviceOrganization},
+		 #{item.beHospitalized},#{item.orderCode},#{item.orderType},#{item.examineDept},#{item.examineDeptCode},
+		 #{item.xh},#{item.applicationNo},#{item.reportNo},#{item.treatmentCode},#{item.receiveTime},
+		 #{item.sampleCode},#{item.sampleName},#{item.reportStatus},#{item.reportSheetName},
+		 #{item.errorFlag},#{item.reportType},#{item.examineDoc},#{item.jyjgId},
+		 #{item.jylx},#{item.jylxmc})
+		</foreach>
+
+	</insert>
+
+    <select id="findvhemsjyjgList" parameterType="activetech.external.pojo.dto.VHemsJyjgQueryDto"
 		resultMap="VHemsJyjgCustomMap">
 		 select MPI patientId,
 		  EXAMINAIM examinaim,

@@ -18,5 +18,6 @@ public interface VHemsJyjgMapperCustom {
 	public List<VHemsJyjgCustom> findvhemsjyjginfoList(VHemsJyjgQueryDto vHemsJyjgQueryDto);
 	
 	public List<VHemsJyjgCustom> findvhemsjyjginfoListqfy(VHemsJyjgQueryDto vHemsJyjgQueryDto);
-	
+
+    void insertJyjgOnDeQing(List<activetech.basehis.pojo.dto.VHemsJyjgCustom> vHemsJyjgCustomList);
 }

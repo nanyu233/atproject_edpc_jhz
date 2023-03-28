@@ -564,4 +564,11 @@
         order by a.reg_tim desc
 		<include refid="activetech.base.CommonSql.page_end"/>
 	</select>
+    <select id="selectByWithinTowHour" resultType="activetech.edpc.pojo.dto.HspDbzlBasCustom">
+        select * from hsp_dbzl_bas
+        where
+        REG_TIM is not null
+        and REG_TIM <![CDATA[>=]]> sysdate - 1/12
+        and REG_TIM <![CDATA[<=]]> sysdate
+    </select>
 </mapper>

@@ -13,4 +13,5 @@ public interface VHemsJcjgMapperCustom {
     
     public List<VHemsJcjgCustom> findVHemsJcjgList(VHemsJyjgQueryDto vHemsJyjgQueryDto);
 
+    void insertJcjgOnDeQing(List<activetech.basehis.pojo.dto.VHemsJcjgCustom> vHemsJcjgCustomList);
 }

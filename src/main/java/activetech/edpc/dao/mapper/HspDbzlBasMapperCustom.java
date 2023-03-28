@@ -51,4 +51,6 @@ public interface HspDbzlBasMapperCustom {
     int countPatientListForDbzlBas(HspDbzlBasQueryDto hspDbzlBasQueryDto);
 
     List<HspDbzlBasCustom> getPatientListForDbzlBas(HspDbzlBasQueryDto hspDbzlBasQueryDto);
+
+    List<HspDbzlBasCustom> selectByWithinTowHour() throws Exception;
 }

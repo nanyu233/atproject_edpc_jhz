@@ -65,7 +65,21 @@
       </foreach>
     </where>
   </sql>
-	<select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.external.pojo.domain.VHemsJcjgExample" >
+    <insert id="insertJcjgOnDeQing">
+        INSERT INTO V_HEMS_JCJG (ZYH, XM, YLMC, SEE, JCJG, JCYSXM, SHRQ, MPI, PATIENT_DEPT, SEEK_MEDICAL_TIMES,
+                                 SERVICE_ORGANIZATION, ORDER_CODE, APPLICATION_NO, EXECUTION_NO, EXECUTION_DEPT, REPORT_NO,
+                                 TREATMENT_CODE, REPORT_DOC, REPORT_STATUS, EXAMINE_DOC, EXAMINE_DOC_NAME, REPORT_SHEET_NAME,
+                                 ERROR_FLAG)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.zyh},#{item.xm},#{item.ylmc},#{item.see},#{item.jcjg},#{item.jcysxm},
+            #{item.shrq},#{item.mpi},#{item.patientDept},#{item.seekMedicalTimes},#{item.serviceOrganization},
+            #{item.orderCode},#{null},#{item.executionNo},#{item.executionDept},#{item.reportNo},#{item.treatmentCode},
+            #{item.reportDoc},#{item.reportStatus},#{item.examineDoc},#{item.examineDocName},
+            #{item.reportSheetName},#{item.errorFlag})
+        </foreach>
+    </insert>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.external.pojo.domain.VHemsJcjgExample" >
 	    select
 	    <if test="distinct" >
 	      distinct
