@@ -13,6 +13,7 @@
     <title>My JSP 'csSbList.jsp' starting page</title>
     <%@ include file="/WEB-INF/jsp/base/common_css.jsp" %>
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
+    <link rel="stylesheet" type="text/css" href="lib/easyui1.3/themes/insdep/iconfont/iconfont.css" />
 </head>
 <style>
     .page {
@@ -29,12 +30,14 @@
         justify-content: space-around;
         align-items: center;
         border-bottom: 1px solid #cccccc;
-        height: 45px;
+        height: 7%;
     }
 
     .head .bdPart {
         text-align: center;
         width: 15%;
+        height: 100%;
+        line-height: 35px;
         position: relative;
     }
 
@@ -47,7 +50,20 @@
 
     .head .activePart {
         font-weight: bold;
-        color:#22a8aa;
+        color:#ffffff;
+        background: #22a8aa;
+    }
+    .head .left {
+        width: 15%;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    .head .right {
+        width: 85%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
 
     .main {
@@ -99,15 +115,10 @@
         border-radius: 5px;
         margin: 0 5px;
     }
-    .head .right {
-        width: 85%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
+
     .main .left .activeItem {
-        background: #ffffff;
-        color: #22a8aa;
+        background: #22a8aa;
+        color: #ffffff;
     }
 
     .main .right {
@@ -157,8 +168,9 @@
     }
 
     .main .right .opt .sel .selBtn {
-        font-size: 20px;
+        font-size:40px;
         font-weight: bold;
+        color: #22a8aa;
     }
 
     .foot {
@@ -211,7 +223,7 @@
                 <div v-for="(item,index) in body" @click="partChange(item.prtItem)"
                      :class="' bdPart '+(currPrt.prtItem == item.prtItem ? 'activePart':'')" :key="item.prtItem">
                     {{item.prtName}}
-                    <i v-if="item.hasChecked">*</i>
+                    <i v-if="item.hasChecked">*({{item.maxoptScoe}}分)</i>
                 </div>
             </div>
         </div>
@@ -220,7 +232,7 @@
                 <div v-for="(itm,index) in currPrt.prtList" @click="optChange(itm.subItem)"
                      :class="'partItem '+(currOpt.subItem == itm.subItem ? 'activeItem':'')" :key="itm.subItem">
                     <div>{{itm.subName}}</div>
-                    <i v-if="itm.hasChecked">*</i>
+                    <i v-if="itm.hasChecked">*({{itm.optScoe}}分)</i>
                 </div>
             </div>
             <div class="right">
@@ -257,11 +269,12 @@
             aissco: 0,
             isssco: 0,
             scolist: [],
+            subItem: '01',
+            prtItem: 'A'
         },
         watch: {
             resArr: {
                 handler: function(newV, oldV) {
-                    console.log('来了',newV)
                     var newArr = JSON.parse(JSON.stringify(newV))
                     if (newV.length > 1) {
                         this.aissco = Math.max(...newV.map(item => {
@@ -302,6 +315,7 @@
                     }),
                     success: function (res) {
                         that.body = res.resultInfo.sysdata.body
+
                         that.body.forEach(function(item) {
                             item.hasChecked = false
                             item.prtList.forEach(function(items)  {
@@ -309,12 +323,14 @@
                                 items.subList.forEach(function(item2) {
                                     if (item2.checked) {
                                         items.hasChecked = true
+                                        items.optScoe = item2.optScoe
                                         item.hasChecked = true
+                                        item.maxoptScoe = that.getMaxSco(item.prtList)
+
                                     }
                                 })
                             })
                         })
-
                         if(res.resultInfo.sysdata){
                             if(res.resultInfo.sysdata.hadChecked){
                                 that.resArr = res.resultInfo.sysdata.hadChecked;
@@ -358,6 +374,13 @@
             partChange: function (id) {
                 var that = this
                 var partItem = id;
+                this.prtItem = id
+                if (this.prtItem === 'H') {
+                    this.subItem = '03'
+                }else {
+                    this.subItem = '01'
+                }
+
                 var _body = that.body;
                 for (var i = 0; i < _body.length; i++) {
                     var el = _body[i];
@@ -371,6 +394,7 @@
             optChange: function (id) {
                 var that = this
                 var subItem = id;
+                this.subItem = id
                 var _prtList = that.currPrt.prtList;
                 for (var i = 0; i < _prtList.length; i++) {
                     var el = _prtList[i];
@@ -385,7 +409,6 @@
                 var optArr = this.currOpt.subList;
                 var currPrtItem = this.currPrt.prtItem;
                 var currSubItem = this.currOpt.subItem;
-
                 for (var i = 0; i < optArr.length; i++) {
                     if (i == idx) {
                         optArr[i].checked = !optArr[i].checked
@@ -406,6 +429,22 @@
                 this.dealIconBySel();
             },
             /**
+             * @param {array} arr
+             */
+            getMaxSco: function (arr) {
+               var arrList = arr.filter(item => {
+                   return item.hasChecked === true
+               }).sort((a, b) => {
+                    return b.optScoe - a.optScoe
+                })
+                if (arrList.length > 0) {
+                    return arrList[0].optScoe
+                }else {
+                    return 0
+                }
+
+            },
+            /**
              * 点击评分项时，处理左侧菜单栏和顶部菜单栏中菜单块右上角图标的展示与隐藏
              */
             dealIconBySel: function () {
@@ -413,24 +452,42 @@
                 var _body = that.body;
                 var _currPart = that.currPrt;
                 var _currOpt = that.currOpt;
-
                 var _subList = _currOpt.subList;
+                var _prtList = _currPart.prtList;
                 var checkedOpts = 0;
+
                 for (var i = 0; i < _subList.length; i++) {
                     var el = _subList[i];
                     if (el.checked) checkedOpts++;
                 }
                 checkedOpts > 0 ? _currOpt.hasChecked = true : _currOpt.hasChecked = false;
 
-                var _prtList = _currPart.prtList;
+
                 var checkedPrts = 0;
+
+                var optScoeList = _subList.filter(item => {
+                    return item.checked === true
+                })
+                optScoeList.length > 0 ? optScoe = optScoeList[0].optScoe : optScoe = 0
+
                 for (var i = 0; i < _prtList.length; i++) {
                     var el = _prtList[i];
+                    if (el.subItem === this.subItem) {
+                        el['optScoe'] = optScoe
+                    }
                     if (el.hasChecked) checkedPrts++;
                 }
                 checkedPrts > 0 ? _currPart.hasChecked = true : _currPart.hasChecked = false;
+
+                _body.forEach(function (item) {
+                    if (item.prtItem === that.prtItem) {
+                        item['maxoptScoe'] = that.getMaxSco(_prtList)
+                    }
+                })
+
                 that.body = _body, //渲染顶部菜单项的true或false
                     that.currPrt = _currPart //渲染左侧菜单项的true或false
+                console.log(this.body)
 
             },
             /**
