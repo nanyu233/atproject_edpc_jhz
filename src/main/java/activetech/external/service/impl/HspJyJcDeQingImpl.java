@@ -702,6 +702,7 @@ public class HspJyJcDeQingImpl implements EsbService {
             Map<String, Object> map = new HashMap<>();
             // 返回保存文件的路径
             map.put("filePath", presignedObjectUrl);
+            map.put("type", suffixFileName.substring(1));
 
             dstarchivesMapperCustom.insert(record);
 
