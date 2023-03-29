@@ -679,7 +679,13 @@ public class HspJyJcDeQingImpl implements EsbService {
             if (!b) {
                 MinIoUtil.createBucket(fileType);
             }
-            MinIoUtil.putObject(fileType, fileName, inputStream);
+            if(".jpg".equals(suffixFileName) || ".png".equals(suffixFileName) || ".jpeg".equals(suffixFileName)){
+                MinIoUtil.putObject(fileType, multipartFile, fileName, "image/" + suffixFileName.substring(1));
+            } else if(".pdf".equals(suffixFileName)){
+                MinIoUtil.putObject(fileType, multipartFile, fileName, "application/" + suffixFileName.substring(1));
+            } else {
+                MinIoUtil.putObject(fileType, fileName, inputStream);
+            }
 
             Dstarchives record = new Dstarchives();
             record.setCrtDate(new Date());
