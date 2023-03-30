@@ -1,6 +1,9 @@
 package activetech.edpc.service.impl;
 
+import activetech.base.dao.mapper.DstarchivesMapper;
 import activetech.base.dbconfig.ApplicationConfig;
+import activetech.base.pojo.domain.Dstarchives;
+import activetech.base.pojo.domain.DstarchivesExample;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.pojo.dto.PageQuery;
 import activetech.base.process.context.Config;
@@ -25,6 +28,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.util.*;
@@ -98,6 +102,17 @@ public class CsServiceImpl implements CsService{
 	private HspDbzlBasMapper hspDbzlBasMapper;
 	@Autowired
 	private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
+
+	@Autowired
+	private DstarchivesMapper dstarchivesMapper;
+
+	private static String publicNetUrl;
+
+	@Value("${minio.publicNetUrl}")
+	public void setPresignedObjectUrl(String publicNetUrl) {
+		CsServiceImpl.publicNetUrl = publicNetUrl;
+	}
+
 
 	@Override
 	public ResultInfo getHspBodyPartsDef() {
@@ -533,13 +548,23 @@ public class CsServiceImpl implements CsService{
 		HspZlInfExample example = new HspZlInfExample();
 		HspZlInfExample.Criteria criteria = example.createCriteria();
 		criteria.andEmgNoEqualTo(regSeq);
-		
-		
+
+		DstarchivesExample arcExample = new DstarchivesExample();
+		arcExample.createCriteria().andRefIdEqualTo(regSeq).andFileTypeEqualTo("ecg");
+		List<Dstarchives> dstarchives = dstarchivesMapper.selectByExample(arcExample);
+		for(Dstarchives node : dstarchives){
+			String fileName = node.getFileName();
+			fileName = publicNetUrl + "/" + node.getFileType() + "/" + fileName;
+			node.setFileName(fileName);
+		}
+
 		List<HspZlInf> cszlList = hspZlInfMapper.selectByExample(example);
 		sysdata.put("cszlList", cszlList);
 
 		String locProvinceCity = ApplicationConfig.getConfig().get("LOC_PROVINCE_CITY");
 		sysdata.put("locProvinceCity", locProvinceCity);
+
+		sysdata.put("ecg", dstarchives);
 
 		resultInfo.setSysdata(sysdata);
 		return resultInfo;
