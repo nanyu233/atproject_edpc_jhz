@@ -608,16 +608,16 @@
         <a class="bottom-btn btn-right hidden">更多操作</a>
       </span>
     </div>
-    <div class="right-bound-btn" ms-visible="isEditPage == '1'">
+    <div class="right-bound-btn hidden" ms-visible="isEditPage == '1'">
       <a onclick="toDocAdviceTab()">医嘱</a>
     </div>
-    <div class="right-bound-btn top-gap2" ms-visible="isEditPage == '1'">
+    <div class="right-bound-btn top-gap2 hidden" ms-visible="isEditPage == '1'">
       <a onclick="toExamineTab()">检验</a>
     </div>
-    <div class="right-bound-btn top-gap3" ms-visible="isEditPage == '1'">
+    <div class="right-bound-btn top-gap3 hidden" ms-visible="isEditPage == '1'">
       <a onclick="toCheckTab()">检查</a>
     </div>
-    <div class="right-bound-btn top-gap4" ms-visible="isEditPage == '1'">
+    <div class="right-bound-btn top-gap4 hidden" ms-visible="isEditPage == '1'">
       <a onclick="openTimeline()">时间轴</a>
     </div>
     <div class="content-page hidden">
