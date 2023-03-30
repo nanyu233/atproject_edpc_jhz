@@ -408,26 +408,26 @@
                               </div>
                           </div>
                           <div class="inputs">
-                              <div class="input-group">
+                              <div class="input-group flex" style="width: 634px;">
                                   <div class="lb">主诉</div>
-                                  <div class="input">
-                                      <input type="text"  class="input" v-model="info.ZHUS"/>
+                                  <div class="input flex-1">
+                                      <input type="text"  class="input w-full" v-model="info.ZHUS"/>
                                   </div>
                               </div>
                           </div>
                           <div class="inputs">
-                              <div class="input-group">
+                              <div class="input-group flex" style="width: 634px;">
                                   <div class="lb">现病史</div>
-                                  <div class="input">
-                                      <input type="text"  class="input" v-model="info.XIANBS"/>
+                                  <div class="input flex-1">
+                                      <input type="text"  class="input w-full" v-model="info.XIANBS"/>
                                   </div>
                               </div>
                           </div>
                           <div class="inputs">
-                              <div class="input-group">
+                              <div class="input-group flex" style="width: 634px;">
                                   <div class="lb">既往史</div>
-                                  <div class="input">
-                                      <input type="text"  class="input" v-model="info.JIWS"/>
+                                  <div class="input flex-1">
+                                      <input type="text"  class="input w-full" v-model="info.JIWS"/>
                                   </div>
                               </div>
                           </div>
