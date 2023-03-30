@@ -35,6 +35,12 @@
         .self-defined-classname {
             margin-left: 20px;
         }
+        .hidden {
+            display: none;
+        }
+        input[type=radio] {
+            vertical-align: middle;
+        }
     </style>
 
 </head>
@@ -46,16 +52,16 @@
             <div class="login-title">${hospitalPlatformNameLogin}</div>
             <div class="login-txt">
                 <div class="log-tip">
-                  <a :class="{active: loginType == 1}" @click="setLoginTyp('1')">账号登陆</a>  
+                  <a :class="{active: loginType == 1}" @click="setLoginTyp('1')">账号登陆</a>
                   <a :class="{active: loginType == 2}" @click="setLoginTyp('2')">钉钉扫码登陆</a>
                 </div>
                 <label>
                     <div class="log-text">院&emsp;区</div>
                     <label for="sd" class="small-label">
                         <input type="radio" name="hospitalCategory" value="1" id="sd"
-                               v-model = "msg.hospitalCategory"> 三墩
+                               v-model = "msg.hospitalCategory"> 本院
                     </label>
-                    <label for="ly" class="small-label">
+                    <label for="ly" class="small-label hidden">
                         <input  type="radio" name="hospitalCategory" value="2" id="ly"
                                 v-model = "msg.hospitalCategory"> 灵隐
                     </label>
