@@ -435,12 +435,12 @@
               ms-duplex-string="patientMsg.caseHis" ms-keyup="onlyNum('patientMsg','caseHis',1,100)" ms-input="onlyNum('patientMsg','caseHis',1,100)"
               ms-change="onlyNum('patientMsg','caseHis',1,100)"> 周</i>
         </div>
-        <div class="two-part" ms-visible="patientMsg.patientTyp !== '2'">
+        <div class="two-part hidden" ms-visible="patientMsg.patientTyp !== '2'">
           <span class="left-ask"></span>
           <label class="title-wth">MEWS</label>
           <input type="text" class="small-input cursor-type bigBlueFt" id="emg_mewsTotSco" ms-duplex-string="patientMsg.mewsTotSco" ms-click="MEWSbox()" readonly>
         </div>
-        <div class="two-part" ms-visible="patientMsg.patientTyp !== '2'">
+        <div class="two-part hidden" ms-visible="patientMsg.patientTyp !== '2'">
           <span class="left-ask"></span>
           <label class="title-wth">GCS</label>
           <input type="text" class="small-input cursor-type bigBlueFt" ms-duplex-string="patientMsg.gcsTotSco" ms-click="GCSbox()" readonly>
