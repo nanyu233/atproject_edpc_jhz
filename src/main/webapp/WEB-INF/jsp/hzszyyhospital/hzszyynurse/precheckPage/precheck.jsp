@@ -582,14 +582,14 @@
     <div class="save-btn-div">
       <a onclick="postPatientMsg()" class="bottom-btn save-btn"  ms-class-1="gray-btn: !isCanSave">保存</a>
       <a onclick="postPatientMsg('','register')" class="bottom-btn save-btn" ms-attr-disabled="!isCanSave" ms-class-1="gray-btn: !isCanSave" ms-if="isEditPage == '0'" ms-visible="qfghFlag == 1">保存并挂号</a>
-      <a onclick="printFz()" class="bottom-btn" ms-visible="isEditPage == '1'">打印</a>
+      <a onclick="printFz()" class="bottom-btn hidden" ms-visible="isEditPage == '1'">打印</a>
       <a onclick="addNewPat()" class="bottom-btn">新建</a>
       <a onclick="tempStorage()" class="bottom-btn">暂存</a>
       <a onclick="deleteCurrentMsg()" class="bottom-btn" ms-class-1="gray-btn: isEditPage != '1'">删除</a>
       <!-- <a ms-click="openJzbd()" class="bottom-btn" ms-class-1="gray-btn: isEditPage != '1'">就诊关联</a> -->
-      <a class="bottom-btn"  ms-if="isEditPage == '1'" ms-click="openGhbd()">挂号绑定</a>
+      <a class="bottom-btn hidden"  ms-if="isEditPage == '1'" ms-click="openGhbd()">挂号绑定</a>
       <a class="bottom-btn"  ms-if="patientMsg.ghid != ''" onclick="cancelGh()" ms-visible="tghFlag == 1">退挂号</a>
-      <a onclick="outComeInfo()" class="bottom-btn" ms-class-1="gray-btn: isEditPage != '1'">转归登记</a>
+      <a onclick="outComeInfo()" class="bottom-btn hidden" ms-class-1="gray-btn: isEditPage != '1'">转归登记</a>
       <!-- 若选中已预检患者，打开预检页面-》修改时 若dstappoption院前开关打开时， 则底部才显示“查看院前患者明细”、“院前交接单”按钮 -->
       <!-- <a class="bottom-btn" ms-visible="isOpenYqFlg == 1 && isEditPage == '1' && patientMsg.sendInCod == 1" onclick="toYqMsg()">查看院前信息</a>
       <a class="bottom-btn" ms-visible="isOpenYqFlg == 1 && isEditPage == '1' && patientMsg.sendInCod == 1" onclick="toYqJjd()">院前交接单</a> -->
@@ -605,7 +605,7 @@
           <!-- <li ms-if="isEditPage == '1' && (patientMsg.jzxh == '' || patientMsg.jzxhOld =='')" ms-click="openGhbd()">挂号绑定</li> -->
           <li onclick="zginfo()" ms-if="isEditPage == '1'">转归记录</li>
         </ul>
-        <a class="bottom-btn btn-right">更多操作</a>
+        <a class="bottom-btn btn-right hidden">更多操作</a>
       </span>
     </div>
     <div class="right-bound-btn" ms-visible="isEditPage == '1'">
