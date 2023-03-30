@@ -83,8 +83,8 @@
             opacity: 0;
         }
         .inputs .input-group .btn1 {
-            background-color: #eeeeee !important;
-            cursor: pointer !important;
+            background-color: #eeeeee;
+            cursor: pointer;
         }
 
         .custom-btn {
