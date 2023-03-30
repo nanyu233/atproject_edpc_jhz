@@ -55,6 +55,13 @@
             text-align: center;
         }
 
+        .Wdate {
+            cursor: pointer;
+        }
+        input.Wdate[readonly] {
+            background-color: #faf3f3;
+        }
+
         .flex {
             display: flex;
         }
@@ -79,7 +86,7 @@
         <input id="cstNam" name="cstNam" type="text" class="input-base short-right" />
     </div>
 
-    <button onclick="search()" class="search-btn">查询</button>
+    <button onclick="search()" type="button" class="search-btn">查询</button>
 </form>
 
 <table id="yjqd"></table>
@@ -107,18 +114,18 @@
                 title: '启动时间',
                 width: 140,
                 formatter: function (value){
-                    return value ? formatDate(value) : ""
+                    return value ? formatDateTime(value) : ""
                 }
             },
             {
                 field: 'noticeContent',
                 title: '通知内容',
-                width: 100
+                width: 300
             },
             {
                 field: 'noticeType',
                 title: '通知方式',
-                width: 50,
+                width: 100,
                 formatter: function (value){
                     return NOTICE_TYPE_MAP[value]
                 }
@@ -126,7 +133,7 @@
             {
                 field: 'yjqdUser',
                 title: '通知对象',
-                width: 100
+                width: 300
             },
             {
                 field: 'crtUserName',
@@ -136,7 +143,7 @@
             {
                 field: 'crtTime',
                 title: '创建时间',
-                width: 100,
+                width: 140,
                 formatter: function (value){
                     return value ? formatDateTime(value) : ""
                 }
@@ -146,13 +153,6 @@
 
     $(tableSelector).datagrid({
         url: "${baseurl}yjqd/queryyjqd_result.do",
-        queryParams: {
-            page: 1,
-            rows: 15,
-            "hspYjqdInfCustom.cstNam": "",
-            "hspYjqdInfCustom.startDate": "",
-            "hspYjqdInfCustom.endDate": ""
-        },
         columns: columns,
         checkOnSelect: true,
         selectOnCheck: true,
@@ -174,12 +174,13 @@
     })
 
     function search() {
-        $(tableSelector).datagrid("reload", {
-            page: 1,
-            rows: 15,
-            "hspYjqdInfCustom.cstNam": $("#cstNam").val(),
-            "hspYjqdInfCustom.startDate": $("#startdate").val(),
-            "hspYjqdInfCustom.endDate": $("#enddate").val()
+        var cstNam = $("#cstNam").val()
+        var startDate = $("#startdate").val()
+        var endDate = $("#enddate").val()
+        $(tableSelector).datagrid("load", {
+            "hspYjqdInfCustom.cstNam": cstNam,
+            "hspYjqdInfCustom.startDate": startDate,
+            "hspYjqdInfCustom.endDate": endDate
         })
     }
 
