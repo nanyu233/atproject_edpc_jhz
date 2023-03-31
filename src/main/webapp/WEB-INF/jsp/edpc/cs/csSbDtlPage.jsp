@@ -18,6 +18,9 @@
     <%@ include file="/WEB-INF/jsp/base/common_js.jsp"%>
     <script type="text/javascript" src="${baseurl}lib/vue2.6.7/vue.js"></script>
     <script type="text/javascript" src="lib/moment.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="${baseurl}lib/elementui/elementui.css">
+		<script type="text/javascript" src="${baseurl}lib/elementui/elementui.js"></script>
+
     <style>
         .main .tab-header{
             list-style: none;
@@ -639,8 +642,19 @@
                                   <div class="input">
                                       <!-- TODO: 上传心电图 -->
                                       <a href="javascript:;" class="file">上传心电图
-                                          <input type="file" name="ecgFile" id="ecgFile" accept=".png,.jpg,.jpeg,.pdf">
+                                          <input type="file" name="ecgFile" id="ecgFile" accept=".png,.jpg,.jpeg,.pdf" @change="upload" ref="ecgFile">
                                       </a>
+																			<a  :href="uploadFileUrl" target="_blank" v-if="uploadFileType=='pdf'">pdf文件预览</a> 
+																			<div style="display: inline;"  v-if="uploadFileType=='png' || uploadFileType=='jpg'||uploadFileType=='jpeg'">
+																				<a  href="javascript:;" @click="previewImage">图片预览</a> 
+																				<el-image 
+																					style="display: none;"
+																					:src="uploadFileUrl" 
+																					:preview-src-list="srcList"
+																					ref="preImage"
+																					>
+																				</el-image>
+																			</div>
                                   </div>
                               </div>
                           </div>
@@ -2033,6 +2047,9 @@
     var  sub = new Vue({
         el: '#main',
         data: {
+						uploadFileType:'',
+						uploadFileUrl: '',
+        		srcList: [],
             name: 'csList',
             activeTab: 0,
 						iframeSrc:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${regSeq}' +"&menuKind=2",
@@ -2445,6 +2462,16 @@
                             if(sub.aidPatient.allJTZZ) {
                                 sub.aidPatient.scePrvCod = sub.aidPatient.allJTZZ.slice(0, 6)
                             }
+
+														var fileInfo = sysdata.ecg;
+														if(fileInfo && fileInfo.length){
+															var data = fileInfo[0]
+															sub.uploadFileUrl =  data.fileName;
+															sub.srcList = [data.fileName];								
+                              var dotIndex =  data.fileName.lastIndexOf(".");
+                              var fileType =  data.fileName.substring(dotIndex + 1);
+															sub.uploadFileType = fileType;
+														}
                         }
                     }
                 });
@@ -2590,6 +2617,32 @@
             onTabClick(index) {
                 this.activeTab = index
             },
+						upload(){
+							var file = this.$refs.ecgFile.files[0]
+							var formData = new FormData();
+							formData.append('uploadFile',file)
+							formData.append('fileType',"ecg")
+							formData.append('patId',_regSeq)
+							var that = this;
+							$.ajax({
+                url: '${baseurl}cpc/saveEcgPicSubmit.do',
+								contentType:false,
+								type:'post',
+                data: formData,
+								processData:false,
+                success: function (res) {
+									if(res.resultInfo.type==1){
+										var data = res.resultInfo.sysdata
+										that.uploadFileUrl =  data.filePath;
+										that.srcList = [data.filePath];
+										that.uploadFileType = data.type;
+									}
+                }
+              })
+						},
+						previewImage(){
+							this.$refs.preImage.showViewer = true;
+						}
         },
         watch: {
             'aboutSco.gcsSco': {
