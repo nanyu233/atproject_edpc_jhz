@@ -36,7 +36,7 @@
             min-width: 155px;
             width: auto;
         }
-        .main input[name=idNbr] {
+        .main input[name=idNbr][name=cstNam] {
             width: 170px;
         }
 
@@ -168,7 +168,7 @@
                           <div class="input-wrapper w23">
                               <div class="lb">姓名</div>
                               <div class="input">
-                                  <input type="text" class="input" v-model="baseInfo.cstNam" disabled="disabled"/>
+                                  <input type="text" class="input" name="cstNam" v-model="baseInfo.cstNam" disabled="disabled"/>
                               </div>
                           </div>
                           <div class="input-wrapper w23">
