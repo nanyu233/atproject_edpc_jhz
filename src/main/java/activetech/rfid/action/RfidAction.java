@@ -8,7 +8,7 @@ import activetech.base.process.result.DataGridResultInfo;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
-import activetech.rfid.pojo.domain.HspUhfRdr;
+import activetech.base.service.RedisService;
 import activetech.rfid.pojo.domain.HspUhfTrp;
 import activetech.rfid.pojo.dto.HspUhfRdrCustom;
 import activetech.rfid.pojo.dto.HspUhfRdrQueryDto;
@@ -16,15 +16,17 @@ import activetech.rfid.pojo.dto.HspUhfTrpCustom;
 import activetech.rfid.pojo.dto.HspUhfTrpQueryDto;
 import activetech.rfid.service.HspUhfRdrService;
 import activetech.rfid.service.HspUhfTrpService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>Title:RfidAction</p>
@@ -43,6 +45,9 @@ public class RfidAction {
 
     @Autowired
     private HspUhfTrpService hspUhfTrpService;
+
+    @Autowired
+    private RedisService redisService;
 
     /**
      * 跳转UHF读写器定义列表
@@ -82,6 +87,19 @@ public class RfidAction {
         pageQuery.setPageParams(total, rows, page);
         hspUhfRdrQueryDto.setPageQuery(pageQuery);
         List<HspUhfRdrCustom> list = hspUhfRdrService.findHspUhfRdrList(hspUhfRdrQueryDto);
+        //获取redis所有key
+        Set<String> keys = redisService.keys("*");
+        //根据rdrip获取redis中rfid设备可用状态，填充rdrAva
+        for (HspUhfRdrCustom l:list) {
+            String rdrIp = l.getRdrIp();
+            boolean rdrAva = false;
+            for (String key:keys){
+                if (key.equals(rdrIp)){
+                    rdrAva = true;
+                }
+            }
+            l.setRdrAva(rdrAva?"1":"0");
+        }
         DataGridResultInfo dataGridResultInfo = new DataGridResultInfo();
         //填充total
         dataGridResultInfo.setTotal(total);

@@ -87,6 +87,17 @@
             field: 'rdrNam',
             title: '设备名称'
           }, {
+          align: 'center',
+          field: 'rdrAva',
+          title: '设备是否在线',
+          formatter: function (value, row, index) {
+            if(value=='1'){
+              return '<input type="checkbox" disabled="disabled" checked="checked">'
+            }else{
+              return '<input type="checkbox" disabled="disabled">'
+            }
+          }
+        },{
             align: 'left',
             field: 'rdrTyp',
             title: '设备类型',

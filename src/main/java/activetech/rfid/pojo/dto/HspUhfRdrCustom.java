@@ -19,6 +19,9 @@ public class HspUhfRdrCustom extends HspUhfRdr {
 
 	private String rdrDepNam; //
 
+	//设备是否可用，0：不可用，1：可用，默认不可用
+	private String rdrAva;
+
 	public String getRdrDepNam() {
 		return rdrDepNam;
 	}
@@ -43,5 +46,7 @@ public class HspUhfRdrCustom extends HspUhfRdr {
 		this.qxcount = qxcount;
 	}
 
-	
+	public String getRdrAva() { return rdrAva; }
+
+	public void setRdrAva(String rdrAva) { this.rdrAva = rdrAva; }
 }

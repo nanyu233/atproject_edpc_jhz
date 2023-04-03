@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 import redis.clients.jedis.Jedis;
@@ -26,7 +27,9 @@ public class RedisServiceImpl implements RedisService {
 	private static Jedis jedis;  
     @Autowired  
     @Qualifier("jedisConnectionFactory")  
-    private JedisConnectionFactory jedisConnectionFactory;  
+    private JedisConnectionFactory jedisConnectionFactory;
+    @Value("${redis.database}")
+    private Integer db;
 	
 	/** 
      * 通过key删除（字节） 
@@ -304,7 +307,7 @@ public class RedisServiceImpl implements RedisService {
     private Jedis getJedis(){  
         if(jedis == null){ 
         	jedis = jedisConnectionFactory.getShardInfo().createResource();
-        	jedis.select(3);
+        	jedis.select(db);
         }  
         return jedis;  
     }
