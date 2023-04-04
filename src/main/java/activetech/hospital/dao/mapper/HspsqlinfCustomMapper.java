@@ -2,6 +2,7 @@ package activetech.hospital.dao.mapper;
 
 import java.util.List;
 
+import activetech.hospital.pojo.domain.HspSqlInf;
 import org.apache.ibatis.annotations.Param;
 
 import activetech.hospital.pojo.dto.HighChartsReportCustom;
@@ -155,4 +156,11 @@ public interface HspsqlinfCustomMapper {
 	 * @return
 	 */
 	public List<HspemginfCustom> findhszbzPatients(HspsqlinfQueryDto hspsqlinfQueryDto);
+
+	/**
+	 * 根据emgseq查询患者
+	 * @param emgSeq
+	 * @return
+	 */
+	List<HspSqlInf> selectByEmgSeq(String emgSeq);
 }

@@ -16,7 +16,8 @@ import activetech.edpc.pojo.dto.*;
 import activetech.edpc.service.CsService;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
 import activetech.hospital.dao.mapper.HspemginfCustomMapper;
-import activetech.hospital.pojo.dto.HspemginfCustom;
+import activetech.hospital.dao.mapper.HspsqlinfCustomMapper;
+import activetech.hospital.pojo.domain.HspSqlInf;
 import activetech.util.UUIDBuild;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -31,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CsServiceImpl implements CsService{
@@ -105,6 +107,8 @@ public class CsServiceImpl implements CsService{
 
 	@Autowired
 	private DstarchivesMapper dstarchivesMapper;
+	@Autowired
+	private HspsqlinfCustomMapper hspsqlinfCustomMapper;
 
 	private static String publicNetUrl;
 
@@ -924,31 +928,124 @@ public class CsServiceImpl implements CsService{
 //			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 920, null);
 //		}
 
+//		Map<String, Object> BRQXMap = new HashMap<String, Object>();
+//		BRQXMap.put("BRQX", "01"); //病人去向
+//		BRQXMap.put("JZLYSJ", "1999-01-01 00:00"); //急诊离院时间
+//		BRQXMap.put("ZLJG", "1"); //治疗结果
+//		BRQXMap.put("QTLYYY", "QTLYYY"); //其他离院原因
+//		BRQXMap.put("ZYKS", "1"); //住院科室
+//		BRQXMap.put("BLZYSJ", "1999-01-02 00:00"); //办理住院时间
+//		BRQXMap.put("JSZYSJ", "1999-01-03 00:00"); //结束住院时间
+//		BRQXMap.put("ISZYHSW", "1"); //住院后死亡
+//		BRQXMap.put("ISDDICU", "0"); //到达ICU
+//		BRQXMap.put("DDICUSJ", "1999-01-04 00:00"); //到达ICU时间
+//		BRQXMap.put("LKICUSJ", "1999-01-05 00:00"); //离开ICU时间
+//		BRQXMap.put("JJSJ", "1999-01-06 00:00"); //交接时间
+//		BRQXMap.put("JSYY", "yiyuan"); //接收医院
+//		BRQXMap.put("SWYYMS", "SWYYMS"); //死亡原因描述
+//		BRQXMap.put("LGSJ", "1999-01-07 00:00"); //留观时间
+//		BRQXMap.put("ISLGHSW", "1"); //留观后死亡
+//		BRQXMap.put("LGYYMS", "LGYYMS"); //留观原因描述
+//		BRQXMap.put("ZGSJ", "1999-01-08 00:00"); //转归时间
+//		BRQXMap.put("JTQX", "JTQX"); //具体去向
+
+		//转归主要类型
+		Map<String,Object> ZGMapMaster = new HashMap<>();
+		ZGMapMaster.put("4","离院");
+		ZGMapMaster.put("2","住院");
+		ZGMapMaster.put("13","转院");
+		ZGMapMaster.put("3","死亡");
+		ZGMapMaster.put("11","急诊留观");
+
+		//转归其他类型
+		Map<String,Object> ZGMapOther = new HashMap<>();
+		ZGMapOther.put("0","出观");
+		ZGMapOther.put("12","非医嘱离院");
+		ZGMapOther.put("14","来院已死亡");
+		ZGMapOther.put("15","手术");
+		ZGMapOther.put("16","急诊病房");
+		ZGMapOther.put("17","随诊");
+		ZGMapOther.put("19","DSA");
+		ZGMapOther.put("5","诊间就诊");
+		ZGMapOther.put("6","留抢");
+		ZGMapOther.put("690","血液净化中心");
+		ZGMapOther.put("8","回家");
+		ZGMapOther.put("9","转门诊");
+
+		//去向映射
+		Map<String,String> QXMap = new HashMap<>();
+		QXMap.put("4","01");//急诊离院
+		QXMap.put("2","02");//住院
+		QXMap.put("13","03");//转院
+		QXMap.put("3","04");//死亡
+		QXMap.put("11","05");//急诊留观
+
+		//获取绑定急诊患者数据
+		String regSeq = hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq();
+		List<HspSqlInf> hspSqlInfList;
+		try{
+			String emgSeq = hspDbzlBasMapper.selectByPrimaryKey(regSeq).getEmgSeq();
+			hspSqlInfList = hspsqlinfCustomMapper.selectByEmgSeq(emgSeq);
+		}catch(Exception e){
+			throw new NullPointerException("该患者未绑定急诊!");
+//			resultInfo.setMessage("该患者未绑定急诊!");
+//			return resultInfo;
+		}
+		//获取最新一条信息
+		HspSqlInf hspSqlInf = hspSqlInfList.get(0);
+		Date sqlDat = hspSqlInf.getSqlDat();
+		String Dat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(sqlDat);
+		String sqlStaCod = hspSqlInf.getSqlStaCod();
+
+		//转归信息
 		Map<String, Object> BRQXMap = new HashMap<String, Object>();
-		BRQXMap.put("BRQX", "01");
-		BRQXMap.put("JZLYSJ", "1999-01-01 00:00");
-		BRQXMap.put("ZLJG", "1");
-		BRQXMap.put("QTLYYY", "QTLYYY");
-		BRQXMap.put("ZYKS", "1");
-		BRQXMap.put("BLZYSJ", "1999-01-02 00:00");
-		BRQXMap.put("JSZYSJ", "1999-01-03 00:00");
-		BRQXMap.put("ISZYHSW", "1");
-		BRQXMap.put("ISDDICU", "0");
-		BRQXMap.put("DDICUSJ", "1999-01-04 00:00");
-		BRQXMap.put("LKICUSJ", "1999-01-05 00:00");
-		BRQXMap.put("JJSJ", "1999-01-06 00:00");
-		BRQXMap.put("JSYY", "yiyuan");
-		BRQXMap.put("SWYYMS", "SWYYMS");
-		BRQXMap.put("LGSJ", "1999-01-07 00:00");
-		BRQXMap.put("ISLGHSW", "1");
-		BRQXMap.put("LGYYMS", "LGYYMS");
-		BRQXMap.put("ZGSJ", "1999-01-08 00:00");
-		BRQXMap.put("JTQX", "JTQX");
+		if (ZGMapMaster.containsKey(sqlStaCod)){
+			String staCod = QXMap.get(sqlStaCod);
+			switch(staCod){
+				case "01"://急诊离院
+					BRQXMap.put("BRQX", staCod); //病人去向
+					BRQXMap.put("JZLYSJ", Dat); //急诊离院时间
+					break;
+				case "02"://住院
+					BRQXMap.put("BRQX", staCod); //病人去向
+					break;
+				case "03"://转院
+					BRQXMap.put("BRQX", staCod); //病人去向
+					BRQXMap.put("JJSJ", Dat); //交接时间
+					break;
+				case "04"://死亡
+					BRQXMap.put("BRQX", staCod); //病人去向
+					break;
+				case "05"://急诊留观
+					BRQXMap.put("BRQX", staCod); //病人去向
+					BRQXMap.put("LGSJ", Dat); //留观时间
+					break;
+			}
+		}else if (ZGMapOther.containsKey(sqlStaCod)){
+			Set<String> keySet = ZGMapOther.keySet();
+			for (String key:keySet) {
+				if (key.equals(sqlStaCod)){
+					BRQXMap.put("BRQX", "06"); //病人去向
+					BRQXMap.put("ZGSJ", Dat); //转归时间
+					BRQXMap.put("JTQX", ZGMapOther.get(sqlStaCod)); //具体去向
+				}
+			}
+		}
+
+		//merge患者数据
+		HspZlInf hspZlInf = new HspZlInf();
+		for (String key:BRQXMap.keySet()) {
+			hspZlInf.setEmgNo(regSeq);
+			hspZlInf.setProCode(key);
+			hspZlInf.setProVal((String) BRQXMap.get(key));
+			hspZlInf.setCrtUser(activeUser.getUsrname());
+			hspZlInf.setModUser(activeUser.getUsrname());
+			hspZlInfMapperCustom.mergeHspCzzlInf(hspZlInf);
+		}
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("BRQXMap", BRQXMap);
 		resultInfo.setSysdata(map);
-
 		return resultInfo;
 	}
 
