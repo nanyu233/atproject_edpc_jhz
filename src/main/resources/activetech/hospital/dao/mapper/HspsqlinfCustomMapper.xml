@@ -1224,15 +1224,4 @@
                   group by c.emg_seq)) t2 where t1.EMG_SEQ=t2.emg_seq
                   <include refid="query_hspemginf_where"/>
   </select>
-	<sql id="Base_Column_List" >
-		SQL_SEQ, EMG_SEQ, REG_DAT, SQL_DAT, SQL_STA_COD, SQL_DEP_COD, SQL_DCT_NBR, SQL_DCT_NAM,
-    SQL_NUR_NBR, SQL_NUR_NAM, SQL_DES
-	</sql>
-	<select id="selectByEmgSeq" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from HSP_SQL_INF
-		where EMG_SEQ = #{emgSeq,jdbcType=VARCHAR}
-		order by SQL_DAT desc
-	</select>
 </mapper>

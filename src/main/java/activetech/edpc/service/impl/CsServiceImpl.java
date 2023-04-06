@@ -17,10 +17,13 @@ import activetech.edpc.pojo.domain.*;
 import activetech.edpc.pojo.dto.*;
 import activetech.edpc.service.CsService;
 import activetech.hospital.dao.mapper.HspEmgInfMapper;
+import activetech.hospital.dao.mapper.HspSqlInfMapper;
 import activetech.hospital.dao.mapper.HspemginfCustomMapper;
 import activetech.hospital.dao.mapper.HspsqlinfCustomMapper;
 import activetech.hospital.pojo.domain.HspSqlInf;
+import activetech.hospital.pojo.domain.HspSqlInfExample;
 import activetech.util.UUIDBuild;
+import ca.uhn.hl7v2.util.StringUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpEntity;
@@ -113,6 +116,8 @@ public class CsServiceImpl implements CsService{
 	private HspsqlinfCustomMapper hspsqlinfCustomMapper;
 	@Autowired
 	private SystemConfigService systemConfigService;
+	@Autowired
+	private HspSqlInfMapper hspSqlInfMapper;
 
 	private static String publicNetUrl;
 
@@ -953,74 +958,75 @@ public class CsServiceImpl implements CsService{
 //		BRQXMap.put("ZGSJ", "1999-01-08 00:00"); //转归时间
 //		BRQXMap.put("JTQX", "JTQX"); //具体去向
 
+
+
+		//获取绑定急诊患者数据
+		String regSeq = hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq();
+		String emgSeq = hspDbzlBasMapper.selectByPrimaryKey(regSeq).getEmgSeq();
+		if (StringUtil.isBlank(emgSeq) && emgSeq == null){
+			resultInfo = ResultUtil.createFail(Config.MESSAGE,920,new Object[] {"该患者未绑定急诊"});
+			return resultInfo;
+		}
+
 		//转归类型
-		Map<String,Object> ZGMap = new HashMap<>();
-		List dstDictInfoList = null;
+		Map<String,Object> zGMap = new HashMap<>();
+		List<Dstdictinfo> dstDictInfoList = null;
 		try {
 			dstDictInfoList = systemConfigService.findDictinfoByType("CST_DSP_COD");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		for (Dstdictinfo dstdictinfo:(List<Dstdictinfo>)dstDictInfoList) {
-			ZGMap.put(dstdictinfo.getInfocode(),dstdictinfo.getInfo());
+		for (Dstdictinfo dstdictinfo:dstDictInfoList) {
+			zGMap.put(dstdictinfo.getInfocode(),dstdictinfo.getInfo());
 		}
-
 
 		//去向映射
-		Map<String,String> QXMap = new HashMap<>();
-		QXMap.put("4","01");//急诊离院
-		QXMap.put("2","02");//住院
-		QXMap.put("13","03");//转院
-		QXMap.put("3","04");//死亡
-		QXMap.put("11","05");//急诊留观
+		Map<String,String> qXMap = new HashMap<>();
+		qXMap.put("4","01");//急诊离院
+		qXMap.put("2","02");//住院
+		qXMap.put("13","03");//转院
+		qXMap.put("3","04");//死亡
+		qXMap.put("11","05");//急诊留观
 
-		//获取绑定急诊患者数据
-		HspSqlInf hspSqlInf;
-		String regSeq;
-		try{
-			regSeq = hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq();
-			String emgSeq = hspDbzlBasMapper.selectByPrimaryKey(regSeq).getEmgSeq();
-			List<HspSqlInf> hspSqlInfList = hspsqlinfCustomMapper.selectByEmgSeq(emgSeq);
-			hspSqlInf = hspSqlInfList.get(0);
-		}catch(Exception e){
-			resultInfo = ResultUtil.createFail(Config.MESSAGE,920,new Object[] {"该患者未绑定急诊"});
-			return resultInfo;
-		}
+		//获取最新一条患者信息
+		HspSqlInfExample example = new HspSqlInfExample();
+		example.setOrderByClause("SQL_DAT desc");
+		HspSqlInfExample.Criteria criteria = example.createCriteria();
+		criteria.andEmgSeqEqualTo(emgSeq);
+		List<HspSqlInf> hspSqlInfList = hspSqlInfMapper.selectByExample(example);
+		HspSqlInf hspSqlInf = hspSqlInfList.get(0);
 		Date sqlDat = hspSqlInf.getSqlDat();
 		String Dat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(sqlDat);
 		String sqlStaCod = hspSqlInf.getSqlStaCod();
 
-		//转归信息
-		Map<String, Object> BRQXMap = new HashMap<String, Object>();
-		if (QXMap.containsKey(sqlStaCod)){
-			String staCod = QXMap.get(sqlStaCod);
+		//转归信息判断
+		Map<String, Object> BRQXMap = new HashMap<>();
+		if (qXMap.containsKey(sqlStaCod)){
+			String staCod = qXMap.get(sqlStaCod);
+			BRQXMap.put("BRQX", staCod); //病人去向
 			switch(staCod){
 				case "01"://急诊离院
-					BRQXMap.put("BRQX", staCod); //病人去向
 					BRQXMap.put("JZLYSJ", Dat); //急诊离院时间
 					break;
 				case "02"://住院
-					BRQXMap.put("BRQX", staCod); //病人去向
 					break;
 				case "03"://转院
-					BRQXMap.put("BRQX", staCod); //病人去向
 					BRQXMap.put("JJSJ", Dat); //交接时间
 					break;
 				case "04"://死亡
-					BRQXMap.put("BRQX", staCod); //病人去向
 					break;
 				case "05"://急诊留观
-					BRQXMap.put("BRQX", staCod); //病人去向
 					BRQXMap.put("LGSJ", Dat); //留观时间
 					break;
 			}
-		}else{
-			Set<String> keySet = ZGMap.keySet();
+		}else {
+			Set<String> keySet = zGMap.keySet();
 			for (String key:keySet) {
-				if (key.equals(sqlStaCod)){
+				if (sqlStaCod.equals(key)){
 					BRQXMap.put("BRQX", "06"); //病人去向
 					BRQXMap.put("ZGSJ", Dat); //转归时间
-					BRQXMap.put("JTQX", ZGMap.get(sqlStaCod)); //具体去向
+					BRQXMap.put("JTQX", zGMap.get(sqlStaCod)); //具体去向
+					break;
 				}
 			}
 		}
@@ -1036,7 +1042,7 @@ public class CsServiceImpl implements CsService{
 			hspZlInfMapperCustom.mergeHspCzzlInf(hspZlInf);
 		}
 
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("BRQXMap", BRQXMap);
 		resultInfo.setSysdata(map);
 		return resultInfo;

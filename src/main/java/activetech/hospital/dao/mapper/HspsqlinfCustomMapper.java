@@ -156,11 +156,4 @@ public interface HspsqlinfCustomMapper {
 	 * @return
 	 */
 	public List<HspemginfCustom> findhszbzPatients(HspsqlinfQueryDto hspsqlinfQueryDto);
-
-	/**
-	 * 根据emgseq查询患者
-	 * @param emgSeq
-	 * @return
-	 */
-	List<HspSqlInf> selectByEmgSeq(String emgSeq);
 }
