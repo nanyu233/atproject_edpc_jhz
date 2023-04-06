@@ -36,60 +36,89 @@
             height: 100%;
         }
 
-        .short-right {
-            margin-left: 4px;
-            width: 80px;
-            border: 1px solid #d2d9dc;
-            line-height: 19px;
-            height: 19px;
-            text-align: left;
+        body {
+           padding: 8px;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eeeeee;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .table {
+            flex: 1;
+        }
+
+        .form-container {
+            display: flex;
+            gap: 2px 20px;
+            padding: 5px 0;
+            align-items: center;
+            flex-flow: row wrap;
+        }
+
+        .form-control {
+            flex: none;
+        }
+
+        .form-control input,
+        .form-control select {
+            height: 24px;
+            padding: 3px 3px;
+            font-size: 12px;
+            line-height: 24px;
+            color: #555;
+            vertical-align: middle;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
         .search-btn {
-            width: 50px;
+            cursor: pointer;
+            width: 80px;
+            font-size: 12px;
             border-radius: 5px;
             color: #fff;
             background-color: #428bca;
             border-color: #357ebd;
-            height: 20px;
+            height: 24px;
             text-align: center;
-        }
-
-        .Wdate {
-            cursor: pointer;
-        }
-        input.Wdate[readonly] {
-            background-color: #faf3f3;
-        }
-
-        .flex {
-            display: flex;
-        }
-        .gap-5 {
-            gap: 5px
-        }
-        .gap-10 {
-            gap: 10px
+            line-height: 1.5;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
 
-<form class="flex gap-10">
-    <div class="flex gap-5">
-        <label for="startdate">启动时间：</label>
-        <input type="text" class="input-base short-right Wdate" id="startdate" name="startdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly />
-        <input type="text" class="input-base short-right Wdate" id="enddate"  name="enddate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly />
-    </div>
-    <div class="flex gap-5">
-        <label for="cstNam">患者姓名：</label>
-        <input id="cstNam" name="cstNam" type="text" class="input-base short-right" />
-    </div>
+<div class="container">
+    <form class="form-container">
+        <div class="form-control clr">
+            <label for="startdate">启动时间：</label>
+            <input type="text" class="input-base" id="startdate" name="startdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly />
+            --
+            <input type="text" class="input-base" id="enddate"  name="enddate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly />
+        </div>
+        <div class="form-control clr">
+            <label for="cstNam">患者姓名：</label>
+            <input id="cstNam" name="cstNam" type="text" class="input-base" />
+        </div>
 
-    <button onclick="search()" type="button" class="search-btn">查询</button>
-</form>
+        <div class="form-control clr">
+            <button onclick="search()" type="button" class="search-btn">查询</button>
+        </div>
+    </form>
 
-<table id="yjqd"></table>
+    <div class="table">
+        <table id="yjqd"></table>
+    </div>
+</div>
 
 <script type="application/javascript">
     var tableSelector = "#yjqd"
