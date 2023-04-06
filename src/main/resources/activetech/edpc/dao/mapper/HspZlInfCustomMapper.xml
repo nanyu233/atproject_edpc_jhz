@@ -38,6 +38,24 @@
 	    <result column="ZJZL" property="zjzl" jdbcType="VARCHAR"/>
   	</collection>
   </resultMap>
+
+
+    <sql id="condition" >
+        <if test="cstNam !=null and cstNam.length()>0">
+            and cst_nam like '%'||#{cstNam, jdbcType = VARCHAR}||'%'
+        </if>
+        <if test="vstCad !=null and vstCad.length()>0">
+            and vst_cad = #{vstCad, jdbcType = VARCHAR}
+        </if>
+
+        <if test="startdate !=null ">
+            and reg_tim  <![CDATA[>=]]> #{startdate, jdbcType = TIMESTAMP}
+        </if>
+
+        <if test="enddate !=null ">
+            and reg_tim <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
+        </if>
+    </sql>
   
   <update id="mergeHspXtzlInf" parameterType="activetech.edpc.pojo.dto.HspZlInfCustom">
 		merge into hsp_zl_inf a
@@ -297,14 +315,7 @@
         select count(*)
         from hsp_dbzl_bas
         where PAT_TYP = '3'
-        <if test="cstNam !=null and cstNam.length()>0">
-            and cst_nam = #{cstNam, jdbcType = VARCHAR}
-        </if>
-        <if test="vstCad !=null and vstCad.length()>0">
-            and vst_cad = #{vstCad, jdbcType = VARCHAR}
-        </if>
-        and reg_tim <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}
-        and reg_tim <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
+        <include refid="condition" />
     </select>
 
     <select id="getCsPatientList" parameterType="activetech.edpc.pojo.dto.HspZlInfQueryDto"
@@ -368,14 +379,7 @@
         smt_tim
         from hsp_dbzl_bas
         where PAT_TYP = '3'
-        <if test="cstNam !=null and cstNam.length()>0">
-            and cst_nam like concat('%',concat(#{cstNam, jdbcType = VARCHAR},'%'))
-        </if>
-        <if test="vstCad !=null and vstCad.length()>0">
-            and vst_cad = #{vstCad, jdbcType = VARCHAR}
-        </if>
-        and reg_tim <![CDATA[>]]> #{startdate, jdbcType = TIMESTAMP}
-        and reg_tim <![CDATA[<]]> #{enddate, jdbcType = TIMESTAMP} +1
+        <include refid="condition"/>
         order by reg_tim desc
         <include refid="activetech.base.CommonSql.page_end" />
     </select>
