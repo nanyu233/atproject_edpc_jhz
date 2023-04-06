@@ -1,0 +1,15 @@
+package activetech.edpc.action;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+@RequestMapping("/consentForm")
+public class HspConsentFormImgAction {
+    @RequestMapping(value = "toConsentFormPhoto",method = RequestMethod.GET)
+    public String toConsentFormPhoto(){
+        return "/hzszyyhospital/consentPhoto/consentFormPhoto";
+    }
+
+}

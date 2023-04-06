@@ -128,6 +128,10 @@
                     src: '${baseurl}zyyconsent/queryConsentInf.do?refseqno=${regSeq}' + '&tempCode=' + this.tempCode + '&cstNam=' + '${cstNam}'
                 },
                 {
+                    name: '知情同意书拍照',
+                    src: '${baseurl}consentForm/toConsentFormPhoto.do?'
+                },
+                {
                     name: '评分总览',
                     <%--src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${emgSeq}'--%>
                     src:'${baseurl}icuscore/toBasicPage.do?gradeType=GTOTAL&liveNo=' + '${regSeq}' +"&menuKind=1"

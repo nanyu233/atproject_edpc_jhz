@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspConsentFormImgMapper">
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspConsentFormImg">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PATIENT_ID" jdbcType="VARCHAR" property="patientId" />
+    <result column="CONSENT_FORM_SEQ" jdbcType="VARCHAR" property="consentFormSeq" />
+    <result column="CONSENT_FORM_ID" jdbcType="VARCHAR" property="consentFormId" />
+    <result column="CONSENT_FORM_NAME" jdbcType="VARCHAR" property="consentFormName" />
+    <result column="CONSENT_FORM_TYPE" jdbcType="VARCHAR" property="consentFormType" />
+    <result column="SAVE_TIME" jdbcType="TIMESTAMP" property="saveTime" />
+    <result column="HOSPITAL_AREA" jdbcType="VARCHAR" property="hospitalArea" />
+    <result column="SYSTEM_ID" jdbcType="VARCHAR" property="systemId" />
+    <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
+    <result column="CREATED_TIME" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="UPDATED_BY" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="UPDATED_TIME" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, PATIENT_ID, CONSENT_FORM_SEQ, CONSENT_FORM_ID, CONSENT_FORM_NAME, CONSENT_FORM_TYPE, 
+    SAVE_TIME, HOSPITAL_AREA, SYSTEM_ID, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME
+  </sql>
+  <select id="selectByExample" parameterType="activetech.edpc.pojo.domain.HspConsentFormImgExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from EDPC.HSP_CONSENT_FORM_IMG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from EDPC.HSP_CONSENT_FORM_IMG
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from EDPC.HSP_CONSENT_FORM_IMG
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspConsentFormImgExample">
+    delete from EDPC.HSP_CONSENT_FORM_IMG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspConsentFormImg">
+    insert into EDPC.HSP_CONSENT_FORM_IMG (ID, PATIENT_ID, CONSENT_FORM_SEQ, 
+      CONSENT_FORM_ID, CONSENT_FORM_NAME, CONSENT_FORM_TYPE, 
+      SAVE_TIME, HOSPITAL_AREA, SYSTEM_ID, 
+      CREATED_BY, CREATED_TIME, UPDATED_BY, 
+      UPDATED_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{consentFormSeq,jdbcType=VARCHAR}, 
+      #{consentFormId,jdbcType=VARCHAR}, #{consentFormName,jdbcType=VARCHAR}, #{consentFormType,jdbcType=VARCHAR}, 
+      #{saveTime,jdbcType=TIMESTAMP}, #{hospitalArea,jdbcType=VARCHAR}, #{systemId,jdbcType=VARCHAR}, 
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspConsentFormImg">
+    insert into EDPC.HSP_CONSENT_FORM_IMG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="patientId != null">
+        PATIENT_ID,
+      </if>
+      <if test="consentFormSeq != null">
+        CONSENT_FORM_SEQ,
+      </if>
+      <if test="consentFormId != null">
+        CONSENT_FORM_ID,
+      </if>
+      <if test="consentFormName != null">
+        CONSENT_FORM_NAME,
+      </if>
+      <if test="consentFormType != null">
+        CONSENT_FORM_TYPE,
+      </if>
+      <if test="saveTime != null">
+        SAVE_TIME,
+      </if>
+      <if test="hospitalArea != null">
+        HOSPITAL_AREA,
+      </if>
+      <if test="systemId != null">
+        SYSTEM_ID,
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="patientId != null">
+        #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="consentFormSeq != null">
+        #{consentFormSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="consentFormId != null">
+        #{consentFormId,jdbcType=VARCHAR},
+      </if>
+      <if test="consentFormName != null">
+        #{consentFormName,jdbcType=VARCHAR},
+      </if>
+      <if test="consentFormType != null">
+        #{consentFormType,jdbcType=VARCHAR},
+      </if>
+      <if test="saveTime != null">
+        #{saveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hospitalArea != null">
+        #{hospitalArea,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null">
+        #{systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspConsentFormImgExample" resultType="java.lang.Long">
+    select count(*) from EDPC.HSP_CONSENT_FORM_IMG
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update EDPC.HSP_CONSENT_FORM_IMG
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientId != null">
+        PATIENT_ID = #{record.patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consentFormSeq != null">
+        CONSENT_FORM_SEQ = #{record.consentFormSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consentFormId != null">
+        CONSENT_FORM_ID = #{record.consentFormId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consentFormName != null">
+        CONSENT_FORM_NAME = #{record.consentFormName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consentFormType != null">
+        CONSENT_FORM_TYPE = #{record.consentFormType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saveTime != null">
+        SAVE_TIME = #{record.saveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hospitalArea != null">
+        HOSPITAL_AREA = #{record.hospitalArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemId != null">
+        SYSTEM_ID = #{record.systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdBy != null">
+        CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null">
+        UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null">
+        UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update EDPC.HSP_CONSENT_FORM_IMG
+    set ID = #{record.id,jdbcType=VARCHAR},
+      PATIENT_ID = #{record.patientId,jdbcType=VARCHAR},
+      CONSENT_FORM_SEQ = #{record.consentFormSeq,jdbcType=VARCHAR},
+      CONSENT_FORM_ID = #{record.consentFormId,jdbcType=VARCHAR},
+      CONSENT_FORM_NAME = #{record.consentFormName,jdbcType=VARCHAR},
+      CONSENT_FORM_TYPE = #{record.consentFormType,jdbcType=VARCHAR},
+      SAVE_TIME = #{record.saveTime,jdbcType=TIMESTAMP},
+      HOSPITAL_AREA = #{record.hospitalArea,jdbcType=VARCHAR},
+      SYSTEM_ID = #{record.systemId,jdbcType=VARCHAR},
+      CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{record.updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{record.updatedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspConsentFormImg">
+    update EDPC.HSP_CONSENT_FORM_IMG
+    <set>
+      <if test="patientId != null">
+        PATIENT_ID = #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="consentFormSeq != null">
+        CONSENT_FORM_SEQ = #{consentFormSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="consentFormId != null">
+        CONSENT_FORM_ID = #{consentFormId,jdbcType=VARCHAR},
+      </if>
+      <if test="consentFormName != null">
+        CONSENT_FORM_NAME = #{consentFormName,jdbcType=VARCHAR},
+      </if>
+      <if test="consentFormType != null">
+        CONSENT_FORM_TYPE = #{consentFormType,jdbcType=VARCHAR},
+      </if>
+      <if test="saveTime != null">
+        SAVE_TIME = #{saveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hospitalArea != null">
+        HOSPITAL_AREA = #{hospitalArea,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null">
+        SYSTEM_ID = #{systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspConsentFormImg">
+    update EDPC.HSP_CONSENT_FORM_IMG
+    set PATIENT_ID = #{patientId,jdbcType=VARCHAR},
+      CONSENT_FORM_SEQ = #{consentFormSeq,jdbcType=VARCHAR},
+      CONSENT_FORM_ID = #{consentFormId,jdbcType=VARCHAR},
+      CONSENT_FORM_NAME = #{consentFormName,jdbcType=VARCHAR},
+      CONSENT_FORM_TYPE = #{consentFormType,jdbcType=VARCHAR},
+      SAVE_TIME = #{saveTime,jdbcType=TIMESTAMP},
+      HOSPITAL_AREA = #{hospitalArea,jdbcType=VARCHAR},
+      SYSTEM_ID = #{systemId,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
