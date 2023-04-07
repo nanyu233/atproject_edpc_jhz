@@ -8,6 +8,7 @@ import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.dto.HspConsentFormImgQueryDto;
 import activetech.edpc.service.HspConsentFormImgService;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,7 +60,7 @@ public class HspConsentFormImgAction {
     /**
      * 文件上传保存至minio
      *
-     * @param multipartFile           multipartFile
+     * @param multipartFiles          multipartFiles
      * @param hspConsentFormImgCustom hspConsentFormImgCustom
      * @param activeUser              activeUser
      * @return activetech.base.process.result.SubmitResultInfo
@@ -69,9 +70,12 @@ public class HspConsentFormImgAction {
      */
     @RequestMapping(value = "/uploadConsentFormImg", method = RequestMethod.POST)
     @ResponseBody
-    public SubmitResultInfo uploadConsentFormImg(@RequestParam("file") MultipartFile multipartFile, HspConsentFormImgQueryDto hspConsentFormImgCustom, ActiveUser activeUser) throws Exception {
+    public SubmitResultInfo uploadConsentFormImg(@RequestParam("files") MultipartFile[] multipartFiles, HspConsentFormImgQueryDto hspConsentFormImgCustom, ActiveUser activeUser) throws Exception {
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-        hspConsentFormImgService.uploadConsentFormImg(multipartFile, hspConsentFormImgCustom, activeUser);
+        Assert.isTrue(multipartFiles != null && multipartFiles.length >= 1, "文件必传");
+        for (MultipartFile multipartFile : multipartFiles) {
+            hspConsentFormImgService.uploadConsentFormImg(multipartFile, hspConsentFormImgCustom, activeUser);
+        }
         return ResultUtil.createSubmitResult(resultInfo);
     }
 
