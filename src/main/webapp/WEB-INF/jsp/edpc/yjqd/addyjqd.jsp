@@ -39,6 +39,7 @@
         }
 
         textarea {
+            display: block;
             color:#3c3c3c;
             font-weight:500;
             font-size: 18px;
@@ -265,7 +266,7 @@
                                 已选择
                             </h3>
                             <div id="group-selected-preview">
-                                <div class="sr-only"><input type="text" name="userList" v-bind:value="nodes.length"></div>
+                                <div><input type="text" name="userList" class="sr-only" v-bind:value="nodes.length"></div>
                                 <ul>
                                     <li v-for="node in nodes" v-bind:key="node.usrno+node.usrname">
                                         {{ node.usrname }}
@@ -384,7 +385,14 @@
             "noticeContent": "请输入通知内容",
             "noticeType[]": "请选择通知方式",
             "userList": "请选择至少选择一位通知对象"
-        }
+        },
+        errorPlacement: function (error, element) {
+            if ($(element).attr("name") === "noticeType[]") {
+                $(element).parents('#notice-type').append(error)
+            }else {
+                $(element).parent().append(error)
+            }
+        },
     })
 
     function handleSubmit() {
