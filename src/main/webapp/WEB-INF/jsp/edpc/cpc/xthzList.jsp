@@ -300,7 +300,7 @@
 		if(cstNam=='null'){
 			cstNam = "";
 		}
-		window.top.addTab(cstNam +"-"+ '一键启动', url, 'icon icon-emergency-record');
+		createmodalwindow(cstNam +"-"+ '一键启动', 600, 700, url);
 	}
 
     function delPatient(emgSeq) {

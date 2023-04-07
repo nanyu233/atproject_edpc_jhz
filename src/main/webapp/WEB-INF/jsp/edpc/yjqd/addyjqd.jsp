@@ -159,11 +159,15 @@
         }
 
         .footbar {
+            position: fixed;
+            left: 0;
+            bottom: 0;
             width: 100%;
             flex: none;
             display: flex;
             justify-content: end;
             gap: 10px;
+            padding: 5px;
         }
 
         .off-screen {
@@ -274,7 +278,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="footbar w-550" style="padding: 20px;">
+    <div class="footbar">
         <a id="submitbtn" class="easyui-linkbutton" iconCls="icon-ok" href=javascript:handleSubmit()>确定</a>
         <a id="cancelbtn" class="easyui-linkbutton" iconCls="icon-cancel" href=javascript:handleCancel()>取消</a>
     </div>
@@ -416,6 +420,7 @@
                 }),
                 success: function (data) {
                     message_alert(data)
+                    setTimeout("parent.closemodalwindow()", 1000);
                 }
             })
         }
