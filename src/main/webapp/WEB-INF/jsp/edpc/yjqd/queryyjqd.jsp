@@ -126,6 +126,13 @@
     var NOTICE_TYPE = allDict.NOTICE_TYPE || []
     var NOTICE_TYPE_MAP = listToMap(NOTICE_TYPE, 'infocode', 'info')
 
+    var DAY_TIMESTAMP = 24 * 60 * 60 * 1000
+    var YESTERDAY = formatDate(new Date().getTime() - DAY_TIMESTAMP)
+    var TODAY = formatDate(new Date().getTime())
+
+    $("#startdate").val(YESTERDAY)
+    $("#enddate").val(TODAY)
+
     var columns = [
         [
             {
