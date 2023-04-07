@@ -8,6 +8,7 @@ import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.dto.HspConsentFormImgQueryDto;
 import activetech.edpc.service.HspConsentFormImgService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,8 @@ public class HspConsentFormImgAction {
      * @return jsp
      */
     @RequestMapping(value = "toConsentFormPhoto", method = RequestMethod.GET)
-    public String toConsentFormPhoto() {
+    public String toConsentFormPhoto(Model model, @RequestParam("patientId") String patientId) {
+        model.addAttribute("patientId", patientId);
         return "/hzszyyhospital/consentPhoto/consentFormPhoto";
     }
 
