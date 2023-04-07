@@ -188,12 +188,6 @@
         .flex-row {
             flex-direction: row;
         }
-        .flex-col {
-            flex-direction: column;
-        }
-        .flex-1 {
-            flex: 1;
-        }
         .flex-none {
             flex: none;
         }
@@ -217,7 +211,7 @@
 <form id="addyjqd" class="w-full h-full">
     <div class="off-screen">
         <label for="regSeq">患者编号</label>
-        <input id="regSeq" name="regSeq" />
+        <input id="regSeq" name="regSeq" v-bind:value="regSeq" />
     </div>
     <table class="w-550">
         <colgroup>
@@ -228,8 +222,8 @@
             <tr>
                 <th>启动时间：</th>
                 <td>
-                    <input id="yjqdTimeStr" name="yjqdTimeStr" type="text" class="input-base Wdate" style="width: 150px;"
-                           onfocus="new WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+                    <input id="yjqdTimeStr" name="yjqdTimeStr" v-model="yjqdTimeStr" type="text" class="input-base Wdate" style="width: 150px;"
+                           @focus="datePicker($event)" />
                 </td>
             </tr>
             <tr>
@@ -246,7 +240,7 @@
                                     name="noticeType[]"
                                     :id="type.infocode"
                                     v-bind:value="type.infocode"
-                                    v-model="value"
+                                    v-model="noticeTypeList"
                                     class="off-screen"
                             />
                             <label :for="type.infocode">{{ type.info }}</label>
@@ -269,7 +263,8 @@
                                 <div><input type="text" name="userList" class="sr-only" v-bind:value="nodes.length"></div>
                                 <ul>
                                     <li v-for="node in nodes" v-bind:key="node.usrno+node.usrname">
-                                        {{ node.usrname }}
+                                        <span>{{ node.usrname }}</span>
+                                        <span>x</span>
                                     <li>
                                 </ul>
                             </div>
@@ -287,33 +282,44 @@
 
 <script>
     var regSeq = '${regSeq}'
-    $("#regSeq").val(regSeq)
-    $("#yjqdTimeStr").val(publicFun.timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss"))
     var allDict = publicFun.getItem("allDict")
     var NOTICE_TYPE = allDict.NOTICE_TYPE || []
     var dUpdatePreview = publicFun.debounce(updatePreview, 300)
+    var dValidateForm = publicFun.debounce(function () {
+        if (formValidator) {
+            formValidator.form()
+        }
+    }, 300)
     var formSelector = "#addyjqd"
 
-    var noticeTypeVm = new Vue({
-        el: "#notice-type",
+    var vm = new Vue({
+        el: "#addyjqd",
         data: function () {
             return {
+                regSeq: regSeq,
+                yjqdTimeStr: publicFun.timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss"),
                 NOTICE_TYPE: NOTICE_TYPE,
-                value: []
+                noticeTypeList: [],
+                nodes: []
+            }
+        },
+        watch: {
+            nodes() {
+                this.$nextTick(dValidateForm)
             }
         },
         methods: {
-            handleCheck(e) {
-                console.log(e)
-            }
-        }
-    })
-
-    var previewVm = new Vue({
-        el: "#group-selected-preview",
-        data: function () {
-            return {
-                nodes: []
+            datePicker: function (e) {
+                var self = this
+                WdatePicker({
+                    dateFmt:'yyyy-MM-dd HH:mm:ss',
+                    onpicked: function () {
+                        self[e.target.name] = e.target.value
+                    },
+                    oncleared: function () {
+                        self[e.target.name] = null
+                    }
+                })
             }
         }
     })
@@ -331,18 +337,13 @@
             ))
         });
 
-        previewVm.nodes = uniqueArray.map(function (node) {
+        vm.nodes = uniqueArray.map(function (node) {
             return {
                 usrno: node.id,
                 usrname: node.text
             }
         })
     }
-
-    // $('#notice-type').append(NOTICE_TYPE.map(function (item) {
-    //     var $li = $("<li></li>")
-    //     return '<li><input type="checkbox" name="noticeType[]" value="' + item.infocode + '" /><label>' + item.info + '</label></li>'
-    // }))
 
     var zt = new ZTREE("group-tree", '${baseurl}yjqd/querygroupusertree_result.do', true);
 
@@ -380,14 +381,16 @@
             }
         },
         messages: {
-            "reqSeq": "患者编号未知",
+            "regSeq": "患者编号未知",
             "yjqdTimeStr": "请输入启动时间",
             "noticeContent": "请输入通知内容",
             "noticeType[]": "请选择通知方式",
             "userList": "请选择至少选择一位通知对象"
         },
         errorPlacement: function (error, element) {
-            if ($(element).attr("name") === "noticeType[]") {
+            if ($(element).attr("name") === "regSeq") {
+                $('table').before(error)
+            } else if ($(element).attr("name") === "noticeType[]") {
                 $(element).parents('#notice-type').append(error)
             }else {
                 $(element).parent().append(error)
@@ -407,9 +410,9 @@
                         regSeq: regSeq,
                         yjqdTimeStr: publicFun.timeFormat($('#yjqdTimeStr').val() || new Date(), "yyyy-MM-dd hh:mm:ss"),
                         noticeContent: $('#noticeContent').val(),
-                        noticeType: noticeTypeVm.value.join(',')
+                        noticeType: vm.noticeTypeList.join(',')
                     },
-                    userList: previewVm.nodes
+                    userList: vm.nodes
                 }),
                 success: function (data) {
                     message_alert(data)
