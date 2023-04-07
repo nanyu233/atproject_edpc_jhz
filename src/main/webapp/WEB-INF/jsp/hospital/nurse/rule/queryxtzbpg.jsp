@@ -35,17 +35,21 @@
 <script type="text/javascript" src="${baseurl}js/subpageJs/hzszyyhospital/rule/ruleMixin.vue.js"></script>
 <script type="text/javascript">
   var e_xtCod, e_xtSubCod;
-  e_xtCod = parent.$("#emg_xtCod").val();
-  e_xtSubCod = parent.$("#emg_xtSubCod").val();
-  e_xtSubCod = e_xtSubCod.split(",");
+  e_xtCod = publicFun.getDict("XT_BQPG_COD");
+  e_xtSubCod = publicFun.getDict("XT_BQPGMX_COD");
+
+  console.log(e_xtCod);
+  console.log(e_xtSubCod);
+  // e_xtSubCod = parent.$("#emg_xtSubCod").val();
+  // e_xtSubCod = e_xtSubCod.split(",");
 
   var vm = new Vue({
     el: "#queryPain",
     mixins: [ruleMixin],
     data: {
       getMsg: {
-        xtxmzbList: [], //胸痛
-        zbnhList: []
+        xtxmzbList: e_xtCod||[], //胸痛
+        zbnhList: e_xtSubCod||[]
       },
       msgInfo: {
         xtCod: e_xtCod || '',
@@ -63,7 +67,7 @@
     },
     methods: {
       getParentList: function () {
-        this.vueGetList('xtxmzbList', e_xtCod);
+        // this.vueGetList('xtxmzbList', e_xtCod);
         this.getSecondMsg()
       },
       getSecondMsg: function () {
@@ -76,7 +80,7 @@
             }
           }
         })
-        vm.getMsg.zbnhList = JSON.parse(JSON.stringify(_list));
+        // vm.getMsg.zbnhList = JSON.parse(JSON.stringify(_list));
       },
       onlyRadioCheck: function (idx, listName, obj) {
         var list = vm.getMsg[listName];

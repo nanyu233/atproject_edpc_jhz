@@ -32,11 +32,11 @@
         </dependency>
 
         <!-- hl7工具类-->
-        <dependency>
-            <groupId>activetech</groupId>
-            <artifactId>atHl7Utils26</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>activetech</groupId>-->
+<!--            <artifactId>atHl7Utils26</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
 
         <!-- 工具类-->
         <dependency>
@@ -122,23 +122,23 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <version>3.2.4</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.cxf</groupId>-->
+<!--            <artifactId>cxf-rt-frontend-jaxws</artifactId>-->
+<!--            <version>3.2.4</version>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-transports-http -->
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-transports-http</artifactId>
-            <version>3.2.4</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.cxf</groupId>-->
+<!--            <artifactId>cxf-rt-transports-http</artifactId>-->
+<!--            <version>3.2.4</version>-->
+<!--        </dependency>-->
         <!--HuTool工具类 文档 https://www.bookstack.cn/read/hutool/093507f34fe0715d.md-->
         <dependency>
             <groupId>cn.hutool</groupId>
-            <artifactId>hutool-http</artifactId>
-            <version>5.6.5</version>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.12</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.minio/minio -->

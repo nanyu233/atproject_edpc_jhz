@@ -129,7 +129,7 @@
                 },
                 {
                     name: '知情同意书拍照',
-                    src: '${baseurl}consentForm/toConsentFormPhoto.do?refseqno=${regSeq}'
+                    src: '${baseurl}consentForm/toConsentFormPhoto.do?patientId=${regSeq}'
                 },
                 {
                     name: '评分总览',

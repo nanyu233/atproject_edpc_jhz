@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspDinggrpMapper">
+  <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspDinggrp">
+    <!--@mbg.generated-->
+    <!--@Table HSP_DINGGRP-->
+    <id column="REG_SEQ" jdbcType="VARCHAR" property="regSeq" />
+    <id column="CHATID" jdbcType="VARCHAR" property="chatid" />
+    <result column="OPEN_CONVERSATION_ID" jdbcType="VARCHAR" property="openConversationId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    REG_SEQ, CHATID, OPEN_CONVERSATION_ID
+  </sql>
+  <select id="selectByExample" parameterType="activetech.edpc.pojo.domain.HspDinggrpExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSP_DINGGRP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from HSP_DINGGRP
+    where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
+      and CHATID = #{chatid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    <!--@mbg.generated-->
+    delete from HSP_DINGGRP
+    where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
+      and CHATID = #{chatid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspDinggrpExample">
+    <!--@mbg.generated-->
+    delete from HSP_DINGGRP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspDinggrp">
+    <!--@mbg.generated-->
+    insert into HSP_DINGGRP (REG_SEQ, CHATID, OPEN_CONVERSATION_ID
+      )
+    values (#{regSeq,jdbcType=VARCHAR}, #{chatid,jdbcType=VARCHAR}, #{openConversationId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspDinggrp">
+    <!--@mbg.generated-->
+    insert into HSP_DINGGRP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="regSeq != null">
+        REG_SEQ,
+      </if>
+      <if test="chatid != null">
+        CHATID,
+      </if>
+      <if test="openConversationId != null">
+        OPEN_CONVERSATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="regSeq != null">
+        #{regSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="chatid != null">
+        #{chatid,jdbcType=VARCHAR},
+      </if>
+      <if test="openConversationId != null">
+        #{openConversationId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspDinggrpExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from HSP_DINGGRP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update HSP_DINGGRP
+    <set>
+      <if test="record.regSeq != null">
+        REG_SEQ = #{record.regSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chatid != null">
+        CHATID = #{record.chatid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openConversationId != null">
+        OPEN_CONVERSATION_ID = #{record.openConversationId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update HSP_DINGGRP
+    set REG_SEQ = #{record.regSeq,jdbcType=VARCHAR},
+      CHATID = #{record.chatid,jdbcType=VARCHAR},
+      OPEN_CONVERSATION_ID = #{record.openConversationId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspDinggrp">
+    <!--@mbg.generated-->
+    update HSP_DINGGRP
+    <set>
+      <if test="openConversationId != null">
+        OPEN_CONVERSATION_ID = #{openConversationId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
+      and CHATID = #{chatid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspDinggrp">
+    <!--@mbg.generated-->
+    update HSP_DINGGRP
+    set OPEN_CONVERSATION_ID = #{openConversationId,jdbcType=VARCHAR}
+    where REG_SEQ = #{regSeq,jdbcType=VARCHAR}
+      and CHATID = #{chatid,jdbcType=VARCHAR}
+  </update>
+</mapper>

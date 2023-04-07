@@ -23,16 +23,9 @@ import activetech.hospital.dao.mapper.HspsqlinfCustomMapper;
 import activetech.hospital.pojo.domain.HspSqlInf;
 import activetech.hospital.pojo.domain.HspSqlInfExample;
 import activetech.util.UUIDBuild;
-import ca.uhn.hl7v2.util.StringUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -107,15 +100,19 @@ public class CsServiceImpl implements CsService{
 
 	@Autowired
 	private HspDbzlBasMapper hspDbzlBasMapper;
+
 	@Autowired
 	private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
 
 	@Autowired
 	private DstarchivesMapper dstarchivesMapper;
+
 	@Autowired
 	private HspsqlinfCustomMapper hspsqlinfCustomMapper;
+
 	@Autowired
 	private SystemConfigService systemConfigService;
+
 	@Autowired
 	private HspSqlInfMapper hspSqlInfMapper;
 
@@ -152,6 +149,7 @@ public class CsServiceImpl implements CsService{
 		ResultInfo resultInfo = null;
 		
 		HspCsabcDefExample example = new HspCsabcDefExample();
+
 		List<HspCsabcDef> list = hspCsabcDefMapper.selectByExample(example);
 		
 		if(list.size()>0){
@@ -910,60 +908,11 @@ public class CsServiceImpl implements CsService{
 	@Override
 	public ResultInfo csBRQXdataFromEmis(HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser) throws IOException {
 		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-//		JSONObject jsonObject = new JSONObject();
-
-		//调用急诊接口 url为测试用 暂不用
-//		try {
-//			HttpPost httpPost = new HttpPost("http://localhost:15007/atproject_edpc_war_exploded/cs/getCsinf.do");
-//			CloseableHttpClient client = HttpClients.createDefault();
-//			String respContent = null;
-//			//json方式
-//			JSONObject jsonParam = new JSONObject();
-//			jsonParam.put("regSeq", hspDbzlBasQueryDto.getRegSeq());
-//
-//			StringEntity entity = new StringEntity(JSONObject.toJSONString(jsonParam), "utf-8");//解决中文乱码问题
-//			entity.setContentEncoding("UTF-8");
-//			entity.setContentType("application/json");
-//			httpPost.setEntity(entity);
-//			HttpResponse resp = client.execute(httpPost);//执行时机
-//			if (resp.getStatusLine().getStatusCode() == 200) {
-//				HttpEntity ent = resp.getEntity();
-//				respContent = EntityUtils.toString(ent, "UTF-8");
-//			}
-//			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
-//			jsonObject = JSONObject.parseObject(respContent);
-//		}
-//		catch (IOException e) {
-//			resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 920, null);
-//		}
-
-//		Map<String, Object> BRQXMap = new HashMap<String, Object>();
-//		BRQXMap.put("BRQX", "01"); //病人去向
-//		BRQXMap.put("JZLYSJ", "1999-01-01 00:00"); //急诊离院时间
-//		BRQXMap.put("ZLJG", "1"); //治疗结果
-//		BRQXMap.put("QTLYYY", "QTLYYY"); //其他离院原因
-//		BRQXMap.put("ZYKS", "1"); //住院科室
-//		BRQXMap.put("BLZYSJ", "1999-01-02 00:00"); //办理住院时间
-//		BRQXMap.put("JSZYSJ", "1999-01-03 00:00"); //结束住院时间
-//		BRQXMap.put("ISZYHSW", "1"); //住院后死亡
-//		BRQXMap.put("ISDDICU", "0"); //到达ICU
-//		BRQXMap.put("DDICUSJ", "1999-01-04 00:00"); //到达ICU时间
-//		BRQXMap.put("LKICUSJ", "1999-01-05 00:00"); //离开ICU时间
-//		BRQXMap.put("JJSJ", "1999-01-06 00:00"); //交接时间
-//		BRQXMap.put("JSYY", "yiyuan"); //接收医院
-//		BRQXMap.put("SWYYMS", "SWYYMS"); //死亡原因描述
-//		BRQXMap.put("LGSJ", "1999-01-07 00:00"); //留观时间
-//		BRQXMap.put("ISLGHSW", "1"); //留观后死亡
-//		BRQXMap.put("LGYYMS", "LGYYMS"); //留观原因描述
-//		BRQXMap.put("ZGSJ", "1999-01-08 00:00"); //转归时间
-//		BRQXMap.put("JTQX", "JTQX"); //具体去向
-
-
 
 		//获取绑定急诊患者数据
 		String regSeq = hspDbzlBasQueryDto.getHspDbzlBasCustom().getRegSeq();
 		String emgSeq = hspDbzlBasMapper.selectByPrimaryKey(regSeq).getEmgSeq();
-		if (StringUtil.isBlank(emgSeq) && emgSeq == null){
+		if (StringUtils.isEmpty(emgSeq)){
 			resultInfo = ResultUtil.createFail(Config.MESSAGE,920,new Object[] {"该患者未绑定急诊"});
 			return resultInfo;
 		}

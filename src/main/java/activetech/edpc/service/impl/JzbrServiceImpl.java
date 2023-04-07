@@ -4,27 +4,22 @@ import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.pojo.dto.PageQuery;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.DataGridResultInfo;
+import activetech.base.process.result.ExceptionResultInfo;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.service.SystemConfigService;
-import activetech.edpc.dao.mapper.HspDbzlBasMapper;
-import activetech.edpc.dao.mapper.HspDbzlBasMapperCustom;
-import activetech.edpc.dao.mapper.HspZlInfCustomMapper;
-import activetech.edpc.dao.mapper.HspZlInfMapper;
-import activetech.edpc.pojo.domain.HspDbzlBas;
-import activetech.edpc.pojo.domain.HspZlInf;
-import activetech.edpc.pojo.domain.HspZlInfExample;
+import activetech.edpc.dao.mapper.*;
+import activetech.edpc.pojo.domain.*;
 import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.HspZlInfCustom;
-import activetech.edpc.pojo.dto.QueryDto;
 import activetech.edpc.service.JzbrService;
-import activetech.hospital.pojo.domain.HspMewsInf;
 import activetech.hospital.pojo.dto.HspemginfCustom;
 import activetech.hospital.pojo.dto.HspemginfQueryDto;
 import activetech.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -46,12 +41,15 @@ public class JzbrServiceImpl implements JzbrService {
     private HspZlInfCustomMapper hspZlInfCustomMapper;
     @Autowired
     private HspDbzlBasMapperCustom hspDbzlBasMapperCustom;
+
+    @Resource
+    private HspDinggrpMapper hspDinggrpMapper;
     /**
      * 急诊病人进入多病种中心
      * @param hspemginfQueryDto hspemginfQueryDto
      */
     @Override
-    public void enterDbzl(HspemginfQueryDto hspemginfQueryDto,ActiveUser activeUser) {
+    public void enterDbzl(HspemginfQueryDto hspemginfQueryDto,ActiveUser activeUser) throws ExceptionResultInfo {
         HspemginfCustom hspemginfCustom = hspemginfQueryDto.getHspemginfCustom();
         //xtlcflag 胸痛流程
         if("1".equals(hspemginfCustom.getXtlcflg())) {
@@ -64,6 +62,12 @@ public class JzbrServiceImpl implements JzbrService {
             String regSeq = enterPatInDbzl(hspemginfCustom, "CZ",activeUser);
             addMewsInfo(hspemginfCustom, regSeq);
         }
+
+        if("1".equals(hspemginfCustom.getCspgFlg())) {
+            String regSeq = enterPatInDbzl(hspemginfCustom, "CS",activeUser);
+            //addMewsInfo(hspemginfCustom, regSeq);
+        }
+
     }
 
     /**
@@ -138,7 +142,19 @@ public class JzbrServiceImpl implements JzbrService {
      * @param dbFlag dbFlag
      * @return return
      */
-    private String enterPatInDbzl(HspemginfCustom hspemginfCustom, String dbFlag, ActiveUser activeUser) {
+    private String enterPatInDbzl(HspemginfCustom hspemginfCustom, String dbFlag, ActiveUser activeUser) throws ExceptionResultInfo {
+        // 这里需要做幂等，同一个患者多次请求，只保存一次。
+
+        // 查看当前患者是否已经入库
+        String emgSeq = hspemginfCustom.getEmgSeq();
+        HspDbzlBasExample example = new HspDbzlBasExample();
+        HspDbzlBasExample.Criteria criteria = example.createCriteria();
+        criteria.andEmgSeqEqualTo(emgSeq);
+        List<HspDbzlBas> ret = hspDbzlBasMapper.selectByExample(example);
+        if(ret.size()>0){
+            ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 920, new Object[]{"该患者已同步，请勿重复提交"}));
+        }
+
         String patType = "1";
         switch (dbFlag){
             case "XT":
@@ -156,11 +172,24 @@ public class JzbrServiceImpl implements JzbrService {
 
         String regSeq = systemConfigService.findSequences("hsp_dbzl_bas_reg_seq", "8", null);
 
+        // 1.创建以该患者为中心的钉钉群组 todo
+        // DingUtil
+
+        // 2.更新hsp_dinggrp表 todo
+        HspDinggrp record = new HspDinggrp();
+        record.setRegSeq(regSeq);
+        //record.setChatid();
+        //record.setOpenConversationId();
+        hspDinggrpMapper.insert(record);
+
+        // 3.根据不同的患者类型创建不同的延迟任务 todo
+
+
         HspDbzlBas hspDbzlBas = new HspDbzlBas();
         //唯一ID
         hspDbzlBas.setRegSeq(regSeq);
         hspDbzlBas.setRegTim(hspemginfCustom.getEmgDat());
-        hspDbzlBas.setEmgSeq(hspemginfCustom.getEmgSeq());
+        hspDbzlBas.setEmgSeq(emgSeq);
         hspDbzlBas.setMpi(hspemginfCustom.getMpi());
         hspDbzlBas.setPatTyp(patType);
         //急诊

@@ -294,6 +294,11 @@
         <label for="regSeq">患者编号</label>
         <input id="regSeq" name="regSeq" v-bind:value="regSeq" />
     </div>
+    <div>
+        <span>姓名：{{ cstNam }}</span>
+        <span>性别：{{ cstSexCod_MAP[cstSexCod] }}</span>
+        <span>年龄：{{ cstAge || "-" }}</span>
+    </div>
     <table class="w-550">
         <colgroup>
             <col style="width: 60px;">
@@ -367,11 +372,14 @@
     var regSeq = '${regSeq}'
     var cstNam = '${cstNam}'
     var patTyp = '${patTyp}'
+    var cstSexCod = '${cstSexCod}'
+    var cstAge = '${cstAge}'
 
     var formSelector = "#addyjqd"
     var allDict = publicFun.getItem("allDict")
     var NOTICE_TYPE = allDict.NOTICE_TYPE || []
     var PATTYPE_MAP = listToMap(allDict.PATTYPE, 'infocode', 'info')
+    var cstSexCod_MAP = { "0": "男", "1": "女"}
 
     var dUpdatePreview = publicFun.debounce(updatePreview, 300)
     var dValidateForm = publicFun.debounce(function () {
@@ -385,6 +393,10 @@
         data: function () {
             return {
                 regSeq: regSeq,
+                cstNam: cstNam,
+                cstSexCod_MAP: cstSexCod_MAP,
+                cstSexCod: cstSexCod,
+                cstAge: cstAge,
                 yjqdTimeStr: publicFun.timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss"),
                 NOTICE_TYPE: NOTICE_TYPE,
                 noticeTypeList: $.map(NOTICE_TYPE, function (n) { return n.infocode }), // 默认全选
