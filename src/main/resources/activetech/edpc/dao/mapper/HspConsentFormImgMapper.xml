@@ -8,6 +8,7 @@
     <result column="CONSENT_FORM_ID" jdbcType="VARCHAR" property="consentFormId" />
     <result column="CONSENT_FORM_NAME" jdbcType="VARCHAR" property="consentFormName" />
     <result column="CONSENT_FORM_TYPE" jdbcType="VARCHAR" property="consentFormType" />
+    <result column="FILE_NAME" jdbcType="VARCHAR" property="fileName" />
     <result column="SAVE_TIME" jdbcType="TIMESTAMP" property="saveTime" />
     <result column="HOSPITAL_AREA" jdbcType="VARCHAR" property="hospitalArea" />
     <result column="SYSTEM_ID" jdbcType="VARCHAR" property="systemId" />
@@ -76,7 +77,8 @@
   </sql>
   <sql id="Base_Column_List">
     ID, PATIENT_ID, CONSENT_FORM_SEQ, CONSENT_FORM_ID, CONSENT_FORM_NAME, CONSENT_FORM_TYPE, 
-    SAVE_TIME, HOSPITAL_AREA, SYSTEM_ID, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME
+    FILE_NAME, SAVE_TIME, HOSPITAL_AREA, SYSTEM_ID, CREATED_BY, CREATED_TIME, UPDATED_BY, 
+    UPDATED_TIME
   </sql>
   <select id="selectByExample" parameterType="activetech.edpc.pojo.domain.HspConsentFormImgExample" resultMap="BaseResultMap">
     select
@@ -84,7 +86,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from EDPC.HSP_CONSENT_FORM_IMG
+    from HSP_CONSENT_FORM_IMG
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,33 +97,33 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from EDPC.HSP_CONSENT_FORM_IMG
+    from HSP_CONSENT_FORM_IMG
     where ID = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from EDPC.HSP_CONSENT_FORM_IMG
+    delete from HSP_CONSENT_FORM_IMG
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspConsentFormImgExample">
-    delete from EDPC.HSP_CONSENT_FORM_IMG
+    delete from HSP_CONSENT_FORM_IMG
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspConsentFormImg">
-    insert into EDPC.HSP_CONSENT_FORM_IMG (ID, PATIENT_ID, CONSENT_FORM_SEQ, 
+    insert into HSP_CONSENT_FORM_IMG (ID, PATIENT_ID, CONSENT_FORM_SEQ, 
       CONSENT_FORM_ID, CONSENT_FORM_NAME, CONSENT_FORM_TYPE, 
-      SAVE_TIME, HOSPITAL_AREA, SYSTEM_ID, 
-      CREATED_BY, CREATED_TIME, UPDATED_BY, 
-      UPDATED_TIME)
+      FILE_NAME, SAVE_TIME, HOSPITAL_AREA, 
+      SYSTEM_ID, CREATED_BY, CREATED_TIME, 
+      UPDATED_BY, UPDATED_TIME)
     values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{consentFormSeq,jdbcType=VARCHAR}, 
       #{consentFormId,jdbcType=VARCHAR}, #{consentFormName,jdbcType=VARCHAR}, #{consentFormType,jdbcType=VARCHAR}, 
-      #{saveTime,jdbcType=TIMESTAMP}, #{hospitalArea,jdbcType=VARCHAR}, #{systemId,jdbcType=VARCHAR}, 
-      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
-      #{updatedTime,jdbcType=TIMESTAMP})
+      #{fileName,jdbcType=VARCHAR}, #{saveTime,jdbcType=TIMESTAMP}, #{hospitalArea,jdbcType=VARCHAR}, 
+      #{systemId,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspConsentFormImg">
-    insert into EDPC.HSP_CONSENT_FORM_IMG
+    insert into HSP_CONSENT_FORM_IMG
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         ID,
@@ -140,6 +142,9 @@
       </if>
       <if test="consentFormType != null">
         CONSENT_FORM_TYPE,
+      </if>
+      <if test="fileName != null">
+        FILE_NAME,
       </if>
       <if test="saveTime != null">
         SAVE_TIME,
@@ -182,6 +187,9 @@
       <if test="consentFormType != null">
         #{consentFormType,jdbcType=VARCHAR},
       </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
       <if test="saveTime != null">
         #{saveTime,jdbcType=TIMESTAMP},
       </if>
@@ -206,13 +214,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspConsentFormImgExample" resultType="java.lang.Long">
-    select count(*) from EDPC.HSP_CONSENT_FORM_IMG
+    select count(*) from HSP_CONSENT_FORM_IMG
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update EDPC.HSP_CONSENT_FORM_IMG
+    update HSP_CONSENT_FORM_IMG
     <set>
       <if test="record.id != null">
         ID = #{record.id,jdbcType=VARCHAR},
@@ -231,6 +239,9 @@
       </if>
       <if test="record.consentFormType != null">
         CONSENT_FORM_TYPE = #{record.consentFormType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileName != null">
+        FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
       </if>
       <if test="record.saveTime != null">
         SAVE_TIME = #{record.saveTime,jdbcType=TIMESTAMP},
@@ -259,13 +270,14 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update EDPC.HSP_CONSENT_FORM_IMG
+    update HSP_CONSENT_FORM_IMG
     set ID = #{record.id,jdbcType=VARCHAR},
       PATIENT_ID = #{record.patientId,jdbcType=VARCHAR},
       CONSENT_FORM_SEQ = #{record.consentFormSeq,jdbcType=VARCHAR},
       CONSENT_FORM_ID = #{record.consentFormId,jdbcType=VARCHAR},
       CONSENT_FORM_NAME = #{record.consentFormName,jdbcType=VARCHAR},
       CONSENT_FORM_TYPE = #{record.consentFormType,jdbcType=VARCHAR},
+      FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
       SAVE_TIME = #{record.saveTime,jdbcType=TIMESTAMP},
       HOSPITAL_AREA = #{record.hospitalArea,jdbcType=VARCHAR},
       SYSTEM_ID = #{record.systemId,jdbcType=VARCHAR},
@@ -278,7 +290,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="activetech.edpc.pojo.domain.HspConsentFormImg">
-    update EDPC.HSP_CONSENT_FORM_IMG
+    update HSP_CONSENT_FORM_IMG
     <set>
       <if test="patientId != null">
         PATIENT_ID = #{patientId,jdbcType=VARCHAR},
@@ -294,6 +306,9 @@
       </if>
       <if test="consentFormType != null">
         CONSENT_FORM_TYPE = #{consentFormType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        FILE_NAME = #{fileName,jdbcType=VARCHAR},
       </if>
       <if test="saveTime != null">
         SAVE_TIME = #{saveTime,jdbcType=TIMESTAMP},
@@ -320,12 +335,13 @@
     where ID = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspConsentFormImg">
-    update EDPC.HSP_CONSENT_FORM_IMG
+    update HSP_CONSENT_FORM_IMG
     set PATIENT_ID = #{patientId,jdbcType=VARCHAR},
       CONSENT_FORM_SEQ = #{consentFormSeq,jdbcType=VARCHAR},
       CONSENT_FORM_ID = #{consentFormId,jdbcType=VARCHAR},
       CONSENT_FORM_NAME = #{consentFormName,jdbcType=VARCHAR},
       CONSENT_FORM_TYPE = #{consentFormType,jdbcType=VARCHAR},
+      FILE_NAME = #{fileName,jdbcType=VARCHAR},
       SAVE_TIME = #{saveTime,jdbcType=TIMESTAMP},
       HOSPITAL_AREA = #{hospitalArea,jdbcType=VARCHAR},
       SYSTEM_ID = #{systemId,jdbcType=VARCHAR},

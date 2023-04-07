@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.edpc.dao.mapper.HspConsentFormImgMapperCustom">
+    <sql id="Base_Column_List">
+        ID,
+        PATIENT_ID,
+        CONSENT_FORM_SEQ,
+        CONSENT_FORM_ID,
+        CONSENT_FORM_NAME,
+        CONSENT_FORM_TYPE,
+        FILE_NAME,
+        SAVE_TIME,
+        HOSPITAL_AREA,
+        SYSTEM_ID,
+        CREATED_BY,
+        CREATED_TIME,
+        UPDATED_BY,
+        UPDATED_TIME
+    </sql>
+
+    <select id="queryHspConsentFormImgCustomInfo" resultType="activetech.edpc.pojo.dto.HspConsentFormImgCustom">
+        select a.seqno                                     consent_form_seq,
+               a.tempname                                  consent_form_name,
+               a.tempno                                    consent_form_id,
+               (select case
+                           when count(*) >= 1 then
+                               1
+                           else
+                               0
+                           end
+                from hsp_consent_form_img
+                where consent_form_seq = a.seqno)          is_photo,
+               a.refseqno                                  patient_id,
+               to_char(a.crtdate, 'yyyy-mm-dd hh24:mi:ss') consent_crt_time_str,
+               a.crtusrname                                consent_crt_usr_name
+        from hsp_consent_inf a
+        where a.refseqno = #{patientId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByConsentFormSeqCustom" resultType="activetech.edpc.pojo.dto.HspConsentFormImgCustom">
+        select
+        <include refid="Base_Column_List"/>
+        from hsp_consent_form_img
+        where consent_form_seq = #{consentFormSeq,jdbcType=VARCHAR}
+    </select>
+</mapper>

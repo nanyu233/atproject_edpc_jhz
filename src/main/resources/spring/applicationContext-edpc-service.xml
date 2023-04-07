@@ -44,4 +44,6 @@
 
 	<bean id="yjqdService" class="activetech.edpc.service.impl.YjqdServiceImpl"/>
 
+	<bean id="hspConsentFormImgService" class="activetech.edpc.service.impl.HspConsentFormImgServiceImpl"/>
+
 </beans>

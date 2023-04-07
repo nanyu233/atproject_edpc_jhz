@@ -16,6 +16,8 @@ public class HspConsentFormImg implements Serializable {
 
     private String consentFormType;
 
+    private String fileName;
+
     private Date saveTime;
 
     private String hospitalArea;
@@ -78,6 +80,14 @@ public class HspConsentFormImg implements Serializable {
 
     public void setConsentFormType(String consentFormType) {
         this.consentFormType = consentFormType == null ? null : consentFormType.trim();
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName == null ? null : fileName.trim();
     }
 
     public Date getSaveTime() {
