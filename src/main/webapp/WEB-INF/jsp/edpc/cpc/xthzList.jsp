@@ -295,11 +295,9 @@
 		window.top.addTab( cstNam +"-"+ '胸痛急救时间轴' , url, 'icon icon-emergency-record');
 	}
 
-	function toAddyjqd(emgSeq, cstNam, wayTyp, regSeq) {
-		var url = 'yjqd/addyjqd.do?regSeq=' + regSeq;
-		if(cstNam=='null'){
-			cstNam = "";
-		}
+	function toAddyjqd(regSeq, cstNam, patTyp) {
+		cstNam = (cstNam == null || cstNam == 'null') ? '' : cstNam
+		var url = 'yjqd/addyjqd.do?regSeq=' + regSeq + '&cstNam=' + cstNam + '&patTyp=' + patTyp
 		createmodalwindow(cstNam +"-"+ '一键启动', 600, 700, url);
 	}
 
@@ -612,7 +610,7 @@
 						formatter : function(value, row, index) {
 							var _html = '<span class="btn detail" onclick="toDetail(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">查看</span>' +
 								'<span class="btn Timeline" onclick="toCpcTimeline(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">时间轴</span>' +
-								'<span class="btn detail" onclick="toAddyjqd(\'' + row.emgSeq + '\',\'' + row.cstNam + '\',\'' + row.wayTyp + '\',\'' + row.regSeq + '\')">一键启动</span>'
+								'<span class="btn detail" onclick="toAddyjqd(\'' + row.regSeq + '\',\'' + row.cstNam + '\',\'' + row.patTyp + '\')">一键启动</span>'
 
 							if("1" == row.rcdSta || "3" == row.rcdSta) {
 								_html += '<span class="btn detail" onclick="reviewApply(\'' + row.regSeq + '\',\'' + row.rcdSta + '\')">申请审核</span>'

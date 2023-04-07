@@ -64,12 +64,6 @@
   background-position: -0 -220px;
 }
 .icon-user {
-  line-height: 18px;
-  display: inline-block;
-  width: 18px;
-  background: url('../images/tabicons.png') no-repeat;
-}
-.icon-users {
   background-position: -80px -420px;
 }
 .icon-delete16 {

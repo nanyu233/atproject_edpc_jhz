@@ -209,6 +209,11 @@
             white-space: nowrap;
             border-width: 0;
         }
+
+        .icon-user {
+            transform: scale(0.8);
+            margin-right: -4px;
+        }
     </style>
 </head>
 <body>
@@ -232,7 +237,7 @@
             </tr>
             <tr>
                 <th>通知内容：</th>
-                <td><textarea id="noticeContent" name="noticeContent" class="textarea-base" style="width: 480px; height: 200px;"></textarea></td>
+                <td><textarea id="noticeContent" name="noticeContent" v-model="noticeContent" class="textarea-base" style="width: 480px; height: 200px;"></textarea></td>
             </tr>
             <tr>
                 <th>通知方式：</th>
@@ -266,7 +271,7 @@
                             <div id="group-selected-preview">
                                 <div><input type="text" name="userList" class="sr-only" v-bind:value="nodes.length"></div>
                                 <ul>
-                                    <li v-for="node in nodes" v-bind:key="node.usrno+node.usrname">
+                                    <li v-for="node in nodes" v-bind:key="node.usrno">
                                         <span>{{ node.usrname }}</span>
                                         <span>x</span>
                                     <li>
@@ -286,24 +291,30 @@
 
 <script>
     var regSeq = '${regSeq}'
+    var cstNam = '${cstNam}'
+    var patTyp = '${patTyp}'
+
+    var formSelector = "#addyjqd"
     var allDict = publicFun.getItem("allDict")
     var NOTICE_TYPE = allDict.NOTICE_TYPE || []
+    var PATTYPE_MAP = listToMap(allDict.PATTYPE, 'infocode', 'info')
+
     var dUpdatePreview = publicFun.debounce(updatePreview, 300)
     var dValidateForm = publicFun.debounce(function () {
         if (formValidator) {
             formValidator.form()
         }
     }, 300)
-    var formSelector = "#addyjqd"
 
     var vm = new Vue({
-        el: "#addyjqd",
+        el: formSelector,
         data: function () {
             return {
                 regSeq: regSeq,
                 yjqdTimeStr: publicFun.timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss"),
                 NOTICE_TYPE: NOTICE_TYPE,
-                noticeTypeList: [],
+                noticeTypeList: $.map(NOTICE_TYPE, function (n) { return n.infocode }), // 默认全选
+                noticeContent: "现急诊科接收到 "+ PATTYPE_MAP[patTyp] +" 患者（姓名：${cstNam}），请速来急诊科救治。",
                 nodes: []
             }
         },
@@ -316,7 +327,7 @@
             datePicker: function (e) {
                 var self = this
                 WdatePicker({
-                    dateFmt:'yyyy-MM-dd HH:mm:ss',
+                    dateFmt:'yyyy/MM/dd HH:mm:ss',
                     onpicked: function () {
                         self[e.target.name] = e.target.value
                     },
@@ -324,6 +335,9 @@
                         self[e.target.name] = null
                     }
                 })
+            },
+            removeNode() {
+                //TODO:
             }
         }
     })
@@ -424,6 +438,25 @@
                 }
             })
         }
+    }
+
+    function listToMap(list, keyField, valueField) {
+        list = list || []
+        if (!(list instanceof Array) || keyField == null) {
+            return {}
+        }
+        var map = {}
+        for (var i = 0; i < list.length; i++) {
+            var item = list[i]
+            if (Object.hasOwnProperty.call(item, keyField)) {
+                var key = item[keyField]
+                var value = item[valueField]
+                if (key != null) {
+                    map[key] = value
+                }
+            }
+        }
+        return map
     }
 </script>
 </body>

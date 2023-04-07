@@ -91,7 +91,7 @@ public class YjqdServiceImpl implements YjqdService {
             userNode.setId(hspGrpUsrCustom.getUsrno());
             userNode.setParentId(hspGrpUsrCustom.getGrpSeq());
             userNode.setText(hspGrpUsrCustom.getUsrname());
-            userNode.setIconCls("icon-node-user");
+            userNode.setIconCls("icon icon-user");
             userNode.setState("open");
             userNode.setChecked(false);
             userNodes.add(userNode);
@@ -109,7 +109,7 @@ public class YjqdServiceImpl implements YjqdService {
             // 群组parentid设为0
             groupNode.setParentId("0");
             groupNode.setText(hspGrpInf.getGrpName());
-            groupNode.setIconCls("icon-node-group");
+            groupNode.setIconCls("icon-user-manage");
             groupNode.setState("open");
             groupNode.setChecked(false);
             groupNode.setChildren(userNodes.stream().filter(t -> t.getParentId().equals(hspGrpInf.getGrpSeq())).collect(Collectors.toList()));

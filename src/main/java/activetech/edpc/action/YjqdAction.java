@@ -44,8 +44,10 @@ public class YjqdAction {
      * @throws Exception
      */
     @RequestMapping("/addyjqd")
-    public String addYjqd(Model model, String regSeq) throws Exception {
+    public String addYjqd(Model model, String regSeq, String cstNam, String patTyp) throws Exception {
         model.addAttribute("regSeq", regSeq);
+        model.addAttribute("cstNam", cstNam);
+        model.addAttribute("patTyp", patTyp);
         return "/edpc/yjqd/addyjqd";
     }
     @RequestMapping("/querygroupusertree_result")
