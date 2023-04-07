@@ -214,6 +214,78 @@
             transform: scale(0.8);
             margin-right: -4px;
         }
+
+        .user-list__item {
+            display: flex;
+            justify-content: space-between;
+            padding: 2px 5px;
+        }
+
+        .user-list__item:hover {
+            background: #eaf2ff;
+        }
+
+        .remove-btn {
+            -webkit-transition: max-width 0.2s linear 0.2s, text-indent 0.2s linear 0.2s, color 0.2s linear 0.2s;
+            -moz-transition: max-width 0.2s linear 0.2s, text-indent 0.2s linear 0.2s, color 0.2s linear 0.2s;
+            -o-transition: max-width 0.2s linear 0.2s, text-indent 0.2s linear 0.2s, color 0.2s linear 0.2s;
+            transition: max-width 0.2s linear 0.2s, text-indent 0.2s linear 0.2s, color 0.2s linear 0.2s;
+            background-color: #f00;
+            border-radius: 16px;
+            color: rgba(255,255,255,0.1);
+            display: inline-block;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 16px;
+            overflow: hidden;
+            padding-right: 17px;
+            position: relative;
+            text-decoration: none;
+            max-width: 0;
+            white-space: nowrap;
+
+            text-align: right;
+        }
+        .button_icon {
+            -webkit-transition: -webkit-transform 0.4s ease-out;
+            -moz-transition: transform 0.4s ease-out;
+            -o-transition: -o-transform 0.4s ease-out;
+            transition: transform 0.4s ease-out;
+            border-radius: 16px;
+            color: rgba(255,255,255, 1);
+            font-size: 1.3em;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            text-align: center;
+            text-indent: 0;
+            top: 0;
+            width: 16px;
+        }
+
+        .remove-btn:hover .button_icon {
+            -webkit-transition: -webkit-transform 0.4s ease-out;
+            -moz-transition: transform 0.4s ease-out;
+            -o-transition: -o-transform 0.4s ease-out;
+            transition: transform 0.4s ease-out;
+        }
+        .remove-btn:active {
+            top: 1px;
+        }
+
+        .button_type__remove,
+        .button_type__remove .button_icon {
+            background-color: rgba(242,80,39,.65);
+        }
+
+        .button_type__remove:hover,
+        .button_type__remove .button_icon:hover {
+            background-color: rgba(242,80,39,.5);
+        }
+        .button_type__remove .button_icon:before {
+            content: '–';
+        }
+
     </style>
 </head>
 <body>
@@ -268,12 +340,14 @@
                             <h3 style="font-size: larger; font-weight: bold; padding: 5px 10px; border-bottom: 1px solid gray; position: sticky; top: 0; left: 0; z-index: 100; backdrop-filter: blur(3px);">
                                 已选择
                             </h3>
-                            <div id="group-selected-preview">
+                            <div>
                                 <div><input type="text" name="userList" class="sr-only" v-bind:value="nodes.length"></div>
-                                <ul>
-                                    <li v-for="node in nodes" v-bind:key="node.usrno">
-                                        <span>{{ node.usrname }}</span>
-                                        <span>x</span>
+                                <ul class="user-list">
+                                    <li class="user-list__item" v-for="node in nodes" v-bind:key="node.id">
+                                        <span>{{ node.text }}</span>
+                                        <a href="javascript:void(0)" class="remove-btn button_type__remove" @click="removeNode(node)">
+                                            <span class="button_icon"></span>
+                                        </a>
                                     <li>
                                 </ul>
                             </div>
@@ -336,8 +410,9 @@
                     }
                 })
             },
-            removeNode() {
-                //TODO:
+            removeNode(node) {
+                var nodeTarget = $("#group-tree").find('.tree-node[node-id="'+ node.id +'"]')
+                $("#group-tree").tree("uncheck", nodeTarget)
             }
         }
     })
@@ -355,12 +430,7 @@
             ))
         });
 
-        vm.nodes = uniqueArray.map(function (node) {
-            return {
-                usrno: node.id,
-                usrname: node.text
-            }
-        })
+        vm.nodes = uniqueArray
     }
 
     var zt = new ZTREE("group-tree", '${baseurl}yjqd/querygroupusertree_result.do', true);
@@ -438,6 +508,10 @@
                 }
             })
         }
+    }
+
+    function handleCancel() {
+        parent.closemodalwindow()
     }
 
     function listToMap(list, keyField, valueField) {
