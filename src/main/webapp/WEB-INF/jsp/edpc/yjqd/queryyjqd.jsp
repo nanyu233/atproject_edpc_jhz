@@ -101,9 +101,9 @@
     <form class="form-container">
         <div class="form-control clr">
             <label for="startdate">启动时间：</label>
-            <input type="text" class="input-base" id="startdate" name="startdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly />
+            <input type="text" class="input-base" id="startdate" name="startdate" onfocus="WdatePicker({dateFmt:'yyyy/MM/dd'})" readonly />
             --
-            <input type="text" class="input-base" id="enddate"  name="enddate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly />
+            <input type="text" class="input-base" id="enddate"  name="enddate" onfocus="WdatePicker({dateFmt:'yyyy/MM/dd'})" readonly />
         </div>
         <div class="form-control clr">
             <label for="cstNam">患者姓名：</label>
@@ -189,6 +189,11 @@
 
     $(tableSelector).datagrid({
         url: "${baseurl}yjqd/queryyjqd_result.do",
+        queryParams: {
+            "hspYjqdInfCustom.cstNam": $("#cstNam").val(),
+            "hspYjqdInfCustom.startDate": $("#startdate").val(),
+            "hspYjqdInfCustom.endDate": $("#enddate").val()
+        },
         columns: columns,
         checkOnSelect: true,
         selectOnCheck: true,
@@ -210,13 +215,10 @@
     })
 
     function search() {
-        var cstNam = $("#cstNam").val()
-        var startDate = $("#startdate").val()
-        var endDate = $("#enddate").val()
         $(tableSelector).datagrid("load", {
-            "hspYjqdInfCustom.cstNam": cstNam,
-            "hspYjqdInfCustom.startDate": startDate,
-            "hspYjqdInfCustom.endDate": endDate
+            "hspYjqdInfCustom.cstNam": $("#cstNam").val(),
+            "hspYjqdInfCustom.startDate": $("#startdate").val(),
+            "hspYjqdInfCustom.endDate": $("#enddate").val()
         })
     }
 
@@ -228,11 +230,11 @@
     }
 
     function formatDateTime(value) {
-        return publicFun.timeFormat(value, 'yyyy-MM-dd hh:mm:ss')
+        return publicFun.timeFormat(value, 'yyyy/MM/dd hh:mm:ss')
     }
 
     function formatDate(value) {
-        return publicFun.timeFormat(value, 'yyyy-MM-dd')
+        return publicFun.timeFormat(value, 'yyyy/MM/dd')
     }
 
     function listToMap(list, keyField, valueField) {
