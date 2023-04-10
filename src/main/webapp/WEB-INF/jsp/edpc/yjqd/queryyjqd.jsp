@@ -201,6 +201,7 @@
                 "hspYjqdInfCustom.endDate": $("#enddate").val()
             },
             columns: columns,
+            singleSelect: true,
             checkOnSelect: true,
             selectOnCheck: true,
             idField: "yjqdSeq",
@@ -217,6 +218,9 @@
             },
             onRowContextMenu: function (e,index,row) {
                 e.preventDefault()
+            },
+            onClickRow: function (index, row) {
+                datagridUnselectAbility(this, index, row)
             }
         })
     }
@@ -269,6 +273,45 @@
             }
         }
         return map
+    }
+
+    /**
+     * datagrid 单选可取消 在`onClickRow`事件中使用
+     *
+     * @param context DataGrid Context (JQuery | Selector)
+     * @param index
+     * @param row
+     *
+     * @example
+     * $('#table1').datagrid({
+     *     // ...
+     *     singleSelect: true,
+     *     idField: 'usrno',
+     *     onClickRow: function (index, row) {
+     *         datagridUnselectAbility(this, index, row)
+     *     }
+     * })
+     */
+    function datagridUnselectAbility (context, index, row) {
+        if (!context) throw new Error('context 不能为空')
+        var options = $(context).datagrid('options')
+        var idField = options.idField || 'id'
+        var selectedRow = $(context).data("__selectedRow") // 获取选中的行尽量不要使用这个
+        // fix: selectedRow[idField] 和 row[idField] 必须存在
+        // idField 设置的userno 实际上是 usrno, 判断条件`selectedRow[idField] === row[idField]`始终是相等的 会取消当前应该选中的
+        if (selectedRow && selectedRow[idField] == null) {
+            console.warn('请检查datagrid idField是否设置正确')
+        }
+        if (
+            selectedRow &&
+            selectedRow[idField] &&
+            row[idField] &&
+            (selectedRow[idField] === row[idField])) {
+            $(context).datagrid('unselectRow', index);
+            $(context).data("__selectedRow", null)
+        } else {
+            $(context).data("__selectedRow", row)
+        }
     }
 
     initTable()
