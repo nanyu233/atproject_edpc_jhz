@@ -19,9 +19,9 @@
     </sql>
 
     <select id="queryHspConsentFormImgCustomInfo" resultType="activetech.edpc.pojo.dto.HspConsentFormImgCustom">
-        select a.seqno                                     consent_form_seq,
-               a.tempname                                  consent_form_name,
-               a.tempno                                    consent_form_id,
+        select a.PRIMARY_KEY                                      consent_form_seq,
+               a.PAPERWORK_NAME                                   consent_form_name,
+               a.PAPERWORK_ID                                     consent_form_id,
                (select case
                            when count(*) >= 1 then
                                1
@@ -29,12 +29,13 @@
                                0
                            end
                 from hsp_consent_form_img
-                where consent_form_seq = a.seqno)          is_photo,
-               a.refseqno                                  patient_id,
-               to_char(a.crtdate, 'yyyy-mm-dd hh24:mi:ss') consent_crt_time_str,
-               a.crtusrname                                consent_crt_usr_name
-        from hsp_consent_inf a
-        where a.refseqno = #{patientId,jdbcType=VARCHAR}
+                where consent_form_seq = a.PRIMARY_KEY)           is_photo,
+               a.EMG_SEQ                                          patient_id,
+               to_char(a.PAPERWORK_DATE, 'yyyy-mm-dd hh24:mi:ss') consent_crt_time_str,
+               a.DOCTOR_NAME                                      consent_crt_usr_name
+        from T_HEMS_PAPERWORK a
+        where a.EMG_SEQ = #{patientId,jdbcType=VARCHAR}
+        order by PAPERWORK_DATE desc
     </select>
 
     <select id="selectByConsentFormSeqCustom" resultType="activetech.edpc.pojo.dto.HspConsentFormImgCustom">
@@ -42,5 +43,9 @@
         <include refid="Base_Column_List"/>
         from hsp_consent_form_img
         where consent_form_seq = #{consentFormSeq,jdbcType=VARCHAR}
+    </select>
+
+    <select id="proc_his_ConsentFormData" statementType="CALLABLE">
+        call proc_his_consentformdata(#{patientId,jdbcType=VARCHAR,mode=IN},#{sceneType,jdbcType=VARCHAR,mode=IN})
     </select>
 </mapper>

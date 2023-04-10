@@ -10,6 +10,10 @@ import activetech.edpc.pojo.dto.HspConsentFormImgQueryDto;
 import activetech.edpc.service.HspConsentFormImgService;
 import activetech.util.StringUtils;
 import activetech.util.UUIDBuild;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,8 +31,11 @@ public class HspConsentFormImgServiceImpl implements HspConsentFormImgService {
     @Resource
     private HspConsentFormImgMapper hspConsentFormImgMapper;
 
+    @Resource(name = "transactionManager")
+    private PlatformTransactionManager platformTransactionManager;
+
     /**
-     * 存放同意书的 桶名
+     * 存放同意书照片的 桶名
      */
     private static final String BUCKET_NAME = "consent-form-img";
 
@@ -37,7 +44,22 @@ public class HspConsentFormImgServiceImpl implements HspConsentFormImgService {
         Map<String, Object> map = new HashMap<>();
         HspConsentFormImgCustom hspConsentFormImgCustom = hspConsentFormImgQueryDto.getHspConsentFormImgCustom();
         Assert.isTrue(StringUtils.isNotNullAndEmptyByTrim(hspConsentFormImgCustom.getPatientId()), "PatientId is not null");
-        List<HspConsentFormImgCustom> hspConsentFormImgCustoms = hspConsentFormImgMapperCustom.queryHspConsentFormImgCustomInfo(hspConsentFormImgCustom);
+        List<HspConsentFormImgCustom> hspConsentFormImgCustoms;
+        //PROPAGATION_REQUIRES_NEW [开始一个新事务。如果当前有事务，则该事务挂起]
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+        //获得事务状态
+        TransactionStatus status = platformTransactionManager.getTransaction(def);
+        //执行存储过程
+        try {
+            String sceneType = !StringUtils.isNotNullAndEmptyByTrim(hspConsentFormImgCustom.getSceneType()) ? "1" : hspConsentFormImgCustom.getSceneType();
+            hspConsentFormImgMapperCustom.proc_his_ConsentFormData(hspConsentFormImgCustom.getPatientId(), sceneType);
+            hspConsentFormImgCustoms = hspConsentFormImgMapperCustom.queryHspConsentFormImgCustomInfo(hspConsentFormImgCustom);
+            platformTransactionManager.commit(status);
+        } catch (Exception e) {
+            platformTransactionManager.rollback(status);
+            throw new RuntimeException(e);
+        }
         map.put("ConsentFormImgInfos", hspConsentFormImgCustoms);
         return map;
     }

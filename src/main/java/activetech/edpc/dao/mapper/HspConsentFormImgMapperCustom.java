@@ -6,6 +6,16 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface HspConsentFormImgMapperCustom {
+    /**
+     * 存储过程，获取文书列表
+     *
+     * @param patientId patientId
+     * @param sceneType sceneType
+     * @throws Exception Exception
+     * @author chenys
+     * @date 2023/4/7 13:24
+     */
+    void proc_his_ConsentFormData(@Param("patientId") String patientId, @Param("sceneType") String sceneType) throws Exception;
 
     /**
      * 查询同意书列表

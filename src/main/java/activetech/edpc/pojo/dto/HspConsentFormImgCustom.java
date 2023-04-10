@@ -14,6 +14,8 @@ public class HspConsentFormImgCustom extends HspConsentFormImg {
 
     private String consentCrtUsrName;
 
+    private String sceneType;
+
 
     public String getIsPhoto() {
         return isPhoto;
@@ -45,5 +47,13 @@ public class HspConsentFormImgCustom extends HspConsentFormImg {
 
     public void setConsentCrtUsrName(String consentCrtUsrName) {
         this.consentCrtUsrName = consentCrtUsrName;
+    }
+
+    public String getSceneType() {
+        return sceneType;
+    }
+
+    public void setSceneType(String sceneType) {
+        this.sceneType = sceneType;
     }
 }
