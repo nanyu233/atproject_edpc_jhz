@@ -61,6 +61,7 @@
           <where>
               <include refid="query_yjqd_where"/>
           </where>
+           order by a.crt_time desc
       <include refid="activetech.base.CommonSql.page_end"/>
   </select>
 

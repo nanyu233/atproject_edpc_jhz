@@ -143,6 +143,11 @@ public class YjqdServiceImpl implements YjqdService {
         if (userList == null || userList.isEmpty()) {
             ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 922, new Object[]{"通知对象"}));
         }
+        // 通知对象用户号非空验证
+        List<DstuserCustom> userCollect = userList.stream().filter(user -> !StringUtils.isNotNullAndEmptyByTrim(user.getUsrno())).collect(Collectors.toList());
+        if (!userCollect.isEmpty()) {
+            ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 920, new Object[]{"请求参数userList存在用户号为空的记录，保存失败。"}));
+        }
         // 插入hsp_yjqd_inf
         HspYjqdInf record = new HspYjqdInf();
         record.setYjqdSeq(UUIDBuild.getUUID());

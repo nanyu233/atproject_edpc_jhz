@@ -58,6 +58,7 @@
           <where>
             <include refid="query_group_where"/>
           </where>
+         order by t.showorder
       <include refid="activetech.base.CommonSql.page_end"/>
   </select>
 </mapper>
