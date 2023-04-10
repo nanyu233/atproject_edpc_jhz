@@ -539,7 +539,9 @@
                 }),
                 success: function (data) {
                     message_alert(data)
-                    setTimeout("parent.closemodalwindow()", 1000);
+                    if(data.resultInfo.messageCode == 906) {
+                        setTimeout("parent.closemodalwindow()", 1000)
+                    }
                 }
             })
         }
