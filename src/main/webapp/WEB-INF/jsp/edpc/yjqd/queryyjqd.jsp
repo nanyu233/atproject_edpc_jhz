@@ -130,6 +130,8 @@
     var YESTERDAY = formatDate(new Date().getTime() - DAY_TIMESTAMP)
     var TODAY = formatDate(new Date().getTime())
 
+    var dInitTable = publicFun.debounce(initTable, 100)
+
     $("#startdate").val(YESTERDAY)
     $("#enddate").val(TODAY)
 
@@ -156,20 +158,23 @@
             {
                 field: 'noticeContent',
                 title: '通知内容',
-                width: 300
+                width: 400
             },
             {
                 field: 'noticeType',
                 title: '通知方式',
                 width: 100,
                 formatter: function (value){
-                    return NOTICE_TYPE_MAP[value]
+                    var noticeTypeList = (value || '').split(',').map(function (value) {
+                        return NOTICE_TYPE_MAP[value]
+                    })
+                    return noticeTypeList.join('，')
                 }
             },
             {
                 field: 'yjqdUser',
                 title: '通知对象',
-                width: 300
+                width: 400
             },
             {
                 field: 'crtUserName',
@@ -187,35 +192,45 @@
         ]
     ]
 
-    $(tableSelector).datagrid({
-        url: "${baseurl}yjqd/queryyjqd_result.do",
-        queryParams: {
-            "hspYjqdInfCustom.cstNam": $("#cstNam").val(),
-            "hspYjqdInfCustom.startDate": $("#startdate").val(),
-            "hspYjqdInfCustom.endDate": $("#enddate").val()
-        },
-        columns: columns,
-        checkOnSelect: true,
-        selectOnCheck: true,
-        idField: "yjqdSeq",
-        height: 'auto',
-        striped: true,
-        fit: true,
-        nowrap: true,
-        pagination: true,
-        pageNumber: 1,
-        pageSize: 15,
-        pageList: [15, 30, 45],
-        loadFilter: function (value) {
-            return commonLoadFilter(value)
-        },
-        onRowContextMenu: function (e,index,row) {
-            e.preventDefault()
-        }
-    })
+    function initTable() {
+        $(tableSelector).datagrid({
+            url: "${baseurl}yjqd/queryyjqd_result.do",
+            queryParams: {
+                "hspYjqdInfCustom.cstNam": $("#cstNam").val(),
+                "hspYjqdInfCustom.startDate": $("#startdate").val(),
+                "hspYjqdInfCustom.endDate": $("#enddate").val()
+            },
+            columns: columns,
+            checkOnSelect: true,
+            selectOnCheck: true,
+            idField: "yjqdSeq",
+            height: 'auto',
+            striped: true,
+            fit: true,
+            nowrap: false,
+            pagination: true,
+            pageNumber: 1,
+            pageSize: 15,
+            pageList: [15, 30, 45],
+            loadFilter: function (value) {
+                return commonLoadFilter(value)
+            },
+            onRowContextMenu: function (e,index,row) {
+                e.preventDefault()
+            }
+        })
+    }
 
     function search() {
         $(tableSelector).datagrid("load", {
+            "hspYjqdInfCustom.cstNam": $("#cstNam").val(),
+            "hspYjqdInfCustom.startDate": $("#startdate").val(),
+            "hspYjqdInfCustom.endDate": $("#enddate").val()
+        })
+    }
+
+    function reload() {
+        $(tableSelector).datagrid('reload', {
             "hspYjqdInfCustom.cstNam": $("#cstNam").val(),
             "hspYjqdInfCustom.startDate": $("#startdate").val(),
             "hspYjqdInfCustom.endDate": $("#enddate").val()
@@ -255,6 +270,12 @@
         }
         return map
     }
+
+    initTable()
+
+    $(window).resize(function() {
+        dInitTable()
+    })
 </script>
 </body>
 </html>
