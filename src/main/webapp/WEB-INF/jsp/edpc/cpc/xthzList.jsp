@@ -300,7 +300,7 @@
 		var url = 'yjqd/addyjqd.do?regSeq=' + regSeq +
             '&cstNam=' + cstNam + '&patTyp=' + patTyp +
             '&cstSexCod=' + cstSexCod + '&cstAge=' + cstAge
-		createmodalwindow(cstNam +"-"+ '一键启动', 600, 700, url);
+		createmodalwindow(cstNam +"-"+ '一键启动', 600, 720, url);
 	}
 
     function delPatient(emgSeq) {

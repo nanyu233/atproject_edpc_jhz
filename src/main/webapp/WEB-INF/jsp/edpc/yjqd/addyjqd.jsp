@@ -286,6 +286,15 @@
             content: '–';
         }
 
+
+        .row {
+            display: inline-flex;
+        }
+
+        .row .label {
+            width: 60px;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -294,10 +303,19 @@
         <label for="regSeq">患者编号</label>
         <input id="regSeq" name="regSeq" v-bind:value="regSeq" />
     </div>
-    <div>
-        <span>姓名：{{ cstNam }}</span>
-        <span>性别：{{ cstSexCod_MAP[cstSexCod] }}</span>
-        <span>年龄：{{ cstAge || "-" }}</span>
+    <div style="display: flex; padding: 5px">
+        <span class="row">
+            <span class="label">姓名：</span>
+            <span>{{ cstNam }}</span>
+        </span>
+        <span class="row">
+            <span class="label">性别：</span>
+            <span>{{ cstSexCod_MAP[cstSexCod] }}</span>
+        </span>
+        <span class="row">
+            <span class="label">年龄：</span>
+            <span>{{ cstAge }}</span>
+        </span>
     </div>
     <table class="w-550">
         <colgroup>
@@ -314,7 +332,7 @@
             </tr>
             <tr>
                 <th>通知内容：</th>
-                <td><textarea id="noticeContent" name="noticeContent" v-model="noticeContent" class="textarea-base" style="width: 480px; height: 200px;"></textarea></td>
+                <td><textarea id="noticeContent" name="noticeContent" v-model="noticeContent" class="textarea-base" style="width: 480px; height: 180px;"></textarea></td>
             </tr>
             <tr>
                 <th>通知方式：</th>
@@ -348,8 +366,8 @@
                             <div>
                                 <div><input type="text" name="userList" class="sr-only" v-bind:value="nodes.length"></div>
                                 <ul class="user-list">
-                                    <li class="user-list__item" v-for="node in nodes" v-bind:key="node.id">
-                                        <span>{{ node.text }}</span>
+                                    <li class="user-list__item" v-for="node in nodes" v-bind:key="node.usrno">
+                                        <span>{{ node.usrname }}</span>
                                         <a href="javascript:void(0)" class="remove-btn button_type__remove" @click="removeNode(node)">
                                             <span class="button_icon"></span>
                                         </a>
@@ -373,7 +391,7 @@
     var cstNam = '${cstNam}'
     var patTyp = '${patTyp}'
     var cstSexCod = '${cstSexCod}'
-    var cstAge = '${cstAge}'
+    var cstAge = ('${cstAge}' == 'null' || '${cstAge}' == null) ? '-' : '${cstAge}'
 
     var formSelector = "#addyjqd"
     var allDict = publicFun.getItem("allDict")
@@ -381,12 +399,12 @@
     var PATTYPE_MAP = listToMap(allDict.PATTYPE, 'infocode', 'info')
     var cstSexCod_MAP = { "0": "男", "1": "女"}
 
-    var dUpdatePreview = publicFun.debounce(updatePreview, 300)
+    var dUpdatePreview = publicFun.debounce(updatePreview)
     var dValidateForm = publicFun.debounce(function () {
         if (formValidator) {
             formValidator.form()
         }
-    }, 300)
+    })
 
     var vm = new Vue({
         el: formSelector,
@@ -423,7 +441,7 @@
                 })
             },
             removeNode(node) {
-                var nodeTarget = $("#group-tree").find('.tree-node[node-id="'+ node.id +'"]')
+                var nodeTarget = $("#group-tree").find('.tree-node[node-id="'+ node.usrno +'"]')
                 $("#group-tree").tree("uncheck", nodeTarget)
             }
         }
@@ -442,7 +460,12 @@
             ))
         });
 
-        vm.nodes = uniqueArray
+        vm.nodes = uniqueArray.map(function (node) {
+            return {
+                usrno: node.id,
+                usrname: node.text
+            }
+        })
     }
 
     var zt = new ZTREE("group-tree", '${baseurl}yjqd/querygroupusertree_result.do', true);
