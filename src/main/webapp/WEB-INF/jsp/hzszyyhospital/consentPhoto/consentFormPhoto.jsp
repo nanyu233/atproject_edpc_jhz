@@ -372,29 +372,24 @@
 
         function downloadPDF() {
             var data = $(imgPreviewSelector).data('consentInfo')
-            var url = data.downloadPdfUrl // fake
-            var fileName = data.fileName.split('/').pop()
-            var hash = data.id.substring(0,8)
-            download(url, hash + '_' + fileName)
+            var id = data.id
+            var url = '${baseurl}consentForm/conFmPdfDownload.do?id='+id // fake
+            download(url)
         }
 
         function downloadIMG() {
             var data = $(imgPreviewSelector).data('consentInfo')
             var id = data.id
-            var hash = data.id.substring(0,8)
-            var consentFormName = data.consentFormName
-            var url = '${baseurl}consentForm/conFmImgDownload.do?id'+id
-            download(url, consentFormName + '_' + hash + '.jpg')
+            var url = '${baseurl}consentForm/conFmImgDownload.do?id='+id
+            download(url)
         }
 
         /**
          * @param {string} url
-         * @param {string} [filename]
          */
-        function download(url, filename) {
+        function download(url) {
             var a = document.createElement('a')
             a.setAttribute('href', url)
-            a.setAttribute('download', filename)
             document.body.appendChild(a)
             a.click()
             document.body.removeChild(a)
