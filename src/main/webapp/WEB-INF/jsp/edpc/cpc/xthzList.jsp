@@ -295,7 +295,7 @@
 		window.top.addTab( cstNam +"-"+ '胸痛急救时间轴' , url, 'icon icon-emergency-record');
 	}
 
-	function toAddyjqd(regSeq, cstNam, patTyp, cstSexCod, cstAge) {
+	function toAddyjqd(regSeq, cstNam, patTyp, cstAge, cstSexCod) {
 		cstNam = (cstNam == null || cstNam == 'null') ? '' : cstNam
 		var url = 'yjqd/addyjqd.do?regSeq=' + regSeq +
             '&cstNam=' + cstNam + '&patTyp=' + patTyp +

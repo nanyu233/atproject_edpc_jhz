@@ -366,7 +366,7 @@
                             <div>
                                 <div><input type="text" name="userList" class="sr-only" v-bind:value="nodes.length"></div>
                                 <ul class="user-list">
-                                    <li class="user-list__item" v-for="node in nodes" v-bind:key="node.usrno">
+                                    <li class="user-list__item" v-for="node in nodes" v-bind:key="node.userid">
                                         <span>{{ node.usrname }}</span>
                                         <a href="javascript:void(0)" class="remove-btn button_type__remove" @click="removeNode(node)">
                                             <span class="button_icon"></span>
@@ -441,7 +441,7 @@
                 })
             },
             removeNode(node) {
-                var nodeTarget = $("#group-tree").find('.tree-node[node-id="'+ node.usrno +'"]')
+                var nodeTarget = $("#group-tree").find('.tree-node[node-id="'+ node.userid +'"]')
                 $("#group-tree").tree("uncheck", nodeTarget)
             }
         }
@@ -462,7 +462,7 @@
 
         vm.nodes = uniqueArray.map(function (node) {
             return {
-                usrno: node.id,
+                userid: node.id,
                 usrname: node.text
             }
         })
