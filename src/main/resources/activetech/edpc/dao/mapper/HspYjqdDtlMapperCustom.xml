@@ -3,16 +3,16 @@
 <mapper namespace="activetech.edpc.dao.mapper.HspYjqdDtlMapperCustom">
   <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspYjqdDtlKey">
     <id column="YJQD_SEQ" jdbcType="VARCHAR" property="yjqdSeq" />
-    <id column="USRNO" jdbcType="VARCHAR" property="usrno" />
+    <id column="USERID" jdbcType="VARCHAR" property="userid" />
   </resultMap>
 
   <!-- 一键启动关联用户 -->
   <insert id="addUserToYjqd" parameterType="activetech.edpc.pojo.dto.HspYjqdInfQueryDto">
     insert into hsp_yjqd_dtl a
-    select b.yjqd_seq, b.usrno from (
+    select b.yjqd_seq, b.userid from (
     <foreach collection="userList" index="ind" item="item" separator="union">
       select #{hspYjqdInfCustom.yjqdSeq, jdbcType=VARCHAR} yjqd_seq,
-             #{item.usrno, jdbcType=VARCHAR} usrno
+             #{item.userid, jdbcType=VARCHAR} userid
       from dual
     </foreach>
     ) b

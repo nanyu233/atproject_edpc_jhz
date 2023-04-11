@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class HspYjqdDtlKey implements Serializable {
     private String yjqdSeq;
 
-    private String usrno;
+    private String userid;
 
     private static final long serialVersionUID = 1L;
 
@@ -17,11 +17,11 @@ public class HspYjqdDtlKey implements Serializable {
         this.yjqdSeq = yjqdSeq == null ? null : yjqdSeq.trim();
     }
 
-    public String getUsrno() {
-        return usrno;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setUsrno(String usrno) {
-        this.usrno = usrno == null ? null : usrno.trim();
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 }

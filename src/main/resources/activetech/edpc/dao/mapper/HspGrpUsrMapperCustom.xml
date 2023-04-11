@@ -3,7 +3,7 @@
 <mapper namespace="activetech.edpc.dao.mapper.HspGrpUsrMapperCustom">
   <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspGrpUsrKey">
     <id column="GRP_SEQ" jdbcType="VARCHAR" property="grpSeq" />
-    <id column="USRNO" jdbcType="VARCHAR" property="usrno" />
+    <id column="USERID" jdbcType="VARCHAR" property="userid" />
   </resultMap>
 
     <sql id="query_group_user_where">
@@ -13,7 +13,7 @@
                 and b.grp_seq = #{hspGrpInfCustom.grpSeq, jdbcType=VARCHAR}
             </if>
         </if>
-        and b.usrno = a.usrno
+        and b.userid = a.userid
     </sql>
 
     <!-- 获取群组用户总记录数 -->
@@ -51,33 +51,33 @@
             select 1 from (
                 <foreach collection="userList" index="ind" item="item" separator="union">
                     select #{hspGrpInfCustom.grpSeq, jdbcType=VARCHAR} grp_seq,
-                    #{item.usrno, jdbcType=VARCHAR} usrno
+                    #{item.userid, jdbcType=VARCHAR} userid
                     from dual
                 </foreach>
             ) b
              where b.grp_seq = a.grp_seq
-               and b.usrno = a.usrno
+               and b.userid = a.userid
         )
     </delete>
 
     <!-- 向群组中添加用户 -->
     <insert id="addUserToGroup" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto">
     insert into hsp_grp_usr a
-        select b.grp_seq, b.usrno from (
+        select b.grp_seq, b.userid from (
           <foreach collection="userList" index="ind" item="item" separator="union">
             select #{hspGrpInfCustom.grpSeq, jdbcType=VARCHAR} grp_seq,
-                   #{item.usrno, jdbcType=VARCHAR} usrno
+                   #{item.userid, jdbcType=VARCHAR} userid
               from dual
           </foreach>
         ) b
     </insert>
 
     <sql id="query_user_where">
-        and a.usrno = b.usrno(+)
-        and a.usrno <![CDATA[ <> ]]> 'admin'
+        and a.userid = b.userid(+)
+        and a.userid <![CDATA[ <> ]]> 'admin'
         <if test="dstuserCustom != null">
-            <if test="dstuserCustom.usrno != null and dstuserCustom.usrno != ''.toString()">
-                and a.usrno = #{dstuserCustom.usrno, jdbcType=VARCHAR}
+            <if test="dstuserCustom.userid != null and dstuserCustom.userid != ''.toString()">
+                and a.userid = #{dstuserCustom.userid, jdbcType=VARCHAR}
             </if>
             <if test="dstuserCustom.usrname != null and dstuserCustom.usrname != ''.toString()">
                 and a.usrname like '%' || #{dstuserCustom.usrname, jdbcType=VARCHAR} || '%'
@@ -89,7 +89,7 @@
     <select id="getUserCount" parameterType="activetech.edpc.pojo.dto.HspGrpInfQueryDto" resultType="java.lang.Integer">
         select count(*)
         from dstuser a,
-             (select grp_seq, usrno
+             (select grp_seq, userid
               from hsp_grp_usr
               where grp_seq = #{hspGrpInfCustom.grpSeq, jdbcType=VARCHAR}) b
         <where>
@@ -123,7 +123,7 @@
                    a.exp_dat,
                    a.unionid
             from dstuser a,
-                 (select grp_seq, usrno
+                 (select grp_seq, userid
                   from hsp_grp_usr
                   where grp_seq = #{hspGrpInfCustom.grpSeq, jdbcType=VARCHAR}) b
             <where>
@@ -134,9 +134,9 @@
     </select>
 
     <select id="getAllGroupUser" resultType="activetech.edpc.pojo.dto.HspGrpUsrCustom">
-        select a.grp_seq, a.usrno, b.usrname
+        select a.grp_seq, a.userid, b.usrname
           from hsp_grp_usr a, dstuser b
-         where a.usrno = b.usrno
+         where a.userid = b.userid
     </select>
 
 </mapper>

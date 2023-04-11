@@ -3,7 +3,7 @@
 <mapper namespace="activetech.edpc.dao.mapper.HspYjqdDtlMapper">
   <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspYjqdDtlKey">
     <id column="YJQD_SEQ" jdbcType="VARCHAR" property="yjqdSeq" />
-    <id column="USRNO" jdbcType="VARCHAR" property="usrno" />
+    <id column="USERID" jdbcType="VARCHAR" property="userid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,7 +64,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    YJQD_SEQ, USRNO
+    YJQD_SEQ, USERID
   </sql>
   <select id="selectByExample" parameterType="activetech.edpc.pojo.domain.HspYjqdDtlExample" resultMap="BaseResultMap">
     select
@@ -72,7 +72,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from HSP_YJQD_DTL
+    from EDPC.HSP_YJQD_DTL
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -81,53 +81,53 @@
     </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspYjqdDtlKey">
-    delete from HSP_YJQD_DTL
+    delete from EDPC.HSP_YJQD_DTL
     where YJQD_SEQ = #{yjqdSeq,jdbcType=VARCHAR}
-      and USRNO = #{usrno,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspYjqdDtlExample">
-    delete from HSP_YJQD_DTL
+    delete from EDPC.HSP_YJQD_DTL
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspYjqdDtlKey">
-    insert into HSP_YJQD_DTL (YJQD_SEQ, USRNO)
-    values (#{yjqdSeq,jdbcType=VARCHAR}, #{usrno,jdbcType=VARCHAR})
+    insert into EDPC.HSP_YJQD_DTL (YJQD_SEQ, USERID)
+    values (#{yjqdSeq,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspYjqdDtlKey">
-    insert into HSP_YJQD_DTL
+    insert into EDPC.HSP_YJQD_DTL
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="yjqdSeq != null">
         YJQD_SEQ,
       </if>
-      <if test="usrno != null">
-        USRNO,
+      <if test="userid != null">
+        USERID,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="yjqdSeq != null">
         #{yjqdSeq,jdbcType=VARCHAR},
       </if>
-      <if test="usrno != null">
-        #{usrno,jdbcType=VARCHAR},
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspYjqdDtlExample" resultType="java.lang.Long">
-    select count(*) from HSP_YJQD_DTL
+    select count(*) from EDPC.HSP_YJQD_DTL
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update HSP_YJQD_DTL
+    update EDPC.HSP_YJQD_DTL
     <set>
       <if test="record.yjqdSeq != null">
         YJQD_SEQ = #{record.yjqdSeq,jdbcType=VARCHAR},
       </if>
-      <if test="record.usrno != null">
-        USRNO = #{record.usrno,jdbcType=VARCHAR},
+      <if test="record.userid != null">
+        USERID = #{record.userid,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -135,9 +135,9 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update HSP_YJQD_DTL
+    update EDPC.HSP_YJQD_DTL
     set YJQD_SEQ = #{record.yjqdSeq,jdbcType=VARCHAR},
-      USRNO = #{record.usrno,jdbcType=VARCHAR}
+      USERID = #{record.userid,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

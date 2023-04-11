@@ -3,7 +3,7 @@
 <mapper namespace="activetech.edpc.dao.mapper.HspGrpUsrMapper">
   <resultMap id="BaseResultMap" type="activetech.edpc.pojo.domain.HspGrpUsrKey">
     <id column="GRP_SEQ" jdbcType="VARCHAR" property="grpSeq" />
-    <id column="USRNO" jdbcType="VARCHAR" property="usrno" />
+    <id column="USERID" jdbcType="VARCHAR" property="userid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,7 +64,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    GRP_SEQ, USRNO
+    GRP_SEQ, USERID
   </sql>
   <select id="selectByExample" parameterType="activetech.edpc.pojo.domain.HspGrpUsrExample" resultMap="BaseResultMap">
     select
@@ -72,7 +72,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from HSP_GRP_USR
+    from EDPC.HSP_GRP_USR
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -81,53 +81,53 @@
     </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspGrpUsrKey">
-    delete from HSP_GRP_USR
+    delete from EDPC.HSP_GRP_USR
     where GRP_SEQ = #{grpSeq,jdbcType=VARCHAR}
-      and USRNO = #{usrno,jdbcType=VARCHAR}
+      and USERID = #{userid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspGrpUsrExample">
-    delete from HSP_GRP_USR
+    delete from EDPC.HSP_GRP_USR
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspGrpUsrKey">
-    insert into HSP_GRP_USR (GRP_SEQ, USRNO)
-    values (#{grpSeq,jdbcType=VARCHAR}, #{usrno,jdbcType=VARCHAR})
+    insert into EDPC.HSP_GRP_USR (GRP_SEQ, USERID)
+    values (#{grpSeq,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspGrpUsrKey">
-    insert into HSP_GRP_USR
+    insert into EDPC.HSP_GRP_USR
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="grpSeq != null">
         GRP_SEQ,
       </if>
-      <if test="usrno != null">
-        USRNO,
+      <if test="userid != null">
+        USERID,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="grpSeq != null">
         #{grpSeq,jdbcType=VARCHAR},
       </if>
-      <if test="usrno != null">
-        #{usrno,jdbcType=VARCHAR},
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspGrpUsrExample" resultType="java.lang.Long">
-    select count(*) from HSP_GRP_USR
+    select count(*) from EDPC.HSP_GRP_USR
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update HSP_GRP_USR
+    update EDPC.HSP_GRP_USR
     <set>
       <if test="record.grpSeq != null">
         GRP_SEQ = #{record.grpSeq,jdbcType=VARCHAR},
       </if>
-      <if test="record.usrno != null">
-        USRNO = #{record.usrno,jdbcType=VARCHAR},
+      <if test="record.userid != null">
+        USERID = #{record.userid,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -135,9 +135,9 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update HSP_GRP_USR
+    update EDPC.HSP_GRP_USR
     set GRP_SEQ = #{record.grpSeq,jdbcType=VARCHAR},
-      USRNO = #{record.usrno,jdbcType=VARCHAR}
+      USERID = #{record.userid,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

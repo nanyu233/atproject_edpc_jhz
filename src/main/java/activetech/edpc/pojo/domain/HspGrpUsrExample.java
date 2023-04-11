@@ -174,73 +174,73 @@ public class HspGrpUsrExample {
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoIsNull() {
-            addCriterion("USRNO is null");
+        public Criteria andUseridIsNull() {
+            addCriterion("USERID is null");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoIsNotNull() {
-            addCriterion("USRNO is not null");
+        public Criteria andUseridIsNotNull() {
+            addCriterion("USERID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoEqualTo(String value) {
-            addCriterion("USRNO =", value, "usrno");
+        public Criteria andUseridEqualTo(String value) {
+            addCriterion("USERID =", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoNotEqualTo(String value) {
-            addCriterion("USRNO <>", value, "usrno");
+        public Criteria andUseridNotEqualTo(String value) {
+            addCriterion("USERID <>", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoGreaterThan(String value) {
-            addCriterion("USRNO >", value, "usrno");
+        public Criteria andUseridGreaterThan(String value) {
+            addCriterion("USERID >", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoGreaterThanOrEqualTo(String value) {
-            addCriterion("USRNO >=", value, "usrno");
+        public Criteria andUseridGreaterThanOrEqualTo(String value) {
+            addCriterion("USERID >=", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoLessThan(String value) {
-            addCriterion("USRNO <", value, "usrno");
+        public Criteria andUseridLessThan(String value) {
+            addCriterion("USERID <", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoLessThanOrEqualTo(String value) {
-            addCriterion("USRNO <=", value, "usrno");
+        public Criteria andUseridLessThanOrEqualTo(String value) {
+            addCriterion("USERID <=", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoLike(String value) {
-            addCriterion("USRNO like", value, "usrno");
+        public Criteria andUseridLike(String value) {
+            addCriterion("USERID like", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoNotLike(String value) {
-            addCriterion("USRNO not like", value, "usrno");
+        public Criteria andUseridNotLike(String value) {
+            addCriterion("USERID not like", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoIn(List<String> values) {
-            addCriterion("USRNO in", values, "usrno");
+        public Criteria andUseridIn(List<String> values) {
+            addCriterion("USERID in", values, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoNotIn(List<String> values) {
-            addCriterion("USRNO not in", values, "usrno");
+        public Criteria andUseridNotIn(List<String> values) {
+            addCriterion("USERID not in", values, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoBetween(String value1, String value2) {
-            addCriterion("USRNO between", value1, value2, "usrno");
+        public Criteria andUseridBetween(String value1, String value2) {
+            addCriterion("USERID between", value1, value2, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUsrnoNotBetween(String value1, String value2) {
-            addCriterion("USRNO not between", value1, value2, "usrno");
+        public Criteria andUseridNotBetween(String value1, String value2) {
+            addCriterion("USERID not between", value1, value2, "userid");
             return (Criteria) this;
         }
     }

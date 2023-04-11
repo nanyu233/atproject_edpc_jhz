@@ -56,7 +56,7 @@
                  (select u.usrname from dstuser u where u.usrno = a.crt_user) crt_user_name,
                  (select u.usrname from dstuser u where u.usrno = a.mod_user) mod_user_name,
                  (select to_char(wm_concat(u.usrname || '(' || u.usrno || ')'))
-                    from hsp_yjqd_dtl d, dstuser u where d.usrno = u.usrno and d.yjqd_seq = a.yjqd_seq) yjqd_user
+                    from hsp_yjqd_dtl d, dstuser u where d.userid = u.userid and d.yjqd_seq = a.yjqd_seq) yjqd_user
             from hsp_yjqd_inf a
           <where>
               <include refid="query_yjqd_where"/>

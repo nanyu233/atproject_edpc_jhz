@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class HspGrpUsrKey implements Serializable {
     private String grpSeq;
 
-    private String usrno;
+    private String userid;
 
     private static final long serialVersionUID = 1L;
 
@@ -17,11 +17,11 @@ public class HspGrpUsrKey implements Serializable {
         this.grpSeq = grpSeq == null ? null : grpSeq.trim();
     }
 
-    public String getUsrno() {
-        return usrno;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setUsrno(String usrno) {
-        this.usrno = usrno == null ? null : usrno.trim();
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
     }
 }

@@ -88,7 +88,7 @@ public class YjqdServiceImpl implements YjqdService {
         List<HspGrpUsrCustom> groupUserList = hspGrpUsrMapperCustom.getAllGroupUser();
         for (HspGrpUsrCustom hspGrpUsrCustom : groupUserList) {
             TreeNode userNode = new TreeNode();
-            userNode.setId(hspGrpUsrCustom.getUsrno());
+            userNode.setId(hspGrpUsrCustom.getUserid());
             userNode.setParentId(hspGrpUsrCustom.getGrpSeq());
             userNode.setText(hspGrpUsrCustom.getUsrname());
             userNode.setIconCls("icon icon-user");
@@ -144,9 +144,9 @@ public class YjqdServiceImpl implements YjqdService {
             ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 922, new Object[]{"通知对象"}));
         }
         // 通知对象用户号非空验证
-        List<DstuserCustom> userCollect = userList.stream().filter(user -> !StringUtils.isNotNullAndEmptyByTrim(user.getUsrno())).collect(Collectors.toList());
+        List<DstuserCustom> userCollect = userList.stream().filter(user -> !StringUtils.isNotNullAndEmptyByTrim(user.getUserid())).collect(Collectors.toList());
         if (!userCollect.isEmpty()) {
-            ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 920, new Object[]{"请求参数userList存在用户号为空的记录，保存失败。"}));
+            ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 920, new Object[]{"请求参数userList存在用户id为空的记录，保存失败。"}));
         }
         // 插入hsp_yjqd_inf
         HspYjqdInf record = new HspYjqdInf();
