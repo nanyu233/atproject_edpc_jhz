@@ -18,6 +18,10 @@ import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -111,6 +115,27 @@ public class HspConsentFormImgServiceImpl implements HspConsentFormImgService {
             MinIoUtil.removeObject(BUCKET_NAME, fileName);
             hspConsentFormImgMapper.deleteByPrimaryKey(id);
         }
+    }
+
+    @Override
+    public void conFmImgDownload(String id, HttpServletResponse response) throws Exception {
+        HspConsentFormImg hspConsentFormImg = hspConsentFormImgMapper.selectByPrimaryKey(id);
+        String originalFileName = hspConsentFormImg.getFileName();
+        InputStream fileInputStream = MinIoUtil.getObject(BUCKET_NAME, originalFileName);
+        String filename = new String(originalFileName.getBytes("ISO8859-1"), StandardCharsets.UTF_8);
+        if (StringUtils.isNotNullAndEmptyByTrim(originalFileName)) {
+            filename = originalFileName;
+        }
+        response.setHeader("Content-Disposition", "attachment;filename=" + filename);
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        int len;
+        byte[] buffer = new byte[1024];
+        while ((len = fileInputStream.read(buffer)) > 0) {
+            servletOutputStream.write(buffer, 0, len);
+        }
+        servletOutputStream.flush();
+        fileInputStream.close();
+        servletOutputStream.close();
     }
 
     private String getFileName(HspConsentFormImgCustom hspConsentFormImgCustom, MultipartFile multipartFile) {

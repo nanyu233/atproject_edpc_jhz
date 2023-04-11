@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -115,6 +116,20 @@ public class HspConsentFormImgAction {
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         hspConsentFormImgService.deleteConsentFormImgInfo(hspConsentFormImgQueryDto);
         return ResultUtil.createSubmitResult(resultInfo);
+    }
+
+    /**
+     * 文件下载
+     *
+     * @param id       id  文件ID
+     * @param response response
+     * @throws Exception Exception
+     * @author chenys
+     * @date 2023/4/11 10:52
+     */
+    @RequestMapping(value = "conFmImgDownload", method = RequestMethod.GET)
+    public void conFmImgDownload(@RequestParam String id, HttpServletResponse response) throws Exception {
+        hspConsentFormImgService.conFmImgDownload(id, response);
     }
 
 }

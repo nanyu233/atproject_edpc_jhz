@@ -4,6 +4,7 @@ import activetech.base.pojo.dto.ActiveUser;
 import activetech.edpc.pojo.dto.HspConsentFormImgQueryDto;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 public interface HspConsentFormImgService {
@@ -40,6 +41,25 @@ public interface HspConsentFormImgService {
     Map<String, Object> queryConsentFormImgInfo(HspConsentFormImgQueryDto hspConsentFormImgQueryDto);
 
 
+    /**
+     * 删除文书图片
+     *
+     * @param hspConsentFormImgQueryDto hspConsentFormImgQueryDto
+     * @throws Exception Exception
+     * @author chenys
+     * @date 2023/4/11 11:06
+     */
     void deleteConsentFormImgInfo(HspConsentFormImgQueryDto hspConsentFormImgQueryDto) throws Exception;
+
+    /**
+     * 图片下载
+     *
+     * @param id       id
+     * @param response response
+     * @throws Exception Exception
+     * @author chenys
+     * @date 2023/4/11 11:06
+     */
+    void conFmImgDownload(String id, HttpServletResponse response) throws Exception;
 
 }
