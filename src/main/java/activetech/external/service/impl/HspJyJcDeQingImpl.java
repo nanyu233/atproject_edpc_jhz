@@ -20,7 +20,9 @@ import activetech.edpc.pojo.dto.HspDbzlBasCustom;
 import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.HspZlInfCustom;
 import activetech.edpc.pojo.dto.HspZlInfQueryDto;
+import activetech.external.dao.mapper.HspEcgInfMapper;
 import activetech.external.pojo.domain.HspEcgInf;
+import activetech.external.pojo.domain.HspEcgInfExample;
 import activetech.external.service.EsbService;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
@@ -132,6 +134,9 @@ public class HspJyJcDeQingImpl implements EsbService {
 
     @Autowired
     private DstarchivesCustomMapper dstarchivesMapperCustom;
+
+    @Autowired
+    private HspEcgInfMapper hspEcgInfMapper;
 
     @Override
     public List<VHemsJcjgCustom> findVHemsJcjgList(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception {
@@ -490,7 +495,19 @@ public class HspJyJcDeQingImpl implements EsbService {
 
     @Override
     public ResultInfo getECGInfo(String regSeq, String wayTyp) {
-        return null;
+        ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+        HspEcgInfExample hspEcgInfExample = new HspEcgInfExample();
+        hspEcgInfExample.createCriteria().andRefIdEqualTo(regSeq);
+        hspEcgInfExample.setOrderByClause("crt_date asc");
+        List<HspEcgInf> hspEcgInfs = hspEcgInfMapper.selectByExample(hspEcgInfExample);
+        Map<String,Object> map = new HashMap<>();
+        if(hspEcgInfs != null && hspEcgInfs.size() > 0) {
+            map.put("hspEcgInf", hspEcgInfs.get(0));
+        } else {
+            map = null;
+        }
+        resultInfo.setSysdata(map);
+        return resultInfo;
     }
 
     @Override
