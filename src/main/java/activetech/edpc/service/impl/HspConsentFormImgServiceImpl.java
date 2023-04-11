@@ -127,6 +127,7 @@ public class HspConsentFormImgServiceImpl implements HspConsentFormImgService {
             filename = originalFileName;
         }
         response.setHeader("Content-Disposition", "attachment;filename=" + filename);
+        response.setContentType("application/octet-stream");
         ServletOutputStream servletOutputStream = response.getOutputStream();
         int len;
         byte[] buffer = new byte[1024];
