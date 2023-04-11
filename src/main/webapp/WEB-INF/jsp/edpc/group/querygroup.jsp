@@ -158,12 +158,22 @@
                     return commonLoadFilter(value)
                 },
                 onLoadSuccess: function (res) {
-                    var selectedRow = $(this).datagrid('getSelected')
-                    if (selectedRow && selectedRow.grpSeq) {
-                        var selectedIndex = $(this).datagrid('getRowIndex', selectedRow.grpSeq)
-                        $(this).datagrid("selectRow", selectedIndex)
+                    var rows = res.rows || [];
+                    if (rows.length === 0) {
+                        $(this).datagrid("unselectAll")
                     } else {
-                        $(this).datagrid("selectRow", 0)
+                        var selectedRow = $(this).datagrid('getSelected')
+                        if (selectedRow && selectedRow.grpSeq) {
+                            var selectedIndex = $(this).datagrid('getRowIndex', selectedRow.grpSeq)
+                            $(this).datagrid("selectRow", selectedIndex)
+                        } else {
+                            $(this).datagrid("selectRow", 0)
+                        }
+                    }
+                    if (rows.length === 0 && $(userSelector).data('datagrid')) {
+                        $(userSelector).datagrid('loadData', {})
+                    } else {
+                        dInitUserTable ()
                     }
                 },
                 onRowContextMenu: function (e,index,row) {
@@ -223,7 +233,6 @@
 
         function cmdrefresh() {
             $(groupSelector).datagrid('reload')
-            $(userSelector).datagrid('reload')
         }
 
         function deleteGroupBySeq(grpSeq, grpName) {
@@ -238,6 +247,7 @@
                         },
                         success: function (res) {
                             if (res.resultInfo.type == '1') {
+                                $(groupSelector).datagrid('unselectAll')
                                 cmdrefresh()
                             } else {
                                 $.messager.alert('提示信息', "删除失败", 'warning')
@@ -355,7 +365,6 @@
             }
 
             $(userSelector).datagrid(datagridOptions)
-            $(userSelector).data('groupInfo', info || null)
         }
 
         function deleteUser(grpSeq, user) {
@@ -475,8 +484,9 @@
         }
 
         function commonLoadFilter(value) {
-            if (!value.total || value.total == 0) {
-                value.rows = [{ __handle: false }]
+            if (!value.rows || !value.total || value.total == 0) {
+                value.total = 0
+                value.rows = []
             }
             return value
         }

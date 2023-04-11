@@ -242,8 +242,9 @@
     }
 
     function commonLoadFilter(value) {
-        if (!value.total || value.total == 0) {
-            value.rows = [{ __handle: false }]
+        if (!value.rows || !value.total || value.total == 0) {
+            value.total = 0
+            value.rows = []
         }
         return value
     }
