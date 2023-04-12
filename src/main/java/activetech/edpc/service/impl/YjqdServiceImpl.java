@@ -1,16 +1,26 @@
 package activetech.edpc.service.impl;
 
+import activetech.aid.dao.mapper.AidAitInfMapper;
+import activetech.aid.dao.mapper.AidDingSendTaskMapper;
+import activetech.aid.pojo.domain.AidAitInf;
+import activetech.aid.pojo.domain.AidDingSendTask;
 import activetech.base.pojo.domain.TreeNode;
 import activetech.base.pojo.dto.ActiveUser;
 import activetech.base.pojo.dto.DstuserCustom;
 import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultUtil;
-import activetech.edpc.dao.mapper.*;
+import activetech.base.service.SystemConfigService;
+import activetech.edpc.dao.mapper.HspDbzlBasMapper;
+import activetech.edpc.dao.mapper.HspGrpInfMapper;
+import activetech.edpc.dao.mapper.HspGrpUsrMapperCustom;
+import activetech.edpc.dao.mapper.HspYjqdDtlMapper;
+import activetech.edpc.dao.mapper.HspYjqdDtlMapperCustom;
+import activetech.edpc.dao.mapper.HspYjqdInfMapper;
+import activetech.edpc.dao.mapper.HspYjqdInfMapperCustom;
 import activetech.edpc.pojo.domain.HspDbzlBas;
 import activetech.edpc.pojo.domain.HspGrpInf;
 import activetech.edpc.pojo.domain.HspGrpInfExample;
 import activetech.edpc.pojo.domain.HspYjqdInf;
-import activetech.edpc.pojo.dto.HspGrpInfCustom;
 import activetech.edpc.pojo.dto.HspGrpUsrCustom;
 import activetech.edpc.pojo.dto.HspYjqdInfCustom;
 import activetech.edpc.pojo.dto.HspYjqdInfQueryDto;
@@ -18,8 +28,11 @@ import activetech.edpc.service.YjqdService;
 import activetech.util.DateUtil;
 import activetech.util.StringUtils;
 import activetech.util.UUIDBuild;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.PhoneUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +45,8 @@ import java.util.stream.Collectors;
  * @date 2023-03-24 10:29
  */
 public class YjqdServiceImpl implements YjqdService {
+    private static final String SYSTEM_ID = "edpc";
+    private static final String AID_AID_SEND_FLG = "0";
 
     @Autowired
     private HspYjqdInfMapper hspYjqdInfMapper;
@@ -53,6 +68,14 @@ public class YjqdServiceImpl implements YjqdService {
 
     @Autowired
     private HspYjqdInfMapperCustom hspYjqdInfMapperCustom;
+
+    @Resource
+    private AidAitInfMapper aidAitInfMapper;
+    @Resource
+    private AidDingSendTaskMapper aidDingSendTaskMapper;
+
+    @Resource
+    private SystemConfigService systemConfigService;
 
     private String checkParam(HspYjqdInfCustom hspYjqdInfCustom) {
         // 患者编号
@@ -162,6 +185,96 @@ public class YjqdServiceImpl implements YjqdService {
         hspYjqdInfCustom.setYjqdSeq(record.getYjqdSeq());
         hspYjqdInfQueryDto.setHspYjqdInfCustom(hspYjqdInfCustom);
         hspYjqdDtlMapperCustom.addUserToYjqd(hspYjqdInfQueryDto);
+        //通知用户
+        insetNoticeTask(activeUser,userList, hspYjqdInfCustom);
+    }
+
+
+
+    private void insetNoticeTask(ActiveUser activeUser, List<DstuserCustom> userList, HspYjqdInfCustom hspYjqdInfCustom) {
+        /*
+          场景 待定
+         */
+        String aitTyp = "1";
+        /*
+          1 短信 2 电话
+         */
+        String dxTyp = "1";
+        /*
+         电话和短信的  参数 | 有序分割
+         */
+        String aitPar = "11111|1111";
+        /*
+        消息内容，或者信息注释
+         */
+        String aitCon = hspYjqdInfCustom.getNoticeContent();
+        /*
+        钉钉消息内容
+         */
+        String dingCon = hspYjqdInfCustom.getNoticeContent();
+
+        userList.forEach(dstuserCustom -> {
+                    if (PhoneUtil.isPhone(dstuserCustom.getMovephone())) {
+                        //同义词序列
+                        String aidAitInfAitSeq = systemConfigService.findSequences("aid_ait_inf_ait_seq", "20", "");
+                        //短信
+                        noticeSmsAndPhone(activeUser, aidAitInfAitSeq, aitTyp, dxTyp, aitPar, aitCon, dstuserCustom);
+                    }
+                }
+        );
+        List<String> userIds = userList.stream().map(DstuserCustom::getUserid).collect(Collectors.toList());
+        //钉钉文本通知
+        AidDingSendTask aidDingSendTask = new AidDingSendTask();
+        aidDingSendTask.setId(UUIDBuild.getUUID());
+        aidDingSendTask.setRecipients(CollUtil.join(userIds, ","));
+        aidDingSendTask.setRecipientsType("3");
+        aidDingSendTask.setSender(activeUser.getUsrno());
+        aidDingSendTask.setSenderType("usrno");
+        aidDingSendTask.setMsgType("text");
+        aidDingSendTask.setText(dingCon);
+        aidDingSendTask.setSendFlg(AID_AID_SEND_FLG);
+        aidDingSendTask.setCreatTime(new Date());
+        aidDingSendTask.setSystemId(SYSTEM_ID);
+        //同义词插入
+        aidDingSendTaskMapper.insertSelective(aidDingSendTask);
+
+    }
+
+    /**
+     * 短信或者电话通知
+     *
+     * @param activeUser      activeUser
+     * @param aidAitInfAitSeq aidAitInfAitSeq
+     * @param aitTyp          aitTyp
+     * @param chlTyp          chlTyp
+     * @param aitPar          aitPar
+     * @param aitCon          aitCon
+     * @param dstuserCustom   dstuserCustom
+     * @author chenys
+     * @date 2023/4/11 17:15
+     */
+    private void noticeSmsAndPhone(ActiveUser activeUser, String aidAitInfAitSeq, String aitTyp, String chlTyp, String aitPar, String aitCon, DstuserCustom dstuserCustom) {
+        AidAitInf aidAitInf = new AidAitInf();
+        aidAitInf.setAitSeq(aidAitInfAitSeq);
+        aidAitInf.setSndTim(new Date());
+        aidAitInf.setSndCom(activeUser.getSysid());
+        aidAitInf.setSndComNam(activeUser.getSysmc());
+        aidAitInf.setSndUsr(activeUser.getUsrno());
+        aidAitInf.setSndUsrNam(activeUser.getUsrname());
+        aidAitInf.setAitTyp(aitTyp);
+        aidAitInf.setAitCon(aitCon);
+        aidAitInf.setRsvTel(dstuserCustom.getMovephone());
+        aidAitInf.setRsvCom(dstuserCustom.getComno());
+        aidAitInf.setRsvComNam(dstuserCustom.getComcname());
+        aidAitInf.setRsvUsr(dstuserCustom.getUsrno());
+        aidAitInf.setRsvUsrNam(dstuserCustom.getUsrname());
+        aidAitInf.setSndFlg(AID_AID_SEND_FLG);
+        aidAitInf.setAitPar(aitPar);
+        aidAitInf.setChlTyp(chlTyp);
+        aidAitInf.setAitSce(aitTyp);
+        aidAitInf.setSystemId(SYSTEM_ID);
+        //同义词插入
+        aidAitInfMapper.insertSelective(aidAitInf);
     }
 
     /**

@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activetech.aid.dao.mapper.AidAitInfMapper">
+  <resultMap id="BaseResultMap" type="activetech.aid.pojo.domain.AidAitInf">
+    <id column="AIT_SEQ" jdbcType="VARCHAR" property="aitSeq" />
+    <result column="SND_TIM" jdbcType="TIMESTAMP" property="sndTim" />
+    <result column="SND_COM" jdbcType="VARCHAR" property="sndCom" />
+    <result column="SND_COM_NAM" jdbcType="VARCHAR" property="sndComNam" />
+    <result column="SND_USR" jdbcType="VARCHAR" property="sndUsr" />
+    <result column="SND_USR_NAM" jdbcType="VARCHAR" property="sndUsrNam" />
+    <result column="AIT_TYP" jdbcType="VARCHAR" property="aitTyp" />
+    <result column="AIT_CON" jdbcType="VARCHAR" property="aitCon" />
+    <result column="RSV_TEL" jdbcType="VARCHAR" property="rsvTel" />
+    <result column="RSV_COM" jdbcType="VARCHAR" property="rsvCom" />
+    <result column="RSV_COM_NAM" jdbcType="VARCHAR" property="rsvComNam" />
+    <result column="RSV_USR" jdbcType="VARCHAR" property="rsvUsr" />
+    <result column="RSV_USR_NAM" jdbcType="VARCHAR" property="rsvUsrNam" />
+    <result column="RET_FLG" jdbcType="VARCHAR" property="retFlg" />
+    <result column="RET_MEM" jdbcType="VARCHAR" property="retMem" />
+    <result column="OUT_PLT" jdbcType="VARCHAR" property="outPlt" />
+    <result column="OUT_SEQ" jdbcType="VARCHAR" property="outSeq" />
+    <result column="OUT_USR" jdbcType="VARCHAR" property="outUsr" />
+    <result column="SND_FLG" jdbcType="CHAR" property="sndFlg" />
+    <result column="BUS_SEQ" jdbcType="VARCHAR" property="busSeq" />
+    <result column="AIT_PAR" jdbcType="VARCHAR" property="aitPar" />
+    <result column="CHL_TYP" jdbcType="CHAR" property="chlTyp" />
+    <result column="AIT_SCE" jdbcType="VARCHAR" property="aitSce" />
+    <result column="SYSTEM_ID" jdbcType="VARCHAR" property="systemId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    AIT_SEQ, SND_TIM, SND_COM, SND_COM_NAM, SND_USR, SND_USR_NAM, AIT_TYP, AIT_CON, RSV_TEL, 
+    RSV_COM, RSV_COM_NAM, RSV_USR, RSV_USR_NAM, RET_FLG, RET_MEM, OUT_PLT, OUT_SEQ, OUT_USR, 
+    SND_FLG, BUS_SEQ, AIT_PAR, CHL_TYP, AIT_SCE, SYSTEM_ID
+  </sql>
+  <select id="selectByExample" parameterType="activetech.aid.pojo.domain.AidAitInfExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from AID_AIT_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from AID_AIT_INF
+    where AIT_SEQ = #{aitSeq,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from AID_AIT_INF
+    where AIT_SEQ = #{aitSeq,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="activetech.aid.pojo.domain.AidAitInfExample">
+    delete from AID_AIT_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="activetech.aid.pojo.domain.AidAitInf">
+    insert into AID_AIT_INF (AIT_SEQ, SND_TIM, SND_COM,
+      SND_COM_NAM, SND_USR, SND_USR_NAM, 
+      AIT_TYP, AIT_CON, RSV_TEL, 
+      RSV_COM, RSV_COM_NAM, RSV_USR, 
+      RSV_USR_NAM, RET_FLG, RET_MEM, 
+      OUT_PLT, OUT_SEQ, OUT_USR, 
+      SND_FLG, BUS_SEQ, AIT_PAR, 
+      CHL_TYP, AIT_SCE, SYSTEM_ID
+      )
+    values (#{aitSeq,jdbcType=VARCHAR}, #{sndTim,jdbcType=TIMESTAMP}, #{sndCom,jdbcType=VARCHAR}, 
+      #{sndComNam,jdbcType=VARCHAR}, #{sndUsr,jdbcType=VARCHAR}, #{sndUsrNam,jdbcType=VARCHAR}, 
+      #{aitTyp,jdbcType=VARCHAR}, #{aitCon,jdbcType=VARCHAR}, #{rsvTel,jdbcType=VARCHAR}, 
+      #{rsvCom,jdbcType=VARCHAR}, #{rsvComNam,jdbcType=VARCHAR}, #{rsvUsr,jdbcType=VARCHAR}, 
+      #{rsvUsrNam,jdbcType=VARCHAR}, #{retFlg,jdbcType=VARCHAR}, #{retMem,jdbcType=VARCHAR}, 
+      #{outPlt,jdbcType=VARCHAR}, #{outSeq,jdbcType=VARCHAR}, #{outUsr,jdbcType=VARCHAR}, 
+      #{sndFlg,jdbcType=CHAR}, #{busSeq,jdbcType=VARCHAR}, #{aitPar,jdbcType=VARCHAR}, 
+      #{chlTyp,jdbcType=CHAR}, #{aitSce,jdbcType=VARCHAR}, #{systemId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="activetech.aid.pojo.domain.AidAitInf">
+    insert into AID_AIT_INF
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aitSeq != null">
+        AIT_SEQ,
+      </if>
+      <if test="sndTim != null">
+        SND_TIM,
+      </if>
+      <if test="sndCom != null">
+        SND_COM,
+      </if>
+      <if test="sndComNam != null">
+        SND_COM_NAM,
+      </if>
+      <if test="sndUsr != null">
+        SND_USR,
+      </if>
+      <if test="sndUsrNam != null">
+        SND_USR_NAM,
+      </if>
+      <if test="aitTyp != null">
+        AIT_TYP,
+      </if>
+      <if test="aitCon != null">
+        AIT_CON,
+      </if>
+      <if test="rsvTel != null">
+        RSV_TEL,
+      </if>
+      <if test="rsvCom != null">
+        RSV_COM,
+      </if>
+      <if test="rsvComNam != null">
+        RSV_COM_NAM,
+      </if>
+      <if test="rsvUsr != null">
+        RSV_USR,
+      </if>
+      <if test="rsvUsrNam != null">
+        RSV_USR_NAM,
+      </if>
+      <if test="retFlg != null">
+        RET_FLG,
+      </if>
+      <if test="retMem != null">
+        RET_MEM,
+      </if>
+      <if test="outPlt != null">
+        OUT_PLT,
+      </if>
+      <if test="outSeq != null">
+        OUT_SEQ,
+      </if>
+      <if test="outUsr != null">
+        OUT_USR,
+      </if>
+      <if test="sndFlg != null">
+        SND_FLG,
+      </if>
+      <if test="busSeq != null">
+        BUS_SEQ,
+      </if>
+      <if test="aitPar != null">
+        AIT_PAR,
+      </if>
+      <if test="chlTyp != null">
+        CHL_TYP,
+      </if>
+      <if test="aitSce != null">
+        AIT_SCE,
+      </if>
+      <if test="systemId != null">
+        SYSTEM_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aitSeq != null">
+        #{aitSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="sndTim != null">
+        #{sndTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sndCom != null">
+        #{sndCom,jdbcType=VARCHAR},
+      </if>
+      <if test="sndComNam != null">
+        #{sndComNam,jdbcType=VARCHAR},
+      </if>
+      <if test="sndUsr != null">
+        #{sndUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="sndUsrNam != null">
+        #{sndUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="aitTyp != null">
+        #{aitTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="aitCon != null">
+        #{aitCon,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvTel != null">
+        #{rsvTel,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvCom != null">
+        #{rsvCom,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvComNam != null">
+        #{rsvComNam,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvUsr != null">
+        #{rsvUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvUsrNam != null">
+        #{rsvUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="retFlg != null">
+        #{retFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="retMem != null">
+        #{retMem,jdbcType=VARCHAR},
+      </if>
+      <if test="outPlt != null">
+        #{outPlt,jdbcType=VARCHAR},
+      </if>
+      <if test="outSeq != null">
+        #{outSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="outUsr != null">
+        #{outUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="sndFlg != null">
+        #{sndFlg,jdbcType=CHAR},
+      </if>
+      <if test="busSeq != null">
+        #{busSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="aitPar != null">
+        #{aitPar,jdbcType=VARCHAR},
+      </if>
+      <if test="chlTyp != null">
+        #{chlTyp,jdbcType=CHAR},
+      </if>
+      <if test="aitSce != null">
+        #{aitSce,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null">
+        #{systemId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="activetech.aid.pojo.domain.AidAitInfExample" resultType="java.lang.Long">
+    select count(*) from AID_AIT_INF
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update AID_AIT_INF
+    <set>
+      <if test="record.aitSeq != null">
+        AIT_SEQ = #{record.aitSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sndTim != null">
+        SND_TIM = #{record.sndTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sndCom != null">
+        SND_COM = #{record.sndCom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sndComNam != null">
+        SND_COM_NAM = #{record.sndComNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sndUsr != null">
+        SND_USR = #{record.sndUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sndUsrNam != null">
+        SND_USR_NAM = #{record.sndUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aitTyp != null">
+        AIT_TYP = #{record.aitTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aitCon != null">
+        AIT_CON = #{record.aitCon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsvTel != null">
+        RSV_TEL = #{record.rsvTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsvCom != null">
+        RSV_COM = #{record.rsvCom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsvComNam != null">
+        RSV_COM_NAM = #{record.rsvComNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsvUsr != null">
+        RSV_USR = #{record.rsvUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsvUsrNam != null">
+        RSV_USR_NAM = #{record.rsvUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retFlg != null">
+        RET_FLG = #{record.retFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retMem != null">
+        RET_MEM = #{record.retMem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outPlt != null">
+        OUT_PLT = #{record.outPlt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outSeq != null">
+        OUT_SEQ = #{record.outSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outUsr != null">
+        OUT_USR = #{record.outUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sndFlg != null">
+        SND_FLG = #{record.sndFlg,jdbcType=CHAR},
+      </if>
+      <if test="record.busSeq != null">
+        BUS_SEQ = #{record.busSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aitPar != null">
+        AIT_PAR = #{record.aitPar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chlTyp != null">
+        CHL_TYP = #{record.chlTyp,jdbcType=CHAR},
+      </if>
+      <if test="record.aitSce != null">
+        AIT_SCE = #{record.aitSce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemId != null">
+        SYSTEM_ID = #{record.systemId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update AID_AIT_INF
+    set AIT_SEQ = #{record.aitSeq,jdbcType=VARCHAR},
+      SND_TIM = #{record.sndTim,jdbcType=TIMESTAMP},
+      SND_COM = #{record.sndCom,jdbcType=VARCHAR},
+      SND_COM_NAM = #{record.sndComNam,jdbcType=VARCHAR},
+      SND_USR = #{record.sndUsr,jdbcType=VARCHAR},
+      SND_USR_NAM = #{record.sndUsrNam,jdbcType=VARCHAR},
+      AIT_TYP = #{record.aitTyp,jdbcType=VARCHAR},
+      AIT_CON = #{record.aitCon,jdbcType=VARCHAR},
+      RSV_TEL = #{record.rsvTel,jdbcType=VARCHAR},
+      RSV_COM = #{record.rsvCom,jdbcType=VARCHAR},
+      RSV_COM_NAM = #{record.rsvComNam,jdbcType=VARCHAR},
+      RSV_USR = #{record.rsvUsr,jdbcType=VARCHAR},
+      RSV_USR_NAM = #{record.rsvUsrNam,jdbcType=VARCHAR},
+      RET_FLG = #{record.retFlg,jdbcType=VARCHAR},
+      RET_MEM = #{record.retMem,jdbcType=VARCHAR},
+      OUT_PLT = #{record.outPlt,jdbcType=VARCHAR},
+      OUT_SEQ = #{record.outSeq,jdbcType=VARCHAR},
+      OUT_USR = #{record.outUsr,jdbcType=VARCHAR},
+      SND_FLG = #{record.sndFlg,jdbcType=CHAR},
+      BUS_SEQ = #{record.busSeq,jdbcType=VARCHAR},
+      AIT_PAR = #{record.aitPar,jdbcType=VARCHAR},
+      CHL_TYP = #{record.chlTyp,jdbcType=CHAR},
+      AIT_SCE = #{record.aitSce,jdbcType=VARCHAR},
+      SYSTEM_ID = #{record.systemId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="activetech.aid.pojo.domain.AidAitInf">
+    update AID_AIT_INF
+    <set>
+      <if test="sndTim != null">
+        SND_TIM = #{sndTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sndCom != null">
+        SND_COM = #{sndCom,jdbcType=VARCHAR},
+      </if>
+      <if test="sndComNam != null">
+        SND_COM_NAM = #{sndComNam,jdbcType=VARCHAR},
+      </if>
+      <if test="sndUsr != null">
+        SND_USR = #{sndUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="sndUsrNam != null">
+        SND_USR_NAM = #{sndUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="aitTyp != null">
+        AIT_TYP = #{aitTyp,jdbcType=VARCHAR},
+      </if>
+      <if test="aitCon != null">
+        AIT_CON = #{aitCon,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvTel != null">
+        RSV_TEL = #{rsvTel,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvCom != null">
+        RSV_COM = #{rsvCom,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvComNam != null">
+        RSV_COM_NAM = #{rsvComNam,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvUsr != null">
+        RSV_USR = #{rsvUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="rsvUsrNam != null">
+        RSV_USR_NAM = #{rsvUsrNam,jdbcType=VARCHAR},
+      </if>
+      <if test="retFlg != null">
+        RET_FLG = #{retFlg,jdbcType=VARCHAR},
+      </if>
+      <if test="retMem != null">
+        RET_MEM = #{retMem,jdbcType=VARCHAR},
+      </if>
+      <if test="outPlt != null">
+        OUT_PLT = #{outPlt,jdbcType=VARCHAR},
+      </if>
+      <if test="outSeq != null">
+        OUT_SEQ = #{outSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="outUsr != null">
+        OUT_USR = #{outUsr,jdbcType=VARCHAR},
+      </if>
+      <if test="sndFlg != null">
+        SND_FLG = #{sndFlg,jdbcType=CHAR},
+      </if>
+      <if test="busSeq != null">
+        BUS_SEQ = #{busSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="aitPar != null">
+        AIT_PAR = #{aitPar,jdbcType=VARCHAR},
+      </if>
+      <if test="chlTyp != null">
+        CHL_TYP = #{chlTyp,jdbcType=CHAR},
+      </if>
+      <if test="aitSce != null">
+        AIT_SCE = #{aitSce,jdbcType=VARCHAR},
+      </if>
+      <if test="systemId != null">
+        SYSTEM_ID = #{systemId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AIT_SEQ = #{aitSeq,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="activetech.aid.pojo.domain.AidAitInf">
+    update AID_AIT_INF
+    set SND_TIM = #{sndTim,jdbcType=TIMESTAMP},
+      SND_COM = #{sndCom,jdbcType=VARCHAR},
+      SND_COM_NAM = #{sndComNam,jdbcType=VARCHAR},
+      SND_USR = #{sndUsr,jdbcType=VARCHAR},
+      SND_USR_NAM = #{sndUsrNam,jdbcType=VARCHAR},
+      AIT_TYP = #{aitTyp,jdbcType=VARCHAR},
+      AIT_CON = #{aitCon,jdbcType=VARCHAR},
+      RSV_TEL = #{rsvTel,jdbcType=VARCHAR},
+      RSV_COM = #{rsvCom,jdbcType=VARCHAR},
+      RSV_COM_NAM = #{rsvComNam,jdbcType=VARCHAR},
+      RSV_USR = #{rsvUsr,jdbcType=VARCHAR},
+      RSV_USR_NAM = #{rsvUsrNam,jdbcType=VARCHAR},
+      RET_FLG = #{retFlg,jdbcType=VARCHAR},
+      RET_MEM = #{retMem,jdbcType=VARCHAR},
+      OUT_PLT = #{outPlt,jdbcType=VARCHAR},
+      OUT_SEQ = #{outSeq,jdbcType=VARCHAR},
+      OUT_USR = #{outUsr,jdbcType=VARCHAR},
+      SND_FLG = #{sndFlg,jdbcType=CHAR},
+      BUS_SEQ = #{busSeq,jdbcType=VARCHAR},
+      AIT_PAR = #{aitPar,jdbcType=VARCHAR},
+      CHL_TYP = #{chlTyp,jdbcType=CHAR},
+      AIT_SCE = #{aitSce,jdbcType=VARCHAR},
+      SYSTEM_ID = #{systemId,jdbcType=VARCHAR}
+    where AIT_SEQ = #{aitSeq,jdbcType=VARCHAR}
+  </update>
+</mapper>
