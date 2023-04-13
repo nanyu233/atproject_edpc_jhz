@@ -98,6 +98,11 @@
             transition: all 200ms ease;
             border-radius: 5px;
         }
+        .img-panel.error {
+            background-color: #d2d2d2 !important;
+            cursor: no-drop;
+            pointer-events: none;
+        }
         .img-panel:hover {
             background-color: #20a4f3;
         }
@@ -135,6 +140,10 @@
             left: 50%;
             transform: translate(-50%, -50%);
             cursor: pointer;
+        }
+        .img-panel__hover-wrapper__center.error {
+            display: flex;
+            pointer-events: none;
         }
         .img-panel:hover .img-panel__hover-wrapper__center {
             display: flex;
@@ -245,6 +254,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
+            gap: 5px;
         }
         section.main .main-container .handler {
             display: flex;
@@ -309,6 +319,9 @@
             border-radius: 10px;
             border: 1px solid #ebeef5;
         }
+        .pointer-events-none {
+            pointer-events: none;
+        }
     </style>
 </head>
 
@@ -321,7 +334,7 @@
         </section>
         <section class="main user-select-none">
             <div class="main-container border">
-                <header class="handler" v-show="currentConsent">
+                <header class="handler border" v-show="currentConsent">
                     <el-button type="primary" size="small" @click="grabimage()">拍照</el-button>
                     <el-button type="primary" size="small" @click="rotate(90)">左转</el-button>
                     <el-button type="primary" size="small" @click="rotate(270)">右转</el-button>
@@ -332,11 +345,17 @@
         <section class="aside user-select-none">
             <div class="content-info-container border">
                 <div class="content-info__title">历史保存照片</div>
-                <div class="queue-preview-img flex-col">
-                    <div class="img-panel" v-for="consentInfo in consentInfoList" :key="consentInfo.id" :id="consentInfo.id">
-                        <img class="img preview-img" :src="consentInfo.imgUri" style="width: 100%" @click="handlePreviewImgClick($event, consentInfo.imgUri)" @error="handlePreviewImgError($event, consentInfo.id)" />
-                        <div class="img-panel__hover-wrapper__center" @click="downloadIMG(consentInfo.id)">
-                            <svg t="1681362731866" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1467" width="200" height="200">
+                <div class="queue-preview-img flex-col" v-if="consentInfoList && consentInfoList.length > 0">
+                    <div :class="['img-panel', consentInfo.imgError === true && 'error']" v-for="consentInfo in consentInfoList" :key="consentInfo.id" :id="consentInfo.id">
+                        <img class="img preview-img" :src="consentInfo.imgUri" style="width: 100%; max-height: 250px" @click="handlePreviewImgClick($event, consentInfo.imgUri)" @error="handleConsentInfoImgError($event, consentInfo)" />
+                        <div :class="['img-panel__hover-wrapper__center', consentInfo.imgError === true && 'error']" @click="downloadIMG(consentInfo)">
+                            <svg v-if="consentInfo.imgError === true" id="load-error" t="1681371699123" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4718" width="200" height="200">
+                                <path
+                                        d="M567.04 692.48c2.56-2.56 4.416-5.76 5.76-9.024 6.4-12.096 4.416-27.52-5.76-37.76L335.36 414.08l229.12-229.12c13.44-13.44 13.44-33.856 0-47.296C558.08 131.2 549.76 128 541.44 128L192 128C121.6 128 64 185.6 64 256l0 576c0 70.4 57.6 128 128 128l96.64 0c9.024 0 17.344-3.2 23.68-9.6L366.08 896l198.464-199.68C565.76 695.04 565.76 693.76 567.04 692.48zM272 896 192 896c-35.2 0-64-28.8-64-64L128 256c0-35.2 28.8-64 64-64l271.36 0L264.96 389.76C254.72 400 252.8 415.36 259.2 427.52 260.48 430.72 262.4 433.92 264.96 436.48 266.24 437.76 266.24 439.04 267.52 440.32l229.76 229.76L272 896zM832 128l-98.56 0c-8.96 0-17.344 3.2-23.68 9.6L655.36 192 456.96 389.76C440.448 407.744 443.52 423.296 459.52 440.32l229.76 229.76L456.96 903.04c-12.8 12.8-12.8 33.856 0 47.296C463.36 956.8 472.32 960 480.64 960L832 960c70.4 0 128-57.6 128-128L960 256C960 185.6 902.4 128 832 128zM896 832c0 35.2-28.8 64-64 64L558.08 896l198.464-199.68c15.232-14.848 14.72-37.376 2.56-50.56L527.36 414.08 749.44 192 832 192c35.2 0 64 28.8 64 64L896 832z"
+                                        p-id="4719"
+                                ></path>
+                            </svg>
+                            <svg v-else id="download" t="1681362731866" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1467" width="200" height="200">
                                 <path
                                         d="M341.333333 640a42.666667 42.666667 0 0 1-42.666666 42.666667H256a170.666667 170.666667 0 0 1-40.277333-336.554667 298.709333 298.709333 0 0 1 570.154666-81.408A213.333333 213.333333 0 0 1 725.333333 682.666667a42.666667 42.666667 0 0 1 0.042667-85.333334 128 128 0 0 0 36.394667-250.794666l-38.144-11.264-15.914667-36.437334a213.376 213.376 0 0 0-407.296 58.026667l-7.381333 58.368-57.173334 13.824A85.418667 85.418667 0 0 0 256 597.333333h42.666667a42.666667 42.666667 0 0 1 42.666666 42.666667z m321.706667 87.338667a42.666667 42.666667 0 0 1 0 60.330666l-120.917333 120.832c-16.682667 16.64-43.690667 16.64-60.373334 0l-120.917333-120.832a42.666667 42.666667 0 0 1 60.330667-60.330666L469.333333 775.509333V426.666667a42.666667 42.666667 0 0 1 85.333334 0v348.714666l48.042666-48.042666a42.666667 42.666667 0 0 1 60.330667 0z"
                                         fill="#333333"
@@ -346,14 +365,15 @@
                         </div>
                     </div>
                 </div>
+                <div v-else class="el-table__empty-block" style="width: 100%; font-size: 14px"><span class="el-table__empty-text">暂无数据</span></div>
             </div>
         </section>
         <section class="footer user-select-none">
-            <div class="queue-preview-img border">
+            <div class="queue-preview-img border" v-if="queuePreviewImg && queuePreviewImg.length > 0">
                 <div class="img-panel" v-for="previewImg in queuePreviewImg" :key="previewImg.id" :id="previewImg.id">
                     <img class="img preview-img" :src="previewImg.base64" style="height: 100%" @click="handlePreviewImgClick($event, previewImg.base64)" @error="handlePreviewImgError($event, previewImg.id)" />
                     <div class="img-del" @click="handlePreviewImgDelete($event, previewImg.id)">
-                        <svg t="1642657470664" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2917" width="8px" height="8px">
+                        <svg id="del" t="1642657470664" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2917" width="8px" height="8px">
                             <path
                                     d="M646.022677 512.096136l350.142243-350.142244c36.857078-36.857078 36.857078-96.74983 0-134.118812s-96.74983-36.857078-134.118812 0L511.903864 377.977323 161.761621 27.83508c-36.857078-36.857078-96.74983-36.857078-134.118812 0-36.857078 36.857078-36.857078 96.74983 0 134.118812L377.785052 512.096136 27.642809 862.238379c-36.857078 36.857078-36.857078 96.74983 0 134.118812 36.857078 36.857078 96.74983 36.857078 134.118812 0l350.142243-350.142243 350.142244 350.142243c36.857078 36.857078 96.74983 36.857078 134.118812 0 36.857078-36.857078 36.857078-96.74983 0-134.118812L646.022677 512.096136z"
                                     p-id="2918"
@@ -361,8 +381,15 @@
                             ></path>
                         </svg>
                     </div>
-                    <div class="img-panel__hover-wrapper__center" @click="handlePreviewImgUpload($event, previewImg)">
-                        <svg t="1681299164098" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2655" width="20px" height="20px">
+                    <div :class="['img-panel__hover-wrapper__center', previewImg.uploaded === true && 'pointer-events-none']" @click="handlePreviewImgUpload($event, previewImg)">
+                        <svg v-if="previewImg.uploaded" id="upload-success" t="1681370857997" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2968" width="200" height="200">
+                            <path
+                                    d="M512 0C230.4 0 0 230.4 0 512s230.4 512 512 512 512-230.4 512-512S793.6 0 512 0z m0 947.2c-240.64 0-435.2-194.56-435.2-435.2S271.36 76.8 512 76.8s435.2 194.56 435.2 435.2-194.56 435.2-435.2 435.2z m266.24-578.56c0 10.24-5.12 20.48-10.24 25.6l-286.72 286.72c-5.12 5.12-15.36 10.24-25.6 10.24s-20.48-5.12-25.6-10.24l-163.84-163.84c-15.36-5.12-20.48-15.36-20.48-25.6 0-20.48 15.36-40.96 40.96-40.96 10.24 5.12 20.48 10.24 25.6 15.36l138.24 138.24 261.12-261.12c5.12-5.12 15.36-10.24 25.6-10.24 20.48-5.12 40.96 15.36 40.96 35.84z"
+                                    fill="#059026"
+                                    p-id="2969"
+                            ></path>
+                        </svg>
+                        <svg v-else id="upload" t="1681299164098" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2655" width="20px" height="20px">
                             <path
                                     d="M576 631.466667V725.333333h170.666667c59.733333-8.533333 106.666667-64 106.666666-128 0-72.533333-55.466667-128-128-128-17.066667 0-29.866667 4.266667-42.666666 8.533334V469.333333c0-93.866667-76.8-170.666667-170.666667-170.666666s-170.666667 76.8-170.666667 170.666666c0 17.066667 4.266667 29.866667 4.266667 46.933334-8.533333-4.266667-17.066667-4.266667-25.6-4.266667C260.266667 512 213.333333 558.933333 213.333333 618.666667S260.266667 725.333333 320 725.333333h170.666667v-93.866666l-46.933334 46.933333L384 618.666667l149.333333-149.333334 149.333334 149.333334-59.733334 59.733333-46.933333-46.933333z m0 93.866666v85.333334h-85.333333v-85.333334h-42.666667v85.333334h-128C213.333333 810.666667 128 725.333333 128 618.666667c0-85.333333 55.466667-157.866667 128-183.466667C273.066667 311.466667 379.733333 213.333333 512 213.333333c110.933333 0 209.066667 72.533333 243.2 170.666667 102.4 12.8 183.466667 102.4 183.466667 213.333333s-85.333333 200.533333-192 213.333334h-128v-85.333334h-42.666667z"
                                     fill="#444444"
@@ -371,6 +398,10 @@
                         </svg>
                     </div>
                 </div>
+            </div>
+            <div v-else class="el-table__empty-block border" style="width: 100%; height: 100%; font-size: 14px">
+                <span v-if="currentConsent" class="el-table__empty-text">暂无预览照片，请先拍照</span>
+                <span v-else class="el-table__empty-text">未选中文书，无法提供预览</span>
             </div>
         </section>
         <div ref="imgPopup" class="img-popup user-select-none"></div>
@@ -398,10 +429,10 @@
                             if (res.resultInfo.messageCode == 906) {
                                 var sysdata = res.resultInfo.sysdata || {}
                                 var consentInfoList = sysdata.consentFormImgInfo || []
-                                self.consentInfoList = consentInfoList
-                            } else {
-                                // remove
-                                self.consentInfoList = JSON.parse(localStorage.getItem('consentFormImgInfo') || [])
+                                self.consentInfoList = consentInfoList.map(function (info) {
+                                    info.imgError = false
+                                    return info
+                                })
                             }
                         })
                     }
@@ -415,15 +446,11 @@
                         var consentList = sysdata.ConsentFormImgInfos || []
                         self.consentList = consentList
                         self.setCurrentConsent(self.consentList[0])
-                    } else {
-                        // remove
-                        self.consentList = JSON.parse(localStorage.getItem('ConsentFormImgInfos') || [])
-                        self.setCurrentConsent(self.consentList[0])
-                        // alert('获取同意书列表失败')
                     }
                 })
             },
             methods: {
+                downloadIMG: downloadIMG,
                 getConsentList: function () {
                     return $.ajax({
                         type: 'POST',
@@ -458,6 +485,10 @@
                 },
                 handleCurrentConsentChange: function (currentRow) {
                     this.setCurrentConsent(currentRow)
+                },
+                handleConsentInfoImgError: function (e, consentInfo) {
+                    consentInfo.imgUri = this.fakeUrl
+                    consentInfo.imgError = true
                 },
                 handlePreviewImgError: function (e, id) {
                     var src = e.target.src
@@ -500,6 +531,9 @@
                     })
                 },
                 handlePreviewImgUpload: function (e, previewImg) {
+                    if (previewImg.uploaded === true) {
+                        return
+                    }
                     var base64 = previewImg.base64
                     var currentConsent = this.currentConsent
                     var formData = new FormData()
@@ -517,14 +551,10 @@
                         processData: false,
                         data: formData,
                         success: function (res) {
+                            message_alert(res)
                             if (res.resultInfo.messageCode == 906) {
-                                alert('上传成功')
-                            } else {
-                                alert('上传失败')
+                                previewImg.uploaded = true
                             }
-                        },
-                        error: function () {
-                            alert('上传失败')
                         }
                     })
                 },
@@ -548,10 +578,11 @@
                         if (res.code == '0') {
                             self.queuePreviewImg.push({
                                 id: String(new Date().getTime()),
-                                base64: 'data:image/jpg;base64,' + res.photoBase64
+                                base64: 'data:image/jpg;base64,' + res.photoBase64,
+                                uploaded: false
                             })
                         } else {
-                            alert('拍照失败')
+                            $.messager.alert('高拍仪',"拍照失败",'error')
                         }
                     })
                 },
