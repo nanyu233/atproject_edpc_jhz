@@ -341,7 +341,7 @@
                     <el-button type="primary" size="small" @click="rotate(90)">左转</el-button>
                     <el-button type="primary" size="small" @click="rotate(270)">右转</el-button>
                 </header>
-                <main class="view" title="主摄像头">
+                <main class="view" title="主摄像头" :style="{ 'background-image': 'url('+viewUrl+')' }">
                     <h2 v-if="viewStatus === 'no'" style="padding-top: 200px; font-size: 30px; font-weight: bold; color: red;">高拍仪状态：{{ viewStatusMessage }}</h2>
                 </main>
             </div>
@@ -423,7 +423,6 @@
                     fakeUrl: _fakeUrl,
                     viewUrl: _viewUrl,
                     viewStatus: 'no', // no:未连接；ok:已连接；run:已连接且运行
-                    viewReconnectLimitCount: 3,
                     queuePreviewImg: [],
                     consentList: [],
                     currentConsent: null,
@@ -460,19 +459,15 @@
             },
             mounted: function () {
                 var self = this
-                this.getViewStatus()
-                this.getConsentList().then(function (res) {
-                    if (res.resultInfo.messageCode == 906) {
-                        var sysdata = res.resultInfo.sysdata || {}
-                        var consentList = sysdata.ConsentFormImgInfos || []
-                        self.consentList = consentList
-                        self.setCurrentConsent(self.consentList[0])
-                    }
-                })
+                setInterval(function () {
+                    self.getViewStatus()
+                }, 2000)
+                this.getConsentList()
             },
             methods: {
                 downloadIMG: downloadIMG,
                 getConsentList: function () {
+                    var self = this
                     return $.ajax({
                         type: 'POST',
                         url: '${baseurl}consentForm/queryConsentFormImgInfos.do',
@@ -482,7 +477,15 @@
                             hspConsentFormImgCustom: {
                                 patientId: this.patientId
                             }
-                        })
+                        }),
+                        success: function (res) {
+                            if (res.resultInfo.messageCode == 906) {
+                                var sysdata = res.resultInfo.sysdata || {}
+                                var consentList = sysdata.ConsentFormImgInfos || []
+                                self.consentList = consentList
+                                self.setCurrentConsent(self.consentList[0])
+                            }
+                        }
                     })
                 },
                 getConsentInfoList: function (consent) {
@@ -612,16 +615,6 @@
                     $.post("http://127.0.0.1:38088/video=status").then(function (res) {
                         // no:未连接；ok:已连接；run:已连接且运行
                         self.viewStatus = res.video0 || 'no'
-
-                        // 重连
-                        if (self.viewStatus === 'no') {
-                            if (self.viewReconnectLimitCount > 0) {
-                                self.viewReconnectLimitCount --
-                                setTimeout(function(){
-                                    self.getViewStatus()
-                                }, 2000)
-                            }
-                        }
                     })
                 },
                 // 高拍仪 旋转
