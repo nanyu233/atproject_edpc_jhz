@@ -269,6 +269,8 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: auto 100%;
+            display: flex;
+            justify-content: center;
         }
 
         section.aside {
@@ -339,7 +341,9 @@
                     <el-button type="primary" size="small" @click="rotate(90)">左转</el-button>
                     <el-button type="primary" size="small" @click="rotate(270)">右转</el-button>
                 </header>
-                <main class="view" title="主摄像头"></main>
+                <main class="view" title="主摄像头">
+                    <h2 v-if="viewStatus === 'no'" style="padding-top: 200px; font-size: 30px; font-weight: bold; color: red;">高拍仪状态：{{ viewStatusMessage }}</h2>
+                </main>
             </div>
         </section>
         <section class="aside user-select-none">
@@ -408,38 +412,55 @@
     </div>
 
     <script type="application/javascript">
+        var _viewUrl = 'http://127.0.0.1:38088/video=stream&camidx=0'
+        var _fakeUrl = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+
         var vm = new Vue({
             el: '#app',
             data: function () {
                 return {
                     patientId: '${patientId}',
-                    fakeUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
-                    viewUrl: 'http://127.0.0.1:38088/video=stream&camidx=0',
+                    fakeUrl: _fakeUrl,
+                    viewUrl: _viewUrl,
+                    viewStatus: 'no', // no:未连接；ok:已连接；run:已连接且运行
+                    viewReconnectLimitCount: 3,
                     queuePreviewImg: [],
                     consentList: [],
                     currentConsent: null,
                     consentInfoList: []
                 }
             },
+            computed: {
+                viewStatusMessage: function () {
+                    switch (this.viewStatus) {
+                        case "no":
+                            return "未连接"
+                        case "ok":
+                            return "已连接"
+                        case "run":
+                            return "已连接且运行"
+                        default:
+                            return ""
+                    }
+                }
+            },
             watch: {
+                viewStatus(state) {
+                    if (state === 'no') {
+                        this.viewUrl = _fakeUrl
+                    } else {
+                        this.viewUrl = _viewUrl
+                    }
+                },
                 currentConsent: function (currentConsent) {
-                    var self = this
                     if (currentConsent) {
-                        this.getConsentInfoList(currentConsent).then(function (res) {
-                            if (res.resultInfo.messageCode == 906) {
-                                var sysdata = res.resultInfo.sysdata || {}
-                                var consentInfoList = sysdata.consentFormImgInfo || []
-                                self.consentInfoList = consentInfoList.map(function (info) {
-                                    info.imgError = false
-                                    return info
-                                })
-                            }
-                        })
+                        this.getConsentInfoList(currentConsent)
                     }
                 }
             },
             mounted: function () {
                 var self = this
+                this.getViewStatus()
                 this.getConsentList().then(function (res) {
                     if (res.resultInfo.messageCode == 906) {
                         var sysdata = res.resultInfo.sysdata || {}
@@ -465,6 +486,7 @@
                     })
                 },
                 getConsentInfoList: function (consent) {
+                    var self = this
                     return $.ajax({
                         type: 'POST',
                         url: '${baseurl}consentForm/queryConsentFormImgInfo.do',
@@ -476,7 +498,17 @@
                                 consentFormId: consent.consentFormId,
                                 consentFormSeq: consent.consentFormSeq
                             }
-                        })
+                        }),
+                        success: function (res) {
+                            if (res.resultInfo.messageCode == 906) {
+                                var sysdata = res.resultInfo.sysdata || {}
+                                var consentInfoList = sysdata.consentFormImgInfo || []
+                                self.consentInfoList = consentInfoList.map(function (info) {
+                                    info.imgError = false
+                                    return info
+                                })
+                            }
+                        }
                     })
                 },
                 setCurrentConsent: function (consent) {
@@ -485,6 +517,7 @@
                 },
                 handleCurrentConsentChange: function (currentRow) {
                     this.setCurrentConsent(currentRow)
+                    this.queuePreviewImg = []
                 },
                 handleConsentInfoImgError: function (e, consentInfo) {
                     consentInfo.imgUri = this.fakeUrl
@@ -531,6 +564,7 @@
                     })
                 },
                 handlePreviewImgUpload: function (e, previewImg) {
+                    var self = this
                     if (previewImg.uploaded === true) {
                         return
                     }
@@ -554,6 +588,38 @@
                             message_alert(res)
                             if (res.resultInfo.messageCode == 906) {
                                 previewImg.uploaded = true
+                                var sysdata = res.resultInfo.sysdata || {}
+                                var idList = sysdata.idList || []
+                                var id = idList[0]
+                                self.getConsentInfoList(self.currentConsent)
+                                self.$nextTick(function () {
+                                    if (id) {
+                                        var $newUploadTarget = $('#'+id)
+                                        $('.content-info-container .queue-preview-img').animate({
+                                            scrollTop: $newUploadTarget.prev().length ? $newUploadTarget.prev().offset().top : $newUploadTarget.offset().top
+                                        }, 2000, function() {
+                                            $newUploadTarget.toggleClass('img-panel__select',  3000)
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    })
+                },
+                // 高拍仪 获取设备状态
+                getViewStatus: function () {
+                    var self = this
+                    $.post("http://127.0.0.1:38088/video=status").then(function (res) {
+                        // no:未连接；ok:已连接；run:已连接且运行
+                        self.viewStatus = res.video0 || 'no'
+
+                        // 重连
+                        if (self.viewStatus === 'no') {
+                            if (self.viewReconnectLimitCount > 0) {
+                                self.viewReconnectLimitCount --
+                                setTimeout(function(){
+                                    self.getViewStatus()
+                                }, 2000)
                             }
                         }
                     })
