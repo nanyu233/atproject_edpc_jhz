@@ -28,7 +28,7 @@ public interface HspConsentFormImgService {
      * @author chenys
      * @date 2023/4/6 18:26
      */
-    void uploadConsentFormImg(MultipartFile multipartFile, HspConsentFormImgQueryDto hspConsentFormImgQueryDto, ActiveUser activeUser) throws Exception;
+    String uploadConsentFormImg(MultipartFile multipartFile, HspConsentFormImgQueryDto hspConsentFormImgQueryDto, ActiveUser activeUser) throws Exception;
 
     /**
      * 查询同意书下的拍照图片

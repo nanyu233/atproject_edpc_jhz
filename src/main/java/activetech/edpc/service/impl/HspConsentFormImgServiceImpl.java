@@ -69,7 +69,7 @@ public class HspConsentFormImgServiceImpl implements HspConsentFormImgService {
     }
 
     @Override
-    public void uploadConsentFormImg(MultipartFile multipartFile, HspConsentFormImgQueryDto hspConsentFormImgQueryDto, ActiveUser activeUser) throws Exception {
+    public String uploadConsentFormImg(MultipartFile multipartFile, HspConsentFormImgQueryDto hspConsentFormImgQueryDto, ActiveUser activeUser) throws Exception {
         HspConsentFormImgCustom hspConsentFormImgCustom = hspConsentFormImgQueryDto.getHspConsentFormImgCustom();
         String uuid = UUIDBuild.getUUID();
         hspConsentFormImgCustom.setId(uuid);
@@ -88,6 +88,7 @@ public class HspConsentFormImgServiceImpl implements HspConsentFormImgService {
         hspConsentFormImgCustom.setUpdatedBy(activeUser.getUsrno());
         hspConsentFormImgCustom.setUpdatedTime(new Date());
         hspConsentFormImgMapper.insertSelective(hspConsentFormImgCustom);
+        return uuid;
     }
 
     @Override

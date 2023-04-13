@@ -19,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -76,9 +79,14 @@ public class HspConsentFormImgAction {
     public SubmitResultInfo uploadConsentFormImg(@RequestParam("files") MultipartFile[] multipartFiles, HspConsentFormImgQueryDto hspConsentFormImgCustom, ActiveUser activeUser) throws Exception {
         ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
         Assert.isTrue(multipartFiles != null && multipartFiles.length >= 1, "文件必传");
+        Map<String,Object> map=new HashMap<>();
+        List<String> idList= new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
-            hspConsentFormImgService.uploadConsentFormImg(multipartFile, hspConsentFormImgCustom, activeUser);
+            String id = hspConsentFormImgService.uploadConsentFormImg(multipartFile, hspConsentFormImgCustom, activeUser);
+            idList.add(id);
         }
+        map.put("idList",idList);
+        resultInfo.setSysdata(map);
         return ResultUtil.createSubmitResult(resultInfo);
     }
 
