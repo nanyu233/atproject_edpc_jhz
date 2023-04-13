@@ -50,10 +50,6 @@
         .el-button + .el-button {
             margin-left: 0px;
         }
-        .el-table {
-            border-radius: 10px;
-            border: 1px solid #ebeef5;
-        }
         .el-table::before {
             height: 0;
         }
@@ -72,7 +68,7 @@
         }
         /* #endregion */
 
-        /* #region img, img-popup, img-close, img-del, img-upload */
+        /* #region img */
         .img {
             width: 120px;
             border-radius: 5px;
@@ -85,7 +81,7 @@
             height: 100%;
             display: flex;
             flex-flow: row nowrap;
-            overflow-x: auto;
+            overflow: auto;
         }
 
         .preview-img + .preview-img {
@@ -128,7 +124,7 @@
             display: flex;
         }
 
-        .img-upload {
+        .img-panel__hover-wrapper__center {
             display: none;
             align-items: center;
             justify-content: center;
@@ -140,7 +136,7 @@
             transform: translate(-50%, -50%);
             cursor: pointer;
         }
-        .img-panel:hover .img-upload {
+        .img-panel:hover .img-panel__hover-wrapper__center {
             display: flex;
         }
 
@@ -208,6 +204,10 @@
             background-color: white;
             cursor: pointer;
         }
+
+        .img-popup {
+            display: none;
+        }
         /* #endregion */
 
         body {
@@ -223,7 +223,7 @@
             grid-template-areas:
                     'nav main aside'
                     'footer footer footer';
-            grid-template-rows: auto 110px;
+            grid-template-rows: minmax(0, calc(100% - 110px)) 110px;
             grid-template-columns: 200px auto 200px;
             grid-gap: 5px;
             transition: all;
@@ -239,17 +239,21 @@
 
         section.main {
             grid-area: main;
+        }
+        section.main .main-container {
+            height: 100%;
+            width: 100%;
             display: flex;
             flex-direction: column;
         }
-        section.main .handler {
+        section.main .main-container .handler {
             display: flex;
             flex-direction: row;
             align-items: center;
             gap: 10px;
             background-color: #ebeef5;
         }
-        section.main .view {
+        section.main .main-container .view {
             flex: 1;
             background: url('http://127.0.0.1:38088/video=stream&camidx=0') center center fixed;
             background-repeat: no-repeat;
@@ -260,14 +264,32 @@
         section.aside {
             grid-area: aside;
         }
-        section.aside .consent-info-list {
+        section.aside .content-info-container {
             width: 100%;
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        section.aside .content-info-container .content-info__title {
+            width: 100%;
+            display: inline-block;
+            padding: 4px 10px;
+            border-bottom: 1px solid #ebeef5;
+            font-weight: 400;
+            font-style: normal;
+            color: #909399;
+            vertical-align: middle;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+            word-break: break-all;
+            line-height: 23px;
         }
 
         section.footer {
             grid-area: footer;
-            border-top: 1px solid #ebeef5;
         }
 
         section.nav,
@@ -275,11 +297,17 @@
         section.aside,
         section.footer {
             padding: 5px;
-            border-radius: 10px;
         }
 
         .user-select-none {
             user-select: none;
+        }
+        .flex-col {
+            flex-direction: column;
+        }
+        .border {
+            border-radius: 10px;
+            border: 1px solid #ebeef5;
         }
     </style>
 </head>
@@ -287,29 +315,41 @@
 <body>
     <div id="app" class="container">
         <section class="nav">
-            <el-table class="consent-list" ref="consentList" :data="consentList" stripe fit highlight-current-row @current-change="handleCurrentConsentChange">
+            <el-table class="consent-list border" ref="consentList" :data="consentList" stripe fit highlight-current-row @current-change="handleCurrentConsentChange">
                 <el-table-column prop="consentFormName" label="同意书名称"> </el-table-column>
             </el-table>
         </section>
         <section class="main user-select-none">
-            <header class="handler" v-show="currentConsent">
-                <el-button type="primary" size="small" @click="grabimage()">拍照</el-button>
-                <el-button type="primary" size="small" @click="rotate(90)">左转</el-button>
-                <el-button type="primary" size="small" @click="rotate(270)">右转</el-button>
-            </header>
-            <main class="view" title="主摄像头"></main>
+            <div class="main-container border">
+                <header class="handler" v-show="currentConsent">
+                    <el-button type="primary" size="small" @click="grabimage()">拍照</el-button>
+                    <el-button type="primary" size="small" @click="rotate(90)">左转</el-button>
+                    <el-button type="primary" size="small" @click="rotate(270)">右转</el-button>
+                </header>
+                <main class="view" title="主摄像头"></main>
+            </div>
         </section>
-        <section class="aside">
-            <el-table class="consent-info-list" ref="consentInfoList" :data="consentInfoList" stripe fit highlight-current-row height="100%" @current-change="handleCurrentConsentInfoChange">
-                <el-table-column label="历史上传图片">
-                    <template slot-scope="scope">
-                        <el-image style="width: 100%; height: 100%; overflow: initial" :src="scope.row.imgUri" fit="cover" @click="handlePreviewImgClick($event, scope.row.imgUri)"></el-image>
-                    </template>
-                </el-table-column>
-            </el-table>
+        <section class="aside user-select-none">
+            <div class="content-info-container border">
+                <div class="content-info__title">历史保存照片</div>
+                <div class="queue-preview-img flex-col">
+                    <div class="img-panel" v-for="consentInfo in consentInfoList" :key="consentInfo.id" :id="consentInfo.id">
+                        <img class="img preview-img" :src="consentInfo.imgUri" style="width: 100%" @click="handlePreviewImgClick($event, consentInfo.imgUri)" @error="handlePreviewImgError($event, consentInfo.id)" />
+                        <div class="img-panel__hover-wrapper__center" @click="downloadIMG(consentInfo.id)">
+                            <svg t="1681362731866" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1467" width="200" height="200">
+                                <path
+                                        d="M341.333333 640a42.666667 42.666667 0 0 1-42.666666 42.666667H256a170.666667 170.666667 0 0 1-40.277333-336.554667 298.709333 298.709333 0 0 1 570.154666-81.408A213.333333 213.333333 0 0 1 725.333333 682.666667a42.666667 42.666667 0 0 1 0.042667-85.333334 128 128 0 0 0 36.394667-250.794666l-38.144-11.264-15.914667-36.437334a213.376 213.376 0 0 0-407.296 58.026667l-7.381333 58.368-57.173334 13.824A85.418667 85.418667 0 0 0 256 597.333333h42.666667a42.666667 42.666667 0 0 1 42.666666 42.666667z m321.706667 87.338667a42.666667 42.666667 0 0 1 0 60.330666l-120.917333 120.832c-16.682667 16.64-43.690667 16.64-60.373334 0l-120.917333-120.832a42.666667 42.666667 0 0 1 60.330667-60.330666L469.333333 775.509333V426.666667a42.666667 42.666667 0 0 1 85.333334 0v348.714666l48.042666-48.042666a42.666667 42.666667 0 0 1 60.330667 0z"
+                                        fill="#333333"
+                                        p-id="1468"
+                                ></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <section class="footer user-select-none">
-            <div class="queue-preview-img">
+            <div class="queue-preview-img border">
                 <div class="img-panel" v-for="previewImg in queuePreviewImg" :key="previewImg.id" :id="previewImg.id">
                     <img class="img preview-img" :src="previewImg.base64" style="height: 100%" @click="handlePreviewImgClick($event, previewImg.base64)" @error="handlePreviewImgError($event, previewImg.id)" />
                     <div class="img-del" @click="handlePreviewImgDelete($event, previewImg.id)">
@@ -321,7 +361,7 @@
                             ></path>
                         </svg>
                     </div>
-                    <div class="img-upload" @click="handlePreviewImgUpload($event, previewImg)">
+                    <div class="img-panel__hover-wrapper__center" @click="handlePreviewImgUpload($event, previewImg)">
                         <svg t="1681299164098" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2655" width="20px" height="20px">
                             <path
                                     d="M576 631.466667V725.333333h170.666667c59.733333-8.533333 106.666667-64 106.666666-128 0-72.533333-55.466667-128-128-128-17.066667 0-29.866667 4.266667-42.666666 8.533334V469.333333c0-93.866667-76.8-170.666667-170.666667-170.666666s-170.666667 76.8-170.666667 170.666666c0 17.066667 4.266667 29.866667 4.266667 46.933334-8.533333-4.266667-17.066667-4.266667-25.6-4.266667C260.266667 512 213.333333 558.933333 213.333333 618.666667S260.266667 725.333333 320 725.333333h170.666667v-93.866666l-46.933334 46.933333L384 618.666667l149.333333-149.333334 149.333334 149.333334-59.733334 59.733333-46.933333-46.933333z m0 93.866666v85.333334h-85.333333v-85.333334h-42.666667v85.333334h-128C213.333333 810.666667 128 725.333333 128 618.666667c0-85.333333 55.466667-157.866667 128-183.466667C273.066667 311.466667 379.733333 213.333333 512 213.333333c110.933333 0 209.066667 72.533333 243.2 170.666667 102.4 12.8 183.466667 102.4 183.466667 213.333333s-85.333333 200.533333-192 213.333334h-128v-85.333334h-42.666667z"
@@ -341,14 +381,13 @@
             el: '#app',
             data: function () {
                 return {
-                    patientId: '00100354',
+                    patientId: '${patientId}',
                     fakeUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
                     viewUrl: 'http://127.0.0.1:38088/video=stream&camidx=0',
                     queuePreviewImg: [],
                     consentList: [],
                     currentConsent: null,
-                    consentInfoList: [],
-                    currentConsentInfo: null
+                    consentInfoList: []
                 }
             },
             watch: {
@@ -360,11 +399,9 @@
                                 var sysdata = res.resultInfo.sysdata || {}
                                 var consentInfoList = sysdata.consentFormImgInfo || []
                                 self.consentInfoList = consentInfoList
-                                self.setCurrentConsentInfo(self.consentInfoList[0])
                             } else {
                                 // remove
                                 self.consentInfoList = JSON.parse(localStorage.getItem('consentFormImgInfo') || [])
-                                self.setCurrentConsentInfo(self.consentInfoList[0])
                             }
                         })
                     }
@@ -420,14 +457,7 @@
                     this.$refs.consentList.setCurrentRow(this.currentConsent)
                 },
                 handleCurrentConsentChange: function (currentRow) {
-                    console.log('handleCurrentConsentChange')
-                },
-                setCurrentConsentInfo: function (consentInfo) {
-                    this.currentConsentInfo = consentInfo || null
-                    this.$refs.consentInfoList.setCurrentRow(this.currentConsentInfo)
-                },
-                handleCurrentConsentInfoChange: function (currentRow) {
-                    console.log('handleCurrentConsentInfoChange')
+                    this.setCurrentConsent(currentRow)
                 },
                 handlePreviewImgError: function (e, id) {
                     var src = e.target.src
@@ -451,6 +481,7 @@
                     imgWrapper.appendChild(imgElement)
                     imgWrapper.appendChild(imgClose)
                     imgPopup.appendChild(imgWrapper)
+                    imgPopup.style.display = 'block'
 
                     this.$nextTick(function () {
                         imgWrapper.classList.add('img-wrapper__initial')
@@ -460,6 +491,7 @@
                     imgClose.addEventListener('click', function () {
                         container.classList.remove('img-panel__select')
                         imgPopup.removeChild(imgWrapper)
+                        imgPopup.style.display = 'none'
                     })
                 },
                 handlePreviewImgDelete: function (e, id) {
