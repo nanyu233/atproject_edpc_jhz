@@ -360,8 +360,8 @@
                 <div class="content-info__title">历史保存照片</div>
                 <div class="queue-preview-img flex-col" v-if="consentInfoList && consentInfoList.length > 0">
                     <div :class="['img-panel', consentInfo.imgError === true && 'error']" v-for="consentInfo in consentInfoList" :key="consentInfo.id" :id="consentInfo.id">
-                        <img class="img preview-img" :src="consentInfo.imgUri" style="width: 100%; max-height: 250px" @click="handlePreviewImgClick($event, consentInfo.imgUri)" @error="handleConsentInfoImgError($event, consentInfo)" />
-                        <div class="img-del" @click="imageDelete(consentInfo.id)">
+                        <img class="img preview-img" :src="consentInfo.imgUri" style="width: 100%; max-height: 250px" @click="handleImgPanelPreview($event, consentInfo.imgUri)" @error="handleConsentInfoImgError($event, consentInfo)" />
+                        <div class="img-del" @click="handleConsentInfoImgDelete($event, consentInfo.id)">
                             <svg id="del" t="1642657470664" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2917" width="8px" height="8px">
                                 <path
                                         d="M646.022677 512.096136l350.142243-350.142244c36.857078-36.857078 36.857078-96.74983 0-134.118812s-96.74983-36.857078-134.118812 0L511.903864 377.977323 161.761621 27.83508c-36.857078-36.857078-96.74983-36.857078-134.118812 0-36.857078 36.857078-36.857078 96.74983 0 134.118812L377.785052 512.096136 27.642809 862.238379c-36.857078 36.857078-36.857078 96.74983 0 134.118812 36.857078 36.857078 96.74983 36.857078 134.118812 0l350.142243-350.142243 350.142244 350.142243c36.857078 36.857078 96.74983 36.857078 134.118812 0 36.857078-36.857078 36.857078-96.74983 0-134.118812L646.022677 512.096136z"
@@ -393,7 +393,7 @@
         <section class="footer user-select-none">
             <div class="queue-preview-img border" v-if="queuePreviewImg && queuePreviewImg.length > 0">
                 <div class="img-panel" v-for="previewImg in queuePreviewImg" :key="previewImg.id" :id="previewImg.id">
-                    <img class="img preview-img" :src="previewImg.base64" style="height: 100%" @click="handlePreviewImgClick($event, previewImg.base64)" @error="handlePreviewImgError($event, previewImg.id)" />
+                    <img class="img preview-img" :src="previewImg.base64" style="height: 100%" @click="handleImgPanelPreview($event, previewImg.base64)" @error="handlePreviewImgError($event, previewImg.id)" />
                     <div class="img-del" @click="handlePreviewImgDelete($event, previewImg.id)">
                         <svg id="del" t="1642657470664" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2917" width="8px" height="8px">
                             <path
@@ -553,7 +553,7 @@
                         return img.base64 !== src
                     })
                 },
-                handlePreviewImgClick: function (e, url) {
+                handleImgPanelPreview: function (e, url) {
                     var imgElement = document.createElement('img')
                     var imgWrapper = document.createElement('div')
                     var imgClose = document.createElement('div')
@@ -609,6 +609,24 @@
                         })
                     })
                 },
+                handleConsentInfoImgDelete: function (e, id) {
+                    var self = this
+                    $.messager.confirm('警告', "是否确认删除 ", function (confirmed) {
+                        if (confirmed) {
+                            self.imageDelete(id).then(function (res) {
+                                self.consentInfoList = self.consentInfoList.filter(function (info) {
+                                    return info.id !== id
+                                })
+                            }).fail(function (res) {
+                                if (res.resultInfo) {
+                                    message_alert(res)
+                                } else {
+                                    $.messager.alert('接口异常',"接口异常 删除失败",'error')
+                                }
+                            })
+                        }
+                    })
+                },
                 scrollToImage: function (id){
                     var $newUploadTarget = $('#'+id)
                     $('.content-info-container .queue-preview-img').animate({
@@ -647,8 +665,7 @@
                     })
                 },
                 imageDelete: function (id) {
-                    var self = this
-                    $.ajax({
+                    return $.ajax({
                         type: 'POST',
                         url: '${baseurl}consentForm/deleteConsentFormImgInfo.do',
                         dataType: 'json',
@@ -657,15 +674,12 @@
                             hspConsentFormImgCustom:{
                                 id: id
                             }
-                        }),
-                        success: function (res) {
-                            if (res.resultInfo.messageCode == 906) {
-                                self.consentInfoList = self.consentInfoList.filter(function (info) {
-                                    return info.id !== id
-                                })
-                            } else {
-                                message_alert(res)
-                            }
+                        })
+                    }).then(function (res) {
+                        if (res.resultInfo.messageCode == 906) {
+                            return res
+                        } else {
+                            throw res
                         }
                     })
                 },
