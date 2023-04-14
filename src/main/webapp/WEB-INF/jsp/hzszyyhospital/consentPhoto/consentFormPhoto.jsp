@@ -265,12 +265,15 @@
         }
         section.main .main-container .view {
             flex: 1;
-            background: url('http://127.0.0.1:38088/video=stream&camidx=0') center center fixed;
-            background-repeat: no-repeat;
+            background-position: center;
             background-attachment: fixed;
+            background-repeat: no-repeat;
             background-size: auto 100%;
             display: flex;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
 
         section.aside {
@@ -337,12 +340,18 @@
         <section class="main user-select-none">
             <div class="main-container border">
                 <header class="handler border" v-show="currentConsent">
-                    <el-button type="primary" size="small" @click="grabimage()">拍照</el-button>
+                    <el-button type="primary" size="small" @click="grabImageThenUpload()">拍照并上传</el-button>
+                    <el-button type="primary" size="small" @click="grabImageThenPushQueue()">拍照</el-button>
                     <el-button type="primary" size="small" @click="rotate(90)">左转</el-button>
                     <el-button type="primary" size="small" @click="rotate(270)">右转</el-button>
                 </header>
-                <main class="view" title="主摄像头" :style="{ 'background-image': 'url('+viewUrl+')' }">
-                    <h2 v-if="viewStatus === 'no'" style="padding-top: 200px; font-size: 30px; font-weight: bold; color: red;">高拍仪状态：{{ viewStatusMessage }}</h2>
+                <main class="view" title="主摄像头" :style="viewStyle">
+                    <div v-show="currentConsent && viewStatus === 'no'" style="font-size: 30px; font-weight: bold; color: red;">高拍仪设备{{ viewStatusMessage }}</div>
+                    <div v-show="!currentConsent" class="el-table__empty-block" style="width: 100%; font-size: 14px">
+                        <span class="el-table__empty-text">
+                            未选中文书，无法提供拍照
+                        </span>
+                    </div>
                 </main>
             </div>
         </section>
@@ -352,7 +361,16 @@
                 <div class="queue-preview-img flex-col" v-if="consentInfoList && consentInfoList.length > 0">
                     <div :class="['img-panel', consentInfo.imgError === true && 'error']" v-for="consentInfo in consentInfoList" :key="consentInfo.id" :id="consentInfo.id">
                         <img class="img preview-img" :src="consentInfo.imgUri" style="width: 100%; max-height: 250px" @click="handlePreviewImgClick($event, consentInfo.imgUri)" @error="handleConsentInfoImgError($event, consentInfo)" />
-                        <div :class="['img-panel__hover-wrapper__center', consentInfo.imgError === true && 'error']" @click="downloadIMG(consentInfo)">
+                        <div class="img-del" @click="imageDelete(consentInfo.id)">
+                            <svg id="del" t="1642657470664" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2917" width="8px" height="8px">
+                                <path
+                                        d="M646.022677 512.096136l350.142243-350.142244c36.857078-36.857078 36.857078-96.74983 0-134.118812s-96.74983-36.857078-134.118812 0L511.903864 377.977323 161.761621 27.83508c-36.857078-36.857078-96.74983-36.857078-134.118812 0-36.857078 36.857078-36.857078 96.74983 0 134.118812L377.785052 512.096136 27.642809 862.238379c-36.857078 36.857078-36.857078 96.74983 0 134.118812 36.857078 36.857078 96.74983 36.857078 134.118812 0l350.142243-350.142243 350.142244 350.142243c36.857078 36.857078 96.74983 36.857078 134.118812 0 36.857078-36.857078 36.857078-96.74983 0-134.118812L646.022677 512.096136z"
+                                        p-id="2918"
+                                        fill="#ffffff"
+                                ></path>
+                            </svg>
+                        </div>
+                        <div :class="['img-panel__hover-wrapper__center', consentInfo.imgError === true && 'error']" @click="downloadIMG(consentInfo.id)">
                             <svg v-if="consentInfo.imgError === true" id="load-error" t="1681371699123" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4718" width="200" height="200">
                                 <path
                                         d="M567.04 692.48c2.56-2.56 4.416-5.76 5.76-9.024 6.4-12.096 4.416-27.52-5.76-37.76L335.36 414.08l229.12-229.12c13.44-13.44 13.44-33.856 0-47.296C558.08 131.2 549.76 128 541.44 128L192 128C121.6 128 64 185.6 64 256l0 576c0 70.4 57.6 128 128 128l96.64 0c9.024 0 17.344-3.2 23.68-9.6L366.08 896l198.464-199.68C565.76 695.04 565.76 693.76 567.04 692.48zM272 896 192 896c-35.2 0-64-28.8-64-64L128 256c0-35.2 28.8-64 64-64l271.36 0L264.96 389.76C254.72 400 252.8 415.36 259.2 427.52 260.48 430.72 262.4 433.92 264.96 436.48 266.24 437.76 266.24 439.04 267.52 440.32l229.76 229.76L272 896zM832 128l-98.56 0c-8.96 0-17.344 3.2-23.68 9.6L655.36 192 456.96 389.76C440.448 407.744 443.52 423.296 459.52 440.32l229.76 229.76L456.96 903.04c-12.8 12.8-12.8 33.856 0 47.296C463.36 956.8 472.32 960 480.64 960L832 960c70.4 0 128-57.6 128-128L960 256C960 185.6 902.4 128 832 128zM896 832c0 35.2-28.8 64-64 64L558.08 896l198.464-199.68c15.232-14.848 14.72-37.376 2.56-50.56L527.36 414.08 749.44 192 832 192c35.2 0 64 28.8 64 64L896 832z"
@@ -385,7 +403,7 @@
                             ></path>
                         </svg>
                     </div>
-                    <div :class="['img-panel__hover-wrapper__center', previewImg.uploaded === true && 'pointer-events-none']" @click="handlePreviewImgUpload($event, previewImg)">
+                    <div :class="['img-panel__hover-wrapper__center', previewImg.uploaded === true && 'pointer-events-none']" @click="handlePreviewImgUpload($event, previewImg, true)">
                         <svg v-if="previewImg.uploaded" id="upload-success" t="1681370857997" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2968" width="200" height="200">
                             <path
                                     d="M512 0C230.4 0 0 230.4 0 512s230.4 512 512 512 512-230.4 512-512S793.6 0 512 0z m0 947.2c-240.64 0-435.2-194.56-435.2-435.2S271.36 76.8 512 76.8s435.2 194.56 435.2 435.2-194.56 435.2-435.2 435.2z m266.24-578.56c0 10.24-5.12 20.48-10.24 25.6l-286.72 286.72c-5.12 5.12-15.36 10.24-25.6 10.24s-20.48-5.12-25.6-10.24l-163.84-163.84c-15.36-5.12-20.48-15.36-20.48-25.6 0-20.48 15.36-40.96 40.96-40.96 10.24 5.12 20.48 10.24 25.6 15.36l138.24 138.24 261.12-261.12c5.12-5.12 15.36-10.24 25.6-10.24 20.48-5.12 40.96 15.36 40.96 35.84z"
@@ -430,6 +448,11 @@
                 }
             },
             computed: {
+                viewStyle: function () {
+                    return {
+                        backgroundImage: this.currentConsent && this.viewStatus !== 'no' ? 'url('+this.viewUrl+')' : 'url('+this.fakeUrl+')'
+                    }
+                },
                 viewStatusMessage: function () {
                     switch (this.viewStatus) {
                         case "no":
@@ -439,7 +462,7 @@
                         case "run":
                             return "已连接且运行"
                         default:
-                            return ""
+                            return "异常"
                     }
                 }
             },
@@ -458,10 +481,7 @@
                 }
             },
             mounted: function () {
-                var self = this
-                setInterval(function () {
-                    self.getViewStatus()
-                }, 2000)
+                this.getViewStatus()
                 this.getConsentList()
             },
             methods: {
@@ -566,45 +586,85 @@
                         return img.id !== id
                     })
                 },
-                handlePreviewImgUpload: function (e, previewImg) {
+                handlePreviewImgUpload: function (e, previewImg, successThenRemove) {
+                    successThenRemove = successThenRemove === true
                     var self = this
                     if (previewImg.uploaded === true) {
                         return
                     }
-                    var base64 = previewImg.base64
-                    var currentConsent = this.currentConsent
-                    var formData = new FormData()
+                    this.imageUpload(previewImg.base64, this.currentConsent).then(function (idList) {
+                        previewImg.uploaded = true
+                        if (successThenRemove) {
+                            self.queuePreviewImg = self.queuePreviewImg.filter(function (img) {
+                                return img.id !== previewImg.id
+                            })
+                        }
+                        var id = idList[0]
+                        self.getConsentInfoList(self.currentConsent).then(function () {
+                            self.$nextTick(function () {
+                                if (id) {
+                                    self.scrollToImage(id)
+                                }
+                            })
+                        })
+                    })
+                },
+                scrollToImage: function (id){
+                    var $newUploadTarget = $('#'+id)
+                    $('.content-info-container .queue-preview-img').animate({
+                        scrollTop: $newUploadTarget.prev().length ? $newUploadTarget.prev().offset().top : $newUploadTarget.offset().top
+                    }, 2000, function() {
+                        $newUploadTarget.toggleClass('img-panel__select')
+                        setTimeout(function () {
+                            $newUploadTarget.toggleClass('img-panel__select')
+                        }, 2000)
+                    })
+                },
+                imageUpload: function (base64, consent) {
                     var file = dataURLtoBlob(base64)
+                    var formData = new FormData()
                     formData.append('files', file, 'image.jpg')
-                    formData.append('hspConsentFormImgCustom.patientId', currentConsent.patientId)
-                    formData.append('hspConsentFormImgCustom.consentFormId', currentConsent.consentFormId)
-                    formData.append('hspConsentFormImgCustom.consentFormSeq', currentConsent.consentFormSeq)
-                    formData.append('hspConsentFormImgCustom.consentFormName', currentConsent.consentFormName)
-                    $.ajax({
+                    formData.append('hspConsentFormImgCustom.patientId', consent.patientId)
+                    formData.append('hspConsentFormImgCustom.consentFormId', consent.consentFormId)
+                    formData.append('hspConsentFormImgCustom.consentFormSeq', consent.consentFormSeq)
+                    formData.append('hspConsentFormImgCustom.consentFormName', consent.consentFormName)
+
+                    return $.ajax({
                         url: '${baseurl}consentForm/uploadConsentFormImg.do',
                         type: 'POST',
                         cache: false,
                         contentType: false,
                         processData: false,
                         data: formData,
+                    }).then(function (res) {
+                        message_alert(res)
+                        if (res.resultInfo.messageCode == 906) {
+                            var sysdata = res.resultInfo.sysdata || {}
+                            var idList = sysdata.idList || []
+                            return idList
+                        }
+                        throw res
+                    })
+                },
+                imageDelete: function (id) {
+                    var self = this
+                    $.ajax({
+                        type: 'POST',
+                        url: '${baseurl}consentForm/deleteConsentFormImgInfo.do',
+                        dataType: 'json',
+                        contentType: 'application/json;charset=UTF-8',
+                        data: JSON.stringify({
+                            hspConsentFormImgCustom:{
+                                id: id
+                            }
+                        }),
                         success: function (res) {
-                            message_alert(res)
                             if (res.resultInfo.messageCode == 906) {
-                                previewImg.uploaded = true
-                                var sysdata = res.resultInfo.sysdata || {}
-                                var idList = sysdata.idList || []
-                                var id = idList[0]
-                                self.getConsentInfoList(self.currentConsent)
-                                self.$nextTick(function () {
-                                    if (id) {
-                                        var $newUploadTarget = $('#'+id)
-                                        $('.content-info-container .queue-preview-img').animate({
-                                            scrollTop: $newUploadTarget.prev().length ? $newUploadTarget.prev().offset().top : $newUploadTarget.offset().top
-                                        }, 2000, function() {
-                                            $newUploadTarget.toggleClass('img-panel__select',  3000)
-                                        })
-                                    }
+                                self.consentInfoList = self.consentInfoList.filter(function (info) {
+                                    return info.id !== id
                                 })
+                            } else {
+                                message_alert(res)
                             }
                         }
                     })
@@ -612,10 +672,14 @@
                 // 高拍仪 获取设备状态
                 getViewStatus: function () {
                     var self = this
-                    $.post("http://127.0.0.1:38088/video=status").then(function (res) {
-                        // no:未连接；ok:已连接；run:已连接且运行
-                        self.viewStatus = res.video0 || 'no'
-                    })
+                    $.post("http://127.0.0.1:38088/video=status")
+                        .then(function (res) {
+                            // no:未连接；ok:已连接；run:已连接且运行
+                            self.viewStatus = res.video0 || 'no'
+                        })
+                        .fail(function () {
+                            self.viewStatus = 'no'
+                        })
                 },
                 // 高拍仪 旋转
                 rotate: function (angle) {
@@ -623,7 +687,7 @@
                     $.post('http://127.0.0.1:38088/video=rotate', JSON.stringify(data))
                 },
                 // 高拍仪 拍照并获取base64
-                grabimage: function () {
+                grabImage: function () {
                     var self = this
                     var data = {
                         filepath: 'base64',
@@ -633,7 +697,31 @@
                         ColorMode: '0',
                         quality: '3'
                     }
-                    $.post('http://127.0.0.1:38088/video=grabimage', JSON.stringify(data)).done(function (res) {
+                    return $.post('http://127.0.0.1:38088/video=grabimage', JSON.stringify(data))
+                },
+                grabImageThenUpload: function (){
+                    var self = this
+                    this.grabImage().then(function (res) {
+                        if (res.code == '0') {
+                            var base64 = 'data:image/jpg;base64,' + res.photoBase64
+                            self.imageUpload(base64, self.currentConsent).then(function (idList) {
+                                var id = idList[0]
+                                self.getConsentInfoList(self.currentConsent).then(function () {
+                                    self.$nextTick(function () {
+                                        if (id) {
+                                            self.scrollToImage(id)
+                                        }
+                                    })
+                                })
+                            })
+                        } else {
+                            $.messager.alert('高拍仪',"拍照失败",'error')
+                        }
+                    })
+                },
+                grabImageThenPushQueue: function () {
+                    var self = this
+                    this.grabImage().then(function (res) {
                         if (res.code == '0') {
                             self.queuePreviewImg.push({
                                 id: String(new Date().getTime()),
@@ -646,7 +734,7 @@
                     })
                 },
                 // 高拍仪 添加到PDF队列
-                addpdf: function (base64) {
+                addPdf: function (base64) {
                     var data2 = { ImageBase64: base64 }
                     $.post('http://127.0.0.1:38088/pdf=addimage', JSON.stringify(data2)).then(res2 => {
                         if (res2.data.code == '0') {
