@@ -111,6 +111,11 @@ var editFun = {
         var vitalInfo = data.mapZlInf
 			
         vm.patientMsg.regSeq = data.hspDbzlBasCustom.regSeq
+        if(data.hspDbzlBasCustom.patTyp === "1"){
+          vm.patientMsg.xtFlg = "1";
+          vm.patientMsg.xtCod = vm.mapZlInf.BQPG;
+          vm.patientMsg.xtSubCod = vm.mapZlInf.BQPGMX;
+        }
         editFun.dealAlreadyMsg(data)
         vitalInfo && dealVitals(vitalInfo)
         // getChildPfMsg();

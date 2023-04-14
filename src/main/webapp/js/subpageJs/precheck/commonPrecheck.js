@@ -11,7 +11,9 @@ var vm = avalon.define({
     "HXPLJZ": "",
     "XYJZ": "",
     "YISHI": "",
-    "XUEYANG": ""
+    "XUEYANG": "",
+    "BQPG":"",
+    "BQPGMX":""
   },
   XT_DDFS_COD: publicFun.getDict('XT_DDFS_COD'),
   SEN_RCT: publicFun.getDict('SEN_RCT'),

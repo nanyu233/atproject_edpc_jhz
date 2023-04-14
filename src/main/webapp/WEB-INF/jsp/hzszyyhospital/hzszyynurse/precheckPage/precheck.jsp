@@ -900,6 +900,14 @@
           {
             proCode: "YISHI", // 意识
             proVal: vm.mapZlInf.YISHI
+          },
+          {
+            proCode: "BQPG", // 病情评估
+            proVal: vm.mapZlInf.BQPG
+          },
+          {
+            proCode: "BQPGMX", // 病情评估明细
+            proVal: vm.mapZlInf.BQPGMX
           }
         ]
 
@@ -928,6 +936,9 @@
         compareSufFieldInfo = generateFieldObj() // 初始化对比对象
 
         if (res.resultInfo.type == '1') {
+          //保存胸痛评估内容hsp_zl_inf
+          vm.mapZlInf.BQPG = vm.patientMsg.xtCod;
+          vm.mapZlInf.BQPGMX = vm.patientMsg.xtSubCod;
           addzlinfo(sysdata.regSeq, function success() {
             insertuser_callback(res, print,register)
             reloadLeftTab(); // 预检页面保存后，左边患者列表需要默认刷新一下
