@@ -72,7 +72,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from EDPC.HSP_YJQD_DTL
+    from HSP_YJQD_DTL
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -81,22 +81,22 @@
     </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspYjqdDtlKey">
-    delete from EDPC.HSP_YJQD_DTL
+    delete from HSP_YJQD_DTL
     where YJQD_SEQ = #{yjqdSeq,jdbcType=VARCHAR}
       and USERID = #{userid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspYjqdDtlExample">
-    delete from EDPC.HSP_YJQD_DTL
+    delete from HSP_YJQD_DTL
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspYjqdDtlKey">
-    insert into EDPC.HSP_YJQD_DTL (YJQD_SEQ, USERID)
+    insert into HSP_YJQD_DTL (YJQD_SEQ, USERID)
     values (#{yjqdSeq,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspYjqdDtlKey">
-    insert into EDPC.HSP_YJQD_DTL
+    insert into HSP_YJQD_DTL
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="yjqdSeq != null">
         YJQD_SEQ,
@@ -115,13 +115,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspYjqdDtlExample" resultType="java.lang.Long">
-    select count(*) from EDPC.HSP_YJQD_DTL
+    select count(*) from HSP_YJQD_DTL
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update EDPC.HSP_YJQD_DTL
+    update HSP_YJQD_DTL
     <set>
       <if test="record.yjqdSeq != null">
         YJQD_SEQ = #{record.yjqdSeq,jdbcType=VARCHAR},
@@ -135,7 +135,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update EDPC.HSP_YJQD_DTL
+    update HSP_YJQD_DTL
     set YJQD_SEQ = #{record.yjqdSeq,jdbcType=VARCHAR},
       USERID = #{record.userid,jdbcType=VARCHAR}
     <if test="_parameter != null">

@@ -97,7 +97,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from EDPC.DSTCASES
+    from DSTCASES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -111,7 +111,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from EDPC.DSTCASES
+    from DSTCASES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -124,21 +124,21 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from EDPC.DSTCASES
+    from DSTCASES
     where CASE_SEQ = #{caseSeq,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from EDPC.DSTCASES
+    delete from DSTCASES
     where CASE_SEQ = #{caseSeq,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="activetech.structtext.pojo.domain.DstcasesExample" >
-    delete from EDPC.DSTCASES
+    delete from DSTCASES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="activetech.structtext.pojo.domain.DstcasesWithBLOBs" >
-    insert into EDPC.DSTCASES (CASE_SEQ, CASE_STAT, SYS_ID, 
+    insert into DSTCASES (CASE_SEQ, CASE_STAT, SYS_ID, 
       PATIENT_ID, PATIENT_NAME, TEMP_SEQ, 
       CASE_DETL, CASE_TIME, CASE_USER, 
       CASE_NAME, CRT_TIME, CRT_USER, 
@@ -154,7 +154,7 @@
       #{compList,jdbcType=CLOB})
   </insert>
   <insert id="insertSelective" parameterType="activetech.structtext.pojo.domain.DstcasesWithBLOBs" >
-    insert into EDPC.DSTCASES
+    insert into DSTCASES
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="caseSeq != null" >
         CASE_SEQ,
@@ -275,13 +275,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="activetech.structtext.pojo.domain.DstcasesExample" resultType="java.lang.Integer" >
-    select count(*) from EDPC.DSTCASES
+    select count(*) from DSTCASES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update EDPC.DSTCASES
+    update DSTCASES
     <set >
       <if test="record.caseSeq != null" >
         CASE_SEQ = #{record.caseSeq,jdbcType=VARCHAR},
@@ -346,7 +346,7 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update EDPC.DSTCASES
+    update DSTCASES
     set CASE_SEQ = #{record.caseSeq,jdbcType=VARCHAR},
       CASE_STAT = #{record.caseStat,jdbcType=CHAR},
       SYS_ID = #{record.sysId,jdbcType=VARCHAR},
@@ -371,7 +371,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update EDPC.DSTCASES
+    update DSTCASES
     set CASE_SEQ = #{record.caseSeq,jdbcType=VARCHAR},
       CASE_STAT = #{record.caseStat,jdbcType=CHAR},
       SYS_ID = #{record.sysId,jdbcType=VARCHAR},
@@ -393,7 +393,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="activetech.structtext.pojo.domain.DstcasesWithBLOBs" >
-    update EDPC.DSTCASES
+    update DSTCASES
     <set >
       <if test="caseStat != null" >
         CASE_STAT = #{caseStat,jdbcType=CHAR},
@@ -453,7 +453,7 @@
     where CASE_SEQ = #{caseSeq,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.structtext.pojo.domain.DstcasesWithBLOBs" >
-    update EDPC.DSTCASES
+    update DSTCASES
     set CASE_STAT = #{caseStat,jdbcType=CHAR},
       SYS_ID = #{sysId,jdbcType=VARCHAR},
       PATIENT_ID = #{patientId,jdbcType=VARCHAR},
@@ -475,7 +475,7 @@
     where CASE_SEQ = #{caseSeq,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="activetech.structtext.pojo.domain.Dstcases" >
-    update EDPC.DSTCASES
+    update DSTCASES
     set CASE_STAT = #{caseStat,jdbcType=CHAR},
       SYS_ID = #{sysId,jdbcType=VARCHAR},
       PATIENT_ID = #{patientId,jdbcType=VARCHAR},

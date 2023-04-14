@@ -72,7 +72,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from EDPC.HSP_GRP_USR
+    from HSP_GRP_USR
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -81,22 +81,22 @@
     </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="activetech.edpc.pojo.domain.HspGrpUsrKey">
-    delete from EDPC.HSP_GRP_USR
+    delete from HSP_GRP_USR
     where GRP_SEQ = #{grpSeq,jdbcType=VARCHAR}
       and USERID = #{userid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="activetech.edpc.pojo.domain.HspGrpUsrExample">
-    delete from EDPC.HSP_GRP_USR
+    delete from HSP_GRP_USR
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="activetech.edpc.pojo.domain.HspGrpUsrKey">
-    insert into EDPC.HSP_GRP_USR (GRP_SEQ, USERID)
+    insert into HSP_GRP_USR (GRP_SEQ, USERID)
     values (#{grpSeq,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="activetech.edpc.pojo.domain.HspGrpUsrKey">
-    insert into EDPC.HSP_GRP_USR
+    insert into HSP_GRP_USR
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="grpSeq != null">
         GRP_SEQ,
@@ -115,13 +115,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="activetech.edpc.pojo.domain.HspGrpUsrExample" resultType="java.lang.Long">
-    select count(*) from EDPC.HSP_GRP_USR
+    select count(*) from HSP_GRP_USR
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update EDPC.HSP_GRP_USR
+    update HSP_GRP_USR
     <set>
       <if test="record.grpSeq != null">
         GRP_SEQ = #{record.grpSeq,jdbcType=VARCHAR},
@@ -135,7 +135,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update EDPC.HSP_GRP_USR
+    update HSP_GRP_USR
     set GRP_SEQ = #{record.grpSeq,jdbcType=VARCHAR},
       USERID = #{record.userid,jdbcType=VARCHAR}
     <if test="_parameter != null">

@@ -10,6 +10,7 @@ import activetech.edpc.dao.mapper.HspGrpInfMapperCustom;
 import activetech.edpc.dao.mapper.HspGrpUsrMapper;
 import activetech.edpc.dao.mapper.HspGrpUsrMapperCustom;
 import activetech.edpc.pojo.domain.HspGrpInf;
+import activetech.edpc.pojo.domain.HspGrpUsrExample;
 import activetech.edpc.pojo.dto.HspGrpInfCustom;
 import activetech.edpc.pojo.dto.HspGrpInfQueryDto;
 import activetech.edpc.service.GroupService;
@@ -207,7 +208,13 @@ public class GroupServiceImpl implements GroupService {
         if (record == null) {
             ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 902, new Object[]{}));
         }
+        // 删除群组信息表
         hspGrpInfMapper.deleteByPrimaryKey(grpSeq);
+        // 删除群组用户关系表
+        HspGrpUsrExample hspGrpUsrExample = new HspGrpUsrExample();
+        HspGrpUsrExample.Criteria criteria = hspGrpUsrExample.createCriteria();
+        criteria.andGrpSeqEqualTo(grpSeq);
+        hspGrpUsrMapper.deleteByExample(hspGrpUsrExample);
     }
 
     /**

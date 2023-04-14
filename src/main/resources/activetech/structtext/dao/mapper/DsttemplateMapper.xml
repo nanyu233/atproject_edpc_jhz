@@ -92,7 +92,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from EDPC.DSTTEMPLATE
+    from DSTTEMPLATE
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -106,7 +106,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from EDPC.DSTTEMPLATE
+    from DSTTEMPLATE
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -119,21 +119,21 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from EDPC.DSTTEMPLATE
+    from DSTTEMPLATE
     where TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from EDPC.DSTTEMPLATE
+    delete from DSTTEMPLATE
     where TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="activetech.structtext.pojo.domain.DsttemplateExample" >
-    delete from EDPC.DSTTEMPLATE
+    delete from DSTTEMPLATE
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="activetech.structtext.pojo.domain.DsttemplateWithBLOBs" >
-    insert into EDPC.DSTTEMPLATE (TEMP_SEQ, SYS_ID, TEMP_CODE, 
+    insert into DSTTEMPLATE (TEMP_SEQ, SYS_ID, TEMP_CODE, 
       TEMP_NAME, TEMP_STAT, TEMP_PAPER, 
       TEMP_PRINT, CRT_TIME, CRT_USER, 
       MOD_TIME, MOD_USER, TEMP_MARGINS, 
@@ -145,7 +145,7 @@
       #{tempHtml,jdbcType=CLOB}, #{compList,jdbcType=CLOB})
   </insert>
   <insert id="insertSelective" parameterType="activetech.structtext.pojo.domain.DsttemplateWithBLOBs" >
-    insert into EDPC.DSTTEMPLATE
+    insert into DSTTEMPLATE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tempSeq != null" >
         TEMP_SEQ,
@@ -236,13 +236,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="activetech.structtext.pojo.domain.DsttemplateExample" resultType="java.lang.Integer" >
-    select count(*) from EDPC.DSTTEMPLATE
+    select count(*) from DSTTEMPLATE
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update EDPC.DSTTEMPLATE
+    update DSTTEMPLATE
     <set >
       <if test="record.tempSeq != null" >
         TEMP_SEQ = #{record.tempSeq,jdbcType=VARCHAR},
@@ -292,7 +292,7 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update EDPC.DSTTEMPLATE
+    update DSTTEMPLATE
     set TEMP_SEQ = #{record.tempSeq,jdbcType=VARCHAR},
       SYS_ID = #{record.sysId,jdbcType=VARCHAR},
       TEMP_CODE = #{record.tempCode,jdbcType=VARCHAR},
@@ -312,7 +312,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update EDPC.DSTTEMPLATE
+    update DSTTEMPLATE
     set TEMP_SEQ = #{record.tempSeq,jdbcType=VARCHAR},
       SYS_ID = #{record.sysId,jdbcType=VARCHAR},
       TEMP_CODE = #{record.tempCode,jdbcType=VARCHAR},
@@ -330,7 +330,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="activetech.structtext.pojo.domain.DsttemplateWithBLOBs" >
-    update EDPC.DSTTEMPLATE
+    update DSTTEMPLATE
     <set >
       <if test="sysId != null" >
         SYS_ID = #{sysId,jdbcType=VARCHAR},
@@ -375,7 +375,7 @@
     where TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="activetech.structtext.pojo.domain.DsttemplateWithBLOBs" >
-    update EDPC.DSTTEMPLATE
+    update DSTTEMPLATE
     set SYS_ID = #{sysId,jdbcType=VARCHAR},
       TEMP_CODE = #{tempCode,jdbcType=VARCHAR},
       TEMP_NAME = #{tempName,jdbcType=VARCHAR},
@@ -392,7 +392,7 @@
     where TEMP_SEQ = #{tempSeq,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="activetech.structtext.pojo.domain.Dsttemplate" >
-    update EDPC.DSTTEMPLATE
+    update DSTTEMPLATE
     set SYS_ID = #{sysId,jdbcType=VARCHAR},
       TEMP_CODE = #{tempCode,jdbcType=VARCHAR},
       TEMP_NAME = #{tempName,jdbcType=VARCHAR},

@@ -78,7 +78,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from EDPC.AID_APK
+    from AID_APK
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,21 +89,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from EDPC.AID_APK
+    from AID_APK
     where APK_SEQ = #{apkSeq,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from EDPC.AID_APK
+    delete from AID_APK
     where APK_SEQ = #{apkSeq,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="activetech.aid.pojo.domain.AidApkExample" >
-    delete from EDPC.AID_APK
+    delete from AID_APK
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="activetech.aid.pojo.domain.AidApk" >
-    insert into EDPC.AID_APK (APK_SEQ, APK_ID, APK_VER, 
+    insert into AID_APK (APK_SEQ, APK_ID, APK_VER, 
       APK_DIR, APK_DES, APK_NEW_FLG, 
       CRT_TIM, CRT_USR)
     values (#{apkSeq,jdbcType=VARCHAR}, #{apkId,jdbcType=VARCHAR}, #{apkVer,jdbcType=VARCHAR}, 
@@ -111,7 +111,7 @@
       #{crtTim,jdbcType=TIMESTAMP}, #{crtUsr,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="activetech.aid.pojo.domain.AidApk" >
-    insert into EDPC.AID_APK
+    insert into AID_APK
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="apkSeq != null" >
         APK_SEQ,
@@ -166,13 +166,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="activetech.aid.pojo.domain.AidApkExample" resultType="java.lang.Integer" >
-    select count(*) from EDPC.AID_APK
+    select count(*) from AID_APK
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update EDPC.AID_APK
+    update AID_APK
     <set >
       <if test="record.apkSeq != null" >
         APK_SEQ = #{record.apkSeq,jdbcType=VARCHAR},
@@ -204,7 +204,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update EDPC.AID_APK
+    update AID_APK
     set APK_SEQ = #{record.apkSeq,jdbcType=VARCHAR},
       APK_ID = #{record.apkId,jdbcType=VARCHAR},
       APK_VER = #{record.apkVer,jdbcType=VARCHAR},
@@ -218,7 +218,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="activetech.aid.pojo.domain.AidApk" >
-    update EDPC.AID_APK
+    update AID_APK
     <set >
       <if test="apkId != null" >
         APK_ID = #{apkId,jdbcType=VARCHAR},
@@ -245,7 +245,7 @@
     where APK_SEQ = #{apkSeq,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="activetech.aid.pojo.domain.AidApk" >
-    update EDPC.AID_APK
+    update AID_APK
     set APK_ID = #{apkId,jdbcType=VARCHAR},
       APK_VER = #{apkVer,jdbcType=VARCHAR},
       APK_DIR = #{apkDir,jdbcType=VARCHAR},

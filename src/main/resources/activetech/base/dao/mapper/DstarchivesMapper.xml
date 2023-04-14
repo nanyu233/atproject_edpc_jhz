@@ -78,7 +78,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from EDPC.DSTARCHIVES
+    from DSTARCHIVES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,21 +89,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from EDPC.DSTARCHIVES
+    from DSTARCHIVES
     where FILE_SEQ = #{fileSeq,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from EDPC.DSTARCHIVES
+    delete from DSTARCHIVES
     where FILE_SEQ = #{fileSeq,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="activetech.base.pojo.domain.DstarchivesExample" >
-    delete from EDPC.DSTARCHIVES
+    delete from DSTARCHIVES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="activetech.base.pojo.domain.Dstarchives" >
-    insert into EDPC.DSTARCHIVES (FILE_SEQ, REF_ID, FILE_NAME, 
+    insert into DSTARCHIVES (FILE_SEQ, REF_ID, FILE_NAME, 
       CRT_DATE, CRT_USER, FILE_TYPE, 
       VOICE_SEC, VALIDS)
     values (#{fileSeq,jdbcType=VARCHAR}, #{refId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
@@ -111,7 +111,7 @@
       #{voiceSec,jdbcType=DECIMAL}, #{valids,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="activetech.base.pojo.domain.Dstarchives" >
-    insert into EDPC.DSTARCHIVES
+    insert into DSTARCHIVES
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="fileSeq != null" >
         FILE_SEQ,
@@ -166,13 +166,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="activetech.base.pojo.domain.DstarchivesExample" resultType="java.lang.Integer" >
-    select count(*) from EDPC.DSTARCHIVES
+    select count(*) from DSTARCHIVES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update EDPC.DSTARCHIVES
+    update DSTARCHIVES
     <set >
       <if test="record.fileSeq != null" >
         FILE_SEQ = #{record.fileSeq,jdbcType=VARCHAR},
@@ -204,7 +204,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update EDPC.DSTARCHIVES
+    update DSTARCHIVES
     set FILE_SEQ = #{record.fileSeq,jdbcType=VARCHAR},
       REF_ID = #{record.refId,jdbcType=VARCHAR},
       FILE_NAME = #{record.fileName,jdbcType=VARCHAR},
@@ -218,7 +218,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="activetech.base.pojo.domain.Dstarchives" >
-    update EDPC.DSTARCHIVES
+    update DSTARCHIVES
     <set >
       <if test="refId != null" >
         REF_ID = #{refId,jdbcType=VARCHAR},
@@ -245,7 +245,7 @@
     where FILE_SEQ = #{fileSeq,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="activetech.base.pojo.domain.Dstarchives" >
-    update EDPC.DSTARCHIVES
+    update DSTARCHIVES
     set REF_ID = #{refId,jdbcType=VARCHAR},
       FILE_NAME = #{fileName,jdbcType=VARCHAR},
       CRT_DATE = #{crtDate,jdbcType=TIMESTAMP},

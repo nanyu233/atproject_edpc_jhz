@@ -43,6 +43,7 @@
         <include refid="Base_Column_List"/>
         from hsp_consent_form_img
         where consent_form_seq = #{consentFormSeq,jdbcType=VARCHAR}
+        order by created_time
     </select>
 
     <select id="proc_his_ConsentFormData" statementType="CALLABLE">
