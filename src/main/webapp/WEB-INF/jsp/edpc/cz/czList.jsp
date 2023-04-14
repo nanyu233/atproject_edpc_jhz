@@ -280,7 +280,7 @@
 												title: '年龄',
 												width: setWidth(0.03),
 												formatter: function(value, row, index) {
-													return value == null ? '-' : value + '岁';
+													return value;
 												}
 											}, {
 												field: 'fbsj',
