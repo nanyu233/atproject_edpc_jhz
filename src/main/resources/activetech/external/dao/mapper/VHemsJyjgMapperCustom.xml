@@ -82,7 +82,7 @@
 			</if>
 		</if>
 	</sql>
-    <insert id="insertJyjgOnDeQing">
+    <insert id="insertJyjgOnDeQing" parameterType="activetech.basehis.pojo.dto.VHemsJyjgCustom">
 		INSERT INTO V_HEMS_JYJG (MPI, NAME, SAMPLENO, RESULT, RESULT_DATE_TIME, UPPER_LIMIT, LOWER_LIMIT, REPORT_ITEM_NAME,
 								 UNITS, EXAMINAIM, REPORT_DOC, REPORT_DOC_NAME, EXAMINE_DOC_NAME, PATIENT_DEPT, INPATIENT_AREA,
 								 BED_NO, NURSING_UNIT, ATTENDING_DOC, ATTENDING_DOC_NAME, SEEK_MEDICAL_TIMES,
@@ -91,15 +91,15 @@
 								 REPORT_STATUS, REPORT_SHEET_NAME, ERROR_FLAG, REPORT_TYPE, EXAMINE_DOC, JYJG_ID, JYLX, JYLXMC)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator=",">
-		(#{item.patientId},#{item.name},#{item.sampleno},#{item.result},#{item.resultDateTime},#{item.upperLimit},
-		 #{item.lowerLimit},#{item.reportItemName},#{item.units},#{item.examinaim},#{item.jyz},#{item.jyz},
-		 #{item.examineDoc},#{item.patientDept},#{item.inpatientArea},#{item.bedNo},#{item.nursingUnit},
-		 #{item.attendingDoc},#{item.attendingDocName},#{item.seekMedicalTimes},#{item.serviceOrganization},
-		 #{item.beHospitalized},#{item.orderCode},#{item.orderType},#{item.examineDept},#{item.examineDeptCode},
-		 #{item.xh},#{item.applicationNo},#{item.reportNo},#{item.treatmentCode},#{item.receiveTime},
-		 #{item.sampleCode},#{item.sampleName},#{item.reportStatus},#{item.reportSheetName},
-		 #{item.errorFlag},#{item.reportType},#{item.examineDoc},#{item.jyjgId},
-		 #{item.jylx},#{item.jylxmc})
+		(#{item.patientId,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.sampleno,jdbcType=VARCHAR},#{item.result,jdbcType=VARCHAR},#{item.resultDateTime,jdbcType=TIMESTAMP},#{item.upperLimit,jdbcType=VARCHAR},
+		 #{item.lowerLimit,jdbcType=VARCHAR},#{item.reportItemName,jdbcType=VARCHAR},#{item.units,jdbcType=VARCHAR},#{item.examinaim,jdbcType=VARCHAR},#{item.jyz,jdbcType=VARCHAR},#{item.jyz,jdbcType=VARCHAR},
+		 #{item.examineDoc,jdbcType=VARCHAR},#{item.patientDept,,jdbcType=VARCHAR},#{item.inpatientArea,jdbcType=VARCHAR},#{item.bedNo,jdbcType=VARCHAR},#{item.nursingUnit,jdbcType=VARCHAR},
+		 #{item.attendingDoc,jdbcType=VARCHAR},#{item.attendingDocName,jdbcType=VARCHAR},#{item.seekMedicalTimes,jdbcType=VARCHAR},#{item.serviceOrganization,jdbcType=VARCHAR},
+		 #{item.beHospitalized,jdbcType=TIMESTAMP},#{item.orderCode,jdbcType=VARCHAR},#{item.orderType,jdbcType=VARCHAR},#{item.examineDept,jdbcType=VARCHAR},#{item.examineDeptCode,jdbcType=VARCHAR},
+		 #{item.xh,jdbcType=VARCHAR},#{item.applicationNo,jdbcType=VARCHAR},#{item.reportNo,jdbcType=VARCHAR},#{item.treatmentCode,jdbcType=VARCHAR},#{item.receiveTime,jdbcType=TIMESTAMP},
+		 #{item.sampleCode,jdbcType=VARCHAR},#{item.sampleName,jdbcType=VARCHAR},#{item.reportStatus,jdbcType=VARCHAR},#{item.reportSheetName,jdbcType=VARCHAR},
+		 #{item.errorFlag,jdbcType=VARCHAR},#{item.reportType,jdbcType=VARCHAR},#{item.examineDoc,jdbcType=VARCHAR},#{item.jyjgId,jdbcType=VARCHAR},
+		 #{item.jylx,jdbcType=VARCHAR},#{item.jylxmc,jdbcType=VARCHAR})
 		</foreach>
 
 	</insert>
