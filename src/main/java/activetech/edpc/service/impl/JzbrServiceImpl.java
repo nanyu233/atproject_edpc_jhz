@@ -53,18 +53,18 @@ public class JzbrServiceImpl implements JzbrService {
         HspemginfCustom hspemginfCustom = hspemginfQueryDto.getHspemginfCustom();
         //xtlcflag 胸痛流程
         if("1".equals(hspemginfCustom.getXtlcflg())) {
-            String regSeq = enterPatInDbzl(hspemginfCustom, "XT",activeUser);
+            String regSeq = enterPatInDbzl(hspemginfCustom, "1",activeUser);
             addMewsInfo(hspemginfCustom, regSeq);
             addXtPg(hspemginfCustom, regSeq);
         }
         //czlsflg 卒中流程标识
         if("1".equals(hspemginfCustom.getCzlcflg())) {
-            String regSeq = enterPatInDbzl(hspemginfCustom, "CZ",activeUser);
+            String regSeq = enterPatInDbzl(hspemginfCustom, "2",activeUser);
             addMewsInfo(hspemginfCustom, regSeq);
         }
 
         if("1".equals(hspemginfCustom.getCspgFlg())) {
-            String regSeq = enterPatInDbzl(hspemginfCustom, "CS",activeUser);
+            String regSeq = enterPatInDbzl(hspemginfCustom, "3",activeUser);
             //addMewsInfo(hspemginfCustom, regSeq);
         }
 
@@ -139,10 +139,10 @@ public class JzbrServiceImpl implements JzbrService {
     /**
      * 增加患者信息
      * @param hspemginfCustom hspemginfCustom
-     * @param dbFlag dbFlag
+     * @param patType patType
      * @return return
      */
-    private String enterPatInDbzl(HspemginfCustom hspemginfCustom, String dbFlag, ActiveUser activeUser) throws ExceptionResultInfo {
+    private String enterPatInDbzl(HspemginfCustom hspemginfCustom, String patType, ActiveUser activeUser) throws ExceptionResultInfo {
         // 这里需要做幂等，同一个患者多次请求，只保存一次。
 
         // 查看当前患者是否已经入库
@@ -153,21 +153,6 @@ public class JzbrServiceImpl implements JzbrService {
         List<HspDbzlBas> ret = hspDbzlBasMapper.selectByExample(example);
         if(ret.size()>0){
             ResultUtil.throwExcepion(ResultUtil.createWarning(Config.MESSAGE, 920, new Object[]{"该患者已同步，请勿重复提交"}));
-        }
-
-        String patType = "1";
-        switch (dbFlag){
-            case "XT":
-                patType = "1";
-                break;
-            case "CZ":
-                patType = "2";
-                break;
-            case "CS":
-                patType = "3";
-                break;
-            default:
-                break;
         }
 
         String regSeq = systemConfigService.findSequences("hsp_dbzl_bas_reg_seq", "8", null);
