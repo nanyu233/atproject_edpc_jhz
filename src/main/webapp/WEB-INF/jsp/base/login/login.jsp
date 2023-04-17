@@ -51,10 +51,10 @@
         <div class="login-boximage">
             <div class="login-title">${hospitalPlatformNameLogin}</div>
             <div class="login-txt">
-                <div class="log-tip">
-                  <a :class="{active: loginType == 1}" @click="setLoginTyp('1')">账号登陆</a>
-                  <a :class="{active: loginType == 2}" @click="setLoginTyp('2')">钉钉扫码登陆</a>
-                </div>
+<%--                <div class="log-tip">--%>
+<%--                  <a :class="{active: loginType == 1}" @click="setLoginTyp('1')">账号登陆</a>--%>
+<%--                  <a :class="{active: loginType == 2}" @click="setLoginTyp('2')">钉钉扫码登陆</a>--%>
+<%--                </div>--%>
                 <label>
                     <div class="log-text">院&emsp;区</div>
                     <label for="sd" class="small-label">
