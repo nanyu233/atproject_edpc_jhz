@@ -5932,7 +5932,11 @@
 		}
 
 		function viewUploadFile(){
-			window.open(vm.uploadEcgFile.uploadFileUrl)
+			if(vm.uploadEcgFile.uploadFileUrl !== ''){
+				window.open(vm.uploadEcgFile.uploadFileUrl)
+			} else {
+				parent.publicFun.alert("未上传心电图");
+			}
 		}
 
 	</script>
