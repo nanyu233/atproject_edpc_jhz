@@ -74,6 +74,8 @@ public class VHemsJyjgCustom extends VHemsJyjg{
     private String jylx;
     
     private String jylxmc;
+
+	private String vstCad;
     
     /**
      * 样本采样时间
@@ -82,7 +84,15 @@ public class VHemsJyjgCustom extends VHemsJyjg{
     
     //德清医院新增字段
     private String laboratoryItemReferenceRangeDetail;//参考区间范围
-    
+
+	public String getVstCad() {
+		return vstCad;
+	}
+
+	public void setVstCad(String vstCad) {
+		this.vstCad = vstCad;
+	}
+
 	public String getLaboratoryItemReferenceRangeDetail() {
 		return laboratoryItemReferenceRangeDetail;
 	}

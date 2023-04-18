@@ -65,18 +65,17 @@
       </foreach>
     </where>
   </sql>
-    <insert id="insertJcjgOnDeQing">
+    <insert id="insertJcjgOnDeQing" parameterType="activetech.basehis.pojo.dto.VHemsJcjgCustom">
         INSERT INTO V_HEMS_JCJG (ZYH, XM, YLMC, SEE, JCJG, JCYSXM, SHRQ, MPI, PATIENT_DEPT, SEEK_MEDICAL_TIMES,
                                  SERVICE_ORGANIZATION, ORDER_CODE, APPLICATION_NO, EXECUTION_NO, EXECUTION_DEPT, REPORT_NO,
                                  TREATMENT_CODE, REPORT_DOC, REPORT_STATUS, EXAMINE_DOC, EXAMINE_DOC_NAME, REPORT_SHEET_NAME,
                                  ERROR_FLAG)
-        VALUES
-        <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.zyh},#{item.xm},#{item.ylmc},#{item.see},#{item.jcjg},#{item.jcysxm},
-            #{item.shrq},#{item.mpi},#{item.patientDept},#{item.seekMedicalTimes},#{item.serviceOrganization},
-            #{item.orderCode},#{null},#{item.executionNo},#{item.executionDept},#{item.reportNo},#{item.treatmentCode},
-            #{item.reportDoc},#{item.reportStatus},#{item.examineDoc},#{item.examineDocName},
-            #{item.reportSheetName},#{item.errorFlag})
+        <foreach collection="list" item="item" separator="union all" index="index">
+            select #{item.zyh,jdbcType=VARCHAR},#{item.xm,jdbcType=VARCHAR},#{item.ylmc,jdbcType=VARCHAR},#{item.see,jdbcType=VARCHAR},#{item.jcjg,jdbcType=VARCHAR},#{item.jcysxm,jdbcType=VARCHAR},
+            #{item.shrq,jdbcType=TIMESTAMP},#{item.mpi,jdbcType=VARCHAR},#{item.patientDept,jdbcType=VARCHAR},#{item.seekMedicalTimes,jdbcType=VARCHAR},#{item.serviceOrganization,jdbcType=VARCHAR},
+            #{item.orderCode,jdbcType=VARCHAR},#{item.applicationNo,jdbcType=VARCHAR},#{item.executionNo,jdbcType=VARCHAR},#{item.executionDept,jdbcType=VARCHAR},#{item.reportNo,jdbcType=VARCHAR},#{item.treatmentCode,jdbcType=VARCHAR},
+            #{item.reportDoc,jdbcType=VARCHAR},#{item.reportStatus,jdbcType=VARCHAR},#{item.examineDoc,jdbcType=VARCHAR},#{item.examineDocName,jdbcType=VARCHAR},
+            #{item.reportSheetName,jdbcType=VARCHAR},#{item.errorFlag,jdbcType=VARCHAR} from dual
         </foreach>
     </insert>
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.external.pojo.domain.VHemsJcjgExample" >

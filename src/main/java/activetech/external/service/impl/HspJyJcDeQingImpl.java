@@ -171,6 +171,7 @@ public class HspJyJcDeQingImpl implements EsbService {
                     &&	(DateToTimestamp(vHemsJyjgQueryDto.getvHemsJcjgCustom().getStartdate()) < StringToTimestamp((String)e.get("examineReportTime")))
                     &&	(DateToTimestamp(vHemsJyjgQueryDto.getvHemsJcjgCustom().getEnddate()) > StringToTimestamp((String)e.get("examineReportTime")))){
                 VHemsJcjgCustom vHemsJcjgCustom = new VHemsJcjgCustom();
+                vHemsJcjgCustom.setApplicationNo((String) e.get("examineRequestId"));
                 vHemsJcjgCustom.setYlmc((String) e.get("examineReportName"));// 检查项目
                 vHemsJcjgCustom.setJcjg((String) e.get("examineReportImageDiagnosis"));// 检查结论
                 vHemsJcjgCustom.setSee((String) e.get("examineReportImageFeature"));// 检查描述
@@ -373,6 +374,10 @@ public class HspJyJcDeQingImpl implements EsbService {
                 List<VHemsJyjgCustom> zxJyjgList = new LinkedList<VHemsJyjgCustom>();// 子项检验结果
                 zxDataMap.stream().forEach(t -> {
                     VHemsJyjgCustom zxJyjgCustom = new VHemsJyjgCustom();
+                    zxJyjgCustom.setMpi((String) e.get("patientId"));// 就诊号
+                    zxJyjgCustom.setName((String) e.get("patientName"));// 姓名
+                    zxJyjgCustom.setResultDateTime(parseDateTime((String) e.get("laboratoryReportTime"))); // 报告时间
+                    zxJyjgCustom.setSampleno( (String) e.get("laboratoryRequestId"));// 样本类型编号
                     zxJyjgCustom.setReportItemName(t.get("laboratoryItemName"));//实验名称
                     zxJyjgCustom.setResult(t.get("laboratoryItemResultQuantity"));//结果
                     zxJyjgCustom.setLowerLimit(t.get("laboratoryItemReferenceRangeLow"));//下限

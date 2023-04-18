@@ -88,18 +88,52 @@
 								 BED_NO, NURSING_UNIT, ATTENDING_DOC, ATTENDING_DOC_NAME, SEEK_MEDICAL_TIMES,
 								 SERVICE_ORGANIZATION, BE_HOSPITALIZED, ORDER_CODE, ORDER_TYPE, EXAMINE_DEPT, EXAMINE_DEPT_CODE,
 								 XH, APPLICATION_NO, REPORT_NO, TREATMENT_CODE, RECEIVE_TIME, SAMPLE_CODE, SAMPLE_NAME,
-								 REPORT_STATUS, REPORT_SHEET_NAME, ERROR_FLAG, REPORT_TYPE, EXAMINE_DOC, JYJG_ID, JYLX, JYLXMC)
-		VALUES
-		<foreach collection="list" item="item" index="index" separator=",">
-		(#{item.patientId,jdbcType=VARCHAR},#{item.name,jdbcType=VARCHAR},#{item.sampleno,jdbcType=VARCHAR},#{item.result,jdbcType=VARCHAR},#{item.resultDateTime,jdbcType=TIMESTAMP},#{item.upperLimit,jdbcType=VARCHAR},
-		 #{item.lowerLimit,jdbcType=VARCHAR},#{item.reportItemName,jdbcType=VARCHAR},#{item.units,jdbcType=VARCHAR},#{item.examinaim,jdbcType=VARCHAR},#{item.jyz,jdbcType=VARCHAR},#{item.jyz,jdbcType=VARCHAR},
-		 #{item.examineDoc,jdbcType=VARCHAR},#{item.patientDept,,jdbcType=VARCHAR},#{item.inpatientArea,jdbcType=VARCHAR},#{item.bedNo,jdbcType=VARCHAR},#{item.nursingUnit,jdbcType=VARCHAR},
-		 #{item.attendingDoc,jdbcType=VARCHAR},#{item.attendingDocName,jdbcType=VARCHAR},#{item.seekMedicalTimes,jdbcType=VARCHAR},#{item.serviceOrganization,jdbcType=VARCHAR},
-		 #{item.beHospitalized,jdbcType=TIMESTAMP},#{item.orderCode,jdbcType=VARCHAR},#{item.orderType,jdbcType=VARCHAR},#{item.examineDept,jdbcType=VARCHAR},#{item.examineDeptCode,jdbcType=VARCHAR},
-		 #{item.xh,jdbcType=VARCHAR},#{item.applicationNo,jdbcType=VARCHAR},#{item.reportNo,jdbcType=VARCHAR},#{item.treatmentCode,jdbcType=VARCHAR},#{item.receiveTime,jdbcType=TIMESTAMP},
-		 #{item.sampleCode,jdbcType=VARCHAR},#{item.sampleName,jdbcType=VARCHAR},#{item.reportStatus,jdbcType=VARCHAR},#{item.reportSheetName,jdbcType=VARCHAR},
-		 #{item.errorFlag,jdbcType=VARCHAR},#{item.reportType,jdbcType=VARCHAR},#{item.examineDoc,jdbcType=VARCHAR},#{item.jyjgId,jdbcType=VARCHAR},
-		 #{item.jylx,jdbcType=VARCHAR},#{item.jylxmc,jdbcType=VARCHAR})
+								 REPORT_STATUS, REPORT_SHEET_NAME, ERROR_FLAG, REPORT_TYPE, EXAMINE_DOC, JYJG_ID, JYLX, JYLXMC,VST_CAD)
+		<foreach collection="list" item="item" separator="union all" index="index">
+		select
+		 #{item.mpi,jdbcType=VARCHAR},
+		 #{item.name,jdbcType=VARCHAR},
+		 #{item.sampleno,jdbcType=VARCHAR},
+		 #{item.result,jdbcType=VARCHAR},
+		 #{item.resultDateTime,jdbcType=TIMESTAMP},
+		 #{item.upperLimit,jdbcType=VARCHAR},
+		 #{item.lowerLimit,jdbcType=VARCHAR},
+		 #{item.reportItemName,jdbcType=VARCHAR},
+		 #{item.units,jdbcType=VARCHAR},
+		 #{item.examinaim,jdbcType=VARCHAR},
+		 #{item.jyz,jdbcType=VARCHAR},
+		 #{item.jyz,jdbcType=VARCHAR},
+		 #{item.examineDoc,jdbcType=VARCHAR},
+		 #{item.patientDept,jdbcType=VARCHAR},
+		 #{item.inpatientArea,jdbcType=VARCHAR},
+		 #{item.bedNo,jdbcType=VARCHAR},
+		 #{item.nursingUnit,jdbcType=VARCHAR},
+		 #{item.attendingDoc,jdbcType=VARCHAR},
+		 #{item.attendingDocName,jdbcType=VARCHAR},
+		 #{item.seekMedicalTimes,jdbcType=VARCHAR},
+		 #{item.serviceOrganization,jdbcType=VARCHAR},
+		 #{item.beHospitalized,jdbcType=TIMESTAMP},
+		 #{item.orderCode,jdbcType=VARCHAR},
+		 #{item.orderType,jdbcType=VARCHAR},
+		 #{item.examineDept,jdbcType=VARCHAR},
+		 #{item.examineDeptCode,jdbcType=VARCHAR},
+		 #{item.xh,jdbcType=VARCHAR},
+		 #{item.applicationNo,jdbcType=VARCHAR},
+		 #{item.reportNo,jdbcType=VARCHAR},
+		 #{item.treatmentCode,jdbcType=VARCHAR},
+		 #{item.receiveTime,jdbcType=TIMESTAMP},
+		 #{item.sampleCode,jdbcType=VARCHAR},
+		 #{item.sampleName,jdbcType=VARCHAR},
+		 #{item.reportStatus,jdbcType=VARCHAR},
+		 #{item.reportSheetName,jdbcType=VARCHAR},
+		 #{item.errorFlag,jdbcType=VARCHAR},
+		 #{item.reportType,jdbcType=VARCHAR},
+		 #{item.examineDoc,jdbcType=VARCHAR},
+		 #{item.jyjgId,jdbcType=VARCHAR},
+		 #{item.jylx,jdbcType=VARCHAR},
+		 #{item.jylxmc,jdbcType=VARCHAR},
+		 #{item.vstCad,jdbcType=VARCHAR}
+		 from dual
 		</foreach>
 
 	</insert>

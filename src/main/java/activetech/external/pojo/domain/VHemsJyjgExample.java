@@ -2944,6 +2944,76 @@ public class VHemsJyjgExample {
             addCriterion("JYLXMC not between", value1, value2, "jylxmc");
             return (Criteria) this;
         }
+
+        public Criteria andVstCadIsNull() {
+            addCriterion("VST_CAD is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadIsNotNull() {
+            addCriterion("VST_CAD is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadEqualTo(String value) {
+            addCriterion("VST_CAD =", value, "vstCad");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadNotEqualTo(String value) {
+            addCriterion("VST_CAD <>", value, "vstCad");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadGreaterThan(String value) {
+            addCriterion("VST_CAD >", value, "vstCad");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadGreaterThanOrEqualTo(String value) {
+            addCriterion("VST_CAD >=", value, "vstCad");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadLessThan(String value) {
+            addCriterion("VST_CAD <", value, "vstCad");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadLessThanOrEqualTo(String value) {
+            addCriterion("VST_CAD <=", value, "vstCad");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadLike(String value) {
+            addCriterion("VST_CAD like", value, "vstCad");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadNotLike(String value) {
+            addCriterion("VST_CAD not like", value, "vstCad");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadIn(List<String> values) {
+            addCriterion("VST_CAD in", values, "vstCad");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadNotIn(List<String> values) {
+            addCriterion("VST_CAD not in", values, "vstCad");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadBetween(String value1, String value2) {
+            addCriterion("VST_CAD between", value1, value2, "vstCad");
+            return (Criteria) this;
+        }
+
+        public Criteria andVstCadNotBetween(String value1, String value2) {
+            addCriterion("VST_CAD not between", value1, value2, "vstCad");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -43,6 +43,7 @@
     <result column="JYJG_ID" property="jyjgId" jdbcType="VARCHAR" />
     <result column="JYLX" property="jylx" jdbcType="VARCHAR" />
     <result column="JYLXMC" property="jylxmc" jdbcType="VARCHAR" />
+    <result column="VST_CAD" property="vstCad" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -108,7 +109,7 @@
     BED_NO, NURSING_UNIT, ATTENDING_DOC, ATTENDING_DOC_NAME, SEEK_MEDICAL_TIMES, SERVICE_ORGANIZATION, 
     BE_HOSPITALIZED, ORDER_CODE, ORDER_TYPE, EXAMINE_DEPT, EXAMINE_DEPT_CODE, XH, APPLICATION_NO, 
     REPORT_NO, TREATMENT_CODE, RECEIVE_TIME, SAMPLE_CODE, SAMPLE_NAME, REPORT_STATUS, 
-    REPORT_SHEET_NAME, ERROR_FLAG, REPORT_TYPE, EXAMINE_DOC, JYJG_ID, JYLX, JYLXMC
+    REPORT_SHEET_NAME, ERROR_FLAG, REPORT_TYPE, EXAMINE_DOC, JYJG_ID, JYLX, JYLXMC, VST_CAD
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="activetech.external.pojo.domain.VHemsJyjgExample" >
     select
@@ -144,7 +145,8 @@
       RECEIVE_TIME, SAMPLE_CODE, SAMPLE_NAME, 
       REPORT_STATUS, REPORT_SHEET_NAME, ERROR_FLAG, 
       REPORT_TYPE, EXAMINE_DOC, JYJG_ID, 
-      JYLX, JYLXMC)
+      JYLX, JYLXMC, VST_CAD
+      )
     values (#{mpi,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sampleno,jdbcType=VARCHAR}, 
       #{result,jdbcType=VARCHAR}, #{resultDateTime,jdbcType=TIMESTAMP}, #{upperLimit,jdbcType=VARCHAR}, 
       #{lowerLimit,jdbcType=VARCHAR}, #{reportItemName,jdbcType=VARCHAR}, #{units,jdbcType=VARCHAR}, 
@@ -158,7 +160,8 @@
       #{receiveTime,jdbcType=TIMESTAMP}, #{sampleCode,jdbcType=VARCHAR}, #{sampleName,jdbcType=VARCHAR}, 
       #{reportStatus,jdbcType=VARCHAR}, #{reportSheetName,jdbcType=VARCHAR}, #{errorFlag,jdbcType=VARCHAR}, 
       #{reportType,jdbcType=VARCHAR}, #{examineDoc,jdbcType=VARCHAR}, #{jyjgId,jdbcType=VARCHAR}, 
-      #{jylx,jdbcType=VARCHAR}, #{jylxmc,jdbcType=VARCHAR})
+      #{jylx,jdbcType=VARCHAR}, #{jylxmc,jdbcType=VARCHAR}, #{vstCad,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="activetech.external.pojo.domain.VHemsJyjg" >
     insert into V_HEMS_JYJG
@@ -286,6 +289,9 @@
       <if test="jylxmc != null" >
         JYLXMC,
       </if>
+      <if test="vstCad != null" >
+        VST_CAD,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="mpi != null" >
@@ -410,6 +416,9 @@
       </if>
       <if test="jylxmc != null" >
         #{jylxmc,jdbcType=VARCHAR},
+      </if>
+      <if test="vstCad != null" >
+        #{vstCad,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -545,6 +554,9 @@
       <if test="record.jylxmc != null" >
         JYLXMC = #{record.jylxmc,jdbcType=VARCHAR},
       </if>
+      <if test="record.vstCad != null" >
+        VST_CAD = #{record.vstCad,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -592,7 +604,8 @@
       EXAMINE_DOC = #{record.examineDoc,jdbcType=VARCHAR},
       JYJG_ID = #{record.jyjgId,jdbcType=VARCHAR},
       JYLX = #{record.jylx,jdbcType=VARCHAR},
-      JYLXMC = #{record.jylxmc,jdbcType=VARCHAR}
+      JYLXMC = #{record.jylxmc,jdbcType=VARCHAR},
+      VST_CAD = #{record.vstCad,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>

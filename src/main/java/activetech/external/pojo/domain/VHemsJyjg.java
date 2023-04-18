@@ -85,6 +85,8 @@ public class VHemsJyjg {
 
     private String jylxmc;
 
+    private String vstCad;
+
     public String getMpi() {
         return mpi;
     }
@@ -411,5 +413,13 @@ public class VHemsJyjg {
 
     public void setJylxmc(String jylxmc) {
         this.jylxmc = jylxmc == null ? null : jylxmc.trim();
+    }
+
+    public String getVstCad() {
+        return vstCad;
+    }
+
+    public void setVstCad(String vstCad) {
+        this.vstCad = vstCad == null ? null : vstCad.trim();
     }
 }

@@ -45,7 +45,7 @@ public class deQingJyJcJob {
 
         for (HspDbzlBasCustom hspDbzlBasCustom : hspDbzlBasCustomList) {
             if (StringUtils.isNotNullAndEmptyByTrim(hspDbzlBasCustom.getVstCad())) {
-                //拼接参数
+                //拼接请求参数
                 VHemsJyjgQueryDto vHemsJyjgQueryDto = new VHemsJyjgQueryDto();
                 VHemsJyjgCustom vHemsJyjgCustom = new VHemsJyjgCustom();
                 vHemsJyjgCustom.setPatientId(hspDbzlBasCustom.getVstCad());
@@ -54,54 +54,52 @@ public class deQingJyJcJob {
                 vHemsJyjgQueryDto.setvHemsJyjgCustom(vHemsJyjgCustom);
                 vHemsJyjgQueryDto.setSort("resultDateTime");
                 vHemsJyjgQueryDto.setOrder("asc");
-                //获取检验数据并保存
-                //检验大项list
-                List<VHemsJyjgCustom> vHemsJyjgCustoms = new ArrayList<>();
-                //检验小项list
-                List<VHemsJyjgCustom> vHemsJyjgCustomList = new ArrayList<>();
 
+
+                //定义接口返回的结果  vHemsJyjgCustoms
+                List<VHemsJyjgCustom> vHemsJyjgCustoms = new ArrayList<>();
+                //请求接口数据
                 vHemsJyjgCustoms = esbService.findjyCategoriesList(vHemsJyjgQueryDto);
+
                 //接口没有数据则结束本次循环
                 if (Objects.isNull(vHemsJyjgCustoms) || vHemsJyjgCustoms.size() <= 0) {
                     continue;
                 }
-                //查询v_hems_jyjg里这个病人的数据
+
+                //查询本地表v_hems_jyjg里这个病人的数据
                 VHemsJyjgExample vHemsJyjgExample = new VHemsJyjgExample();
                 VHemsJyjgExample.Criteria criteria = vHemsJyjgExample.createCriteria();
-                criteria.andMpiEqualTo(hspDbzlBasCustom.getVstCad());
+                criteria.andVstCadEqualTo(hspDbzlBasCustom.getVstCad());
                 criteria.andResultDateTimeBetween(hspDbzlBasCustom.getRegTim(), DateUtil.getNextDay(new Date()));
                 List<VHemsJyjg> vHemsJyjgs = vHemsJyjgMapper.selectByExample(vHemsJyjgExample);
+
                 //如病人没有检验数据直接将检验信息入库，如果有数据则将数据进行比较入库
                 if (Objects.nonNull(vHemsJyjgs) && vHemsJyjgs.size() > 0) {
                     Iterator<VHemsJyjgCustom> iterator = vHemsJyjgCustoms.iterator();
-                    while (iterator.hasNext()){
+                    while (iterator.hasNext()) {
                         VHemsJyjgCustom hemsJyjgCustom = iterator.next();
                         for (VHemsJyjg vHemsJyjg : vHemsJyjgs) {
+                            //比较
                             if (hemsJyjgCustom.getExaminaim().equals(vHemsJyjg.getExaminaim())) {
                                 if (hemsJyjgCustom.getSampleName().equals(vHemsJyjg.getSampleName())) {
+                                    //如果接口的数据与本地数据有重复，则接口的数据不入库
                                     iterator.remove();
                                 }
                             }
                         }
                     }
-                    //根据检验大项查询小项
-                    for (VHemsJyjgCustom hemsJyjgCustom : vHemsJyjgCustoms) {
-                        vHemsJyjgCustom.setSampleno(hemsJyjgCustom.getSampleno());
-                        vHemsJyjgQueryDto.setvHemsJyjgCustom(vHemsJyjgCustom);
-                        vHemsJyjgCustomList = esbService.findvhemsjyjginfoList(vHemsJyjgQueryDto);
-                        vHemsJyjgCustomList.add(hemsJyjgCustom);
-                    }
-                    //检验信息入库
-                    vHemsJyjgMapperCustom.insertJyjgOnDeQing(vHemsJyjgCustomList);
-                } else {
-                    //根据检验大项查询小项
-                    for (VHemsJyjgCustom hemsJyjgCustom : vHemsJyjgCustoms) {
-                        vHemsJyjgCustom.setSampleno(hemsJyjgCustom.getSampleno());
-                        vHemsJyjgQueryDto.setvHemsJyjgCustom(vHemsJyjgCustom);
-                        vHemsJyjgCustomList = esbService.findvhemsjyjginfoList(vHemsJyjgQueryDto);
-                        vHemsJyjgCustomList.add(hemsJyjgCustom);
-                    }
-                    //检验信息入库
+                }
+                //定义插入数据库list vHemsJyjgCustomList
+                List<VHemsJyjgCustom> vHemsJyjgCustomList = new ArrayList<>();
+                //拼接入库list数据
+                for (VHemsJyjgCustom hemsJyjgCustom : vHemsJyjgCustoms) {
+                    hemsJyjgCustom.setVstCad(hspDbzlBasCustom.getVstCad());
+                    vHemsJyjgCustomList.add(hemsJyjgCustom);
+                    vHemsJyjgCustomList.addAll(hemsJyjgCustom.getVlist());
+                }
+
+                //检验信息入库
+                if (Objects.nonNull(vHemsJyjgCustomList) && vHemsJyjgCustomList.size()>0){
                     vHemsJyjgMapperCustom.insertJyjgOnDeQing(vHemsJyjgCustomList);
                 }
             }
@@ -122,6 +120,7 @@ public class deQingJyJcJob {
                 vHemsJcjgCustom.setZyh(hspDbzlBasCustom.getVstCad());
                 vHemsJcjgCustom.setStartdate(hspDbzlBasCustom.getRegTim());
                 vHemsJcjgCustom.setEnddate(DateUtil.getNextDay(new Date()));
+                vHemsJyjgQueryDto.setvHemsJcjgCustom(vHemsJcjgCustom);
                 List<VHemsJcjgCustom> vHemsJcjgCustomList = esbService.findVHemsJcjgList(vHemsJyjgQueryDto);
                 //如接口无数据返回，结束本次循环。
                 if (Objects.isNull(vHemsJcjgCustomList) || vHemsJcjgCustomList.size() <= 0) {
@@ -136,7 +135,7 @@ public class deQingJyJcJob {
                 //本地无此病人数据直接插入接口数据，本地有数据进行比较入库
                 if (Objects.nonNull(vHemsJcjgs) && vHemsJcjgs.size() > 0) {
                     Iterator<VHemsJcjgCustom> iterator = vHemsJcjgCustomList.iterator();
-                    while (iterator.hasNext()){
+                    while (iterator.hasNext()) {
                         VHemsJcjgCustom hemsJcjgCustom = iterator.next();
                         for (VHemsJcjg vHemsJcjg : vHemsJcjgs) {
                             if (hemsJcjgCustom.getYlmc().equals(vHemsJcjg.getYlmc())) {
@@ -144,13 +143,15 @@ public class deQingJyJcJob {
                             }
                         }
                     }
-                    //检查信息入库
-                    vHemsJcjgMapperCustom.insertJcjgOnDeQing(vHemsJcjgCustomList);
-                } else {
-                    //检查信息入库
+                }
+                //检查信息入库
+                if (Objects.nonNull(vHemsJcjgCustomList) && vHemsJcjgCustomList.size()>0){
+                    vHemsJcjgCustomList.stream().forEach(item ->{
+                        item.setZyh(hspDbzlBasCustom.getVstCad());
+                        item.setXm(hspDbzlBasCustom.getCstNam());
+                    });
                     vHemsJcjgMapperCustom.insertJcjgOnDeQing(vHemsJcjgCustomList);
                 }
-
             }
         }
     }

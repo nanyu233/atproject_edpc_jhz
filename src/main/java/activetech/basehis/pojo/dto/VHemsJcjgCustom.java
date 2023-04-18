@@ -40,7 +40,18 @@ public class VHemsJcjgCustom extends VHemsJcjg{
     private String reportSheetName;
 
     private String errorFlag;
-    
+
+	private String applicationNo;
+
+
+	public String getApplicationNo() {
+		return applicationNo;
+	}
+
+	public void setApplicationNo(String applicationNo) {
+		this.applicationNo = applicationNo;
+	}
+
 	public String getMpi() {
 		return mpi;
 	}
