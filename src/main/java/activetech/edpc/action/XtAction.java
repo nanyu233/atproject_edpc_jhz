@@ -20,9 +20,8 @@ import activetech.external.pojo.domain.HspEcgInf;
 import activetech.external.service.EsbService;
 import activetech.util.DateUtil;
 import activetech.util.ExcelExportSXXSSF;
-import activetech.util.StringUtils;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -526,33 +525,33 @@ public class XtAction {
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 	
-	/**
-	 * 胸痛登记页面提交
-	 * @param xtzlInfs
-	 * @param emgSeq
-	 * @param activeUser
-	 * @return
-	 */
-	@RequestMapping("/xtPatietSubmit")
-	@ResponseBody
-	public SubmitResultInfo xtPatietSubmit(@RequestBody XtHspEmgInfQueryDto xtHspEmgInfQueryDto,ActiveUser activeUser){
-		ResultInfo resultInfo = xtService.xtPatietSubmitBatch(
-				xtHspEmgInfQueryDto.getXtzlInfs(), xtHspEmgInfQueryDto.getEmgSeq(), xtHspEmgInfQueryDto.getRegSeq(), activeUser);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}
-
-	/**
-	 * 胸痛登记页面基本信息提交
-	 * @param hspDbzlBasQueryDto
-	 * @param activeUser
-	 * @return
-	 */
-	@RequestMapping("/xtPatietBasicInfSubmit")
-	@ResponseBody
-	public SubmitResultInfo xtPatietBasicInfSubmit(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser){
-		ResultInfo resultInfo = xtService.xtPatietBasicInfSubmit(hspDbzlBasQueryDto, activeUser);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}
+//	/**
+//	 * 胸痛登记页面提交
+//	 * @param xtzlInfs
+//	 * @param emgSeq
+//	 * @param activeUser
+//	 * @return
+//	 */
+//	@RequestMapping("/xtPatietSubmit")
+//	@ResponseBody
+//	public SubmitResultInfo xtPatietSubmit(@RequestBody XtHspEmgInfQueryDto xtHspEmgInfQueryDto,ActiveUser activeUser){
+//		ResultInfo resultInfo = xtService.xtPatietSubmitBatch(
+//				xtHspEmgInfQueryDto.getXtzlInfs(), xtHspEmgInfQueryDto.getEmgSeq(), xtHspEmgInfQueryDto.getRegSeq(), activeUser);
+//		return ResultUtil.createSubmitResult(resultInfo);
+//	}
+//
+//	/**
+//	 * 胸痛登记页面基本信息提交
+//	 * @param hspDbzlBasQueryDto
+//	 * @param activeUser
+//	 * @return
+//	 */
+//	@RequestMapping("/xtPatietBasicInfSubmit")
+//	@ResponseBody
+//	public SubmitResultInfo xtPatietBasicInfSubmit(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser){
+//		ResultInfo resultInfo = xtService.xtPatietBasicInfSubmit(hspDbzlBasQueryDto, activeUser);
+//		return ResultUtil.createSubmitResult(resultInfo);
+//	}
 
 	
 	/**
@@ -680,31 +679,31 @@ public class XtAction {
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
-	/**
-	 * 更新心电图信息
-	 * @param hspEcgInf
-	 * @param activeUser
-	 * @return
-	 */
-	@RequestMapping("/addOrUpdateEcgInf")
-	@ResponseBody
-	public SubmitResultInfo addOrUpdateEcgInf(@RequestBody HspEcgInf hspEcgInf, ActiveUser activeUser){
-		ResultInfo resultInfo = esbService.addOrUpdateEcgInf(hspEcgInf, activeUser);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}
+//	/**
+//	 * 更新心电图信息
+//	 * @param hspEcgInf
+//	 * @param activeUser
+//	 * @return
+//	 */
+//	@RequestMapping("/addOrUpdateEcgInf")
+//	@ResponseBody
+//	public SubmitResultInfo addOrUpdateEcgInf(@RequestBody HspEcgInf hspEcgInf, ActiveUser activeUser){
+//		ResultInfo resultInfo = esbService.addOrUpdateEcgInf(hspEcgInf, activeUser);
+//		return ResultUtil.createSubmitResult(resultInfo);
+//	}
 
-	/**
-	 * 更新Grace信息
-	 * @param hspGraceInf
-	 * @param activeUser
-	 * @return
-	 */
-	@RequestMapping("/updateGraceInf")
-	@ResponseBody
-	public SubmitResultInfo updateGraceInf(@RequestBody HspGraceInf hspGraceInf, ActiveUser activeUser){
-		ResultInfo resultInfo = xtService.updateGraceInf(hspGraceInf, activeUser);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}
+//	/**
+//	 * 更新Grace信息
+//	 * @param hspGraceInf
+//	 * @param activeUser
+//	 * @return
+//	 */
+//	@RequestMapping("/updateGraceInf")
+//	@ResponseBody
+//	public SubmitResultInfo updateGraceInf(@RequestBody HspGraceInf hspGraceInf, ActiveUser activeUser){
+//		ResultInfo resultInfo = xtService.updateGraceInf(hspGraceInf, activeUser);
+//		return ResultUtil.createSubmitResult(resultInfo);
+//	}
 
 
 	/**
@@ -986,6 +985,37 @@ public class XtAction {
 										   String patId,
 										   ActiveUser activeUser) throws Exception {
 		ResultInfo resultInfo = esbService.saveEcgPicSubmit(multipartFile, fileType, patId, activeUser);
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
+	@RequestMapping("/xtPatietBasicInfAndZlInfSubmit")
+	@ResponseBody
+	public SubmitResultInfo xtPatietBasicInfAndZlInfSubmit(@RequestBody(required=false) Map<String,Object> mapObject,ActiveUser activeUser) {
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		if(mapObject.containsKey("hspDbzlBasCustom")){
+			String json1 = JSON.toJSONString(mapObject.get("hspDbzlBasCustom"));
+			HspDbzlBasCustom hspDbzlBasCustom = JSON.parseObject(json1, HspDbzlBasCustom.class);
+			HspDbzlBasQueryDto hspDbzlBasQueryDto = new HspDbzlBasQueryDto();
+			hspDbzlBasQueryDto.setHspDbzlBasCustom(hspDbzlBasCustom);
+			xtService.xtPatietBasicInfSubmit(hspDbzlBasQueryDto, activeUser);
+		}
+		if(mapObject.containsKey("hspEcgInf")){
+			String json2 = JSON.toJSONString(mapObject.get("hspEcgInf"));
+			HspEcgInf hspEcgInf = JSON.parseObject(json2, HspEcgInf.class);
+			esbService.addOrUpdateEcgInf(hspEcgInf, activeUser);
+		}
+		if(mapObject.containsKey("hspGraceInf")){
+			String json3 = JSON.toJSONString(mapObject.get("hspGraceInf"));
+			HspGraceInf hspGraceInf = JSON.parseObject(json3, HspGraceInf.class);
+			xtService.updateGraceInf(hspGraceInf, activeUser);
+		}
+		if(mapObject.containsKey("xtzlInfs") && mapObject.containsKey("regSeq") && mapObject.containsKey("emgSeq")){
+			String json4 = JSON.toJSONString(mapObject.get("xtzlInfs"));
+			String regSeq = (String)mapObject.get("regSeq");
+			String emgSeq = (String)mapObject.get("emgSeq");
+			List<HspZlInfCustom> xtzlInfs = JSON.parseArray(json4, HspZlInfCustom.class);
+			xtService.xtPatietSubmitBatch(xtzlInfs, emgSeq, regSeq, activeUser);
+		}
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 

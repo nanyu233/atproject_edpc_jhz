@@ -14,18 +14,43 @@
 		<link rel="stylesheet" type="text/css" href="${baseUrl}css/edpc/xtxq.css">
 		<link rel="stylesheet" type="text/css" href="css/edpc/iconfont.css">
 		<link rel="stylesheet" type="text/css" href="lib/easyui1.3/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="${baseurl}lib/elementui/elementui.css">
 		<script type="text/javascript" src="lib/vue2.6.7/vue.js"></script>
 		<script type="text/javascript" src="lib/moment.min.js"></script>
 		<script type="text/javascript" src="lib/easyui1.3/jquery-1.8.0.min.js"></script>
 		<script type="text/javascript" src="lib/easyui1.3/jquery.easyui.min.js"></script>
 		<script type="text/javascript" src="lib/avalon1.4.8/avalon.js"></script>
 		<script type="text/javascript" src="js/public.js"></script>
+		<script type="text/javascript" src="${baseurl}lib/elementui/elementui.js"></script>
 		<%@ include file="/WEB-INF/jsp/base/common_js.jsp" %>
 	</head>
 	<style>
         .ms-controller {
 	        visibility: hidden;
         }
+		.file {
+			cursor: pointer;
+			position: relative;
+			display: inline-block;
+			background: #D0EEFF;
+			border: 1px solid #99D3F5;
+			border-radius: 4px;
+			padding: 4px 12px;
+			overflow: hidden;
+			color: #1E88C7;
+			text-decoration: none;
+			text-indent: 0;
+			line-height: 30px;
+			margin-left: 2px;
+			margin-right: 20px;
+		}
+		.file input {
+			position: absolute;
+			font-size: 100px;
+			right: 0;
+			top: 0;
+			opacity: 0;
+		}
 	</style>
 
 	<body ms-controller="report" class="ms-controller">
@@ -854,12 +879,16 @@
 									<input type="text" class="Wdate" ms-duplex="hspEcgInf.fileDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" />
 								</div>
 							</div>
-							<div class="input-group">
+							<div class="input-group" style="height: 40px;">
 								<div class="lb">心电图文件 <span class="required">*</span></div>
 								<div class="input" style="padding-right: 10px;">
-									<input type="text" ms-duplex="hspEcgInf.filePath" placeholder='请选择心电图文件' />
-									<div class="btn inlineBtn">上传</div>
+									<input type="text" ms-duplex="hspEcgInf.fileName" placeholder='心电图文件' />
+<%--									<div class="btn inlineBtn">上传</div>--%>
 								</div>
+								<a href="javascript:;" class="file">上传
+									<input type="file" name="ecgFile" id="ecgFile" accept=".png,.jpg,.jpeg,.pdf" ms-on-change="selectAndUploadFile" ref="ecgFile">
+								</a>
+								<span class="file" onclick="viewUploadFile()">预览</span>
 							</div>
 							<div class="input-group">
 								<div class="lb">心电图诊断时间 <span class="required">*</span></div>
@@ -4038,7 +4067,6 @@
 
 			info: {
 				CWYSJCSJ: '', //床位医生接触时间
-				XDT: '', //心电图
 				JZZDSJ: '', //急诊诊断时间
 				JGDB72SZ: '',
 				JGDB02: null,
@@ -4055,9 +4083,13 @@
 			hspEcgInf: {
 				ecgSeq: '',   //心电图序号
 				refId: '',    //关联id
+				fileName: '', //心电图名称
 				fileDate: '', //首份心电图时间
 				filePath: '',  //心电图路径
 				fileDiaDate: '', //心电图诊断时间
+			},
+			uploadEcgFile: {
+				uploadFileUrl: '', //上传ecg文件url
 			},
 			modalGraceInfo: {
 				graceSeq: '',
@@ -5034,52 +5066,64 @@
 			// vm.aidPatient.sceAr0Cod = '';
 			vm.hspXtzlInf.FBDZ03 = '';
 		});
+
 		//保存
 		var commit =  publicFun.debounce(function (){
 			vm.count = 0
-			parent.publicFun.ajaxLoading('保存中 请稍等。。。')
-			commitBaseInfo();
-			commitXtzlInfo();
-			commitEcgInfo();
-			commitGraceInfo();
+			parent.publicFun.ajaxLoading('保存中 请稍等。。。');
+			commitXtData();
 		},500)
 
-		//提交基本信息
-		function commitBaseInfo(){
-			var dataSubmit = {};
-			dataSubmit.hspDbzlBasCustom = vm.baseInfo;
-			$.ajax({
-				url: '${baseurl}cpc/xtPatietBasicInfSubmit.do',
-				type: 'post',
-				dataType: 'json',
-				contentType: 'application/json;charset=UTF-8',
-				data: JSON.stringify(dataSubmit),
-				success: function(res) {
-					if (res.resultInfo.success) {
-						vm.count++
+		function commitXtData() {
+			var xtInfoList = rebuildXtzlInfo()
+			var timestampFileDate = moment(vm.hspEcgInf.fileDate).valueOf();
+			var timestampFileDiaDate = moment(vm.hspEcgInf.fileDiaDate).valueOf();
+			publicFun.httpServer(
+					{
+						url: '${baseurl}cpc/xtPatietBasicInfAndZlInfSubmit.do',
+						requestDataType: 'json',
+					}, {
+						hspDbzlBasCustom: vm.baseInfo,
+
+						regSeq: _regSeq,
+						emgSeq: _emgSeq,
+						xtzlInfs: xtInfoList,
+
+						hspEcgInf:{
+							fileDate: timestampFileDate,
+							fileDiaDate: timestampFileDiaDate,
+							ecgSeq: vm.hspEcgInf.ecgSeq,
+							filePath: vm.hspEcgInf.filePath,
+							refId: vm.hspEcgInf.refId
+						},
+
+						hspGraceInf:{
+							graceSeq: vm.modalGraceInfo.graceSeq,
+							emgSeq: _regSeq,
+							wxys: vm.hspXtzlInf.WXYS,
+							gracejgwtj: vm.hspXtzlInf.GRACEJGWTJ,
+							cstAge: vm.modalGraceInfo.cstAge,
+							jgdb: vm.modalGraceInfo.jgdb,
+							killip: vm.modalGraceInfo.killip,
+							total: vm.modalGraceInfo.total,
+							hrtRte: vm.modalGraceInfo.hrtRte,
+							sbpupNbr: vm.modalGraceInfo.sbpupNbr,
+							graceType: '0'
+						}
+					},
+					function(res){
+						parent.publicFun.ajaxLoadEnd();
+						if (res.resultInfo.success) {
+							parent.publicFun.successalert("保存成功");
+						} else {
+							parent.publicFun.alert("保存失败");
+						}
 					}
-				},
-			});
+			)
 		}
 
-		//提交表单信息
-		function commitXtzlInfo(){
-			// console.log("@@@@@@@@@", vm.info);
+		function rebuildXtzlInfo(){
 			var list = [];
-			for (var prop in vm.info) {
-				if (vm.info.hasOwnProperty(prop)) {
-					if (prop == 'GMZY01' || prop == 'GMZY02' || prop == 'GMZY03' || prop == 'GMZY04' || prop == 'GMZY05' || prop ==
-							'GMZY06' || prop == 'GMZY07' || prop == 'GMZY08' || prop == 'GMZY09' || prop == 'GMZY10' || prop == 'GMZY11' ||
-							prop == 'GMZY12' || prop == 'GMZY13' || prop == 'GMZY14' || prop == 'GMZY15' || prop == 'GMZY16' || prop ==
-							'GMZY17' || prop == 'GMZY18' || prop == 'GMZY19' || prop == 'GMZY20' || prop == 'GMZY21' || prop == 'GMZY22' ||
-							prop == 'GMZY23' || prop == 'GMZY24' || prop == 'GMZY25' || prop == 'GMZY26' || prop == 'GMZY27') {} else {
-						list.push({
-							proCode: prop,
-							proVal: vm.info[prop]
-						});
-					}
-				}
-			}
 			for (var prop in vm.hspXtzlInf) {
 				if(vm.hspXtzlInf.hasOwnProperty(prop)) {
 					if(prop == 'TIWEN' || prop == 'XQJGSZ' || prop == 'DEJTSZ' || prop == 'BNPSZ' || prop == 'NTPROBNPSZ' || prop == 'MYOSZ'
@@ -5095,78 +5139,7 @@
 					});
 				}
 			}
-			$.ajax({
-				url: '${baseurl}cpc/xtPatietSubmit.do',
-				type: 'post',
-				dataType: 'json',
-				contentType: 'application/json;charset=UTF-8',
-				data: JSON.stringify({
-					regSeq: _regSeq,
-					emgSeq: _emgSeq,
-					xtzlInfs: list,
-				}),
-				success: function(res) {
-					parent.publicFun.ajaxLoadEnd()
-					if (res.resultInfo.success) {
-						vm.count++
-					}
-					if (vm.count === 4) {
-						parent.publicFun.successalert("保存成功");
-					}else {
-						parent.publicFun.alert("保存失败");
-					}
-				},
-			});
-		}
-		//提交心电图信息
-		function commitEcgInfo(){
-			var timestampFileDate = moment(vm.hspEcgInf.fileDate).valueOf();
-			var timestampFileDiaDate = moment(vm.hspEcgInf.fileDiaDate).valueOf();
-			$.ajax({
-				url: '${baseurl}cpc/addOrUpdateEcgInf.do',
-				type: 'post',
-				dataType: 'json',
-				contentType: 'application/json;charset=UTF-8',
-				data: JSON.stringify({
-					fileDate: timestampFileDate,
-					fileDiaDate: timestampFileDiaDate,
-					ecgSeq: vm.hspEcgInf.ecgSeq,
-					filePath: vm.hspEcgInf.filePath,
-					refId: vm.hspEcgInf.refId,
-				}),
-				success: function(res) {
-					if (res.resultInfo.success) {
-						vm.count++
-					}
-				},
-			});
-		}
-		//提交Grace信息
-		function commitGraceInfo(){
-			$.ajax({
-				url: '${baseurl}cpc/updateGraceInf.do',
-				type: 'post',
-				dataType: 'json',
-				contentType: 'application/json;charset=UTF-8',
-				data: JSON.stringify({
-					graceSeq: vm.modalGraceInfo.graceSeq,
-					emgSeq: _regSeq,
-					wxys: vm.hspXtzlInf.WXYS,
-					gracejgwtj: vm.hspXtzlInf.GRACEJGWTJ,
-					cstAge: vm.modalGraceInfo.cstAge,
-					jgdb: vm.modalGraceInfo.jgdb,
-					killip: vm.modalGraceInfo.killip,
-					total: vm.modalGraceInfo.total,
-					hrtRte: vm.modalGraceInfo.hrtRte,
-					sbpupNbr: vm.modalGraceInfo.sbpupNbr,
-					graceType: '0'
-				}),
-				success: function(res) {
-					if (res.resultInfo.success) {
-						vm.count++
-					}
-				},
-			});
+			return list;
 		}
 	
 		
@@ -5747,12 +5720,16 @@
 						for (var a in vm.hspEcgInf) {
 							if (_hspEcgInf.hasOwnProperty(a)) {
 								if(a === 'fileDate' || a === 'fileDiaDate'){
-									vm.hspEcgInf[a] = moment(_hspEcgInf[a]).format('YYYY-MM-DD HH:mm');
-								}else{
+									if(_hspEcgInf[a] !== ''){
+										vm.hspEcgInf[a] = publicFun.timeFormat(_hspEcgInf[a], 'yyyy-MM-dd hh:mm')
+									}
+								} else {
 									vm.hspEcgInf[a] = _hspEcgInf[a];
 								}
 							}
 						}
+						//url前缀为minio地址 暂时写死
+						vm.uploadEcgFile.uploadFileUrl = 'http://192.168.3.23:9000/ecg/' + _hspEcgInf.filePath;
 					}
 				}
 			});
@@ -5935,6 +5912,29 @@
 				}
 			});
 		})
+
+		function selectAndUploadFile(){
+			var file = this.files[0];
+			var formData = new FormData();
+			formData.append('uploadFile',file);
+			formData.append('fileType',"ecg");
+			formData.append('patId',_regSeq);
+			$.ajax({
+				url: '${baseurl}cpc/saveEcgPicSubmit.do',
+				contentType:false,
+				type:'post',
+				data: formData,
+				processData:false,
+				success: function(res){
+					vm.uploadEcgFile.uploadFileUrl = res.resultInfo.sysdata.filePath;
+				}
+			})
+		}
+
+		function viewUploadFile(){
+			window.open(vm.uploadEcgFile.uploadFileUrl)
+		}
+
 	</script>
 
 </html>

@@ -9,7 +9,6 @@ import activetech.base.process.context.Config;
 import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.service.SystemConfigService;
-import activetech.base.service.impl.CommonServiceImpl;
 import activetech.base.util.MinIoUtil;
 import activetech.basehis.dao.mapper.YZMapper;
 import activetech.basehis.pojo.dto.*;
@@ -21,6 +20,7 @@ import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
 import activetech.edpc.pojo.dto.HspZlInfCustom;
 import activetech.edpc.pojo.dto.HspZlInfQueryDto;
 import activetech.external.dao.mapper.HspEcgInfMapper;
+import activetech.external.dao.mapper.HspEcgInfMapperCustom;
 import activetech.external.pojo.domain.HspEcgInf;
 import activetech.external.pojo.domain.HspEcgInfExample;
 import activetech.external.service.EsbService;
@@ -137,6 +137,9 @@ public class HspJyJcDeQingImpl implements EsbService {
 
     @Autowired
     private HspEcgInfMapper hspEcgInfMapper;
+
+    @Autowired
+    private HspEcgInfMapperCustom hspEcgInfMapperCustom;
 
     @Override
     public List<VHemsJcjgCustom> findVHemsJcjgList(VHemsJyjgQueryDto vHemsJyjgQueryDto) throws Exception {
@@ -512,7 +515,9 @@ public class HspJyJcDeQingImpl implements EsbService {
 
     @Override
     public ResultInfo addOrUpdateEcgInf(HspEcgInf hspEcgInf, ActiveUser activeUser) {
-        return null;
+        ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+        hspEcgInfMapper.updateByPrimaryKeySelective(hspEcgInf);
+        return resultInfo;
     }
 
     @Override
@@ -661,21 +666,23 @@ public class HspJyJcDeQingImpl implements EsbService {
     public ResultInfo saveEcgPicSubmit(MultipartFile multipartFile, String fileType, String patId,
                                        ActiveUser activeUser) throws ServerException, InvalidBucketNameException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         ResultInfo resultInfo;
-        // 如果类型是心电图，则进行替换，如果是声音文件，则进行保存
-        DstarchivesExample example = new DstarchivesExample();
-        DstarchivesExample.Criteria criteria = example.createCriteria();
-        criteria.andRefIdEqualTo(patId);
-        criteria.andFileTypeEqualTo(fileType);
-        List<Dstarchives> fileList = dstarchivesMapper.selectByExample(example);
-        if (fileList.size() > 0) {
-            for (Dstarchives dstarchives : fileList) {
-                boolean b = MinIoUtil.doesObjectExist(fileType, dstarchives.getFileName());
-                if (b) {
-                    MinIoUtil.removeObject(fileType, dstarchives.getFileName());
-                    dstarchivesMapper.deleteByPrimaryKey(dstarchives.getFileSeq());
-                }
-            }
-        }
+
+        // 删除患者所有心电图 进行替换
+//        HspEcgInfExample ecgInfExample = new HspEcgInfExample();
+//        ecgInfExample.createCriteria().andRefIdEqualTo(patId);
+//        List<HspEcgInf> hspEcgInfs = hspEcgInfMapper.selectByExample(ecgInfExample);
+//        if (hspEcgInfs.size() > 0){
+//            for (HspEcgInf hspEcgInf : hspEcgInfs) {
+//                if(StringUtils.isNotNullAndEmptyByTrim(hspEcgInf.getFilePath())){
+//                    String minioFileName = hspEcgInf.getFilePath();
+//                    boolean b = MinIoUtil.doesObjectExist(fileType, minioFileName);
+//                    if (b) {
+//                        MinIoUtil.removeObject(fileType, minioFileName);
+//                        hspEcgInfMapper.deleteByPrimaryKey(hspEcgInf.getEcgSeq());
+//                    }
+//                }
+//            }
+//        }
 
         // 保存文件进 对象存储
         try {
@@ -704,13 +711,13 @@ public class HspJyJcDeQingImpl implements EsbService {
                 MinIoUtil.putObject(fileType, fileName, inputStream);
             }
 
-            Dstarchives record = new Dstarchives();
-            record.setCrtDate(new Date());
-            record.setCrtUser(activeUser.getUsrno());
-            record.setFileName(fileName);
-            record.setFileType(fileType);
-            record.setRefId(patId);
-            record.setValids("1");
+            HspEcgInf hspEcgInf = new HspEcgInf();
+            hspEcgInf.setRefId(patId);
+            hspEcgInf.setEcgType("11");
+            hspEcgInf.setFileName(originalFilename);
+            hspEcgInf.setFileTrsDate(new Date());
+            hspEcgInf.setFilePath(fileName);
+            hspEcgInf.setCrtUser(activeUser.getUsrno());
 
             String presignedObjectUrl = publicNetUrl;
             presignedObjectUrl += "/"+ fileType;
@@ -719,9 +726,10 @@ public class HspJyJcDeQingImpl implements EsbService {
             Map<String, Object> map = new HashMap<>();
             // 返回保存文件的路径
             map.put("filePath", presignedObjectUrl);
+            map.put("fileName", originalFilename);
             map.put("type", suffixFileName.substring(1));
 
-            dstarchivesMapperCustom.insert(record);
+            hspEcgInfMapperCustom.insert(hspEcgInf);
 
             resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
             resultInfo.setSysdata(map);
