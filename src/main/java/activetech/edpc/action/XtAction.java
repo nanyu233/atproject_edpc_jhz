@@ -988,6 +988,12 @@ public class XtAction {
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
+	/**
+	 * 胸痛上报患者数据和诊疗信息保存
+	 * @param mapObject
+	 * @param activeUser
+	 * @return
+	 */
 	@RequestMapping("/xtPatietBasicInfAndZlInfSubmit")
 	@ResponseBody
 	public SubmitResultInfo xtPatietBasicInfAndZlInfSubmit(@RequestBody(required=false) Map<String,Object> mapObject,ActiveUser activeUser) {

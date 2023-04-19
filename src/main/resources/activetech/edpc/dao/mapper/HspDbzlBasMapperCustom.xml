@@ -17,7 +17,8 @@
     </sql>
     <update id="updateHspDbzlBasByRegSeq" parameterType="activetech.edpc.pojo.dto.HspDbzlBasQueryDto">
         update hsp_dbzl_bas a
-        set a.id_nbr         = #{hspDbzlBasCustom.idNbr, jdbcType = VARCHAR},
+        set a.reg_tim        = #{hspDbzlBasCustom.regTim, jdbcType = TIMESTAMP},
+            a.id_nbr         = #{hspDbzlBasCustom.idNbr, jdbcType = VARCHAR},
             a.nation         = #{hspDbzlBasCustom.nation, jdbcType = VARCHAR},
             a.emg_job        = #{hspDbzlBasCustom.emgJob, jdbcType = VARCHAR},
             a.cst_adr        = #{hspDbzlBasCustom.cstAdr, jdbcType = VARCHAR},

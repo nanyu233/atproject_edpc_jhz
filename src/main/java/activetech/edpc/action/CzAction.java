@@ -9,12 +9,10 @@ import activetech.base.process.result.ResultInfo;
 import activetech.base.process.result.ResultUtil;
 import activetech.base.process.result.SubmitResultInfo;
 import activetech.edpc.pojo.domain.HspBase64Pic;
-import activetech.edpc.pojo.dto.HspZlInfQueryDto;
-import activetech.edpc.pojo.dto.HspDbzlBasCustom;
-import activetech.edpc.pojo.dto.HspDbzlBasQueryDto;
-import activetech.edpc.pojo.dto.QueryDto;
+import activetech.edpc.pojo.dto.*;
 import activetech.edpc.service.CzService;
 import activetech.util.DateUtil;
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -282,31 +280,31 @@ public class CzAction {
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
 
-	/**
-	 * 胸痛登记页面基本信息提交
-	 * @param hspDbzlBasQueryDto
-	 * @param activeUser
-	 * @return
-	 */
-	@RequestMapping("/czPatietBasicInfSubmit")
-	@ResponseBody
-	public SubmitResultInfo xtPatietBasicInfSubmit(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser){
-		ResultInfo resultInfo = czService.czPatietBasicInfSubmit(hspDbzlBasQueryDto, activeUser);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}
+//	/**
+//	 * 胸痛登记页面基本信息提交
+//	 * @param hspDbzlBasQueryDto
+//	 * @param activeUser
+//	 * @return
+//	 */
+//	@RequestMapping("/czPatietBasicInfSubmit")
+//	@ResponseBody
+//	public SubmitResultInfo xtPatietBasicInfSubmit(@RequestBody HspDbzlBasQueryDto hspDbzlBasQueryDto, ActiveUser activeUser){
+//		ResultInfo resultInfo = czService.czPatietBasicInfSubmit(hspDbzlBasQueryDto, activeUser);
+//		return ResultUtil.createSubmitResult(resultInfo);
+//	}
 	
-	/**
-	 * 卒中患者信息保存
-	 * @param hspZlInfQueryDto
-	 * @return
-	 */
-	@RequestMapping("/submitCzInfo")
-	@ResponseBody
-	public SubmitResultInfo submitCzInfo(@RequestBody HspZlInfQueryDto hspZlInfQueryDto,ActiveUser activeUser){
-		ResultInfo resultInfo = czService.czPatientSubmit(
-				hspZlInfQueryDto.getCzzlInfList(),hspZlInfQueryDto.getEmgSeq(),activeUser);
-		return ResultUtil.createSubmitResult(resultInfo);
-	}
+//	/**
+//	 * 卒中患者信息保存
+//	 * @param hspZlInfQueryDto
+//	 * @return
+//	 */
+//	@RequestMapping("/submitCzInfo")
+//	@ResponseBody
+//	public SubmitResultInfo submitCzInfo(@RequestBody HspZlInfQueryDto hspZlInfQueryDto,ActiveUser activeUser){
+//		ResultInfo resultInfo = czService.czPatientSubmit(
+//				hspZlInfQueryDto.getCzzlInfList(),hspZlInfQueryDto.getEmgSeq(),activeUser);
+//		return ResultUtil.createSubmitResult(resultInfo);
+//	}
 	
 	/**
 	 * 获取卒中急救时间轴数据
@@ -420,4 +418,31 @@ public class CzAction {
 		ResultInfo resultInfo = czService.addNewPatient(hspDbzlBasQueryDto,activeUser);
 		return ResultUtil.createSubmitResult(resultInfo);
 	}
+
+	/**
+	 * 卒中上报患者数据和诊疗信息保存
+	 * @param mapObject
+	 * @param activeUser
+	 * @return
+	 */
+	@RequestMapping("/czPatietBasicInfAndZlInfSubmit")
+	@ResponseBody
+	public SubmitResultInfo xtPatietBasicInfAndZlInfSubmit(@RequestBody(required=false) Map<String,Object> mapObject,ActiveUser activeUser){
+		ResultInfo resultInfo = ResultUtil.createSuccess(Config.MESSAGE, 906, null);
+		if(mapObject.containsKey("hspDbzlBasCustom")){
+			String json1 = JSON.toJSONString(mapObject.get("hspDbzlBasCustom"));
+			HspDbzlBasCustom hspDbzlBasCustom = JSON.parseObject(json1, HspDbzlBasCustom.class);
+			HspDbzlBasQueryDto hspDbzlBasQueryDto = new HspDbzlBasQueryDto();
+			hspDbzlBasQueryDto.setHspDbzlBasCustom(hspDbzlBasCustom);
+			czService.czPatietBasicInfSubmit(hspDbzlBasQueryDto, activeUser);
+		}
+		if(mapObject.containsKey("czzlInfList") && mapObject.containsKey("regSeq")){
+			String json4 = JSON.toJSONString(mapObject.get("czzlInfList"));
+			String regSeq = (String)mapObject.get("regSeq");
+			List<HspZlInfCustom> xtzlInfs = JSON.parseArray(json4, HspZlInfCustom.class);
+			czService.czPatientSubmit(xtzlInfs, regSeq, activeUser);
+		}
+		return ResultUtil.createSubmitResult(resultInfo);
+	}
+
 }

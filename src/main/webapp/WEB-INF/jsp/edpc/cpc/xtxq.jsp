@@ -5913,6 +5913,7 @@
 			});
 		})
 
+		//上传心电图
 		function selectAndUploadFile(){
 			var file = this.files[0];
 			var formData = new FormData();
@@ -5931,6 +5932,7 @@
 			})
 		}
 
+		//心电图预览
 		function viewUploadFile(){
 			if(vm.uploadEcgFile.uploadFileUrl !== ''){
 				window.open(vm.uploadEcgFile.uploadFileUrl)

@@ -238,8 +238,12 @@
                                     <div class="input"><input class="Wdate" ms-duplex="czzlInfo.XDTSJ"
                                     	onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})">
                                         <a href="javascript:;" class="file">上传心电图
-                                            <input type="file" name="" id="">
+                                            <input type="file" name="ecgFile" id="ecgFile" accept=".png,.jpg,.jpeg,.pdf" ms-on-change="selectAndUploadFile" ref="ecgFile">
                                         </a>
+                                        <span class="file" onclick="viewUploadFile()">预览</span>
+<%--                                        <a href="javascript:;" class="file">上传心电图--%>
+<%--                                            <input type="file" name="" id="">--%>
+<%--                                        </a>--%>
                                     </div>
                                 </div>
                             </div>
@@ -1537,90 +1541,13 @@
                     nationArr: [], //民族类别表
                     senRctCodArr: [], //意识
                     info: {
-                        // MRSPF: '',
-                        // NIHSSPF01: '',
-                        // NIHSSPF02: 0,
+
                         NIHSSPF01PFX: '',//溶栓前NIHSS评分项
                         NIHSSPF02PFX: '',//溶栓后NIHSS评分项
-                        // ZYZZ: '', //主要症状
                         RSZZYZZ: '', //溶栓组主要症状
-                        // PSFYY: '', //平时服用药
-                        // YWXZ: '', //药物选择
-                        // ISTZJRK: '', //通知介入
-                        // YWBFZ: '', //有无并发症
                         TYQS: '', //同意取栓
-                        // FBSJ: '', //发病时间
-                        // ZHZCSJ: '', //最后正常时间
-                        // XDTSJ: '', //心电图时间
-                        // NZDSJ: '', //拟诊断时间
-                       	// TZHZSJ: '', //通知会诊时间
-                      	// HZDDSJ: '', //会诊达到时间
-                      	// JRTZSJ: '', //通知介入时间
-                        // JRDDSJ: '', //介入到达时间
-                        // TZWQSJ: '', //通知外勤时间
-                        // WQDDSJ: '', //外勤到达时间
-                        // JCKSSJ: '', //检查开始时间
-                        // JCJGSJ: '', //检查结果时间
-                        // ZDSJ: '', //诊断时间
-                        // RSZLKSSJ: '', //溶栓治疗开始时间
                         QDDGSSJ: '', //启动导管室时间
-                        // HZJRDGSSJ: '', //患者进入导管室时间
-                        // MZKTZSJ: '', //麻醉科通知时间
-                        // MZKDCSJ: '', //麻醉科到场时间
-                        // MZWCSJ: '', //麻醉完成时间
-                        // CCCGSJ: '', //穿刺成功时间
-                        // ZYKSSJ: '', //造影开始时间
-                        // ZYWCSJ: '', //造影完成时间
-                        // QSWCSJ: '', //取栓完成时间
-                        // XUEYA: '', //血压
-                        // TIZHONG: '', //体重
-                        // ZGQX: '',//转归去向
-                        // ISCX: '',//是否出血
-                        // ISZS: '',//是否阻塞
-                        // ZDYS: '',//诊断医生
-                        // CBZD: '',//初步诊断
-                        // JIWSQT: '',//既往史其他
-                        // JIWS: '',//既往史
-                        // GUOMS: '',//过敏史
-                        // GUOMSQT: '',//过敏史其他
-                        // PSFYYQT: '',//平时服用药其他
-                        // QSZQTYSJ01: '',//取栓知情同意时间
-                        // ISRS: '',//是否溶栓
-                        // KSZQTHSJ01: '',//溶栓组开始知情同意时间
-                        // TQJSFLG: '',//溶栓提前结束
-                        // TQJSYY: '',//提前结束原因
-                        // RSBZ:'',//溶栓备注
-                        // SYYWZL: '',//所用药物总量
-                        // RSBFZ: '',//溶栓并发症
-                        // RSBFZQT: '',//溶栓并发症其他
-                        // RSHFCCTSJ: '',//溶栓后复查CT时间
-                        // KSZQTHSJ02: '',//介入组开始知情同意时间
-                        // ISQS: '',//是否取栓
-                        // QSZQTYSJ02: '',//介入组知情同意时间(取栓知情同意时间)
-                        // JDJRSSYS: '',//决定行介入手术医生
-                        // QDDGS: '',//启动导管室时间
-                        // DGSJHSJ: '',//导管室激活时间
-                        // KSCCSJ: '',//开始穿刺时间
-                        // QSSJ1: '',//取栓第一把时间
-                        // QSSJ2: '',//取栓第二把时间
-                        // QSSJ3: '',//取栓第三把时间
-                        // QSWCBZ: '',//取栓完成备注
-                        // JRYS: '',//介入医生
-                        // ZYZZQT: '',//主要症状其他
-                        // CBZDQT: '',//初步诊断其他
-                        // RTPAZJBZ: '',//rtPa剂量标准
-                        // NZDYS: '',//拟诊断医生
-                        // JYCXSJ: '',//检查抽血时间
-                        // jyxm:0,
-                        // jcxm:0,
-                        // ZYSJ: '',//住院时间
                     },
-                    // aidPatient: {
-                        // scePrvCod: '', //发病地址--省
-                        // sceCtyCod: '', //发病地址--市
-                        // sceAr0Cod: '', //发病地址--县/区
-                        // illTim: '', //发病时间
-                    // },
                     hspConsultationRecords: {
                     	invitationDate: '',//会诊通知时间
                         consultationDate: '',//会诊签到时间
@@ -1658,6 +1585,10 @@
                         NIHSS014: null,
                         NIHSS015: null,
                         NIHSS016: null,
+                    },
+                    dataSubmit: {},
+                    uploadEcgFile: {
+                        uploadFileUrl: '', //上传ecg文件url
                     },
                     
                     provinceList: addrInfoList.province || [], //省
@@ -2208,40 +2139,43 @@
                     // vm.aidPatient.sceAr0Cod = '';
                     vm.czzlInfo.FBDZ03 = '';
                 });
+
 				//保存
                 var commit =  publicFun.debounce(function (){
                     vm.count = 0
                     parent.publicFun.ajaxLoading('保存中 请稍等。。。')
-                    commitBaseInfo();
-                    commitCzzlInfo()
+                    commitCzData()
+                    // commitBaseInfo();
+                    // commitCzzlInfo()
                 },500)
-                // function commit() {
-                //     commitBaseInfo();
-                //     commitXtzlInfo();
-                // }
 
-                //提交基本信息
-                function commitBaseInfo(){
-                    vm.baseInfo.regTim = moment(vm.baseInfo.regTim).valueOf();
-                    var dataSubmit = {};
-                    dataSubmit.hspDbzlBasCustom = vm.baseInfo;
-                    $.ajax({
-                        url: '${baseurl}cz/czPatietBasicInfSubmit.do',
-                        type: 'post',
-                        dataType: 'json',
-                        contentType: 'application/json;charset=UTF-8',
-                        data: JSON.stringify(dataSubmit),
-                        success: function(res) {
-                            if (res.resultInfo.success) {
-                                vm.count++
-                            }
+                function commitCzData(){
+                    vm.dataSubmit = vm.baseInfo;
+                    vm.dataSubmit.regTim = moment(vm.baseInfo.regTim).valueOf();
+                    var list = rebuildZlInfo();
+                    publicFun.httpServer(
+                        {
+                            url: '${baseurl}cz/czPatietBasicInfAndZlInfSubmit.do',
+                            requestDataType: 'json',
+                        }, {
+                            hspDbzlBasCustom: vm.dataSubmit,
+
+                            regSeq: _regSeq,
+                            czzlInfList: list,
                         },
-                    });
+                        function(res){
+                            vm.baseInfo.regTim = moment(parseInt(vm.dataSubmit.regTim)).format('YYYY-MM-DD HH:mm')
+                            parent.publicFun.ajaxLoadEnd();
+                            if (res.resultInfo.success) {
+                                parent.publicFun.successalert("保存成功");
+                            } else {
+                                parent.publicFun.alert("保存失败");
+                            }
+                        }
+                    )
                 }
 
-                //提交表单信息
-                function commitCzzlInfo(){
-                    console.log("@@@@@@@@@", vm.info);
+                function rebuildZlInfo(){
                     var list = [];
                     for (var prop in vm.info) {
                         if (vm.info.hasOwnProperty(prop)) {
@@ -2261,28 +2195,7 @@
                             });
                         }
                     }
-                    console.log(list)
-                    $.ajax({
-                        url: '${baseurl}cz/submitCzInfo.do',
-                        type: 'post',
-                        dataType: 'json',
-                        contentType: 'application/json;charset=UTF-8',
-                        data: JSON.stringify({
-                            emgSeq: _regSeq,
-                            czzlInfList: list,
-                        }),
-                        success: function (res) {
-                            parent.publicFun.ajaxLoadEnd();
-                            if (res.resultInfo.success) {
-                                vm.count++
-                            }
-                            if (vm.count === 2) {
-                                parent.publicFun.successalert("保存成功");
-                            }else {
-                                parent.publicFun.alert("保存失败");
-                            }
-                        }
-                    });
+                    return list;
                 }
 
                 // 获取时间轴信息
@@ -2415,7 +2328,6 @@
                                  // Object.getOwnPropertyNames(vm.info).forEach(function (key) {
                                  Object.getOwnPropertyNames(vm.czzlInfo).forEach(function (key) {
                                      if (item.proCode == key) {
-//                                      console.log(111111111111111111)
 //                                         vm.info[key]=item.proVal
                                         vm.czzlInfo[key]=item.proVal
                                         vm[item.proCode + 'Sel'] = item.proVal ? item.proVal.split(',') : [];
@@ -2612,6 +2524,34 @@
                             }
                         }
                     });
+                }
+
+                //上传心电图
+                function selectAndUploadFile(){
+                    var file = this.files[0];
+                    var formData = new FormData();
+                    formData.append('uploadFile',file);
+                    formData.append('fileType',"ecg");
+                    formData.append('patId',_regSeq);
+                    $.ajax({
+                        url: '${baseurl}cpc/saveEcgPicSubmit.do',
+                        contentType:false,
+                        type:'post',
+                        data: formData,
+                        processData:false,
+                        success: function(res){
+                            vm.uploadEcgFile.uploadFileUrl = res.resultInfo.sysdata.filePath;
+                        }
+                    })
+                }
+
+                //心电图预览
+                function viewUploadFile(){
+                    if(vm.uploadEcgFile.uploadFileUrl !== ''){
+                        window.open(vm.uploadEcgFile.uploadFileUrl)
+                    } else {
+                        parent.publicFun.alert("未上传心电图");
+                    }
                 }
 
                 $(function (){
